@@ -1,0 +1,1 @@
+../../cmdline/GLogApplication.cpp
