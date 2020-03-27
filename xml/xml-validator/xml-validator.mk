@@ -10,3 +10,4 @@ SRCCPP+=../xml-validator.cpp \
 LIBS+= -lxml-embc  -lxml2 -llogmaster -lutilities -lcmdline  -lboost_system  -lboost_filesystem  -lreadline
 
 
+include ../../../common.mk

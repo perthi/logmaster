@@ -24,8 +24,8 @@ SRCCPP += utilities-dll-test.cpp \
 
 #TestGEnum.cpp 
 
-include ../../../../../common.mk
-include ../../../../../unittest-common.mk
+include ../../../../common.mk
+include ../../../../unittest-common.mk
 
 LIBS+= -llogmaster -lcmdline -lreadline
 INCLUDES+=$(GTEST_INCLUDES)

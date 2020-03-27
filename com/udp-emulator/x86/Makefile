@@ -1,5 +1,0 @@
-
-
-
-include ../udp-emulator.mk
-

@@ -1,1 +1,1 @@
-../../../version-info/GVersionMenu.cpp
+../../version-info/GVersionMenu.cpp

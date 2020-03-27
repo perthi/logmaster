@@ -74,10 +74,6 @@ cmdline:= 		cmdline/$(TARGET)
 cmdline-example1:=      cmdline/examples/cmdline-example1/$(TARGET)
 cmdline-unittest:=	cmdline/unit-tests/commit/$(TARGET)
 
-configuration-unittests:=       configuration/unit-tests/commit/$(TARGET)
-control-engine:=	  	control-engine/$(TARGET)
-control-engine-unittest:= 	control-engine/unit-tests/commit/$(TARGET)
-
 
 xml:=			xml/$(TARGET)
 xml-unittest:= 		xml/unit-tests/commit/$(TARGET)
@@ -100,7 +96,6 @@ com-unittest:=       		com/unit-tests/commit/$(TARGET)
 com-example1:= 			com/examples/tcp-example1/$(TARGET)
 com-server:= 			com/tcp-server/$(TARGET)
 com-client:= 			com/tcp-client/$(TARGET)
-com-udp-emulator:=      	com/udp-emulator/$(TARGET)
 
 
 common-examples:= $(fsm-example1) $(fsm-example2)  $(message-example1) \

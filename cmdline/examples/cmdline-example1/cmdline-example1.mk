@@ -9,4 +9,4 @@ SRCCPP+=../cmdline-example1.cpp \
 
 LIBS+= -llogmaster  -lutilities  -lcmdline  -lutilities -lreadline -llogmaster -lboost_system -lboost_filesystem  -lpthread  
 
-include ../../../../../common.mk
+include ../../../../common.mk

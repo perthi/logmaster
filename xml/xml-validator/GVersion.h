@@ -1,1 +1,1 @@
-../../../version-info/GVersion.h
+../../version-info/GVersion.h

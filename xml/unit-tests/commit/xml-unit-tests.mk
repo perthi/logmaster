@@ -7,8 +7,8 @@ SRCCPP += xml-dll-test.cpp \
 	TestGXmlValidatorImpl.cpp \
 	GVersion.cpp
 
-include ../../../../../common.mk
-include ../../../../../unittest-common.mk
+include ../../../../common.mk
+include ../../../../unittest-common.mk
 
 LIBS+= -llogmaster -lutilities -lcmdline -lreadline -lxml-embc  -lxml2
 INCLUDES+=$(GTEST_INCLUDES)
