@@ -58,10 +58,13 @@ LIBS= -L $(CURDIR)/build/$(TARGET)/lib  -lm
 
 
 export SUPPORT_LIBS:= -lutilities -lcmdline  -llogmaster -lboost_system -lboost_filesystem -lreadline
-export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest -lpthread -lboost_system -lboost_filesystem
 
+#export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest -lpthread -lboost_system -lboost_filesystem
+
+export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest -lpthread 
 
 version-info:=	  	version-info/$(TARGET)
+
 helloworld:=  		helloworld/$(TARGET)
 gtest-linux:=		gtest-linux/$(TARGET)
 testlib:=		testlib/$(TARGET)
@@ -102,7 +105,7 @@ common-examples:= $(fsm-example1) $(fsm-example2)  $(message-example1) \
 		$(message-example2) $(message-example3-blocking) $(message-example4-timer)
 
 
- unittests:= 	$(utilities-unittest) \
+unittests:= 	$(utilities-unittest) \
 		$(logging-unittest) \
 		$(cmdline-unittest) \
 		$(xml-unittest) \
@@ -111,6 +114,7 @@ common-examples:= $(fsm-example1) $(fsm-example2)  $(message-example1) \
 		$(configuration-unittests) \
 		$(com-unittest)
 
+ #unittests:= 	$(utilities-unittest)
 
 
 support-modules:= 	$(utilities) \
@@ -124,7 +128,6 @@ src-lib:= $(support-modules) \
 	$(xml) \
 	$(common) \
 	$(com) \
-
 
 src-exe:=$(helloworld) \
 	$(unittests) \

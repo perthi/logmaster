@@ -37,7 +37,8 @@
 #include <logging/LLogging.h>
 #include "GException.h"
 #include <fstream>
-#include "boost/filesystem.hpp"
+#include <sys/stat.h>
+#include <stdio.h>
 
 #include <mutex>
 
@@ -50,6 +51,8 @@
 
 
 #include <utilities/GException.h>
+
+#include <boost/filesystem.hpp>
 
 using namespace  LOGMASTER;
 using namespace boost::filesystem;
@@ -97,6 +100,7 @@ GFileIOHandler::Append(const string fname, const char * fmt, ...)
             fprintf(fp, "%s", txt);
             fclose(fp);
             va_end(ap);
+            //FORCE_DEBUG("returning true");
             return true;
         }
         else
@@ -113,23 +117,35 @@ GFileIOHandler::Append(const string fname, const char * fmt, ...)
 }
 
 
-
-bool 
-GFileIOHandler::Delete(const string fname)
+bool GFileIOHandler::Delete(const string fname)
 {
-    bool ret = remove(fname);
-    if (ret == false)
+    FILE *fp = fopen(fname.c_str(), "r");
+
+    if (fp == nullptr)
     {
-        G_ERROR("could not remove file: \"%s\"", fname.c_str() );
+        G_ERROR("could not remove file: \"%s\"", fname.c_str());
+        return false;
     }
     else
     {
-        G_INFO("\"%s\" was successfully deleted", fname.c_str() );
+        int ret = std::remove(fname.c_str());
+      //  FORCE_DEBUG("ret = %d", ret);
+      //  FORCE_DEBUG("Delet file: %s, ret = %s", fname.c_str(), ret == false ? "FALSE" : "TRUE");
+        G_INFO("\"%s\" was successfully deleted", fname.c_str());
+        
+        if( ret == 1 )
+        {
+            G_ERROR("could not remove file: \"%s\"", fname.c_str()); 
+            return false;
+        }
+        else
+        {
+             G_INFO("\"%s\" was successfully deleted", fname.c_str());
+            return true;
+        }
+        
     }
-    return ret;
 }
-
-
 
 bool 
 GFileIOHandler::CreateFileLocal(const string fname)
@@ -194,7 +210,7 @@ GFileIOHandler::ReadLastLine(const string fname, const unsigned int offset)
             }
 
         G_DEBUG("offset = %d", offset );
-	        G_DEBUG("content.size() = %d  (there are %d lines in the file %s )", content.size(), content.size(), fname.c_str()  );        
+        G_DEBUG("content.size() = %d  (there are %d lines in the file %s )", content.size(), content.size(), fname.c_str()  );        
         G_DEBUG("content = %s", g_utilities()->Vec2String( content ).c_str()  );
 
     for(uint16_t i= 0; i < content.size(); i++ )
@@ -378,19 +394,6 @@ GFileIOHandler::DoExists(const string fname, const char* opt)
 bool
 GFileIOHandler::CheckFile(const string fname, const char *opt)
 {
-	/*
-    if( boost::filesystem::exists(fname) == false)
-    {
-      G_ERROR("%s does not exists",  fname.c_str()   );        
-        return false;
-    }
-
-    if( boost::filesystem::is_regular_file(fname) == false )
-    {
-        G_ERROR("%s Is not a regular file",  fname.c_str()   );
-        return false;
-    }
-	*/
 
     G_DEBUG("The option is %c", opt[0]);
     string tmp = string(opt);
@@ -401,9 +404,16 @@ GFileIOHandler::CheckFile(const string fname, const char *opt)
     }
     else
     {
-
-        if (exists(fname))
+        //    struct stat sb;
+        
+        FILE *fp2 = fopen( fname.c_str(), "r" );
+        
+        //if (exists(fname))
+         if ( fp2 != nullptr )
+      //  if ( stat(fname.c_str(), &sb ) )
         {
+            
+
             if (tmp == "w" || tmp == "w+")
             {
                 G_WARNING("The file %s exists, opening it with the %c option will discard existing content", fname.c_str(), opt[0]);
@@ -453,7 +463,7 @@ GFileIOHandler::CheckFile(const string fname, const char *opt)
             {
                 G_INFO("Successfully acessed file: fopen(%s, %c)", fname.c_str(), opt[0]);
                 fclose(fp);
-                remove(fname);
+                remove(fname.c_str() );
                 return true;
             }
         }
@@ -595,7 +605,9 @@ GFileIOHandler::Recreate(const string fname)
  bool
 	 GFileIOHandler::DeleteAll(const string fname)
  {
-	 bool ret = remove_all(fname);
+	// bool ret = remove_all(fname);
+     bool ret = remove(fname.c_str()  );
+
 	 if (ret == false)
 	 {
 		 G_ERROR("could not remove file: \"fname\"", fname.c_str());

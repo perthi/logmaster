@@ -2,14 +2,17 @@
 
 PROGRAM:=utilities-unit-tests
 
+#SRCCPP += utilities-dll-test.cpp \
+     TestGFileIOHandler.cpp
+		
 
 SRCCPP += utilities-dll-test.cpp \
 	TestGMath.cpp \
 	TestGRandom.cpp \
 	TestGString.cpp \
 	TestGText.cpp \
+	TestGFileIOHandler.cpp  \
 	TestGTokenizer.cpp \
-	TestGFileIOHandler.cpp \
 	TestGRegexp.cpp \
 	TestGSystem.cpp \
 	TestGTime.cpp \

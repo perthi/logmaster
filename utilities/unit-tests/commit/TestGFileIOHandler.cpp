@@ -45,8 +45,7 @@
 * it does not accidentally destroy any files. We check the following
 * - That we can  create an arbritray random file and write to it
 * - That  we return value is false when opening an existing file for writing
-* - That we can open an existing file for reading
-*/
+* - That we can open an existing file for reading */
 TEST_F(TestGFileIOHandler, CheckFileNSR305)
 {
     string rand_fname1 = g_random()->Name("testfile", ".txt");
@@ -55,16 +54,14 @@ TEST_F(TestGFileIOHandler, CheckFileNSR305)
 //	FORCE_DEBUG("rand fname 1 = %s", rand_fname1.c_str() );
 //	FORCE_DEBUG("rand fname 2 = %s", rand_fname2.c_str());
 
-    /*For a non existing file we expect the return value to be true if we try to create it for writing, and false othervise */
-    EXPECT_EQ(true,  f->CheckFile(rand_fname1, "w"));
-    
-	/*
-	EXPECT_EQ(true,  f->CheckFile(rand_fname1, "w+"));
-    EXPECT_EQ(true,  f->CheckFile(rand_fname1, "a"));
-    EXPECT_EQ(true,  f->CheckFile(rand_fname1, "a+"));
-    EXPECT_EQ(false, f->CheckFile(rand_fname1, "r"));
-    EXPECT_EQ(false, f->CheckFile(rand_fname1, "r+"));
-	*/
+    // For a non existing file we expect the return value to be true if we try to create it for writing, and false othervise 
+     EXPECT_EQ(true,  f->CheckFile(rand_fname1, "w"));
+	 EXPECT_EQ(true,  f->CheckFile(rand_fname1, "w+"));
+     EXPECT_EQ(true,  f->CheckFile(rand_fname1, "a"));
+     EXPECT_EQ(true,  f->CheckFile(rand_fname1, "a+"));
+     EXPECT_EQ(false, f->CheckFile(rand_fname1, "r"));
+     EXPECT_EQ(false, f->CheckFile(rand_fname1, "r+"));
+	
 
     FILE *fp;
 #ifdef _WIN32
@@ -73,19 +70,19 @@ TEST_F(TestGFileIOHandler, CheckFileNSR305)
     fp = fopen( rand_fname2.c_str(), "w");
 #endif
     
-    /*We write an arbritray string to the file in order to check at the end that the UtilitesCheckFile function is non destructive*/
+    // We write an arbritray string to the file in order to check at the end that the UtilitesCheckFile function is non destructive
     fprintf(fp, "Hello Dolly\n");
     fclose(fp);
     
-    /*For an exisiting file we expect the return value to be false if we try to open it with the w/w+ option because data
-    allready in the file will then be lost, for all other valid access options we expect true as the retrun value*/
+    // For an exisiting file we expect the return value to be false if we try to open it with the w/w+ option because data
+    // allready in the file will then be lost, for all other valid access options we expect true as the retrun value
     EXPECT_EQ(false, f->CheckFile(rand_fname2, "w"));
     EXPECT_EQ(false, f->CheckFile(rand_fname2, "w+"));
     EXPECT_EQ(true,  f->CheckFile(rand_fname2, "a"));
     EXPECT_EQ(true,  f->CheckFile(rand_fname2, "a+"));
     EXPECT_EQ(true,  f->CheckFile(rand_fname2, "r"));
     EXPECT_EQ(true,  f->CheckFile(rand_fname2, "r+"));
-    /*Checking that the file is intact after all the testing*/
+    // Checking that the file is intact after all the testing
     EXPECT_EQ("Hello Dolly", FileIOTest(rand_fname2));
     remove(rand_fname2.c_str() );
     vector<string> invalidoptions = { "b", "c", "d", "e", "f", "g", "h", "i", "j",
@@ -100,17 +97,15 @@ TEST_F(TestGFileIOHandler, CheckFileNSR305)
 
 
 
-
 TEST_F(TestGFileIOHandler, AppendCreate)
 {
     string fname = g_random()->Name("append_test", ".txt");
-
     EXPECT_EQ(true, f->Append(fname, "testwrite to file with parameters: a=%d, b=%d\n", 42, 43));
     EXPECT_EQ(FileIOTest(fname), "testwrite to file with parameters: a=42, b=43");
     EXPECT_EQ (true,   f->Delete(fname));
     EXPECT_EQ( false,  f->Delete(fname));
+    EXPECT_EQ( false,  f->Delete(fname));
     fname = g_random()->Name("append_test", ".txt");
-    
     EXPECT_EQ(true,  f->CreateFileLocal(fname));
     EXPECT_EQ(false, f->CreateFileLocal(fname));
     EXPECT_EQ(true,  f->Delete(fname));
@@ -171,6 +166,7 @@ cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est la
 
     f->Delete(fname);
 }
+
 
 
 #ifdef _WIN32

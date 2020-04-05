@@ -1,13 +1,14 @@
 
 PROGRAM:=helloworld
-SRCCPP+=../helloworld.cpp \
-		../GVersion.cpp
+SRCCPP+=../helloworld.cpp
+		
+		
+#		../GVersion.cpp
 
 
 
 
-LIBS+=   -lcom  -lutilities   -lxml-embc -lxml2 -lcommon -lcmdline -llogmaster  \
- -lutilities -lreadline   -lboost_system  -lboost_filesystem -lpthread
+LIBS+=   -lutilities 
 
 LIBS+=$(PROTOBUF_LIBS)
 

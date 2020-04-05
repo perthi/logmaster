@@ -58,11 +58,11 @@ using namespace LOGMASTER;
 using std::vector;
 using std::string;
 
-#ifdef _WIN32
-#include <boost/filesystem.hpp>
-#else
-#include </usr/include/boost/filesystem.hpp>
-#endif
+// #ifdef _WIN32
+// #include <boost/filesystem.hpp>
+// #else
+// #include </usr/include/boost/filesystem.hpp>
+// #endif
 
 class GSystem;
 
@@ -252,31 +252,19 @@ GSystem::GetExeDir()
 char *
 GSystem::GetExeDir()
 {
-    static char *buf;
-    buf = GetExePath();
-
-    /*
     #ifdef _WIN32
-    //   static char *buf;
+     static char *buf;
     LPSTR buf;
     buf = GetExePath();
     PathRemoveFileSpecA(buf);
-    //   SPRINTF(buf, 1024, "%s\\", buf); // CRAP PTH
     return buf;
     #else
-    */
-    namespace fs = boost::filesystem;
-
-    static   fs::path path;
-    static   fs::path prefix;
-
-    path = buf;
-    prefix = path.parent_path();
-
-    return (char *)prefix.c_str();
-
+    return getcwd(NULL,0);
+    #endif
 
 }
+
+
 
 #endif
 
