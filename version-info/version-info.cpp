@@ -34,61 +34,13 @@ using std::endl;
 /* We also need to include the.cpp files here.The reason is that this files must be compiled before any of
 the other libraries, so all source code must be available inline .*/
 #include <utilities/GTokenizer.h>
-#include <utilities/GTokenizer.cpp>
-#include <utilities/GString.h>
 #include <utilities/GNumbers.h>
-#include <utilities/GRegexp.h>
-#include <utilities/GRegexp.cpp>
 #include <utilities/GSystem.h>
-#include <utilities/GSystem.cpp>
-
-#include <logging/LConfig.h>
-#include <logging/LConfig.cpp>
 #include <logging/LLogApi.h>
-#include <logging/LLogging.h>
-#include <logging/LLogging.cpp>
-#include <logging/LLoggingInternal.h>
-#include <logging/LLoggingInternal.cpp>
-#include <logging/LDoc.h>
-#include <logging/LDoc.cpp>
-#include <logging/LValidateArgs.h>
-#include <logging/LValidateArgs.cpp>
-#include <logging/LMessageGenerator.h>
-#include <logging/LMessageGenerator.cpp>
-#include <logging/LPublisher.h>
-#include <logging/LPublisher.cpp>
-#include <logging/LColorMap.h>
-#include <logging/LColorMap.cpp>
-#include <logging/LMessageFactory.h>
-#include <logging/LMessageFactory.cpp>
-
-#include <logging/LHashMaps.h>
-#include <logging/LHashMaps.cpp>
-
-#include <logging/LConversion.h>
-#include <logging/LConversion.cpp>
-
-#include <cmdline/GLogApplication.h>
-#include <cmdline/GLogApplication.cpp>
-#include <cmdline/GArgument.h>
-#include <cmdline/GArgument.cpp>
+//#include <cmdline/GLogApplication.h>
 #include <cmdline/GCmdApi.h>
-#include <cmdline/GCmdApi.cpp>
-#include <cmdline/GArgumentParsed.h>
-#include <cmdline/GArgumentParsed.cpp>
-#include <cmdline/GCmdScan.h>
-
-#include <utilities/GException.h>
-#include <utilities/GException.cpp>
-
-#include <utilities/GStackTrace.h>
-#include <utilities/GStackTrace.cpp>
-
+//#include <utilities/GException.h>
 #include <utilities/GFileIOHandler.h>
-#include <utilities/GFileIOHandler.cpp>
-
-#include <utilities/GText.h>
-#include <utilities/GText.cpp>
 
 #include <string>
 #include <vector>
@@ -99,7 +51,6 @@ the other libraries, so all source code must be available inline .*/
 #endif
 
 #include "GGenerateVersionInfo.h"
-//#define G GGenerateVersionInfo
 #define G_STANDALONE
 
 

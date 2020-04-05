@@ -5,6 +5,6 @@ PROGRAM:= version-info
 SRCCPP+=	version-info.cpp \
 		GGenerateVersionInfo.cpp
 
-LIBS+=  -lpthread  
+LIBS+=  -lutilities -llogmaster -lreadline -lpthread  
 
 include ../../common.mk

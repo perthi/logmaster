@@ -62,8 +62,8 @@ export SUPPORT_LIBS:= -lutilities -lcmdline  -llogmaster  -lreadline
 
 export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest -lpthread 
 
-version-info:=	  	version-info/$(TARGET)
 
+version-info:=	  	version-info/$(TARGET)
 helloworld:=  		helloworld/$(TARGET)
 gtest-linux:=		gtest-linux/$(TARGET)
 testlib:=		testlib/$(TARGET)
@@ -121,11 +121,13 @@ src-exe:=$(helloworld) \
 	$(com-server) \
 	$(com-client) \
 	$(xml-validator) \
-	$(com-udp-emulator)
+	$(com-udp-emulator) \
+	$(version-info)	
 
 
 arm-src:=$(src-lib) $(src-exe)
 x86-src:=$(src-lib) $(src-exe) $(version-info)
+
 
 ifeq (x86, $(TARGET))
 all-src:=$(x86-src)
@@ -169,17 +171,21 @@ all-clean:=$(x86-src)
 unittest-common =  $(testlib)  $(support-modules)  $(gtest-linux)
 
 
-$(src-all) : $(version-info)
+# $(src-all) : $(version-info)
+#$(src-all) :
 $(src-exe) : $(src-lib)
 
 
 
-make-version-info:
-	$(MAKE) --directory=$(version-info) all
+#make-version-info:
+#	$(MAKE) --directory=$(version-info) all
 
-
-$(all-src): make-version-info
+$(all-src): 
 	$(MAKE) --directory=$@ all
+
+#$(all-src): make-version-info
+#	$(MAKE) --directory=$@ all
+
 
 .PHONY: check-compiler
 check-compiler:
@@ -231,7 +237,7 @@ distclean: clean
 	@find -name *.so.*  |  egrep  -v  '^\./3rd-party/'  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |  egrep -v   '^\./arm-lib-dep/' |  xargs rm -f
 	@find -name *.a     |  egrep  -v  '^\./3rd-party/'  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |   xargs rm -f
 	@find -name *~ -exec rm {} \;
-	@find -name GVersion.cpp | xargs rm -f;
+#	@find -name GVersion.cpp | xargs rm -f;
 	@find -name tmp.cpp | xargs rm -f;
 
 .PHONY: doc
