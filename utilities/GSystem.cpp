@@ -86,32 +86,7 @@ GSystem::mkdir(const string dirname)
 
         return false;
     }
-    
 
-    // char dir_path[512];
-    // snprintf(dir_path, 512, "%s", dirname.c_str());
-    // boost::filesystem::path dir(dir_path);
-    // if (exists(dir))
-    // {
-    //     G_INFO("The directory %s allready exists (thats OK), doing nothing", dirname.c_str());
-    //     return true;
-    // }
-    // else
-    // {
-    //     boost::system::error_code e;
-    //     //   create_directories(dir, e);
-    //     create_directories(dir, e);
-   
-    //     if (e.value() == 0)
-    //     {
-    //         return true;
-    //     }
-    //     else
-    //     {
-    //         EXCEPTION("The directory \"%s\" could not be created,.. please check that you have write + exce permissions to the directory ....aborting (message from boost %s\")", dirname.c_str(), e.message().c_str());
-    //         return false;
-    //     }
-    // }
 }
 
 
@@ -122,11 +97,7 @@ GSystem::Exists(const string filepath)
 {
     struct  stat sb;
     int ret = stat( filepath.c_str(), &sb );
-	
     return ret == 0 ? true :false;
-
-    
-    //return boost::filesystem::exists(filepath);
 }
 
 

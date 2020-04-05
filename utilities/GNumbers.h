@@ -27,6 +27,7 @@
 #include <utilities/GString.h>
 
 #include <boost/lexical_cast.hpp>
+
 #include <stdlib.h>     /* strtod */
 #include <stdint.h>
 
@@ -879,6 +880,7 @@ GNumbers::IsFloat(string num)
     try
     {
         boost::lexical_cast<long double>(num);
+    
     }
     catch (bad_lexical_cast &)
     {

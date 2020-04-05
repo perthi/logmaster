@@ -49,18 +49,13 @@
 #undef CreateFile
 #endif
 
-
 #include <utilities/GException.h>
-
-#include <boost/filesystem.hpp>
-
 using namespace  LOGMASTER;
-using namespace boost::filesystem;
 using std::ifstream;
-
 #include <cstdarg>
 
-
+//#include <boost/filesystem.hpp>
+//using namespace boost::filesystem;
 
 /*
 GFileIOHandler * g_file()

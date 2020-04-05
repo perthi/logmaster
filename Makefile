@@ -57,7 +57,8 @@ GTEST_INCLUDES:= -isystem $(CURDIR)/
 LIBS= -L $(CURDIR)/build/$(TARGET)/lib  -lm
 
 
-export SUPPORT_LIBS:= -lutilities -lcmdline  -llogmaster -lboost_system -lboost_filesystem -lreadline
+#export SUPPORT_LIBS:= -lutilities -lcmdline  -llogmaster -lboost_system -lboost_filesystem -lreadline
+export SUPPORT_LIBS:= -lutilities -lcmdline  -llogmaster  -lreadline
 
 #export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest -lpthread -lboost_system -lboost_filesystem
 

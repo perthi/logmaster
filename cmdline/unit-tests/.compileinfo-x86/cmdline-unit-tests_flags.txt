@@ -1,2 +1,2 @@
--L /home/perthi/logmaster/build/x86/lib -lm -ltestlib -lutilities -lcmdline -llogmaster -lboost_system -lboost_filesystem -lreadline -lgtest -lpthread -lX11 -llogmaster -lcmdline
-c++ -std=c++17 -fPIC -std=c++17 -ggdb -g -o cmdline-unit-tests cmdline-dll-test.o TestGCommandLineArgument.o TestGLogApplication.o TestGCmdScan.o GVersion.o -L /home/perthi/logmaster/build/x86/lib -lm -ltestlib -lutilities -lcmdline -llogmaster -lboost_system -lboost_filesystem -lreadline -lgtest -lpthread -lX11 -llogmaster -lcmdline
+-L /home/perthi/logmaster/build/x86/lib -lm -ltestlib -lutilities -lcmdline -llogmaster -lreadline -lgtest -lpthread -lX11 -llogmaster -lcmdline
+c++ -std=c++17 -fPIC -std=c++17 -ggdb -g -o cmdline-unit-tests cmdline-dll-test.o TestGCommandLineArgument.o TestGLogApplication.o TestGCmdScan.o GVersion.o -L /home/perthi/logmaster/build/x86/lib -lm -ltestlib -lutilities -lcmdline -llogmaster -lreadline -lgtest -lpthread -lX11 -llogmaster -lcmdline
