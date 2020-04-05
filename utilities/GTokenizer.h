@@ -21,8 +21,6 @@
 *   The class also tokenizes C style command lines (e,g int argc const char **argv) */
 
 
-#include <utilities/GUtilities.h>
-#include <utilities/GString.h>
 #include <utilities/GConstants.h>
 using namespace GCONSTANTS;
 
