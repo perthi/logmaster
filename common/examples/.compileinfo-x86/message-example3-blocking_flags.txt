@@ -1,2 +1,0 @@
--L /home/perthi/logmaster/build/x86/lib -lm -lcommon -lcmdline -lutilities -lreadline -llogmaster -lxml-embc -lxml2 -lcommon -lcom -lpthread
-c++ -std=c++17 -fPIC -std=c++17 -ggdb -g -o message-example3-blocking message-example3-blocking.o GVersion.o -L /home/perthi/logmaster/build/x86/lib -lm -lcommon -lcmdline -lutilities -lreadline -llogmaster -lxml-embc -lxml2 -lcommon -lcom -lpthread

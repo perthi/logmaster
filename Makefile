@@ -57,10 +57,8 @@ GTEST_INCLUDES:= -isystem $(CURDIR)/
 LIBS= -L $(CURDIR)/build/$(TARGET)/lib  -lm
 
 
-#export SUPPORT_LIBS:= -lutilities -lcmdline  -llogmaster -lboost_system -lboost_filesystem -lreadline
 export SUPPORT_LIBS:= -lutilities -lcmdline  -llogmaster  -lreadline
 
-#export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest -lpthread -lboost_system -lboost_filesystem
 
 export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest -lpthread 
 
@@ -85,16 +83,6 @@ xml-example1:=     	xml/examples/xml-example1/$(TARGET)
 xml-validator:=  	xml/xml-validator/$(TARGET)
 
 
-common:= 			common/$(TARGET)
-common-unittest:=       	common/unit-tests/commit/$(TARGET)
-fsm-example1:=          	common/examples/fsm-example1/$(TARGET)
-fsm-example2:=   		common/examples/fsm-example2/$(TARGET)
-message-example1:= 		common/examples/message-example1/$(TARGET)
-message-example2:= 		common/examples/message-example2/$(TARGET)
-message-example3-blocking:= 	common/examples/message-example3-blocking/$(TARGET)
-message-example4-timer:= 	common/examples/message-example4-timer/$(TARGET)
-
-
 com:=				com/$(TARGET)
 com-unittest:=       		com/unit-tests/commit/$(TARGET)
 com-example1:= 			com/examples/tcp-example1/$(TARGET)
@@ -102,17 +90,12 @@ com-server:= 			com/tcp-server/$(TARGET)
 com-client:= 			com/tcp-client/$(TARGET)
 
 
-common-examples:= $(fsm-example1) $(fsm-example2)  $(message-example1) \
-		$(message-example2) $(message-example3-blocking) $(message-example4-timer)
-
 
 unittests:= 	$(utilities-unittest) \
 		$(logging-unittest) \
 		$(cmdline-unittest) \
 		$(xml-unittest) \
-		$(common-unittest) \
 		$(intercom-unittets) \
-		$(configuration-unittests) \
 		$(com-unittest)
 
  #unittests:= 	$(utilities-unittest)
@@ -134,12 +117,6 @@ src-exe:=$(helloworld) \
 	$(unittests) \
 	$(logging-example1) \
 	$(cmdline-example1) \
-	$(fsm-example1) \
-	$(fsm-example2) \
-	$(message-example1) \
-	$(message-example2) \
-	$(message-example3-blocking) \
-	$(message-example4-timer) \
 	$(com-example1) \
 	$(com-server) \
 	$(com-client) \

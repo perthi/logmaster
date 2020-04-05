@@ -1,2 +1,0 @@
-
-include ../common-core.mk
