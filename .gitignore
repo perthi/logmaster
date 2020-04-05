@@ -58,4 +58,4 @@ common/examples/message-example2/x86/message-example2
 common/examples/message-example3-blocking/x86/message-example3-blocking
 common/examples/message-example4-timer/x86/message-example4-timer
 common/unit-tests/commit/x86/common-unit-tests
-
+common/examples/fsm-example1/x86/fsm-example1
