@@ -10,15 +10,8 @@
 ****************************************************************************/
 
 
-#define G_STANDALONE
+//#define G_STANDALONE
 
-
-//#include	<cctype>
-//#include	<string>
-
-//using std::string;
-
-//#include <utilities/GDefinitions.h>
 #include <string>
 
 using std::string;

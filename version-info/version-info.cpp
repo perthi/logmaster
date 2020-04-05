@@ -23,41 +23,28 @@
 ******************************************************************************
 ******************************************************************************/
 
-
-#include <iostream>
-
-using std::cout;
-using std::endl;
-
-
-
-/* We also need to include the.cpp files here.The reason is that this files must be compiled before any of
-the other libraries, so all source code must be available inline .*/
-
-#include <string>
-#include <vector>
-#include <time.h>
-
-#ifdef _WIN32
-#include <Windows.h>
-#endif
-
-#include "GGenerateVersionInfo.h"
-#define G_STANDALONE
-
+#include  "GGenerateVersionInfo.h"
 #include   <utilities/GTokenizer.h>
 #include   <utilities/GNumbers.h>
 #include   <utilities/GSystem.h>
 #include   <utilities/GRegexp.h>
 
+#include <string>
+#include <vector>
+#include <time.h>
+#include <iostream>
+
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
+using std::cout;
+using std::endl;
 using std::stringstream;
 using std::string;
 using std::vector;
 
-/// void    parseSvnInfo(const string svn_info, int &rev, int &lc_rev, string &repo_name, string &version, string &branch);
 string  generateVersionString(const vector<int> num);
-// void generateSvnFile(const string directory, const string classname, const string repo, const string version,
-  //                      const string branch, vector<string> svn_tokens, string &outdir);
 void generateVersionFile(const string directory, const string fname, const int rev, const string version, const string branch, const string                                     configuration, const string platform, string &outdir);
 
 void generate_rc_file(  string directory, const string rc_filename, const string company, const string desc, const string filename, const string                             copyright, const string prod_name);
@@ -69,8 +56,6 @@ bool is_valid_tag(const string tag);
 bool is_valid_argument(int argc, const char **argv, string &invalid_arg);
 void print_tags();
 vector<string> g_valid_tags;
-
-//bool GCmdScan::fDoIgnoreStrayArguments = false;
 
 
 int main( int argc, const char **argv )
