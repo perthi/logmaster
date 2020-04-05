@@ -28,9 +28,6 @@
 
 #include "GTime.h"
 
-//#include <ctime>
-//#include <time.h>
-//#include <map>
 
 #ifdef _WIN32
 #include <Windows.h>
