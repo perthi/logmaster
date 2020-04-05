@@ -34,6 +34,7 @@
 #include "LHashMaps.h"
 #include <utilities/GTime.h>
 #include <utilities/GString.h>
+#include <utilities/GTokenizer.h>
 #include <cstdarg>
 #include <sstream>
 using std::cout;
