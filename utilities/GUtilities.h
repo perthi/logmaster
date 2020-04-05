@@ -53,18 +53,17 @@ using namespace std; // CRAP PTH
 
 class GUtilities;
 
-inline GUtilities * g_utilities();
 
-
+GUtilities * g_utilities();
 
 
 /** @brief Collection of various utility functions that does not fit into any other category  */
 class  GUtilities
 {
+    friend GUtilities * g_utilities();
 public:
-    GUtilities() {};
-    virtual ~GUtilities() {};   
-    inline string		API     Copy(const char *buffer, const int length, string *in = nullptr);  
+  
+    string		        API     Copy(const char *buffer, const int length, string *in = nullptr);  
     string				API		QueryInput( const string prompt);
     bool				API     IsLittleEndian();
     bool				API     IsBigEndian();       
@@ -72,8 +71,7 @@ public:
     void				API		DisableError();
     void				API		EnableError();
     bool				API		IsDisabledError();
-
-    inline bool			IsEmpty(const string &in);
+    bool		 	    API     IsEmpty(const string &in);
     
     template <typename T >
     inline void ResetArray( T *arr, const size_t size ) const;
@@ -101,22 +99,18 @@ public:
 
 
 private:
+    GUtilities() {};
+    virtual ~GUtilities() {};   
     bool fIsDisabledError = false;
     char fCurDir[1024] = "";
 };
 
 
 
-GUtilities * g_utilities()
-{
-    static  GUtilities * instance = new GUtilities();
-    return instance;
-}
-
 
 
 template <typename T >
-inline void 
+void 
 GUtilities::ResetArray( T *arr, const size_t size ) const
 {
     size_t size_l = size/(sizeof(T));
@@ -129,28 +123,6 @@ GUtilities::ResetArray( T *arr, const size_t size ) const
 
 
 
-string     
-GUtilities::Copy(const char *buffer, const int length, string *in)
-{
-    if(in != nullptr )
-    {
-        in->clear();
-    }
-
-    string tmp;
-
-    for(int i=0; i < length; i++ )
-    {
-        tmp.push_back(buffer[i]);
-    }
-
-    if( in != nullptr)
-    {
-        *in = tmp;
-    }
-
-    return tmp;
-}
 
 
 template<typename T>  vector<string>  

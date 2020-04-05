@@ -48,7 +48,12 @@ using namespace LOGMASTER;
 
 #include <regex>
 
-//bool GUtilities::fIsDisabledError = false;
+
+GUtilities * g_utilities()
+{
+    static  GUtilities * instance = new GUtilities();
+    return instance;
+}
 
 
 void 
@@ -94,34 +99,6 @@ GUtilities::IsDisabledError()
 }
 
 
-/*
-const char *
-GUtilities::GetRootDir(void) {
-
-	char	*p;
-
-	GetCurrentDirectoryA(sizeof(fCurDir), fCurDir);
-
-	p = fCurDir + strlen(fCurDir);
-	while (p > fCurDir && *p != '\\')
-	{
-		p--;
-	}
-	p--;
-
-	while (p > fCurDir && *p != '\\')
-	{
-		p--;
-	}
-
-	if (p >= fCurDir && *p == '\\')
-	{
-		*p = '\0';
-	}
-
-	return fCurDir;
-}
-*/
 bool   
 GUtilities::IsLittleEndian()
 {
@@ -184,3 +161,29 @@ GUtilities::IsValidIPV4Address(const string ipv4_address)
     std::regex pattern("^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
     return std::regex_match(ipv4_address, pattern);
 }
+
+
+
+string     
+GUtilities::Copy(const char *buffer, const int length, string *in)
+{
+    if(in != nullptr )
+    {
+        in->clear();
+    }
+
+    string tmp;
+
+    for(int i=0; i < length; i++ )
+    {
+        tmp.push_back(buffer[i]);
+    }
+
+    if( in != nullptr)
+    {
+        *in = tmp;
+    }
+
+    return tmp;
+}
+

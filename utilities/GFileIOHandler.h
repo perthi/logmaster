@@ -33,14 +33,16 @@ using std::string;
 
 class GFileIOHandler;
 
-inline GFileIOHandler * g_file();
+GFileIOHandler * g_file();
 
 
 /** @brief Utility class for basic file IO operations such as creating, reading, and deleting files*/
 class GFileIOHandler 
 {
+friend GFileIOHandler * g_file();
+
 public:
-	GFileIOHandler() {};
+
 //	static GFileIOHandler API * Instance();
     string           API  ReadConfigFile(int argc, const char **argv, const string path);
 	bool             API  CheckFile ( const string fname, const char *opt = "r");    // checking if file exists
@@ -65,16 +67,10 @@ public:
     void	     ClearAttribute(const string fname, unsigned long attr);
 #endif
 private:
-
+	GFileIOHandler() {};
     
 };
 
-
-inline GFileIOHandler * g_file()
-{
-	static GFileIOHandler * instance = new GFileIOHandler();
-	return instance;
-}
 
 
 

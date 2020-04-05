@@ -55,8 +55,6 @@ GCrc::GCrc(const int32_t idx, const bool fill) : fJfill(fill ? 255 : 0), fJcrc(0
 }
 
 
-
-
 #if defined( __unix__ )  || defined (_WIN32 )
 uint16_t
 GCrc::Crc(const string &bufptr)

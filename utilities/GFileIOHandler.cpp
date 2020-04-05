@@ -54,16 +54,12 @@ using namespace  LOGMASTER;
 using std::ifstream;
 #include <cstdarg>
 
-//#include <boost/filesystem.hpp>
-//using namespace boost::filesystem;
 
-/*
 GFileIOHandler * g_file()
 {
 	static GFileIOHandler * instance = new GFileIOHandler();
 	return instance;
 }
-*/
 
 
 
@@ -156,26 +152,6 @@ GFileIOHandler::CreateFolder(const string fname)
     return g_system()->mkdir(fname);
 }
 
-
-
-
-
-/*
-string 
-GFileIOHandler::ReadFirstLine(const string fname)
-{
-    string firstline;
-    vector<string> content = ReadAll(fname);
-    if (content.size() == 0)
-    { 
-        return "";
-    }
-    else
-    {
-        return  content.at(0);
-    }
-}
-*/
 
 
 
