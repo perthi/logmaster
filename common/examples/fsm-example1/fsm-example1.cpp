@@ -12,8 +12,8 @@
 #include <common/FSM_Definitions.h>
 #include <cmdline/GLogApplication.h>
 #include <logging/LLogging.h>
-#include <api/api-fsm/APIFSMControllerDebug.h>
-#include <api/api-fsm/APIFSMNodeInfo.h>
+// #include <api/api-fsm/APIFSMControllerDebug.h>
+// #include <api/api-fsm/APIFSMNodeInfo.h>
 
 
 using namespace LOGMASTER;
@@ -49,16 +49,17 @@ int main()
 //	instr->Update();
 	PUSH();
 	SET_LOGLEVEL("--off");
-	APIFSMControllerDebug *c = APIFSMControllerDebug::Instance();
-	c->GetNodeInfo();
-	c->GenerateMockFSM();
-	c->Excec("CONNECT");
-	c->Excec("GO_READY");
-	POP();
-	c->Update();
-	FSMNode_Debug *fsm = new FSMNode_Debug(0);
-	delete fsm;
-    return 0;
+	// APIFSMControllerDebug *c = APIFSMControllerDebug::Instance();
+	// c->GetNodeInfo();
+	// c->GenerateMockFSM();
+	// c->Excec("CONNECT");
+	// c->Excec("GO_READY");
+	// POP();
+	// c->Update();
+	// FSMNode_Debug *fsm = new FSMNode_Debug(0);
+	///delete fsm;
+        return 0;
+        
 }
 
 

@@ -7,6 +7,6 @@ SRCCPP+=../cmdline-example1.cpp \
 		../GVersion.cpp
 
 
-LIBS+= -llogmaster  -lutilities  -lcmdline  -lutilities -lreadline -llogmaster -lboost_system -lboost_filesystem  -lpthread  
+LIBS+= -llogmaster  -lutilities  -lcmdline  -lutilities -lreadline -llogmaster  -lpthread  
 
 include ../../../../common.mk

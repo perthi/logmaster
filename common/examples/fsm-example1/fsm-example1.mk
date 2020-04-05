@@ -5,7 +5,7 @@ SRCCPP+=../fsm-example1.cpp  \
 	../GVersion.cpp
 
 
-LIBS+= -lcommon -llogmaster -lutilities -lreadline -lxml-embc -lxml2 -lcommon -lapi-fsm -lapi-hmi -lintercom -lcom -lprotocol -lconfiguration -lboost_system -lboost_filesystem  -lpthread  
+LIBS+=  -llogmaster  -lcommon   -lcom  -lxml-embc -lxml2 -lutilities -lreadline -lpthread  
 
 CPPFLAGS=$(CPPFLAGS_RELAXED)
 

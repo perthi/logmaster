@@ -1,2 +1,2 @@
--L /home/perthi/logmaster/build/x86/lib -lm -lcommon -llogmaster -lutilities -lreadline -lxml-embc -lxml2 -lcommon -lboost_system -lboost_filesystem -lpthread
-c++ -std=c++17 -fPIC -std=c++17 -ggdb -g -o fsm-example2 fsm-example2.o GVersion.o -L /home/perthi/logmaster/build/x86/lib -lm -lcommon -llogmaster -lutilities -lreadline -lxml-embc -lxml2 -lcommon -lboost_system -lboost_filesystem -lpthread
+-L /home/perthi/logmaster/build/x86/lib -lm -lcommon -llogmaster -lutilities -lreadline -lxml-embc -lxml2 -lcommon -lpthread
+c++ -std=c++17 -fPIC -std=c++17 -ggdb -g -o fsm-example2 fsm-example2.o GVersion.o -L /home/perthi/logmaster/build/x86/lib -lm -lcommon -llogmaster -lutilities -lreadline -lxml-embc -lxml2 -lcommon -lpthread

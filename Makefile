@@ -134,6 +134,7 @@ src-exe:=$(helloworld) \
 	$(unittests) \
 	$(logging-example1) \
 	$(cmdline-example1) \
+	$(fsm-example1) \
 	$(fsm-example2) \
 	$(message-example1) \
 	$(message-example2) \

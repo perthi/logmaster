@@ -1,2 +1,2 @@
--L /home/perthi/logmaster/build/x86/lib -lm -lcom -lutilities -lreadline -llogmaster -lboost_system -lboost_filesystem -lpthread _flags.txt
-c++ -std=c++17 -fPIC -std=c++17 -ggdb -g -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Werror -o tcp-client tcp-client.o -L /home/perthi/logmaster/build/x86/lib -lm -lcom -lutilities -lreadline -llogmaster -lboost_system -lboost_filesystem -lpthread _flags.txt
+-L /home/perthi/logmaster/build/x86/lib -lm -lcom -lutilities -lreadline -llogmaster -lpthread _flags.txt
+c++ -std=c++17 -fPIC -std=c++17 -ggdb -g -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Werror -o tcp-client tcp-client.o -L /home/perthi/logmaster/build/x86/lib -lm -lcom -lutilities -lreadline -llogmaster -lpthread _flags.txt

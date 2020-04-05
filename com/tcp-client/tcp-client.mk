@@ -5,7 +5,7 @@ PROGRAM:=tcp-client
 SRCCPP+=tcp-client.cpp 
 
 
-LIBS+= -lcom  -lutilities  -lreadline -llogmaster -lboost_system -lboost_filesystem  -lpthread  
+LIBS+= -lcom  -lutilities  -lreadline -llogmaster   -lpthread  
 
 #CPPFLAGS=$(CPPFLAGS_RELAXED)
 

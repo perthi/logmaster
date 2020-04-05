@@ -20,7 +20,7 @@ SRCCPP:= LColorMap.cpp \
 
 include ../../common.mk
 
-LIBS+= -lboost_filesystem -lm
+LIBS+=  -lm
 
 ifneq (arm, $(TARGET))
 LIBS+= -lX11

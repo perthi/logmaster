@@ -8,7 +8,7 @@
 LIBNAME_SO:=libtestlib.so
 
 SRCCPP+=TestBase.cpp
-LIBS+= -lcmdline -lboost_system -llogmaster
+LIBS+= -lcmdline  -llogmaster
 
 INCLUDES+=$(GTEST_INCLUDES)
 
