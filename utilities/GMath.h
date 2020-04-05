@@ -54,6 +54,8 @@ public:
 	  }
   }
   double  fgkGoldenRatio = (1 + sqrt(5)) / 2;
+	
+
 };
 
 

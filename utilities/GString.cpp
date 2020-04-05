@@ -107,13 +107,6 @@ bool GString::BeginsWith(const vector<string> arr, const string token, const boo
 }
 
 
-
-
-
-
-
-
-
  bool GString::EndsWith(const string& str, const string& substring, const bool ignore_case)
 {
 	long long int pos = 0;
