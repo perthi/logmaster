@@ -48,4 +48,14 @@ software/doc-html
 software/doxygen_errors.txt
 *_flags.txt
 **/_flags.txt
+com/examples/tcp-example1/x86/tcp-example1
+com/tcp-client/x86/tcp-client
+com/tcp-server/x86/tcp-server
+com/unit-tests/commit/x86/com-unit-tests
+common/examples/fsm-example2/x86/fsm-example2
+common/examples/message-example1/x86/message-example1
+common/examples/message-example2/x86/message-example2
+common/examples/message-example3-blocking/x86/message-example3-blocking
+common/examples/message-example4-timer/x86/message-example4-timer
+common/unit-tests/commit/x86/common-unit-tests
 
