@@ -82,18 +82,6 @@ void LLogTest::WriteMessages()
     ALARM_ERROR("magna aliqua. Ut enim ad minim veniam, quis nostrud");
     ALARM_FATAL("exercitation ullamco laboris nisi ut aliquip ex ea");
 
-    ENGINE_DEBUG(   "(ENGINE) sed do eiusmod tempor incididunt ut labore et dolore");
-    ENGINE_WARNING( "(ENGINE) magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    ENGINE_INFO(    "(ENGINE) sed do eiusmod tempor incididunt ut labore et dolore");
-    ENGINE_ERROR(   "(ENGINE) magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    ENGINE_FATAL(   "(ENGINE) exercitation ullamco laboris nisi ut aliquip ex ea");
-
-    ENGINE_DEBUG_U(   "(ENGINE_U) sed do eiusmod tempor incididunt ut labore et dolore");
-    ENGINE_WARNING_U( "(ENGINE_U) magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    ENGINE_INFO_U( "(ENGINE_U) sed do eiusmod tempor incididunt ut labore et dolore");
-    ENGINE_ERROR_U(   "(ENGINE_U) magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    ENGINE_FATAL_U(   "(ENGINE_U) exercitation ullamco laboris nisi ut aliquip ex ea");
-
     COM_DEBUG(       "(COM)sed do eiusmod tempor incididunt ut labore et dolore");
     COM_WARNING(     "(COM)magna aliqua. Ut enim ad minim veniam, quis nostrud");
     COM_INFO(        "(COM)sed do eiusmod tempor incididunt ut labore et dolore");
@@ -104,39 +92,6 @@ void LLogTest::WriteMessages()
     COM_INFO_U(      "(COM)sed do eiusmod tempor incididunt ut labore et dolore");
     COM_ERROR_U(     "(COM)magna aliqua. Ut enim ad minim veniam, quis nostrud");
     COM_FATAL_U(     "(COM)exercitation ullamco laboris nisi ut aliquip ex ea");
-
-    SENSOR_DEBUG(     "(SENSOR)sed do eiusmod tempor incididunt ut labore et dolore");
-    SENSOR_WARNING(   "(SENSOR)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    SENSOR_INFO(      "(SENSOR)sed do eiusmod tempor incididunt ut labore et dolore");
-    SENSOR_ERROR(     "(SENSOR)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    SENSOR_FATAL(     "(SENSOR)exercitation ullamco laboris nisi ut aliquip ex ea");
-    SENSOR_DEBUG_U(   "(SENSOR_U)sed do eiusmod tempor incididunt ut labore et dolore");
-    SENSOR_WARNING_U( "(SENSOR_U)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    SENSOR_INFO_U(    "(SENSOR_U)sed do eiusmod tempor incididunt ut labore et dolore");
-    SENSOR_ERROR_U(   "(SENSOR_U)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    SENSOR_FATAL_U(   "(SENSOR_U)exercitation ullamco laboris nisi ut aliquip ex ea");
-
-    HMI_DEBUG(      "(HMI)sed do eiusmod tempor incididunt ut labore et dolore");
-    HMI_WARNING(    "(HMI)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    HMI_INFO(       "(HMI)sed do eiusmod tempor incididunt ut labore et dolore");
-    HMI_ERROR(      "(HMI)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    HMI_FATAL(      "(HMI)exercitation ullamco laboris nisi ut aliquip ex ea");
-    HMI_DEBUG_U(    "(HMI_U)sed do eiusmod tempor incididunt ut labore et dolore");
-    HMI_WARNING_U(  "(HMI_U)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    HMI_INFO_U(     "(HMI_U)sed do eiusmod tempor incididunt ut labore et dolore");
-    HMI_ERROR_U(    "(HMI_U)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    HMI_FATAL_U(    "(HMI_U)exercitation ullamco laboris nisi ut aliquip ex ea");
-
-    SEQUENCE_DEBUG(      "(SEQUENCE)sed do eiusmod tempor incididunt ut labore et dolore");
-    SEQUENCE_WARNING(    "(SEQUENCE)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    SEQUENCE_INFO(       "(SEQUENCE)sed do eiusmod tempor incididunt ut labore et dolore");
-    SEQUENCE_ERROR(      "(SEQUENCE)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    SEQUENCE_FATAL(      "(SEQUENCE)exercitation ullamco laboris nisi ut aliquip ex ea");
-    SEQUENCE_DEBUG_U(    "(SEQUENCE_U)sed do eiusmod tempor incididunt ut labore et dolore");
-    SEQUENCE_WARNING_U(  "(SEQUENCE_U)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    SEQUENCE_INFO_U(     "(SEQUENCE_U)sed do eiusmod tempor incididunt ut labore et dolore");
-    SEQUENCE_ERROR_U(    "(SEQUENCE_U)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    SEQUENCE_FATAL_U(    "(SEQUENCE_U)exercitation ullamco laboris nisi ut aliquip ex ea");
 
 
     Footer();

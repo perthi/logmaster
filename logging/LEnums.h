@@ -67,15 +67,9 @@ namespace LOGMASTER
         SYS_ALARM       =   0x0008,    //  00000000 00001000    The alarm system
         SYS_MESSAGE     =   0x0010,    //  00000000 00010000    The message system
         SYS_COM         =   0x0020,    //  00000000 00100000    The communitaction sub system (TCP, UDP)
-        SYS_HMI         =   0x0040,    //  00000000 01000000    Human Machine Inteface (HMI),.. GUI and CLI applications mainly
-        SYS_SENSOR      =   0x0080,    //  00000000 10000000    The sensor sub system
-        SYS_ENGINE      =   0x0100,    //  00000001 00000000    The Control Engine
-        SYS_SEM         =   0x0200,    //  00000010 00000000    Messages from the Subsea Electronic Module
-        SYS_API         =   0x0400,    //  00000100 00000000    Messages sent using the API
-        SYS_XML         =   0x0800,    //  00001000 00000000    XML Parser
-        SYS_CLI         =   0x1000,    //  00010000 00000000    Commandline interfaces
-        SYS_GENERAL     =   0x2000,    //  00100000 00000000    No specific sub system (i.e general message)
-        SYS_SEQUENCE    =   0x4000,    //  01000000 00000000    Messages sent using the Sequence subsystem
+        SYS_API         =   0x0040,    //  00000100 01000000    Messages sent using the API
+        SYS_XML         =   0x0080,    //  00001000 10000000    XML Parser
+        SYS_GENERAL     =   0x0100,    //  00100001 00000000    No specific sub system (i.e general message)
         SYS_ALL         =   0xffff     //  11111111 11111111    Any sub system (message will apply if logging is turned on for any of the sub system)
     };
 

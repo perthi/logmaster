@@ -753,19 +753,22 @@ GTime::TimeStamp(struct std::tm *tout, const char * format, struct std::tm *tin,
 string
 GTime::TimeStamp(struct std::tm *tout, const char * format, struct std::tm *tin, int64_t *us)
 {
-    /* string offender;
-    // if (IsValidFormat(format, offender) == false)
-    // {
-    //     std::stringstream buffer;
-    //     buffer << "Illegal format specifier " << string(format) << "\"\n"\
-    //         + str() << \
-    //         ", the offending specifier is \"" << offender << "\" which is unknown" << "\n" \
-    //            << "error in function " << __FUNCTION__ << "at:" << __FILE__ << ":" << __LINE__ << "\n";
-    //     ///@todo use GLOCATION
-    //     throw(std::runtime_error(buffer.str().c_str()));
-    // }
-    // else
-    { */ 
+     string offender;
+    if (IsValidFormat(format, offender) == false)
+    {
+        
+        std::stringstream buffer;
+        buffer << "Illegal format specifier " << string(format) << "\"\n"\
+            + str() << \
+            ", the offending specifier is \"" << offender << "\" which is unknown" << "\n" \
+               << "error in function " << __FUNCTION__ << "at:" << __FILE__ << ":" << __LINE__ << "\n";
+        ///@todo use GLOCATION
+        throw(std::runtime_error(buffer.str().c_str()));
+        
+    }
+    else
+    
+    {  
     char tmp[512] = { 0 };
     char f[512] = { 0 };
     //struct std::tm *timeinfo = 0;
@@ -798,7 +801,7 @@ GTime::TimeStamp(struct std::tm *tout, const char * format, struct std::tm *tin,
 
     std::strftime(tmp, 512 - 1, f, &timeinfo);
     return string(tmp);
-    // }
+     }
 }
 
 #endif
