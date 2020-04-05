@@ -20,6 +20,7 @@ using namespace LOGMASTER;
 #endif
 
 #include "GDefinitions.h"
+#include "GLocation.h"
 #include "GCommon.h"
 #include <vector>
 #include <map>
@@ -408,7 +409,7 @@ bool GUtilities::CheckMinMax(const T1 min, const T2 max)
     else
     {
         buffer << "[min, max] = [" << min << ", " << max << " ]" << endl;
-        G_DEBUG("%s", buffer.str().c_str());
+        //G_DEBUG("%s", buffer.str().c_str());
         return true;
     }
 }
@@ -452,8 +453,13 @@ inline vector<T> operator -  (const vector<T> &lhs,  const vector<T> &rhs)
     
     if(lhs.size() != rhs.size() )
     {
+        #ifndef G_STANDALONE
         EXCEPTION("Cannot evaluate the difference because the aray sizes differs (lhs.size() = %d, rhs.size() = %d)", 
                   lhs.size(), rhs.size());
+        #else
+        throw ( std::invalid_argument( "Cannot evaluate the difference because the aray sizes differs") );
+        #endif
+
     }
     else
     {
@@ -473,8 +479,13 @@ inline vector<T1> operator /  (const vector<T1> &lhs,  const T2 &rhs )
     
     if(rhs == 0 )
     {
+
+     #ifndef G_STANDALONE    
 	EXCEPTION("ATTEMP ON ZERO DIVISION");
-	return lhs;
+	  #else
+        throw ( std::invalid_argument( " ATTEMP ON ZERO DIVISION " ) );
+        #endif
+    return lhs;
     }
     else
     {

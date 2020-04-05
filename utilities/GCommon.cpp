@@ -26,3 +26,58 @@
 ******************************************************************************
 ******************************************************************************/
 
+#include <utilities/GCommon.h>
+#include <utilities/GException.h>
+#include "GDefinitions.h"
+#include "GLocation.h"
+#include <logging/LLogApi.h>
+///#include <logging/LLogging.h>
+
+using namespace LOGMASTER;
+
+#include <iostream>
+using std::cout;
+using std::endl;
+using std::cerr;
+
+void
+#ifdef G_STANDALONE
+GCommon::HandleError(const string message, const GLocation &, const bool disable_error)
+#else
+GCommon::HandleError(const string message, const GLocation & l, const bool disable_error)
+#endif
+{
+
+
+    if (disable_error == false)
+    {
+#ifdef G_STANDALONE
+		
+	#ifdef _WIN32
+		throw( std::exception(message.c_str() ) );
+	#else
+		throw(std::invalid_argument( message.c_str() ));
+	#endif
+
+	//	throw(message);
+#else
+        throw_exception(   GException(l.fFileName, l.fFunctName, l.fLineNo, SYS_EX, "%s", message.c_str( ))  )  ;
+#endif
+    }
+    else
+    {
+#ifdef G_STANDALONE
+        COUT << message << std::endl;
+#else
+        G_WARNING(message.c_str());
+#endif
+    }
+}
+
+
+GCommon * g_common()
+{
+	static GCommon *instance = new GCommon();
+	return instance;
+}
+

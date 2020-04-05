@@ -14,20 +14,8 @@
 
 /* @class GCommon  Helper class for the other utilities classes */
 
-#include <utilities/GCommon.h>
-#include <utilities/GException.h>
-#include <logging/LLogApi.h>
 
-using namespace LOGMASTER;
 
-#include "GDefinitions.h"
-#include "GLocation.h"
-#include <string>
-using std::string;
-#include <iostream>
-using std::cout;
-using std::endl;
-using std::cerr;
 
 class GNumbers;
 class GUtilities;
@@ -36,11 +24,15 @@ class GRandom;
 class GString;
 class GRegexp;
 class GFileIOHandler;
+class GLocation;
+
+#include <string>
+using std::string;
 
 
 class GCommon;
 
-inline GCommon * g_common();
+GCommon * g_common();
 
 
 /** @brief Some common global defines and functions */
@@ -53,59 +45,17 @@ class GCommon
 	friend GString;
 	friend GRegexp;
 	friend GFileIOHandler;
-
-public:
-	GCommon() {};
-	~GCommon() {};
+    friend  GCommon * g_common();
+//public:
 
 private:
-	inline void  HandleError(const string message, const GLocation &l, const bool disable_error);
+	GCommon() {};
+	~GCommon() {};
+	void  HandleError(const string message, const GLocation &l, const bool disable_error);
 
 
 };
 
 
-
-
-void
-#ifdef G_STANDALONE
-GCommon::HandleError(const string message, const GLocation &, const bool disable_error)
-#else
-GCommon::HandleError(const string message, const GLocation & l, const bool disable_error)
-#endif
-{
-
-
-    if (disable_error == false)
-    {
-#ifdef G_STANDALONE
-		
-	#ifdef _WIN32
-		throw( std::exception(message.c_str() ) );
-	#else
-		throw(std::invalid_argument( message.c_str() ));
-	#endif
-
-	//	throw(message);
-#else
-        throw_exception(   GException(l.fFileName, l.fFunctName, l.fLineNo, SYS_EX, "%s", message.c_str( ))  )  ;
-#endif
-    }
-    else
-    {
-#ifdef G_STANDALONE
-        COUT << message << std::endl;
-#else
-        G_WARNING(message.c_str());
-#endif
-    }
-}
-
-
-inline GCommon * g_common()
-{
-	static GCommon *instance = new GCommon();
-	return instance;
-}
 
 
