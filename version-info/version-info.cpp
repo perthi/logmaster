@@ -33,14 +33,6 @@ using std::endl;
 
 /* We also need to include the.cpp files here.The reason is that this files must be compiled before any of
 the other libraries, so all source code must be available inline .*/
-#include <utilities/GTokenizer.h>
-#include <utilities/GNumbers.h>
-#include <utilities/GSystem.h>
-#include <logging/LLogApi.h>
-//#include <cmdline/GLogApplication.h>
-#include <cmdline/GCmdApi.h>
-//#include <utilities/GException.h>
-#include <utilities/GFileIOHandler.h>
 
 #include <string>
 #include <vector>
@@ -53,6 +45,10 @@ the other libraries, so all source code must be available inline .*/
 #include "GGenerateVersionInfo.h"
 #define G_STANDALONE
 
+#include   <utilities/GTokenizer.h>
+#include   <utilities/GNumbers.h>
+#include   <utilities/GSystem.h>
+#include   <utilities/GRegexp.h>
 
 using std::stringstream;
 using std::string;
