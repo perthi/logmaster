@@ -24,6 +24,7 @@
 #include <utilities/GConstants.h>
 using namespace GCONSTANTS;
 
+#include <utilities/GDefinitions.h>
 
 #include <string>
 #include <vector>

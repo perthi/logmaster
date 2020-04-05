@@ -28,6 +28,12 @@
 #include   <utilities/GSystem.h>
 #include   <utilities/GTokenizer.h>
 #include   <utilities/GFileIOHandler.h>
+#include   <utilities/GString.h>
+
+#include <logging/LLogApi.h>
+
+using  namespace LOGMASTER;
+
 
 GGenerateVersionInfo::GGenerateVersionInfo()
 {

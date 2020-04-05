@@ -10,7 +10,7 @@
 ****************************************************************************/
 
 
-//#define G_STANDALONE
+#define G_STANDALONE
 
 #include <string>
 
