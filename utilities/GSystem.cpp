@@ -29,11 +29,6 @@
 
 #include "GSystem.h"
 #include <sys/stat.h>
-
-// #include <logging/LLogApi.h>
-///using namespace LOGMASTER;
-
-
 #include "GFileIOHandler.h"
 #include "GTokenizer.h"
 #include "GString.h"
@@ -41,11 +36,8 @@
 #include "GCommon.h"
 #include "GLocation.h"
 
-////#include <exception/GException.h>
-
 #ifndef _WIN32
 #include <dirent.h>
-////#include <X11/Xlib.h>
 #include <unistd.h>
 #define GetCurrentDir getcwd
 #endif
@@ -61,7 +53,7 @@
 
 #include <stdio.h>
 #include <memory>
-
+#include <sys/stat.h>
 
 GSystem * g_system()
 {

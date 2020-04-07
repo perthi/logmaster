@@ -13,18 +13,20 @@
 ***
 **************************************************************************/
 
-#define  G_STANDALONE
+//#define  G_STANDALONE
 
-#ifndef G_STANDALONE
-#include <logging/LLogApi.h>
-#include "GException.h"
-using namespace LOGMASTER;
-#endif
+//#ifndef G_STANDALONE
+//#include <logging/LLogApi.h>
+//#include "GException.h"
+//using namespace LOGMASTER;
+//#endif
 
 
 #include "GDefinitions.h"
 #include "GLocation.h"
 #include "GCommon.h"
+#include "GText.h"
+
 #include <vector>
 #include <map>
 #include <iostream>
@@ -454,12 +456,13 @@ inline vector<T1> operator /  (const vector<T1> &lhs,  const T2 &rhs )
     
     if(rhs == 0 )
     {
+        g_common()->HandleError(  "ATTEMP ON ZERO DIVISION", GLOCATION, THROW_EXCEPTION  );
 
-     #ifndef G_STANDALONE    
-	EXCEPTION("ATTEMP ON ZERO DIVISION");
-	  #else
-        throw ( std::invalid_argument( " ATTEMP ON ZERO DIVISION " ) );
-        #endif
+    //  #ifndef G_STANDALONE    
+	// EXCEPTION("ATTEMP ON ZERO DIVISION");
+	//   #else
+    //     throw ( std::invalid_argument( " ATTEMP ON ZERO DIVISION " ) );
+    //     #endif
     return lhs;
     }
     else

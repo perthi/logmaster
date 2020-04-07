@@ -30,7 +30,8 @@
 
 #include "GUtilities.h"
 #include "GTokenizer.h"
-#include <logging/LLogging.h>
+
+///#include <logging/LLogging.h>
 
 
 #ifdef _WIN32
@@ -43,7 +44,7 @@
 #include <readline/history.h>
 #endif
 
-using namespace LOGMASTER;
+////using namespace LOGMASTER;
 
 
 #include <regex>
