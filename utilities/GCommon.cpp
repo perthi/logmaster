@@ -27,11 +27,10 @@
 ******************************************************************************/
 
 #include <utilities/GCommon.h>
-#include <utilities/GException.h>
+
 #include "GDefinitions.h"
 #include "GLocation.h"
 #include <logging/LLogApi.h>
-///#include <logging/LLogging.h>
 
 using namespace LOGMASTER;
 
@@ -42,34 +41,31 @@ using std::cerr;
 
 void
 #ifdef G_STANDALONE
-GCommon::HandleError(const string message, const GLocation &, const bool disable_error)
+GCommon::HandleError(const string message, const GLocation ,     const bool   disable_exception  )
 #else
-GCommon::HandleError(const string message, const GLocation & l, const bool disable_error)
+#include <utilities/GException.h>
+GCommon::HandleError(const string message, const GLocation  l,   const bool   disable_exception  )
 #endif
 {
-
-
-    if (disable_error == false)
+    if ( disable_exception == false)
     {
-#ifdef G_STANDALONE
+#ifndef HAS_LOGGING
 		
 	#ifdef _WIN32
 		throw( std::exception(message.c_str() ) );
 	#else
 		throw(std::invalid_argument( message.c_str() ));
 	#endif
-
-	//	throw(message);
 #else
         throw_exception(   GException(l.fFileName, l.fFunctName, l.fLineNo, SYS_EX, "%s", message.c_str( ))  )  ;
 #endif
     }
     else
     {
-#ifdef G_STANDALONE
-        COUT << message << std::endl;
-#else
+#ifdef HAS_LOGGING
         G_WARNING(message.c_str());
+#else
+        COUT << message << std::endl;
 #endif
     }
 }

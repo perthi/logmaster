@@ -40,8 +40,6 @@ GNumbers * g_numbers()
 
 
 
-
-
 void
 GNumbers::DisableError()
 {
@@ -123,8 +121,6 @@ GNumbers::Dec2Hex(const string  str)
 
 
 
-
-
  bool
 GNumbers::IsAlphaNumber(string num)
 {
@@ -147,8 +143,6 @@ GNumbers::IsAlphaNumber(string num)
     }
     return true;
 }
-
-
 
 
 

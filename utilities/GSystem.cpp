@@ -37,7 +37,10 @@ using namespace LOGMASTER;
 #include "GFileIOHandler.h"
 #include "GTokenizer.h"
 #include "GString.h"
-#include <utilities/GException.h>
+#include "GText.h"
+#include "GCommon.h"
+
+////#include <utilities/GException.h>
 
 #ifndef _WIN32
 #include <dirent.h>
@@ -103,16 +106,12 @@ GSystem::mkdir(const string dirname)
     }
     else
     {
-        EXCEPTION("The directory \"%s\" could not be created,.. please check that \
+       g_common()->HandleError(  GText(  "The directory \"%s\" could not be created,.. please check that \
                     you have write + exce permissions to the directory ....aborting (message from boost %s\")", \
-                    dirname.c_str()  );
-
+                    dirname.c_str( )).str(), GLOCATION, THROW_EXCEPTION  );  
         return false;
     }
-
 }
-
-
 
 
 bool
@@ -443,7 +442,6 @@ GSystem::mkfile(const string filepath)
     }
     else
     {
-        G_INFO("File \"%s\" Did not exist, lets attemtp to create it", filepath.c_str());
         FILE *fp2 = 0;
 
 #ifdef _WIN32
@@ -454,13 +452,13 @@ GSystem::mkfile(const string filepath)
 
         if (fp2 != 0)
         {
-            G_DEBUG("Successfully created \"%s\" The file is ready for writing, closing it now", filepath.c_str());
             fclose(fp2);
             return true;
         }
         else
         {
-            EXCEPTION("Could not create file \"%s\" Please check your write permissions for this directory", filepath.c_str());
+            g_common()->HandleError(  GText(  "Could not create file \"%s\" Please check your write permissions for this directory", \
+                                               filepath.c_str()   ).str(), GLOCATION, THROW_EXCEPTION  );      
         }
     }
     return true;

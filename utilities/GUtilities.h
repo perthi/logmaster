@@ -13,11 +13,14 @@
 ***
 **************************************************************************/
 
+#define  G_STANDALONE
+
 #ifndef G_STANDALONE
 #include <logging/LLogApi.h>
 #include "GException.h"
 using namespace LOGMASTER;
 #endif
+
 
 #include "GDefinitions.h"
 #include "GLocation.h"

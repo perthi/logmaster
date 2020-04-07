@@ -35,7 +35,6 @@
 #include "GText.h"
 #include "GTokenizer.h"
 #include <logging/LLogging.h>
-#include "GException.h"
 #include <fstream>
 #include <sys/stat.h>
 #include <stdio.h>
@@ -49,7 +48,11 @@
 #undef CreateFile
 #endif
 
-#include <utilities/GException.h>
+
+#ifndef G_STANDALONE
+#include <exception/GException.h>
+#endif
+
 using namespace  LOGMASTER;
 using std::ifstream;
 #include <cstdarg>
@@ -114,29 +117,25 @@ bool GFileIOHandler::Delete(const string fname)
 
     if (fp == nullptr)
     {
-        G_ERROR("could not remove file: \"%s\"", fname.c_str());
+        g_common()->HandleError(  GText(  "could not remove file: \"%s\"", fname.c_str()   ) .str(), GLOCATION, true  ); 
         return false;
     }
     else
     {
         int ret = std::remove(fname.c_str());
-      //  FORCE_DEBUG("ret = %d", ret);
-      //  FORCE_DEBUG("Delet file: %s, ret = %s", fname.c_str(), ret == false ? "FALSE" : "TRUE");
-        G_INFO("\"%s\" was successfully deleted", fname.c_str());
         
         if( ret == 1 )
         {
-            G_ERROR("could not remove file: \"%s\"", fname.c_str()); 
+            g_common()->HandleError(  GText(  "could not remove file: \"%s\"", fname.c_str()   ) .str(), GLOCATION, true  );
             return false;
-        }
-        else
-        {
-             G_INFO("\"%s\" was successfully deleted", fname.c_str());
-            return true;
         }
         
     }
+
+    return true;
 }
+
+
 
 bool 
 GFileIOHandler::CreateFileLocal(const string fname)
@@ -169,36 +168,22 @@ GFileIOHandler::ReadLastLine(const string fname, const unsigned int offset)
     
     if (CheckFile(fname) == false)
     {
-        G_WARNING("Cannot open file: %s", fname.c_str() );
+        g_common()->HandleError(  GText( "Cannot open file: %s", fname.c_str() ) .str(), GLOCATION, DISABLE_EXCEPTION  );
         return "";
     }
     
     vector<string> content = ReadAll(fname);
-         for(uint16_t i= 0; i < content.size(); i++ )
-            {
-                G_DEBUG("content[%d] = %s", i, content[i].c_str()   );
-
-            }
-
-        G_DEBUG("offset = %d", offset );
-        G_DEBUG("content.size() = %d  (there are %d lines in the file %s )", content.size(), content.size(), fname.c_str()  );        
-        G_DEBUG("content = %s", g_utilities()->Vec2String( content ).c_str()  );
-
-    for(uint16_t i= 0; i < content.size(); i++ )
-            {
-                G_DEBUG("content[%d] = %s", i, content[i].c_str()   );
-
-            }
+      
 
 
-          if (CheckFile(fname) == false)
+    if (CheckFile(fname) == false)
     {
-        G_WARNING("Cannot open file: %s", fname.c_str() );
+        g_common()->HandleError(  GText( "Cannot open file: %s", fname.c_str() ) .str(), GLOCATION,  DISABLE_EXCEPTION   );
         return "";
     }  
-        if (content.size() == 0)
-     {
-        G_WARNING("The file \"%s\" is empty", fname.c_str() );
+    if (content.size() == 0)
+    {
+        g_common()->HandleError(  GText(  "The file \"%s\" is empty", fname.c_str()   ) .str(), GLOCATION, DISABLE_EXCEPTION  );
         return "";
     }
     else
@@ -208,19 +193,14 @@ GFileIOHandler::ReadLastLine(const string fname, const unsigned int offset)
 #endif
         if ( offset > content.size() )
         {
-            G_ERROR("Invalid array subscript, offset = %d lines from the end of the file, but thhere are only %d lines in the file", offset, content.size() );
+            g_common()->HandleError(  GText(    "Invalid array subscript, offset = %d lines from the end of the file, \
+                                                but thhere are only %d lines in the file", offset, content.size()    ) .str(), GLOCATION,  DISABLE_EXCEPTION   );
+
+
             return content.at(0);
         }
         else
         {
-            for(uint16_t i= 0; i < content.size(); i++ )
-            {
-                G_DEBUG("content[%d] = %s", i, content.at(i).c_str()   );
-
-            }
-
-            G_DEBUG("index = %d", content.size() - 1 - offset  );
-            G_DEBUG( " content.at(content.size() - 1 - offset  =  %s",   content.at( content.size() - 1 - offset ).c_str()  );
             return  content.at(content.size() - 1 - offset);
         }
     }
@@ -302,7 +282,6 @@ GFileIOHandler::CheckFileEx(const string fname, const char *opt)
 string 
 GFileIOHandler::ReadConfigFile(int argc, const char ** argv, const string path)
 {
-    //	FORCE_DEBUG("argv[0] = %s", argv[0]);
     vector<string> tokens = g_tokenizer()->Tokenize(string(argv[0]), ".");
     string fname = "";
     string dir = "";
@@ -314,20 +293,19 @@ GFileIOHandler::ReadConfigFile(int argc, const char ** argv, const string path)
         fname = path + "/" +fname + ".cfg";
     }
 
-    CERR << "fname =" << fname << endl;
-
     if (argc != 1 && argc != 3)
     {
-        EXCEPTION("When reading commanline argumenst from file you must specifiy either no arguments,\
+        g_common()->HandleError(  GText( "When reading commanline argumenst from file you must specifiy either no arguments,\
 			or exacty two arguments.\ncase1: If no argumenst are given, the command line arguments are read from\
-			 %s\ncase: the arguments must be on the form -file [filename] in which case the command line is read from [filename]" );
+			 %s\ncase: the arguments must be on the form -file [filename] in which case the command line is read from [filename]"    ) .str(), GLOCATION, THROW_EXCEPTION  );
+
     }
 
     if (argc == 3)
     {
         if (string(argv[1]) != "-file")
         {
-            EXCEPTION("Expected the first argumet to be  \"-file\"");
+            g_common()->HandleError(  GText( "Expected the first argumet to be  \"-file\""  ) .str(), GLOCATION, THROW_EXCEPTION  );
             return "";
         }
         else
@@ -338,7 +316,7 @@ GFileIOHandler::ReadConfigFile(int argc, const char ** argv, const string path)
 	
     if ( DoExists(fname) == false)
     {
-        EXCEPTION("The file \"%s\" does not exist", fname.c_str() );
+        g_common()->HandleError(  GText(  "The file \"%s\" does not exist", fname.c_str() ) .str(), GLOCATION, THROW_EXCEPTION  );
         return "";
     }
     else
@@ -365,36 +343,28 @@ GFileIOHandler::DoExists(const string fname, const char* opt)
 bool
 GFileIOHandler::CheckFile(const string fname, const char *opt)
 {
-
-    G_DEBUG("The option is %c", opt[0]);
     string tmp = string(opt);
     if (!(tmp == "w" || tmp == "w+" || tmp == "a" || tmp == "a+" || tmp == "r" || tmp == "r+"))
     {
-        G_FATAL("Invalid option %c", opt[0]);
+        g_common()->HandleError(  GText( "Invalid option %c", opt[0]  ) .str(), GLOCATION, DISABLE_EXCEPTION  ); 
         return false;
     }
     else
     {
-        //    struct stat sb;
-        
         FILE *fp2 = fopen( fname.c_str(), "r" );
-        
-        //if (exists(fname))
          if ( fp2 != nullptr )
-      //  if ( stat(fname.c_str(), &sb ) )
         {
-            
-
             if (tmp == "w" || tmp == "w+")
             {
-                G_WARNING("The file %s exists, opening it with the %c option will discard existing content", fname.c_str(), opt[0]);
+                g_common()->HandleError(  GText(  "The file %s exists, opening it with the %c option will discard existing content", 
+                fname.c_str(), opt[0]      ) .str(), GLOCATION, DISABLE_EXCEPTION  ); 
+
+
                 return false;
             }
             else if (tmp == "a" || tmp == "a+" || tmp == "r" || tmp == "r+")  
             {
-                G_DEBUG("fopen(%s, %c)", fname.c_str(), opt[0]);
                 FILE *fp = 0;
-
 #ifdef _WIN32
                 fopen_s(&fp, fname.c_str(), opt);
 #else
@@ -403,7 +373,7 @@ GFileIOHandler::CheckFile(const string fname, const char *opt)
                 
                 if (fp == 0)
                 {
-                    G_ERROR("fopen(%s, %c) failed !!!", fname.c_str(), opt[0]);
+                    g_common()->HandleError(  GText(  "fopen(%s, %c) failed !!!", fname.c_str(), opt[0]      ) .str(), GLOCATION, DISABLE_EXCEPTION  ); 
                     return false;
                 }
                 else
@@ -415,7 +385,6 @@ GFileIOHandler::CheckFile(const string fname, const char *opt)
         }
         else
         {
-            G_INFO("trying to open file: fopen(%s, %c) ", fname.c_str(), opt[0]);
             FILE *fp = 0;
 
 #ifdef _WIN32
@@ -423,16 +392,12 @@ GFileIOHandler::CheckFile(const string fname, const char *opt)
 #else
             fp =  fopen(fname.c_str(), opt);
 #endif
-            
-            G_INFO("done.......");
             if (fp == 0)
             {
-                G_INFO("could not open file: fopen(%s, %c)  returned ZERO", fname.c_str(), opt[0]);
                 return false;
             }
             else
             {
-                G_INFO("Successfully acessed file: fopen(%s, %c)", fname.c_str(), opt[0]);
                 fclose(fp);
                 remove(fname.c_str() );
                 return true;
@@ -441,11 +406,6 @@ GFileIOHandler::CheckFile(const string fname, const char *opt)
     }
     return false;
 }
-
-
-
-
-
 
 
 
@@ -497,23 +457,10 @@ GFileIOHandler::ReadAll(const string fname, bool * status)
 	 fin.open(fname);
 	 if (!fin.good())
 	 {
-     
-
-#ifdef _WIN32
-		 G_WARNING("Could not open file %s  (full path = %s)", fname.c_str(),   ( g_system()->pwd() + "\\" + fname ).c_str() );
-#else
-    //   G_WARNING("Could not open file %s  (full path = %s)", fname.c_str(),   ( g_system()->pwd() + "/" + fname ).c_str()  );
-       // G_WARNING("Could not open file %s  (full path = %s)", fname_s.c_str(),   path.c_str()   );
-      //  G_WARNING("test = %s", test.c_str() );
-#endif 
-		l_status = false;
-		
-         //G_WARNING("Could not open file %s  (full path = %s)", fname.c_str(), (fname).c_str());
+	   l_status = false;
 	 }
 	 else
 	 {  
-
-		 G_INFO("Succesffully opened file %s", fname.c_str());
 		 while (!fin.eof())
 		 {
 			 getline(fin, line);
@@ -554,19 +501,18 @@ GFileIOHandler::Recreate(const string fname)
     {
         if( Delete(fname) == false )
         {
-            G_ERROR("Failed to delete %s", fname.c_str() );
+            g_common()->HandleError(  GText( "Failed to delete file: %s", fname.c_str()  ) .str(), GLOCATION, DISABLE_EXCEPTION  );  
             return false;
         } 
     }  
         
     if(   CreateFileLocal(fname) == true )
     {
-         G_INFO("successfully created file: %s", fname.c_str() );
         return true;
     }
     else
     {
-        G_ERROR("Failed to create file: %s", fname.c_str( ));
+        g_common()->HandleError(  GText(   "Failed to create file: %s", fname.c_str()   ) .str(), GLOCATION, DISABLE_EXCEPTION  );  
         return  false;
     } 
 }
@@ -581,12 +527,9 @@ GFileIOHandler::Recreate(const string fname)
 
 	 if (ret == false)
 	 {
-		 G_ERROR("could not remove file: \"fname\"", fname.c_str());
-	 }
-	 else
-	 {
-		 G_INFO("\"%s\" was successfully deleted", fname.c_str());
-	 }
+        g_common()->HandleError(  GText(    "could not remove file: \"fname\"", fname.c_str()   ) .str(), GLOCATION, DISABLE_EXCEPTION  );  
+     }
+
 	 return ret;
  }
 

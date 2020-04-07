@@ -63,7 +63,7 @@ export SUPPORT_LIBS:= -lutilities -lcmdline  -llogmaster  -lreadline
 export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest -lpthread 
 
 
-version-info:=	  	version-info/$(TARGET)
+#version-info:=	  	version-info/$(TARGET)
 helloworld:=  		helloworld/$(TARGET)
 gtest-linux:=		gtest-linux/$(TARGET)
 testlib:=		testlib/$(TARGET)

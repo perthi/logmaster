@@ -28,11 +28,15 @@
 
 
 #include "GCrc.h"
+#include "GCommon.h"
+#include "GText.h"
+#include "GLocation.h"
+
 
 #if defined( __unix__ )  || defined (_WIN32 )
-#include <utilities/GException.h>
-#include <logging/LLogApi.h>
-using namespace LOGMASTER;
+//#include <utilities/GException.h>
+//#include <logging/LLogApi.h>
+///using namespace LOGMASTER;
 #endif
 
 
@@ -80,10 +84,11 @@ GCrc::AddCrc16( string &  in  )
 {
     uint16_t size_out = 0;
 
-    G_ASSERT_EXCEPTION( in.size() < 1024, "input buffer too large");
+    // CRAP PTH, magic number
+    if( in.size() < 1024)
+    g_common()->HandleError(  GText(   "input buffer too large"  ).str(), GLOCATION, THROW_EXCEPTION  );
+
     uint8_t buf[1024];
-
-
 
     for(uint16_t i = 0; i < in.size(); i++  )
     {

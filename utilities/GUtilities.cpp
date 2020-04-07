@@ -31,7 +31,7 @@
 #include "GUtilities.h"
 #include "GTokenizer.h"
 #include <logging/LLogging.h>
-#include "GException.h"
+
 
 #ifdef _WIN32
 #include <Windows.h>

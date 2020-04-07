@@ -17,14 +17,16 @@
 
 
 
-class GNumbers;
-class GUtilities;
-class GTokenizer;
-class GRandom;
-class GString;
-class GRegexp;
-class GFileIOHandler;
-class GLocation;
+class    GNumbers;
+class    GUtilities;
+class    GTokenizer;
+class    GRandom;
+class    GString;
+class    GRegexp;
+class    GFileIOHandler;
+class    GSystem;
+class    GLocation;
+class    GCrc;
 
 #include <string>
 using std::string;
@@ -34,24 +36,28 @@ class GCommon;
 
 GCommon * g_common();
 
+#define DISABLE_EXCEPTION true
+#define THROW_EXCEPTION  false
+
 
 /** @brief Some common global defines and functions */
 class GCommon
 {
-	friend GNumbers;
-	friend GUtilities;
-	friend GTokenizer;
-	friend GRandom;
-	friend GString;
-	friend GRegexp;
-	friend GFileIOHandler;
-    friend  GCommon * g_common();
-//public:
+	friend    GNumbers;
+	friend    GUtilities;
+	friend    GTokenizer;
+	friend    GRandom;
+	friend    GString;
+	friend    GRegexp;
+	friend    GFileIOHandler;
+	friend    GSystem;
+    friend    GCrc;
+	friend    GCommon * g_common();
 
 private:
 	GCommon() {};
 	~GCommon() {};
-	void  HandleError(const string message, const GLocation &l, const bool disable_error);
+	void  HandleError(const string message, const GLocation l, const bool disable_error );
 
 
 };

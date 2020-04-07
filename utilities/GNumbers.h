@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include "GException.h"
+///#include "GException.h"
 #include <typeinfo>
 #include "GUtilities.h"
 #include <utilities/GString.h>
