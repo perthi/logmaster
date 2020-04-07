@@ -30,8 +30,8 @@
 #include "GSystem.h"
 #include <sys/stat.h>
 
-#include <logging/LLogApi.h>
-using namespace LOGMASTER;
+// #include <logging/LLogApi.h>
+///using namespace LOGMASTER;
 
 
 #include "GFileIOHandler.h"
@@ -39,6 +39,7 @@ using namespace LOGMASTER;
 #include "GString.h"
 #include "GText.h"
 #include "GCommon.h"
+#include "GLocation.h"
 
 ////#include <exception/GException.h>
 
@@ -418,8 +419,6 @@ GSystem::mkfile(const string filepath)
 {
     string dir, file;
     g_tokenizer()->StripPath(filepath, dir, file);
-    G_INFO("dir = %s", dir.c_str());
-    G_INFO("file = %s", file.c_str());
 
     if (dir != "")
     {
@@ -436,7 +435,7 @@ GSystem::mkfile(const string filepath)
 
     if (fp != 0)
     {
-        G_WARNING("File \"%s\" allready exists, will not be recreated", filepath.c_str());
+        g_common()->HandleError( GText("File \"%s\" allready exists, will not be recreated", filepath.c_str()  ).str(), GLOCATION, DISABLE_EXCEPTION ) ;
         fclose(fp);
         return false;
     }

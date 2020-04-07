@@ -26,6 +26,7 @@ SRCCPP+=GCommon.cpp \
 	GUtilities.cpp \
 	GEnumHelper.cpp \
 	GEnumHelperImpl.cpp \
+	GSemaphore.cpp \
 	GCrc.cpp
 
 

@@ -29,12 +29,6 @@
 #include <string.h>
 
 #include "GSemaphore.h"
-
-//#include <logging/LLogging.h>
-//#include <logging/LLogApi.h>
-//using namespace LOGMASTER;
-
-
 #include "GTime.h"
 #include "GLocation.h"
 #include "GCommon.h"
@@ -87,7 +81,7 @@ GSemaphore::HandleSemaphoreError( const int ret, const double time ) const
             g_common()->HandleError(  GText ("Timeout waiting %0.1f seconds for semaphore", time).str() , GLOCATION, DISABLE_EXCEPTION  );
             break;
         default:
-            g_common()->HandleError(  GText ("Unknown Error (%d)", ret ).str(),  GLOCATION, DISABLE_EXCEPTION  ) 
+            g_common()->HandleError(  GText ("Unknown Error (%d)", ret ).str(),  GLOCATION, DISABLE_EXCEPTION  ); 
     }
 
 }
@@ -115,8 +109,7 @@ GSemaphore::TimedWait(sem_t *s, const double timetowait_sec)
     {
         int val;
         sem_getvalue(s, &val);
-
-        COM_WARNING("could not get semaphore: current value count is %d", val);
+        g_common()->HandleError( GText( "could not get semaphore: current value count is %d", val).str(), GLOCATION, DISABLE_EXCEPTION  );
         HandleSemaphoreError(errno,  timetowait_sec );
         return ret; /// @todo find a better way to handle retrun code. Here it can be mixed with readlength
     }
