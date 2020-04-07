@@ -21,6 +21,7 @@
 #include "GArgument.h"
 #include <utilities/GDefinitions.h>
 #include <utilities/GNumbers.h>
+#include <exception/GException.h>
 
 #include <typeinfo>
 
@@ -102,9 +103,6 @@ GCmdScan::~GCmdScan()
 {
 
 }
-
-
-
 
 
 /*

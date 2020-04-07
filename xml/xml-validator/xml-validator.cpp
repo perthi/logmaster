@@ -27,7 +27,7 @@ using std::endl;
 #include <xml/GXmlValidator.h>
 
 
-#include <utilities/GException.h>
+#include <exception/GException.h>
 
 
 

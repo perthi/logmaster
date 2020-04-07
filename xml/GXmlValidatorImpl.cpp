@@ -7,7 +7,7 @@
 
 #include "GXmlValidatorImpl.h"
 #include <utilities/GFileIOHandler.h>
-#include <utilities/GException.h>
+#include <exception/GException.h>
 #include <libxml/xmlschemastypes.h>
 #include <libxml/xmlerror.h>
 #include <libxml/xmlschemas.h>

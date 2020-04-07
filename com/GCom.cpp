@@ -9,7 +9,7 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netdb.h>
-#include <utilities/GException.h>
+#include <exception/GException.h>
 #include <logging/LLogApi.h>
 #include <thread>
 #include <chrono>

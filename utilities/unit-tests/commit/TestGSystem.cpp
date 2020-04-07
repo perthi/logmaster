@@ -31,7 +31,7 @@
 #include <utilities/GSystem.h>
 #include <utilities/GRandom.h>
 #include <utilities/GFileIOHandler.h>
-#include <utilities/GException.h>
+#include <exception/GException.h>
 
 
 TestGSystem::TestGSystem()

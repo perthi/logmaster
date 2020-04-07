@@ -18,5 +18,5 @@ SRCCPP:=logging-unit-tests.cpp \
 include ../../../../common.mk
 include ../../../../unittest-common.mk
 
-LIBS+= -llogmaster -lcmdline
+LIBS+= -llogmaster -lcmdline -lexception  -lutilities -ltestlib -lexception
 INCLUDES+=$(GTEST_INCLUDES)

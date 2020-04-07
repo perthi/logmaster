@@ -28,84 +28,84 @@
 ******************************************************************************/
 
 
-// #include "GNumbers.h"
-// #include "GDataTypes.h"
+#include "GNumbers.h"
+#include "GDataTypes.h"
 
-// #include <utilities/GException.h>
-// //#include <utilities/GException.cpp>
+#include <exception/GException.h>
+//#include <utilities/GException.cpp>
 
-// ostream& operator<<(ostream& os, const Val  &o)
-// {
-//     os << o.GetValue(  );   
-//     return os;
-// }
-
-
-// void 
-// Val::CheckIsInteger(double t)
-// {
-//     if( g_numbers()->IsInteger((long double )t) == false )
-//     {
-// 	 EXCEPTION("Number (%f) is NOT an integer, the sensor ID must be an integer between ZERO and %d", t, 16);
-//     }
-//     else
-//     {
-// 	//COUT << "\t" <<t << "\tIS an INTEGER" << endl;
-//     }
-// }
+ostream& operator<<(ostream& os, const Val  &o)
+{
+    os << o.GetValue(  );   
+    return os;
+}
 
 
-// void 
-// Val::GeneratStackFrames()
-// {
-//     /*
+void 
+Val::CheckIsInteger(double t)
+{
+    if( g_numbers()->IsInteger((long double )t) == false )
+    {
+	 EXCEPTION("Number (%f) is NOT an integer, the sensor ID must be an integer between ZERO and %d", t, 16);
+    }
+    else
+    {
+	//COUT << "\t" <<t << "\tIS an INTEGER" << endl;
+    }
+}
 
-// #ifndef _WIN32
-// 	void *array[10];
-// #endif
-// 	size_t size;
-//     char **strings;
-//     size_t i;
+
+void 
+Val::GeneratStackFrames()
+{
+    /*
+
+#ifndef _WIN32
+	void *array[10];
+#endif
+	size_t size;
+    char **strings;
+    size_t i;
 	
-// #ifdef _WIN32
-// 	size = 0;
-// 	strings = new char*[0];
-// #else
-//     size = backtrace (array, 10);
-//     strings = backtrace_symbols (array, size);
-// #endif
+#ifdef _WIN32
+	size = 0;
+	strings = new char*[0];
+#else
+    size = backtrace (array, 10);
+    strings = backtrace_symbols (array, size);
+#endif
 	
-//     printf ("Obtained %d stack frames.\n", size);
+    printf ("Obtained %d stack frames.\n", size);
     
-//     for (i = 0; i < size; i++)
-//     {
-// 	printf ("%s\n", strings[i]);
-//     }
-//    */
+    for (i = 0; i < size; i++)
+    {
+	printf ("%s\n", strings[i]);
+    }
+   */
 
-//         std::stringstream buffer;
-//     buffer <<"The allowed range for parameter: "<< fName <<"\tis  [min, max] = "<< "["<< fMinValue <<", "<< fMaxValue <<"]  " << fSubscript;	
-//     buffer << ":\tYou attempted to set the value to " << fVal;  
-//     EXCEPTION ("%s", buffer.str().c_str() ) ;
+        std::stringstream buffer;
+    buffer <<"The allowed range for parameter: "<< fName <<"\tis  [min, max] = "<< "["<< fMinValue <<", "<< fMaxValue <<"]  " << fSubscript;	
+    buffer << ":\tYou attempted to set the value to " << fVal;  
+    EXCEPTION ("%s", buffer.str().c_str() ) ;
 
-// 	//delete[] strings;
+	//delete[] strings;
 
-// }
-
-
-// void
-// Val::CheckLimits(const double &t, const double min, const double max)
-// {
-//     if(t > max || t < min)
-//     {
-// 	GeneratStackFrames();
-//     }
-// }
+}
 
 
-// void 
-// Val::SetValue(const double value) 
-// { 
-//     fVal = value; 
-//     CheckLimits( value, fMinValue, fMaxValue );
-// }
+void
+Val::CheckLimits(const double &t, const double min, const double max)
+{
+    if(t > max || t < min)
+    {
+	GeneratStackFrames();
+    }
+}
+
+
+void 
+Val::SetValue(const double value) 
+{ 
+    fVal = value; 
+    CheckLimits( value, fMinValue, fMaxValue );
+}

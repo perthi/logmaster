@@ -34,7 +34,7 @@
 //#include <utilities/GSystem.h>
 //#include <cmdline/GCmdScan.h>
 //#include <cmdline/GArgument.h>
-//#include <utilities/GException.h>
+//#include <exception/GException.h>
 //
 //using namespace LOGMASTER;
 //

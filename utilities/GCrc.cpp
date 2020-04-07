@@ -34,7 +34,7 @@
 
 
 #if defined( __unix__ )  || defined (_WIN32 )
-//#include <utilities/GException.h>
+//#include <exception/GException.h>
 //#include <logging/LLogApi.h>
 ///using namespace LOGMASTER;
 #endif

@@ -27,7 +27,7 @@
 
 #include "TestDataTypesT.h"
 
-#include <utilities/GException.h>
+#include <exception/GException.h>
 
 /** @defgroup datatype_test Structs for testing of the datatype library. 
 *   Here we decalere a couple of tests classes (structs actually) in order to test basic operatiosn such as 

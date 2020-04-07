@@ -14,7 +14,7 @@
 #include <xml/GXmlValidator.h>
 //#include <iostream>
 #include <utilities/GSystem.h>
-#include <utilities/GException.h>
+#include <exception/GException.h>
 #include <configuration/KFXMLParser.h>
 #include <configuration/KFXMLParserHMI.h>
 #include <configuration/KFXMLWriter.h>

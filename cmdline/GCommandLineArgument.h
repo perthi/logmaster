@@ -13,10 +13,14 @@
 *** General Public License(LGPL) V3 or later.See.cpp file for details     ***
 *****************************************************************************/
 
-//// #include <utilities/GDataTypes.h>
+
+
+#include "GArgument.h"
+
+#include <utilities/GDataTypes.h>
 #include <utilities/GDefinitions.h>
 #include <logging/LLogging.h>
-#include "GArgument.h"
+#include <logging/LPublisher.h>
 
 #include <vector>
 #include <iostream>
@@ -27,7 +31,8 @@
 #include <type_traits>
 
 
-#include <logging/LPublisher.h>
+
+
 
 
 using namespace LOGMASTER;

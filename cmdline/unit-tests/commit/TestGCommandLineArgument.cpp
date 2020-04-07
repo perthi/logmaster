@@ -36,7 +36,7 @@
 using std::function;
 using std::bind;
 
-#include <utilities/GException.h>
+#include <exception/GException.h>
 
 
 using namespace std::placeholders;

@@ -7,7 +7,7 @@ using namespace LOGMASTER;
 
 #include <com/GClientTCP.h>
 #include <logging/LLogApi.h>
-#include <utilities/GException.h>
+#include <exception/GException.h>
 #include <utilities/GNumbers.h>
 
 #include <stdlib.h>

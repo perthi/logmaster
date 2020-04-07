@@ -2,7 +2,7 @@
 // -*- mode: c++ -*-
 
 #include <logging/LLogApi.h>
-#include <utilities/GException.h>
+#include <exception/GException.h>
 #include <utilities/GNumbers.h>
 
 using namespace LOGMASTER;

@@ -10,5 +10,5 @@ SRCCPP += xml-dll-test.cpp \
 include ../../../../common.mk
 include ../../../../unittest-common.mk
 
-LIBS+= -llogmaster -lutilities -lcmdline -lreadline -lxml-embc  -lxml2
+LIBS+= -llogmaster -lutilities -lcmdline  -lexception -lreadline -lxml-embc  -lxml2
 INCLUDES+=$(GTEST_INCLUDES)

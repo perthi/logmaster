@@ -43,7 +43,7 @@ using namespace GCONSTANTS;
 #include  <cmdline/GCommandLineArgument.h>
 #include  <cmdline/GCmdScan.h>
 
-#include <utilities/GException.h>
+#include <exception/GException.h>
 
 
 /** @brief Constructor that reads commandline parameters passed to the application from the system (instead of using C-style argc **argv) and adds "* additional_arument" to the

@@ -7,9 +7,9 @@
 
 #include "GXmlClassFactory.h"
 #include "GXmlStreamWriterImpl.h"
-#include <utilities/GException.h>
+#include <exception/GException.h>
 #include <logging/LLogApi.h>
-#include <utilities/GException.h>
+#include <exception/GException.h>
 
 
 #define MY_ENCODING "UTF-8"

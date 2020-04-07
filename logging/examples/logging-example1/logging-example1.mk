@@ -5,7 +5,7 @@ SRCCPP+=../logging-example1.cpp \
 	../GVersion.cpp
 
 
-LIBS+= -llogmaster  -lutilities  -lcmdline  -lutilities -llogmaster -lreadline -lpthread  
+LIBS+=  -lcmdline -llogmaster  -lutilities  -lexception -lreadline -lpthread  
 
 
 include ../../../../common.mk

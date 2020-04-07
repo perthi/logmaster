@@ -13,7 +13,7 @@ include ../../../../unittest-common.mk
 
 
 
-LIBS+=  -lcom  -ltestlib -llogmaster  -lcmdline
+LIBS+=  -lcom  -ltestlib -llogmaster  -lexception  -lcmdline -lutilities -lreadline
 
 
 INCLUDES+=$(GTEST_INCLUDES)

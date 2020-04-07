@@ -27,7 +27,7 @@
 
 #include "GCmdWiki.h"
 
-#include  <utilities/GException.h>
+#include  <exception/GException.h>
 #include  <utilities/GFileIOHandler.h>
 #include  <logging/LLogApi.h>
 

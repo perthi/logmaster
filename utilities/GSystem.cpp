@@ -40,7 +40,7 @@ using namespace LOGMASTER;
 #include "GText.h"
 #include "GCommon.h"
 
-////#include <utilities/GException.h>
+////#include <exception/GException.h>
 
 #ifndef _WIN32
 #include <dirent.h>

@@ -2,7 +2,7 @@
 
 
 #include <utilities/GFileIOHandler.h>
-#include <utilities/GException.h>
+#include <exception/GException.h>
 #include <cmdline/GCommandLineArgument.h>
 
 

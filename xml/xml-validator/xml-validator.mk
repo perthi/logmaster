@@ -7,7 +7,7 @@ SRCCPP+=../xml-validator.cpp \
 	GVersionMenu.cpp
 
 
-LIBS+= -lxml-embc  -lxml2 -llogmaster -lutilities -lcmdline  -lreadline
+LIBS+= -lxml-embc  -lxml2 -llogmaster -lutilities  -lcmdline  -lexception -lreadline
 
 
 include ../../../common.mk

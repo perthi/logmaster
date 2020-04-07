@@ -29,7 +29,7 @@
 
 
 #include "GArgument.h"
-#include <utilities/GException.h>
+#include <exception/GException.h>
 #include <logging/LLogging.h>
 #include <utilities/GUtilities.h>
 #include <string>
@@ -38,8 +38,6 @@ using std::string;
 using std::vector;
 #include <sstream>
 using namespace LOGMASTER;
-
-#include <utilities/GException.h>
 
 
 

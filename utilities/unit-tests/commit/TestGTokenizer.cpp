@@ -28,7 +28,7 @@
 
 #include "TestGTokenizer.h"
 #include <utilities/GTokenizer.h>
-#include <utilities/GException.h>
+#include <exception/GException.h>
 #include <utilities/GText.h>
 
 #include <ctime>

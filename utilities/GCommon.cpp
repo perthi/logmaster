@@ -43,7 +43,7 @@ void
 #ifdef G_STANDALONE
 GCommon::HandleError(const string message, const GLocation ,     const bool   disable_exception  )
 #else
-#include <utilities/GException.h>
+#include <exception/GException.h>
 GCommon::HandleError(const string message, const GLocation  l,   const bool   disable_exception  )
 #endif
 {

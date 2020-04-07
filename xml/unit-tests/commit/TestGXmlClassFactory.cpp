@@ -16,9 +16,9 @@
 #include <algorithm>
 
 #include <utilities/GSystem.h>
-#include <utilities/GException.h>
+#include <exception/GException.h>
 #include <logging/LLogging.h>
-#include <utilities/GException.h>
+#include <exception/GException.h>
 
 
 

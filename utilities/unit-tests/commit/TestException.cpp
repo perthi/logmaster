@@ -2,7 +2,7 @@
 
 
 #include "TestException.h"
-#include <utilities/GException.h>
+#include <exception/GException.h>
 #include <testlib/TestBase.h>
 #include <utilities/GText.h>
 #include <utilities/GRandom.h>

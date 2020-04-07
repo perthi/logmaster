@@ -5,7 +5,7 @@ PROGRAM:=tcp-server
 SRCCPP+=tcp-server.cpp 
 
 
-LIBS+= -llogmaster  -lcom -lutilities  -lreadline  -lpthread  
+LIBS+=  -lcom -llogmaster   -lutilities  -lexception -lreadline  -lpthread  
 
 #CPPFLAGS=$(CPPFLAGS_RELAXED)
 

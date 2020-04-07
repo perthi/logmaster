@@ -28,7 +28,7 @@
 
 #include "TestGRegexp.h"
 #include <utilities/GRegexp.h>
-#include <utilities/GException.h>
+#include <exception/GException.h>
 
 
 

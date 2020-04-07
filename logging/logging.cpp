@@ -34,7 +34,7 @@
 #include <logging/LMessage.h>
 #include <logging/LMacros.h>
 
-//#include <utilities/GException.h>
+//#include <exception/GException.h>
 //#include <exception/GException.cpp>
 
 #include "logging.h"

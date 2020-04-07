@@ -22,7 +22,7 @@
 #include <vector>
 #include <algorithm>
 
-#include <utilities/GException.h>
+#include <exception/GException.h>
 #include <logging/LLogging.h>
 
 

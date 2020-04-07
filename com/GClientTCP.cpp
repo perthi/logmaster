@@ -7,7 +7,7 @@
 
 using namespace LOGMASTER;
 
-#include <utilities/GException.h>
+#include <exception/GException.h>
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -38,7 +38,7 @@
 #include  <logging/LConfig.h>
 #include  <cmdline/GLogApplication.h>
 
-#include <utilities/GException.h>
+#include <exception/GException.h>
 
 using std::cout;
 using std::endl;

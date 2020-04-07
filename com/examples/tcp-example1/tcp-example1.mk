@@ -5,7 +5,7 @@ PROGRAM:=tcp-example1
 SRCCPP+=tcp-example1.cpp 
 
 
-LIBS+= -llogmaster  -lcom -lutilities  -lcom  -lpthread   -lreadline  
+LIBS+=   -lcom  -llogmaster -lutilities  -lexception  -lpthread   -lreadline  
 
 #CPPFLAGS=$(CPPFLAGS_RELAXED)
 

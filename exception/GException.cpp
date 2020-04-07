@@ -29,13 +29,9 @@
 
 
 #include "GException.h"
-#include  <utilities/GStackTrace.h>
-/// #include <utilities/GTokenizer.h>
+#include  <exception/GStackTrace.h>
 #include <utilities/GRegexp.h>
-#include <utilities/GRegexp.cpp>
 #include <utilities/GString.h>
-//#include <utilities/GString.cpp>
-
 #include <logging/LLogging.h>
 #include <logging/LMessage.h>
 #include <logging/LMessageGenerator.h>

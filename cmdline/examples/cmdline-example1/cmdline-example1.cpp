@@ -42,7 +42,7 @@
 #include <cmdline/GLogApplication.h>
 #include <utilities/GNumbers.h>
 #include <utilities/GConstants.h>
-#include <utilities/GException.h>
+#include <exception/GException.h>
 
 using namespace GCONSTANTS;
 using namespace LOGMASTER;
