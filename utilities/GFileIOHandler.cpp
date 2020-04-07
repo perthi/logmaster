@@ -34,7 +34,6 @@
 #include "GSystem.h"
 #include "GText.h"
 #include "GTokenizer.h"
-#include <logging/LLogging.h>
 #include <fstream>
 #include <sys/stat.h>
 #include <stdio.h>
@@ -48,12 +47,6 @@
 #undef CreateFile
 #endif
 
-
-#ifndef G_STANDALONE
-#include <exception/GException.h>
-#endif
-
-using namespace  LOGMASTER;
 using std::ifstream;
 #include <cstdarg>
 
@@ -263,12 +256,9 @@ GFileIOHandler::CheckFileEx(const string fname, const char *opt)
 {
     if (CheckFile(fname, opt) == false)
     {
-#ifndef G_STANDALONE
-        FILE_NOT_FOUND_EXCEPTION("could not open file %s in %c mode)", fname.c_str(), opt );
-#else
-        std::runtime_error("could not open file");
-#endif
+        g_common()->HandleError( GText(  "could not open file %s in %c mode)", fname.c_str(), opt).str() , GLOCATION, THROW_EXCEPTION  );
     }
+
     else
     {
         return true;
