@@ -11,8 +11,7 @@
 
 
 #include <logging/LDefinitions.h>
-//#include <common/include/KGDefinitions.h>
-#include <utilities/GDefinitions.h>
+#include "LMacros.h"
 #include <string>
 
 using std::string;

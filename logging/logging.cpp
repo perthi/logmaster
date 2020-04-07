@@ -32,7 +32,7 @@
 #include <logging/LLogging.h>
 #include <logging/LLogTest.h>
 #include <logging/LMessage.h>
-#include <common/include/KGDefinitions.h>
+#include <logging/LMacros.h>
 
 //#include <utilities/GException.h>
 //#include <exception/GException.cpp>

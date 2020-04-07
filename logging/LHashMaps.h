@@ -9,7 +9,7 @@
 *****************************************************************************/
 
 #include <logging/LEnums.h>
-#include <utilities/GDefinitions.h>
+#include <logging/LHashMaps.h>
 
 #include <map>
 #include <tuple>

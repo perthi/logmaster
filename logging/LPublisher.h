@@ -9,7 +9,7 @@
 *****************************************************************************/
 
 #include "LLogApi.h"
-#include <utilities/GDefinitions.h>
+#include "LMacros.h"
 
 #include <memory>
 

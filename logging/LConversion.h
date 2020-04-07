@@ -9,8 +9,8 @@
 *** General Public License (LGPL) V3 or later. See .cpp file for details ***
 *****************************************************************************/
 
-///#include <fec-core/common/include/KGDefinitions.h>
-#include <utilities/GDefinitions.h>
+
+#include "LMacros.h"
 #include <logging/LDefinitions.h>
 #include <logging/LEnums.h>
 #include <utilities/GNumbers.h>

@@ -12,7 +12,7 @@
 
 
 #include "LLogApi.h"
-#include <utilities/GDefinitions.h>
+#include "LMacros.h"
 #include <utilities/GColor.h>
 #include <tuple>
 #include <map>

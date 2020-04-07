@@ -11,7 +11,7 @@
 
 
 #include "LEnums.h"
-#include <utilities/GDefinitions.h>
+#include <logging/LMacros.h>
 #include <string>
 #include <iostream>
 using std::string;
