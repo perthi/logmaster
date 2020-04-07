@@ -75,6 +75,7 @@ logging-unittest:=    	logging/unit-tests/commit/$(TARGET)
 cmdline:= 		cmdline/$(TARGET)
 cmdline-example1:=      cmdline/examples/cmdline-example1/$(TARGET)
 cmdline-unittest:=	cmdline/unit-tests/commit/$(TARGET)
+exception:=             exception/$(TARGET)
 
 
 xml:=			xml/$(TARGET)
@@ -112,6 +113,8 @@ src-lib:= $(support-modules) \
 	$(xml) \
 	$(common) \
 	$(com) \
+        $(exception)
+
 
 src-exe:=$(helloworld) \
 	$(unittests) \

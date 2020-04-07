@@ -10,6 +10,7 @@
 
 #include <logging/LEnums.h>
 #include <logging/LHashMaps.h>
+#include <logging/LMacros.h>
 
 #include <map>
 #include <tuple>

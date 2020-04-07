@@ -261,9 +261,6 @@ GSystem::GetCommandLineArguments()
     fgets(cmdline, sizeof cmdline, fp);
     vector<string> tokens = g_tokenizer()->Tokenize(cmdline);
 
-    COUT << "commandline = " << cmdline << " !!!!!!!!!!!!!!!" << endl;
-    COUT << "PID = " << pid << " !!!!!!!!!!!!!!!" << endl;
-
     for (size_t i = 1; i < tokens.size(); i++)
     {
         ret += tokens[i];

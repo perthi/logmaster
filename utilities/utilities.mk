@@ -24,8 +24,6 @@ SRCCPP+=GCommon.cpp \
 	GTime.cpp \
 	GTokenizer.cpp \
 	GUtilities.cpp \
-	GStackTrace.cpp \
-	GException.cpp \
 	GEnumHelper.cpp \
 	GEnumHelperImpl.cpp \
 	GCrc.cpp
