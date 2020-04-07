@@ -463,7 +463,7 @@ GLogApplication::SetMandatory(const string cmd)
 			return 0;
 		}
 	}
-//	FOC_ERROR("could not find %s", cmd.c_str() );
+
 	return -1;
 }
 
@@ -479,7 +479,6 @@ GLogApplication::SetOptional(const string cmd )
 			return 0;
 		}
 	}
-///	FOC_ERROR("could not find %s", cmd.c_str() );
 	return -1;
 }
 
@@ -495,7 +494,6 @@ GLogApplication::IsMandatory(const string cmd) const
 		}
 	}
 
-///	FOC_ERROR("could not find %s", cmd.c_str() );
 	return false;
 }
 
