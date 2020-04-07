@@ -7,13 +7,8 @@
 
 
 #include "GEnumHelperImpl.h"
-
 #include <cstring>
 
-#include <logging/LLogApi.h>
-
-
-using namespace LOGMASTER;
 
 GEnumHelperElement::GEnumHelperElement(const char* valStr)	: fDataStr(""), fValues(), fStrings(), fValMap()
 {

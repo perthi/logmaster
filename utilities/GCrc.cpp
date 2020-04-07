@@ -33,12 +33,6 @@
 #include "GLocation.h"
 
 
-#if defined( __unix__ )  || defined (_WIN32 )
-//#include <exception/GException.h>
-//#include <logging/LLogApi.h>
-///using namespace LOGMASTER;
-#endif
-
 
 uint32_t GCrc::icrctb[256];
 

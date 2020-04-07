@@ -30,14 +30,15 @@
 
 #include "GSemaphore.h"
 
-#include <logging/LLogging.h>
-#include <logging/LLogApi.h>
+//#include <logging/LLogging.h>
+//#include <logging/LLogApi.h>
+//using namespace LOGMASTER;
 
 
-using namespace LOGMASTER;
-
-
-#include <utilities/GTime.h>
+#include "GTime.h"
+#include "GLocation.h"
+#include "GCommon.h"
+#include "GText.h"
 
 GSemaphore * g_semaphore()
 {
@@ -68,24 +69,25 @@ GSemaphore::~GSemaphore()
 void 
 GSemaphore::HandleSemaphoreError( const int ret, const double time ) const
 {
-    COM_ERROR("%s", strerror(ret) );
+    g_common()->HandleError(  GText ("%s", strerror(ret) ).str() , GLOCATION, DISABLE_EXCEPTION  );
     
+
     switch(ret)
     {
         case EINTR:
-            COM_FATAL("call to wait interrupted by signal");
+            g_common()->HandleError(  GText ("call to wait interrupted by signal").str() , GLOCATION, DISABLE_EXCEPTION  );
             break;
         case EAGAIN:
-            COM_FATAL("Could not aquire semaphore without blocking (value is ZERO)");
+            g_common()->HandleError(  GText ("Could not aquire semaphore without blocking (value is ZERO)").str(), GLOCATION, DISABLE_EXCEPTION  );
             break;
         case EINVAL:
-            COM_FATAL("Invalid timespeck value");
+            g_common()->HandleError(  GText ("Invalid timespeck value").str() , GLOCATION, DISABLE_EXCEPTION  );
             break;
         case ETIMEDOUT:
-            COM_ERROR("Timeout waiting %0.1f seconds for semaphore", time);
+            g_common()->HandleError(  GText ("Timeout waiting %0.1f seconds for semaphore", time).str() , GLOCATION, DISABLE_EXCEPTION  );
             break;
         default:
-            COM_ERROR("Unknown Error (%d)", ret );    
+            g_common()->HandleError(  GText ("Unknown Error (%d)", ret ).str(),  GLOCATION, DISABLE_EXCEPTION  ) 
     }
 
 }
@@ -101,7 +103,7 @@ GSemaphore::TimedWait(sem_t *s, const double timetowait_sec)
 {
 #ifndef _WIN32
     static timespec ts;
-    double current_time =g_time()->GetEpochTime();
+    double current_time = g_time()->GetEpochTime();
     double wait_until = current_time + timetowait_sec;
 
     ts.tv_sec = wait_until;
@@ -113,6 +115,7 @@ GSemaphore::TimedWait(sem_t *s, const double timetowait_sec)
     {
         int val;
         sem_getvalue(s, &val);
+
         COM_WARNING("could not get semaphore: current value count is %d", val);
         HandleSemaphoreError(errno,  timetowait_sec );
         return ret; /// @todo find a better way to handle retrun code. Here it can be mixed with readlength
@@ -153,7 +156,7 @@ GSemaphore::Post( sem_t *s)
   //  int ret = sem_wait(fSem  );
     if(val != 0)
     {
-        COM_ERROR("Expected semaphore to be ZERO before call to POST, sem value = %d,  ignoring call", val);
+        g_common()->HandleError(  GText("Expected semaphore to be ZERO before call to POST, sem value = %d,  ignoring call", val).str(), GLOCATION, DISABLE_EXCEPTION) ;
         return -1;
     }
     else
