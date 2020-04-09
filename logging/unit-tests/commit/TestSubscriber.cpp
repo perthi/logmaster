@@ -146,13 +146,13 @@ TEST_F(TestSubscriber, setTargetFileTest)
 
 TEST_F(TestSubscriber, cmdLine  )
 {  
-	this->InitLogArgs();
+	g->InitLogArgs();
 	LPublisher::DisableColor();
 
 	try
 	{
 		fStrCout.str("");
-		this->ScanArguments("-logtarget    --target-off    --target-subscriber  -logformat 00000001");
+		g->ScanArguments("-logtarget    --target-off    --target-subscriber  -logformat 00000001");
 		
 		SET_LOGLEVEL("--all-warning");
 		G_WARNING("Hello Chuck Norris");
@@ -160,17 +160,17 @@ TEST_F(TestSubscriber, cmdLine  )
 		EXPECT_STREQ(fMsg2->fMsgBody, "Hello Chuck Norris");
 		EXPECT_EQ(fStrCout.str(), "");
 
-		this->ScanArguments("-logtarget --target-stdout --target-subscriber");
+		g->ScanArguments("-logtarget --target-stdout --target-subscriber");
 		G_ERROR("Hello Dolly");
 		EXPECT_STREQ(fMsg1->fMsgBody, "Hello Dolly");
 		EXPECT_EQ(fStrCout.str(), "\tHello Dolly\n");
 
 		fStrCout.str("");
-		this->ScanArguments("-logtarget 0000 --target-subscriber");
+		g->ScanArguments("-logtarget 0000 --target-subscriber");
 
 		fMsg1->fMsgBody[0] = 0;
 		fMsg2->fMsgBody[0] = 0;
-		this->ScanArguments("-logtarget  --target-subscriber");
+		g->ScanArguments("-logtarget  --target-subscriber");
 		G_ERROR("Hello Dolly");
 		EXPECT_STREQ(fMsg1->fMsgBody, "Hello Dolly");
 		EXPECT_STREQ(fMsg2->fMsgBody, "Hello Dolly");
@@ -204,7 +204,7 @@ TEST_F(TestSubscriber, cmdLine  )
 
 		fStrCout.str("");
 		SET_LOGTARGET("0000");
-		this->ScanArguments("-logtarget 1000 --target-subscriber");
+		g->ScanArguments("-logtarget 1000 --target-subscriber");
 		G_ERROR("Hello PTH");
 		EXPECT_STREQ("Hello PTH", fMsg1->fMsgBody);
 		EXPECT_STREQ("Hello PTH", fMsg2->fMsgBody);

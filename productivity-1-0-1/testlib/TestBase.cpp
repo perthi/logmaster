@@ -46,3 +46,9 @@
 //extern  char** argv_ ;
 //
 ////SET_LOGTARGET("--target-off --target-file");
+
+
+extern  int argc_ ;
+extern  char** argv_ ;
+//
+///SET_LOGTARGET("--target-off --target-file");

@@ -35,7 +35,7 @@ TEST_F(TestGLogApplication, get_argument )
 	GLogApplication *g = new GLogApplication();
   g->InitLogArgs();
 	EXPECT_NE(nullptr, g->GetArgument("-loglevel")  );
-  delete g;
+ // delete g;
 }
 
 
@@ -60,12 +60,12 @@ TEST_F(TestGLogApplication, cmdline_from_file)
         EXPECT_EQ("-loglevel --all -logtarget 0000 --target-file", g_file()->ReadLastLine(fValidCommands));
         g_file()->Append(fNotValidCommands, "%s", "gibberish");
         EXPECT_EQ("gibberish", g_file()->ReadLastLine(fNotValidCommands));
-        EXPECT_NO_THROW(GLogApplication( GFileName_t(fValidCommands) )  );
-        EXPECT_ANY_THROW(GLogApplication(GFileName_t(fNotValidCommands) ));
+        EXPECT_NO_THROW( new GLogApplication( GFileName_t(fValidCommands) )  );
+        EXPECT_ANY_THROW( new GLogApplication(GFileName_t(fNotValidCommands) ));
 
         try
         {
-        GLogApplication( GFileName_t(fValidCommands) ); 
+          new GLogApplication( GFileName_t(fValidCommands) ); 
         }
         catch( GException &e )
         {
@@ -92,17 +92,17 @@ TEST_F(TestGLogApplication, extra_arguments)
     vector< std::shared_ptr<GArgument>  >  arg1_v = {arg1};
 
     
-    EXPECT_ANY_THROW(GLogApplication(GFileName_t(fValidCommands), &arg1_v));
-    EXPECT_ANY_THROW(GLogApplication(GFileName_t(fNotValidCommands), &arg1_v ) );
+    EXPECT_ANY_THROW( new  GLogApplication(GFileName_t(fValidCommands), &arg1_v));
+    EXPECT_ANY_THROW( new GLogApplication(GFileName_t(fNotValidCommands), &arg1_v ) );
 
     g_file()->Append(fValidCommands, "%s", "-fval1 3.1415901");
     g_file()->Append(fNotValidCommands, "%s", "-nonexisting 3.14");
 
-    EXPECT_NO_THROW(GLogApplication(GFileName_t(fValidCommands),  &arg1_v ));
+    EXPECT_NO_THROW( new GLogApplication(GFileName_t(fValidCommands),  &arg1_v ));
     EXPECT_NEAR(f1, 3.1415901, 0.001);
     g_file()->Delete(fValidCommands);
     g_file()->Append(fValidCommands, "%s", "-fval1 3.1415901  -fval2  1.61803  -fval3  0.76422");
-    EXPECT_NO_THROW(  GLogApplication(GFileName_t(fValidCommands),  &all_args  ));
+    EXPECT_NO_THROW(  new GLogApplication(GFileName_t(fValidCommands),  &all_args  ));
     EXPECT_NEAR(f1, 3.1415901, 0.0001);
     EXPECT_NEAR(f2, 1.61803, 0.0001);
     EXPECT_NEAR(f3, 0.76422, 0.0001);

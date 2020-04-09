@@ -48,7 +48,9 @@ class TestBase : public testing::Test
 
 };
 #else
-class TestBase : public GLogApplication, public testing::Test
+//class TestBase : public GLogApplication, public testing::Test
+//{
+class TestBase : public testing::Test
 {
 
 public:
@@ -58,6 +60,7 @@ public:
 
 protected:
     LLogging             *l = LLogging::Instance();
+	GLogApplication   *g = nullptr;
     string	       fOldLogFileName = "not_set.log";
     string	       fTestLogFileName= "googletest.log";
 
@@ -69,10 +72,10 @@ protected:
 
 
 inline 
-TestBase::TestBase() : GLogApplication()
+TestBase::TestBase() 
 {
 	SET_LOGTARGET("--target-off --target-file");
-	GLogApplication((const int)argc_, (const char**)argv_, nullptr, true);
+	g = new GLogApplication((const int)argc_, (const char**)argv_, nullptr, true);
 	Init();
 };
 
@@ -99,7 +102,8 @@ TestBase::Init()
 inline  string
 TestBase::FileIOTest(const string fname)
 {
-	string fname_local = fname == "" ? l->GetLogFileName(eMSGTARGET::TARGET_FILE) : fname;
+//	string fname_local = fname == "" ? l->GetLogFileName(eMSGTARGET::TARGET_FILE) : fname;
+	string fname_local = fname == "" ?   LLogging::Instance()->GetLogFileName(eMSGTARGET::TARGET_FILE) : fname;
 	string last = g_file()->ReadLastLine(fname_local, 1);
 	return last;
 }

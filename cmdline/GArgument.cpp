@@ -78,7 +78,6 @@ GArgument::GArgument(const string name,
 
 
 
-
 bool 
 GArgument::Verify()
 {

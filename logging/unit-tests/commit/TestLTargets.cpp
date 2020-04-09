@@ -52,7 +52,13 @@ TestLTargets::~TestLTargets()
 void 
 TestLTargets::SetUp()
 {	
-	InitLogArgs();
+	// if( g == nullptr)
+	// {
+	// 	g = new GLogApplication();
+	// }
+
+	g = new GLogApplication();
+	g->InitLogArgs();
 }
 
 
@@ -66,7 +72,10 @@ TestLTargets::TearDown()
 
 TEST_F(TestLTargets, configure_format_specific_target)
 {
-	
+	try
+	{
+		/* code */
+
 		LLogging *l = LLogging::Instance();
 		SET_LOGFORMAT("--target-file 00000001");
 		EXPECT_EQ(eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_FILE));
@@ -89,16 +98,16 @@ TEST_F(TestLTargets, configure_format_specific_target)
 		
 	
 
-		ScanArguments("-logformat --target-stdout 00000001");
+		g->ScanArguments("-logformat --target-stdout 00000001");
 		EXPECT_EQ(eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_STDOUT));
 		
-		ScanArguments("-logformat --target-stdout 00000001");
+		g->ScanArguments("-logformat --target-stdout 00000001");
 		
 		EXPECT_EQ(eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_STDOUT));
-		ScanArguments("-logformat --target-file 01000001");
+		g->ScanArguments("-logformat --target-file 01000001");
 		EXPECT_EQ(eMSGFORMAT::MESSAGE_TYPE | eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_FILE));
-		ScanArguments("-logformat --target-stdout 00000001");
-		ScanArguments("-logformat --target-stdout 01111111");
+		g->ScanArguments("-logformat --target-stdout 00000001");
+		g->ScanArguments("-logformat --target-stdout 01111111");
 		SET_LOGLEVEL("--target-file --off --fatal");
 		SET_LOGLEVEL("--target-stdout --off --debug");
 		G_DEBUG("This a debug message");
@@ -106,6 +115,20 @@ TEST_F(TestLTargets, configure_format_specific_target)
 		G_WARNING("This a warning message");
 		G_ERROR("This an error warning message");
 		G_FATAL("This a fatal message");
+
+	}
+	catch ( const GException & e)
+	{
+		CERR << e.what() << endl;
+	}
+	catch(const std::exception& e)
+	{
+		CERR << e.what() << '\n';
+	}
+	catch(...)
+	{
+		CERR << "Unkonw execption caught" << endl;
+	}
 	
 
 }
@@ -115,13 +138,15 @@ TEST_F(TestLTargets, configure_format_specific_target)
 TEST_F( TestLTargets, configure_level_specific_target )
 {
 
+	LLogging *l = LLogging::Instance();
+
 	vector<eMSGSYSTEM> e_s = LHashMaps::Instance()->GetSystemEnums();
 	vector<eMSGTARGET> e_t = LHashMaps::Instance()->GetTargetEnums();
-	ScanArguments( "-loglevel --all-debug");
+	g->ScanArguments( "-loglevel --all-debug");
 //	EXPECT_EQ(PAD(eMSGLEVEL::LOG_DEBUG),  (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ANALYSIS, eMSGTARGET::TARGET_STDOUT ));
 	EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING),  (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
 
-	ScanArguments( "-loglevel --all-warning");
+	g->ScanArguments( "-loglevel --all-warning");
 	g_utilities()->FilterOut( e_s, { eMSGSYSTEM::SYS_ALL, eMSGSYSTEM::SYS_NONE, eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EX } );
 	g_utilities()->FilterOut( e_t, { eMSGTARGET::TARGET_ALL, eMSGTARGET::TARGET_OFF  } );
 	
@@ -133,7 +158,7 @@ TEST_F( TestLTargets, configure_level_specific_target )
 		}
 	}
 
-	ScanArguments( "-loglevel --all-debug");
+	g->ScanArguments( "-loglevel --all-debug");
 
 	for ( size_t s = 0; s < e_s.size(); s++ )
 	{
@@ -143,8 +168,8 @@ TEST_F( TestLTargets, configure_level_specific_target )
 		}
 	}
 	
-	ScanArguments( "-loglevel --off --all-error" );
-	ScanArguments( "-loglevel --target-stdout --all-info" );
+	g->ScanArguments( "-loglevel --off --all-error" );
+	g->ScanArguments( "-loglevel --target-stdout --all-info" );
 	g_utilities()->FilterOut( e_t, { eMSGTARGET::TARGET_STDOUT } );
 	
 	for ( size_t s = 0; s < e_s.size(); s++ )
@@ -155,10 +180,6 @@ TEST_F( TestLTargets, configure_level_specific_target )
 		}
 	}
 	
-	// EXPECT_EQ(PAD(eMSGLEVEL::LOG_INFO), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ANALYSIS, eMSGTARGET::TARGET_STDOUT ));
-	// EXPECT_EQ(PAD(eMSGLEVEL::LOG_INFO), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ANALYSIS, eMSGTARGET::TARGET_STDOUT ));
-	// EXPECT_EQ(PAD(eMSGLEVEL::LOG_INFO), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ANALYSIS, eMSGTARGET::TARGET_STDOUT ));
-	// EXPECT_EQ(PAD(eMSGLEVEL::LOG_INFO), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ANALYSIS, eMSGTARGET::TARGET_STDOUT ));
 	
 	EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
 	EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));

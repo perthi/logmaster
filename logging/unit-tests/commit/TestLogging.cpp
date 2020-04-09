@@ -71,7 +71,10 @@ TestLogging::SetUpTestCase()
 void 
 TestLogging::SetUp() 
 {
-	InitLogArgs();
+	g = new GLogApplication();
+	//g->InitLogArgs();
+
+	g->InitLogArgs();
 	TestBase::SetUp();
 	SET_LOGTARGET( "0000 --target-file" );
 	fOldBuf = cout.rdbuf();
@@ -94,18 +97,13 @@ TestLogging::Subscriber(const   std::shared_ptr<LOGMASTER::LMessage>  msg  )
 }
 
 
-
-
-
-
 TEST_F(TestLogging, set_logtarget_g_logapplication )
 {
-		this->ScanArguments("-logtarget --target-off --target-subscriber -logformat 00000001");
+		g->ScanArguments("-logtarget --target-off --target-subscriber -logformat 00000001");
 		EXPECT_EQ( (int)(eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS),  (int)l->GetLogTarget());
-		this->ScanArguments("-logtarget --target-off -logformat 00000001");
+		g->ScanArguments("-logtarget --target-off -logformat 00000001");
 		EXPECT_EQ((int)(eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION ), (int)l->GetLogTarget());
 }
-
 
 
 
@@ -154,6 +152,7 @@ TEST_F( TestLogging, set_logtarget )
 
 
 
+
 TEST_F(TestLogging, level_to_string )
 {
 	EXPECT_EQ( "Error",       LMessageGenerator::Instance()->ToString( eMSGLEVEL::LOG_ERROR ));
@@ -197,10 +196,10 @@ TEST_F(TestLogging, stdoutIO)
 TEST_F(TestLogging, exeptions)
 {
 	SET_LOGTARGET("0000 --target-file");
-    EXPECT_ANY_THROW(ScanArguments("-gibberish"));
-    EXPECT_ANY_THROW(ScanArguments("-loglevel -gibberish"));
-    EXPECT_ANY_THROW(ScanArguments("-loglevel --gibberish"));
-    EXPECT_ANY_THROW(ScanArguments("-loglevel gibberish"));
+    EXPECT_ANY_THROW( g->ScanArguments("-gibberish"));
+    EXPECT_ANY_THROW( g->ScanArguments("-loglevel -gibberish"));
+    EXPECT_ANY_THROW( g->ScanArguments("-loglevel --gibberish"));
+    EXPECT_ANY_THROW( g->ScanArguments("-loglevel gibberish"));
 }
 
 
@@ -254,6 +253,8 @@ TEST_F(TestLogging, fileIO)
 }
 
 
+
+
 TEST_F(TestLogging, timeStamp)
 {
 	SET_LOGTARGET( "--target-off");
@@ -272,15 +273,17 @@ TEST_F(TestLogging, timeStamp)
 /// Testing for feature request NSR-218
 TEST_F(TestLogging, NSR218)
 {
-	EXPECT_NO_THROW( ScanArguments( "-loglevel --debug" ) );
-	EXPECT_NO_THROW( ScanArguments( "-loglevel --info" ) );
-	EXPECT_NO_THROW( ScanArguments( "-loglevel --warning" ) );
-	EXPECT_NO_THROW( ScanArguments( "-loglevel --error" ) );
-	EXPECT_NO_THROW( ScanArguments( "-loglevel --fatal" ) );
+	EXPECT_NO_THROW( g->ScanArguments( "-loglevel --debug" ) );
+	EXPECT_NO_THROW( g->ScanArguments( "-loglevel --info" ) );
+	EXPECT_NO_THROW( g->ScanArguments( "-loglevel --warning" ) );
+	EXPECT_NO_THROW( g->ScanArguments( "-loglevel --error" ) );
+	EXPECT_NO_THROW( g->ScanArguments( "-loglevel --fatal" ) );
 	SET_LOGFORMAT("01000001");
     EXPECT_STREQ("",  G_ERROR("This is a test" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
     EXPECT_STREQ("<Fatal:General>          \tThis is a test\n", G_FATAL("This is a test")->at(eMSGTARGET::TARGET_FILE)->fMsg );
    }
+
+
 
 
 TEST_F(TestLogging, NSR219)
@@ -301,7 +304,7 @@ TEST_F(TestLogging, NSR219)
 TEST_F(TestLogging, NSR207)
 {
     EXPECT_NO_THROW(SET_LOGTARGET("1111"));
-    EXPECT_NO_THROW(ScanArguments("-logtarget 1111"));
+    EXPECT_NO_THROW( g->ScanArguments("-logtarget 1111"));
     //EXPECT_NO_THROW(SET_LOGTARGET((eMSGTARGET)0x7));
     EXPECT_ANY_THROW(SET_LOGTARGET("111"));
   //  EXPECT_ANY_THROW(SET_LOGTARGET( (eMSGTARGET)0x123));
@@ -342,6 +345,7 @@ TEST_F(TestLogging, NSR790HugeMessage)
 
 
 
+
 TEST_F(TestLogging, NSR724ForceDebug)
 {
     SET_LOGLEVEL("--all");
@@ -350,8 +354,6 @@ TEST_F(TestLogging, NSR724ForceDebug)
     //If we use the force debug macro we shall generate a message regardless of the configuration of the logging system
     EXPECT_STREQ("<Force_Debug:General>    \tForcing the logging system to write a message\n",   FORCE_DEBUG("Forcing the logging system to write a message")->at(eMSGTARGET::TARGET_FILE)->fMsg );
 }
-
-
 
 
 
@@ -392,19 +394,34 @@ TEST_F(TestLogging, NSR939Subscribers)
 
 
 
-TEST_F(TestLogging, logBinary)
-{
-	SET_LOGFORMAT( "01000001"); //
-	SET_LOGLEVEL( "--all-off" );
-	EXPECT_STREQ( "", ALL_DEBUG( "This is a db DEBUG message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
-	EXPECT_STREQ( "", ALL_INFO( "This is a db INFO message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
+// TEST_F(TestLogging, logBinary)
+// {
+// //	SET_LOGFORMAT( "01000001"); //
+// 	SET_LOGFORMAT( "11111111"); //
+// 	SET_LOGLEVEL( "--all-off" );
+// 	EXPECT_STREQ( "", ALL_DEBUG( "This is a db DEBUG message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
+// 	EXPECT_STREQ( "", ALL_INFO( "This is a db INFO message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
+// 	EXPECT_STREQ( "", ALL_WARNING( "This is a ALL_WARNING message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
+// 	EXPECT_STREQ( "", ALL_ERROR( "This is a ALL_ERROR message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
+// 	EXPECT_STREQ( "", ALL_FATAL( "This is a ALL_FATAL message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
+// 	SET_LOGLEVEL( "000001000000000111000000" );
+// }
 
-	EXPECT_STREQ( "", ALL_WARNING( "This is a ALL_WARNING message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
-	EXPECT_STREQ( "", ALL_ERROR( "This is a ALL_ERROR message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
-	EXPECT_STREQ( "", ALL_FATAL( "This is a ALL_FATAL message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
 
-	SET_LOGLEVEL( "000001000000000111000000" );
-}
+
+// TEST_F(TestLogging, logBinary)
+// {
+// //	SET_LOGFORMAT( "01000001"); //
+// 	SET_LOGFORMAT( "11111111"); //
+// 	SET_LOGLEVEL( "--all" );
+// 	EXPECT_STREQ( "", ALL_DEBUG( "This is a db DEBUG message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
+// 	EXPECT_STREQ( "", ALL_INFO( "This is a db INFO message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
+// 	EXPECT_STREQ( "", ALL_WARNING( "This is a ALL_WARNING message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
+// 	EXPECT_STREQ( "", ALL_ERROR( "This is a ALL_ERROR message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
+// 	EXPECT_STREQ( "", ALL_FATAL( "This is a ALL_FATAL message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
+// 	SET_LOGLEVEL( "000001000000000111000000" );
+// }
+
 
 
 

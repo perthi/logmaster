@@ -81,11 +81,19 @@ using namespace LOGMASTER;
 *  @param[in] additional_arguments  additional argument to add to the default list of arguments
 *  @param[in] do_init Weter or not to scan commandline arguments immediately
 *  @exception GException  If the argumenst passed to the LogApplication via the constructor is invalid*/
-GLogApplication::GLogApplication( const int argc, const char** argv, vector  < std::shared_ptr<GArgument>   > *additional_arguments, bool do_init) : 
-        fArgs(0), fHelp(0), fLog(0), fTarget(0), fFormat(0), fColor(0) 
+GLogApplication::GLogApplication( const int argc, const char** argv, vector  < std::shared_ptr<GArgument>   > *additional_arguments, bool do_init) 
+    
+    //    fArgs(0), fHelp(0), fLog(0), fTarget(0), fFormat(0), fColor(0) 
 {
+  //  FORCE_DEBUG("addr = 0x%x", additional_arguments );
+    //FORCE_DEBUG("additional arguments size = %d", additional_arguments->size() );
     InitLogArgs();
-    AddArguments( *additional_arguments);
+    
+    if(  additional_arguments != nullptr)
+    {
+        AddArguments( *additional_arguments);
+    }
+
     if(do_init == true)
     {
         ScanArguments(argc, argv);
@@ -100,7 +108,12 @@ GLogApplication::GLogApplication(const GFileName_t & tf, vector<  std::shared_pt
 {
     G_DEBUG("construction started");
     InitLogArgs();
-    AddArguments( *additional_arguments);
+    
+    if( additional_arguments != nullptr )
+    {
+        AddArguments( *additional_arguments);
+    }
+
     string fname_local = tf.str();
 
     G_DEBUG("Attempting to read configuration from file \"%s\"", fname_local.c_str());
@@ -239,6 +252,8 @@ GLogApplication::InitLogArgs()
         AddArgument(fColor);
    //     is_initialized = true;
     }
+    
+
 }
 
 

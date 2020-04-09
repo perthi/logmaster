@@ -13,8 +13,6 @@
 *** General Public License(LGPL) V3 or later.See.cpp file for details     ***
 *****************************************************************************/
 
-
-
 #include "GArgument.h"
 
 #include <utilities/GDataTypes.h>
@@ -30,13 +28,9 @@
 #include <sstream>
 #include <type_traits>
 
-
-
-
-
-
 using namespace LOGMASTER;
 using namespace std;
+
 
 /** @brief base class for all command line arguments */
 template <typename T>
@@ -82,16 +76,16 @@ public:
     virtual string str() const;
 
 protected:
-    T *fParameter;
+    T *fParameter = nullptr;
 
 private:
     GCommandLineArgument();
     GCommandLineArgument(const GCommandLineArgument &);
     GCommandLineArgument  & operator = (GCommandLineArgument  &  rhs)
     {
-        fParameter = reinterpret_cast<T *>(rhs.GetParameter());
-        return *this;
-    }
+         fParameter = reinterpret_cast<T *>(rhs.GetParameter());
+         return *this;
+     }
 };
 
 
@@ -154,7 +148,7 @@ template<class T>
 //template<typename U>
 inline void GCommandLineArgument<T>::SetParameter(T * par)
 {
-    if (par == 0)
+    if (par ==  nullptr )
     {
         //G_ERROR("Parameter \"par\" is a ZERO pointer");
     }
@@ -187,7 +181,7 @@ inline void GCommandLineArgument<T>::SetParameter(T * par)
 template<class T>
 inline void GCommandLineArgument<T>::SetParameterF(T * par)
 {
-    if (fParameter != 0)
+    if (fParameter !=  nullptr )
     {
         T tmp = (T)(*par);
         *fParameter = tmp;
@@ -203,7 +197,7 @@ template<class T>
 inline void
 GCommandLineArgument<T>::SetParameterVal_t(double *par)
 {
-    if( par != 0 )
+    if( par != nullptr )
     {
        fParameter->SetValue(*par);
     }
