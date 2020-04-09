@@ -93,36 +93,36 @@ int main(const int argc, const char** argv )
     string test4 = "";
     vector<string> test5 = vector<string>();
 
-    vector<GArgument *> arguments;
+    vector< std::shared_ptr<GArgument>  > arguments;
 
 
-    GArgument *a1  =  new GCommandLineArgument< int>("-myint1", 
+    std::shared_ptr<GArgument> a1  =  std::make_shared <GCommandLineArgument< int> >("-myint1", 
                                                     "-myint1 [value]",
                                                     "sets the value of  myint1",
                                                      &test1, fgkOPTIONAL,  callback_test1 );
     
 
 /// Simlified version, no callback function, the argumen is assumed to be optional
-    GArgument *a2  =  new GCommandLineArgument< int>("-mydouble", 
+    std::shared_ptr<GArgument> a2  =  std::make_shared <GCommandLineArgument< int> >("-mydouble", 
                                                     "-mydouble [value]",
                                                     "sets the second value",
                                                      &test2);
     
     
-    GArgument *a3  =  new GCommandLineArgument< double>("-mydouble", 
+    std::shared_ptr<GArgument> a3  =  std::make_shared <GCommandLineArgument< double> >("-mydouble", 
                                                     "-mydouble [value]",
                                                     "sets the value of mydouble",
                                                      &test3, fgkOPTIONAL,  callback_test2 );
     
 
-    GArgument *a4  =  new GCommandLineArgument< string>("-mystring", 
+    std::shared_ptr<GArgument> a4  =  std::make_shared <GCommandLineArgument< string> >("-mystring", 
                                                     "-myval1 [value]",
                                                     "sets the second value",
                                                      &test4, fgkMANDATORY,  callback_test2 );
     
 
     
-    GArgument *a5  =  new GCommandLineArgument< vector<string> >("-mystring", 
+    std::shared_ptr<GArgument> a5  =  std::make_shared <GCommandLineArgument< vector<string> > >("-mystring", 
                                                     "-myval1 [value]",
                                                     "sets the second value",
                                                      &test5, fgkMANDATORY,  callback_test2 );
@@ -137,7 +137,7 @@ int main(const int argc, const char** argv )
     //(GLogApplication(argc, argv, &arguments);
 
     GLogApplication *g = new GLogApplication();
-    g->ScanArguments(argc, argv, &arguments );
+    g->ScanArguments(argc, argv, arguments );
    // cout << "test1 = "<< test1  << endl;
 
     return 0;
