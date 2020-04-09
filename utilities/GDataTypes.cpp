@@ -30,9 +30,10 @@
 
 #include "GNumbers.h"
 #include "GDataTypes.h"
-
-#include <exception/GException.h>
-//#include <utilities/GException.cpp>
+#include "GCommon.h"
+#include "GText.h"
+#include "GLocation.h"
+#include "GStackTrace.h"
 
 ostream& operator<<(ostream& os, const Val  &o)
 {
@@ -46,11 +47,8 @@ Val::CheckIsInteger(double t)
 {
     if( g_numbers()->IsInteger((long double )t) == false )
     {
-	 EXCEPTION("Number (%f) is NOT an integer, the sensor ID must be an integer between ZERO and %d", t, 16);
-    }
-    else
-    {
-	//COUT << "\t" <<t << "\tIS an INTEGER" << endl;
+        g_common()->HandleError( GText( "Number (%f) is NOT an integer, the sensor ID must be an integer between ZERO and %d", t, 16).str(), 
+                                         GLOCATION, THROW_EXCEPTION  );
     }
 }
 
@@ -58,38 +56,12 @@ Val::CheckIsInteger(double t)
 void 
 Val::GeneratStackFrames()
 {
-    /*
-
-#ifndef _WIN32
-	void *array[10];
-#endif
-	size_t size;
-    char **strings;
-    size_t i;
-	
-#ifdef _WIN32
-	size = 0;
-	strings = new char*[0];
-#else
-    size = backtrace (array, 10);
-    strings = backtrace_symbols (array, size);
-#endif
-	
-    printf ("Obtained %d stack frames.\n", size);
-    
-    for (i = 0; i < size; i++)
-    {
-	printf ("%s\n", strings[i]);
-    }
-   */
-
-        std::stringstream buffer;
-    buffer <<"The allowed range for parameter: "<< fName <<"\tis  [min, max] = "<< "["<< fMinValue <<", "<< fMaxValue <<"]  " << fSubscript;	
-    buffer << ":\tYou attempted to set the value to " << fVal;  
-    EXCEPTION ("%s", buffer.str().c_str() ) ;
-
-	//delete[] strings;
-
+    string stack =  GStackTrace::str();
+    std::stringstream msg;
+    msg <<"The allowed range for parameter: "<< fName <<"\tis  [min, max] = "<< "["<< fMinValue <<", "<< fMaxValue <<"]  " << fSubscript;	
+    msg << ":\tYou attempted to set the value to " << fVal;  
+    string s = stack + msg.str() ;
+    g_common()->HandleError( s, GLOCATION, THROW_EXCEPTION );
 }
 
 
@@ -98,7 +70,7 @@ Val::CheckLimits(const double &t, const double min, const double max)
 {
     if(t > max || t < min)
     {
-	GeneratStackFrames();
+	    GeneratStackFrames();
     }
 }
 

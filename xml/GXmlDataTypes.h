@@ -8,22 +8,19 @@
 ******************************************************/
 
 #include <utilities/GDefinitions.h>
-#include <common/MBDataTypes.h> 
-
-/// GENERATE_DATATYPE(XMLFile_t, string);
-/// GENERATE_DATATYPE(XSDFile_t, string);
+#include <utilities/MBDataTypes.h> 
 
 
 class XMLFile_t  : public MBDataType<string> 
 { 
-	public:
-		XMLFile_t ( ) : MBDataType("") {};
-		XMLFile_t ( string val) : MBDataType(val) {};
+public:
+    XMLFile_t ( ) : MBDataType("") {};
+    XMLFile_t ( string val) : MBDataType(val) {};
 };
 
 class XSDFile_t  : public MBDataType<string> 
 { 
-	public:
-		XSDFile_t ( ) : MBDataType("") {};
-		XSDFile_t ( string val) : MBDataType(val) {};
+public:
+    XSDFile_t ( ) : MBDataType("") {};
+    XSDFile_t ( string val) : MBDataType(val) {};
 };

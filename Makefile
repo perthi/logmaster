@@ -72,26 +72,28 @@ utilities-unittest:=  utilities/unit-tests/commit/$(TARGET)
 logging:=    	  	  logging/$(TARGET)
 logging-example1:=	  logging/examples/logging-example1/$(TARGET)
 logging-unittest:=    logging/unit-tests/commit/$(TARGET)
-cmdline:= 		      cmdline/$(TARGET)
-cmdline-example1:=    cmdline/examples/cmdline-example1/$(TARGET)
-cmdline-unittest:=	  cmdline/unit-tests/commit/$(TARGET)
+#cmdline:= 		      cmdline/$(TARGET)
+#cmdline-example1:=    cmdline/examples/cmdline-example1/$(TARGET)
+#cmdline-unittest:=	  cmdline/unit-tests/commit/$(TARGET)
 exception:=           exception/$(TARGET)
+exception-unittest:=  exception/unit-tests/commit/$(TARGET)
 
-xml:=                 xml/$(TARGET)
-xml-unittest:=        xml/unit-tests/commit/$(TARGET)
-xml-example1:=        xml/examples/xml-example1/$(TARGET)
-xml-validator:=       xml/xml-validator/$(TARGET)
+#xml:=                 xml/$(TARGET)
+#xml-unittest:=        xml/unit-tests/commit/$(TARGET)
+#xml-example1:=        xml/examples/xml-example1/$(TARGET)
+#xml-validator:=       xml/xml-validator/$(TARGET)
 
-com:=                 com/$(TARGET)
-com-unittest:=        com/unit-tests/commit/$(TARGET)
-com-example1:=        com/examples/tcp-example1/$(TARGET)
-com-server:=          com/tcp-server/$(TARGET)
-com-client:=          com/tcp-client/$(TARGET)
+#com:=                 com/$(TARGET)
+#com-unittest:=        com/unit-tests/commit/$(TARGET)
+#com-example1:=        com/examples/tcp-example1/$(TARGET)
+#com-server:=          com/tcp-server/$(TARGET)
+#com-client:=          com/tcp-client/$(TARGET)
 
 
 
 unittests:= 	$(utilities-unittest) \
-		$(logging-unittest) \
+		$(exception-unittest) \
+                $(logging-unittest) \
 		$(cmdline-unittest) \
 		$(xml-unittest) \
 		$(intercom-unittets) \

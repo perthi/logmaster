@@ -29,7 +29,7 @@
 
 
 #include "GException.h"
-#include  <exception/GStackTrace.h>
+#include  <utilities/GStackTrace.h>
 #include <utilities/GRegexp.h>
 #include <utilities/GString.h>
 #include <logging/LLogging.h>
