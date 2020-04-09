@@ -253,7 +253,9 @@ TEST_F(TestGCommandLineArgument, boolArgs)
 TEST_F(TestGCommandLineArgument, mandatoryArgs)
 {
     // Adding a mandatory argument to the argument list
-    GCommandLineArgument <double> *mdarg = new  GCommandLineArgument <double>("-mandatory", "-andatory [value]", "This is the documentation", &d, fgkMANDATORY, 0);
+    
+    std::shared_ptr<GCommandLineArgument <double> > mdarg =  std::make_shared < GCommandLineArgument <double> >("-mandatory", "-andatory [value]", "This is the documentation", &d, fgkMANDATORY, nullptr);
+    
     fArgs.push_back(mdarg);
     ///-myint is  valdi argument, but since -mandatory is missing, we shall still get an exception 
     EXPECT_ANY_THROW(ScanArguments("-myint 20"));
@@ -481,9 +483,9 @@ TEST_F(TestGCommandLineArgument, simpleconstructorNSR216)
     };
     
     Test_t *t = new  Test_t();
-    GCommandLineArgument<int>    *a  =  new  GCommandLineArgument<int>("-ival", &i);
-    GCommandLineArgument<double> *b  =  new  GCommandLineArgument<double>("-fval", &f);
-    GCommandLineArgument<Val_t<double>> *c = new  GCommandLineArgument<Val_t<double> >("-dummy", t);
+    std::shared_ptr<GCommandLineArgument<int>  >  a  =     std::make_shared < GCommandLineArgument<int> >("-ival", &i);
+    std::shared_ptr<  GCommandLineArgument<double> > b  =     std::make_shared < GCommandLineArgument<double> >("-fval", &f);
+     std::shared_ptr< GCommandLineArgument<Val_t<double> > > c =    std::make_shared < GCommandLineArgument<Val_t<double> > >("-dummy", t);
 
     ScanArguments("-ival 33", a);
     ScanArguments("-fval 2.71828182845", b);
@@ -493,8 +495,8 @@ TEST_F(TestGCommandLineArgument, simpleconstructorNSR216)
 	EXPECT_DOUBLE_EQ(27.1828182845, t->GetValue() );
 	EXPECT_ANY_THROW(ScanArguments("-dummxxy 200", c ) );
 
-    delete a;
-    delete b;
+    // delete a;
+    // delete b;
     delete t;
  
   }
@@ -507,7 +509,9 @@ TEST_F(TestGCommandLineArgument, simpleconstructorNSR216)
      
    //  SET_LOGFORMAT("1111111");
  
-     GCommandLineArgument<string> *s = new GCommandLineArgument<string>("-mystring", &test);
+     std::shared_ptr<GCommandLineArgument<string> > s = std::make_shared< GCommandLineArgument<string> >("-mystring", &test);
+     
+     
      try
      {
          ScanArguments("-mystring \"hello world\"", s);

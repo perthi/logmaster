@@ -110,8 +110,7 @@ template<typename T>
 inline void 
 GCmdScan::SetParameterVal_t( std::shared_ptr<GArgument>  a, GArgumentParsed v) const
 {
-    GCommandLineArgument < T >  *ab = reinterpret_cast<GCommandLineArgument < T> *>(a);
-
+///    GCommandLineArgument < T >  *ab = reinterpret_cast<GCommandLineArgument < T> *>(a);
     std::shared_ptr< GCommandLineArgument < T > > ab =  std::dynamic_pointer_cast< GCommandLineArgument < T >   >( a); 
 
     ///G_FATAL("%s: Argument missing !!",  ab->GetCommand().c_str()   );
@@ -167,9 +166,13 @@ template<typename T>
 inline void
 GCmdScan::SetParametersF(  std::shared_ptr<GArgument>  a, GArgumentParsed v) const
 {
-     GCommandLineArgument < T >  *ab = reinterpret_cast<GCommandLineArgument < T> *>(a);
+     //GCommandLineArgument < T >  *ab = reinterpret_cast<GCommandLineArgument < T> *>(a);
+    
+    
+    std::shared_ptr<  GCommandLineArgument < T >   > ab = dynamic_pointer_cast<  GCommandLineArgument < T >   >(a);
+    G_ASSERT_EXCEPTION(ab != nullptr, "ZERO pointer");
 
-    if (ab != 0)
+    if (ab != nullptr )
     {
         if (Verify(a, v) == true)
         {

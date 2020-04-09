@@ -226,26 +226,11 @@ GLogApplication::InitLogArgs()
 {
   //  if(is_initialized == false )
     {
-        fHelp = std::make_shared < GCommandLineArgument < void > >("-help", "-help", "prints help menu", 0, fgkOPTIONAL  );
-        fLog = std::make_shared < GCommandLineArgument < vector< string > > >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::Instance()->logLevelDoc(), 0, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
-        fTarget = std::make_shared < GCommandLineArgument < vector< string > > >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::Instance()->logTargetDoc(), 0, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
-        fFormat = std::make_shared < GCommandLineArgument < vector< string > > >("-logformat", "-logformat\t\t[subcommands]", LDoc::Instance()->logFormatDoc(), 0, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
-
-
-
-        bool test = LPublisher::GetEnableColor();
-
-        if(test == true)
-        {
-            COUT << "color = TRUE" << endl;
-        }
-        else
-        {
-            COUT << "color = FALSE" << endl; 
-        }
-        
-        
-       fColor = std::make_shared<GCommandLineArgument < bool > >("-logcolor", "-logcolor\t\t--true/--false", "Wether or not to use colors when writing log messages to the console", LPublisher::GetEnableColor(), fgkOPTIONAL, GCmdApi::bool2);
+        fHelp = std::make_shared < GCommandLineArgument < void > >("-help", "-help", "prints help menu", nullptr, fgkOPTIONAL  );
+        fLog = std::make_shared < GCommandLineArgument < vector< string > > >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::Instance()->logLevelDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
+        fTarget = std::make_shared < GCommandLineArgument < vector< string > > >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::Instance()->logTargetDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
+        fFormat = std::make_shared < GCommandLineArgument < vector< string > > >("-logformat", "-logformat\t\t[subcommands]", LDoc::Instance()->logFormatDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
+        fColor = std::make_shared<GCommandLineArgument < bool > >("-logcolor", "-logcolor\t\t--true/--false", "Wether or not to use colors when writing log messages to the console", LPublisher::GetEnableColor(), fgkOPTIONAL, GCmdApi::bool2);
         
         AddArgument(fHelp);
         AddArgument(fLog);
@@ -301,7 +286,7 @@ GLogApplication::ScanArguments(const string cmdline, vector<  std::shared_ptr<GA
 void 
 GLogApplication::ScanArguments(const int argc, const char ** argv, vector< std::shared_ptr<GArgument> > args)
 {
-    g_cmdscan()->ScanArguments(argc, argv, args);
+    g_cmdscan()->ScanArguments(argc, argv, &args);
 }        
 
 
@@ -331,14 +316,14 @@ void GLogApplication::AddArgument( std::shared_ptr<GArgument>  arg)
 void  
 GLogApplication::AddArguments( vector< std::shared_ptr<GArgument> >  args)
 {
-    if (args != 0)
-    {
-        for (uint16_t i = 0; i < args->size(); i++)
+   // if (args != 0)
+   // {
+        for (uint16_t i = 0; i < args.size(); i++)
         {
-            AddArgument( args->at(i) );
+            AddArgument( args.at(i) );
         }
 
-    }
+   // }
 }
 
 
@@ -374,10 +359,10 @@ GLogApplication::RemoveArgument( const string cmd )
 }
 
 
-vector< GArgument *>  * 
+vector<  std::shared_ptr<GArgument>  >  
 GLogApplication::GetArguments()
 {
-    return &fArgs;
+    return fArgs;
 }
 
 
@@ -389,7 +374,7 @@ GLogApplication::Help( const string cmd  ) const
 
 
 string 
-GLogApplication::Help( const vector<GArgument*> args, const string cmd )
+GLogApplication::Help( const vector< std::shared_ptr <GArgument> > args, const string cmd )
 {
     std::stringstream buffer;
 
@@ -462,7 +447,7 @@ bool
  bool
  GLogApplication::HasCommand( vector< std::shared_ptr<GArgument> > args, const string cmd )
  {   
-    for (uint16_t i = 0; i < args->size(); i++)
+    for (uint16_t i = 0; i < args.size(); i++)
     {
         if(args.at(i)->GetCommand() == cmd )
         {

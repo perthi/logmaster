@@ -51,7 +51,7 @@ public:
         }
     };
 
-    API  GLogApplication(	const int argc, const char** argv,  vector  < std::shared_ptr<GArgument>  > *additional_arguments, bool do_init = DO_INIT);
+    API  GLogApplication(	const int argc, const char** argv,  vector  < std::shared_ptr<GArgument>  > *additional_arguments = nullptr, bool do_init = DO_INIT);
     API  GLogApplication(	const GFileName_t &t,  vector  < std::shared_ptr<GArgument> > *additional_arguments = 0);
     API  virtual ~GLogApplication();
 
@@ -78,7 +78,7 @@ public:
     bool				API		HasCommand( const string cmd);
     vector< std::shared_ptr<GArgument>  >	API	 	GetArguments();
     string				API		Help(const string cmd = "" ) const;
-    static string		API		Help(const vector  <GArgument *> args, const string cmd = "" );
+    static string		API		Help(const vector  <  std::shared_ptr<GArgument>  > args, const string cmd = "" );
     string				API		Help(const char *exename, const string heading,  const string cmd = "" ) const;
     virtual void		API		InitLogArgs();
 	int					API		SetMandatory(const string cmd);

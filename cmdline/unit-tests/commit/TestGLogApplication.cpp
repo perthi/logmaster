@@ -44,10 +44,10 @@ TEST_F(TestGLogApplication,   remove_argument )
 	GLogApplication *g = new GLogApplication();
 	g->InitLogArgs();
   EXPECT_NE(nullptr, g->GetArgument("-loglevel")  );
-	size_t size_before = g->GetArguments()->size();
+	size_t size_before = g->GetArguments().size();
 	g->RemoveArgument("-loglevel");
 	EXPECT_EQ(nullptr, g->GetArgument("-loglevel")  );
-	size_t size_after = g->GetArguments()->size();
+	size_t size_after = g->GetArguments().size();
 	EXPECT_EQ(size_after, size_before -1 );
 
 }
@@ -79,17 +79,17 @@ TEST_F(TestGLogApplication, cmdline_from_file)
 TEST_F(TestGLogApplication, extra_arguments)
 {
     double f1, f2, f3 = 0;
-    GArgument *arg1, *arg2, *arg3;
+    ///GArgument *arg1, *arg2, *arg3;
 
-    arg1 = new  GCommandLineArgument<double>("-fval1", &f1);
-    arg2 = new  GCommandLineArgument<double>("-fval2", &f2);
-    arg3 = new  GCommandLineArgument<double>("-fval3", &f3);
+    std::shared_ptr < GArgument> arg1 = std::make_shared < GCommandLineArgument<double> > ("-fval1", &f1);
+    std::shared_ptr < GArgument> arg2 = std::make_shared < GCommandLineArgument<double> > ("-fval2", &f2);
+    std::shared_ptr < GArgument> arg3 = std::make_shared < GCommandLineArgument<double> > ("-fval3", &f3);
 
-    vector<GArgument *> all_args = { arg1, arg2, arg3 };
+    vector< std::shared_ptr < GArgument>  > all_args = { arg1, arg2, arg3 };
 
     // We expect an execption for both filenames because the files are emty (they are delet in th teardown function)
     
-    vector<GArgument *>  arg1_v = {arg1};
+    vector< std::shared_ptr<GArgument>  >  arg1_v = {arg1};
 
     
     EXPECT_ANY_THROW(GLogApplication(GFileName_t(fValidCommands), &arg1_v));
@@ -107,9 +107,9 @@ TEST_F(TestGLogApplication, extra_arguments)
     EXPECT_NEAR(f2, 1.61803, 0.0001);
     EXPECT_NEAR(f3, 0.76422, 0.0001);
     
-    delete arg1;
-    delete arg2;
-    delete arg3;
+    // delete arg1;
+    // delete arg2;
+    // delete arg3;
     
 }
  
