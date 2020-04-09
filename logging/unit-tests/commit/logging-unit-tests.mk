@@ -10,13 +10,11 @@ SRCCPP:=logging-unit-tests.cpp \
 	TestCheckLevel.cpp \
 	TestLFormat.cpp \
 	TestLogging.cpp \
-	TestSubscriber.cpp \
-	GVersion.cpp 
-
+	TestSubscriber.cpp
 
 
 include ../../../../common.mk
 include ../../../../unittest-common.mk
 
-LIBS+= -llogmaster -lcmdline -lexception  -lutilities -ltestlib -lexception
+LIBS+= -llogmaster  -lexception  -lutilities -ltestlib -lexception
 INCLUDES+=$(GTEST_INCLUDES)

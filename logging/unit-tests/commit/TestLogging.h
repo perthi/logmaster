@@ -10,15 +10,21 @@
 
 #pragma once
 
+#define HAS_LOGGING
 
 #include <testlib/TestBase.h>
-#include <cmdline/GLogApplication.h>
+#include <logging/LLogApi.h>
+#include <logging/LLogging.h>
 #include <sstream>
 
 namespace LOGMASTER
 {
     struct LMessage;
 }
+
+
+using namespace LOGMASTER;
+
 
 class TestLogging :public TestBase
  //   public testing::Test
@@ -36,5 +42,6 @@ protected:
     static std::streambuf* fOldBuf;
     static std::ostringstream fStrCout;
     static string fMessage;
+    LLogging *l = LLogging::Instance();
 };
 

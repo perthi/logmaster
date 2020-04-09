@@ -11,9 +11,10 @@
 
 
 #include "LEnums.h"
-#include <logging/LMacros.h>
+#include <utilities/GDefinitions.h>
 #include <string>
 #include <iostream>
+
 using std::string;
 using std::ostringstream;
 
@@ -43,31 +44,17 @@ public:
     static  LMessageGenerator API * Instance(); // CRAP PTH
     LMessageGenerator();
     ~LMessageGenerator();
-      LMessageGenerator( const LMessageGenerator&  rhs );
-
-    //static  LMessage   API *  GetLastMsg();
+    LMessageGenerator( const LMessageGenerator&  rhs );
     std::shared_ptr<LMessage>   API   GetLastMsg();
     std::shared_ptr<LMessage>   API   GenerateMsg( std::shared_ptr<LMessage> msg,  const eMSGFORMAT format, const eMSGLEVEL l,  const eMSGSYSTEM s, const char *fname, int line, const char * func, const char * fmt, va_list ap, string addendum = "" );
 
 private:
-   /// LMessageGenerator( const LMessageGenerator&  rhs );
     LMessageGenerator operator = (LMessageGenerator &rhs );
-    // static string  API  ToString(const eMSGLEVEL    level);
-    // static string  API  ToString(const eMSGSYSTEM   sys);
-    // static string  API  ToString(const eMSGSYSTEM sys, const eMSGLEVEL  level );
-    // static LMessage *fgMsgLast;
-    // static LMessage *fgMsg;
-
     string  API  ToString(const eMSGLEVEL    level);
     string  API  ToString(const eMSGSYSTEM   sys);
     string  API  ToString(const eMSGSYSTEM sys, const eMSGLEVEL  level );
-  //  LMessage *fgMsgLast = nullptr;
-  //  LMessage *fgMsg = nullptr;
- 
-  std::shared_ptr< LMessage>  fgMsgLast = nullptr;
-  std::shared_ptr< LMessage>  fgMsg  = nullptr;
-
-
+    std::shared_ptr< LMessage>  fgMsgLast = nullptr;
+    std::shared_ptr< LMessage>  fgMsg  = nullptr;
 };
 
 

@@ -7,6 +7,7 @@
 *** General Public License (LGPL) V3 or later. See .cpp file for details ***
 *****************************************************************************/
 
+///#define HAS_LOGGING
 
 #pragma once
 

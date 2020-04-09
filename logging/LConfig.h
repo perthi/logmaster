@@ -10,14 +10,14 @@
 *****************************************************************************/
 
 
-#include <logging/LDefinitions.h>
-#include "LMacros.h"
+#include  <logging/LDefinitions.h>
+#include  <logging/LEnums.h>
+#include  <logging/LHashMaps.h>
+#include  <utilities/GDefinitions.h>
+
 #include <string>
 
 using std::string;
-
-#include <logging/LEnums.h>
-#include <logging/LHashMaps.h>
 
 class TestLConfig_apply_get_level_Test;
 

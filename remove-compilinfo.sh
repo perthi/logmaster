@@ -1,1 +1,0 @@
-scripts/linux-x86/remove-compilinfo.sh

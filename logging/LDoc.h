@@ -23,7 +23,9 @@
 
 
 #include <logging/LLogApi.h>
-#include <logging/LMacros.h>
+#include <utilities/GDefinitions.h>
+
+
 #include <string>
 using std::string;
 #include <map>

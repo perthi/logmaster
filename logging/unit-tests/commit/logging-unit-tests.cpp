@@ -3,6 +3,8 @@
 // loggingTest.cpp : Defines the entry point for the console application.
 
 
+#define HAS_LOGGING
+
 
 #include <utilities/GDefinitions.h>
 #ifdef _WIN32
@@ -10,7 +12,6 @@
 #else
 #include <gtest-linux/gtest.h>
 #endif
-#include  <cmdline/GLogApplication.h>
 
 
 

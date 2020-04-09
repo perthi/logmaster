@@ -10,7 +10,7 @@
 #else
 #include <gtest-linux/gtest.h>
 #endif
-#include  <cmdline/GLogApplication.h>
+
 
 
 

@@ -14,25 +14,21 @@
 *****************************************************************************/
 
 
-///#include "TestBase.h"
-//#include <utilities/GFileIOHandler.h>
-//#include <logging/LLogApi.h>
-//#include <utilities/GSystem.h>
-//#include <cmdline/GCmdScan.h>
-//#include <cmdline/GArgument.h>
-///#include <exception/GException.h>
+#include <utilities/GDefinitions.h>
 
-///using namespace LOGMASTER;
-
-///#include <exception>
-///using std::fstream;
-
-
+#ifdef  HAS_LOGGING
 extern  int argc_;
 extern  char** argv_;
-///#include <cmdline/GCommandLineArgument.h>
+#include <cmdline/GLogApplication.h>
+#include <cmdline/GCmdScan.h>
+#include <utilities/GFileIOHandler.h>
+#include <logging/LLogApi.h> ///@todo replace with forward declaration
+using namespace LOGMASTER;
+#endif
 
 
+#include <string>
+using std::string;
 
 #ifdef _WIN32
 #include <gtest/gtest.h>
@@ -40,34 +36,27 @@ extern  char** argv_;
 #include <gtest-linux/gtest.h>
 #endif
 
-#include <utilities/GDefinitions.h>
-#include <cmdline/GLogApplication.h>
-#include <cmdline/GCmdScan.h>
-#include <utilities/GFileIOHandler.h>
-
-#include <string>
-using std::string;
 
 
-#include <logging/LLogApi.h> ///@todo replace with forward declaration
-using namespace LOGMASTER;
-
-
-//SET_LOGTARGET("--target-off --target-file")
 
 /** @brief Base class for all unit tests */
+#ifndef  HAS_LOGGING
+class TestBase : public testing::Test
+{
+	
+
+
+};
+#else
 class TestBase : public GLogApplication, public testing::Test
 {
 
 public:
-   // API             TestBase(int argc, const char **argv, vector<GArgument *> *additional_arument );
-   // API             TestBase(const bool init = false); 
     API             inline TestBase( ); 
     API virtual	    inline ~TestBase();
     API string	     FileIOTest(const string fname = "");
 
 protected:
-    //  LLogging *l;
     LLogging             *l = LLogging::Instance();
     string	       fOldLogFileName = "not_set.log";
     string	       fTestLogFileName= "googletest.log";
@@ -79,7 +68,6 @@ protected:
 };
 
 
-
 inline 
 TestBase::TestBase() : GLogApplication()
 {
@@ -88,14 +76,11 @@ TestBase::TestBase() : GLogApplication()
 	Init();
 };
 
-
 inline
 TestBase::~TestBase()
 {
 	//l->Pop();
 }
-
-
 
 
 inline void
@@ -119,4 +104,4 @@ TestBase::FileIOTest(const string fname)
 	return last;
 }
 
-
+#endif

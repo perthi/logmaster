@@ -57,7 +57,7 @@ GTEST_INCLUDES:= -isystem $(CURDIR)/
 LIBS= -L $(CURDIR)/build/$(TARGET)/lib  -lm
 
 
-export SUPPORT_LIBS:= -lutilities -lcmdline  -llogmaster  -lreadline
+export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster  -lreadline
 
 
 export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest -lpthread 
@@ -72,9 +72,9 @@ utilities-unittest:=  utilities/unit-tests/commit/$(TARGET)
 logging:=    	  	  logging/$(TARGET)
 logging-example1:=	  logging/examples/logging-example1/$(TARGET)
 logging-unittest:=    logging/unit-tests/commit/$(TARGET)
-#cmdline:= 		      cmdline/$(TARGET)
-#cmdline-example1:=    cmdline/examples/cmdline-example1/$(TARGET)
-#cmdline-unittest:=	  cmdline/unit-tests/commit/$(TARGET)
+cmdline:= 		      cmdline/$(TARGET)
+cmdline-example1:=    cmdline/examples/cmdline-example1/$(TARGET)
+cmdline-unittest:=	  cmdline/unit-tests/commit/$(TARGET)
 exception:=           exception/$(TARGET)
 exception-unittest:=  exception/unit-tests/commit/$(TARGET)
 

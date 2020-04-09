@@ -33,6 +33,8 @@
 #include <utilities/GUtilities.h>
 #include <logging/LHashMaps.h>
 
+using namespace LOGMASTER;
+
 #include <vector>
 
 using std::vector;

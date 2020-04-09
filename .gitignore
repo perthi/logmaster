@@ -36,10 +36,7 @@ cmdline/unit-tests/commit/x86/cmdline-unit-tests
 logging/examples/logging-example1/x86/logging-example1
 logging/unit-tests/commit/x86/logging-unit-tests
 utilities/unit-tests/commit/x86/utilities-unit-tests
-xml/examples/xml-example1/x86/xml-example1
-xml/unit-tests/commit/x86/xml-unit-tests
-xml/xml-validator/x86/xml-validator
-version-info/x86/version-info
+exception/unit-tests/commit/x86/exception-unit-tests
 *.pro.user
 .clang-format
 **/bin/**
@@ -48,14 +45,4 @@ software/doc-html
 software/doxygen_errors.txt
 *_flags.txt
 **/_flags.txt
-com/examples/tcp-example1/x86/tcp-example1
-com/tcp-client/x86/tcp-client
-com/tcp-server/x86/tcp-server
-com/unit-tests/commit/x86/com-unit-tests
-common/examples/fsm-example2/x86/fsm-example2
-common/examples/message-example1/x86/message-example1
-common/examples/message-example2/x86/message-example2
-common/examples/message-example3-blocking/x86/message-example3-blocking
-common/examples/message-example4-timer/x86/message-example4-timer
-common/unit-tests/commit/x86/common-unit-tests
-common/examples/fsm-example1/x86/fsm-example1
+

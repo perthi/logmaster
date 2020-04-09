@@ -30,7 +30,6 @@
 #include "TestLFormat.h"
 
 
-
 TestLFormat::TestLFormat()
 {
 	

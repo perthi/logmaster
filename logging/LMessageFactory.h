@@ -10,8 +10,8 @@
 *****************************************************************************/
 
 #include "LEnums.h"
-#include "LMacros.h"
 
+#include <utilities/GDefinitions.h>
 
 #include <string>
 

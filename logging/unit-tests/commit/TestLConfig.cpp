@@ -28,10 +28,12 @@
 
 
 #include "TestLConfig.h"
-
 #include <logging/LHashMaps.h>
 #include <utilities/GUtilities.h>
 #include <utilities/GNumbers.h>
+#include <logging/LLogApi.h>
+
+using namespace LOGMASTER;
 
 #include <bitset>
 

@@ -12,8 +12,8 @@
 
 
 #include "LLogApi.h"
-#include "LMacros.h"
 #include <utilities/GColor.h>
+#include  <utilities/GDefinitions.h>
 #include <tuple>
 #include <map>
 #include <string>

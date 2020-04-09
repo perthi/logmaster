@@ -15,9 +15,10 @@
 #define __func__ __FUNCTION__
 #endif
 
-#include  <logging/LMacros.h>
+
 #include  <logging/LEnums.h>
 #include  <logging/LLogging.h>
+#include  <utilities/GDefinitions.h>
 
 // #define G_STANDALONE
 

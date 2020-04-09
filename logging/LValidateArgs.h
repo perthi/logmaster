@@ -18,8 +18,11 @@
 *   are legal ones. For instance, if the command line is -loglevel \<subcommand\> then it is checked that \<subcommand\>  is present in the hash table of valid
 *   subcommands. These functins are called automatically by the command line handling system*/
 
-#include <logging/LMacros.h>
+
+
+
 #include <logging/LEnums.h>
+#include <utilities/GDefinitions.h>
 #include <vector>
 #include <string>
 

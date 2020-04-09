@@ -11,7 +11,7 @@
 *****************************************************************************/
 
 #include  <logging/LLogging.h>
-#include  <logging/LMacros.h>
+#include  <utilities/GDefinitions.h>
 
 using namespace  LOGMASTER;
 

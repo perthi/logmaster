@@ -8,9 +8,9 @@
 *** General Public License (LGPL) V3 or later. See .cpp file for details ***
 *****************************************************************************/
 
-#include "LLogApi.h"
-#include "LMacros.h"
 
+#include "LLogApi.h"
+#include  <utilities/GDefinitions.h>
 #include <memory>
 
 

@@ -31,7 +31,9 @@
 #include <utilities/GUtilities.h>
 
 #include <logging/LHashMaps.h>
+#include <logging/LLogApi.h>
 
+using namespace LOGMASTER;
 
 TestLTargets::TestLTargets()
 {

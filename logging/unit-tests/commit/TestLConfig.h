@@ -15,6 +15,8 @@
 
 #include <logging/LConfig.h>
 
+using namespace LOGMASTER;
+
 class TestLConfig  : public TestBase
 {
 
