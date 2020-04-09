@@ -45,6 +45,10 @@ using namespace GCONSTANTS;
 
 #include <exception/GException.h>
 
+#include <logging/LLogApi.h>
+
+using namespace LOGMASTER;
+
 
 /** @brief Constructor that reads commandline parameters passed to the application from the system (instead of using C-style argc **argv) and adds "* additional_arument" to the
  *  list of arguments for this aplication.
@@ -77,11 +81,11 @@ using namespace GCONSTANTS;
 *  @param[in] additional_arguments  additional argument to add to the default list of arguments
 *  @param[in] do_init Weter or not to scan commandline arguments immediately
 *  @exception GException  If the argumenst passed to the LogApplication via the constructor is invalid*/
-GLogApplication::GLogApplication( const int argc, const char** argv, vector  <GArgument *> *additional_arguments, bool do_init) : 
+GLogApplication::GLogApplication( const int argc, const char** argv, vector  < std::shared_ptr<GArgument>   > *additional_arguments, bool do_init) : 
         fArgs(0), fHelp(0), fLog(0), fTarget(0), fFormat(0), fColor(0) 
 {
     InitLogArgs();
-    AddArguments(additional_arguments);
+    AddArguments( *additional_arguments);
     if(do_init == true)
     {
         ScanArguments(argc, argv);
@@ -90,11 +94,13 @@ GLogApplication::GLogApplication( const int argc, const char** argv, vector  <GA
 
 
 
-GLogApplication::GLogApplication(const GFileName_t & tf,   vector  <GArgument *> *additional_arguments) : fArgs(0), fHelp(0), fLog(0), fTarget(0), fFormat(0), fColor(0) 
+GLogApplication::GLogApplication(const GFileName_t & tf, vector<  std::shared_ptr<GArgument>  > *additional_arguments) : 
+                                                        fArgs( ), fHelp( nullptr ), fLog( nullptr ), fTarget( nullptr ), fFormat(nullptr), 
+                                                        fColor( nullptr ) 
 {
     G_DEBUG("construction started");
     InitLogArgs();
-    AddArguments(additional_arguments);
+    AddArguments( *additional_arguments);
     string fname_local = tf.str();
 
     G_DEBUG("Attempting to read configuration from file \"%s\"", fname_local.c_str());
@@ -205,10 +211,10 @@ GLogApplication::SetCallBackFunction(const string cmd,  std::function<bool( cons
 void  
 GLogApplication::Purge()
 {
-	for (size_t i = 0; i < fArgs.size(); i++)
-	{
-		delete fArgs.at(i);
-	}
+	// for (size_t i = 0; i < fArgs.size(); i++)
+	// {
+	// 	delete fArgs.at(i);
+	// }
 
 	fArgs.erase(fArgs.begin(), fArgs.end() );
 
@@ -220,11 +226,27 @@ GLogApplication::InitLogArgs()
 {
   //  if(is_initialized == false )
     {
-        fHelp = new  GCommandLineArgument < void >("-help", "-help", "prints help menu", 0, fgkOPTIONAL  );
-        fLog = new  GCommandLineArgument < vector< string > >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::Instance()->logLevelDoc(), 0, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
-        fTarget = new  GCommandLineArgument < vector< string > >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::Instance()->logTargetDoc(), 0, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
-        fFormat = new  GCommandLineArgument < vector< string > >("-logformat", "-logformat\t\t[subcommands]", LDoc::Instance()->logFormatDoc(), 0, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
-        fColor = new  GCommandLineArgument < bool >("-logcolor", "-logcolor\t\t--true/--false", "Wether or not to use colors when writing log messages to the console", LPublisher::GetEnableColor(), fgkOPTIONAL, GCmdApi::bool2);
+        fHelp = std::make_shared < GCommandLineArgument < void > >("-help", "-help", "prints help menu", 0, fgkOPTIONAL  );
+        fLog = std::make_shared < GCommandLineArgument < vector< string > > >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::Instance()->logLevelDoc(), 0, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
+        fTarget = std::make_shared < GCommandLineArgument < vector< string > > >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::Instance()->logTargetDoc(), 0, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
+        fFormat = std::make_shared < GCommandLineArgument < vector< string > > >("-logformat", "-logformat\t\t[subcommands]", LDoc::Instance()->logFormatDoc(), 0, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
+
+
+
+        bool test = LPublisher::GetEnableColor();
+
+        if(test == true)
+        {
+            COUT << "color = TRUE" << endl;
+        }
+        else
+        {
+            COUT << "color = FALSE" << endl; 
+        }
+        
+        
+       fColor = std::make_shared<GCommandLineArgument < bool > >("-logcolor", "-logcolor\t\t--true/--false", "Wether or not to use colors when writing log messages to the console", LPublisher::GetEnableColor(), fgkOPTIONAL, GCmdApi::bool2);
+        
         AddArgument(fHelp);
         AddArgument(fLog);
         AddArgument(fTarget);
@@ -247,29 +269,26 @@ GLogApplication::ScanArguments( )
 void
 GLogApplication::ScanArguments(const string  cmdline )
 {
-    ScanArguments(cmdline, &fArgs);
+    ScanArguments(cmdline, fArgs);
 }
 
 
 
 void
-GLogApplication::ScanArguments(const string cmdline, GArgument * arg)
+GLogApplication::ScanArguments(const string cmdline, std::shared_ptr<GArgument>  arg)
 {
-    vector<GArgument*> args;
+    vector< std::shared_ptr<GArgument> > args;
     args.push_back(arg);
-    ScanArguments(cmdline, &args);
+    ScanArguments(cmdline, args);
 }
 
 
 void
-GLogApplication::ScanArguments(const string cmdline, vector<GArgument*> *args)
+GLogApplication::ScanArguments(const string cmdline, vector<  std::shared_ptr<GArgument> > args)
 {
     vector<string> tokens = g_tokenizer()->TokenizeCommandline(cmdline);
-//    CERR << "tokens.size =" << "" << tokens.size() <<  " cmdline " <<  cmdline  << endl; 
-    
-//    FORCE_DEBUG("tokens.size = %d, cmdline = %s", cmdline.c_str() ) ;
     const size_t argc = tokens.size() + 1;
-    const char *argv[100]; // CRAP PTH
+    const char *argv[200]; // CRAP PTH
 
     for ( size_t i = 0; i < tokens.size(); i++)
     {    
@@ -280,7 +299,7 @@ GLogApplication::ScanArguments(const string cmdline, vector<GArgument*> *args)
  
  
 void 
-GLogApplication::ScanArguments(const int argc, const char ** argv, vector<GArgument*> *args)
+GLogApplication::ScanArguments(const int argc, const char ** argv, vector< std::shared_ptr<GArgument> > args)
 {
     g_cmdscan()->ScanArguments(argc, argv, args);
 }        
@@ -288,29 +307,29 @@ GLogApplication::ScanArguments(const int argc, const char ** argv, vector<GArgum
 
 void GLogApplication::ScanArguments(const int argc, const char ** argv)
 {  
-    ScanArguments(argc, argv, &fArgs);
+    ScanArguments(argc, argv, fArgs);
 }
 
 
-void GLogApplication::AddArgument(GArgument * arg)
+void GLogApplication::AddArgument( std::shared_ptr<GArgument>  arg)
 {
     if (arg != 0)
     {
-        if( HasCommand(arg->GetCommand() ) == false)
+        if( HasCommand( arg->GetCommand() ) == false)
         {
             fArgs.push_back(arg);
         }
         else
         {
             G_ERROR( "argument %s allready exists",  arg->GetCommand().c_str() );
-            delete arg;   
+          //  delete arg;   
         }
     }
 }
 
 
 void  
-GLogApplication::AddArguments(vector<GArgument*> * args)
+GLogApplication::AddArguments( vector< std::shared_ptr<GArgument> >  args)
 {
     if (args != 0)
     {
@@ -323,7 +342,7 @@ GLogApplication::AddArguments(vector<GArgument*> * args)
 }
 
 
-GArgument * 
+std::shared_ptr<GArgument> 
 GLogApplication::GetArgument(const string cmd)
 {
 	for (size_t i = 0; i < fArgs.size(); i++)
@@ -333,6 +352,9 @@ GLogApplication::GetArgument(const string cmd)
 			return fArgs.at(i);
 		}
 	}
+
+    COUT << "Returning NULLPTR !!!!" << endl;
+
 	return nullptr;
 }
 
@@ -433,16 +455,16 @@ GLogApplication::Help(const char *  exename, const string heading,  const string
 bool
  GLogApplication::HasCommand( const string cmd )
  {
-     return HasCommand( &fArgs, cmd);
+     return HasCommand( fArgs, cmd);
  }
 
 
  bool
- GLogApplication::HasCommand( vector<GArgument*> *args, const string cmd )
+ GLogApplication::HasCommand( vector< std::shared_ptr<GArgument> > args, const string cmd )
  {   
     for (uint16_t i = 0; i < args->size(); i++)
     {
-        if(args->at(i)->GetCommand() == cmd )
+        if(args.at(i)->GetCommand() == cmd )
         {
             return true;
         }

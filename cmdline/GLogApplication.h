@@ -38,6 +38,7 @@ template <typename T> class GCommandLineArgument;
 #define DONT_INIT false
 #include <functional>
 
+#include <memory>
 
 class GLogApplication
 {
@@ -50,18 +51,18 @@ public:
         }
     };
 
-    API  GLogApplication(	const int argc, const char** argv,  vector  <GArgument *> *additional_arguments = 0, bool do_init = DO_INIT);
-    API  GLogApplication(	const GFileName_t &t,  vector  <GArgument *> *additional_arguments = 0);
+    API  GLogApplication(	const int argc, const char** argv,  vector  < std::shared_ptr<GArgument>  > *additional_arguments, bool do_init = DO_INIT);
+    API  GLogApplication(	const GFileName_t &t,  vector  < std::shared_ptr<GArgument> > *additional_arguments = 0);
     API  virtual ~GLogApplication();
 
-    void		API             Purge();
+    void		API     Purge();
     void		API		SetCallBackFunction(	const string cmd,
                                                 std::function< bool( const string cmd,  const string args_s,
                                                                      const vector<string> sub, const	vector<string> par ) > funct ) ;
 
-    void		API		AddArgument(GArgument *  arg);
-    void		API		AddArguments(vector<GArgument *>  *args);
-    GArgument	API *	GetArgument(const string cmd);
+    void		API		AddArgument( std::shared_ptr<GArgument>  arg);
+    void		API		AddArguments(vector< std::shared_ptr<GArgument> >  args);
+    API  std::shared_ptr<GArgument>	 	GetArgument(const string cmd);
     void		API		RemoveArgument(const string cmd);
 #ifdef _WIN32
     void		API		ScanArguments();
@@ -69,13 +70,13 @@ public:
 
 public:
     virtual void        API		ScanArguments(const string cmdline);
-    virtual void        API		ScanArguments(const string cmdline, GArgument * arg);
-    virtual void        API		ScanArguments(const string cmdline, vector  <GArgument *> *args);
-    virtual void        API		ScanArguments(const int argc, const char** argv, vector  <GArgument *> *arg);
+    virtual void        API		ScanArguments(const string cmdline,  std::shared_ptr<GArgument> arg);
+    virtual void        API		ScanArguments(const string cmdline, vector  < std::shared_ptr<GArgument> > args);
+    virtual void        API		ScanArguments(const int argc, const char** argv, vector  < std::shared_ptr<GArgument>  > arg);
     virtual void        API		ScanArguments(const int argc, const char** argv);
-    static bool			API		HasCommand( vector<GArgument *>  *args, const string cmd);
+    static bool			API		HasCommand( vector< std::shared_ptr<GArgument>  >  args, const string cmd);
     bool				API		HasCommand( const string cmd);
-    vector<GArgument *>	API	 *	GetArguments();
+    vector< std::shared_ptr<GArgument>  >	API	 	GetArguments();
     string				API		Help(const string cmd = "" ) const;
     static string		API		Help(const vector  <GArgument *> args, const string cmd = "" );
     string				API		Help(const char *exename, const string heading,  const string cmd = "" ) const;
@@ -87,13 +88,13 @@ public:
 
 
 protected:
-    vector  <GArgument *>    fArgs;  //!< vector containing all arguments that is valid for this application
-    GCommandLineArgument < void >  *fHelp; //!< Command line argument for printing out version information
+    vector  <  std::shared_ptr<GArgument>  >    fArgs;  //!< vector containing all arguments that is valid for this application
+    std::shared_ptr<GCommandLineArgument < void > > fHelp = nullptr; //!< Command line argument for printing out version information
   ///  GCommandLineArgument < void >  *fVersion; //!< Command line argument for printing out version information
-    GCommandLineArgument < vector< string > >  *fLog;     //!< Command line argument for the configuration of the log  level
-    GCommandLineArgument < vector< string > >  *fTarget;  //!< Command line argument for the configuration of the log  target
-    GCommandLineArgument < vector< string > >  *fFormat;  //!< Command line argument for the configuration of the log  format
-    GCommandLineArgument < bool >  *fColor;   //!< Command line argument for controling wether or not to use color coding of log messages
+    std::shared_ptr<GCommandLineArgument < vector< string > > >  fLog = nullptr;     //!< Command line argument for the configuration of the log  level
+    std::shared_ptr < GCommandLineArgument < vector< string > > > fTarget = nullptr;  //!< Command line argument for the configuration of the log  target
+    std::shared_ptr < GCommandLineArgument < vector< string > > > fFormat = nullptr;  //!< Command line argument for the configuration of the log  format
+    std::shared_ptr < GCommandLineArgument < bool > > fColor = nullptr;   //!< Command line argument for controling wether or not to use color coding of log messages
 
  private:
     GLogApplication (GLogApplication &);

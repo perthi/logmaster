@@ -47,9 +47,11 @@ TestLTargets::~TestLTargets()
 }
 
 
+
+
 void 
 TestLTargets::SetUp()
-{
+{	
 	InitLogArgs();
 }
 
@@ -64,7 +66,8 @@ TestLTargets::TearDown()
 
 TEST_F(TestLTargets, configure_format_specific_target)
 {
-		
+	
+		LLogging *l = LLogging::Instance();
 		SET_LOGFORMAT("--target-file 00000001");
 		EXPECT_EQ(eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_FILE));
 		SET_LOGFORMAT("--target-stdout 01000000");
@@ -103,7 +106,7 @@ TEST_F(TestLTargets, configure_format_specific_target)
 		G_WARNING("This a warning message");
 		G_ERROR("This an error warning message");
 		G_FATAL("This a fatal message");
-		
+	
 
 }
 
@@ -111,6 +114,7 @@ TEST_F(TestLTargets, configure_format_specific_target)
 
 TEST_F( TestLTargets, configure_level_specific_target )
 {
+
 	vector<eMSGSYSTEM> e_s = LHashMaps::Instance()->GetSystemEnums();
 	vector<eMSGTARGET> e_t = LHashMaps::Instance()->GetTargetEnums();
 	ScanArguments( "-loglevel --all-debug");

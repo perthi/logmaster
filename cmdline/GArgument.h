@@ -37,60 +37,57 @@ using namespace  GCONSTANTS;
 //class  GArgument : public GPrintable
 class  GArgument
 {
-    friend class GCmdScan;
+  friend class GCmdScan;
 
-public: 
-	API GArgument(	const string name, const string usage, const string helptxt,  const bool ismandatory,  
-					std::function< bool ( const string cmnd, const string args_s, const vector<string> sub, const vector<string> par ) > funct ); 
-	API GArgument();
-    virtual API ~GArgument() { }
-    
-    static void API SetNTabs( const int n);
-    inline bool		IsMandatory() const {  return  fIsMandatory; }
-	inline bool		IsOptional() const { return  !IsMandatory(); }
-	void    API		SetMandatory() { fIsMandatory = fgkMANDATORY; };
-	void    API		SetOptional() { fIsMandatory = fgkOPTIONAL; };
-	void    API		SetUsage(const string usage) { fUsage = usage; }
+public:
+  API GArgument(const string name, const string usage, const string helptxt, const bool ismandatory,
+                std::function<bool(const string cmnd, const string args_s, const vector<string> sub, const vector<string> par)> funct);
+  API GArgument();
+  virtual API ~GArgument() {}
 
-    string API      GetUsage() const { return fUsage; };
-	  string API      GetHelpText() const { return fHelpText; }; 
-    string		API GetHelpText(const bool subcommands ) const;
-    
+  static void API SetNTabs(const int n);
+  inline bool IsMandatory() const { return fIsMandatory; }
+  inline bool IsOptional() const { return !IsMandatory(); }
+  void API SetMandatory() { fIsMandatory = fgkMANDATORY; };
+  void API SetOptional() { fIsMandatory = fgkOPTIONAL; };
+  void API SetUsage(const string usage) { fUsage = usage; }
 
-    virtual		API  string str(const bool subcommands = false) const;
-    bool		Verify();
-    void		API		AddSubCommand(const string cmd);
-    void		API		SetCommand(const string cmd ){ fCmd = cmd; };
-    void		API		SetSubCommands(const vector<string> sub){ fSubCmds = sub; };
-    string		API		GetCommand() const {return fCmd ;};
-    
-    vector<string> &  GetSubCommands()  { return fSubCmds; };
-    string          API    GetSubCommandsS();
-    string            GetTypeId() const { return fTypeId;}
-    string            GetTypeIdBase() const { return fTypeIdBase; }
-    void              SetExcecName(const char *name);
-  //  void  API  SetValidationFunction( bool(*funct) (const string cmd, const vector<string> sub, const 
-   //                                                vector<string> par )   );
- 	void		API		SetValidationFunction(  std::function< bool(const string cmd, const string args_s, const vector<string> sub, const vector<string> par )> funct );
+  string API GetUsage() const { return fUsage; };
+  string API GetHelpText() const { return fHelpText; };
+  string API GetHelpText(const bool subcommands) const;
+
+  virtual API string str(const bool subcommands = false) const;
+  bool Verify();
+  void API AddSubCommand(const string cmd);
+  void API SetCommand(const string cmd) { fCmd = cmd; };
+  void API SetSubCommands(const vector<string> sub) { fSubCmds = sub; };
+  string API GetCommand() const { return fCmd; };
+// string API GetCommand() const { return ""; };
+
+  vector<string> &GetSubCommands() { return fSubCmds; };
+  string API GetSubCommandsS();
+  string GetTypeId() const { return fTypeId; }
+  string GetTypeIdBase() const { return fTypeIdBase; }
+  void SetExcecName(const char *name);
+  //  void  API  SetValidationFunction( bool(*funct) (const string cmd, const vector<string> sub, const
+  //                                                vector<string> par )   );
+  void API SetValidationFunction(std::function<bool(const string cmd, const string args_s, const vector<string> sub, const vector<string> par)> funct);
 
 protected:
-    static int fNTabs;   /*!< The number of tabs to use when aligning the help menu output */  
-    string  fCmd = "";
-    vector<string> fSubCmds; 
-    bool    fIsMandatory;
-    string  fTypeId = "";
-    string  fTypeIdBase = "";
-    string  fUsage = "";
-    string  fHelpText = "";
-    string  fExecName = "";
+  static int fNTabs; /*!< The number of tabs to use when aligning the help menu output */
+  string fCmd = "";
+  vector<string> fSubCmds;
+  bool fIsMandatory;
+  string fTypeId = "";
+  string fTypeIdBase = "";
+  string fUsage = "";
+  string fHelpText = "";
+  string fExecName = "";
   //  bool (*ValidateCommands)( const string cmd,  const vector<string> sub, const vector<string> par  );
-	std::function< bool( const string cmd, const string args_s, const vector<string> sub, const vector<string> par ) >  ValidateCommands;
+  std::function<bool(const string cmd, const string args_s, const vector<string> sub, const vector<string> par)> ValidateCommands;
 
-private : 
-    
+private:
 };
-
-
 
 #endif
 

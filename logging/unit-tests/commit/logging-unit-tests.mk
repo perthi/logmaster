@@ -12,6 +12,9 @@ SRCCPP:=logging-unit-tests.cpp \
 	TestLogging.cpp \
 	TestSubscriber.cpp
 
+#SRCCPP:=logging-unit-tests.cpp \
+	TestLTargets.cpp
+
 
 include ../../../../common.mk
 include ../../../../unittest-common.mk
