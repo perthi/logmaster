@@ -1,0 +1,3 @@
+[submodule "submodules/xml-parser"]
+	path = submodules/xml-parser
+	url = git@github.com:perthi/xml-parser.git

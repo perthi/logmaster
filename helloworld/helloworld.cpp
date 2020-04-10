@@ -26,65 +26,63 @@ using std::cout;
 
 #include <memory>
 
-
-enum class e
-{
-   ONE = 1,
-   TWO = 10,
-   TREE = 1,
-   FOUR = 2
-};
+#include <iostream> 
+#include <string>
 
 
-class A
+int main ()
 {
 
-};
+ //  int *test = new int(100);
+   std::shared_ptr<int>  test = std::make_shared<int>(222);
+
+/*
+   cout << "int = " << *test << endl; 
 
 
-int main()
-{
-   cout << "ONE = "  << (int)e::ONE << endl;
-   cout << "TWO = "  << (int)e::TWO << endl;
-   cout << "TREE = " << (int)e::TREE << endl;
-   cout << "FOUR = " << (int)e::FOUR << endl;
+  std::string str_dec = "2001, A Space Odyssey";
+  std::string str_hex = "40c3";
+  std::string str_bin = "-10010110001";
+  std::string str_auto = "0x7f";
 
-   auto test = e::ONE;
+  std::string::size_type sz;   // alias of size_t
 
-//    switch (  test )
-//    {
-//    case e::ONE:
-//       cout << "ONE" << endl;
-//       break;
-//    case e::TWO:
-//       cout << "TWO" << endl;
-//       break;
-//      case e::TREE:
-//       cout << "TWO" << endl;
-//       break;
-//   case e::FOUR:
-//       cout << "TWO" << endl;
-//       break;
-//    default:
-//       break;
-//    }
+  int i_dec = std::stoi (str_dec,&sz);
+  int i_hex = std::stoi (str_hex,nullptr,16);
+  int i_bin = std::stoi (str_bin,nullptr,2);
+  int i_auto = std::stoi (str_auto,nullptr,0);
 
-   return 0;
-   // string s_cwd(getcwd(NULL,0));
-   // cout << "CWD is: " << s_cwd << endl;
-  //  cout << "ssdir ="  <<  string(g_system()->GetExeDir()) << endl;;
+  std::cout << str_dec << ": " << i_dec << " and [" << str_dec.substr(sz) << "]\n";
+  std::cout << str_hex << ": " << i_hex << '\n';
+  std::cout << str_bin << ": " << i_bin << '\n';
+  std::cout << str_auto << ": " << i_auto << '\n';
+*/
 
-//   printf("%s\n", get_current_dir_name());
- //   return 0;
-    std::shared_ptr<A> a = std::make_shared<A>();
+   int num = -1;
+   
+   double f = -1;
+   
+   std::string::size_type sz = 99; 
+
+   try
+   {
+      //  num = std::stoi("123345blahhhh456", &sz); 
+        num = std::stoi("0", &sz); 
+       f  = std::stod("3.15");
+   }
+   catch(const std::exception& e)
+   {
+      std::cout  <<  string ( e.what() ) << endl; ;
+   }
+   
+   cout << "num = " << num << endl;
+    cout << "f = " << f << endl;
+   cout << "sz = " << sz << endl;
+   
 
 
 
-   const A * const a_ptr  = a.get();
-
-    delete a_ptr;
-
+  return 0;
 }
-
 
 
