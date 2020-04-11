@@ -33,12 +33,19 @@ using std::string;
 using std::vector;
 
 template <typename T> class GCommandLineArgument;
-#include <cmdline/GArgument.h>
+
+//#include <cmdline/GArgument.h>
+
 #define DO_INIT true
 #define DONT_INIT false
 #include <functional>
 
 #include <memory>
+///#include <cmdline/GArgument.h>
+
+template <typename T> class GCommandLineArgument;
+class GArgument;
+
 
 class GLogApplication
 {
@@ -97,7 +104,10 @@ public:
 
 
 protected:
-    vector  <  std::shared_ptr<GArgument>  >    fArgs;  //!< vector containing all arguments that is valid for this application
+ //   vector  <  std::shared_ptr<GArgument>  >    fArgs;  //!< vector containing all arguments that is valid for this application
+    vector  <  std::shared_ptr<GArgument>  >    fArgs  =  vector  <  std::shared_ptr<GArgument>  > ()  ; 
+    
+    
     std::shared_ptr<GCommandLineArgument < void > > fHelp = nullptr; //!< Command line argument for printing out version information
   ///  GCommandLineArgument < void >  *fVersion; //!< Command line argument for printing out version information
     std::shared_ptr<GCommandLineArgument < vector< string > > >  fLog = nullptr;     //!< Command line argument for the configuration of the log  level

@@ -2,10 +2,7 @@
 #pragma once
 
 
-#define HAS_LOGGING
-
 #include <testlib/TestBase.h>
-
 
 class TestGLogApplication : public TestBase
 {

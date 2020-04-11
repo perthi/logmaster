@@ -1,7 +1,5 @@
 
 
-#define HAS_LOGGING
-
 #include <utilities/GDefinitions.h>
 #ifdef _WIN32
 #include <gtest/gtest.h>
@@ -9,8 +7,6 @@
 #include <gtest-linux/gtest.h>
 #endif
 #include  <cmdline/GLogApplication.h>
-
-
 
 
 MAIN_UNITTEST()
