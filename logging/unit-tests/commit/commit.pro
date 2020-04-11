@@ -1,1 +1,0 @@
-logging-unit-tests.pro
