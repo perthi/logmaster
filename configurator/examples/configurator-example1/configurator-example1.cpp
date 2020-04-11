@@ -46,11 +46,21 @@ main(int  /*argc*/, const char ** /*argv*/ )
 {
 	SET_LOGLEVEL("--all-debug");
 	
-	string xml = "kf_config.xml";
-	string xsd = "kf_config.xsd";
-	
-	std::shared_ptr<LConfigurator> ptr = std::make_shared< LConfigurator> ();
-	std::shared_ptr< LXmlParser > p = std::make_shared<  LXmlParser> ();
-	p->ParseXML(xml, xsd);
+	string xml = "logging.xml";
+	string xsd = "logging.xsd";
+	auto  validator = std::make_shared<GXmlValidator>();
+
+	if(  validator->IsValid(xml, xsd)   == false)
+	{
+		XML_ERROR( "failed to validate %s against %s", xml.c_str(), xsd.c_str() ) ;
+	}
+	else
+	{
+		FORCE_DEBUG("Validation OK, lets try to parse the XML file" );
+		std::shared_ptr<LConfigurator> ptr = std::make_shared< LConfigurator> ();
+		std::shared_ptr< LXmlParser > p = std::make_shared<  LXmlParser> ();
+		p->ParseXML(xml, xsd);
+		FORCE_DEBUG("Parsing done ...");
+	}
 
 }

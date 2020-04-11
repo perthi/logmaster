@@ -51,13 +51,22 @@ LXmlParser::ParseXML(const string  xml, const string  xsd )
 
     int i = 0;
 
-    while (  node != nullptr  && i < 100 )
+    while (  node != nullptr  && i < 1000 )
     {
-        node = xmlReader->ReadNode();
         i ++;
-        PrinttAttributes( node, GLOCATION);
+        //PrinttAttributes( node, GLOCATION);
+        //FORCE_DEBUG("read node %d",  i );
+        
+        string name =  node->GetName();
 
-//        FORCE_DEBUG("read node %d",  i );
+        if( name == "LOGGING" )
+        {
+            FORCE_DEBUG("Tag = logging !!");
+
+        }
+        
+        node = xmlReader->ReadNode();
+
     }
     
     return tmp;
