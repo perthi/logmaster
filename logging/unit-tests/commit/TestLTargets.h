@@ -7,10 +7,7 @@
 *** General Public License (LGPL) V3 or later. See .cpp file for details ***
 *****************************************************************************/
 
-
 #pragma once
-
-#define HAS_LOGGING
 
 #include <testlib/TestBase.h>
 

@@ -22,13 +22,6 @@
 using std::function;
 
 
-bool test(const string cmnd, const vector<string> sub, const vector<string> par)
-{
-    cerr << "hello world" << endl;
-    return true;
-}
-
-
 using namespace GCONSTANTS;
 
 class TestGCommandLineArgument : public TestBase
@@ -38,35 +31,29 @@ public:
     virtual ~TestGCommandLineArgument();
     virtual void SetUp();
     virtual void TearDown();
-    
-//	static bool ValidateFunct(const string cmnd, const string args_s, const vector<string> subs, const vector<string> args);
     virtual bool ValidateFunct(const string cmnd, const string args_s, const vector<string> subs, const vector<string> args);
-	bool ValidateFunct2( const string /*cmnd*/, const string /*args_s*/ )
-	{
-		return false;
-	}
+	bool ValidateFunct2( const string /*cmnd*/, const string /*args_s*/ ) { return false;}
 
-
-	float f;
+protected:
+	float f = 0;
     double d = 0;
     long double ld = 0;
     short si = 0;
     int i = 0;
     long int li = 0;
     long long int lli = 0;
-
-    unsigned short us;
+    unsigned short us = 0;
     unsigned int ui = 0;
     unsigned long int uli = 0;
     unsigned long long int ulli = 0;
     bool b = false;
     string s = "";
-    vector<string> vs;
-    vector<int>  vi;
-    vector<unsigned int>  vui;
-    vector<double> vd;
-    vector<long double> vld;
-    vector<float> vf;
+    vector<string> vs =   vector<string>();
+    vector<int>  vi = vector<int>();
+    vector<unsigned int>  vui =  vector<unsigned int>();
+    vector<double> vd =  vector<double>() ;
+    vector<long double> vld = vector<long double>();
+    vector<float> vf =  vector<float>();
 
     std::shared_ptr < GCommandLineArgument <float> > farg =   std::make_shared <GCommandLineArgument<float> >("-myfloat", "-myfloat [value]", "This is the documentation", &f, fgkOPTIONAL, nullptr);
     std::shared_ptr < GCommandLineArgument <double> > darg =   std::make_shared <GCommandLineArgument <double> >("-mydouble", "-mydouble [value]", "This is the documentation", &d, fgkOPTIONAL, nullptr);

@@ -10,25 +10,22 @@
 
 #pragma once
 
-
 #include <testlib/TestBase.h>
-
 #include <logging/LConfig.h>
 
 using namespace LOGMASTER;
 
+
 class TestLConfig  : public TestBase
 {
-
 public:
 	virtual void SetUp();
 	virtual void TearDown();
 
 protected:
-
-	vector<eMSGTARGET>   t_v;
-	vector<eMSGSYSTEM>   s_v;
-	vector<eMSGLEVEL>    l_v;
+	vector<eMSGTARGET>   t_v  =  vector<eMSGTARGET>();
+	vector<eMSGSYSTEM>   s_v  =  vector<eMSGSYSTEM>();
+	vector<eMSGLEVEL>    l_v =   vector<eMSGLEVEL>();
 	LConfig *fConfig = nullptr;
 };
 

@@ -185,7 +185,7 @@ TEST_F(TestException, missing_messageNSR2366)
 	
 	try
 	{
-		EXCEPTION("lorem ipsum, the number is %d", 42);
+		EXCEPTION("lorem ipsum, the number is %d", number );
 	}
 	catch (GException &e)
 	{
@@ -196,7 +196,7 @@ TEST_F(TestException, missing_messageNSR2366)
 
 	try
 	{
-		EXCEPTION("lorem ipsum, the number is %d", 42);
+		EXCEPTION("lorem ipsum, the number is %d",  number );
 	}
 	catch (GException &e)
 	{

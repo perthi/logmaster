@@ -52,13 +52,7 @@ TestLTargets::~TestLTargets()
 void 
 TestLTargets::SetUp()
 {	
-	// if( g == nullptr)
-	// {
-	// 	g = new GLogApplication();
-	// }
 
-	g = new GLogApplication();
-	g->InitLogArgs();
 }
 
 
@@ -75,8 +69,6 @@ TEST_F(TestLTargets, configure_format_specific_target)
 	try
 	{
 		/* code */
-
-		LLogging *l = LLogging::Instance();
 		SET_LOGFORMAT("--target-file 00000001");
 		EXPECT_EQ(eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_FILE));
 		SET_LOGFORMAT("--target-stdout 01000000");
@@ -95,8 +87,6 @@ TEST_F(TestLTargets, configure_format_specific_target)
 		SET_LOGFORMAT("00000000");
 		EXPECT_EQ(eMSGFORMAT::ALL_FIELDS_OFF, l->GetLogFormat(eMSGTARGET::TARGET_STDOUT));
 		EXPECT_EQ(eMSGFORMAT::ALL_FIELDS_OFF, l->GetLogFormat(eMSGTARGET::TARGET_FILE));
-		
-	
 
 		g->ScanArguments("-logformat --target-stdout 00000001");
 		EXPECT_EQ(eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_STDOUT));
@@ -138,7 +128,7 @@ TEST_F(TestLTargets, configure_format_specific_target)
 TEST_F( TestLTargets, configure_level_specific_target )
 {
 
-	LLogging *l = LLogging::Instance();
+///	LLogging *l = LLogging::Instance();
 
 	vector<eMSGSYSTEM> e_s = LHashMaps::Instance()->GetSystemEnums();
 	vector<eMSGTARGET> e_t = LHashMaps::Instance()->GetTargetEnums();

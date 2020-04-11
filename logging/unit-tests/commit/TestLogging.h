@@ -21,12 +21,10 @@ namespace LOGMASTER
     struct LMessage;
 }
 
-
 using namespace LOGMASTER;
 
 
 class TestLogging :public TestBase
- //   public testing::Test
 {
 public:
     TestLogging();
@@ -35,12 +33,11 @@ public:
     virtual void SetUp();
     virtual void TearDown();
 
-
 protected:
     static void Subscriber(const std::shared_ptr<LOGMASTER::LMessage>   msg );
     static std::streambuf* fOldBuf;
     static std::ostringstream fStrCout;
     static string fMessage;
-    LLogging *l = LLogging::Instance();
+
 };
 

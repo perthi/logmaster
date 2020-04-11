@@ -117,9 +117,9 @@ TEST_F( TestLConfig, target_all )
 	{
 		for ( size_t s = 0; s < s_v.size(); s++ )
 		{
-			for ( size_t l = 0; l < l_v.size(); l++ )
+			for ( size_t u = 0; u < l_v.size(); u++ )
 			{
-				EXPECT_FALSE( log->CheckLevel( s_v[s], l_v[l], t_v[t] ) );
+				EXPECT_FALSE( log->CheckLevel( s_v[s], l_v[u], t_v[t] ) );
 			}
 		}
 	}

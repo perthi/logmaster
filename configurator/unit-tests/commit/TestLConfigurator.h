@@ -24,5 +24,9 @@ public:
 protected:
 	LLogging *l = LLogging::Instance();
 
+private:
+	TestLConfigurator( const TestLConfigurator & );
+	TestLConfigurator operator = ( TestLConfigurator & );
+
 };
 

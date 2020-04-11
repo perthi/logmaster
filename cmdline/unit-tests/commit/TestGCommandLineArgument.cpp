@@ -84,21 +84,19 @@ void TestGCommandLineArgument::SetUp()
 
 
 
-void TestGCommandLineArgument::TearDown()
+void 
+TestGCommandLineArgument::TearDown()
 {
-//    for (int i = 0; i < args.size(); i++)
-//    {
- //       delete args[i];
- //   }
+
 }
 
 
  bool 
- TestGCommandLineArgument::ValidateFunct(const string cmnd, const string args_s, const vector<string> subs, const vector<string> args)
+ TestGCommandLineArgument::ValidateFunct(  const string /*cmnd*/, const string /*args_s*/, 
+                                           const vector<string> /*subs*/, const vector<string> args)
  {
      /*We just make up some artificial conditions*/
      int min = 10;
-     int max = 100;
      int number = -99;
  
      if (args.size() > 0)

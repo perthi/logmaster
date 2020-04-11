@@ -11,18 +11,13 @@
 #pragma once
 
 #include <testlib/TestBase.h>
-#include <logging/LLogApi.h>
 
 
-using namespace LOGMASTER;
 class TestLFormat : public TestBase
 {
 public:
 	TestLFormat();
 	virtual ~TestLFormat();
-
-protected:
-	LLogging *l = LLogging::Instance();
 
 };
 
