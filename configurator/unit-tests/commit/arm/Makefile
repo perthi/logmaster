@@ -1,2 +1,2 @@
 
-include ../logging-unit-tests.mk
+include ../configurator-unit-tests.mk

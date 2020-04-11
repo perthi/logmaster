@@ -10,6 +10,6 @@ include ../../../../common.mk
 include ../../../../unittest-common.mk
 
 
-LIBS+= -llogmaster  -lexception  -lutilities -ltestlib -lconfiguration  -lexception  -lxml-embc   -lxml2
+LIBS+= -llogmaster  -lexception  -lutilities -ltestlib -lconfigurator  -lexception  -lxml-embc   -lxml2
 INCLUDES+=$(GTEST_INCLUDES)
 
