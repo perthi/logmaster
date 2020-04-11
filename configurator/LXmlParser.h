@@ -8,12 +8,15 @@
 
 
 #include <xml/GXmlParser.h>
+#include <memory>
+#include <utilities/GDefinitions.h>
 
-
-class  LXMLParser : public GXmlParser
+class  LXmlParser : public GXmlParser
 {
-	LXMLParser();
-	virtual ~LXMLParser();
+	public:
+		virtual  vector< std::shared_ptr<GXmlEntity> > API ParseXML(const string  /*xml*/, const string  /*xsd*/ ) ;
+		LXmlParser();
+		virtual ~LXmlParser();
 };
 
 #endif

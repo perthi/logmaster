@@ -6,8 +6,8 @@ LIBNAME_SO=libconfigurator.so
 
 
 SRCCPP:= LConfigurator.cpp \
-	 LXMLParser.cpp  \
-	 LXmlEnity.cpp
+	 LXmlParser.cpp  \
+	 LXmlEntity.cpp
 
 
 include ../../common.mk

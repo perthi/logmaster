@@ -1,18 +1,21 @@
 // -*- mode: c++ -*-
-#ifndef LXMLENITY_H
-#define LXMLENITY_H
+#ifndef LXMLENTITY_H
+#define LXMLENTITY_H
 /***************************************************
 * @copyright Embedded Consulting AS                *
 * @author Per Thomas Hille <pth@embc.no>           *
 ***************************************************/
 
 
+#include <xml/GXmlEntity.h>
 
 
-class  LXmlEnity
+class  LXmlEntity : public GXmlEntity
 {
-	LXmlEnity();
-	virtual ~LXmlEnity();
+	public:
+	   LXmlEntity();
+	   virtual ~LXmlEntity();
+	   virtual  string API str() const override = 0;
 };
 
 #endif
