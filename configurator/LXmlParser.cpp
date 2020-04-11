@@ -51,17 +51,24 @@ LXmlParser::ParseXML(const string  xml, const string  xsd )
 
     int i = 0;
 
+
+
     while (  node != nullptr  && i < 1000 )
     {
+     //   AssertTagOpenGroup();
+      
         i ++;
         //PrinttAttributes( node, GLOCATION);
         //FORCE_DEBUG("read node %d",  i );
         
         string name =  node->GetName();
 
-        if( name == "LOGGING" )
+      //  if( name == "LOGGING" )
         {
-            FORCE_DEBUG("Tag = logging !!");
+            
+
+    
+            FORCE_DEBUG("Tag = %s !!", name.c_str() );
 
         }
         

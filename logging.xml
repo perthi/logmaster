@@ -5,4 +5,9 @@
 
 <LOGGING xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="logging.xsd">
+<LOGLEVEL>DEBUG</LOGLEVEL>
+<LOGLEVEL>INFO</LOGLEVEL>
+<LOGLEVEL>WARNING</LOGLEVEL>
+<LOGLEVEL>ERROR</LOGLEVEL>
+<LOGLEVEL>FATAL</LOGLEVEL>
 </LOGGING>
