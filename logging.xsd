@@ -4,13 +4,29 @@
    <xs:simpleType name="LogLevel">
           <xs:restriction base="xs:string">
             <xs:pattern value="[A-Z]+"/>
-        </xs:restriction>
+              <xs:enumeration value= "DEBUG"></xs:enumeration>
+              <xs:enumeration value= "INFO"></xs:enumeration>   
+              <xs:enumeration value= "WARNING"></xs:enumeration>    
+              <xs:enumeration value= "ERROR"></xs:enumeration>    
+              <xs:enumeration value= "FATAL"></xs:enumeration>
+              <xs:enumeration value= "BLAHHH"></xs:enumeration>
+              <xs:enumeration value= "FATAL2"></xs:enumeration>
+              <xs:enumeration value= "FATAL3"></xs:enumeration>               
+          </xs:restriction>
    </xs:simpleType>
-     <xs:simpleType name="System">
-          <xs:restriction base="xs:string"></xs:restriction>
+     <xs:simpleType name="SystemType">
+          <xs:restriction base="xs:string">
+             <xs:pattern value="[A-Z]+"/>                
+          </xs:restriction>
    </xs:simpleType>
- 
     
+     <xs:simpleType name="CmdLineTag">
+          <xs:restriction base="xs:string">
+             <xs:pattern value="--[a-z]+"/>                
+          </xs:restriction>
+   </xs:simpleType>
+    
+     
     <!--   <xs:simpleType name="Level"></xs:simpleType>-->
   <!--  <xs:simpleType name="LogLevel">
           <xs:restriction base="xs:string"></xs:restriction>
@@ -20,7 +36,17 @@
         <xs:complexType> 
             <xs:sequence>
             <xs:element name="LOGLEVEL" type="LogLevel" maxOccurs="unbounded" minOccurs="1"> </xs:element> 
-            <xs:element name="SUBSYSTEM" type="System" maxOccurs="unbounded" minOccurs="1" > </xs:element> 
+               
+           <!--     <xs:element name="SUBSYSTEM" type="SystemType" maxOccurs="unbounded" minOccurs="1" > </xs:element> -->
+                <xs:element name="SYSTEM" maxOccurs="unbounded" minOccurs="1">
+                         <xs:complexType>
+                            <xs:sequence>
+                              <xs:element name="SUBSYSTEM" type="SystemType" maxOccurs="1" minOccurs="1" > </xs:element> 
+                              <xs:element name="DEFAULT"  type="LogLevel" maxOccurs="1" minOccurs="1"   ></xs:element>                            
+                              <xs:element name="CAN_MODIFY"  type="xs:boolean" maxOccurs="1" minOccurs="1"   ></xs:element>    
+                            </xs:sequence>
+                         </xs:complexType>
+                </xs:element>
             </xs:sequence>      
         </xs:complexType>                
     </xs:element>
