@@ -13,7 +13,6 @@
 
 #pragma once
 
-#define HAS_LOGGING
 
 #include <testlib/TestBase.h>
 #include <cmdline/GCommandLineArgument.h>

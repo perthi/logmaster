@@ -30,7 +30,7 @@ LXmlParser::~LXmlParser()
 
 
 vector< std::shared_ptr<GXmlEntity> > 
-ParseXML(const string  xml, const string  xsd ) 
+LXmlParser::ParseXML(const string  xml, const string  xsd ) 
 {
     vector < std::shared_ptr<GXmlEntity > > tmp;
 
