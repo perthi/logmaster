@@ -9,7 +9,7 @@
 
 #include <xml/GXmlParser.h>
 #include <memory>
-#include <utilities/GDefinitions.h>
+//#include <utilities/GDefinitions.h>
 
 class  LXmlParser : public GXmlParser
 {

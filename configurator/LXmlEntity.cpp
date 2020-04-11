@@ -5,6 +5,8 @@
 ***************************************************/
 
 
+#include "LXmlEntity.h"
+
 
 LXmlEntity::LXmlEntity()
 {
