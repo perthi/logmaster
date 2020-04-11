@@ -1,19 +1,18 @@
 // -*- mode: c++ -*-
-#ifndef LXMLPARSER_H
-#define LXMLPARSER_H
+#ifndef LXMLENITY_H
+#define LXMLENITY_H
 /***************************************************
 * @copyright Embedded Consulting AS                *
 * @author Per Thomas Hille <pth@embc.no>           *
 ***************************************************/
 
 
-#include <xml/GXmlParser.h>
 
 
-class  LXMLParser : public GXmlParser
+class  LXmlEnity
 {
-	LXMLParser();
-	virtual ~LXMLParser();
+	LXmlEnity();
+	virtual ~LXmlEnity();
 };
 
 #endif
