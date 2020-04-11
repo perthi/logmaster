@@ -28,17 +28,18 @@
 
 
 #include <configurator/LConfigurator.h>
+#include <xml/GXmlValidator.h>
 
 #include <iostream>
 using std::cout;
 using std::endl;
 
+#include <memory>
 
 int
 main(int  /*argc*/, const char ** /*argv*/ )
 {
-
-	new LConfigurator();
+	std::shared_ptr<LConfigurator> ptr = std::make_shared< LConfigurator> ();
 
 
 }

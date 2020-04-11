@@ -8,12 +8,14 @@
 * @author Per Thomas Hille <pth@embc.no>           *
 ***************************************************/
 
+#include <string>
 
 class  LConfigurator
 {
 public:
     LConfigurator();
     virtual ~LConfigurator();
+    void Dump( const string xml );
 };
 
 #endif

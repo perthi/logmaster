@@ -22,3 +22,8 @@ LConfigurator::~LConfigurator()
 
 }
 
+void 
+LConfigurator::Dump( const string xml )
+{
+    
+}
