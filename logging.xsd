@@ -8,10 +8,7 @@
               <xs:enumeration value= "INFO"></xs:enumeration>   
               <xs:enumeration value= "WARNING"></xs:enumeration>    
               <xs:enumeration value= "ERROR"></xs:enumeration>    
-              <xs:enumeration value= "FATAL"></xs:enumeration>
-              <xs:enumeration value= "BLAHHH"></xs:enumeration>
-              <xs:enumeration value= "FATAL2"></xs:enumeration>
-              <xs:enumeration value= "FATAL3"></xs:enumeration>               
+              <xs:enumeration value= "FATAL"></xs:enumeration>             
           </xs:restriction>
    </xs:simpleType>
      <xs:simpleType name="SystemType">
@@ -35,8 +32,13 @@
     <xs:element name="LOGGING" >
         <xs:complexType> 
             <xs:sequence>
-            <xs:element name="LOGLEVEL" type="LogLevel" maxOccurs="unbounded" minOccurs="1"> </xs:element> 
-               
+                
+               <!-- <xs:element name="LOGLEVEL" type="LogLevel" maxOccurs="unbounded" minOccurs="1"> </xs:element> -->
+              
+             <xs:element name="LOGLEVEL" maxOccurs="unbounded" minOccurs="1"> </xs:element> 
+             
+             
+              
            <!--     <xs:element name="SUBSYSTEM" type="SystemType" maxOccurs="unbounded" minOccurs="1" > </xs:element> -->
                 <xs:element name="SYSTEM" maxOccurs="unbounded" minOccurs="1">
                          <xs:complexType>
