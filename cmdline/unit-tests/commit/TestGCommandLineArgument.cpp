@@ -471,21 +471,18 @@ TEST_F(TestGCommandLineArgument, unsignedInt)
 }
 
 
-// TEST_F(TestGCommandLineArgument,  duplicatesNSR247)
-// {
-//     g->AddArgument( farg );
-//      g->AddArgument( farg );
-//     ////fArgs.push_back(farg); // Duplicate comman that was allready added in the Setup method
-//     EXPECT_ANY_THROW ( g->ScanArguments("") );
-//  }
+TEST_F(TestGCommandLineArgument,  duplicatesNSR247)
+{
+    g->AddArgument( farg );
+     g->AddArgument( farg );
+    ////fArgs.push_back(farg); // Duplicate comman that was allready added in the Setup method
+    EXPECT_ANY_THROW ( g->ScanArguments("") );
+ }
  
 
 
 TEST_F(TestGCommandLineArgument, simpleconstructorNSR216)
 {
-    int i = 0;
-    double f = 0;
-
     struct Test_t : public Val_t <double >
     {
         Test_t(double n = 0) : Val_t<double>::Val_t(n, -100, 100) {};
@@ -497,20 +494,22 @@ TEST_F(TestGCommandLineArgument, simpleconstructorNSR216)
     };
     
     Test_t *t = new  Test_t();
-    std::shared_ptr<GCommandLineArgument<int>  >  a  =     std::make_shared < GCommandLineArgument<int> >("-ival", &i);
-    std::shared_ptr<  GCommandLineArgument<double> > b  =     std::make_shared < GCommandLineArgument<double> >("-fval", &f);
-     std::shared_ptr< GCommandLineArgument<Val_t<double> > > c =    std::make_shared < GCommandLineArgument<Val_t<double> > >("-dummy", t);
+    std::shared_ptr<GCommandLineArgument<int>  >  a_arg             =   std::make_shared < GCommandLineArgument<int> >("-ival", &i);
+    
+    
+    std::shared_ptr<  GCommandLineArgument<double> > b_arg          
+    =   std::make_shared < GCommandLineArgument<double> >("-fval", &d);
+    
 
-    g->ScanArguments("-ival 33", a);
-    g->ScanArguments("-fval 2.71828182845", b);
-    g->ScanArguments("-dummy 27.1828182845", c);
+    std::shared_ptr< GCommandLineArgument<Val_t<double> > > c_arg  =   std::make_shared < GCommandLineArgument<Val_t<double> > >("-dummy", t);
+
+    g->ScanArguments("-ival 33", a_arg );
+    g->ScanArguments("-fval 2.71828182845", b_arg );
+    g->ScanArguments("-dummy 27.1828182845", c_arg );
     EXPECT_EQ(33, i);
     EXPECT_DOUBLE_EQ(2.71828182845, f);
 	EXPECT_DOUBLE_EQ(27.1828182845, t->GetValue() );
-	EXPECT_ANY_THROW(g->ScanArguments("-dummxxy 200", c ) );
-
-    // delete a;
-    // delete b;
+	EXPECT_ANY_THROW(g->ScanArguments("-dummxxy 200", c_arg ) );
     delete t;
  
   }
@@ -520,15 +519,11 @@ TEST_F(TestGCommandLineArgument, simpleconstructorNSR216)
  TEST_F(TestGCommandLineArgument, stringscanBugNSR808)
  {
      string test;
-     
-   //  SET_LOGFORMAT("1111111");
- 
-     std::shared_ptr<GCommandLineArgument<string> > s = std::make_shared< GCommandLineArgument<string> >("-mystring", &test);
-     
+     std::shared_ptr<GCommandLineArgument<string> > s_arg = std::make_shared< GCommandLineArgument<string> >("-mystring", &test);
      
      try
      {
-         g->ScanArguments("-mystring \"hello world\"", s);
+         g->ScanArguments("-mystring \"hello world\"", s_arg ) ;
      }
      catch (GException &e)
      {
@@ -539,7 +534,7 @@ TEST_F(TestGCommandLineArgument, simpleconstructorNSR216)
  
      try
      {
-         g->ScanArguments("-mystring \"lorem ipsum\"", s);
+         g->ScanArguments("-mystring \"lorem ipsum\"", s_arg );
      }
      catch (GException &e)
      {

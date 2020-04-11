@@ -32,8 +32,6 @@ TestGLogApplication::TearDown()
 
 TEST_F(TestGLogApplication, get_argument )
 {
-	GLogApplication *g = new GLogApplication();
-  g->InitLogArgs();
 	EXPECT_NE(nullptr, g->GetArgument("-loglevel")  );
  // delete g;
 }
@@ -41,7 +39,6 @@ TEST_F(TestGLogApplication, get_argument )
 
 TEST_F(TestGLogApplication,   remove_argument )
 {
-	GLogApplication *g = new GLogApplication();
 	g->InitLogArgs();
   EXPECT_NE(nullptr, g->GetArgument("-loglevel")  );
 	size_t size_before = g->GetArguments().size();

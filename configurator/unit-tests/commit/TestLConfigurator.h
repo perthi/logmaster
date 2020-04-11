@@ -20,13 +20,5 @@ class TestLConfigurator  : public TestBase
 public:
 	TestLConfigurator();
 	virtual ~ TestLConfigurator();
-
-protected:
-	LLogging *l = LLogging::Instance();
-
-private:
-	TestLConfigurator( const TestLConfigurator & );
-	TestLConfigurator operator = ( TestLConfigurator & );
-
 };
 
