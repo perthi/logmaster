@@ -78,7 +78,8 @@ cmdline-unittest:=	  cmdline/unit-tests/commit/$(TARGET)
 exception:=           exception/$(TARGET)
 exception-unittest:=  exception/unit-tests/commit/$(TARGET)
 
-#xml:=                 xml/$(TARGET)
+xml:=                 xml/$(TARGET)
+
 #xml-unittest:=        xml/unit-tests/commit/$(TARGET)
 #xml-example1:=        xml/examples/xml-example1/$(TARGET)
 #xml-validator:=       xml/xml-validator/$(TARGET)

@@ -120,15 +120,15 @@ endef
 
 
 $(PROGRAM):: $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC)
-	@echo $(LIBS) > $(CURDIR)/../..//.compileinfo-$(TARGET)/$(PROGRAM)_flags.txt
-	@echo 	$(CCLOCAL) $(CPPFLAGS) -o  $(PROGRAM) $(OBJS) $(OBJSCPP) $(LIBS) >> $(CURDIR)/../..//.compileinfo-$(TARGET)/$(PROGRAM)_flags.txt 
+#	@echo $(LIBS) > $(CURDIR)/../..//.compileinfo-$(TARGET)/$(PROGRAM)_flags.txt
+#	@echo 	$(CCLOCAL) $(CPPFLAGS) -o  $(PROGRAM) $(OBJS) $(OBJSCPP) $(LIBS) >> $(CURDIR)/../..//.compileinfo-$(TARGET)/$(PROGRAM)_flags.txt 
 	$(CCLOCAL) $(CPPFLAGS) -o  $(PROGRAM) $(OBJS) $(OBJSCPP) $(LIBS) 
 	$(MAKE) install 
 
 VPATH=../
 
-../GVersion.cpp :
-	$(call generate-version-info )
+#../GVersion.cpp :
+#	$(call generate-version-info )
 
 
 
