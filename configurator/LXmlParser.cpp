@@ -39,7 +39,6 @@ vector< std::shared_ptr<GXmlEntity> >
 LXmlParser::ParseXML(const string  xml, const string  xsd ) 
 {
     vector< std::shared_ptr<GXmlEntity > > tmp;
-
     FORCE_DEBUG("xml file = %s",  xml.c_str()  );
     FORCE_DEBUG("xsd file = %s",  xsd.c_str()  );
     
@@ -48,28 +47,18 @@ LXmlParser::ParseXML(const string  xml, const string  xsd )
 	
     std::shared_ptr<GXmlStreamReader> xmlReader = GXmlClassFactory::CreateStreamReaderSmartPtr(xml.c_str() );
 	GXmlNode* node = xmlReader->ReadNode();
-
     int i = 0;
-
-
 
     while (  node != nullptr  && i < 1000 )
     {
      //   AssertTagOpenGroup();
-      
         i ++;
         //PrinttAttributes( node, GLOCATION);
         //FORCE_DEBUG("read node %d",  i );
-        
         string name =  node->GetName();
-
       //  if( name == "LOGGING" )
         {
-            
-
-    
             FORCE_DEBUG("Tag = %s !!", name.c_str() );
-
         }
         
         node = xmlReader->ReadNode();

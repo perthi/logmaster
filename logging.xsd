@@ -2,6 +2,11 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.1" vc:minVersion="1.1"
     xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"> 
    <xs:simpleType name="LogLevel">
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z]+"/>
+        </xs:restriction>
+   </xs:simpleType>
+     <xs:simpleType name="System">
           <xs:restriction base="xs:string"></xs:restriction>
    </xs:simpleType>
  
@@ -12,10 +17,13 @@
      </xs:simpleType>     -->
     
     <xs:element name="LOGGING" >
-        <xs:complexType>
+        <xs:complexType> 
             <xs:sequence>
-            <xs:element name="LOGLEVEL" type="LogLevel" maxOccurs="unbounded" minOccurs="0"> </xs:element>      
-           </xs:sequence>
-      </xs:complexType>         
+            <xs:element name="LOGLEVEL" type="LogLevel" maxOccurs="unbounded" minOccurs="1"> </xs:element> 
+            <xs:element name="SUBSYSTEM" type="System" maxOccurs="unbounded" minOccurs="1" > </xs:element> 
+            </xs:sequence>      
+        </xs:complexType>                
     </xs:element>
+    
+
 </xs:schema>
