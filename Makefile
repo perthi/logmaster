@@ -63,22 +63,26 @@ export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster  -lreadline
 export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest -lpthread 
 
 
-#version-info:=	  	version-info/$(TARGET)
-helloworld:=          helloworld/$(TARGET)
-gtest-linux:=         gtest-linux/$(TARGET)
-testlib:=             testlib/$(TARGET)
-utilities:=  	  	  utilities/$(TARGET)
-utilities-unittest:=  utilities/unit-tests/commit/$(TARGET)
-logging:=    	  	  logging/$(TARGET)
-logging-example1:=	  logging/examples/logging-example1/$(TARGET)
-logging-unittest:=    logging/unit-tests/commit/$(TARGET)
-cmdline:= 		      cmdline/$(TARGET)
-cmdline-example1:=    cmdline/examples/cmdline-example1/$(TARGET)
-cmdline-unittest:=	  cmdline/unit-tests/commit/$(TARGET)
-exception:=           exception/$(TARGET)
-exception-unittest:=  exception/unit-tests/commit/$(TARGET)
+#version-info:=	  	 version-info/$(TARGET)
+helloworld:=             helloworld/$(TARGET)
+gtest-linux:=            gtest-linux/$(TARGET)
+testlib:=                testlib/$(TARGET)
+utilities:=              utilities/$(TARGET)
+utilities-unittest:=     utilities/unit-tests/commit/$(TARGET)
+logging:=                logging/$(TARGET)
+logging-example1:=       logging/examples/logging-example1/$(TARGET)
+logging-unittest:=       logging/unit-tests/commit/$(TARGET)
+cmdline:=                cmdline/$(TARGET)
+cmdline-example1:=       cmdline/examples/cmdline-example1/$(TARGET)
+cmdline-unittest:=       cmdline/unit-tests/commit/$(TARGET)
+exception:=              exception/$(TARGET)
+exception-unittest:=     exception/unit-tests/commit/$(TARGET)
 
-xml:=                 xml/$(TARGET)
+xml:=                    xml/$(TARGET)
+
+configurator:=           configurator/$(TARGET)
+configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
+configurator-example1:=  configurator/examples/configurator-example1/$(TARGET)
 
 #xml-unittest:=        xml/unit-tests/commit/$(TARGET)
 #xml-example1:=        xml/examples/xml-example1/$(TARGET)
@@ -98,7 +102,8 @@ unittests:= 	$(utilities-unittest) \
 		$(cmdline-unittest) \
 		$(xml-unittest) \
 		$(intercom-unittets) \
-		$(com-unittest)
+		$(com-unittest) \
+		$(configurator-unittest)
 
  #unittests:= 	$(utilities-unittest)
 
@@ -114,7 +119,8 @@ src-lib:= $(support-modules) \
 	$(xml) \
 	$(common) \
 	$(com) \
-        $(exception)
+        $(exception) \
+	$(configurator) 
 
 
 src-exe:=$(helloworld) \
@@ -126,7 +132,8 @@ src-exe:=$(helloworld) \
 	$(com-client) \
 	$(xml-validator) \
 	$(com-udp-emulator) \
-	$(version-info)	
+	$(version-info) \
+	$(configurator-example1)
 
 
 arm-src:=$(src-lib) $(src-exe)
