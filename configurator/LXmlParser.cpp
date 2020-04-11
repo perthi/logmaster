@@ -33,6 +33,6 @@ ParseXML(const string  xml, const string  xsd )
     FORCE_DEBUG("xml file = %s",  xml.c_str()  );
     FORCE_DEBUG("xsd file = %s",  xsd.c_str()  );
 
-    return tp;
+    return tmp;
 
 }

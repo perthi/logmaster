@@ -28,6 +28,8 @@
 
 
 #include <configurator/LConfigurator.h>
+#include <configurator/LXmlParser.h>
+
 #include <xml/GXmlValidator.h>
 
 #include <iostream>
@@ -39,7 +41,13 @@ using std::endl;
 int
 main(int  /*argc*/, const char ** /*argv*/ )
 {
+	string xml = "kf_config.xml";
+	string xsd = "kf_config.xsd";
+
 	std::shared_ptr<LConfigurator> ptr = std::make_shared< LConfigurator> ();
 
+	std::shared_ptr< LXmlParser > p = std::make_shared<  LXmlParser> ();
+
+	p->ParseXML(xml, xsd);
 
 }

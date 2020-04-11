@@ -14,7 +14,7 @@
 class  LXmlParser : public GXmlParser
 {
 	public:
-		virtual  vector< std::shared_ptr<GXmlEntity> > API ParseXML(const string  /*xml*/, const string  /*xsd*/ ) ;
+		virtual  vector< std::shared_ptr<GXmlEntity> > API ParseXML(const string  xml, const string  xsd ) ;
 		LXmlParser();
 		virtual ~LXmlParser();
 };
