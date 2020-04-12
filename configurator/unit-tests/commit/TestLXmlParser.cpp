@@ -45,7 +45,7 @@ TEST_F( TestLXmlParser, parse_loglevels )
 {
     std::shared_ptr<GXmlStreamReader> r = GXmlClassFactory::CreateStreamReaderSmartPtr(xml );
     LXmlParser p;
-    vector < std::shared_ptr<LXmlEntityLogLevel> > entities = p.ParseLogLevels(r);
+    vector < std::shared_ptr<LXmlEntityLogLevel> > entities = p.ParseLogLevels(r, "LOGLEVELS");
     
     EXPECT_TRUE ( p.HasElement("DEBUG", entities ) );
     EXPECT_TRUE ( p.HasElement("INFO", entities ) );
@@ -64,7 +64,7 @@ TEST_F( TestLXmlParser, parse_subsystems )
 {
     std::shared_ptr<GXmlStreamReader> r = GXmlClassFactory::CreateStreamReaderSmartPtr(xml );
     LXmlParser p;
-    vector < std::shared_ptr< LXmlEntitySubSystem > > entities = p.ParseSubSystems(r);
+    vector < std::shared_ptr< LXmlEntitySubSystem > > entities = p.ParseSubSystems(r, "SUBSYSTEMS" );
 
     EXPECT_TRUE  ( p.HasElement("ANALYSIS", entities ) );
     EXPECT_TRUE  ( p.HasElement("XML", entities ) );

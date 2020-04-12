@@ -19,7 +19,7 @@ using namespace LOGMASTER;
 //#include <xml/GXmlStreamWriter.h>
 #include <xml/GXmlStreamReader.h>
 #include <xml/GXmlValidator.h>
-
+#include <xml/GLocationXml.h>
 
 #include <configurator/LXmlEntityLogLevel.h>
 #include <configurator/LXmlEntitySubSystem.h>
@@ -56,15 +56,23 @@ LXmlParser::ParseXML(const string  xml, const string  xsd )
     while (  node != nullptr )
     {
         string tag = node->GetName();
-        if( tag == "LOGGING" )
+        if (tag == "LOGGING")
         {
-            FORCE_DEBUG("trag = LOGGING");
-        }   
+            FORCE_DEBUG("tag = LOGGING");
+            FORCE_DEBUG("type = %s", node->GetTypeS().c_str());
+        }
         else
         {
-            
+            if (tag == "LEVELS")
+            {
+                ParseLogLevels( xmlReader, "LEVELS" );
+            }
+
+            if (tag == "SUBSYSTEMS")
+            {
+                ParseSubSystems(xmlReader, "SUBSYSTEMS" );
+            }
         }
-        
 
         node = xmlReader->ReadNode();
 
@@ -72,57 +80,45 @@ LXmlParser::ParseXML(const string  xml, const string  xsd )
 
 
 
-
-    // while (  node != nullptr  && i < 1000 )
-    // {
-    //  //   AssertTagOpenGroup();
-    //     i ++;
-    //     //PrinttAttributes( node, GLOCATION);
-    //     //FORCE_DEBUG("read node %d",  i );
-    //     string name =  node->GetName();
-    //   //  if( name == "LOGGING" )
-    //     {
-    //         FORCE_DEBUG("Tag = %s !!", name.c_str() );
-    //     }
-        
-    //     node = xmlReader->ReadNode();
-
-    // }
-
-
-
     return tmp;
 }
 
 
+
 vector<std::shared_ptr <LXmlEntitySubSystem> > 
-LXmlParser::ParseSubSystems( std::shared_ptr<GXmlStreamReader> /*r*/ )
+LXmlParser::ParseSubSystems( std::shared_ptr<GXmlStreamReader> r, const string /*tag*/ )
 {
+    FORCE_DEBUG("Parsing subsystems");
+    AssertTagOpenGroup( r,"SYSTEM", GLOCATION_XML  );
+	
+    AssertTagCloseGroup( r,"SYSTEM", GLOCATION_XML  );
+
    vector<std::shared_ptr <LXmlEntitySubSystem> >  tmp;
    return tmp;  
 }
 
 
 vector<std::shared_ptr < LXmlEntityLogLevel  > >  
-LXmlParser::ParseLogLevels( std::shared_ptr<GXmlStreamReader>  /*r*/ )
+LXmlParser::ParseLogLevels( std::shared_ptr<GXmlStreamReader>  /*r*/, const string /*tag*/ )
 {
+   FORCE_DEBUG("Parsing loglevels"); 
+   
+
+   
    vector<std::shared_ptr < LXmlEntityLogLevel  > >  tmp;   
    return tmp;
 }
 
-// template< typename T>
-// 		bool HasElement( const string name,  vector<std::shared_ptr < T > > in );
-
-template< typename T>
-bool 
-LXmlParser::HasElement( const string name,  vector<std::shared_ptr < T> > in )
+std::shared_ptr < LXmlEntitySubSystem >  
+LXmlParser::ParseSubSystem(  std::shared_ptr<GXmlStreamReader> /*r*/, const string /*closing_tag*/  )
 {
-    for( auto element : in )
-    {
-        if ( element->fName == name  )
-        {
-            return true;
-        }
-    }
-    return false;
+
+    return nullptr;
+}
+
+std::shared_ptr < LXmlEntityLogLevel >  
+LXmlParser::ParseLogLevel( std::shared_ptr<GXmlStreamReader> /*r*/, const string  /*closing_tag*/   )
+{
+    return nullptr;
+
 }

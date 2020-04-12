@@ -17,6 +17,6 @@ include ../../../../unittest-common.mk
 
 CPPFLAGS+= -DCONFIG_DIR='"$(CONFIG_DIR)"' 
 
-LIBS+= -llogmaster  -lexception  -lutilities -ltestlib -lconfigurator  -lexception  -lxml-embc   -lxml2
+LIBS+= -llogmaster  -lexception  -lutilities -ltestlib -lconfigurator  -lexception  -lxml-embc   -lxml2  -lconfigurator 
 INCLUDES+=$(GTEST_INCLUDES)
 
