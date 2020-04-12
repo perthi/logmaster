@@ -14,6 +14,8 @@ using std::vector;
 
 class LXmlEntityLogLevel;
 class LXmlEntitySubSystem;
+class GXmlStreamReader;
+
 
 class  LXmlParser : public GXmlParser
 {
@@ -22,9 +24,12 @@ class  LXmlParser : public GXmlParser
 		LXmlParser();
 		virtual ~LXmlParser();
 
-	private:
-		vector<std::shared_ptr <LXmlEntitySubSystem> > ParseSubSystems();
-	    vector<std::shared_ptr < LXmlEntityLogLevel  > >  ParseLogLevels();
+//	private:
+		vector<std::shared_ptr <LXmlEntitySubSystem> > ParseSubSystems(  std::shared_ptr<GXmlStreamReader> r  );
+	    vector<std::shared_ptr < LXmlEntityLogLevel  > >  ParseLogLevels( std::shared_ptr<GXmlStreamReader> r   );
+
+		template< typename T>
+		bool HasElement( const string name,  vector<std::shared_ptr < T > > in );
 
 };
 

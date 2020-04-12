@@ -16,6 +16,8 @@ class  LXmlEntity : public GXmlEntity
 	   LXmlEntity();
 	   virtual ~LXmlEntity();
 	   virtual  string API str() const override = 0;
+
+	   string fName = "";
 };
 
 #endif

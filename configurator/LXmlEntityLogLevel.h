@@ -11,8 +11,6 @@ class  LXmlEntityLogLevel : public LXmlEntity
 	   LXmlEntityLogLevel();
 	   virtual ~LXmlEntityLogLevel();
 	   virtual  string API str() const override;
-
-	   string fName = "";
 	   bool    fForecOutput = false;
 
 };
