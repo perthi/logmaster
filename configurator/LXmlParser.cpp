@@ -12,11 +12,8 @@
 #include <logging/LLogApi.h>
 using namespace LOGMASTER;
 
-
-
 #include <exception/GException.h>
 #include <xml/GXmlClassFactory.h>
-//#include <xml/GXmlStreamWriter.h>
 #include <xml/GXmlStreamReader.h>
 #include <xml/GXmlValidator.h>
 #include <xml/GLocationXml.h>
@@ -33,30 +30,25 @@ LXmlParser::LXmlParser()
 
 }
 
+
 LXmlParser::~LXmlParser()
 {
 
 }
 
-
-vector< std::shared_ptr<GXmlEntity> > 
-LXmlParser::ParseXML(const string  xml, const string  xsd ) 
+void 
+LXmlParser::ParseXML( const string xml, const string xsd,
+                      std::vector<std::shared_ptr<LXmlEntityLogLevel>> &loglevels,
+                      std::vector<std::shared_ptr<LXmlEntitySubSystem>> &subsystems)
 {
-    vector< std::shared_ptr<GXmlEntity > > tmp;
-    FORCE_DEBUG("xml file = %s",  xml.c_str()  );
-    FORCE_DEBUG("xsd file = %s",  xsd.c_str()  );
-    
-    XML_ASSERT_EXCEPTION(GXmlValidator::IsValid(xml, xsd ), "Faild to validate XML file %s against %s",  
-	xml.c_str(), xsd.c_str());
-	
-    std::shared_ptr<GXmlStreamReader> xmlReader = GXmlClassFactory::CreateStreamReaderSmartPtr(xml.c_str() );
-	GXmlNode* node = xmlReader->ReadNode();
-    ///int i = 0;
-    
-    vector<std::shared_ptr <LXmlEntitySubSystem> >  subsystems;
-    vector<std::shared_ptr < LXmlEntityLogLevel  > >  loglevles;   
 
-    while (  node != nullptr )
+    XML_ASSERT_EXCEPTION(GXmlValidator::IsValid(xml, xsd), "Faild to validate XML file %s against %s",
+                         xml.c_str(), xsd.c_str());
+
+    std::shared_ptr<GXmlStreamReader> xmlReader = GXmlClassFactory::CreateStreamReaderSmartPtr(xml.c_str());
+    GXmlNode *node = xmlReader->ReadNode();
+
+    while (node != nullptr)
     {
         string tag = node->GetName();
         if (tag == "LOGGING")
@@ -67,25 +59,25 @@ LXmlParser::ParseXML(const string  xml, const string  xsd )
             if (tag == "LEVELS")
             {
                 bool the_end = false;
-                while( the_end == false)
+                while (the_end == false)
                 {
                     node = xmlReader->ReadNode();
                     tag = node->GetName();
 
-                    if( tag == "LOGLEVEL"  &&  ( node->GetType() == eXML_NODETYPE::EOpenTagNode ) )
-                    {             
-                       loglevles.push_back ( ParseLogLevel( xmlReader, "LOGLEVEL") );      
-                    }
-                    if(  node->GetName() == "LEVELS"  && ( node->GetType() == eXML_NODETYPE::ECloseTagNode) )
+                    if (tag == "LOGLEVEL" && (node->GetType() == eXML_NODETYPE::EOpenTagNode))
                     {
-                       the_end = true; 
+                        loglevels.push_back(ParseLogLevel(xmlReader, "LOGLEVEL"));
+                    }
+                    if (node->GetName() == "LEVELS" && (node->GetType() == eXML_NODETYPE::ECloseTagNode))
+                    {
+                        the_end = true;
                     }
                 }
             }
             if (tag == "SUBSYSTEMS")
             {
                 bool the_end = false;
-                
+
                 while (the_end == false)
                 {
                     node = xmlReader->ReadNode();
@@ -104,26 +96,8 @@ LXmlParser::ParseXML(const string  xml, const string  xsd )
         }
 
         node = xmlReader->ReadNode();
-
     }
-
-    XML_FATAL("PARSED %d logleveles",loglevles.size()  );
-    XML_FATAL("PARSED %d subsystems", subsystems.size()  );
-
-    for( auto e: loglevles  )
-    {
-        FORCE_DEBUG("\n%s", e->str().c_str() );
-    }
-    
-    for( auto s:  subsystems  )
-    {
-        FORCE_DEBUG("\n%s", s->str().c_str() );
-    }
-
-    return tmp;
 }
-
-
 
 
 std::shared_ptr < LXmlEntityLogLevel >  
@@ -151,4 +125,3 @@ LXmlParser::ParseSubSystem(  std::shared_ptr<GXmlStreamReader>  r, const string 
     AssertTagCloseGroup(r,closing_tag, GLOCATION_XML );
     return s;
 }
-
