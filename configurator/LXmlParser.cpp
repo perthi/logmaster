@@ -52,25 +52,54 @@ LXmlParser::ParseXML(const string  xml, const string  xsd )
     std::shared_ptr<GXmlStreamReader> xmlReader = GXmlClassFactory::CreateStreamReaderSmartPtr(xml.c_str() );
 	GXmlNode* node = xmlReader->ReadNode();
     ///int i = 0;
+    
+    vector<std::shared_ptr <LXmlEntitySubSystem> >  subsystems;
+    vector<std::shared_ptr < LXmlEntityLogLevel  > >  loglevles;   
 
     while (  node != nullptr )
     {
         string tag = node->GetName();
         if (tag == "LOGGING")
         {
-            FORCE_DEBUG("tag = LOGGING");
-            FORCE_DEBUG("type = %s", node->GetTypeS().c_str());
         }
         else
         {
             if (tag == "LEVELS")
             {
-                ParseLogLevels( xmlReader, "LEVELS" );
-            }
+                bool the_end = false;
+                while( the_end == false)
+                {
+                    node = xmlReader->ReadNode();
+                    tag = node->GetName();
 
+                    if( tag == "LOGLEVEL"  &&  ( node->GetType() == eXML_NODETYPE::EOpenTagNode ) )
+                    {             
+                       loglevles.push_back ( ParseLogLevel( xmlReader, "LOGLEVEL") );      
+                    }
+                    if(  node->GetName() == "LEVELS"  && ( node->GetType() == eXML_NODETYPE::ECloseTagNode) )
+                    {
+                       the_end = true; 
+                    }
+                }
+            }
             if (tag == "SUBSYSTEMS")
             {
-                ParseSubSystems(xmlReader, "SUBSYSTEMS" );
+                bool the_end = false;
+                
+                while (the_end == false)
+                {
+                    node = xmlReader->ReadNode();
+                    tag = node->GetName();
+
+                    if (tag == "SYSTEM" && (node->GetType() == eXML_NODETYPE::EOpenTagNode))
+                    {
+                        subsystems.push_back(ParseSubSystem(xmlReader, "SYSTEM"));
+                    }
+                    if (node->GetName() == "SUBSYSTEMS" && (node->GetType() == eXML_NODETYPE::ECloseTagNode))
+                    {
+                        the_end = true;
+                    }
+                }
             }
         }
 
@@ -78,47 +107,48 @@ LXmlParser::ParseXML(const string  xml, const string  xsd )
 
     }
 
+    XML_FATAL("PARSED %d logleveles",loglevles.size()  );
+    XML_FATAL("PARSED %d subsystems", subsystems.size()  );
 
+    for( auto e: loglevles  )
+    {
+        FORCE_DEBUG("\n%s", e->str().c_str() );
+    }
+    
+    for( auto s:  subsystems  )
+    {
+        FORCE_DEBUG("\n%s", s->str().c_str() );
+    }
 
     return tmp;
 }
 
 
 
-vector<std::shared_ptr <LXmlEntitySubSystem> > 
-LXmlParser::ParseSubSystems( std::shared_ptr<GXmlStreamReader> r, const string /*tag*/ )
-{
-    FORCE_DEBUG("Parsing subsystems");
-    AssertTagOpenGroup( r,"SYSTEM", GLOCATION_XML  );
-	
-    AssertTagCloseGroup( r,"SYSTEM", GLOCATION_XML  );
-
-   vector<std::shared_ptr <LXmlEntitySubSystem> >  tmp;
-   return tmp;  
-}
-
-
-vector<std::shared_ptr < LXmlEntityLogLevel  > >  
-LXmlParser::ParseLogLevels( std::shared_ptr<GXmlStreamReader>  /*r*/, const string /*tag*/ )
-{
-   FORCE_DEBUG("Parsing loglevels"); 
-   
-
-   
-   vector<std::shared_ptr < LXmlEntityLogLevel  > >  tmp;   
-   return tmp;
-}
-
-std::shared_ptr < LXmlEntitySubSystem >  
-LXmlParser::ParseSubSystem(  std::shared_ptr<GXmlStreamReader> /*r*/, const string /*closing_tag*/  )
-{
-
-    return nullptr;
-}
 
 std::shared_ptr < LXmlEntityLogLevel >  
-LXmlParser::ParseLogLevel( std::shared_ptr<GXmlStreamReader> /*r*/, const string  /*closing_tag*/   )
+LXmlParser::ParseLogLevel( std::shared_ptr<GXmlStreamReader>  r, const string   closing_tag   )
 {
-    return nullptr;
+    std::shared_ptr<LXmlEntityLogLevel> l = std::make_shared<LXmlEntityLogLevel>();
+    l->fName        =  GetTagValue<string>(r, "LEVEL",        GLOCATION_XML );
+    l->fForecOutput =  GetTagValue<bool>  (r, "FORCE_OUTPUT", GLOCATION_XML );
+    AssertTagCloseGroup(r,closing_tag, GLOCATION_XML );
+    return l;
 
 }
+
+
+std::shared_ptr < LXmlEntitySubSystem >  
+LXmlParser::ParseSubSystem(  std::shared_ptr<GXmlStreamReader>  r, const string  closing_tag   )
+{
+    std::shared_ptr< LXmlEntitySubSystem> s = std::make_shared< LXmlEntitySubSystem>();
+    s->fName       =  GetTagValue<string>(r, "NAME",       GLOCATION_XML );
+    s->fNameShort  =  GetTagValue<string>(r, "SHORT_NAME", GLOCATION_XML );
+    s->fTag        =  GetTagValue<string>(r, "TAG",        GLOCATION_XML );
+    s->fTagShort   =  GetTagValue<string>(r, "TAG_SHORT",  GLOCATION_XML );
+    s->fDefault    =  GetTagValue<string>(r, "DEFAULT",    GLOCATION_XML ); 
+    s->fCanModify  =  GetTagValue<bool>(  r, "CAN_MODIFY", GLOCATION_XML ); 
+    AssertTagCloseGroup(r,closing_tag, GLOCATION_XML );
+    return s;
+}
+

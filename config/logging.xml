@@ -42,6 +42,7 @@
             <NAME>XML</NAME>
             <SHORT_NAME>XML</SHORT_NAME>
             <TAG>--xml</TAG>
+            <TAG_SHORT>--xml</TAG_SHORT>
             <DEFAULT>WARNING</DEFAULT>
             <CAN_MODIFY>false</CAN_MODIFY>
         </SYSTEM>

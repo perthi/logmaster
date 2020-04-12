@@ -31,6 +31,7 @@
 #include <configurator/LXmlParser.h>
 #include <xml/GXmlValidator.h>
 
+#include <exception/GException.h>
 #include <logging/LLogApi.h>
 
 using namespace LOGMASTER;
@@ -65,9 +66,21 @@ int main(int /*argc*/, const char ** /*argv*/)
 			FORCE_DEBUG("Parsing done ...");
 		}
 	}
-
+	catch( const GException &e )
+	{
+		std::cerr << e.what() << endl;
+	}
 	catch (const std::exception &e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << e.what() <<  endl;
 	}
+	catch (const std::string &e)
+	{
+		std::cerr << e <<  endl;
+	}
+	catch(...)
+	{
+		FORCE_DEBUG("Unknown exception caught ....");
+	}
+
 }

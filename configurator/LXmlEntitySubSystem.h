@@ -13,7 +13,10 @@ class  LXmlEntitySubSystem : public LXmlEntity
 	   virtual ~LXmlEntitySubSystem();
 	   virtual  string API str() const override;
 
-	   string fTag   =  "";	
+	   string fNameShort  =  "";	
+	   string fTag        =  "";	
+	   string fTagShort   =  "";	
+	
 	   string fDefault = "";
 	   bool   fCanModify = true;	
 
