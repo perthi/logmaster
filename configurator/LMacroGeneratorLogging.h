@@ -27,17 +27,17 @@ class  LMacroGeneratorLogging
 	private:
 		struct LMacroEntry
 		{
-  			LMacroEntry(  vector<string> s, vector<string> m, bool is_assert )  : fSystems(s), fMacroNames(m), fIsAssertMacro(is_assert)  {} ;
-  			vector<string> fSystems;
-  			vector<string> fMacroNames;
-  			bool fIsAssertMacro = false;  
-
+			LMacroEntry(const string lvl, vector<string> m, vector<string> s, bool is_assert) : fLevel(lvl), fMacroNames(m), fSystems(s), fIsAssertMacro(is_assert){};
+			string fLevel;
+			vector<string> fMacroNames;
+			vector<string> fSystems;
+			bool fIsAssertMacro = false;
 		};
 
-		void GenerateLines( const LMacroEntry m  ) const;
-		
-		string fLevelEnumName =  "eMSGLEVEL";
-	    string fSystemEnumName =  "eMSGSYSTEM";
+		void GenerateLines( const vector<LMacroEntry> m  ) const;
+		string fLevelEnumName    =   "eMSGLEVEL";
+	    string fSystemEnumName   =   "eMSGSYSTEM";
+
 };
 
 #endif
