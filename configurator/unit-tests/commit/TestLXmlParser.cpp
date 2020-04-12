@@ -43,37 +43,30 @@ TEST_F( TestLXmlParser, check_file )
 
 TEST_F( TestLXmlParser, parse_loglevels )
 {
-     std::shared_ptr<GXmlStreamReader> r = GXmlClassFactory::CreateStreamReaderSmartPtr(xml );
-    // LXmlParser p;
+     LXmlParser p;
      vector < std::shared_ptr<LXmlEntityLogLevel> > loglevels;
      vector < std::shared_ptr< LXmlEntitySubSystem > > subsystems; 
-   //  vector < std::shared_ptr<LXmlEntityLogLevel> > entities = p.ParseLogLevels(r, "LOGLEVELS");
-    
+     p.ParseXML(xml, xsd, loglevels, subsystems  );
 
-    // EXPECT_TRUE ( p.HasElement("DEBUG", entities ) );
-    // EXPECT_TRUE ( p.HasElement("INFO", entities ) );
-    // EXPECT_TRUE ( p.HasElement("WARNING", entities ) );
-    // EXPECT_TRUE ( p.HasElement("ERROR", entities ) );
-    // EXPECT_TRUE ( p.HasElement("FATAL", entities ) );
-    // EXPECT_TRUE ( p.HasElement("BLAHHH", entities ) );
-
-
-
-    
+    EXPECT_TRUE ( p.HasElement("DEBUG", loglevels ) );
+    EXPECT_TRUE ( p.HasElement("INFO", loglevels ) );
+    EXPECT_TRUE ( p.HasElement("WARNING", loglevels ) );
+    EXPECT_TRUE ( p.HasElement("ERROR", loglevels ) );
+    EXPECT_TRUE ( p.HasElement("FATAL", loglevels ) );
+    EXPECT_FALSE ( p.HasElement("BLAHHH", loglevels ) );
 }
 
 
 TEST_F( TestLXmlParser, parse_subsystems )
 {
-    // std::shared_ptr<GXmlStreamReader> r = GXmlClassFactory::CreateStreamReaderSmartPtr(xml );
-    // LXmlParser p;
-    // vector < std::shared_ptr< LXmlEntitySubSystem > > entities = p.ParseSubSystems(r, "SUBSYSTEMS" );
+   LXmlParser p;
+   vector < std::shared_ptr<LXmlEntityLogLevel> > loglevels;
+   vector < std::shared_ptr< LXmlEntitySubSystem > > subsystems; 
+   p.ParseXML(xml, xsd, loglevels, subsystems  );
 
-    // EXPECT_TRUE  ( p.HasElement("ANALYSIS", entities ) );
-    // EXPECT_TRUE  ( p.HasElement("XML", entities ) );
-    // EXPECT_TRUE  ( p.HasElement("EXCEPTION", entities ) );
-    // EXPECT_FALSE ( p.HasElement("BLAHHH", entities ) );
-
+   EXPECT_TRUE  ( p.HasElement("ANALYSIS",  subsystems  ) );
+   EXPECT_TRUE  ( p.HasElement("XML",       subsystems  ) );
+   EXPECT_TRUE  ( p.HasElement("EXCEPTION", subsystems  ) );
+   EXPECT_FALSE ( p.HasElement("BLAHHH",    subsystems  ) );
 }
-
 

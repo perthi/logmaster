@@ -34,6 +34,9 @@
 #include <exception/GException.h>
 #include <logging/LLogApi.h>
 
+#include <configurator/LXmlEntityLogLevel.h>
+#include <configurator/LXmlEntitySubSystem.h>
+
 using namespace LOGMASTER;
 
 #include <iostream>
@@ -62,7 +65,12 @@ int main(int /*argc*/, const char ** /*argv*/)
 			FORCE_DEBUG("Validation OK, lets try to parse the XML file");
 			std::shared_ptr<LConfigurator> ptr = std::make_shared<LConfigurator>();
 			std::shared_ptr<LXmlParser> p = std::make_shared<LXmlParser>();
-			p->ParseXML(xml, xsd);
+			
+			vector< std::shared_ptr< LXmlEntityLogLevel > > loglevels;
+			vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems;
+			
+			p->ParseXML(xml, xsd, loglevels,  subsystems );
+			
 			FORCE_DEBUG("Parsing done ...");
 		}
 	}
@@ -82,5 +90,7 @@ int main(int /*argc*/, const char ** /*argv*/)
 	{
 		FORCE_DEBUG("Unknown exception caught ....");
 	}
+
+
 
 }
