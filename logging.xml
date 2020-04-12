@@ -36,8 +36,8 @@
         </LOGLEVEL>
     </LEVELS>
 
-    <SUBSYSTEMS>
 
+    <SUBSYSTEMS>
         <SYSTEM>
             <NAME>XML</NAME>
             <SHORT_NAME>XML</SHORT_NAME>
