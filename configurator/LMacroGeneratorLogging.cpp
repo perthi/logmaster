@@ -42,16 +42,20 @@ LMacroGeneratorLogging::Generate(  const string outfile,
 
     vector<string> lines;
 
+   for (auto s : systems)
+        {
+
     for (auto l : levels)
     {
-        for (auto s : systems)
-        {
+     
 
             vector<LMacroEntry> entries;
             entries.push_back(LMacroEntry(l->fName, {s->fName + "_" + l->fName, s->fNameShort + "_" + l->fName}, {s->fName}, false));
             entries.push_back(LMacroEntry(l->fName, {s->fName + "_" + l->fName + "_U", s->fNameShort + "_" + l->fName + "_U"}, {s->fName, "USER"}, false));
-            entries.push_back(LMacroEntry(l->fName, {s->fName + "_" + l->fName, s->fNameShort + "_" + l->fName}, {s->fName}, true));
-            std::stringstream buffer;
+            entries.push_back(LMacroEntry(l->fName, {s->fName + "_" + "ASSERT_"+ l->fName, s->fNameShort + "_" + l->fName}, {s->fName}, true));
+           GenerateLines( entries );
+
+           // std::stringstream buffer;
         }
     }
 }
@@ -70,14 +74,19 @@ LMacroGeneratorLogging::GenerateLines( const vector<LMacroEntry>  m_entries  ) c
             string line;
             std::stringstream buffer;
             
-            buffer <<  "#define " +  m + "(...) "  + " LLogging::Instance()->Log( " + fLevelEnumName + "::" ;
+            if( entry.fIsAssertMacro == true )
+            {
+                buffer <<  "#define " +  m + "(expr ...) "  + " if ( ! (expr) ) LLogging::Instance()->Log( " + fLevelEnumName + "::" ;  
+
+            }
+            else
+            {
+                
+                buffer <<  "#define " +  m + "(...) "  + " LLogging::Instance()->Log( " + fLevelEnumName + "::" ;
+            }
+
+
             buffer <<  "LOG_" <<  entry.fLevel <<  ",    ";
-            //buffer <<  "LOG_" <<  entry.fLevel <<  ",    " << fSystemEnumName << "::";
-            
-            // if( entry.fSystems.size() == 1  )
-            // {
-            //     buffer << fSystemEnumName << "::"  << entry.fSystems.at(0) + "," ;
-            // }
 
            size_t  sz =   entry.fSystems.size();
 
@@ -91,9 +100,10 @@ LMacroGeneratorLogging::GenerateLines( const vector<LMacroEntry>  m_entries  ) c
             }
 
             buffer << ", ";
-            buffer <<  "GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)" << endl;
+            buffer <<  "GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)";
             
             PUSH();
+            SET_LOGFORMAT("00000001");
             line = buffer.str();
             FORCE_DEBUG("The generated line is: %s", line.c_str() );
             POP();
