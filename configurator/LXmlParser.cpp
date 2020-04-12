@@ -20,6 +20,9 @@ using namespace LOGMASTER;
 #include <xml/GXmlStreamReader.h>
 #include <xml/GXmlValidator.h>
 
+#include <configurator/LXmlEntityLogLevel.h>
+#include <configurator/LXmlEntitySubSystem.h>
+
 #include <vector>
 using std::vector;
 
@@ -66,4 +69,20 @@ LXmlParser::ParseXML(const string  xml, const string  xsd )
     }
     
     return tmp;
+}
+
+
+vector<std::shared_ptr <LXmlEntitySubSystem> > 
+LXmlParser::ParseSubSystems()
+{
+   vector<std::shared_ptr <LXmlEntitySubSystem> >  tmp;
+   return tmp;  
+}
+
+
+vector<std::shared_ptr < LXmlEntityLogLevel  > >  
+LXmlParser::ParseLogLevels()
+{
+   vector<std::shared_ptr < LXmlEntityLogLevel  > >  tmp;   
+   return tmp;
 }

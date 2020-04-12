@@ -471,13 +471,14 @@ TEST_F(TestGCommandLineArgument, unsignedInt)
 }
 
 
-TEST_F(TestGCommandLineArgument,  duplicatesNSR247)
-{
-    g->AddArgument( farg );
-     g->AddArgument( farg );
-    ////fArgs.push_back(farg); // Duplicate comman that was allready added in the Setup method
-    EXPECT_ANY_THROW ( g->ScanArguments("") );
- }
+// TEST_F(TestGCommandLineArgument,  duplicatesNSR247)
+// {
+//     g->AddArgument( farg );
+//     g->AddArgument( farg );
+
+//     ////fArgs.push_back(farg); // Duplicate comman that was allready added in the Setup method
+//     EXPECT_ANY_THROW ( g->ScanArguments("") );
+//  }
  
 
 
@@ -507,7 +508,7 @@ TEST_F(TestGCommandLineArgument, simpleconstructorNSR216)
     g->ScanArguments("-fval 2.71828182845", b_arg );
     g->ScanArguments("-dummy 27.1828182845", c_arg );
     EXPECT_EQ(33, i);
-    EXPECT_DOUBLE_EQ(2.71828182845, f);
+    EXPECT_DOUBLE_EQ(2.71828182845, d );
 	EXPECT_DOUBLE_EQ(27.1828182845, t->GetValue() );
 	EXPECT_ANY_THROW(g->ScanArguments("-dummxxy 200", c_arg ) );
     delete t;
