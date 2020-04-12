@@ -1,14 +1,19 @@
 
 
+
 PROGRAM=configurator-unit-tests
 
+
 SRCCPP:=configurator-unit-tests.cpp   \
-		TestLConfigurator.cpp
+		TestLConfigurator.cpp \
+		TestLXmlParser.cpp
 
 
 include ../../../../common.mk
 include ../../../../unittest-common.mk
 
+
+CPPFLAGS+= -DCONFIG_DIR  
 
 LIBS+= -llogmaster  -lexception  -lutilities -ltestlib -lconfigurator  -lexception  -lxml-embc   -lxml2
 INCLUDES+=$(GTEST_INCLUDES)

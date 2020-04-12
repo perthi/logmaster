@@ -40,17 +40,18 @@ export LIBLOCAL=$(BUILDDIR)/$(TARGET)/lib
 export INSTALLDIRS=$(BUILDDIR) $(BUILDDIR)/$(TARGET)  $(BUILDDIR)/$(TARGET)/bin  $(BUILDDIR)/$(TARGET)/lib
 export VERSIONINFO_EXE=$(BUILDDIR)/x86/bin/version-info
 
-export COMMON_FLAGS:= -fPIC -std=c++17  -g -DHAS_LOGGING
+export COMMON_FLAGS:= -fPIC -std=c++17  -g 
 export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wfatal-errors  -Werror
 
-export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)
-export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS) 
+export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS) -DCONFIG_DIR  -DHAS_LOGGING
+export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS) $(PEDANTIC_FLAGS) -DCONFIG_DIR  -DHAS_LOGGING
 
 export XML_DIR:=$(CURDIR)/xml/3rd-party/
 export XML_INCLUDES:= -I $(XML_DIR)
 
 export LIBFLAGS:= -shared
 
+export CONFIG_DIR:=$(PWD)/config
 
 INCLUDES:= -I $(CURDIR)/include/
 GTEST_INCLUDES:= -isystem $(CURDIR)/
@@ -93,6 +94,7 @@ configurator-example1:=  configurator/examples/configurator-example1/$(TARGET)
 #com-example1:=        com/examples/tcp-example1/$(TARGET)
 #com-server:=          com/tcp-server/$(TARGET)
 #com-client:=          com/tcp-client/$(TARGET)
+
 
 
 

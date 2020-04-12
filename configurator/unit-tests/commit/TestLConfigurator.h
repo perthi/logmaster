@@ -11,10 +11,8 @@
 #pragma once
 
 #include <testlib/TestBase.h>
-#include <logging/LLogApi.h>
 
 
-using namespace LOGMASTER;
 class TestLConfigurator  : public TestBase
 {
 public:

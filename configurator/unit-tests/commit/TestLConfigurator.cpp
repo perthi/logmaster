@@ -31,6 +31,10 @@
 #include <configurator/LConfigurator.h>
 
 
+#include <logging/LLogApi.h>
+using namespace LOGMASTER;
+
+
 TestLConfigurator::TestLConfigurator()
 {
 	
