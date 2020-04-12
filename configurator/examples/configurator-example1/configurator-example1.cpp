@@ -36,6 +36,7 @@
 
 #include <configurator/LXmlEntityLogLevel.h>
 #include <configurator/LXmlEntitySubSystem.h>
+#include <configurator/LMacroGeneratorLogging.h>
 
 using namespace LOGMASTER;
 
@@ -54,6 +55,9 @@ int main(int /*argc*/, const char ** /*argv*/)
 		SET_LOGLEVEL("--all-debug");
 		string xml = "logging.xml";
 		string xsd = "logging.xsd";
+		
+		string outfile = "LLogApiTest.h";
+		
 		auto validator = std::make_shared<GXmlValidator>();
 
 		if (validator->IsValid(xml, xsd) == false)
@@ -70,7 +74,10 @@ int main(int /*argc*/, const char ** /*argv*/)
 			vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems;
 			
 			p->ParseXML(xml, xsd, loglevels,  subsystems );
-			
+			auto g = std::make_shared<LMacroGeneratorLogging>();
+
+			g->Generate( outfile, loglevels, subsystems );			
+
 			FORCE_DEBUG("Parsing done ...");
 		}
 	}
@@ -90,7 +97,9 @@ int main(int /*argc*/, const char ** /*argv*/)
 	{
 		FORCE_DEBUG("Unknown exception caught ....");
 	}
-
-
-
 }
+
+
+// void Generate(  const string oufile, 
+// 	                vector<std::shared_ptr<LXmlEntityLogLevel > > levels,
+// 	                vector<  std::shared_ptr<LXmlEntitySubSystem > >   systems );
