@@ -42,6 +42,39 @@ LGeneratorHashMap::Generate(   const string /*outfile*/,
 
 
 vector<string>   
+LGeneratorHashMap::InitHashLevel2String (  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels ) const
+{
+    vector<string> lines;
+    lines.push_back("   void" );
+    lines.push_back("   LHashMapsBase::InitHashLevel2String()");
+    lines.push_back("   {");
+
+    lines.push_back("fLevel2StringHash.emplace(eMSGLEVEL::LOG_OFF, \"OFF\");");
+    lines.push_back("fLevel2StringHash.emplace(eMSGLEVEL::LOG_FORCE_DEBUG, \"Force_Debug\");");
+
+    for( auto lvl: levels )
+    {
+        std::stringstream buffer; 
+        buffer << "fLevel2StringHash.emplace(eMSGLEVEL::" << "LOG_" << lvl->fName << ",\t" << "\"" << g_string()->ToPascalCase(  lvl->fName ) << "\"" ");";
+    }
+
+
+    lines.push_back("fLevel2StringHash.emplace(eMSGLEVEL::LOG_ALL, \"ALL loglevels\");");
+
+    for (auto l : lines)
+    {
+        cout << l << endl;
+    }
+
+    
+    lines.push_back("  }");
+
+    return lines;
+
+}
+
+
+vector<string>   
 LGeneratorHashMap::GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const
 {
     vector<string> lines;
@@ -62,10 +95,10 @@ LGeneratorHashMap::GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEn
     }
 
     lines.push_back("  }");
-     for (auto l : lines)
-     {
-        cout << l << endl;
-     }
+    //  for (auto l : lines)
+    //  {
+    //     cout << l << endl;
+    //  }
     return lines;
 }
 
