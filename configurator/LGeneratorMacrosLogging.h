@@ -1,6 +1,6 @@
 // -*- mode: c++ -*-
-#ifndef LMACROGENERATORLOGGING_H
-#define LMACROGENERATORLOGGING_H
+#ifndef LGENERATORMACROSLOGGING_H
+#define LGENERATORMACROSLOGGING_H
 
 #include <memory>
 #include <vector>
@@ -14,11 +14,11 @@ class LXmlEntitySubSystem;
 
 
 
-class  LMacroGeneratorLogging
+class  LGeneratorMacrosLogging
 {
 	public:
-	   LMacroGeneratorLogging();
-	   virtual ~LMacroGeneratorLogging();
+	LGeneratorMacrosLogging();
+	   virtual ~LGeneratorMacrosLogging();
 
 	   void Generate(   const string outfile, 
 	                    vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,

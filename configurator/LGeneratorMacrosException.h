@@ -5,10 +5,10 @@
 
 
 
-class  LMacroGeneratorException
+class  LGeneratorMacroException
 {
-	LMacroGeneratorException();
-	virtual ~LMacroGeneratorException();
+	LGeneratorMacroException();
+	virtual ~LGeneratorMacroException();
 };
 
 #endif

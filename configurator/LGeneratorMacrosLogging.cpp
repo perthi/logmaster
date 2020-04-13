@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 
-#include "LMacroGeneratorLogging.h"
+#include "LGeneratorMacrosLogging.h"
 
 #include  <configurator/LXmlEntityLogLevel.h>
 #include  <configurator/LXmlEntitySubSystem.h> 
@@ -13,12 +13,12 @@
 using namespace LOGMASTER;
 
 
-LMacroGeneratorLogging::LMacroGeneratorLogging()
+LGeneratorMacrosLogging::LGeneratorMacrosLogging()
 {
 
 }
 
-LMacroGeneratorLogging::~LMacroGeneratorLogging()
+LGeneratorMacrosLogging::~LGeneratorMacrosLogging()
 {
 
 }
@@ -37,8 +37,8 @@ LMacroGeneratorLogging::~LMacroGeneratorLogging()
 	// 		bool fIsAssertMacro = false;
 	// 	};
 
-LMacroGeneratorLogging::LMacroEntry 
-LMacroGeneratorLogging::GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel> lvl, 
+LGeneratorMacrosLogging::LMacroEntry 
+LGeneratorMacrosLogging::GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel> lvl, 
                                              std::shared_ptr<LXmlEntitySubSystem >  sys, 
                                              bool with_user ) const
 {
@@ -78,7 +78,7 @@ LMacroGeneratorLogging::GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel>
 
 
 void 
-LMacroGeneratorLogging::Generate(  const string /*outfile*/, 
+LGeneratorMacrosLogging::Generate(  const string /*outfile*/, 
 	                               vector<std::shared_ptr<LXmlEntityLogLevel > > levels,
 	                               vector<  std::shared_ptr< LXmlEntitySubSystem > >  systems ) const
 {
@@ -101,7 +101,7 @@ LMacroGeneratorLogging::Generate(  const string /*outfile*/,
 
 
 vector<string> 
-LMacroGeneratorLogging::GenerateLines( const vector<LMacroEntry>  m_entries  )  const
+LGeneratorMacrosLogging::GenerateLines( const vector<LMacroEntry>  m_entries  )  const
 {
   vector<string> lines;
 
@@ -126,9 +126,9 @@ LMacroGeneratorLogging::GenerateLines( const vector<LMacroEntry>  m_entries  )  
 
 
 string  
-LMacroGeneratorLogging::GenerateLine( const LMacroName m,  const vector<LSystem> s, const string lvl  ) const
+LGeneratorMacrosLogging::GenerateLine( const LMacroName m,  const vector<LSystem> s, const string lvl  ) const
 {
-    string line = "";
+  //  string line = "";
     
     std::stringstream buffer;
     buffer << "#define ";
@@ -136,12 +136,12 @@ LMacroGeneratorLogging::GenerateLine( const LMacroName m,  const vector<LSystem>
     //if( entry.m.fIsAssertMacro == true )
     if (m.fIsAssert == true)
     {
-        buffer << g_utilities()->TabAlign(m.fMacroName + "(expr ...) " + " if ( ! (expr) )", 6);
+        buffer << g_utilities()->TabAlign(m.fMacroName + "(expr ...) " + "\tif ( ! (expr) )", 7);
         buffer << "LLogging::Instance()->Log( " + fLevelEnumName + "::";
     }
     else
     {
-        buffer << g_utilities()->TabAlign(m.fMacroName + "(...) ", 6);
+        buffer << g_utilities()->TabAlign(m.fMacroName + "(...) ", 7);
         buffer << "LLogging::Instance()->Log( " + fLevelEnumName + "::";
     }
 
@@ -161,5 +161,5 @@ LMacroGeneratorLogging::GenerateLine( const LMacroName m,  const vector<LSystem>
     buffer << ", ";
     buffer << "GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)";
     
-    return line;
+    return buffer.str();
 }

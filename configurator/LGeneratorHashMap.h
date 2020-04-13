@@ -5,10 +5,10 @@
 
 
 
-class  LHashMapGenerator
+class  LGeneratorHashMap
 {
-	LHashMapGenerator();
-	virtual ~LHashMapGenerator();
+	LGeneratorHashMap();
+	virtual ~LGeneratorHashMap();
 };
 
 #endif

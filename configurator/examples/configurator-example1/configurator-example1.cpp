@@ -36,7 +36,7 @@
 
 #include <configurator/LXmlEntityLogLevel.h>
 #include <configurator/LXmlEntitySubSystem.h>
-#include <configurator/LMacroGeneratorLogging.h>
+#include <configurator/LGeneratorMacrosLogging.h>
 
 using namespace LOGMASTER;
 
@@ -74,7 +74,7 @@ int main(int /*argc*/, const char ** /*argv*/)
 			vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems;
 			
 			p->ParseXML(xml, xsd, loglevels,  subsystems );
-			auto g = std::make_shared<LMacroGeneratorLogging>();
+			auto g = std::make_shared< LGeneratorMacrosLogging >();
 
 			g->Generate( outfile, loglevels, subsystems );			
 

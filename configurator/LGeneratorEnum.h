@@ -5,10 +5,10 @@
 
 
 
-class  LEnumGenerator
+class  LGeneratorEnum
 {
-	LEnumGenerator();
-	virtual ~LEnumGenerator();
+	LGeneratorEnum();
+	virtual ~LGeneratorEnum();
 };
 
 #endif

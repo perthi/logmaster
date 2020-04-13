@@ -1,1 +1,0 @@
-../../configurator/LMacroGeneratorException.h
