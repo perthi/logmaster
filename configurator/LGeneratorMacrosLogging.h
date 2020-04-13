@@ -12,17 +12,17 @@ using std::string;
 class LXmlEntityLogLevel;
 class LXmlEntitySubSystem;
 
+#include <configurator/LGenerator.h>
 
-
-class  LGeneratorMacrosLogging
+class  LGeneratorMacrosLogging : public LGenerator
 {
 	public:
 	LGeneratorMacrosLogging();
 	   virtual ~LGeneratorMacrosLogging();
 
-	   void Generate(   const string outfile, 
+	   virtual void Generate(   const string outfile, 
 	                    vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                    vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const;
+	                    vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const override;
 
 	private:
 
@@ -61,8 +61,6 @@ class  LGeneratorMacrosLogging
 
 		vector<string>  GenerateCommon() const;
 
-		string fLevelEnumName    =   "eMSGLEVEL";
-	    string fSystemEnumName   =   "eMSGSYSTEM";
 
 };
 

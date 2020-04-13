@@ -6,11 +6,12 @@ LIBNAME_SO=libconfigurator.so
 
 
 SRCCPP:= LConfigurator.cpp \
-	     LGeneratorEnum.cpp \
+	 LGeneratorEnum.cpp \
          LGeneratorHashMap.cpp \
-	     LGeneratorMacrosException.cpp \
+	 LGeneratorMacrosException.cpp \
          LGeneratorMacrosLogging.cpp \
          LGeneratorCopyright.cpp \
+         LGeneratorHashMap.cpp \
          LXmlEntity.cpp \
          LXmlEntityLogLevel.cpp \
          LXmlEntitySubSystem.cpp \

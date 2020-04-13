@@ -3,12 +3,27 @@
 #define LHASHMAPGENERATOR_H
 
 
+#include <memory>
+#include <vector>
+using std::vector;
 
+#include <string>
+using std::string;
 
-class  LGeneratorHashMap
+class LXmlEntityLogLevel;
+class LXmlEntitySubSystem;
+
+#include <configurator/LGenerator.h>
+
+class  LGeneratorHashMap : public  LGenerator
 {
-	LGeneratorHashMap();
-	virtual ~LGeneratorHashMap();
+	public:
+	  LGeneratorHashMap();
+	  virtual ~LGeneratorHashMap();
+	  virtual void Generate(   const string outfile, 
+	                    vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+	                    vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const override;	
+
 };
 
 #endif
