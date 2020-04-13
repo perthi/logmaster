@@ -28,47 +28,47 @@
 
 
 
-#include "LHashMaps.h"
+#include "LHashMapsBase.h"
 #include <utilities/GNumbers.h>
 #include <utilities/GUtilities.h>
 
 
-map < string, std::tuple< LOGMASTER::eMSGSYSTEM, LOGMASTER::eMSGLEVEL > >  LOGMASTER::LHashMaps::fSubCmdHash;
-map < string, LOGMASTER::eMSGTARGET>	LOGMASTER::LHashMaps::fTargetHash = map < string, LOGMASTER::eMSGTARGET>();
-map < string, LOGMASTER::eMSGFORMAT>	LOGMASTER::LHashMaps::fFormatHash;
-map < LOGMASTER::eMSGSYSTEM, string >	LOGMASTER::LHashMaps::fSystem2StringHash = map < LOGMASTER::eMSGSYSTEM, string >();
-map < LOGMASTER::eMSGLEVEL, string  >	LOGMASTER::LHashMaps::fLevel2StringHash = map < LOGMASTER::eMSGLEVEL, string  >();
+map < string, std::tuple< LOGMASTER::eMSGSYSTEM, LOGMASTER::eMSGLEVEL > >  LOGMASTER::LHashMapsBase::fSubCmdHash;
+map < string, LOGMASTER::eMSGTARGET>	LOGMASTER::LHashMapsBase::fTargetHash = map < string, LOGMASTER::eMSGTARGET>();
+map < string, LOGMASTER::eMSGFORMAT>	LOGMASTER::LHashMapsBase::fFormatHash;
+map < LOGMASTER::eMSGSYSTEM, string >	LOGMASTER::LHashMapsBase::fSystem2StringHash = map < LOGMASTER::eMSGSYSTEM, string >();
+map < LOGMASTER::eMSGLEVEL, string  >	LOGMASTER::LHashMapsBase::fLevel2StringHash = map < LOGMASTER::eMSGLEVEL, string  >();
 
 
 
 namespace LOGMASTER
 {
-    LHashMaps::LHashMaps( ) : fLogLevelHash(), fDefaultLevel(eMSGLEVEL::LOG_WARNING)
+    LHashMapsBase::LHashMapsBase( ) : fLogLevelHash(), fDefaultLevel(eMSGLEVEL::LOG_WARNING)
     {
         InitHash( eMSGLEVEL::LOG_WARNING );
     }
 
 
-    LHashMaps::LHashMaps( const eMSGLEVEL  level) : fLogLevelHash(), fDefaultLevel( level )
+    LHashMapsBase::LHashMapsBase( const eMSGLEVEL  level) : fLogLevelHash(), fDefaultLevel( level )
     {
         InitHash( level );
     }
 
-    LHashMaps::~LHashMaps()
+    LHashMapsBase::~LHashMapsBase()
     {
     }
 
 
-    LHashMaps *
-    LHashMaps::Instance()
+    LHashMapsBase *
+    LHashMapsBase::Instance()
     {
-        static   LHashMaps *instance = new LHashMaps();
+        static   LHashMapsBase *instance = new LHashMapsBase();
         return   instance;
 
     }
 
     void
-    LHashMaps::InitHash()
+    LHashMapsBase::InitHash()
     {
         static bool is_initialized = false;
 
@@ -85,7 +85,7 @@ namespace LOGMASTER
     }
 
     void
-    LHashMaps::InitHash(const eMSGLEVEL level)
+    LHashMapsBase::InitHash(const eMSGLEVEL level)
     {
         InitHash();
         InitHashLogLevel(level);
@@ -94,7 +94,7 @@ namespace LOGMASTER
 
 
     map < string, std::tuple<  eMSGSYSTEM, eMSGLEVEL > >      *
-    LHashMaps::GetSubCmdHash()
+    LHashMapsBase::GetSubCmdHash()
     {
         InitHash();
         return  &fSubCmdHash;
@@ -102,14 +102,14 @@ namespace LOGMASTER
 
 
     map < string, eMSGTARGET>  *
-    LHashMaps::GetTargetHash()
+    LHashMapsBase::GetTargetHash()
     {
         InitHash();
         return  &fTargetHash;
     }
 
     map < string, eMSGFORMAT>  *
-        LHashMaps::GetFormatHash()
+        LHashMapsBase::GetFormatHash()
     {
         InitHash();
         return  &fFormatHash;
@@ -117,7 +117,7 @@ namespace LOGMASTER
 
 
     map<eMSGSYSTEM, string>
-        * LHashMaps::GetSystem2StringHash()
+        * LHashMapsBase::GetSystem2StringHash()
     {
         InitHash();
         return &fSystem2StringHash;
@@ -125,7 +125,7 @@ namespace LOGMASTER
 
 
     map<eMSGLEVEL, string> *
-    LHashMaps::GetLevel2StringHash()
+    LHashMapsBase::GetLevel2StringHash()
     {
         InitHash();
         return &fLevel2StringHash;
@@ -133,7 +133,7 @@ namespace LOGMASTER
 
 
     eMSGTARGET
-    LHashMaps::GetTarget( const string & hash )
+    LHashMapsBase::GetTarget( const string & hash )
     {
         InitHash();
         auto it = fTargetHash.find( hash );
@@ -150,7 +150,7 @@ namespace LOGMASTER
 
 
     eMSGFORMAT
-    LHashMaps::GetFormat( const string & hash )
+    LHashMapsBase::GetFormat( const string & hash )
     {
         InitHash();
         auto it = fFormatHash.find(hash);
@@ -168,7 +168,7 @@ namespace LOGMASTER
 
 
     vector<eMSGTARGET>
-    LHashMaps::GetTargetEnums()
+    LHashMapsBase::GetTargetEnums()
     {
         InitHash();
         static vector<eMSGTARGET> tmp;
@@ -189,7 +189,7 @@ namespace LOGMASTER
 
 
     vector<eMSGFORMAT>
-    LHashMaps::GetFormatEnums()
+    LHashMapsBase::GetFormatEnums()
     {
         InitHash();
         static vector<eMSGFORMAT> tmp;
@@ -209,7 +209,7 @@ namespace LOGMASTER
 
 
     vector<eMSGSYSTEM>
-    LHashMaps::GetSystemEnums()
+    LHashMapsBase::GetSystemEnums()
     {
         InitHash();
         static vector<eMSGSYSTEM> tmp;
@@ -229,7 +229,7 @@ namespace LOGMASTER
 
 
     vector<eMSGLEVEL>
-    LHashMaps::GetLevelEnums()
+    LHashMapsBase::GetLevelEnums()
     {
             InitHash();
             static vector<eMSGLEVEL> tmp;
@@ -252,7 +252,7 @@ namespace LOGMASTER
 
 
     vector<string>
-        LHashMaps::GetLogLevelTags()
+        LHashMapsBase::GetLogLevelTags()
     {
             InitHash();
             return g_utilities()->Hash2StringV(&fSubCmdHash);
@@ -260,7 +260,7 @@ namespace LOGMASTER
 
 
     vector<string>
-    LHashMaps::GetLogTargetTags()
+    LHashMapsBase::GetLogTargetTags()
     {
         InitHash();
         return g_utilities()->Hash2StringV(&fTargetHash);
@@ -268,7 +268,7 @@ namespace LOGMASTER
 
 
     vector<string>
-    LHashMaps::GetLogFormatTags()
+    LHashMapsBase::GetLogFormatTags()
     {
         InitHash();
         return g_utilities()->Hash2StringV(&fFormatHash);
@@ -276,7 +276,7 @@ namespace LOGMASTER
 
 
     bool
-    LHashMaps::IsTargetHash( const string &target )
+    LHashMapsBase::IsTargetHash( const string &target )
     {
         InitHash();
         return  fTargetHash.count( target ) > 0 ? true : false;
@@ -284,7 +284,7 @@ namespace LOGMASTER
 
 
     bool
-    LHashMaps::IsFormatHash( const string &format )
+    LHashMapsBase::IsFormatHash( const string &format )
     {
         InitHash();
         return fFormatHash.count( format ) > 0 ? true : false;
@@ -292,7 +292,7 @@ namespace LOGMASTER
 
 
     bool
-    LHashMaps::IsSubCmdHash( const string &subcmd )
+    LHashMapsBase::IsSubCmdHash( const string &subcmd )
     {
         InitHash();
         return fSubCmdHash.count( subcmd ) > 0 ? true : false;
@@ -300,7 +300,7 @@ namespace LOGMASTER
 
 
     string
-    LHashMaps::DoxygenDoc(const string filename)
+    LHashMapsBase::DoxygenDoc(const string filename)
     {
         InitHash();
         FILE *fp;
@@ -355,7 +355,7 @@ namespace LOGMASTER
     *  and sub-system then the message is created. Where the message is actuall written (if at all) is decided by the target configuration, wether or not logging is enabled to to file, to console, etc..
     *  @param l  All system are initialized with logging for this level or higher.  */
     void
-    LHashMaps::InitHashLogLevel(const eMSGLEVEL l)
+    LHashMapsBase::InitHashLogLevel(const eMSGLEVEL l)
     {
             fLogLevelHash.clear();
             eMSGLEVEL level = (eMSGLEVEL)(PAD((int)l));
@@ -376,7 +376,7 @@ namespace LOGMASTER
 
     /** @brief initialization of the hash table for the formatting of the messages,  used  on the command line or via the programming API */
     void
-    LHashMaps::InitHashMsgFormat()
+    LHashMapsBase::InitHashMsgFormat()
     {
         fFormatHash.emplace("--all-off",		eMSGFORMAT::ALL_FIELDS_OFF);
         fFormatHash.emplace("--msg-type",		eMSGFORMAT::MESSAGE_TYPE);
@@ -396,7 +396,7 @@ namespace LOGMASTER
 
     /** @brief initialization of the hash table for the logging targets  used  on the command line or via the programming API */
     void
-    LHashMaps::InitHashLogTargets()
+    LHashMapsBase::InitHashLogTargets()
     {
         fTargetHash.emplace("--target-off",         eMSGTARGET::TARGET_OFF);
         fTargetHash.emplace("--target-file",        eMSGTARGET::TARGET_FILE);
@@ -408,7 +408,7 @@ namespace LOGMASTER
 
 
     void
-    LHashMaps::InitHashSystem2String()
+    LHashMapsBase::InitHashSystem2String()
     {
         fSystem2StringHash.emplace(eMSGSYSTEM::SYS_EX,       "Exeption");
         fSystem2StringHash.emplace(eMSGSYSTEM::SYS_GENERAL,  "General");
@@ -424,7 +424,7 @@ namespace LOGMASTER
 
 
     void
-    LHashMaps::InitHashLevel2String()
+    LHashMapsBase::InitHashLevel2String()
     {
         fLevel2StringHash.emplace(eMSGLEVEL::LOG_OFF,         "OFF");
         fLevel2StringHash.emplace(eMSGLEVEL::LOG_FATAL,       "Fatal");
@@ -446,7 +446,7 @@ namespace LOGMASTER
          * to also get messages with higher severity, that is ERROR and FATAL.
          * The padding is done at the end, after the hash map has been poulated.**/
     void
-    LHashMaps::InitHashLogTags()
+    LHashMapsBase::InitHashLogTags()
     {
         fSubCmdHash.emplace("--all-off",			std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_OFF));
         fSubCmdHash.emplace("--all-fatal",			std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_FATAL));

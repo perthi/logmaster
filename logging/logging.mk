@@ -7,6 +7,7 @@ LIBNAME_SO=liblogmaster.so
 SRCCPP:= LColorMap.cpp \
 	LConversion.cpp \
 	LHashMaps.cpp \
+        LHashMapsBase.cpp \
 	LLogging.cpp \
 	LLogTest.cpp \
 	LMessageFactory.cpp \
