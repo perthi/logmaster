@@ -89,60 +89,10 @@ LMacroGeneratorLogging::Generate(  const string /*outfile*/,
         for (auto lvl : levels)
         {
             vector<LMacroEntry> entries;
+            LMacroEntry e = GenerateMacroEntry(lvl, sys, false);
 
-            if( sys->fName  != sys->fNameShort  )
-            {
-              LMacroEntry e =  GenerateMacroEntry(lvl, sys, false) ; 
-
-              entries.push_back(LMacroEntry( e ) );
-              
-              e =  GenerateMacroEntry(lvl, sys, true ) ; 
-
-            //   entries.push_back(LMacroEntry(   lvl->fName, 
-                                             
-            //                                  { sys->fName       + "_"  + lvl->fName, 
-            //                                    sys->fNameShort  + "_"  + lvl->fName}, 
-                                             
-            //                                  { sys->fName}, false));
-
-           
-
-            //   entries.push_back(LMacroEntry( lvl->fName, 
-                                            
-            //                                 { sys->fName       +  "_" + "ASSERT_" + lvl->fName, 
-            //                                   sys->fNameShort  +  "_" + "ASSERT_" + lvl->fName}, 
-            //                                 { sys->fName}, 
-            //                                   true));
-
-            //     entries.push_back(LMacroEntry(   lvl->fName, 
-                                             
-            //                                  { sys->fName + "_" + lvl->fName + "_U", 
-            //                                    sys->fNameShort + "_" + lvl->fName + "_U"}, 
-                                             
-            //                                  { sys->fName, "USER"}, 
-            //                                    false));
-
-            // }
-            // else
-            // {
-            //   entries.push_back(LMacroEntry(  lvl->fName, 
-            //                                 { sys->fName + "_" + lvl->fName  }, 
-            //                                 { sys->fName}, 
-            //                                   false ));
-
-            //   entries.push_back(LMacroEntry(  lvl->fName, 
-            //                                 { sys->fName + "_" + lvl->fName + "_U" }, 
-            //                                 { sys->fName, "USER"}, false));
-
-            //   entries.push_back(LMacroEntry(  lvl->fName, 
-                                            
-            //                                 { sys->fName + "_" + "ASSERT_" + lvl->fName }, 
-            //                                 { sys->fName}, 
-            //                                  true));
-
-             }
-            
-
+            entries.push_back(LMacroEntry(e));
+            e = GenerateMacroEntry(lvl, sys, true);
 
             GenerateLines(entries);
         }
@@ -150,12 +100,8 @@ LMacroGeneratorLogging::Generate(  const string /*outfile*/,
 }
 
 
-//void
-//LMacroGeneratorLogging::GenerateLines() 
-
 void 
 LMacroGeneratorLogging::GenerateLines( vector<LMacroEntry>  m_entries  )  const
-//LMacroGeneratorLogging::GenerateLines(  string  /*m_entries*/ )  const
 {
   
     for( auto entry: m_entries )
@@ -164,14 +110,10 @@ LMacroGeneratorLogging::GenerateLines( vector<LMacroEntry>  m_entries  )  const
         {
             string line;
             std::stringstream buffer;
-            
-              buffer <<  "#define ";
-              
-              
+            buffer <<  "#define ";
 
             //if( entry.m.fIsAssertMacro == true )
             if(  m.fIsAssert  == true )
-            
             {
                 buffer <<   g_utilities()->TabAlign ( m.fMacroName + "(expr ...) "  + " if ( ! (expr) )", 6);
                 buffer <<  "LLogging::Instance()->Log( " + fLevelEnumName + "::";  
