@@ -1,7 +1,9 @@
 // -*- mode: c++ -*-
 
 
+
 #include "LGeneratorMacrosLogging.h"
+#include  "LGeneratorCopyright.h"
 
 #include  <configurator/LXmlEntityLogLevel.h>
 #include  <configurator/LXmlEntitySubSystem.h> 
@@ -18,35 +20,22 @@ LGeneratorMacrosLogging::LGeneratorMacrosLogging()
 
 }
 
+
 LGeneratorMacrosLogging::~LGeneratorMacrosLogging()
 {
 
 }
 
 
-	// struct LMacroEntry
-	// 	{
-	// 		LMacroEntry(const string lvl, vector<LMacroName> m, vector<LSystems> s, bool is_assert) : 
-	// 		                               fLevel(lvl), 
-	// 									   fMacroNames(m), 
-	// 									   fSystems(s), 
-	// 									   fIsAssertMacro(is_assert){};
-	// 		string fLevel;
-	// 		vector< LMacroName> fMacroNames;
-	// 		vector<LSystems> fSystems;
-	// 		bool fIsAssertMacro = false;
-	// 	};
 
 LGeneratorMacrosLogging::LMacroEntry 
 LGeneratorMacrosLogging::GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel> lvl, 
                                              std::shared_ptr<LXmlEntitySubSystem >  sys, 
                                              bool with_user ) const
 {
-   // LMacroEntry tmp;
     vector<LMacroName> names;
     vector<LSystem> systems;
     string user = with_user == true ? "_U" : "";
-
     names.push_back(LMacroName(sys->fName + "_" + lvl->fName + user, false));
 
     if (with_user == false)
@@ -57,7 +46,6 @@ LGeneratorMacrosLogging::GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel
     if (sys->fName != sys->fNameShort)
     {
         names.push_back(LMacroName(sys->fNameShort + "_" + lvl->fName + user, false));
-
         if (with_user == false)
         {
             names.push_back( LMacroName( sys->fNameShort + "_" + "ASSERT_" + lvl->fName, true ) ) ;
@@ -76,12 +64,12 @@ LGeneratorMacrosLogging::GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel
 
 
 
-
 void 
 LGeneratorMacrosLogging::Generate(  const string /*outfile*/, 
 	                               vector<std::shared_ptr<LXmlEntityLogLevel > > levels,
 	                               vector<  std::shared_ptr< LXmlEntitySubSystem > >  systems ) const
 {
+    std::stringstream buffer;
     vector<string> lines;
 
     for (auto sys : systems)
@@ -90,12 +78,20 @@ LGeneratorMacrosLogging::Generate(  const string /*outfile*/,
         {
             vector<LMacroEntry> entries;
             LMacroEntry e = GenerateMacroEntry(lvl, sys, false);
-
             entries.push_back(LMacroEntry(e));
             e = GenerateMacroEntry(lvl, sys, true);
-
-            GenerateLines(entries);
+            vector<string> new_lines = GenerateLines(entries);
+            lines.insert(lines.end(), new_lines.begin(), new_lines.end());
         }
+        lines.push_back("\n");
+    }
+
+    for (auto l : lines)
+    {
+        PUSH();
+        SET_LOGFORMAT("00000001");
+        FORCE_DEBUG("%s", l.c_str());
+        POP();
     }
 }
 
@@ -114,10 +110,10 @@ LGeneratorMacrosLogging::GenerateLines( const vector<LMacroEntry>  m_entries  ) 
             line = GenerateLine(  m , entry.fSystems,  entry.fLevel );
             lines.push_back(line);
 
-            PUSH();
-            SET_LOGFORMAT("00000001");
-            FORCE_DEBUG("%s", line.c_str() );
-            POP();
+            // PUSH();
+            // SET_LOGFORMAT("00000001");
+            // FORCE_DEBUG("%s", line.c_str() );
+            // POP();
         } 
     }
     return lines;    
