@@ -66,25 +66,37 @@ namespace LOGMASTER
     *  This hash table holds the current logging level for a given sub-system. This table is checked every time the logging system is asked to log a message, and if logging is enabled for the given level
     *  and sub-system then the message is created. Where the message is actuall written (if at all) is decided by the target configuration, wether or not logging is enabled to to file, to console, etc..
     *  @param l  All system are initialized with logging for this level or higher.  */
-    void
-    LHashMapsBase::InitHashLogLevel(const eMSGLEVEL l)
-    {
-            fLogLevelHash.clear();
-            eMSGLEVEL level = (eMSGLEVEL)(PAD((int)l));
+    // void
+    // LHashMapsBase::InitHashLogLevel(const eMSGLEVEL l)
+    // {
+    //         fLogLevelHash.clear();
+    //         eMSGLEVEL level = (eMSGLEVEL)(PAD((int)l));
 
-            fLogLevelHash.emplace(eMSGSYSTEM::SYS_EX,      (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_ERROR)  );
-            fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,    level );
-            fLogLevelHash.emplace(eMSGSYSTEM::SYS_FSM,     level );
-            fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM,   (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
-            fLogLevelHash.emplace(eMSGSYSTEM::SYS_MESSAGE, level );
-            fLogLevelHash.emplace(eMSGSYSTEM::SYS_COM,     level );
-            fLogLevelHash.emplace(eMSGSYSTEM::SYS_API,     level );
-            fLogLevelHash.emplace(eMSGSYSTEM::SYS_XML,     level );
-            fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL, level );
-            fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,    level );
+    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_EX,      (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_ERROR)  );
+    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,    level );
+    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_FSM,     level );
+    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM,   (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
+    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_MESSAGE, level );
+    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_COM,     level );
+    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_API,     level );
+    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_XML,     level );
+    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL, level );
+    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,    level );
 
-    }
+    // }
 
+
+void
+LHashMapsBase::InitHashLogLevel(const eMSGLEVEL /*l*/)
+{
+        fLogLevelHash.clear();
+//      eMSGLEVEL level = (eMSGLEVEL)(PAD((int)l));
+        fLogLevelHash.emplace(eMSGSYSTEM::SYS_FSM, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
+        fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
+        fLogLevelHash.emplace(eMSGSYSTEM::SYS_MESSAGE, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
+        fLogLevelHash.emplace(eMSGSYSTEM::SYS_COM, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
+        fLogLevelHash.emplace(eMSGSYSTEM::SYS_XML, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
+}
 
 
     void
