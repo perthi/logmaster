@@ -74,8 +74,8 @@ namespace LOGMASTER
 
         if ( is_initialized == false )
         {
-            InitHashMsgFormat();
-            InitHashLogTargets();
+           // InitHashMsgFormat();
+           // InitHashLogTargets();
             InitHashLogTags();
             InitHashSystem2String();
             InitHashLevel2String();
@@ -299,54 +299,57 @@ namespace LOGMASTER
     }
 
 
-    string
-    LHashMapsBase::DoxygenDoc(const string filename)
-    {
-        InitHash();
-        FILE *fp;
+//     string
+//     LHashMapsBase::DoxygenDoc(const string filename)
+//     {
+//         InitHash();
+//         FILE *fp;
 
-#ifdef _WIN32
-        fopen_s(&fp, filename.c_str(), "w");
-#else
-        fp =  fopen(filename.c_str(), "w");
-#endif
+// #ifdef _WIN32
+//         fopen_s(&fp, filename.c_str(), "w");
+// #else
+//         fp =  fopen(filename.c_str(), "w");
+// #endif
 
-        fprintf(fp, "%s", "/**  \\page \"Logging System\"\n");
-        fprintf(fp, "%s", "* \\section command_line_options Command line options for the logging system\n");
-        fprintf(fp, "%s", "* Command | Parameters | Default | Explanation \n");
-        fprintf(fp, "%s", "* --------- | ---------- | --------- | --------- \n");
+//         fprintf(fp, "%s", "/**  \\page \"Logging System\"\n");
+//         fprintf(fp, "%s", "* \\section command_line_options Command line options for the logging system\n");
+//         fprintf(fp, "%s", "* Command | Parameters | Default | Explanation \n");
+//         fprintf(fp, "%s", "* --------- | ---------- | --------- | --------- \n");
 
-        auto t = &fTargetHash;
-        auto f = &fFormatHash;
-        auto s = &fSubCmdHash;
+//         auto t = &fTargetHash;
+//         auto f = &fFormatHash;
+//         auto s = &fSubCmdHash;
 
-        fprintf(fp, "%s", "* -target |");
-        for (auto it = t->begin(); it != t->end(); it++)
-        {
-            fprintf(fp, "%s\\n", it->first.c_str());
-        }
+//         fprintf(fp, "%s", "* -target |");
+//         for (auto it = t->begin(); it != t->end(); it++)
+//         {
+//             fprintf(fp, "%s\\n", it->first.c_str());
+//         }
 
-        fprintf(fp, "%s", " | --file | Where to write the log messages\n");
-        fprintf(fp, "%s", "* -format |");
+//         fprintf(fp, "%s", " | --file | Where to write the log messages\n");
+//         fprintf(fp, "%s", "* -format |");
 
-        for (auto it = f->begin(); it != f->end(); it++)
-        {
-            fprintf(fp, "%s\\n", it->first.c_str());
-        }
+//         for (auto it = f->begin(); it != f->end(); it++)
+//         {
+//             fprintf(fp, "%s\\n", it->first.c_str());
+//         }
 
-        fprintf(fp, "%s", " |  1111111 | Options controlling the format of the log messages\n");
+//         fprintf(fp, "%s", " |  1111111 | Options controlling the format of the log messages\n");
 
-        fprintf(fp, "%s", "* -loglevel |");
-        for (auto it = s->begin(); it != s->end(); it++)
-        {
-            fprintf(fp, " %s\\n", it->first.c_str());
-        }
+//         fprintf(fp, "%s", "* -loglevel |");
+//         for (auto it = s->begin(); it != s->end(); it++)
+//         {
+//             fprintf(fp, " %s\\n", it->first.c_str());
+//         }
 
-        fprintf(fp, "%s", " |  --all-error | Which subsystem / loglevel to log information from\n");
-        fprintf(fp, "%s", "*/");
-        fclose(fp);
-        return string();
-    }
+//         fprintf(fp, "%s", " |  --all-error | Which subsystem / loglevel to log information from\n");
+//         fprintf(fp, "%s", "*/");
+//         fclose(fp);
+//         return string();
+//     }
+
+
+
 
 
     /** @brief initialization of the hash table for the logginglevel
@@ -374,37 +377,37 @@ namespace LOGMASTER
     }
 
 
-    /** @brief initialization of the hash table for the formatting of the messages,  used  on the command line or via the programming API */
-    void
-    LHashMapsBase::InitHashMsgFormat()
-    {
-        fFormatHash.emplace("--all-off",		eMSGFORMAT::ALL_FIELDS_OFF);
-        fFormatHash.emplace("--msg-type",		eMSGFORMAT::MESSAGE_TYPE);
-        fFormatHash.emplace("--time-stamp",		eMSGFORMAT::TIME_STAMP);
-        fFormatHash.emplace("--time-short",		eMSGFORMAT::TIME_STAMP_SHORT);
-        fFormatHash.emplace("--file-path",		eMSGFORMAT::FILE_PATH);
-        fFormatHash.emplace("--file-name",		eMSGFORMAT::FILE_NAME);
-        fFormatHash.emplace("--func-name",		eMSGFORMAT::FUNCTION_NAME);
-        fFormatHash.emplace("--line-no",		eMSGFORMAT::LINE_NO);
-        fFormatHash.emplace("--prefix-none",	eMSGFORMAT::PREFIX_OFF);
-        fFormatHash.emplace("--msg-body",		eMSGFORMAT::MESSAGE_BODY);
-        fFormatHash.emplace("--short",			eMSGFORMAT::SHORT_MSG);
-        fFormatHash.emplace("--short-user",		eMSGFORMAT::USER_SHORT_MSG);
-        fFormatHash.emplace("--prefix-all",		eMSGFORMAT::PREFIX_ALL);
-    }
+    // /** @brief initialization of the hash table for the formatting of the messages,  used  on the command line or via the programming API */
+    // void
+    // LHashMapsBase::InitHashMsgFormat()
+    // {
+    //     fFormatHash.emplace("--all-off",		eMSGFORMAT::ALL_FIELDS_OFF);
+    //     fFormatHash.emplace("--msg-type",		eMSGFORMAT::MESSAGE_TYPE);
+    //     fFormatHash.emplace("--time-stamp",		eMSGFORMAT::TIME_STAMP);
+    //     fFormatHash.emplace("--time-short",		eMSGFORMAT::TIME_STAMP_SHORT);
+    //     fFormatHash.emplace("--file-path",		eMSGFORMAT::FILE_PATH);
+    //     fFormatHash.emplace("--file-name",		eMSGFORMAT::FILE_NAME);
+    //     fFormatHash.emplace("--func-name",		eMSGFORMAT::FUNCTION_NAME);
+    //     fFormatHash.emplace("--line-no",		eMSGFORMAT::LINE_NO);
+    //     fFormatHash.emplace("--prefix-none",	eMSGFORMAT::PREFIX_OFF);
+    //     fFormatHash.emplace("--msg-body",		eMSGFORMAT::MESSAGE_BODY);
+    //     fFormatHash.emplace("--short",			eMSGFORMAT::SHORT_MSG);
+    //     fFormatHash.emplace("--short-user",		eMSGFORMAT::USER_SHORT_MSG);
+    //     fFormatHash.emplace("--prefix-all",		eMSGFORMAT::PREFIX_ALL);
+    // }
 
 
-    /** @brief initialization of the hash table for the logging targets  used  on the command line or via the programming API */
-    void
-    LHashMapsBase::InitHashLogTargets()
-    {
-        fTargetHash.emplace("--target-off",         eMSGTARGET::TARGET_OFF);
-        fTargetHash.emplace("--target-file",        eMSGTARGET::TARGET_FILE);
-        fTargetHash.emplace("--target-stdout",      eMSGTARGET::TARGET_STDOUT);
-        fTargetHash.emplace("--target-subscriber",  eMSGTARGET::TARGET_SUBSCRIBERS);
-        fTargetHash.emplace("--target-gui",         eMSGTARGET::TARGET_GUI);
-        fTargetHash.emplace("--target-all",         eMSGTARGET::TARGET_ALL);
-    }
+    // /** @brief initialization of the hash table for the logging targets  used  on the command line or via the programming API */
+    // void
+    // LHashMapsBase::InitHashLogTargets()
+    // {
+    //     fTargetHash.emplace("--target-off",         eMSGTARGET::TARGET_OFF);
+    //     fTargetHash.emplace("--target-file",        eMSGTARGET::TARGET_FILE);
+    //     fTargetHash.emplace("--target-stdout",      eMSGTARGET::TARGET_STDOUT);
+    //     fTargetHash.emplace("--target-subscriber",  eMSGTARGET::TARGET_SUBSCRIBERS);
+    //     fTargetHash.emplace("--target-gui",         eMSGTARGET::TARGET_GUI);
+    //     fTargetHash.emplace("--target-all",         eMSGTARGET::TARGET_ALL);
+    // }
 
 
     void
@@ -437,51 +440,9 @@ namespace LOGMASTER
     }
 
 
-    /** @brief Initialization of hash tags for the logging system used  on the command line or via the programming API
-         *
-         * The hash table maps between a string tag (i.e --all, --info etc..) and the corresponding logging level and subsystem on binary format.
-         * The second entry is a 32 bit integer where the most significant 8 bits represents the loglevel and the least significant 16 bits the the subsystem.
-         * The hashmap is static and is initialzed only once. The actual loglevel is contained in the fLogLevelHash hashmap. The loglevel is padded with ones so that if a higher loglevel is
-         * set, all lower leves are set. This is typically the behaviour the user expects. For example, if the loglevel is EXCEPTION_CLASS_CPP(GEngineException)set to WARNING, then one would expect
-         * to also get messages with higher severity, that is ERROR and FATAL.
-         * The padding is done at the end, after the hash map has been poulated.**/
     void
     LHashMapsBase::InitHashLogTags()
     {
-        fSubCmdHash.emplace("--all-off",			std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_OFF));
-        fSubCmdHash.emplace("--all-fatal",			std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_FATAL));
-        fSubCmdHash.emplace("--all-error",			std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_ERROR));
-        fSubCmdHash.emplace("--all-warning",		std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_WARNING));
-        fSubCmdHash.emplace("--all-info",			std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_INFO));
-        fSubCmdHash.emplace("--all-debug",			std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_DEBUG));
-        fSubCmdHash.emplace("--all-all",			std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_ALL));
-        fSubCmdHash.emplace("--all",				std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_ALL));
-        fSubCmdHash.emplace("--off",				std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_OFF));
-        fSubCmdHash.emplace("--fatal",				std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_FATAL));
-        fSubCmdHash.emplace("--error",				std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_ERROR));
-        fSubCmdHash.emplace("--warning",			std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_WARNING));
-        fSubCmdHash.emplace("--info",				std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_INFO));
-        fSubCmdHash.emplace("--debug",				std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_DEBUG));
-        fSubCmdHash.emplace("--all",				std::make_pair(eMSGSYSTEM::SYS_ALL,			eMSGLEVEL::LOG_ALL));
-
-        fSubCmdHash.emplace("--ex-fatal",			std::make_pair(eMSGSYSTEM::SYS_EX,			eMSGLEVEL::LOG_FATAL));
-        fSubCmdHash.emplace("--ex-error",			std::make_pair(eMSGSYSTEM::SYS_EX,			eMSGLEVEL::LOG_ERROR));
-
-        fSubCmdHash.emplace("--gen-off",			std::make_pair(eMSGSYSTEM::SYS_GENERAL,		eMSGLEVEL::LOG_OFF));
-        fSubCmdHash.emplace("--gen-fatal",			std::make_pair(eMSGSYSTEM::SYS_GENERAL,		eMSGLEVEL::LOG_FATAL));
-        fSubCmdHash.emplace("--gen-error",			std::make_pair(eMSGSYSTEM::SYS_GENERAL,		eMSGLEVEL::LOG_ERROR));
-        fSubCmdHash.emplace("--gen-warning",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,		eMSGLEVEL::LOG_WARNING));
-        fSubCmdHash.emplace("--gen-info",			std::make_pair(eMSGSYSTEM::SYS_GENERAL,		eMSGLEVEL::LOG_INFO));
-        fSubCmdHash.emplace("--gen-debug",			std::make_pair(eMSGSYSTEM::SYS_GENERAL,		eMSGLEVEL::LOG_DEBUG));
-        fSubCmdHash.emplace("--gen-all",			std::make_pair(eMSGSYSTEM::SYS_GENERAL,		eMSGLEVEL::LOG_ALL));
-
-        fSubCmdHash.emplace("--user-off",			std::make_pair(eMSGSYSTEM::SYS_USER,		eMSGLEVEL::LOG_OFF));
-        fSubCmdHash.emplace("--user-fatal",			std::make_pair(eMSGSYSTEM::SYS_USER,		eMSGLEVEL::LOG_FATAL));
-        fSubCmdHash.emplace("--user-error",			std::make_pair(eMSGSYSTEM::SYS_USER,		eMSGLEVEL::LOG_ERROR));
-        fSubCmdHash.emplace("--user-warning",		std::make_pair(eMSGSYSTEM::SYS_USER,		eMSGLEVEL::LOG_WARNING));
-        fSubCmdHash.emplace("--user-info",			std::make_pair(eMSGSYSTEM::SYS_USER,		eMSGLEVEL::LOG_INFO));
-        fSubCmdHash.emplace("--user-debug",			std::make_pair(eMSGSYSTEM::SYS_USER,		eMSGLEVEL::LOG_DEBUG));
-        fSubCmdHash.emplace("--user-all",			std::make_pair(eMSGSYSTEM::SYS_USER,		eMSGLEVEL::LOG_ALL));
 
         fSubCmdHash.emplace("--fsm-off",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_OFF));
         fSubCmdHash.emplace("--fsm-fatal",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_FATAL));

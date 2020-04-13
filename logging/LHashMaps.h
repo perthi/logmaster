@@ -9,7 +9,8 @@
 *****************************************************************************/
 
 #include <logging/LEnums.h>
-#include <logging/LHashMaps.h>
+#include <logging/LHashMapsBase.h>
+
 #include  <utilities/GDefinitions.h>
 
 #include <map>
@@ -27,7 +28,7 @@ namespace LOGMASTER
 	class LConfig;
 	class LLogging;
 
-	class LHashMaps
+	class LHashMaps : public LHashMapsBase
 	{
 		friend LConfig;
 		friend LLogging;
@@ -43,8 +44,8 @@ namespace LOGMASTER
             static void		API		InitHashMsgFormat();
             static void		API		InitHashLogTags();
             static void		API		InitHashLogTargets();
-            static void		API		InitHashSystem2String();
-            static void		API		InitHashLevel2String();
+          //  static void		API		InitHashSystem2String();
+          //  static void		API		InitHashLevel2String();
             void			API		InitHashLogLevel(const eMSGLEVEL level);
             
             static	string							API DoxygenDoc(const string filename);
@@ -69,14 +70,14 @@ namespace LOGMASTER
             
         private:
             
-            static map < string, std::tuple<  eMSGSYSTEM, eMSGLEVEL > >  fSubCmdHash;
-            static map < string, eMSGTARGET>	fTargetHash;
-            static map < string, eMSGFORMAT>	fFormatHash;
-            static map <eMSGSYSTEM, string >	fSystem2StringHash;
-            static map <eMSGLEVEL, string  >	fLevel2StringHash;
-            map < eMSGSYSTEM, eMSGLEVEL>		fLogLevelHash;
-            eMSGLEVEL							fDefaultLevel;
-            bool								fIsInitialized = false;
+            // static map < string, std::tuple<  eMSGSYSTEM, eMSGLEVEL > >  fSubCmdHash;
+            // static map < string, eMSGTARGET>	fTargetHash;
+            // static map < string, eMSGFORMAT>	fFormatHash;
+            // static map <eMSGSYSTEM, string >	fSystem2StringHash;
+            // static map <eMSGLEVEL, string  >	fLevel2StringHash;
+            // map < eMSGSYSTEM, eMSGLEVEL>		fLogLevelHash;
+            // eMSGLEVEL							fDefaultLevel;
+            // bool								fIsInitialized = false;
 	};
 
 }
