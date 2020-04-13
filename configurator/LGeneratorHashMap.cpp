@@ -33,8 +33,8 @@ LGeneratorHashMap::Generate(   const string /*outfile*/,
 	                    vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                    vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const
 {
-    FORCE_DEBUG( "levels.size() = %d",    levels.size() );
-    FORCE_DEBUG( "systems.size() = %d",   systems.size() );
+    // FORCE_DEBUG( "levels.size() = %d",    levels.size() );
+    // FORCE_DEBUG( "systems.size() = %d",   systems.size() );
     
     vector<string> lines;
 
