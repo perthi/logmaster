@@ -45,13 +45,13 @@ namespace LOGMASTER
 {
     LHashMapsBase::LHashMapsBase( ) : fLogLevelHash(), fDefaultLevel(eMSGLEVEL::LOG_WARNING)
     {
-        InitHash( eMSGLEVEL::LOG_WARNING );
+        ///InitHash( eMSGLEVEL::LOG_WARNING );
     }
 
 
     LHashMapsBase::LHashMapsBase( const eMSGLEVEL  level) : fLogLevelHash(), fDefaultLevel( level )
     {
-        InitHash( level );
+        //InitHash( level );
     }
 
     LHashMapsBase::~LHashMapsBase()
@@ -59,296 +59,36 @@ namespace LOGMASTER
     }
 
 
-    LHashMapsBase *
-    LHashMapsBase::Instance()
-    {
-        static   LHashMapsBase *instance = new LHashMapsBase();
-        return   instance;
-
-    }
-
-    void
-    LHashMapsBase::InitHash()
-    {
-        static bool is_initialized = false;
-
-        if ( is_initialized == false )
-        {
-           // InitHashMsgFormat();
-           // InitHashLogTargets();
-            InitHashLogTags();
-            InitHashSystem2String();
-            InitHashLevel2String();
-            is_initialized = true;
-        }
-
-    }
-
-    void
-    LHashMapsBase::InitHash(const eMSGLEVEL level)
-    {
-        InitHash();
-        InitHashLogLevel(level);
-        fIsInitialized = true;
-    }
-
-
-    map < string, std::tuple<  eMSGSYSTEM, eMSGLEVEL > >      *
-    LHashMapsBase::GetSubCmdHash()
-    {
-        InitHash();
-        return  &fSubCmdHash;
-    }
-
-
-    map < string, eMSGTARGET>  *
-    LHashMapsBase::GetTargetHash()
-    {
-        InitHash();
-        return  &fTargetHash;
-    }
-
-    map < string, eMSGFORMAT>  *
-        LHashMapsBase::GetFormatHash()
-    {
-        InitHash();
-        return  &fFormatHash;
-    }
-
-
-    map<eMSGSYSTEM, string>
-        * LHashMapsBase::GetSystem2StringHash()
-    {
-        InitHash();
-        return &fSystem2StringHash;
-    }
-
-
-    map<eMSGLEVEL, string> *
-    LHashMapsBase::GetLevel2StringHash()
-    {
-        InitHash();
-        return &fLevel2StringHash;
-    }
-
-
-    eMSGTARGET
-    LHashMapsBase::GetTarget( const string & hash )
-    {
-        InitHash();
-        auto it = fTargetHash.find( hash );
-
-        if ( it != fTargetHash.end() )
-        {
-            return it->second;
-        }
-        else
-        {
-            return (eMSGTARGET)0;
-        }
-    }
-
-
-    eMSGFORMAT
-    LHashMapsBase::GetFormat( const string & hash )
-    {
-        InitHash();
-        auto it = fFormatHash.find(hash);
-
-        if ( it != fFormatHash.end() )
-        {
-            return it->second;
-        }
-        else
-        {
-            return (eMSGFORMAT)0;
-        }
-
-    }
-
-
-    vector<eMSGTARGET>
-    LHashMapsBase::GetTargetEnums()
-    {
-        InitHash();
-        static vector<eMSGTARGET> tmp;
-        static bool is_first = true;
-
-        if ( is_first == true )
-        {
-            for ( auto it = fTargetHash.begin(); it != fTargetHash.end(); it++ )
-            {
-                tmp.push_back( it->second );
-            }
-
-            is_first = false;
-        }
-
-        return tmp;
-    }
-
-
-    vector<eMSGFORMAT>
-    LHashMapsBase::GetFormatEnums()
-    {
-        InitHash();
-        static vector<eMSGFORMAT> tmp;
-        static bool is_first = true;
-
-        if ( is_first == true )
-        {
-            for ( auto it = fFormatHash.begin(); it != fFormatHash.end(); it++ )
-            {
-                tmp.push_back( it->second );
-
-            }
-            is_first = false;
-        }
-        return tmp;
-    }
-
-
-    vector<eMSGSYSTEM>
-    LHashMapsBase::GetSystemEnums()
-    {
-        InitHash();
-        static vector<eMSGSYSTEM> tmp;
-        static bool is_first = true;
-
-        if ( is_first == true )
-        {
-            for (auto it = fSystem2StringHash.begin(); it != fSystem2StringHash.end(); it++)
-            {
-                tmp.push_back(it->first );
-            }
-            is_first = false;
-        }
-
-        return tmp;
-    }
-
-
-    vector<eMSGLEVEL>
-    LHashMapsBase::GetLevelEnums()
-    {
-            InitHash();
-            static vector<eMSGLEVEL> tmp;
-            static bool is_first = true;
-
-            if ( is_first == true )
-            {
-
-        for (auto it = fLevel2StringHash.begin(); it != fLevel2StringHash.end(); it++)
-        {
-                    tmp.push_back(it->first);
-        }
-
-                is_first = false;
-            }
-            return tmp;
-    }
-
-
-
-
-    vector<string>
-        LHashMapsBase::GetLogLevelTags()
-    {
-            InitHash();
-            return g_utilities()->Hash2StringV(&fSubCmdHash);
-    }
-
-
-    vector<string>
-    LHashMapsBase::GetLogTargetTags()
-    {
-        InitHash();
-        return g_utilities()->Hash2StringV(&fTargetHash);
-    }
-
-
-    vector<string>
-    LHashMapsBase::GetLogFormatTags()
-    {
-        InitHash();
-        return g_utilities()->Hash2StringV(&fFormatHash);
-    }
-
-
-    bool
-    LHashMapsBase::IsTargetHash( const string &target )
-    {
-        InitHash();
-        return  fTargetHash.count( target ) > 0 ? true : false;
-    }
-
-
-    bool
-    LHashMapsBase::IsFormatHash( const string &format )
-    {
-        InitHash();
-        return fFormatHash.count( format ) > 0 ? true : false;
-    }
-
-
-    bool
-    LHashMapsBase::IsSubCmdHash( const string &subcmd )
-    {
-        InitHash();
-        return fSubCmdHash.count( subcmd ) > 0 ? true : false;
-    }
-
-
-//     string
-//     LHashMapsBase::DoxygenDoc(const string filename)
-//     {
-//         InitHash();
-//         FILE *fp;
-
-// #ifdef _WIN32
-//         fopen_s(&fp, filename.c_str(), "w");
-// #else
-//         fp =  fopen(filename.c_str(), "w");
-// #endif
-
-//         fprintf(fp, "%s", "/**  \\page \"Logging System\"\n");
-//         fprintf(fp, "%s", "* \\section command_line_options Command line options for the logging system\n");
-//         fprintf(fp, "%s", "* Command | Parameters | Default | Explanation \n");
-//         fprintf(fp, "%s", "* --------- | ---------- | --------- | --------- \n");
-
-//         auto t = &fTargetHash;
-//         auto f = &fFormatHash;
-//         auto s = &fSubCmdHash;
-
-//         fprintf(fp, "%s", "* -target |");
-//         for (auto it = t->begin(); it != t->end(); it++)
-//         {
-//             fprintf(fp, "%s\\n", it->first.c_str());
-//         }
-
-//         fprintf(fp, "%s", " | --file | Where to write the log messages\n");
-//         fprintf(fp, "%s", "* -format |");
-
-//         for (auto it = f->begin(); it != f->end(); it++)
-//         {
-//             fprintf(fp, "%s\\n", it->first.c_str());
-//         }
-
-//         fprintf(fp, "%s", " |  1111111 | Options controlling the format of the log messages\n");
-
-//         fprintf(fp, "%s", "* -loglevel |");
-//         for (auto it = s->begin(); it != s->end(); it++)
-//         {
-//             fprintf(fp, " %s\\n", it->first.c_str());
-//         }
-
-//         fprintf(fp, "%s", " |  --all-error | Which subsystem / loglevel to log information from\n");
-//         fprintf(fp, "%s", "*/");
-//         fclose(fp);
-//         return string();
-//     }
-
-
+    // LHashMapsBase *
+    // LHashMapsBase::Instance()
+    // {
+    //     static   LHashMapsBase *instance = new LHashMapsBase();
+    //     return   instance;
+
+    // }
+
+    // void
+    // LHashMapsBase::InitHash()
+    // {
+    //     static bool is_initialized = false;
+
+    //     if ( is_initialized == false )
+    //     {
+    //         InitHashLogTags();
+    //         InitHashSystem2String();
+    //         InitHashLevel2String();
+    //         is_initialized = true;
+    //     }
+
+    // }
+
+    // void
+    // LHashMapsBase::InitHash(const eMSGLEVEL level)
+    // {
+    //     InitHash();
+    //     InitHashLogLevel(level);
+    //     fIsInitialized = true;
+    // }
 
 
 
@@ -376,38 +116,6 @@ namespace LOGMASTER
 
     }
 
-
-    // /** @brief initialization of the hash table for the formatting of the messages,  used  on the command line or via the programming API */
-    // void
-    // LHashMapsBase::InitHashMsgFormat()
-    // {
-    //     fFormatHash.emplace("--all-off",		eMSGFORMAT::ALL_FIELDS_OFF);
-    //     fFormatHash.emplace("--msg-type",		eMSGFORMAT::MESSAGE_TYPE);
-    //     fFormatHash.emplace("--time-stamp",		eMSGFORMAT::TIME_STAMP);
-    //     fFormatHash.emplace("--time-short",		eMSGFORMAT::TIME_STAMP_SHORT);
-    //     fFormatHash.emplace("--file-path",		eMSGFORMAT::FILE_PATH);
-    //     fFormatHash.emplace("--file-name",		eMSGFORMAT::FILE_NAME);
-    //     fFormatHash.emplace("--func-name",		eMSGFORMAT::FUNCTION_NAME);
-    //     fFormatHash.emplace("--line-no",		eMSGFORMAT::LINE_NO);
-    //     fFormatHash.emplace("--prefix-none",	eMSGFORMAT::PREFIX_OFF);
-    //     fFormatHash.emplace("--msg-body",		eMSGFORMAT::MESSAGE_BODY);
-    //     fFormatHash.emplace("--short",			eMSGFORMAT::SHORT_MSG);
-    //     fFormatHash.emplace("--short-user",		eMSGFORMAT::USER_SHORT_MSG);
-    //     fFormatHash.emplace("--prefix-all",		eMSGFORMAT::PREFIX_ALL);
-    // }
-
-
-    // /** @brief initialization of the hash table for the logging targets  used  on the command line or via the programming API */
-    // void
-    // LHashMapsBase::InitHashLogTargets()
-    // {
-    //     fTargetHash.emplace("--target-off",         eMSGTARGET::TARGET_OFF);
-    //     fTargetHash.emplace("--target-file",        eMSGTARGET::TARGET_FILE);
-    //     fTargetHash.emplace("--target-stdout",      eMSGTARGET::TARGET_STDOUT);
-    //     fTargetHash.emplace("--target-subscriber",  eMSGTARGET::TARGET_SUBSCRIBERS);
-    //     fTargetHash.emplace("--target-gui",         eMSGTARGET::TARGET_GUI);
-    //     fTargetHash.emplace("--target-all",         eMSGTARGET::TARGET_ALL);
-    // }
 
 
     void

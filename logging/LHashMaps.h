@@ -44,8 +44,6 @@ namespace LOGMASTER
             static void		API		InitHashMsgFormat();
             static void		API		InitHashLogTags();
             static void		API		InitHashLogTargets();
-          //  static void		API		InitHashSystem2String();
-          //  static void		API		InitHashLevel2String();
             void			API		InitHashLogLevel(const eMSGLEVEL level);
             
             static	string							API DoxygenDoc(const string filename);
@@ -64,20 +62,10 @@ namespace LOGMASTER
             static	vector<string>			API		GetLogLevelTags();
             static	vector<string>			API		GetLogTargetTags();
             static	vector<string>			API		GetLogFormatTags();
+
             static bool                     API     IsTargetHash( const string &target );
             static bool                     API     IsFormatHash( const string &format );
             static bool                     API     IsSubCmdHash( const string &subcmd );
-            
-        private:
-            
-            // static map < string, std::tuple<  eMSGSYSTEM, eMSGLEVEL > >  fSubCmdHash;
-            // static map < string, eMSGTARGET>	fTargetHash;
-            // static map < string, eMSGFORMAT>	fFormatHash;
-            // static map <eMSGSYSTEM, string >	fSystem2StringHash;
-            // static map <eMSGLEVEL, string  >	fLevel2StringHash;
-            // map < eMSGSYSTEM, eMSGLEVEL>		fLogLevelHash;
-            // eMSGLEVEL							fDefaultLevel;
-            // bool								fIsInitialized = false;
 	};
 
 }

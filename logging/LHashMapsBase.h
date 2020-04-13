@@ -24,61 +24,33 @@ using std::vector;
 
 namespace LOGMASTER
 {
+
+	class LHashMaps;
 	class LConfig;
 	class LLogging;
 
 	class LHashMapsBase
 	{
-		friend LConfig;
-		friend LLogging;
+        friend LHashMaps;
+        friend LConfig;
+        friend LLogging;
 
-	public:
-            API    LHashMapsBase(  );
-            API    LHashMapsBase(const eMSGLEVEL level  );
-            API    ~LHashMapsBase();
-            static  LHashMapsBase API* Instance();
-            
-            static void		API		InitHash();
-            void			API		InitHash( const eMSGLEVEL level );
-          //  static void		API		InitHashMsgFormat();
-            static void		API		InitHashLogTags();
-            
-            ///static void		API		InitHashLogTargets();
-            
-            static void		API		InitHashSystem2String();
-            static void		API		InitHashLevel2String();
-            void			API		InitHashLogLevel(const eMSGLEVEL level);
-            
-        //    static	string							API DoxygenDoc(const string filename);
-            static	map < string, std::tuple<  eMSGSYSTEM, eMSGLEVEL > >  API * GetSubCmdHash();
-            static  map < string, eMSGTARGET>		API *	GetTargetHash();
-            static  map < string, eMSGFORMAT>		API	*	GetFormatHash();
-            static	map <eMSGSYSTEM, string >		API *	GetSystem2StringHash();
-            static	map <eMSGLEVEL, string  >		API	*	GetLevel2StringHash();
-
-            static  eMSGTARGET              API		GetTarget( const string  &hash);
-            static  eMSGFORMAT              API		GetFormat( const string  &hash );
-            static	vector<eMSGTARGET>		API  	GetTargetEnums();
-            static	vector<eMSGFORMAT>		API  	GetFormatEnums();
-            static  vector<eMSGSYSTEM>		API  	GetSystemEnums();
-            static  vector<eMSGLEVEL>		API  	GetLevelEnums();
-            static	vector<string>			API		GetLogLevelTags();
-            static	vector<string>			API		GetLogTargetTags();
-            static	vector<string>			API		GetLogFormatTags();
-            static bool                     API     IsTargetHash( const string &target );
-            static bool                     API     IsFormatHash( const string &format );
-            static bool                     API     IsSubCmdHash( const string &subcmd );
-            
-       // private:
-         protected:   
-            static map < string, std::tuple<  eMSGSYSTEM, eMSGLEVEL > >  fSubCmdHash;
-            static map < string, eMSGTARGET>	fTargetHash;
-            static map < string, eMSGFORMAT>	fFormatHash;
-            static map <eMSGSYSTEM, string >	fSystem2StringHash;
-            static map <eMSGLEVEL, string  >	fLevel2StringHash;
-            map < eMSGSYSTEM, eMSGLEVEL>		fLogLevelHash;
-            eMSGLEVEL							fDefaultLevel;
-            bool								fIsInitialized = false;
-	};
+    private:
+        API LHashMapsBase();
+        API LHashMapsBase(const eMSGLEVEL level);
+        API ~LHashMapsBase();
+        static void API InitHashLogTags();
+        static void API InitHashSystem2String();
+        static void API InitHashLevel2String();
+        void API InitHashLogLevel(const eMSGLEVEL level);
+        static map<string, std::tuple<eMSGSYSTEM, eMSGLEVEL>> fSubCmdHash;
+        static map<string, eMSGTARGET> fTargetHash;
+        static map<string, eMSGFORMAT> fFormatHash;
+        static map<eMSGSYSTEM, string> fSystem2StringHash;
+        static map<eMSGLEVEL, string> fLevel2StringHash;
+        map<eMSGSYSTEM, eMSGLEVEL> fLogLevelHash;
+        eMSGLEVEL fDefaultLevel;
+        bool fIsInitialized = false;
+    };
 
 }
