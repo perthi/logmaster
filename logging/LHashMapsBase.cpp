@@ -99,20 +99,36 @@ LHashMapsBase::InitHashLogLevel(const eMSGLEVEL /*l*/)
 }
 
 
-    void
-    LHashMapsBase::InitHashSystem2String()
-    {
+    // void
+    // LHashMapsBase::InitHashSystem2String()
+    // {
+    //     fSystem2StringHash.emplace(eMSGSYSTEM::SYS_EX,       "Exeption");
+    //     fSystem2StringHash.emplace(eMSGSYSTEM::SYS_GENERAL,  "General");
+    //     fSystem2StringHash.emplace(eMSGSYSTEM::SYS_USER,     "User");
+    //     fSystem2StringHash.emplace(eMSGSYSTEM::SYS_FSM,      "FSM");
+    //     fSystem2StringHash.emplace(eMSGSYSTEM::SYS_ALL,      "ALL systems");
+    //     fSystem2StringHash.emplace(eMSGSYSTEM::SYS_ALARM,    "Alarm");
+    //     fSystem2StringHash.emplace(eMSGSYSTEM::SYS_MESSAGE,  "Message");
+    //     fSystem2StringHash.emplace(eMSGSYSTEM::SYS_COM,      "COM");
+    //     fSystem2StringHash.emplace(eMSGSYSTEM::SYS_XML,      "XML");
+    //     fSystem2StringHash.emplace(eMSGSYSTEM::SYS_NONE,     "System Unknown");
+    // }
+
+
+ void
+  LHashMapsBase::InitHashSystem2String()
+  {
         fSystem2StringHash.emplace(eMSGSYSTEM::SYS_EX,       "Exeption");
         fSystem2StringHash.emplace(eMSGSYSTEM::SYS_GENERAL,  "General");
         fSystem2StringHash.emplace(eMSGSYSTEM::SYS_USER,     "User");
-        fSystem2StringHash.emplace(eMSGSYSTEM::SYS_FSM,      "FSM");
-        fSystem2StringHash.emplace(eMSGSYSTEM::SYS_ALL,      "ALL systems");
-        fSystem2StringHash.emplace(eMSGSYSTEM::SYS_ALARM,    "Alarm");
-        fSystem2StringHash.emplace(eMSGSYSTEM::SYS_MESSAGE,  "Message");
-        fSystem2StringHash.emplace(eMSGSYSTEM::SYS_COM,      "COM");
-        fSystem2StringHash.emplace(eMSGSYSTEM::SYS_XML,      "XML");
         fSystem2StringHash.emplace(eMSGSYSTEM::SYS_NONE,     "System Unknown");
-    }
+        fSystem2StringHash.emplace(eMSGSYSTEM::SYS_FSM,         "Fsm");
+        fSystem2StringHash.emplace(eMSGSYSTEM::SYS_ALARM,       "Alarm");
+        fSystem2StringHash.emplace(eMSGSYSTEM::SYS_MESSAGE,     "Message");
+        fSystem2StringHash.emplace(eMSGSYSTEM::SYS_COM,         "Com");
+        fSystem2StringHash.emplace(eMSGSYSTEM::SYS_XML,         "Xml");
+  }
+
 
 
     void
