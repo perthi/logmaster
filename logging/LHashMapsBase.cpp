@@ -51,44 +51,13 @@ namespace LOGMASTER
 
     LHashMapsBase::LHashMapsBase( const eMSGLEVEL  level) : fLogLevelHash(), fDefaultLevel( level )
     {
-        //InitHash( level );
+
     }
 
     LHashMapsBase::~LHashMapsBase()
     {
     }
 
-
-    // LHashMapsBase *
-    // LHashMapsBase::Instance()
-    // {
-    //     static   LHashMapsBase *instance = new LHashMapsBase();
-    //     return   instance;
-
-    // }
-
-    // void
-    // LHashMapsBase::InitHash()
-    // {
-    //     static bool is_initialized = false;
-
-    //     if ( is_initialized == false )
-    //     {
-    //         InitHashLogTags();
-    //         InitHashSystem2String();
-    //         InitHashLevel2String();
-    //         is_initialized = true;
-    //     }
-
-    // }
-
-    // void
-    // LHashMapsBase::InitHash(const eMSGLEVEL level)
-    // {
-    //     InitHash();
-    //     InitHashLogLevel(level);
-    //     fIsInitialized = true;
-    // }
 
 
 
