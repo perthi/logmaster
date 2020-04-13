@@ -8,9 +8,12 @@ using namespace LOGMASTER;
 
 #include  <configurator/LXmlEntityLogLevel.h>
 #include  <configurator/LXmlEntitySubSystem.h> 
-#include <utilities/GUtilities.h>
+#include  <utilities/GUtilities.h>
+#include  <utilities/GString.h>
 
 #include <sstream>
+
+#include <algorithm>
 
 
 LGeneratorHashMap::LGeneratorHashMap()
@@ -34,7 +37,37 @@ LGeneratorHashMap::Generate(   const string /*outfile*/,
     FORCE_DEBUG( "systems.size() = %d",   systems.size() );
 
     GenerateInitHashLogLevel( systems );
+    GenerateInitHashSystem2String( systems );
 }	
+
+
+vector<string>   
+LGeneratorHashMap::GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const
+{
+    vector<string> lines;
+    lines.push_back("  void");
+    lines.push_back("  LHashMapsBase::InitHashSystem2String()");
+    lines.push_back("  {");
+    lines.push_back( "\tfSystem2StringHash.emplace(eMSGSYSTEM::SYS_EX,       \"Exeption\");");
+    lines.push_back( "\tfSystem2StringHash.emplace(eMSGSYSTEM::SYS_GENERAL,  \"General\");");
+    lines.push_back( "\tfSystem2StringHash.emplace(eMSGSYSTEM::SYS_USER,     \"User\");");
+    lines.push_back( "\tfSystem2StringHash.emplace(eMSGSYSTEM::SYS_NONE,     \"System Unknown\");");
+    
+    for (auto sys : systems)
+    {
+        std::stringstream buffer; 
+        buffer << "\t" << "fSystem2StringHash.emplace(eMSGSYSTEM::" << "SYS_" << sys->fName + ", ";
+        buffer <<  "\t" << "\"" +  g_string()->ToPascalCase (sys->fName )  + "\");";
+        lines.push_back (  buffer.str() ) ;
+    }
+
+    lines.push_back("  }");
+     for (auto l : lines)
+     {
+        cout << l << endl;
+     }
+    return lines;
+}
 
 
 vector<string>   
@@ -48,9 +81,9 @@ LGeneratorHashMap::GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntityS
     *  and sub-system then the message is created. Where the message is actuall written (if at all) is decided by the target configuration, wether or not logging is enabled to to file, to console, etc.. \
     *  @param l  All system are initialized with logging for this level or higher.  */");
 
-    lines.push_back("void");
-    lines.push_back("LHashMapsBase::InitHashLogLevel(const eMSGLEVEL /*l*/)");
-    lines.push_back("{");
+    lines.push_back("   void");
+    lines.push_back("   LHashMapsBase::InitHashLogLevel(const eMSGLEVEL /*l*/)");
+    lines.push_back("   {");
     lines.push_back("\tfLogLevelHash.clear();");
     lines.push_back("//\teMSGLEVEL level = (eMSGLEVEL)(PAD((int)l));");
 
@@ -63,11 +96,12 @@ LGeneratorHashMap::GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntityS
         //FORCE_DEBUG("name = %s", buffer.str().c_str() );
     }
 
-    lines.push_back("}");
+    lines.push_back("   }");
 
-    for (auto l : lines)
-    {
-        cout << l << endl;
-    }
+    // for (auto l : lines)
+    // {
+    //     cout << l << endl;
+    // }
+
     return lines;
 }	 	

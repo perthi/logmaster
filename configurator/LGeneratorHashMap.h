@@ -21,6 +21,8 @@ class  LGeneratorHashMap : public  LGenerator
 	  LGeneratorHashMap();
 	  virtual ~LGeneratorHashMap();
 	  vector<string>   GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const;	 	
+	  
+	  vector<string>   GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const;	 	
 
 	  virtual void Generate(   const string outfile, 
 	                    vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
