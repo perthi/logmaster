@@ -5,8 +5,8 @@
 
 #include  <configurator/LXmlEntityLogLevel.h>
 #include  <configurator/LXmlEntitySubSystem.h> 
-
-#include <logging/LLogApi.h>
+#include  <logging/LLogApi.h>
+#include  <utilities/GUtilities.h>
 
 #include <sstream>
 
@@ -23,50 +23,141 @@ LMacroGeneratorLogging::~LMacroGeneratorLogging()
 
 }
 
+
 	// struct LMacroEntry
 	// 	{
-	// 		LMacroEntry(vector<string> m, vector<string> s, bool is_assert) : fMacroNames(m), fSystems(s), fIsAssertMacro(is_assert){};
-	// 		vector<string> fMacroNames;
-	// 		vector<string> fSystems;
+	// 		LMacroEntry(const string lvl, vector<LMacroName> m, vector<LSystems> s, bool is_assert) : 
+	// 		                               fLevel(lvl), 
+	// 									   fMacroNames(m), 
+	// 									   fSystems(s), 
+	// 									   fIsAssertMacro(is_assert){};
+	// 		string fLevel;
+	// 		vector< LMacroName> fMacroNames;
+	// 		vector<LSystems> fSystems;
 	// 		bool fIsAssertMacro = false;
 	// 	};
 
+LMacroGeneratorLogging::LMacroEntry 
+LMacroGeneratorLogging::GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel> lvl, 
+                                             std::shared_ptr<LXmlEntitySubSystem >  sys, 
+                                             bool with_user ) const
+{
+   // LMacroEntry tmp;
+    vector<LMacroName> names;
+    vector<LSystem> systems;
+    string user = with_user == true ? "_U" : "";
+
+    names.push_back(LMacroName(sys->fName + "_" + lvl->fName + user, false));
+
+    if (with_user == false)
+    {
+        names.push_back( LMacroName( sys->fName + "_" + "ASSERT_" + lvl->fName, true )) ;
+    }
+
+    if (sys->fName != sys->fNameShort)
+    {
+        names.push_back(LMacroName(sys->fNameShort + "_" + lvl->fName + user, false));
+
+        if (with_user == false)
+        {
+            names.push_back( LMacroName( sys->fNameShort + "_" + "ASSERT_" + lvl->fName, true ) ) ;
+        }
+    }
+
+    systems.push_back(LSystem(sys->fName));
+
+    if (with_user == true)
+    {
+        systems.push_back(LSystem("USER"));
+    }
+
+    return  LMacroEntry( lvl->fName , names, systems  );
+}
+
+
+
+
 void 
-LMacroGeneratorLogging::Generate(  const string outfile, 
+LMacroGeneratorLogging::Generate(  const string /*outfile*/, 
 	                               vector<std::shared_ptr<LXmlEntityLogLevel > > levels,
 	                               vector<  std::shared_ptr< LXmlEntitySubSystem > >  systems ) const
 {
-    FORCE_DEBUG("oufile = %s",  outfile.c_str() );
-    FORCE_DEBUG("levels size = %d",  levels.size()  );
-    FORCE_DEBUG("systems size = %d",  systems.size()  ); 
-
     vector<string> lines;
 
-   for (auto s : systems)
-        {
-
-    for (auto l : levels)
+    for (auto sys : systems)
     {
-     
-
+        for (auto lvl : levels)
+        {
             vector<LMacroEntry> entries;
-            entries.push_back(LMacroEntry(l->fName, {s->fName + "_" + l->fName, s->fNameShort + "_" + l->fName}, {s->fName}, false));
-            entries.push_back(LMacroEntry(l->fName, {s->fName + "_" + l->fName + "_U", s->fNameShort + "_" + l->fName + "_U"}, {s->fName, "USER"}, false));
-            entries.push_back(LMacroEntry(l->fName, {s->fName + "_" + "ASSERT_"+ l->fName, s->fNameShort + "_" + l->fName}, {s->fName}, true));
-           GenerateLines( entries );
 
-           // std::stringstream buffer;
+            if( sys->fName  != sys->fNameShort  )
+            {
+              LMacroEntry e =  GenerateMacroEntry(lvl, sys, false) ; 
+
+              entries.push_back(LMacroEntry( e ) );
+              
+              e =  GenerateMacroEntry(lvl, sys, true ) ; 
+
+            //   entries.push_back(LMacroEntry(   lvl->fName, 
+                                             
+            //                                  { sys->fName       + "_"  + lvl->fName, 
+            //                                    sys->fNameShort  + "_"  + lvl->fName}, 
+                                             
+            //                                  { sys->fName}, false));
+
+           
+
+            //   entries.push_back(LMacroEntry( lvl->fName, 
+                                            
+            //                                 { sys->fName       +  "_" + "ASSERT_" + lvl->fName, 
+            //                                   sys->fNameShort  +  "_" + "ASSERT_" + lvl->fName}, 
+            //                                 { sys->fName}, 
+            //                                   true));
+
+            //     entries.push_back(LMacroEntry(   lvl->fName, 
+                                             
+            //                                  { sys->fName + "_" + lvl->fName + "_U", 
+            //                                    sys->fNameShort + "_" + lvl->fName + "_U"}, 
+                                             
+            //                                  { sys->fName, "USER"}, 
+            //                                    false));
+
+            // }
+            // else
+            // {
+            //   entries.push_back(LMacroEntry(  lvl->fName, 
+            //                                 { sys->fName + "_" + lvl->fName  }, 
+            //                                 { sys->fName}, 
+            //                                   false ));
+
+            //   entries.push_back(LMacroEntry(  lvl->fName, 
+            //                                 { sys->fName + "_" + lvl->fName + "_U" }, 
+            //                                 { sys->fName, "USER"}, false));
+
+            //   entries.push_back(LMacroEntry(  lvl->fName, 
+                                            
+            //                                 { sys->fName + "_" + "ASSERT_" + lvl->fName }, 
+            //                                 { sys->fName}, 
+            //                                  true));
+
+             }
+            
+
+
+            GenerateLines(entries);
         }
     }
 }
 
 
+//void
+//LMacroGeneratorLogging::GenerateLines() 
 
 void 
-LMacroGeneratorLogging::GenerateLines( const vector<LMacroEntry>  m_entries  ) const
+LMacroGeneratorLogging::GenerateLines( vector<LMacroEntry>  m_entries  )  const
+//LMacroGeneratorLogging::GenerateLines(  string  /*m_entries*/ )  const
 {
   
-
     for( auto entry: m_entries )
     {
         for ( auto m: entry.fMacroNames)
@@ -74,29 +165,35 @@ LMacroGeneratorLogging::GenerateLines( const vector<LMacroEntry>  m_entries  ) c
             string line;
             std::stringstream buffer;
             
-            if( entry.fIsAssertMacro == true )
+              buffer <<  "#define ";
+              
+              
+
+            //if( entry.m.fIsAssertMacro == true )
+            if(  m.fIsAssert  == true )
+            
             {
-                buffer <<  "#define " +  m + "(expr ...) "  + " if ( ! (expr) ) LLogging::Instance()->Log( " + fLevelEnumName + "::" ;  
+                buffer <<   g_utilities()->TabAlign ( m.fMacroName + "(expr ...) "  + " if ( ! (expr) )", 6);
+                buffer <<  "LLogging::Instance()->Log( " + fLevelEnumName + "::";  
 
             }
             else
             {
-                
-                buffer <<  "#define " +  m + "(...) "  + " LLogging::Instance()->Log( " + fLevelEnumName + "::" ;
+                buffer <<  g_utilities()->TabAlign ( m.fMacroName + "(...) ", 6 ); 
+                buffer <<  "LLogging::Instance()->Log( " + fLevelEnumName + "::" ;
             }
 
-
             buffer <<  "LOG_" <<  entry.fLevel <<  ",    ";
-
-           size_t  sz =   entry.fSystems.size();
+            size_t  sz =   entry.fSystems.size();
 
             for(size_t i = 0; i < sz;  i++ )
             {
-                buffer << fSystemEnumName << "::"  << entry.fSystems.at(0) + "," ;
-                if( i > 1 && i < ( sz -1)  )
+                if( i > 0 && sz > 1  )  
                 {
                     buffer << " | "; 
                 }
+                
+                buffer << fSystemEnumName << "::"  << entry.fSystems.at(i).fSystem ;
             }
 
             buffer << ", ";
@@ -107,11 +204,7 @@ LMacroGeneratorLogging::GenerateLines( const vector<LMacroEntry>  m_entries  ) c
             line = buffer.str();
             FORCE_DEBUG("The generated line is: %s", line.c_str() );
             POP();
-        
         } 
-        
-
-
     }
-
+    
 }

@@ -8,62 +8,69 @@
     <LEVELS>
         <LOGLEVEL>
             <LEVEL>DEBUG</LEVEL>
-            <FORCE_OUTPUT>false</FORCE_OUTPUT>
         </LOGLEVEL>
         <LOGLEVEL>
             <LEVEL>INFO</LEVEL>
-            <FORCE_OUTPUT>false</FORCE_OUTPUT>
         </LOGLEVEL>
-
         <LOGLEVEL>
             <LEVEL>WARNING</LEVEL>
-            <FORCE_OUTPUT>false</FORCE_OUTPUT>
         </LOGLEVEL>
-
         <LOGLEVEL>
             <LEVEL>ERROR</LEVEL>
-            <FORCE_OUTPUT>false</FORCE_OUTPUT>
         </LOGLEVEL>
-
         <LOGLEVEL>
             <LEVEL>FATAL</LEVEL>
-            <FORCE_OUTPUT>false</FORCE_OUTPUT>
-        </LOGLEVEL>
-
-        <LOGLEVEL>
-            <LEVEL>FORCE</LEVEL>
-            <FORCE_OUTPUT>true</FORCE_OUTPUT>
         </LOGLEVEL>
     </LEVELS>
 
 
     <SUBSYSTEMS>
         <SYSTEM>
+            <NAME>FSM</NAME>
+            <SHORT_NAME>FSM</SHORT_NAME>
+            <TAG>--fsm</TAG>
+            <TAG_SHORT>--fsm</TAG_SHORT>
+            <DEFAULT>WARNING</DEFAULT>
+            <CAN_MODIFY>true</CAN_MODIFY>
+            <FORCE_OUTPUT>false</FORCE_OUTPUT>
+        </SYSTEM>
+        <SYSTEM>
+            <NAME>ALARM</NAME>
+            <SHORT_NAME>A</SHORT_NAME>
+            <TAG>--alarm</TAG>
+            <TAG_SHORT>--alarm</TAG_SHORT>
+            <DEFAULT>WARNING</DEFAULT>
+            <CAN_MODIFY>false</CAN_MODIFY>
+            <FORCE_OUTPUT>true</FORCE_OUTPUT>
+        </SYSTEM>
+        <SYSTEM>
+            <NAME>MESSAGE</NAME>
+            <SHORT_NAME>MSG</SHORT_NAME>
+            <TAG>--message</TAG>
+            <TAG_SHORT>--msg</TAG_SHORT>
+            <DEFAULT>WARNING</DEFAULT>
+            <CAN_MODIFY>true</CAN_MODIFY>
+            <FORCE_OUTPUT>false</FORCE_OUTPUT>
+        </SYSTEM>
+        <SYSTEM>
+            <NAME>COM</NAME>
+            <SHORT_NAME>COM</SHORT_NAME>
+            <TAG>--com</TAG>
+            <TAG_SHORT>--com</TAG_SHORT>
+            <DEFAULT>WARNING</DEFAULT>
+            <CAN_MODIFY>true</CAN_MODIFY>
+            <FORCE_OUTPUT>false</FORCE_OUTPUT>
+        </SYSTEM>        
+        <SYSTEM> 
             <NAME>XML</NAME>
             <SHORT_NAME>XML</SHORT_NAME>
             <TAG>--xml</TAG>
             <TAG_SHORT>--xml</TAG_SHORT>
             <DEFAULT>WARNING</DEFAULT>
             <CAN_MODIFY>false</CAN_MODIFY>
+            <FORCE_OUTPUT>false</FORCE_OUTPUT>
         </SYSTEM>
 
-        <SYSTEM>
-            <NAME>ANALYSIS</NAME>
-            <SHORT_NAME>ANA</SHORT_NAME>
-            <TAG>--analysis</TAG>
-            <TAG_SHORT>--ana</TAG_SHORT>
-            <DEFAULT>WARNING</DEFAULT>
-            <CAN_MODIFY>true</CAN_MODIFY>
-        </SYSTEM>
-
-        <SYSTEM>
-            <NAME>EXCEPTION</NAME>
-            <SHORT_NAME>EX</SHORT_NAME>
-            <TAG>--exception</TAG>
-            <TAG_SHORT>--ex</TAG_SHORT>
-            <DEFAULT>ERROR</DEFAULT>
-            <CAN_MODIFY>false</CAN_MODIFY>
-        </SYSTEM>
 
     </SUBSYSTEMS>
 

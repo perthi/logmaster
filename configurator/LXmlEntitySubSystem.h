@@ -19,6 +19,7 @@ class  LXmlEntitySubSystem : public LXmlEntity
 	
 	   string fDefault = "";
 	   bool   fCanModify = true;	
+	   bool   fForceOutput = true;	
 
 };
 

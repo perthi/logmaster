@@ -38,9 +38,7 @@
               <xs:element name="LOGLEVEL" maxOccurs="unbounded" minOccurs="0">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="LEVEL" type="LogLevel" maxOccurs="1" minOccurs="1"> </xs:element>
-                    <!--    <xs:element name="SHORT_NAME" type="xs:string" maxOccurs="1" minOccurs="1"> </xs:element>-->
-                    <xs:element name="FORCE_OUTPUT" type="xs:boolean" maxOccurs="1" minOccurs="1"/>
+                    <xs:element name="LEVEL" type="LogLevel" maxOccurs="1" minOccurs="1"> </xs:element>                
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
@@ -59,9 +57,10 @@
                     <xs:element name="NAME" type="SystemType" maxOccurs="1" minOccurs="1"> </xs:element>
                     <xs:element name="SHORT_NAME" type="SystemType" maxOccurs="1" minOccurs="1"> </xs:element>
                     <xs:element name="TAG" type="CmdLineTag" maxOccurs="1" minOccurs="1"/>
-                    <xs:element name="TAG_SHORT" type="CmdLineTag" maxOccurs="1" minOccurs="0"/>
+                    <xs:element name="TAG_SHORT" type="CmdLineTag" maxOccurs="1" minOccurs="1"/>
                     <xs:element name="DEFAULT" type="LogLevel" maxOccurs="1" minOccurs="1"/>
                     <xs:element name="CAN_MODIFY" type="xs:boolean" maxOccurs="1" minOccurs="1"/>
+                    <xs:element name="FORCE_OUTPUT" type="xs:boolean" maxOccurs="1" minOccurs="1"/>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>

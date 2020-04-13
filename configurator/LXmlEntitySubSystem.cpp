@@ -28,6 +28,6 @@ LXmlEntitySubSystem::str() const
     buffer <<  g_utilities()->TabAlign("TAG_SHORT:")     <<    fTagShort   <<   endl;
     buffer <<  g_utilities()->TabAlign("DEFAULT:")       <<    fDefault    <<   endl;
     buffer <<  g_utilities()->TabAlign("CAN_MODIFY ?:")  <<  ( fCanModify  == true ?  "TRUE" : "FALSE" ) << endl;
-    
+    buffer <<  g_utilities()->TabAlign("FORCE_OUTPUT ?:") <<  ( fForceOutput == true ?  "TRUE" : "FALSE" ) << endl;
     return buffer.str();
 }

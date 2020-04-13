@@ -25,16 +25,38 @@ class  LMacroGeneratorLogging
 	                    vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const;
 
 	private:
-		struct LMacroEntry
+
+		struct LSystem
 		{
-			LMacroEntry(const string lvl, vector<string> m, vector<string> s, bool is_assert) : fLevel(lvl), fMacroNames(m), fSystems(s), fIsAssertMacro(is_assert){};
-			string fLevel;
-			vector<string> fMacroNames;
-			vector<string> fSystems;
-			bool fIsAssertMacro = false;
+			LSystem( const  string name) : fSystem(name) {}
+			string fSystem = "";
 		};
 
+		struct LMacroName 
+		{
+			LMacroName(const string name, bool is_assert) : fMacroName(name), fIsAssert( is_assert ) {}
+			string fMacroName = "";
+			bool   fIsAssert  = false;
+		};
+
+
+		struct LMacroEntry
+		{
+			LMacroEntry(const string lvl, vector<LMacroName> m, vector<LSystem> s ): 
+			                               fLevel(lvl), 
+										   fMacroNames(m), 
+										   fSystems(s) {};
+			string fLevel;
+			vector< LMacroName> fMacroNames;
+			vector<LSystem> fSystems;
+		};
+
+		LMacroEntry GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel>   lvl, 
+		                                         std::shared_ptr<LXmlEntitySubSystem > sys, 
+												 bool with_user = false) const;
+		
 		void GenerateLines( const vector<LMacroEntry> m  ) const;
+	//	void GenerateLines( const string m  ) const;
 		string fLevelEnumName    =   "eMSGLEVEL";
 	    string fSystemEnumName   =   "eMSGSYSTEM";
 
