@@ -55,8 +55,11 @@ class  LMacroGeneratorLogging
 		                                         std::shared_ptr<LXmlEntitySubSystem > sys, 
 												 bool with_user = false) const;
 		
-		void GenerateLines( const vector<LMacroEntry> m  ) const;
-	//	void GenerateLines( const string m  ) const;
+		vector<string>  GenerateLines( const vector<LMacroEntry> m  ) const;
+		
+		string  GenerateLine( const LMacroName m,  const vector<LSystem> s, const string lvl ) const;
+
+		
 		string fLevelEnumName    =   "eMSGLEVEL";
 	    string fSystemEnumName   =   "eMSGSYSTEM";
 

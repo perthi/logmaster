@@ -100,53 +100,66 @@ LMacroGeneratorLogging::Generate(  const string /*outfile*/,
 }
 
 
-void 
-LMacroGeneratorLogging::GenerateLines( vector<LMacroEntry>  m_entries  )  const
+vector<string> 
+LMacroGeneratorLogging::GenerateLines( const vector<LMacroEntry>  m_entries  )  const
 {
-  
+  vector<string> lines;
+
     for( auto entry: m_entries )
     {
+    
         for ( auto m: entry.fMacroNames)
         {
             string line;
-            std::stringstream buffer;
-            buffer <<  "#define ";
+            line = GenerateLine(  m , entry.fSystems,  entry.fLevel );
+            lines.push_back(line);
 
-            //if( entry.m.fIsAssertMacro == true )
-            if(  m.fIsAssert  == true )
-            {
-                buffer <<   g_utilities()->TabAlign ( m.fMacroName + "(expr ...) "  + " if ( ! (expr) )", 6);
-                buffer <<  "LLogging::Instance()->Log( " + fLevelEnumName + "::";  
-
-            }
-            else
-            {
-                buffer <<  g_utilities()->TabAlign ( m.fMacroName + "(...) ", 6 ); 
-                buffer <<  "LLogging::Instance()->Log( " + fLevelEnumName + "::" ;
-            }
-
-            buffer <<  "LOG_" <<  entry.fLevel <<  ",    ";
-            size_t  sz =   entry.fSystems.size();
-
-            for(size_t i = 0; i < sz;  i++ )
-            {
-                if( i > 0 && sz > 1  )  
-                {
-                    buffer << " | "; 
-                }
-                
-                buffer << fSystemEnumName << "::"  << entry.fSystems.at(i).fSystem ;
-            }
-
-            buffer << ", ";
-            buffer <<  "GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)";
-            
             PUSH();
             SET_LOGFORMAT("00000001");
-            line = buffer.str();
-            FORCE_DEBUG("The generated line is: %s", line.c_str() );
+            FORCE_DEBUG("%s", line.c_str() );
             POP();
         } 
     }
+    return lines;    
+}
+
+
+
+string  
+LMacroGeneratorLogging::GenerateLine( const LMacroName m,  const vector<LSystem> s, const string lvl  ) const
+{
+    string line = "";
     
+    std::stringstream buffer;
+    buffer << "#define ";
+
+    //if( entry.m.fIsAssertMacro == true )
+    if (m.fIsAssert == true)
+    {
+        buffer << g_utilities()->TabAlign(m.fMacroName + "(expr ...) " + " if ( ! (expr) )", 6);
+        buffer << "LLogging::Instance()->Log( " + fLevelEnumName + "::";
+    }
+    else
+    {
+        buffer << g_utilities()->TabAlign(m.fMacroName + "(...) ", 6);
+        buffer << "LLogging::Instance()->Log( " + fLevelEnumName + "::";
+    }
+
+    buffer << "LOG_" << lvl << ",    ";
+    size_t sz = s.size();
+
+    for (size_t i = 0; i < sz; i++)
+    {
+        if (i > 0 && sz > 1)
+        {
+            buffer << " | ";
+        }
+
+        buffer << fSystemEnumName << "::" << s.at(i).fSystem;
+    }
+
+    buffer << ", ";
+    buffer << "GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)";
+    
+    return line;
 }
