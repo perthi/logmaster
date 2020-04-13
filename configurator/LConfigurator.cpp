@@ -13,7 +13,7 @@ using namespace LOGMASTER;
 
 LConfigurator::LConfigurator()
 {
-    FORCE_DEBUG("Calling constructor");
+    ///FORCE_DEBUG("Calling constructor");
 }
 
 

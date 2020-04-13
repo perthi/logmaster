@@ -66,7 +66,7 @@ int main(int /*argc*/, const char ** /*argv*/)
 		}
 		else
 		{
-			FORCE_DEBUG("Validation OK, lets try to parse the XML file");
+		//	FORCE_DEBUG("Validation OK, lets try to parse the XML file");
 			std::shared_ptr<LConfigurator> ptr = std::make_shared<LConfigurator>();
 			std::shared_ptr<LXmlParser> p = std::make_shared<LXmlParser>();
 			
@@ -78,7 +78,7 @@ int main(int /*argc*/, const char ** /*argv*/)
 
 			g->Generate( outfile, loglevels, subsystems );			
 
-			FORCE_DEBUG("Parsing done ...");
+			//FORCE_DEBUG("Parsing done ...");
 		}
 	}
 	catch( const GException &e )

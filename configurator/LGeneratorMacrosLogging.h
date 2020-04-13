@@ -59,7 +59,8 @@ class  LGeneratorMacrosLogging
 		
 		string  GenerateLine( const LMacroName m,  const vector<LSystem> s, const string lvl ) const;
 
-		
+		vector<string>  GenerateCommon() const;
+
 		string fLevelEnumName    =   "eMSGLEVEL";
 	    string fSystemEnumName   =   "eMSGSYSTEM";
 
