@@ -86,19 +86,14 @@ EXCEPTION_CLASS_H(GFileNotFoundException)
 EXCEPTION_CLASS_H(GInvalidArgumentException)
 EXCEPTION_CLASS_H(GMissingArgumentException)
 EXCEPTION_CLASS_H(GRangeException)
-EXCEPTION_CLASS_H(GFSMException)
 
+EXCEPTION_CLASS_H(GFSMException)
 EXCEPTION_CLASS_H(GAlarmException)
 EXCEPTION_CLASS_H(GComException)
-EXCEPTION_CLASS_H(GHMIException)
 EXCEPTION_CLASS_H(GMessageException)
-EXCEPTION_CLASS_H(GSensorException)
-EXCEPTION_CLASS_H(GEngineException)
-EXCEPTION_CLASS_H(GSEMException)
-EXCEPTION_CLASS_H(GApiException)
+
 EXCEPTION_CLASS_H(GXMLException)
-EXCEPTION_CLASS_H(GCLIException)
-EXCEPTION_CLASS_H(GSequenceException)
+
 
 template<typename T>
 void throw_exception(const T &e)
@@ -124,15 +119,8 @@ void throw_exception(const T &e)
 #define COM_EXCEPTION(...)                 throw_exception( GComException(              __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_COM,      __VA_ARGS__ ) )
 #define FSM_EXCEPTION(...)                 throw_exception( GFSMException(              __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_FSM,      __VA_ARGS__ ) )
 #define ALARM_EXCEPTION(...)               throw_exception( GAlarmException(            __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_ALARM,    __VA_ARGS__ ) )
-#define HMI_EXCEPTION(...)                 throw_exception( GHMIException(              __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_HMI,      __VA_ARGS__ ) )
 #define MESSAGE_EXCEPTION(...)             throw_exception( GMessageException(          __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_MESSAGE,  __VA_ARGS__ ) )
-#define SENSOR_EXCEPTION(...)              throw_exception( GSensorException(           __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_SENSOR,   __VA_ARGS__ ) )
-#define ENGINE_EXCEPTION(...)              throw_exception( GEngineException(           __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_ENGINE,   __VA_ARGS__ ) )
-#define SEM_EXCEPTION(...)                 throw_exception( GSEMException(              __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_SEM,      __VA_ARGS__ ) )
-#define API_EXCEPTION(...)                 throw_exception( GApiException(              __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_API,      __VA_ARGS__ ) )
 #define XML_EXCEPTION(...)                 throw_exception( GXMLException(              __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_XML,      __VA_ARGS__ ) )
-#define CLI_EXCEPTION(...)                 throw_exception( GCLIException(              __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_CLI,      __VA_ARGS__ ) )
-#define SEQUENCE_EXCEPTION(...)            throw_exception( GSequenceException(         __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_SEQUENCE, __VA_ARGS__ ) )
 
 
 #define G_ASSERT_EXCEPTION(expr, ...)          if(!(expr)) throw_exception( GException(          __FILE__,  __func__, __LINE__ ,    eMSGSYSTEM::SYS_EX , __VA_ARGS__ ) )
@@ -141,14 +129,9 @@ void throw_exception(const T &e)
 #define MESSAGE_ASSERT_EXCEPTION(expr, ...)    if(!(expr)) throw_exception( GMessageException(   __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_MESSAGE ),  __VA_ARGS__  ) )
 #define MSG_ASSERT_EXCEPTION(expr, ...)        if(!(expr)) throw_exception( GMessageException(   __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_MESSAGE ),  __VA_ARGS__  ) )
 #define COM_ASSERT_EXCEPTION(expr, ...)        if(!(expr)) throw_exception( GComException(       __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_COM),       __VA_ARGS__  ) )
-#define HMI_ASSERT_EXCEPTION(expr, ...)        if(!(expr)) throw_exception( GHMIException(       __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_HMI),       __VA_ARGS__  ) )
-#define SENSOR_ASSERT_EXCEPTION(expr, ...)     if(!(expr)) throw_exception( GSensorException(    __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_SENSOR),    __VA_ARGS__  ) )
-#define ENGINE_ASSERT_EXCEPTION(expr, ...)     if(!(expr)) throw_exception( GEngineException(    __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_ENGINE),    __VA_ARGS__  ) )
-#define SEM_ASSERT_EXCEPTION(expr, ...)        if(!(expr)) throw_exception( GSEMException(       __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_SEM),       __VA_ARGS__  ) )
-#define API_ASSERT_EXCEPTION(expr, ...)         if(!(expr)) throw_exception( GApiException(       __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_API),       __VA_ARGS__  ) )
+
 #define XML_ASSERT_EXCEPTION(expr, ...)         if(!(expr)) throw_exception( GXMLException(       __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_XML),       __VA_ARGS__  ) )
-#define CLI_ASSERT_EXCEPTION(expr, ...)         if(!(expr)) throw_exception( GCLIException(       __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_CLI),       __VA_ARGS__  ) )
-#define SEQUENCE_ASSERT_EXCEPTION(expr, ...)    if(!(expr)) throw_exception( GSequenceException(  __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_SEQUENCE),  __VA_ARGS__  ) )
+
 
 //#define MESSAGE_ASSERT_EXCEPTION(expr, ...)        if(!(expr)) throw_exception( GEngineException(    __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_MESSAGE),    __VA_ARGS__  ) )
 
