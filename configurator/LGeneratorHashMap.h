@@ -24,8 +24,10 @@ class  LGeneratorHashMap : public  LGenerator
 	  
 	  vector<string>   GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const;	 	
 	  
-	  vector<string>   InitHashLevel2String (  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels ) const;	 	
-
+	  vector<string>   GenerateInitHashLevel2String (  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels ) const;	 	
+  
+      vector<string>   GenerateInitHashLogTags(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+	                                             vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const;	
 
 	  virtual void Generate(   const string outfile, 
 	                    vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,

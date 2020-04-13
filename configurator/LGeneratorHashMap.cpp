@@ -38,36 +38,90 @@ LGeneratorHashMap::Generate(   const string /*outfile*/,
 
     GenerateInitHashLogLevel( systems );
     GenerateInitHashSystem2String( systems );
+    GenerateInitHashLevel2String( levels );
+    GenerateInitHashLogTags( levels, systems );
+
 }	
 
 
 vector<string>   
-LGeneratorHashMap::InitHashLevel2String (  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels ) const
+LGeneratorHashMap::GenerateInitHashLogTags(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+	                                             vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const
 {
     vector<string> lines;
-    lines.push_back("   void" );
-    lines.push_back("   LHashMapsBase::InitHashLevel2String()");
+    lines.push_back("   void");
+    lines.push_back("   LHashMapsBase::InitHashLogTags()");
     lines.push_back("   {");
 
-    lines.push_back("fLevel2StringHash.emplace(eMSGLEVEL::LOG_OFF, \"OFF\");");
-    lines.push_back("fLevel2StringHash.emplace(eMSGLEVEL::LOG_FORCE_DEBUG, \"Force_Debug\");");
-
-    for( auto lvl: levels )
+    for (auto sys : systems)
     {
-        std::stringstream buffer; 
-        buffer << "fLevel2StringHash.emplace(eMSGLEVEL::" << "LOG_" << lvl->fName << ",\t" << "\"" << g_string()->ToPascalCase(  lvl->fName ) << "\"" ");";
+        vector<string> tags;
+        
+      ///  string tmp = "fSubCmdHash.emplace(" + "--fsm-off" +"," + "std::make_pair(eMSGSYSTEM::SYS_" + "FSM" + "," + "eMSGLEVEL::LOG_OFF));";
+        
+        tags.push_back(sys->fTag);
+        if (sys->fTag != sys->fTagShort)
+        {
+            tags.push_back(sys->fTagShort);
+        }
+
+        for (auto tag : tags)
+        {
+        
+            lines.push_back( g_utilities()->TabAlign("\tfSubCmdHash.emplace(\"" + tag + "-off\"" + ",", 5)  +  "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + ","	+ "  eMSGLEVEL::LOG_OFF));");
+
+            for (auto lvl : levels)
+            {
+               /// lvl->fName
+                string tmptag = tag + "-" + g_string()->ToLower(lvl->fName);  
+               //  lines.push_back("fSubCmdHash.emplace(\"" + tag + "-off" + ", " +  "std::make_pair(eMSGSYSTEM::SYS_" + sys->fName + ","	+ "  eMSGLEVEL::LOG_OFF));");   
+               lines.push_back(  g_utilities()->TabAlign( "\tfSubCmdHash.emplace(\"" + tmptag + "\"" + ",", 5) +  "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + ","	+ "  eMSGLEVEL::LOG_"+ lvl->fName  +"));");   
+            }
+
+            lines.push_back(  g_utilities()->TabAlign("\tfSubCmdHash.emplace(\"" + tag + "-all\"" + ",", 5) +  "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + ","	+ "  eMSGLEVEL::LOG_ALL));");
+
+        }
+        lines.push_back("\n");
     }
 
-
-    lines.push_back("fLevel2StringHash.emplace(eMSGLEVEL::LOG_ALL, \"ALL loglevels\");");
+    lines.push_back("   }");
 
     for (auto l : lines)
     {
         cout << l << endl;
     }
 
-    
-    lines.push_back("  }");
+    return lines;
+}                                                 
+
+
+
+vector<string>   
+LGeneratorHashMap::GenerateInitHashLevel2String (  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels ) const
+{
+    vector<string> lines;
+    lines.push_back("   void" );
+    lines.push_back("   LHashMapsBase::InitHashLevel2String()");
+    lines.push_back("   {");
+
+    lines.push_back("\tfLevel2StringHash.emplace(eMSGLEVEL::LOG_OFF, \"OFF\");");
+    lines.push_back("\tfLevel2StringHash.emplace(eMSGLEVEL::LOG_FORCE_DEBUG, \"Force_Debug\");");
+
+    for( auto lvl: levels )
+    {
+        std::stringstream buffer; 
+        buffer << "\tfLevel2StringHash.emplace(eMSGLEVEL::" << "LOG_" << lvl->fName << ",\t" << "\"" << g_string()->ToPascalCase(  lvl->fName ) << "\"" ");";
+        lines.push_back(  buffer.str()  );
+    }
+
+    lines.push_back("\tfLevel2StringHash.emplace(eMSGLEVEL::LOG_ALL, \"ALL loglevels\");");
+    lines.push_back("   }");
+
+//  for (auto l : lines)
+//     {
+//         cout << l << endl;
+//     }
+
 
     return lines;
 
@@ -78,9 +132,9 @@ vector<string>
 LGeneratorHashMap::GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const
 {
     vector<string> lines;
-    lines.push_back("  void");
-    lines.push_back("  LHashMapsBase::InitHashSystem2String()");
-    lines.push_back("  {");
+    lines.push_back("   void");
+    lines.push_back("   LHashMapsBase::InitHashSystem2String()");
+    lines.push_back("   {");
     lines.push_back( "\tfSystem2StringHash.emplace(eMSGSYSTEM::SYS_EX,       \"Exeption\");");
     lines.push_back( "\tfSystem2StringHash.emplace(eMSGSYSTEM::SYS_GENERAL,  \"General\");");
     lines.push_back( "\tfSystem2StringHash.emplace(eMSGSYSTEM::SYS_USER,     \"User\");");
@@ -94,7 +148,7 @@ LGeneratorHashMap::GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEn
         lines.push_back (  buffer.str() ) ;
     }
 
-    lines.push_back("  }");
+    lines.push_back("   }");
     //  for (auto l : lines)
     //  {
     //     cout << l << endl;

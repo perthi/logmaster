@@ -131,73 +131,142 @@ LHashMapsBase::InitHashLogLevel(const eMSGLEVEL /*l*/)
 
 
 
-    void
-    LHashMapsBase::InitHashLevel2String()
-    {
-        fLevel2StringHash.emplace(eMSGLEVEL::LOG_OFF,         "OFF");
-        fLevel2StringHash.emplace(eMSGLEVEL::LOG_FATAL,       "Fatal");
-        fLevel2StringHash.emplace(eMSGLEVEL::LOG_ERROR,       "Error");
-        fLevel2StringHash.emplace(eMSGLEVEL::LOG_WARNING,     "Warning");
-        fLevel2StringHash.emplace(eMSGLEVEL::LOG_INFO,        "Info");
-        fLevel2StringHash.emplace(eMSGLEVEL::LOG_DEBUG,       "Debug");
+    // void
+    // LHashMapsBase::InitHashLevel2String()
+    // {
+    //     fLevel2StringHash.emplace(eMSGLEVEL::LOG_OFF,         "OFF");
+    //     fLevel2StringHash.emplace(eMSGLEVEL::LOG_FATAL,       "Fatal");
+    //     fLevel2StringHash.emplace(eMSGLEVEL::LOG_ERROR,       "Error");
+    //     fLevel2StringHash.emplace(eMSGLEVEL::LOG_WARNING,     "Warning");
+    //     fLevel2StringHash.emplace(eMSGLEVEL::LOG_INFO,        "Info");
+    //     fLevel2StringHash.emplace(eMSGLEVEL::LOG_DEBUG,       "Debug");
+    //     fLevel2StringHash.emplace(eMSGLEVEL::LOG_FORCE_DEBUG, "Force_Debug");
+    //     fLevel2StringHash.emplace(eMSGLEVEL::LOG_ALL,         "ALL loglevels");
+    // }
+
+
+ void
+   LHashMapsBase::InitHashLevel2String()
+   {
+        fLevel2StringHash.emplace(eMSGLEVEL::LOG_OFF, "OFF");
         fLevel2StringHash.emplace(eMSGLEVEL::LOG_FORCE_DEBUG, "Force_Debug");
-        fLevel2StringHash.emplace(eMSGLEVEL::LOG_ALL,         "ALL loglevels");
-    }
+        fLevel2StringHash.emplace(eMSGLEVEL::LOG_DEBUG, "Debug");
+        fLevel2StringHash.emplace(eMSGLEVEL::LOG_INFO,  "Info");
+        fLevel2StringHash.emplace(eMSGLEVEL::LOG_WARNING,       "Warning");
+        fLevel2StringHash.emplace(eMSGLEVEL::LOG_ERROR, "Error");
+        fLevel2StringHash.emplace(eMSGLEVEL::LOG_FATAL, "Fatal");
+        fLevel2StringHash.emplace(eMSGLEVEL::LOG_ALL, "ALL loglevels");
+  }
 
 
-    void
-    LHashMapsBase::InitHashLogTags()
-    {
+    // void
+    // LHashMapsBase::InitHashLogTags()
+    // {
 
-        fSubCmdHash.emplace("--fsm-off",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_OFF));
-        fSubCmdHash.emplace("--fsm-fatal",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_FATAL));
-        fSubCmdHash.emplace("--fsm-error",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_ERROR));
-        fSubCmdHash.emplace("--fsm-warning",		std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_WARNING));
-        fSubCmdHash.emplace("--fsm-info",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_INFO));
-        fSubCmdHash.emplace("--fsm-debug",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_DEBUG));
-        fSubCmdHash.emplace("--fsm-all",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_ALL));
+    //     fSubCmdHash.emplace("--fsm-off",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_OFF));
+    //     fSubCmdHash.emplace("--fsm-fatal",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_FATAL));
+    //     fSubCmdHash.emplace("--fsm-error",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_ERROR));
+    //     fSubCmdHash.emplace("--fsm-warning",		std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_WARNING));
+    //     fSubCmdHash.emplace("--fsm-info",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_INFO));
+    //     fSubCmdHash.emplace("--fsm-debug",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_DEBUG));
+    //     fSubCmdHash.emplace("--fsm-all",			std::make_pair(eMSGSYSTEM::SYS_FSM,			eMSGLEVEL::LOG_ALL));
 
-        fSubCmdHash.emplace("--message-off",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_OFF));
-        fSubCmdHash.emplace("--message-fatal",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_FATAL));
-        fSubCmdHash.emplace("--message-error",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_ERROR));
-        fSubCmdHash.emplace("--message-warning",	std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_WARNING));
-        fSubCmdHash.emplace("--message-info",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,     eMSGLEVEL::LOG_INFO));
-        fSubCmdHash.emplace("--message-debug",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_DEBUG));
-        fSubCmdHash.emplace("--message-all",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_ALL));
+    //     fSubCmdHash.emplace("--message-off",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_OFF));
+    //     fSubCmdHash.emplace("--message-fatal",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_FATAL));
+    //     fSubCmdHash.emplace("--message-error",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_ERROR));
+    //     fSubCmdHash.emplace("--message-warning",	std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_WARNING));
+    //     fSubCmdHash.emplace("--message-info",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,     eMSGLEVEL::LOG_INFO));
+    //     fSubCmdHash.emplace("--message-debug",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_DEBUG));
+    //     fSubCmdHash.emplace("--message-all",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_ALL));
 
-        fSubCmdHash.emplace("--msg-off",			std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_OFF));
-        fSubCmdHash.emplace("--msg-fatal",			std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_FATAL));
-        fSubCmdHash.emplace("--msg-error",			std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_ERROR));
-        fSubCmdHash.emplace("--msg-warning",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_WARNING));
-        fSubCmdHash.emplace("--msg-info",			std::make_pair(eMSGSYSTEM::SYS_MESSAGE,     eMSGLEVEL::LOG_INFO));
-        fSubCmdHash.emplace("--msg-debug",			std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_DEBUG));
-        fSubCmdHash.emplace("--msg-all",			std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_ALL));
+    //     fSubCmdHash.emplace("--msg-off",			std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_OFF));
+    //     fSubCmdHash.emplace("--msg-fatal",			std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_FATAL));
+    //     fSubCmdHash.emplace("--msg-error",			std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_ERROR));
+    //     fSubCmdHash.emplace("--msg-warning",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_WARNING));
+    //     fSubCmdHash.emplace("--msg-info",			std::make_pair(eMSGSYSTEM::SYS_MESSAGE,     eMSGLEVEL::LOG_INFO));
+    //     fSubCmdHash.emplace("--msg-debug",			std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_DEBUG));
+    //     fSubCmdHash.emplace("--msg-all",			std::make_pair(eMSGSYSTEM::SYS_MESSAGE,		eMSGLEVEL::LOG_ALL));
 
-        fSubCmdHash.emplace("--com-off",			std::make_pair(eMSGSYSTEM::SYS_COM,		    eMSGLEVEL::LOG_OFF));
-        fSubCmdHash.emplace("--com-fatal",	        std::make_pair(eMSGSYSTEM::SYS_COM,		    eMSGLEVEL::LOG_FATAL));
-        fSubCmdHash.emplace("--com-error",		    std::make_pair(eMSGSYSTEM::SYS_COM,		    eMSGLEVEL::LOG_ERROR));
-        fSubCmdHash.emplace("--com-warning",		std::make_pair(eMSGSYSTEM::SYS_COM,		    eMSGLEVEL::LOG_WARNING));
-        fSubCmdHash.emplace("--com-info",		    std::make_pair(eMSGSYSTEM::SYS_COM,         eMSGLEVEL::LOG_INFO));
-        fSubCmdHash.emplace("--com-debug",		    std::make_pair(eMSGSYSTEM::SYS_COM,		    eMSGLEVEL::LOG_DEBUG));
-        fSubCmdHash.emplace("--com-all",			std::make_pair(eMSGSYSTEM::SYS_COM,		    eMSGLEVEL::LOG_ALL));
+    //     fSubCmdHash.emplace("--com-off",			std::make_pair(eMSGSYSTEM::SYS_COM,		    eMSGLEVEL::LOG_OFF));
+    //     fSubCmdHash.emplace("--com-fatal",	        std::make_pair(eMSGSYSTEM::SYS_COM,		    eMSGLEVEL::LOG_FATAL));
+    //     fSubCmdHash.emplace("--com-error",		    std::make_pair(eMSGSYSTEM::SYS_COM,		    eMSGLEVEL::LOG_ERROR));
+    //     fSubCmdHash.emplace("--com-warning",		std::make_pair(eMSGSYSTEM::SYS_COM,		    eMSGLEVEL::LOG_WARNING));
+    //     fSubCmdHash.emplace("--com-info",		    std::make_pair(eMSGSYSTEM::SYS_COM,         eMSGLEVEL::LOG_INFO));
+    //     fSubCmdHash.emplace("--com-debug",		    std::make_pair(eMSGSYSTEM::SYS_COM,		    eMSGLEVEL::LOG_DEBUG));
+    //     fSubCmdHash.emplace("--com-all",			std::make_pair(eMSGSYSTEM::SYS_COM,		    eMSGLEVEL::LOG_ALL));
 
-        fSubCmdHash.emplace("--api-off",			std::make_pair(eMSGSYSTEM::SYS_API,		    eMSGLEVEL::LOG_OFF));
-        fSubCmdHash.emplace("--api-fatal",	        std::make_pair(eMSGSYSTEM::SYS_API,		    eMSGLEVEL::LOG_FATAL));
-        fSubCmdHash.emplace("--api-error",		    std::make_pair(eMSGSYSTEM::SYS_API,		    eMSGLEVEL::LOG_ERROR));
-        fSubCmdHash.emplace("--api-warning",		std::make_pair(eMSGSYSTEM::SYS_API,		    eMSGLEVEL::LOG_WARNING));
-        fSubCmdHash.emplace("--api-info",		    std::make_pair(eMSGSYSTEM::SYS_API,         eMSGLEVEL::LOG_INFO));
-        fSubCmdHash.emplace("--api-debug",		    std::make_pair(eMSGSYSTEM::SYS_API,		    eMSGLEVEL::LOG_DEBUG));
-        fSubCmdHash.emplace("--api-all",			std::make_pair(eMSGSYSTEM::SYS_API,		    eMSGLEVEL::LOG_ALL));
+    //     fSubCmdHash.emplace("--xml-off",			std::make_pair(eMSGSYSTEM::SYS_XML,		    eMSGLEVEL::LOG_OFF));
+    //     fSubCmdHash.emplace("--xml-fatal",	        std::make_pair(eMSGSYSTEM::SYS_XML,		    eMSGLEVEL::LOG_FATAL));
+    //     fSubCmdHash.emplace("--xml-error",		    std::make_pair(eMSGSYSTEM::SYS_XML,		    eMSGLEVEL::LOG_ERROR));
+    //     fSubCmdHash.emplace("--xml-warning",		std::make_pair(eMSGSYSTEM::SYS_XML,		    eMSGLEVEL::LOG_WARNING));
+    //     fSubCmdHash.emplace("--xml-info",		    std::make_pair(eMSGSYSTEM::SYS_XML,         eMSGLEVEL::LOG_INFO));
+    //     fSubCmdHash.emplace("--xml-debug",		    std::make_pair(eMSGSYSTEM::SYS_XML,		    eMSGLEVEL::LOG_DEBUG));
+    //     fSubCmdHash.emplace("--xml-all",			std::make_pair(eMSGSYSTEM::SYS_XML,		    eMSGLEVEL::LOG_ALL));
 
-        fSubCmdHash.emplace("--xml-off",			std::make_pair(eMSGSYSTEM::SYS_XML,		    eMSGLEVEL::LOG_OFF));
-        fSubCmdHash.emplace("--xml-fatal",	        std::make_pair(eMSGSYSTEM::SYS_XML,		    eMSGLEVEL::LOG_FATAL));
-        fSubCmdHash.emplace("--xml-error",		    std::make_pair(eMSGSYSTEM::SYS_XML,		    eMSGLEVEL::LOG_ERROR));
-        fSubCmdHash.emplace("--xml-warning",		std::make_pair(eMSGSYSTEM::SYS_XML,		    eMSGLEVEL::LOG_WARNING));
-        fSubCmdHash.emplace("--xml-info",		    std::make_pair(eMSGSYSTEM::SYS_XML,         eMSGLEVEL::LOG_INFO));
-        fSubCmdHash.emplace("--xml-debug",		    std::make_pair(eMSGSYSTEM::SYS_XML,		    eMSGLEVEL::LOG_DEBUG));
-        fSubCmdHash.emplace("--xml-all",			std::make_pair(eMSGSYSTEM::SYS_XML,		    eMSGLEVEL::LOG_ALL));
+    // }
 
-    }
+  void
+   LHashMapsBase::InitHashLogTags()
+   {
+        fSubCmdHash.emplace("--fsm-off",                std::make_pair(eMSGSYSTEM::SYS_FSM,  eMSGLEVEL::LOG_OFF));
+        fSubCmdHash.emplace("--fsm-debug",              std::make_pair(eMSGSYSTEM::SYS_FSM,  eMSGLEVEL::LOG_DEBUG));
+        fSubCmdHash.emplace("--fsm-info",               std::make_pair(eMSGSYSTEM::SYS_FSM,  eMSGLEVEL::LOG_INFO));
+        fSubCmdHash.emplace("--fsm-warning",            std::make_pair(eMSGSYSTEM::SYS_FSM,  eMSGLEVEL::LOG_WARNING));
+        fSubCmdHash.emplace("--fsm-error",              std::make_pair(eMSGSYSTEM::SYS_FSM,  eMSGLEVEL::LOG_ERROR));
+        fSubCmdHash.emplace("--fsm-fatal",              std::make_pair(eMSGSYSTEM::SYS_FSM,  eMSGLEVEL::LOG_FATAL));
+        fSubCmdHash.emplace("--fsm-all",                std::make_pair(eMSGSYSTEM::SYS_FSM,  eMSGLEVEL::LOG_ALL));
+
+
+        fSubCmdHash.emplace("--alarm-off",              std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_OFF));
+        fSubCmdHash.emplace("--alarm-debug",            std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_DEBUG));
+        fSubCmdHash.emplace("--alarm-info",             std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_INFO));
+        fSubCmdHash.emplace("--alarm-warning",          std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_WARNING));
+        fSubCmdHash.emplace("--alarm-error",            std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_ERROR));
+        fSubCmdHash.emplace("--alarm-fatal",            std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_FATAL));
+        fSubCmdHash.emplace("--alarm-all",              std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_ALL));
+
+
+        fSubCmdHash.emplace("--message-off",            std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_OFF));
+        fSubCmdHash.emplace("--message-debug",          std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_DEBUG));
+        fSubCmdHash.emplace("--message-info",           std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_INFO));
+        fSubCmdHash.emplace("--message-warning",        std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_WARNING));
+        fSubCmdHash.emplace("--message-error",          std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_ERROR));
+        fSubCmdHash.emplace("--message-fatal",          std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_FATAL));
+        fSubCmdHash.emplace("--message-all",            std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_ALL));
+        fSubCmdHash.emplace("--msg-off",                std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_OFF));
+        fSubCmdHash.emplace("--msg-debug",              std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_DEBUG));
+        fSubCmdHash.emplace("--msg-info",               std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_INFO));
+        fSubCmdHash.emplace("--msg-warning",            std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_WARNING));
+        fSubCmdHash.emplace("--msg-error",              std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_ERROR));
+        fSubCmdHash.emplace("--msg-fatal",              std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_FATAL));
+        fSubCmdHash.emplace("--msg-all",                std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_ALL));
+
+
+        fSubCmdHash.emplace("--com-off",                std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_OFF));
+        fSubCmdHash.emplace("--com-debug",              std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_DEBUG));
+        fSubCmdHash.emplace("--com-info",               std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_INFO));
+        fSubCmdHash.emplace("--com-warning",            std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_WARNING));
+        fSubCmdHash.emplace("--com-error",              std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_ERROR));
+        fSubCmdHash.emplace("--com-fatal",              std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_FATAL));
+        fSubCmdHash.emplace("--com-all",                std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_ALL));
+
+
+        fSubCmdHash.emplace("--xml-off",                std::make_pair(eMSGSYSTEM::SYS_XML,  eMSGLEVEL::LOG_OFF));
+        fSubCmdHash.emplace("--xml-debug",              std::make_pair(eMSGSYSTEM::SYS_XML,  eMSGLEVEL::LOG_DEBUG));
+        fSubCmdHash.emplace("--xml-info",               std::make_pair(eMSGSYSTEM::SYS_XML,  eMSGLEVEL::LOG_INFO));
+        fSubCmdHash.emplace("--xml-warning",            std::make_pair(eMSGSYSTEM::SYS_XML,  eMSGLEVEL::LOG_WARNING));
+        fSubCmdHash.emplace("--xml-error",              std::make_pair(eMSGSYSTEM::SYS_XML,  eMSGLEVEL::LOG_ERROR));
+        fSubCmdHash.emplace("--xml-fatal",              std::make_pair(eMSGSYSTEM::SYS_XML,  eMSGLEVEL::LOG_FATAL));
+        fSubCmdHash.emplace("--xml-all",                std::make_pair(eMSGSYSTEM::SYS_XML,  eMSGLEVEL::LOG_ALL));
+
+
+   }
+
+
+
+
+
+    
 }
 
 
