@@ -3,12 +3,26 @@
 #define LENUMGENERATOR_H
 
 
+#include "LGenerator.h"
+
+#include <vector>
+#include <string>
+using std::string;
+using std::vector;
+
+#include <memory>
 
 
-class  LGeneratorEnum
+class  LGeneratorEnum : public LGenerator
 {
-	LGeneratorEnum();
-	virtual ~LGeneratorEnum();
+	public:
+		LGeneratorEnum();
+		virtual ~LGeneratorEnum();
+		vector<string>   Generate( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems   ) const;
+
+	private:
+		string ToHexString(int num ) const;
+
 };
 
 #endif

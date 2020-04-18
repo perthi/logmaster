@@ -39,6 +39,7 @@
 #include <configurator/LGeneratorMacrosLogging.h>
 #include <configurator/LGeneratorHashMap.h>
 #include <configurator/LGeneratorMacrosException.h>
+#include <configurator/LGeneratorEnum.h>
 
 using namespace LOGMASTER;
 
@@ -83,7 +84,8 @@ int main(int /*argc*/, const char ** /*argv*/)
 		
 		//	auto g = std::make_shared< LGeneratorMacrosLogging >();
             ///auto g = std::make_shared< LGeneratorHashMap  >();
-			auto g = std::make_shared< LGeneratorMacrosException >();
+			//auto g = std::make_shared< LGeneratorMacrosException >();
+			auto g = std::make_shared< LGeneratorEnum >();
 			
 			vector<string> lines =  g->Generate(  subsystems );
 
