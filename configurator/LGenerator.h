@@ -23,9 +23,9 @@ class  LGenerator
 	 LGenerator();
 	 virtual ~LGenerator();
 
-	virtual void Generate(   const string outfile, 
-	                    vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                    vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const = 0;
+	virtual void Generate(   const string /*outfile*/, 
+	                    vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/,
+	                    vector< std::shared_ptr<LXmlEntitySubSystem > >  /*systems*/ ) const {};
 
 	protected:
 		string fLevelEnumName    =   "eMSGLEVEL";

@@ -105,7 +105,7 @@ TEST_F(TestException, assert_macro)
 	EXPECT_THROW(G_ASSERT_EXCEPTION(false, "Testing the assert macro"), GException);
 	EXPECT_NO_THROW(G_ASSERT_EXCEPTION(true, "Testing the assert macro"));
 
-	EXPECT_THROW(FSM_ASSERT_EXCEPTION(false, "Testing the FSM assert macro"), GFSMException);
+	EXPECT_THROW(FSM_ASSERT_EXCEPTION(false, "Testing the FSM assert macro"), GFsmException);
 	EXPECT_NO_THROW(FSM_ASSERT_EXCEPTION(true, "Testing the FSM assert macro"));
 
 //	EXPECT_THROW(DRIVER_ASSERT(false, "Testing the DRIVER assert macro"), GDriverException);
