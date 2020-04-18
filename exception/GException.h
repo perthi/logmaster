@@ -1,8 +1,10 @@
 // -*- mode: c++ -*-
 
 
-#ifndef EXCEPTION_H
-#define EXCEPTION_H
+/// #ifndef EXCEPTIONXXX_H
+/// #define EXCEPTIONXXX_H
+
+#pragma once
 
 /*****************************************************************************
 ***          Author: Per Thomas Hille <pth@embc.no>                       ****
@@ -19,6 +21,7 @@
 #include <logging/LMessage.h>
 #include <logging/LLogApi.h>
 #include <logging/LLogging.h>
+#include <utilities/GStackTrace.h>
 
 using namespace LOGMASTER;
 
@@ -26,7 +29,7 @@ using namespace LOGMASTER;
 using std::string;
 
 #include <memory>
-
+#include <cstdarg>
 
 /** @brief custom execeptions that uses the logging system
  *
@@ -44,10 +47,10 @@ using std::string;
 class  GException
 {
 public:
-    API GException() {};
-    API GException(const string file, const string function, const int line, const eMSGSYSTEM system, const char * fmt, ...);
+    API inline GException() {};
+    API inline GException(const string file, const string function, const int line, const eMSGSYSTEM system, const char * fmt, ...);
 
-    virtual API ~GException()
+    virtual API inline  ~GException()
     {
 
     }
@@ -74,25 +77,25 @@ protected:
 #define EXCEPTION_CLASS_H(classname)  class classname : public GException \
  {                                                                     \
  public:                                                               \
-     classname() { };                                                \
-     API classname(const string file, const string function, const int line, const eMSGSYSTEM system, const char * fmt, ... ); \
-   virtual ~classname() { };                                      \
+     inline classname() { };                                                \
+     API inline classname(const string file, const string function, const int line, const eMSGSYSTEM system, const char * fmt, ... ); \
+   virtual inline ~classname() { };                                      \
 };
 
 
 
-/** Macro defintions of Exception classes */
-EXCEPTION_CLASS_H(GFileNotFoundException)
-EXCEPTION_CLASS_H(GInvalidArgumentException)
-EXCEPTION_CLASS_H(GMissingArgumentException)
-EXCEPTION_CLASS_H(GRangeException)
-
-EXCEPTION_CLASS_H(GFSMException)
-EXCEPTION_CLASS_H(GAlarmException)
-EXCEPTION_CLASS_H(GComException)
-EXCEPTION_CLASS_H(GMessageException)
-
-EXCEPTION_CLASS_H(GXMLException)
+#define EXCEPTION_CLASS_CPP(classname) inline classname::classname (const string file, \
+					      const string function,	\
+					      const int line, \
+					      const eMSGSYSTEM system,  \
+					      const char * fmt, ...) \
+    { \
+    static va_list ap; \
+    va_start(ap, fmt); \
+    string msg = string(" (") + ExtractClassname(typeid(*this).name()) + string(")") + (fIsEnabledStackTrace == true ?  + "\n" + string("******* Stack Trace START *******") + "\n" + GStackTrace::str() + "\n" + string("******* Stack Trace END *******") + "\n" : "");  \
+    fgMessageMap = LLogging::Instance()->LogVarArgs(eMSGLEVEL::LOG_ERROR, system, file.c_str(), line, function.c_str(), fmt, ap, true, msg ); \
+    va_end(ap); \
+}
 
 
 template<typename T>
@@ -110,30 +113,56 @@ void throw_exception(const T &e)
     }
 }
 
+/** Common macro defintions of Exception classes */
+EXCEPTION_CLASS_CPP(GException)
+
+EXCEPTION_CLASS_H(   GFileNotFoundException )
+EXCEPTION_CLASS_CPP( GFileNotFoundException )
+EXCEPTION_CLASS_H(   GInvalidArgumentException)
+EXCEPTION_CLASS_CPP( GInvalidArgumentException)
+EXCEPTION_CLASS_H(GMissingArgumentException)
+EXCEPTION_CLASS_CPP(GMissingArgumentException)
+EXCEPTION_CLASS_H(GRangeException)
+EXCEPTION_CLASS_CPP(GRangeException)
+
+
+EXCEPTION_CLASS_H(GFSMException)
+EXCEPTION_CLASS_CPP(GFSMException)
+EXCEPTION_CLASS_H(GAlarmException)
+EXCEPTION_CLASS_CPP(GAlarmException)
+
+EXCEPTION_CLASS_H(GComException)
+EXCEPTION_CLASS_CPP(GComException)
+
+EXCEPTION_CLASS_H(GMessageException)
+EXCEPTION_CLASS_CPP(GMessageException)
+
+EXCEPTION_CLASS_H(GXMLException)
+EXCEPTION_CLASS_CPP(GXMLException)
+
 
 #define EXCEPTION(...)                     throw_exception( GException(                 __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
 #define RANGE_EXCEPTION(...)               throw_exception( GRangeException(            __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
 #define FILE_NOT_FOUND_EXCEPTION(...)      throw_exception( GFileNotFoundException(     __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
 #define INVALID_ARGUMENT_EXCEPTION(...)    throw_exception( GInvalidArgumentException(  __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
 #define MISSING_ARGUMENT_EXCEPTION(...)    throw_exception( GMissingArgumentException(  __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
+#define G_ASSERT_EXCEPTION(expr, ...)          if(!(expr)) throw_exception( GException(          __FILE__,  __func__, __LINE__ ,    eMSGSYSTEM::SYS_EX , __VA_ARGS__ ) )
+
+
+/** Auto generated macro defintions of Exception classes */
 #define COM_EXCEPTION(...)                 throw_exception( GComException(              __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_COM,      __VA_ARGS__ ) )
 #define FSM_EXCEPTION(...)                 throw_exception( GFSMException(              __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_FSM,      __VA_ARGS__ ) )
 #define ALARM_EXCEPTION(...)               throw_exception( GAlarmException(            __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_ALARM,    __VA_ARGS__ ) )
 #define MESSAGE_EXCEPTION(...)             throw_exception( GMessageException(          __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_MESSAGE,  __VA_ARGS__ ) )
 #define XML_EXCEPTION(...)                 throw_exception( GXMLException(              __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_XML,      __VA_ARGS__ ) )
 
-
-#define G_ASSERT_EXCEPTION(expr, ...)          if(!(expr)) throw_exception( GException(          __FILE__,  __func__, __LINE__ ,    eMSGSYSTEM::SYS_EX , __VA_ARGS__ ) )
 #define FSM_ASSERT_EXCEPTION(expr, ...)        if(!(expr)) throw_exception( GFSMException(       __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_FSM ),      __VA_ARGS__  ) )
 #define ALARM_ASSERT_EXCEPTION(expr, ...)      if(!(expr)) throw_exception( GAlarmException(     __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_ALARM ),    __VA_ARGS__  ) )
 #define MESSAGE_ASSERT_EXCEPTION(expr, ...)    if(!(expr)) throw_exception( GMessageException(   __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_MESSAGE ),  __VA_ARGS__  ) )
 #define MSG_ASSERT_EXCEPTION(expr, ...)        if(!(expr)) throw_exception( GMessageException(   __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_MESSAGE ),  __VA_ARGS__  ) )
 #define COM_ASSERT_EXCEPTION(expr, ...)        if(!(expr)) throw_exception( GComException(       __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_COM),       __VA_ARGS__  ) )
-
 #define XML_ASSERT_EXCEPTION(expr, ...)         if(!(expr)) throw_exception( GXMLException(       __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_XML),       __VA_ARGS__  ) )
 
 
-//#define MESSAGE_ASSERT_EXCEPTION(expr, ...)        if(!(expr)) throw_exception( GEngineException(    __FILE__,  __func__, __LINE__ ,	( eMSGSYSTEM)(  eMSGSYSTEM::SYS_EX |  eMSGSYSTEM::SYS_MESSAGE),    __VA_ARGS__  ) )
 
-
-#endif
+///#endif
