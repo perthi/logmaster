@@ -38,6 +38,7 @@
 #include <configurator/LXmlEntitySubSystem.h>
 #include <configurator/LGeneratorMacrosLogging.h>
 #include <configurator/LGeneratorHashMap.h>
+#include <configurator/LGeneratorMacrosException.h>
 
 using namespace LOGMASTER;
 
@@ -77,9 +78,15 @@ int main(int /*argc*/, const char ** /*argv*/)
 			p->ParseXML(xml, xsd, loglevels,  subsystems );
 		
 		//	auto g = std::make_shared< LGeneratorMacrosLogging >();
+            ///auto g = std::make_shared< LGeneratorHashMap  >();
+			auto g = std::make_shared< LGeneratorMacrosException >();
+			
+			vector<string> lines =  g->Generate(  subsystems );
 
-            auto g = std::make_shared< LGeneratorHashMap  >();
-			g->Generate( outfile, loglevels, subsystems );			
+			for(auto l : lines)
+			{
+				cout << l << endl;
+			}
 
 			//FORCE_DEBUG("Parsing done ...");
 		}
