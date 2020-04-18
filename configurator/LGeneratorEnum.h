@@ -22,6 +22,7 @@ class  LGeneratorEnum : public LGenerator
 
 	private:
 		string ToHexString(int num ) const;
+		string ToBinaryString(int num ) const;
 
 };
 
