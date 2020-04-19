@@ -32,9 +32,9 @@ vector<string>
     lines.push_back("// -*- mode: c++ -*-/n/n");
     lines.push_back("#pragma once\n\n");
     lines.push_back(" #ifdef __cplusplus");
-    lines.push_back("enum class eMSGSYSTEM");
+    lines.push_back("enum class " + fSystemEnumName);
     lines.push_back("#else");
-    lines.push_back("enum  eMSGSYSTEM");
+    lines.push_back("enum  " + fSystemEnumName);
     lines.push_back("#endif");
     lines.push_back(" {");
     lines.push_back("\tSYS_NONE\t\t=  0x0000,    //  00000000 00000000    No sub system");

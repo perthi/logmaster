@@ -50,6 +50,7 @@ using std::endl;
 #include <memory>
 
 
+
 void generator(  vector< std::shared_ptr< LGenerator >  > generators,
                  vector< std::shared_ptr< LXmlEntityLogLevel > > loglevels,
 			     vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems);
@@ -57,13 +58,14 @@ void generator(  vector< std::shared_ptr< LGenerator >  > generators,
 
 int main(int /*argc*/, const char ** /*argv*/)
 {
+
 	try
 	{
 		SET_LOGLEVEL("--all-debug");
 		string xml = "logging.xml";
 		string xsd = "logging.xsd";
 		
-		string outfile = "LLogApiTest.h";
+///		string outfile = "LLogApiTest.h";
 		
 		auto validator = std::make_shared<GXmlValidator>();
 
@@ -78,13 +80,14 @@ int main(int /*argc*/, const char ** /*argv*/)
 			vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems;
 			p->ParseXML(xml, xsd, loglevels,  subsystems );
 
-			vector< std::shared_ptr< LGenerator >  > generators;
-			generators.push_back(std::make_shared < LGeneratorEnum >("out/LEnums.h") );
-			generators.push_back(std::make_shared < LGeneratorMacrosLogging >("out/LLogApi.h") );
-			generators.push_back(std::make_shared < LGeneratorMacrosException >( "out/GExceptionMacros.h") );
-			generators.push_back(std::make_shared < LGeneratorHashMap >( "out/LHashMapsBase.cpp") );
 
+			vector< std::shared_ptr< LGenerator >  > generators;
+			generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumsLevels.h") );
+			generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApi.h") );
+			generators.push_back(std::make_shared < LGeneratorMacrosException >( "exception/GExceptionMacros.h") );
+			generators.push_back(std::make_shared < LGeneratorHashMap >( "logging/LHashMapsBase.cpp") );
 			generator( generators, loglevels, subsystems );
+
 		}
 	}
 	catch( const GException &e )
@@ -112,12 +115,19 @@ void generator( vector< std::shared_ptr< LGenerator >  > generators,
 {
 	for( auto  gen : generators )
 	{
-		FORCE_DEBUG("genearting %s", gen->GetFilename().c_str() );
+		///FORCE_DEBUG("genearting %s", gen->GetFilename().c_str() );
 		vector<string> lines = gen->Generate( loglevels, subsystems );
-		
-		for( auto l: lines )
-		{
-		  	cout << l << endl;
+
+		FILE *fp = fopen(  gen->GetFilename().c_str(), "w" );
+		if(fp != nullptr)
+		{	
+			for( auto l: lines )
+			{
+				fprintf(fp,  "%s\n", l.c_str() );
+		  	//	cout << l << endl;
+			}
+
+			fclose(fp);			
 		}
 	}
 

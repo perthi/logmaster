@@ -32,7 +32,6 @@ LGeneratorMacrosException::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel
     for( auto sys : systems )
     {
         string tmp =  g_string()->ToPascalCase( sys->fName );
-       /// FORCE_DEBUG( "tmp = %s, sys = %s", tmp.c_str(),  sys->fName.c_str()  );
     }
     
     GenerateClasses(  systems,  lines );

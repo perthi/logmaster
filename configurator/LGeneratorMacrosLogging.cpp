@@ -89,23 +89,12 @@ LGeneratorMacrosLogging::Generate(  vector<std::shared_ptr<LXmlEntityLogLevel > 
             lines.insert(lines.end(), new_lines.begin(), new_lines.end());
             lines.push_back("\n");
         }
-        lines.push_back("\n\n\n\n\n");
+        lines.push_back("\n\n\n");
     }
 
-    lines.push_back("\n\n\n");
-    lines.push_back( "#endif" );
-   /// lines.push_back( "#endif" );
     lines.push_back("\n\n");
-
-    for (auto l : lines)
-    {
-        PUSH();
-        SET_LOGFORMAT("00000001");
-        ///FORCE_DEBUG("%s", l.c_str());
-         cout << l << endl;
-        // cout << l ;
-        POP();
-    }
+    lines.push_back( "#endif" );
+    lines.push_back("\n\n");
 
     return lines;
 }
