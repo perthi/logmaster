@@ -50,6 +50,10 @@ using std::endl;
 #include <memory>
 
 
+void generator(  vector< std::shared_ptr< LGenerator >  > generators,
+                 vector< std::shared_ptr< LXmlEntityLogLevel > > loglevels,
+			     vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems);
+
 
 int main(int /*argc*/, const char ** /*argv*/)
 {
@@ -69,28 +73,18 @@ int main(int /*argc*/, const char ** /*argv*/)
 		}
 		else
 		{
-		//	FORCE_DEBUG("Validation OK, lets try to parse the XML file");
-			std::shared_ptr<LConfigurator> ptr = std::make_shared<LConfigurator>();
 			std::shared_ptr<LXmlParser> p = std::make_shared<LXmlParser>();
-			
 			vector< std::shared_ptr< LXmlEntityLogLevel > > loglevels;
 			vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems;
-			
 			p->ParseXML(xml, xsd, loglevels,  subsystems );
-		
-		//	auto g = std::make_shared< LGeneratorMacrosLogging >();
-            ///auto g = std::make_shared< LGeneratorHashMap  >();
-			//auto g = std::make_shared< LGeneratorMacrosException >();
-			auto g = std::make_shared< LGeneratorEnum >("LEnums.h");
-			
-			vector<string> lines =  g->Generate(  loglevels,  subsystems );
 
-			for(auto l : lines)
-			{
-				cout << l << endl;
-			}
+			vector< std::shared_ptr< LGenerator >  > generators;
+			generators.push_back(std::make_shared < LGeneratorEnum >("out/LEnums.h") );
+			generators.push_back(std::make_shared < LGeneratorMacrosLogging >("out/LLogApi.h") );
+			generators.push_back(std::make_shared < LGeneratorMacrosException >( "out/GExceptionMacros.h") );
+			generators.push_back(std::make_shared < LGeneratorHashMap >( "out/LHashMapsBase.cpp") );
 
-			//FORCE_DEBUG("Parsing done ...");
+			generator( generators, loglevels, subsystems );
 		}
 	}
 	catch( const GException &e )
@@ -112,6 +106,19 @@ int main(int /*argc*/, const char ** /*argv*/)
 }
 
 
-// void Generate(  const string oufile, 
-// 	                vector<std::shared_ptr<LXmlEntityLogLevel > > levels,
-// 	                vector<  std::shared_ptr<LXmlEntitySubSystem > >   systems );
+void generator( vector< std::shared_ptr< LGenerator >  > generators,
+                vector< std::shared_ptr< LXmlEntityLogLevel > > loglevels,
+			    vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems) 
+{
+	for( auto  gen : generators )
+	{
+		FORCE_DEBUG("genearting %s", gen->GetFilename().c_str() );
+		vector<string> lines = gen->Generate( loglevels, subsystems );
+		
+		for( auto l: lines )
+		{
+		  	cout << l << endl;
+		}
+	}
+
+}

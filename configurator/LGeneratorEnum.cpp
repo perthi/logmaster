@@ -11,6 +11,7 @@ using namespace LOGMASTER;
 #include <bitset>
 
 
+
 LGeneratorEnum::LGeneratorEnum( const string fname ) : LGenerator( fname )
 {
 
@@ -25,16 +26,37 @@ LGeneratorEnum::~LGeneratorEnum()
 
 vector<string>  
  LGeneratorEnum::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/,
-	                        vector< std::shared_ptr<LXmlEntitySubSystem > >  /*systems*/ ) const
+	                        vector< std::shared_ptr<LXmlEntitySubSystem > >   systems ) const
 {
     vector<string> lines;
+    lines.push_back("// -*- mode: c++ -*-/n/n");
+    lines.push_back("#pragma once\n\n");
+    lines.push_back(" #ifdef __cplusplus");
+    lines.push_back("enum class eMSGSYSTEM");
+    lines.push_back("#else");
+    lines.push_back("enum  eMSGSYSTEM");
+    lines.push_back("#endif");
+    lines.push_back(" {");
+    lines.push_back("\tSYS_NONE\t\t=  0x0000,    //  00000000 00000000    No sub system");
+    lines.push_back("\tSYS_EX\t\t\t=  0x0001,    //  00000000 00000001    The exeption handling sub system");
+    lines.push_back("\tSYS_USER\t\t=  0x0002,    //  00000000 00000010    User messages");
+    lines.push_back("\tSYS_GENERAL\t\t=  0x0004,    //  00000000 00000100    No specific sub system (i.e general message)");
 
-    //for(auto sys: systems )
-    for( int i =0; i < 12; i ++ )
+    int i = 4;
+
+    for(auto sys: systems )
+    //for( int i =0; i < 12; i ++ )
     {
-      //  FORCE_DEBUG("sys = %s, \thex = \t%s\tbitmask = %s", sys->fName.c_str(),  ToHexString( 1 << i ).c_str(),  ToBinaryString( 1 << i ).c_str()   );
-        FORCE_DEBUG("\thex = \t%s\tbitmask = %s (i =%d)", ToHexString( 1 << i ).c_str(),  ToBinaryString( 1 << i ).c_str(), i   );
+        
+      //   FORCE_DEBUG("sys = %s, \thex = \t%s\tbitmask = %s", sys->fName.c_str(),  ToHexString( 1 << i ).c_str(),  ToBinaryString( 1 << i ).c_str()   );
+      //   FORCE_DEBUG("\thex = \t%s\tbitmask = %s (i =%d)", ToHexString( 1 << i ).c_str(),  ToBinaryString( 1 << i ).c_str(), i   );
+        string line =   g_utilities()->TabAlign("\tSYS_" +  sys->fName + " ", 3 )  + "=  " + ToHexString( 1 << i ) +   ",    //  " + ToBinaryString( 1 << i ); 
+        lines.push_back(line);
+        i ++;
     }
+
+    lines.push_back("\tSYS_ALL\t\t\t=  0xffff     //  11111111 11111111    Any sub system (message will apply if logging is turned on for any of the sub system)");
+    lines.push_back("};");
 
     return lines;
 }
