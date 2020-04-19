@@ -11,22 +11,15 @@
 using std::string;
 
 
-class  LGeneratorCopyright
+class  LCopyright
 {
 	public:
-		LGeneratorCopyright();
-	  	virtual ~LGeneratorCopyright();
+		LCopyright();
+	  	virtual ~LCopyright();
 		string Copyrightt();
-	//	string GPLShort();
-	///	string GPLLong();
-
 
 	private:
 		int     fYear = 2020;
-		// string  fAuthor = "Per Thomas Hille";
-		// string  fEmail = "pth@embc.no";
-		// string  fOrganization = "Embedded Consulting AS";	  	
-
 
 };
 

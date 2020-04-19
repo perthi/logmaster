@@ -16,7 +16,7 @@ using std::vector;
 class  LGeneratorEnum : public LGenerator
 {
 	public:
-		LGeneratorEnum();
+		LGeneratorEnum( const string fname );
 		virtual ~LGeneratorEnum();
 		virtual vector<string>  Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const override;

@@ -51,10 +51,6 @@ using std::endl;
 
 
 
-
-
-
-
 int main(int /*argc*/, const char ** /*argv*/)
 {
 	try
@@ -85,9 +81,9 @@ int main(int /*argc*/, const char ** /*argv*/)
 		//	auto g = std::make_shared< LGeneratorMacrosLogging >();
             ///auto g = std::make_shared< LGeneratorHashMap  >();
 			//auto g = std::make_shared< LGeneratorMacrosException >();
-			auto g = std::make_shared< LGeneratorEnum >();
+			auto g = std::make_shared< LGeneratorEnum >("LEnums.h");
 			
-			vector<string> lines =  g->Generate(  subsystems );
+			vector<string> lines =  g->Generate(  loglevels,  subsystems );
 
 			for(auto l : lines)
 			{

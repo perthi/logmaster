@@ -12,7 +12,6 @@ SRCCPP:= LConfigurator.cpp \
 	     LGeneratorMacrosException.cpp \
          LGeneratorMacrosLogging.cpp \
          LCopyright.cpp \
-         LGenerator.cpp \
          LXmlEntity.cpp \
          LXmlEntityLogLevel.cpp \
          LXmlEntitySubSystem.cpp \

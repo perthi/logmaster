@@ -5,7 +5,7 @@
 ***************************************************/
 
 
-#include "LGeneratorCopyright.h"
+#include "LCopyright.h"
 #include <sstream>
 
 #include <iostream>
@@ -13,20 +13,20 @@
 using std::endl;
 
 
-LGeneratorCopyright::LGeneratorCopyright()
+LCopyright::LCopyright()
 {
 
 }
 
 
-LGeneratorCopyright::~LGeneratorCopyright()
+LCopyright::~LCopyright()
 {
 
 }
 
 
 string 
-LGeneratorCopyright::Copyrightt()
+LCopyright::Copyrightt()
 {
     std::stringstream buffer;
     buffer << "/***************************************************"  << endl;
@@ -36,15 +36,3 @@ LGeneratorCopyright::Copyrightt()
     return buffer.str();
 }
 
-
-// string 
-// LGeneratorCopyright::GPLShort()
-// {
-
-// }
-
-// string 
-// LGeneratorCopyright::GPLLong()
-// {
-
-// }

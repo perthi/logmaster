@@ -131,7 +131,6 @@ LGeneratorHashMap::GenerateInitHashLevel2String (  vector< std::shared_ptr<LXmlE
 void   
 LGeneratorHashMap::GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string> &lines ) const
 {
-    vector<string> lines;
     lines.push_back("   void");
     lines.push_back("   LHashMapsBase::InitHashSystem2String()");
     lines.push_back("   {");
@@ -156,8 +155,6 @@ LGeneratorHashMap::GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEn
 void   
 LGeneratorHashMap::GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string> &lines  ) const
 {
-    vector<string> lines;
-
     lines.push_back("/** @brief initialization of the hash table for the logginglevel \
     * \
     *  This hash table holds the current logging level for a given sub-system. This table is checked every time the logging system is asked to log a message, and if logging is enabled for the given level \

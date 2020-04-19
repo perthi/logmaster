@@ -67,10 +67,9 @@ LGeneratorMacrosLogging::GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel
 
 
 
-void 
-LGeneratorMacrosLogging::Generate(  const string /*outfile*/, 
-	                               vector<std::shared_ptr<LXmlEntityLogLevel > > levels,
-	                               vector<  std::shared_ptr< LXmlEntitySubSystem > >  systems ) const
+vector<string> 
+LGeneratorMacrosLogging::Generate(  vector<std::shared_ptr<LXmlEntityLogLevel > > levels,
+	                                vector<  std::shared_ptr< LXmlEntitySubSystem > >  systems ) const
 {
     std::stringstream  buffer;
     vector<string>     lines;
@@ -107,6 +106,8 @@ LGeneratorMacrosLogging::Generate(  const string /*outfile*/,
         // cout << l ;
         POP();
     }
+
+    return lines;
 }
 
 
@@ -173,7 +174,7 @@ LGeneratorMacrosLogging::GenerateCommon() const
 {
     vector<string> lines;
     lines.push_back("// -*- mode: c++ -*-\n\n");
-    lines.push_back(LGeneratorCopyright().Copyrightt() + "\n\n\n\n");
+    lines.push_back( LCopyright().Copyrightt() + "\n\n\n\n");
     lines.push_back("#ifdef _WIN32");
     lines.push_back("#define __func__ __FUNCTION__");
     lines.push_back("#endif");

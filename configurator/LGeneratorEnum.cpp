@@ -1,18 +1,17 @@
 // -*- mode: c++ -*-
 #include "LGeneratorEnum.h"
 #include <configurator/LXmlEntitySubSystem.h>
-
 #include <utilities/GUtilities.h>
 #include <utilities/GString.h>
-
 #include <sstream>
-
 
 #include <logging/LLogApi.h>
 using namespace LOGMASTER;
 
 #include <bitset>
-LGeneratorEnum::LGeneratorEnum()
+
+
+LGeneratorEnum::LGeneratorEnum( const string fname ) : LGenerator( fname )
 {
 
 }
@@ -26,7 +25,7 @@ LGeneratorEnum::~LGeneratorEnum()
 
 vector<string>  
  LGeneratorEnum::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/,
-	                        vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const
+	                        vector< std::shared_ptr<LXmlEntitySubSystem > >  /*systems*/ ) const
 {
     vector<string> lines;
 
