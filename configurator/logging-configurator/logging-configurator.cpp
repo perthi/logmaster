@@ -58,14 +58,14 @@ void generator(  vector< std::shared_ptr< LGenerator >  > generators,
 
 int main(int /*argc*/, const char ** /*argv*/)
 {
+	SET_LOGFORMAT("00000001");
+	SET_LOGLEVEL("--all-info");
 
 	try
 	{
 		SET_LOGLEVEL("--all-debug");
-		string xml = "logging.xml";
-		string xsd = "logging.xsd";
-		
-///		string outfile = "LLogApiTest.h";
+		string xml = "config/logging.xml";
+		string xsd = "config/logging.xsd";
 		
 		auto validator = std::make_shared<GXmlValidator>();
 
@@ -80,6 +80,7 @@ int main(int /*argc*/, const char ** /*argv*/)
 			vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems;
 			p->ParseXML(xml, xsd, loglevels,  subsystems );
 
+			G_INFO("Sucessfully validatet %s against %s and parsed the XML file", xml.c_str(), xsd.c_str() );
 
 			vector< std::shared_ptr< LGenerator >  > generators;
 			generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumsLevels.h") );
@@ -124,10 +125,14 @@ void generator( vector< std::shared_ptr< LGenerator >  > generators,
 			for( auto l: lines )
 			{
 				fprintf(fp,  "%s\n", l.c_str() );
-		  	//	cout << l << endl;
 			}
+		
+			fclose(fp);	
 
-			fclose(fp);			
+
+		 	SET_LOGFORMAT("00000001");
+			SET_LOGLEVEL("--all-debug");
+			G_INFO("created %s", gen->GetFilename().c_str() );
 		}
 	}
 

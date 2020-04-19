@@ -167,6 +167,9 @@ LGeneratorHashMap::GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntityS
     lines.push_back("\tfLogLevelHash.clear();");
     lines.push_back("//\teMSGLEVEL level = (eMSGLEVEL)(PAD((int)l));");
 
+    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_EX,") +        "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_ERROR)  );");
+    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,") +      "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );");
+
     for (auto sys : systems)
     {
         std::stringstream buffer;
@@ -176,5 +179,10 @@ LGeneratorHashMap::GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntityS
         //FORCE_DEBUG("name = %s", buffer.str().c_str() );
     }
 
+
+    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL,") +   "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );");
+    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,") +      "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );");
+
     lines.push_back("   }");
+
 }	 	

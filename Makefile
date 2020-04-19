@@ -84,18 +84,7 @@ xml:=                    xml/$(TARGET)
 
 configurator:=           configurator/$(TARGET)
 configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
-configurator-example1:=  configurator/examples/configurator-example1/$(TARGET)
-
-#xml-unittest:=        xml/unit-tests/commit/$(TARGET)
-#xml-example1:=        xml/examples/xml-example1/$(TARGET)
-#xml-validator:=       xml/xml-validator/$(TARGET)
-
-#com:=                 com/$(TARGET)
-#com-unittest:=        com/unit-tests/commit/$(TARGET)
-#com-example1:=        com/examples/tcp-example1/$(TARGET)
-#com-server:=          com/tcp-server/$(TARGET)
-#com-client:=          com/tcp-client/$(TARGET)
-
+logging-configurator:=   configurator/logging-configurator/$(TARGET)
 
 
 
@@ -103,12 +92,7 @@ unittests:= 	$(utilities-unittest) \
 		$(exception-unittest) \
                 $(logging-unittest) \
 		$(cmdline-unittest) \
-		$(xml-unittest) \
-		$(intercom-unittets) \
-		$(com-unittest) \
-		$(configurator-unittest)
-
- #unittests:= 	$(utilities-unittest)
+                $(configurator-unittest)
 
 
 support-modules:= 	$(utilities) \
@@ -121,7 +105,6 @@ src-lib:= $(support-modules) \
 	$(testlib) \
 	$(xml) \
 	$(common) \
-	$(com) \
         $(exception) \
 	$(configurator) 
 
@@ -130,17 +113,14 @@ src-exe:=$(helloworld) \
 	$(unittests) \
 	$(logging-example1) \
 	$(cmdline-example1) \
-	$(com-example1) \
-	$(com-server) \
-	$(com-client) \
 	$(xml-validator) \
-	$(com-udp-emulator) \
-	$(version-info) \
-	$(configurator-example1)
+	$(configurator-example1) \
+        $(logging-configurator)
+
 
 
 arm-src:=$(src-lib) $(src-exe)
-x86-src:=$(src-lib) $(src-exe) $(version-info)
+x86-src:=$(src-lib) $(src-exe)
 
 
 ifeq (x86, $(TARGET))
@@ -185,20 +165,11 @@ all-clean:=$(x86-src)
 unittest-common =  $(testlib)  $(support-modules)  $(gtest-linux)
 
 
-# $(src-all) : $(version-info)
-#$(src-all) :
 $(src-exe) : $(src-lib)
 
 
-
-#make-version-info:
-#	$(MAKE) --directory=$(version-info) all
-
 $(all-src): 
 	$(MAKE) --directory=$@ all
-
-#$(all-src): make-version-info
-#	$(MAKE) --directory=$@ all
 
 
 .PHONY: check-compiler
@@ -206,13 +177,11 @@ check-compiler:
 	$(CCLOCAL) --version /dev/null;
 
 
-
 $(INSTALLDIRS):
 	mkdir -p $@
 
 
 x86:
-
 	@$(MAKE) TARGET=x86
 
 

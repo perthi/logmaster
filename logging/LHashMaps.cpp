@@ -358,8 +358,11 @@ namespace LOGMASTER
     //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM,   (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
     //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_MESSAGE, level );
     //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_COM,     level );
-    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_API,     level );
+          
+    //       ///  fLogLevelHash.emplace(eMSGSYSTEM::SYS_API,     level );
     //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_XML,     level );
+
+
     //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL, level );
     //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,    level );
 

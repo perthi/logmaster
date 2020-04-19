@@ -44,7 +44,7 @@ namespace LOGMASTER
             static void		API		InitHashMsgFormat();
             static void		API		InitHashLogTags();
             static void		API		InitHashLogTargets();
-           /// void			API		InitHashLogLevel(const eMSGLEVEL level);
+         ////  void			API		InitHashLogLevel(const eMSGLEVEL level, map<eMSGSYSTEM, eMSGLEVEL> *hash );
             
             static	string							API DoxygenDoc(const string filename);
             static	map < string, std::tuple<  eMSGSYSTEM, eMSGLEVEL > >  API * GetSubCmdHash();
