@@ -24,22 +24,18 @@ LGeneratorEnum::~LGeneratorEnum()
 }
 
 
-vector<string>   
-LGeneratorEnum::Generate( vector< std::shared_ptr<LXmlEntitySubSystem > >  /*systems*/   ) const
+vector<string>  
+ LGeneratorEnum::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/,
+	                        vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const
 {
     vector<string> lines;
-
-   // int i = 1;
 
     //for(auto sys: systems )
     for( int i =0; i < 12; i ++ )
     {
       //  FORCE_DEBUG("sys = %s, \thex = \t%s\tbitmask = %s", sys->fName.c_str(),  ToHexString( 1 << i ).c_str(),  ToBinaryString( 1 << i ).c_str()   );
         FORCE_DEBUG("\thex = \t%s\tbitmask = %s (i =%d)", ToHexString( 1 << i ).c_str(),  ToBinaryString( 1 << i ).c_str(), i   );
-
-     //   i ++;
     }
-
 
     return lines;
 }

@@ -18,8 +18,8 @@ class  LGeneratorEnum : public LGenerator
 	public:
 		LGeneratorEnum();
 		virtual ~LGeneratorEnum();
-		vector<string>   Generate( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems   ) const;
-
+		virtual vector<string>  Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+	                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const override;
 	private:
 		string ToHexString(int num ) const;
 		string ToBinaryString(int num ) const;

@@ -1,8 +1,9 @@
 // -*- mode: c++ -*-
 
 
+
 #include  <configurator/LGeneratorMacrosLogging.h>
-#include  <configurator/LGeneratorCopyright.h>
+#include  <configurator/LCopyright.h>
 #include  <configurator/LXmlEntityLogLevel.h>
 #include  <configurator/LXmlEntitySubSystem.h> 
 #include  <utilities/GUtilities.h>
@@ -13,7 +14,7 @@ using namespace LOGMASTER;
 
 
 
-LGeneratorMacrosLogging::LGeneratorMacrosLogging()
+LGeneratorMacrosLogging::LGeneratorMacrosLogging( const string name  ) : LGenerator( name)
 {
 
 }

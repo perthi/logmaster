@@ -17,12 +17,11 @@ class LXmlEntitySubSystem;
 class  LGeneratorMacrosLogging : public LGenerator
 {
 	public:
-	LGeneratorMacrosLogging();
+	LGeneratorMacrosLogging( const string fname );
 	   virtual ~LGeneratorMacrosLogging();
 
-	   virtual void Generate(   const string outfile, 
-	                    vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                    vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const override;
+	   virtual vector<string> Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+	                           vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const override;
 
 	private:
 

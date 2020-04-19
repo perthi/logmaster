@@ -20,14 +20,14 @@ class LXmlEntitySubSystem;
 class  LGenerator
 {
 	public:
-	 LGenerator();
+	 LGenerator( const string fname );
 	 virtual ~LGenerator();
 
-	virtual void Generate(   const string /*outfile*/, 
-	                    vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/,
-	                    vector< std::shared_ptr<LXmlEntitySubSystem > >  /*systems*/ ) const {};
+	virtual vector<string>  Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const = 0;
 
 	protected:
+		string fFileName		= "UNKNOWN";
 		string fLevelEnumName    =   "eMSGLEVEL";
 	    string fSystemEnumName   =   "eMSGSYSTEM";					
 

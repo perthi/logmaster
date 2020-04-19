@@ -10,7 +10,7 @@
 using namespace LOGMASTER;
 
 
-LGeneratorMacrosException::LGeneratorMacrosException()
+LGeneratorMacrosException::LGeneratorMacrosException( const string fname ) : LGenerator(fname)
 {
 
 }
@@ -21,9 +21,9 @@ LGeneratorMacrosException::~LGeneratorMacrosException()
 
 }
 
-
-vector<string>   
-LGeneratorMacrosException::Generate( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems  ) const
+vector<string>  
+LGeneratorMacrosException::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/ ,
+	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const
 {
     vector<string> lines;
     lines.push_back("// -*- mode: c++ -*-\n\n");
@@ -35,9 +35,9 @@ LGeneratorMacrosException::Generate( vector< std::shared_ptr<LXmlEntitySubSystem
        /// FORCE_DEBUG( "tmp = %s, sys = %s", tmp.c_str(),  sys->fName.c_str()  );
     }
     
-    GenerateClasses(  systems, &lines );
+    GenerateClasses(  systems,  lines );
     lines.push_back("\n\n");
-    GenerateExceptionMacros(  systems, &lines  );
+    GenerateExceptionMacros(  systems, lines  );
     lines.push_back("\n\n");
 
     return lines;
@@ -53,20 +53,20 @@ LGeneratorMacrosException::ClassName(std::shared_ptr<LXmlEntitySubSystem >  sys 
 
 
 void 
-LGeneratorMacrosException::GenerateClasses(vector<std::shared_ptr<LXmlEntitySubSystem>> systems, vector<string> *in) const
+LGeneratorMacrosException::GenerateClasses(vector<std::shared_ptr<LXmlEntitySubSystem>> systems, vector<string> &in) const
 {
     for (auto sys : systems)
     {
         string tmp = "EXCEPTION_CLASS_H\t(" + ClassName( sys) + ")";
-        in->push_back(tmp);
+        in.push_back(tmp);
         tmp = "EXCEPTION_CLASS_CPP\t(" +ClassName ( sys ) + ")";
-        in->push_back(tmp);
+        in.push_back(tmp);
     }
 }	
 
 
 void 
-LGeneratorMacrosException::GenerateExceptionMacros(  vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,   vector<string>  *  in  ) const
+LGeneratorMacrosException::GenerateExceptionMacros(  vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,   vector<string>  &in  ) const
 {
     vector<string> exc_macros;
     vector<string> ass_macros;
@@ -95,16 +95,11 @@ LGeneratorMacrosException::GenerateExceptionMacros(  vector< std::shared_ptr<LXm
             buffer <<  "(" << e << ")(" << e <<"::SYS_EX | " <<  e <<" ::SYS_" << sys->fName << "),\t__VA_ARGS__ ) )";
             ass_macros.push_back( buffer.str() );
         }
-
-        // in->insert( in->end(), exc_macros.begin(), exc_macros.end()  );
-        // in->push_back("\n");
-        // in->insert( in->end(), ass_macros.begin(), ass_macros.end()  );
     }
     
-    in->insert( in->end(), exc_macros.begin(), exc_macros.end()  );
-    in->push_back("\n");
-    in->insert( in->end(), ass_macros.begin(), ass_macros.end()  );
-
+    in.insert( in.end(), exc_macros.begin(), exc_macros.end()  );
+    in.push_back("\n");
+    in.insert( in.end(), ass_macros.begin(), ass_macros.end()  );
 }	
 
 
@@ -120,10 +115,3 @@ LGeneratorMacrosException::MacroNames(  std::shared_ptr<LXmlEntitySubSystem >  s
     }
     return tmp;
 }
-
-
-// void 
-// LGeneratorMacrosException::GenerateAssertMacros(     vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,   vector<string>  *in  ) const
-// {
-
-// }

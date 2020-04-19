@@ -18,28 +18,18 @@ class LXmlEntitySubSystem;
 class  LGeneratorHashMap : public  LGenerator
 {
 	public:
-	  LGeneratorHashMap();
+	  LGeneratorHashMap( const string fname );
 	  virtual ~LGeneratorHashMap();
-	  vector<string>   GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string> *in = nullptr ) const;	 	
+	  virtual vector<string> Generate( vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const override;	
 	  
-	  vector<string>   GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,  vector<string> *in = nullptr  ) const;	 	
-	  
-	  vector<string>   GenerateInitHashLevel2String (  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,  vector<string> *in = nullptr  ) const;	 	
-  
-      vector<string>   GenerateInitHashLogTags(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                                             vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,  vector<string> *in = nullptr  ) const;	
-
-	  virtual void Generate(   const string outfile, 
-	                    vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                    vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const override;	
-
-	  
-	//   void GenerateClass( vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	//                                              vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const
-	//   {
-
-	//   }
-
+	private:
+	  void   GenerateInitHashLogLevel(       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string> &in )  const;	 	
+	  void   GenerateInitHashSystem2String(  vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string> &in )  const;	 	
+	  void   GenerateInitHashLevel2String (  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,  vector<string> &in )  const;	 	
+      
+	  void   GenerateInitHashLogTags(        vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels, 
+	                                         vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string> &in   ) const;	
 
 
 };
