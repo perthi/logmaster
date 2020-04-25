@@ -10,14 +10,15 @@
 *****************************************************************************/
 
 
-#include  <logging/LDefinitions.h>
-#include  <logging/LEnums.h>
-#include  <logging/LHashMaps.h>
+#include  "LDefinitions.h"
+#include  "LEnums.h"
+#include  "LHashMaps.h"
+
 #include  <utilities/GDefinitions.h>
 
 #include <string>
-
 using std::string;
+
 
 class TestLConfig_apply_get_level_Test;
 

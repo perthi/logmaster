@@ -28,14 +28,14 @@
 
 
 #include "LLoggingInternal.h"
+#include "LConfig.h"
+#include "LLogging.h"
+
 #include <utilities/GTime.h>
 #include <utilities/GString.h>
-#include <logging/LConfig.h>
 #include <utilities/GFileIOHandler.h>
-#include <logging/LLogging.h>
 
 #include <errno.h>
-
 #include <sstream>
 
 #ifdef _WIN32

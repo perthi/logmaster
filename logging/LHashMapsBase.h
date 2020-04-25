@@ -8,8 +8,8 @@
 *** General Public License (LGPL) V3 or later. See .cpp file for details ***
 *****************************************************************************/
 
-#include <logging/LEnums.h>
-#include <logging/LHashMapsBase.h>
+#include  "LEnums.h"
+#include  "LHashMapsBase.h"
 #include  <utilities/GDefinitions.h>
 
 #include <map>

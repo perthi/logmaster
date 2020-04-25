@@ -13,8 +13,8 @@
 #ifdef _WIN32
 #define __func__ __FUNCTION__
 #endif
-#include  <logging/LEnums.h>
-#include  <logging/LLogging.h>
+#include  "LEnums.h"
+#include  "LLogging.h"
 #include  <utilities/GDefinitions.h>
 
 

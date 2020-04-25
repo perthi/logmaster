@@ -28,9 +28,10 @@
 
 #include "LValidateArgs.h"
 #include "LDoc.h"
+#include "LLogging.h"
+
 #include <exception>
 #include <stdexcept>
-#include <logging/LLogging.h>
 
 
 namespace LOGMASTER

@@ -22,7 +22,7 @@
 
 
 
-#include <logging/LLogApi.h>
+#include "LLogApi.h"
 #include <utilities/GDefinitions.h>
 
 

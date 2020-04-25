@@ -29,9 +29,9 @@
 #define EXT_DEBUG
 #define G_STANDALONE
 
-#include   <logging/LConfig.h>
-#include   <logging/LConversion.h>
-#include   <logging/LHashMaps.h>
+#include   "LConfig.h"
+#include   "LConversion.h"
+#include   "LHashMaps.h"
 #include   <utilities/GNumbers.h>
 
 

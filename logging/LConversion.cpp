@@ -26,9 +26,10 @@
 ******************************************************************************
 ******************************************************************************/
 
-#include "LConversion.h"
 
-#include <logging/LHashMaps.h>
+#include "LConversion.h"
+#include "LHashMaps.h"
+
 #include <utilities/GTokenizer.h>
 #include <utilities/GNumbers.h>
 

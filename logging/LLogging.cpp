@@ -32,7 +32,7 @@
 
 #define THREAD_SAFE
 
-#include <logging/LLogging.h>
+#include "LLogging.h"
 #include "LMessage.h"
 #include "LConfig.h"
 #include "LPublisher.h"

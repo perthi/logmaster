@@ -21,11 +21,12 @@
 
 
 
-#include <logging/LEnums.h>
+#include "LEnums.h"
+
 #include <utilities/GDefinitions.h>
+
 #include <vector>
 #include <string>
-
 
 using std::string;
 using std::vector;

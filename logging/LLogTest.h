@@ -10,7 +10,7 @@
 *** General Public License (LGPL) V3 or later. See .cpp file for details ***
 *****************************************************************************/
 
-#include  <logging/LLogging.h>
+#include  "LLogging.h"
 #include  <utilities/GDefinitions.h>
 
 using namespace  LOGMASTER;

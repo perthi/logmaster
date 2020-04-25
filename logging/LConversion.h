@@ -10,10 +10,12 @@
 *****************************************************************************/
 
 
-#include  <logging/LDefinitions.h>
-#include  <logging/LEnums.h>
+#include  "LDefinitions.h"
+#include  "LEnums.h"
+
 #include  <utilities/GNumbers.h>
 #include  <utilities/GDefinitions.h>
+
 #include  <string>
 using std::string;
  

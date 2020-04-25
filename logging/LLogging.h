@@ -16,16 +16,14 @@
 *** General Public License (LGPL) V3 or later. See .cpp file for details ***
 *****************************************************************************/
 
+#include "LMessageFactory.h"
 #include <utilities/GLocation.h>
-#include <logging/LMessageFactory.h>
 
 #include <string>
 #include <stack>
 #include <vector>
 #include <map>
-
 #include <memory>
-
 
 using std::string;
 using std::vector;
