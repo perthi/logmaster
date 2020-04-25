@@ -27,9 +27,9 @@
 #define MAX_MSG_SIZE         65536
 #define MAX_MSG_TOTAL_SIZE  MAX_MSG_SIZE +  MAX_MSG_TYPE_SIZE  + MAX_MSG_TIME_STAMP_SIZE + MAX_MSG_PATH_SIZE + MAX_MSG_FNAME_SIZE + MAX_MSG_FUNC_NAME_SIZE  + 16
 
-#include <stdio.h>
-#include "LLogApi.h"
-
+//#include <stdio.h>
+//#include "LLogApi.h"
+#include "LEnums.h"
 
 #ifndef __cplusplus
 typedef struct   LMessage

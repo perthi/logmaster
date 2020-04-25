@@ -39,6 +39,8 @@
 #endif
 
 #include <utilities/GTime.h>
+#include <utilities/GColor.h>
+
 #include "LLogApi.h"
 
 #include <memory>

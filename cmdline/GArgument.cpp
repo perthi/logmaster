@@ -29,16 +29,16 @@
 
 
 #include "GArgument.h"
-#include <exception/GException.h>
-#include <logging/LLogging.h>
+//#include <exception/GException.h>
+//#include <logging/LLogging.h>
 #include <utilities/GUtilities.h>
 #include <string>
 using std::string;
 #include <vector>
 using std::vector;
 #include <sstream>
-using namespace LOGMASTER;
-
+//using namespace LOGMASTER;
+#include <exception>
 
 
 int     GArgument::fNTabs = 4;    
@@ -83,7 +83,7 @@ GArgument::Verify()
 {
     if(ValidateCommands == 0 )
     {
-	  G_INFO("Validation function is ZERO");
+	   //G_INFO("Validation function is ZERO");
     }
     else
     {
@@ -113,7 +113,7 @@ GArgument::str(const bool subcommands ) const
     {
         buffer << ";\t" <<  fHelpText;
 
-        G_INFO("%s", buffer.str().c_str()); //CRAP PTH
+        ///G_INFO("%s", buffer.str().c_str()); //CRAP PTH
     
         if(  fSubCmds.size() > 0  && subcommands == true )
         {
@@ -148,7 +148,8 @@ GArgument::SetExcecName(const char *name)
     }
     else
     {
-	    EXCEPTION("ZERO POINTER !!!!");
+        throw(std::invalid_argument("ZERO POINTER !!!!"));
+	    ///EXCEPTION("ZERO POINTER !!!!");
     }
 }
 

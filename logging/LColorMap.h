@@ -11,12 +11,21 @@
 
 
 
-#include "LLogApi.h"
-#include <utilities/GColor.h>
-#include  <utilities/GDefinitions.h>
+//#include "LLogApi.h"
+#include "LEnums.h"
+
+///#include  <utilities/GDefinitions.h>
 #include <tuple>
 #include <map>
 #include <string>
+using std::string;
+
+#ifdef _WIN32
+#define API __declspec(dllexport)
+#else
+#define API
+#endif
+
 
 using namespace LOGMASTER;
 
