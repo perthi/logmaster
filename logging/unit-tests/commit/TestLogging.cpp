@@ -41,6 +41,7 @@
 #include <utilities/GSystem.h>
 #include <exception/GException.h>
 
+#include <cmdline/GLogApplication.h>
 
 #include <typeinfo>
 
@@ -97,18 +98,21 @@ TestLogging::Subscriber(const   std::shared_ptr<LOGMASTER::LMessage>  msg  )
 }
 
 
-TEST_F(TestLogging, set_logtarget_g_logapplication )
+TEST_F(TestLogging, set_logtarget_g_logapplication)
 {
-		g->ScanArguments("-logtarget --target-off --target-subscriber -logformat 00000001");
-		EXPECT_EQ( (int)(eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS),  (int)l->GetLogTarget());
-		g->ScanArguments("-logtarget --target-off -logformat 00000001");
-		EXPECT_EQ((int)(eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION ), (int)l->GetLogTarget());
+	///auto l = LLogging::Instance();
+	g->ScanArguments("-logtarget --target-off --target-subscriber -logformat 00000001");
+	EXPECT_EQ((int)(eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS), (int)l->GetLogTarget());
+	g->ScanArguments("-logtarget --target-off -logformat 00000001");
+	EXPECT_EQ((int)(eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION), (int)l->GetLogTarget());
 }
 
 
 
 TEST_F( TestLogging, set_logtarget )
 {
+///	auto l = LLogging::Instance();
+
 		SET_LOGTARGET("--target-off --target-subscriber");
 		EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS);
 		SET_LOGTARGET("--target-off --target-subscriber --target-stdout ");

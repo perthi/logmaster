@@ -28,6 +28,10 @@
 
 
 #include "TestLFormat.h"
+#include <logging/LEnums.h>
+#include <logging/LLogApi.h>
+
+using namespace LOGMASTER;
 
 
 TestLFormat::TestLFormat()
@@ -44,6 +48,7 @@ TestLFormat::~TestLFormat()
 
 TEST_F( TestLFormat, dummy )
 {
+	auto l = LLogging::Instance();
 	SET_LOGFORMAT("--target-file 00000001");
 	EXPECT_EQ( eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat( eMSGTARGET::TARGET_FILE ) );
 	SET_LOGFORMAT("--target-file 00000000");
