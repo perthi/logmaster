@@ -13,8 +13,8 @@
  //       th1 = thread( &KFClientMain::Run, client  );
 
 #include <stdio.h>
-#include <unistd.h>
-#include <unistd.h>
+
+//#include <unistd.h>
 
 #include <string>
 using std::string;
