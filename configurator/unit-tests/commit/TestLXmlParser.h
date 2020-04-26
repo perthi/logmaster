@@ -14,6 +14,7 @@ class  TestLXmlParser : public TestBase
 	  TestLXmlParser();
 
 	protected:
+	
 		string xml = "";
 		string xsd = "";
 

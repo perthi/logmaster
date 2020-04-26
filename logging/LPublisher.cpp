@@ -139,9 +139,6 @@ namespace LOGMASTER
 	{
 #ifdef _WIN32
             static HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-            
-            COUT << "fgEnableColor = " << ( fgEnableColor == true ? "TRUE" : "FALSE") << endl;
-            COUT << "COLOR =" << msg->fWColor << endl;
 
             if (fgEnableColor == true)
             {
