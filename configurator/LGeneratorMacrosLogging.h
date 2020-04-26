@@ -13,14 +13,16 @@ class LXmlEntityLogLevel;
 class LXmlEntitySubSystem;
 
 #include <configurator/LGenerator.h>
+#include <utilities/GDefinitions.h>
+
 
 class  LGeneratorMacrosLogging : public LGenerator
 {
 	public:
-	LGeneratorMacrosLogging( const string fname );
-	   virtual ~LGeneratorMacrosLogging();
+	   API LGeneratorMacrosLogging( const string fname );
+	   virtual API ~LGeneratorMacrosLogging();
 
-	   virtual vector<string> Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+	   virtual vector<string> API Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                           vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const override;
 
 	private:

@@ -118,8 +118,14 @@ void generator( vector< std::shared_ptr< LGenerator >  > generators,
 	{
 		///FORCE_DEBUG("genearting %s", gen->GetFilename().c_str() );
 		vector<string> lines = gen->Generate( loglevels, subsystems );
+		FILE* fp = nullptr;
 
-		FILE *fp = fopen(  gen->GetFilename().c_str(), "w" );
+#ifdef _WIN32
+		fopen_s(&fp, gen->GetFilename().c_str(), "w");
+#else // 
+		fp = fopen(gen->GetFilename().c_str(), "w");
+#endif
+	
 		if(fp != nullptr)
 		{	
 			for( auto l: lines )

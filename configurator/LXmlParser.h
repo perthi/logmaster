@@ -20,8 +20,8 @@ class GXmlStreamReader;
 class  LXmlParser : public GXmlParser
 {
 	public:
-        LXmlParser();
-	    virtual ~LXmlParser();
+        API LXmlParser();
+	    virtual API ~LXmlParser();
 
         virtual  void API ParseXML( const string  xml, 
                                      const string  xsd, 
@@ -29,7 +29,7 @@ class  LXmlParser : public GXmlParser
                                      std::vector< std::shared_ptr <LXmlEntitySubSystem> > &subsystems ) ;
 		
         template< typename T>
-        bool HasElement( const string name,  vector<std::shared_ptr < T > > in ); 
+        bool API HasElement( const string name,  vector<std::shared_ptr < T > > in ); 
 
 	private:		
     	std::shared_ptr <LXmlEntitySubSystem>    ParseSubSystem(  std::shared_ptr<GXmlStreamReader> r, const string closing_tag  );
