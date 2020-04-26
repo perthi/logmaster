@@ -144,12 +144,12 @@ print_info(GArgumentParsed *arg)
     vector<string> subs =  arg->GetSubCommands();
     vector<string> pars =  arg->GetArguments();
 
-    for(uint i=0; i < subs.size(); i++ )
+    for(size_t i=0; i < subs.size(); i++ )
     {
         FORCE_DEBUG("subcmd[%d] = \t%s", i, subs[i].c_str()    );
     }   
    
-    for(uint i=0; i < pars.size(); i++ )
+    for(size_t i=0; i < pars.size(); i++ )
     {
         FORCE_DEBUG("par[%d] = \t%s", i, pars[i].c_str()    );
     }   

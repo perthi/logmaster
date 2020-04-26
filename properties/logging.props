@@ -12,6 +12,9 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(include)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="include">

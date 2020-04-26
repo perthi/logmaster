@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{D1DB1420-86E1-41D3-A59B-FB44646C311C}</ProjectGuid>
-    <RootNamespace>cmdlineexample1</RootNamespace>
+    <ProjectGuid>{CC9FCC6E-4F9B-4C36-B1CE-AE0A07923750}</ProjectGuid>
+    <RootNamespace>cmdlineunittests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -89,26 +89,30 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAS_LOGGING;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(include);$(gtest-include)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;exception.lib;utilities.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;utilities.lib;exception.lib;testlib.lib;gtestd.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAS_LOGGING;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(include);$(gtest-include)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;exception.lib;utilities.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;utilities.lib;exception.lib;testlib.lib;gtestd.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -117,15 +121,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAS_LOGGING;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(include);$(gtest-include)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;exception.lib;utilities.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;utilities.lib;exception.lib;testlib.lib;gtest.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -134,22 +140,30 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAS_LOGGING;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(include);$(gtest-include)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;exception.lib;utilities.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;utilities.lib;exception.lib;testlib.lib;gtest.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cmdline-example1.cpp" />
+    <ClCompile Include="cmdline-dll-test.cpp" />
+    <ClCompile Include="TestGCmdScan.cpp" />
+    <ClCompile Include="TestGCommandLineArgument.cpp" />
+    <ClCompile Include="TestGLogApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cmdline-example1.h" />
+    <ClInclude Include="cmdline-dll-test.h" />
+    <ClInclude Include="TestGCmdScan.h" />
+    <ClInclude Include="TestGCommandLineArgument.h" />
+    <ClInclude Include="TestGLogApplication.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

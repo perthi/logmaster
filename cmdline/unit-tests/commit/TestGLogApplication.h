@@ -4,6 +4,7 @@
 
 #include <testlib/TestBase.h>
 
+
 class TestGLogApplication : public TestBase
 {
 public:
