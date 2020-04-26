@@ -47,6 +47,7 @@ software/doxygen_errors.txt
 **/_flags.txt
 configurator/examples/configurator-example1/x86/configurator-example1
 configurator/unit-tests/commit/x86/configurator-unit-tests
+configurator/logging-configurator/x86/logging-configurator
 **/Debug/
 **/build/
 **/.vs/
