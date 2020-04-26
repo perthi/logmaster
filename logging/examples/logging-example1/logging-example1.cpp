@@ -27,7 +27,7 @@
 ******************************************************************************/
 
 //#include <version-info/GMenu.h>
-#include <boost/regex.hpp>
+///#include <boost/regex.hpp>
 
 #define G_STANDALONE
 
@@ -54,6 +54,8 @@ main(int  /*argc*/, const char ** /*argv*/ )
 	{
 		SET_LOGLEVEL("--off --all-debug");
         SET_LOGTARGET("1111");
+
+		FORCE_DEBUG("Tis is a test");
 
 		LLogTest::WriteMessages();
 

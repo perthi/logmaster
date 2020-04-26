@@ -5,16 +5,17 @@
 #include <testlib/TestBase.h>
 
 
+
+
+
 class  TestLXmlParser : public TestBase
 {
 	public:
 	  TestLXmlParser();
-	  virtual ~TestLXmlParser();
 
 	protected:
-		string xml = string(CONFIG_DIR) + "/logging-test.xml";
-		string xsd = string(CONFIG_DIR) + "/logging-test.xsd";
-
+		string xml = "";
+		string xsd = "";
 
 };
 

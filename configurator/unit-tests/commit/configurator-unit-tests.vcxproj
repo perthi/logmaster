@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{EDC16F52-1260-4CB7-AA5C-12F346674DCA}</ProjectGuid>
-    <RootNamespace>loggingexample1</RootNamespace>
+    <ProjectGuid>{98839C65-D382-4AE8-A685-98BB10FC36A2}</ProjectGuid>
+    <RootNamespace>configuratorunittests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -91,12 +91,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(include);$(gtest-include);$(SolutionDir)\submodules\xml-parser</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>configurator.lib;logging.lib;utilities.lib;gtestd.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>logging.lib;utilities.lib;cmdline.lib;exception.lib;shell32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -105,12 +106,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(include);$(gtest-include);$(SolutionDir)\submodules\xml-parser</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>configurator.lib;logging.lib;utilities.lib;gtestd.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>logging.lib;utilities.lib;cmdline.lib;exception.lib;shell32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,14 +123,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(include);$(gtest-include)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>logging.lib;utilities.lib;cmdline.lib;exception.lib;shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>configurator.lib;logging.lib;utilities.lib;gtest.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,21 +141,25 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(include);$(gtest-include)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>logging.lib;utilities.lib;cmdline.lib;exception.lib;shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>configurator.lib;logging.lib;utilities.lib;gtest.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="logging-example1.cpp" />
+    <ClCompile Include="configurator-unit-tests.cpp" />
+    <ClCompile Include="TestLConfigurator.cpp" />
+    <ClCompile Include="TestLXmlParser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="logging-example1.h" />
+    <ClInclude Include="configurator-unit-tests.h" />
+    <ClInclude Include="TestLConfigurator.h" />
+    <ClInclude Include="TestLXmlParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

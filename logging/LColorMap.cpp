@@ -74,7 +74,6 @@ LColorMap::GetRGB( const eMSGLEVEL l)
 int
 LColorMap::GetCColor( const eMSGLEVEL l)
 {
-    /*
     if (fMap.find(l) != fMap.end())
     {
         return std::get<2>(fMap.find(l)->second);
@@ -83,15 +82,15 @@ LColorMap::GetCColor( const eMSGLEVEL l)
     {
         return  T_CYAN;
     }
-    */
+    
     return -1;
 }
 
 int
 LColorMap::GetAnsiColor(eMSGLEVEL l)
 {
-    /*
-    Init();
+  
+   // Init();
     if (fMap.find(l) != fMap.end())
     {
         return std::get<3>(fMap.find(l)->second);
@@ -100,14 +99,13 @@ LColorMap::GetAnsiColor(eMSGLEVEL l)
     {
         return  A_CYAN;
     }
-    */
+    
     return -1;
 }
 
 void
 LColorMap::Init()
 {
-    /*
       fMap.emplace(eMSGLEVEL::LOG_FORCE_DEBUG, std::make_tuple(string("FORCE_DEBUG"), C_ORANGE, T_ORANGE, A_ORANGE));
       fMap.emplace(eMSGLEVEL::LOG_DEBUG, std::make_tuple(string("DEBUG"), C_CYAN, T_CYAN, A_CYAN));
       fMap.emplace(eMSGLEVEL::LOG_INFO, std::make_tuple(string("INFO"), C_GREEN, T_GREEN, A_GREEN));
@@ -115,5 +113,4 @@ LColorMap::Init()
       fMap.emplace(eMSGLEVEL::LOG_ERROR, std::make_tuple(string("ERROR"), C_RED, T_RED, A_RED));
       fMap.emplace(eMSGLEVEL::LOG_FATAL, std::make_tuple(string("FATAL"), C_PURPLE, T_PURPLE, A_PURPLE));
       fMap.emplace(eMSGLEVEL::LOG_ALL, std::make_tuple(string("ALL"), C_DARK_GREEN, T_DARK_GREEN, A_DARK_GREEN));
-      */
-      }
+ }
