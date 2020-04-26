@@ -5,19 +5,14 @@
 #include <testlib/TestBase.h>
 
 
-
-
-
 class  TestLXmlParser : public TestBase
 {
 	public:
 	  TestLXmlParser();
 
-	protected:
-	
+    protected:
 		string xml = "";
 		string xsd = "";
-
 };
 
 
