@@ -52,5 +52,7 @@ configurator/logging-configurator/x86/logging-configurator
 **/build/
 **/.vs/
 **/bin
+**/x64
+**/Release
 
 
