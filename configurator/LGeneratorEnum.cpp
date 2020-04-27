@@ -39,8 +39,10 @@ vector<string>
     lines.push_back(" {");
     lines.push_back("\tSYS_NONE\t\t=  0x0000,    //  00000000 00000000    No sub system");
     lines.push_back("\tSYS_EX\t\t\t=  0x0001,    //  00000000 00000001    The exeption handling sub system");
-    lines.push_back("\tSYS_USER\t\t=  0x0002,    //  00000000 00000010    User messages");
+    lines.push_back("\tSYS_ALARM\t\t\t=  0x0001,    //  00000000 00000001    The exeption handling sub system");
+    lines.push_back("\tSYS_USER\t\t=  0x0003,    //  00000000 00000010    User messages");
     lines.push_back("\tSYS_GENERAL\t\t=  0x0004,    //  00000000 00000100    No specific sub system (i.e general message)");
+
 
     int i = 4;
 

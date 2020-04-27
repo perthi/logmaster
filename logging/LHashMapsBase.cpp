@@ -28,7 +28,6 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_EX,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_ERROR)  );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_FSM, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
-	fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_MESSAGE, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_COM, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_XML, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
@@ -43,7 +42,6 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_USER,     "User");
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_NONE,     "System Unknown");
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_FSM, 	"Fsm");
-	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_ALARM, 	"Alarm");
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_MESSAGE, 	"Message");
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_COM, 	"Com");
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_XML, 	"Xml");
@@ -70,15 +68,6 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fSubCmdHash.emplace("--fsm-error",		std::make_pair(eMSGSYSTEM::SYS_FSM,  eMSGLEVEL::LOG_ERROR));
 	fSubCmdHash.emplace("--fsm-fatal",		std::make_pair(eMSGSYSTEM::SYS_FSM,  eMSGLEVEL::LOG_FATAL));
 	fSubCmdHash.emplace("--fsm-all",		std::make_pair(eMSGSYSTEM::SYS_FSM,  eMSGLEVEL::LOG_ALL));
-
-
-	fSubCmdHash.emplace("--alarm-off",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_OFF));
-	fSubCmdHash.emplace("--alarm-debug",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_DEBUG));
-	fSubCmdHash.emplace("--alarm-info",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_INFO));
-	fSubCmdHash.emplace("--alarm-warning",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_WARNING));
-	fSubCmdHash.emplace("--alarm-error",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_ERROR));
-	fSubCmdHash.emplace("--alarm-fatal",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_FATAL));
-	fSubCmdHash.emplace("--alarm-all",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eMSGLEVEL::LOG_ALL));
 
 
 	fSubCmdHash.emplace("--message-off",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_OFF));
