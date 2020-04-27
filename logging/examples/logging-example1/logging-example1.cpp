@@ -51,64 +51,70 @@ using namespace LOGMASTER;
 int
 main(int  /*argc*/, const char ** /*argv*/ )
 {
-
-
-
 	try
 	{
 		SET_LOGLEVEL("--off --all-debug");
-        SET_LOGTARGET("1111");
-		SET_LOGFORMAT("11111111");
-		FORCE_DEBUG("Tis is a test");
+        SET_LOGTARGET("--target-stdout --target-file");
+		FORCE_DEBUG("Writing some test messages");
 		LLogTest::WriteMessages();
 		/// turn off all loglevles for all subsystems
 		/// Turning of Alrams and Exceptions will be vetoed by the system
 					//| level|  subsystem	|
-		SET_LOGLEVEL("000000001111111111111111");		
-		LLogTest::WriteMessages(); // should see nothing
-
+		///SET_LOGLEVEL("000000001111111111111111");		
+		FORCE_DEBUG("Turning everything off");
 		SET_LOGLEVEL("--off");
+		LLogTest::WriteMessages(); // should see nothing
+		double temperature = 99999.999;
+		FORCE_DEBUG("Alarms are always writing, attempt to turn them off are vetoed by the system");
+		ALARM_FATAL("Temperature reached %f degrees\n\n", temperature );
+
 		FORCE_DEBUG("Forcing output to stdout, all settings ignored");
+		FORCE_DEBUG("Setting  log level to debug for all subsystems");
+		SET_LOGLEVEL("--debug");
+		LLogTest::WriteMessages();
 		
-		FORCE_DEBUG("TP0");
-		LLogTest::WriteMessages();
-		SET_LOGLEVEL("--all-debug");
-		FORCE_DEBUG("TP1");
-		LLogTest::WriteMessages();
-
-		auto ptr = LLogging::Instance()->GetConfig(  eMSGTARGET::TARGET_STDOUT ).get();
-		auto ptr2 = LLogging::Instance()->GetConfig(  eMSGTARGET::TARGET_STDOUT );
-		FORCE_DEBUG("1ptr_raw   = 0x%x", ptr);
-		FORCE_DEBUG("1ptr2_shrd = 0x%x", ptr2);
+		
+		/** Pushing an popping coinfigurations on/off the stack */
 		PUSH();
-		ptr = LLogging::Instance()->GetConfig(  eMSGTARGET::TARGET_STDOUT ).get() ;
-		ptr2 = LLogging::Instance()->GetConfig(  eMSGTARGET::TARGET_STDOUT ) ;
-		FORCE_DEBUG("2ptr_raw   = 0x%x", ptr);
-		FORCE_DEBUG("2ptr2_shrd = 0x%x", ptr2 );
-
-		SET_LOGLEVEL("--all-off --fsm-info");
-		SET_LOGFORMAT("00000001");
+		//FORCE_DEBUG(Setting);	
+		SET_LOGLEVEL("--all-off --user-info");
+		SET_LOGFORMAT("--short-user");
+		//SET_LOGFORMAT("00000001");
 		FORCE_DEBUG("Selceted only info messages form the FSM subsystem");
 		LLogTest::WriteMessages();		
 		//SET_LOGLEVEL("--all-debug");
-
 		POP();
-		ptr = LLogging::Instance()->GetConfig(  eMSGTARGET::TARGET_STDOUT ).get() ;
-		ptr2 = LLogging::Instance()->GetConfig(  eMSGTARGET::TARGET_STDOUT ) ;
-		FORCE_DEBUG("3ptr_raw  =  0x%x", ptr);
-		FORCE_DEBUG("3ptr2_shrd = 0x%x", ptr2 );
-
-
-	//	POP();
-		//	SET_LOGLEVEL("--all-debug");
-		FORCE_DEBUG("TP2");
+		FORCE_DEBUG("Popping back the previous configuration");
 		LLogTest::WriteMessages();
+
+	
+		FSM_ASSERT_WARNING( true == false, "true and false are not equal"); 
+		FSM_ASSERT_WARNING( true == true, "true and true are EQUAL"); //nothing writtns since the assertion is true 
+	
+		SET_LOGLEVEL("--fatal");
+		FSM_ASSERT_WARNING( true == false, "true and false are not equal"); // nothing written because loglevel is fatal 
+		FSM_ASSERT_ERROR( true == false, "true and false are not equal"); // nothing written because loglevel is fatal
+		FSM_ASSERT_FATAL( true == false, "true and false are not equal"); // written beacause level is fatal, and assertion is false
+		FSM_ASSERT_FATAL( true == true, "true and true are EQUAL"); // nothing written, assertion is true
+
+		double temp_max = 125;
+		// No exceotion, assertion is true.
+		ALARM_ASSERT_EXCEPTION( temperature > temp_max, "Temperature too Low (%f) must be higher than %f",  temperature,  temp_max );
+		
+		// Exection thrown, assertion is false. loglevel is ignored for exceptions
+		ALARM_ASSERT_EXCEPTION( temperature < temp_max, "Temperature too High (%f) must be less than %f",  temperature,  temp_max );
+
 
 
 	}
+
+	catch ( GAlarmException &e )
+	{
+		cout << "Alarm exception caught:" << e.what() << endl;
+	}
 	catch (GException &e)
 	{
-		cout << "exception caucht:" << e.what() << endl;
+		cout << "exception caught:" << e.what() << endl;
 	}
 	catch (std::exception &e)
 	{

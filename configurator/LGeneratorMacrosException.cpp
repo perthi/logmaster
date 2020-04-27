@@ -91,7 +91,7 @@ LGeneratorMacrosException::GenerateExceptionMacros(  vector< std::shared_ptr<LXm
             buffer <<  " if(!(expr)) throw_exception( " << ClassName(sys) << "(\t";
             buffer <<   "__FILE__,  __func__, __LINE__ , ";
             auto e = fSystemEnumName; 
-            buffer <<  "(" << e << ")(" << e <<"::SYS_EX | " <<  e <<" ::SYS_" << sys->fName << "),\t__VA_ARGS__ ) )";
+            buffer <<  "(" << e << ")(" << e <<"::SYS_EX | " <<  e <<"::SYS_" << sys->fName << "),\t__VA_ARGS__ ) )";
             ass_macros.push_back( buffer.str() );
         }
     }
