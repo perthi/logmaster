@@ -137,6 +137,7 @@ LGeneratorHashMap::GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEn
     lines.push_back( "\tfSystem2StringHash.emplace(eMSGSYSTEM::SYS_EX,       \"Exeption\");");
     lines.push_back( "\tfSystem2StringHash.emplace(eMSGSYSTEM::SYS_GENERAL,  \"General\");");
     lines.push_back( "\tfSystem2StringHash.emplace(eMSGSYSTEM::SYS_USER,     \"User\");");
+    lines.push_back( "\tfSystem2StringHash.emplace(eMSGSYSTEM::SYS_ALARM,    \"Alarm\");");
     lines.push_back( "\tfSystem2StringHash.emplace(eMSGSYSTEM::SYS_NONE,     \"System Unknown\");");
     
     for (auto sys : systems)
@@ -167,8 +168,9 @@ LGeneratorHashMap::GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntityS
     lines.push_back("\tfLogLevelHash.clear();");
     lines.push_back("//\teMSGLEVEL level = (eMSGLEVEL)(PAD((int)l));");
 
-    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_EX,") +        "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_ERROR)  );");
-    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,") +      "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );");
+    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_EX,")  +    "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_ERROR)  );");
+    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,") +   "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );");
+    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM,") +  "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );");
 
     for (auto sys : systems)
     {

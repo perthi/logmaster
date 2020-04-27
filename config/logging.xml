@@ -7,19 +7,19 @@
     xsi:noNamespaceSchemaLocation="logging.xsd">
     <LEVELS>
         <LOGLEVEL>
-            <LEVEL>DEBUG</LEVEL>
-        </LOGLEVEL>
-        <LOGLEVEL>
-            <LEVEL>INFO</LEVEL>
-        </LOGLEVEL>
-        <LOGLEVEL>
-            <LEVEL>WARNING</LEVEL>
+            <LEVEL>FATAL</LEVEL>
         </LOGLEVEL>
         <LOGLEVEL>
             <LEVEL>ERROR</LEVEL>
         </LOGLEVEL>
         <LOGLEVEL>
-            <LEVEL>FATAL</LEVEL>
+            <LEVEL>WARNING</LEVEL>
+        </LOGLEVEL>
+        <LOGLEVEL>
+            <LEVEL>INFO</LEVEL>
+        </LOGLEVEL>
+        <LOGLEVEL>
+            <LEVEL>DEBUG</LEVEL>
         </LOGLEVEL>
     </LEVELS>
 

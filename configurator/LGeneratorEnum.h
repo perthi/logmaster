@@ -24,8 +24,8 @@ class  LGeneratorEnum : public LGenerator
 		void  GenerateLevels(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels, 	vector<string> &lines ) const;
 		void  GenerateSystems( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, 	vector<string> &lines ) const;								   
 		
-		string ToHexString(int num ) const;
-		string ToBinaryString(int num ) const;
+		string ToHexString( const int num, const int widt = 4 ) const;
+		string ToBinaryString( const int num, const int widt = 16 ) const;
 
 };
 

@@ -2,6 +2,7 @@
 
 PROGRAM=logging-unit-tests
 
+
 SRCCPP:=logging-unit-tests.cpp \
 	TestLConfig.cpp \
 	TestLConversion.cpp \
@@ -12,12 +13,6 @@ SRCCPP:=logging-unit-tests.cpp \
 	TestLogging.cpp \
 	TestSubscriber.cpp
 
-#SRCCPP:=logging-unit-tests.cpp \
-	TestLogging.cpp 
-
-#SRCCPP:=logging-unit-tests.cpp \
-	TestLTargets.cpp \
-	TestLogging.cpp 
 
 include ../../../../common.mk
 include ../../../../unittest-common.mk

@@ -105,9 +105,9 @@ namespace LOGMASTER
         fConfig    =            std::make_shared<  std::map<eMSGTARGET,  LMessageFactory  > >();
         fDefaultConfig =        std::make_shared< std::map<eMSGTARGET, LMessageFactory > > ();
 
-		fConfig->emplace(  eMSGTARGET::TARGET_FILE,        LMessageFactory()  ) ;
-		fConfig->emplace(  eMSGTARGET::TARGET_STDOUT,      LMessageFactory());
-		fConfig->emplace(  eMSGTARGET::TARGET_SUBSCRIBERS, LMessageFactory() );
+        fConfig->emplace(  eMSGTARGET::TARGET_FILE,        LMessageFactory()  ) ;
+        fConfig->emplace(  eMSGTARGET::TARGET_STDOUT,      LMessageFactory());
+        fConfig->emplace(  eMSGTARGET::TARGET_SUBSCRIBERS, LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_GUI,         LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_EXCEPTION,   LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_TESTING,     LMessageFactory() );
@@ -117,7 +117,6 @@ namespace LOGMASTER
         SetLogTarget( "--target-off --target-file --target-subscriber --target-stdout --target-gui" );
         SetLogLevel("--all-warning");
         SetLogFormat("--target-gui --all-off --short-user");
-
 
 
        // fMessages = new std::map<eMSGTARGET,  LMessage *  >;

@@ -36,31 +36,10 @@
 namespace LOGMASTER
 {
 
-#include "LEnumSystems.h" /// NB autognerated
+#include "LEnumGenerated.h" /// NB autognerated
 
 
 #endif
-
-
-	/*Enum controlling the log level*/
-#ifdef __cplusplus
-	enum class  eMSGLEVEL
-#else
-	enum eMSGLEVEL
-#endif
-    {
-        LOG_FORCE_DEBUG   =   0x20,     // 00100000
-        LOG_DEBUG         =   0x10,     // 00010000
-        LOG_INFO          =   0x08,     // 00001000
-        LOG_WARNING       =   0x04,     // 00000100
-        LOG_ERROR         =   0x02,     // 00000010
-        LOG_FATAL         =   0x01,     // 00000001
-        LOG_OFF           =   0x00,     // 00000000
-        LOG_ALL           =   0xff      // 11111111
-    };
-
-
-
 
 
 
