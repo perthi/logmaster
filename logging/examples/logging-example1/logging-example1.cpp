@@ -47,21 +47,61 @@ using namespace LOGMASTER;
 
 #include <map>
 
+
 int
 main(int  /*argc*/, const char ** /*argv*/ )
 {
+
+
+
 	try
 	{
 		SET_LOGLEVEL("--off --all-debug");
         SET_LOGTARGET("1111");
+		SET_LOGFORMAT("11111111");
 		FORCE_DEBUG("Tis is a test");
 		LLogTest::WriteMessages();
-		///SET_LOGLEVEL("000000000000000000000000");
-        
 		/// turn off all loglevles for all subsystems
-		/// Tirning of Alrams and Exceptions will be vetoed by the system
+		/// Turning of Alrams and Exceptions will be vetoed by the system
 					//| level|  subsystem	|
 		SET_LOGLEVEL("000000001111111111111111");		
+		LLogTest::WriteMessages(); // should see nothing
+
+		SET_LOGLEVEL("--off");
+		FORCE_DEBUG("Forcing output to stdout, all settings ignored");
+		
+		FORCE_DEBUG("TP0");
+		LLogTest::WriteMessages();
+		SET_LOGLEVEL("--all-debug");
+		FORCE_DEBUG("TP1");
+		LLogTest::WriteMessages();
+
+		auto ptr = LLogging::Instance()->GetConfig(  eMSGTARGET::TARGET_STDOUT ).get();
+		auto ptr2 = LLogging::Instance()->GetConfig(  eMSGTARGET::TARGET_STDOUT );
+		FORCE_DEBUG("1ptr_raw   = 0x%x", ptr);
+		FORCE_DEBUG("1ptr2_shrd = 0x%x", ptr2);
+		PUSH();
+		ptr = LLogging::Instance()->GetConfig(  eMSGTARGET::TARGET_STDOUT ).get() ;
+		ptr2 = LLogging::Instance()->GetConfig(  eMSGTARGET::TARGET_STDOUT ) ;
+		FORCE_DEBUG("2ptr_raw   = 0x%x", ptr);
+		FORCE_DEBUG("2ptr2_shrd = 0x%x", ptr2 );
+
+		SET_LOGLEVEL("--all-off --fsm-info");
+		SET_LOGFORMAT("00000001");
+		FORCE_DEBUG("Selceted only info messages form the FSM subsystem");
+		LLogTest::WriteMessages();		
+		//SET_LOGLEVEL("--all-debug");
+
+		POP();
+		ptr = LLogging::Instance()->GetConfig(  eMSGTARGET::TARGET_STDOUT ).get() ;
+		ptr2 = LLogging::Instance()->GetConfig(  eMSGTARGET::TARGET_STDOUT ) ;
+		FORCE_DEBUG("3ptr_raw  =  0x%x", ptr);
+		FORCE_DEBUG("3ptr2_shrd = 0x%x", ptr2 );
+
+
+	//	POP();
+		//	SET_LOGLEVEL("--all-debug");
+		FORCE_DEBUG("TP2");
 		LLogTest::WriteMessages();
 
 

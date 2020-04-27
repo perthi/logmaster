@@ -38,8 +38,8 @@ namespace LOGMASTER
             LMessageFactory( const LMessageFactory &gen );
             ~LMessageFactory();
             void      API    SetConfig( const LConfig  c );
-           std::shared_ptr< LConfig>   API   GetConfig();
-           std::shared_ptr< LMessage>  API  GetMessage();
+            std::shared_ptr< LConfig>   API   GetConfig();
+            std::shared_ptr< LMessage>  API  GetMessage();
             bool      API    IsEnabled() const;
             void      API    Enable();
             void      API    Disable();

@@ -39,9 +39,10 @@ using std::cout;
 using namespace LOGMASTER;
 
 
+
 void LLogTest::WriteMessages()
 {
-    cout << endl << endl;
+   // cout << endl << endl;
     Header();
     int a = 40;
     int b = 2;
@@ -52,17 +53,17 @@ void LLogTest::WriteMessages()
     G_ERROR("This a system wide general ERROR message with parameters: a = %d, b = %d", a, b);
     G_FATAL("Oppps.... a system wide general (non system specific) fatal nessage");
 
-	ALL_DEBUG("This is a ALL_DEBUG message (applied if any of the subsystems are on)");
-    ALL_INFO("This is a system wide  ALL_INFO message (applied if any of the subsystems are on)");
-    ALL_WARNING("This is a system wide ALL_WARNING message (applied if any of the subsystems are on)");
-    ALL_ERROR("This a This is a system wide ALL_ERROR message (applied if any of the subsystems are on) with parameters: a = %d, b = %d", a, b);
-    ALL_FATAL("Oppps.... a system wide ALL_FATAL message");
+	// ALL_DEBUG("This is a ALL_DEBUG message (applied if any of the subsystems are on)");
+    // ALL_INFO("This is a system wide  ALL_INFO message (applied if any of the subsystems are on)");
+    // ALL_WARNING("This is a system wide ALL_WARNING message (applied if any of the subsystems are on)");
+    // ALL_ERROR("This a This is a system wide ALL_ERROR message (applied if any of the subsystems are on) with parameters: a = %d, b = %d", a, b);
+    // ALL_FATAL("Oppps.... a system wide ALL_FATAL message");
 
     //   EX_DEBUG("This is a EX_DEBUG message");
     //  EX_INFO("This  is a EX_INFO  message");
     //    EX_WARNING("This is a EX_WARNING message");
-    EX_ERROR("This is a EX_ERROR message with parameters: a = %d, b = %d", a, b);
-    EX_FATAL("Oppps.... a  EX_FATAL message");
+    // EX_ERROR("This is a EX_ERROR message with parameters: a = %d, b = %d", a, b);
+    // EX_FATAL("Oppps.... a  EX_FATAL message");
 
     USER_DEBUG("This is a USER_DEBUG message");
     USER_INFO("This  is a USER_INFO  message");
@@ -75,12 +76,17 @@ void LLogTest::WriteMessages()
     FSM_WARNING("This is a FSM_WARNING message");
     FSM_ERROR("This is a FSM_ERROR message with parameters: a = %d, b = %d", a, b);
     FSM_FATAL("Oppps.... a  FSM_FATAL message");
-
+    
+    FSM_DEBUG_U("This is a FSM_DEBUG and USER message");
+    FSM_INFO_U("This  is a FSM_INFO and USER message");
+    FSM_WARNING_U("This is a FSM_WARNING and USER message");
+    FSM_ERROR_U("This is a FSM_ERROR USERmessage with parameters: a = %d, b = %d", a, b);
+    FSM_FATAL("Oppps.... a  FSM_FATAL USER message");
     //   ALARM_DEBUG("Lorem ipsum dolor sit amet,");
     //  ALARM_INFO("consectetur adipiscing elit,");
-    ALARM_WARNING("sed do eiusmod tempor incididunt ut labore et dolore");
-    ALARM_ERROR("magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    ALARM_FATAL("exercitation ullamco laboris nisi ut aliquip ex ea");
+    // ALARM_WARNING("sed do eiusmod tempor incididunt ut labore et dolore");
+    // ALARM_ERROR("magna aliqua. Ut enim ad minim veniam, quis nostrud");
+    // ALARM_FATAL("exercitation ullamco laboris nisi ut aliquip ex ea");
 
     COM_DEBUG(       "(COM)sed do eiusmod tempor incididunt ut labore et dolore");
     COM_WARNING(     "(COM)magna aliqua. Ut enim ad minim veniam, quis nostrud");
@@ -93,11 +99,11 @@ void LLogTest::WriteMessages()
     COM_ERROR_U(     "(COM)magna aliqua. Ut enim ad minim veniam, quis nostrud");
     COM_FATAL_U(     "(COM)exercitation ullamco laboris nisi ut aliquip ex ea");
 
-
     Footer();
     cout << endl;
 
 }
+
 
 
  void

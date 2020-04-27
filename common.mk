@@ -30,9 +30,11 @@ DEBUG = 0
 HW = 1
 
 
-OBJS=$(notdir $(subst .c,.o, $(SRC)))
-OBJSCPP=$(notdir $(subst .cpp,.o, $(SRCCPP)))
+#OBJS=$(notdir $(subst .c,.o, $(SRC)))
+#OBJSCPP=$(notdir $(subst .cpp,.o, $(SRCCPP)))
 
+OBJS=$(subst .c,.o, $(SRC))
+OBJSCPP=$(subst .cpp,.o, $(SRCCPP))
 
 -include $(subst .c,.d,$(SRC))
 -include $(subst .cpp,.d,$(SRCCPP))

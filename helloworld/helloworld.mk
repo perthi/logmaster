@@ -1,6 +1,6 @@
 
 PROGRAM:=helloworld
-SRCCPP+=../helloworld.cpp
+SRCCPP+=helloworld.cpp
 
 
 LIBS+=   -lutilities 
