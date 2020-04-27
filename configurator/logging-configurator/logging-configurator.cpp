@@ -83,7 +83,7 @@ int main(int /*argc*/, const char ** /*argv*/)
 			G_INFO("Sucessfully validatet %s against %s and parsed the XML file", xml.c_str(), xsd.c_str() );
 
 			vector< std::shared_ptr< LGenerator >  > generators;
-			generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumsLevels.h") );
+			generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumSystems.h") );
 			generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApi.h") );
 			generators.push_back(std::make_shared < LGeneratorMacrosException >( "exception/GExceptionMacros.h") );
 			generators.push_back(std::make_shared < LGeneratorHashMap >( "logging/LHashMapsBase.cpp") );

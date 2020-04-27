@@ -36,7 +36,7 @@
 namespace LOGMASTER
 {
 
-#include "LEnumsLevels.h" /// NB autognerated
+#include "LEnumSystems.h" /// NB autognerated
 
 
 #endif

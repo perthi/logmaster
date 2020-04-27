@@ -37,8 +37,8 @@
 #include  <logging/LMessage.h>
 #include  <logging/LConfig.h>
 #include  <cmdline/GLogApplication.h>
+#include  <exception/GException.h>
 
-#include <exception/GException.h>
 
 using std::cout;
 using std::endl;
@@ -54,14 +54,16 @@ main(int  /*argc*/, const char ** /*argv*/ )
 	{
 		SET_LOGLEVEL("--off --all-debug");
         SET_LOGTARGET("1111");
-
 		FORCE_DEBUG("Tis is a test");
-
+		LLogTest::WriteMessages();
+		///SET_LOGLEVEL("000000000000000000000000");
+        
+		/// turn off all loglevles for all subsystems
+		/// Tirning of Alrams and Exceptions will be vetoed by the system
+					//| level|  subsystem	|
+		SET_LOGLEVEL("000000001111111111111111");		
 		LLogTest::WriteMessages();
 
-		//SET_LOGLEVEL("111111110000000000001000");
-		SET_LOGLEVEL("000000000000000000000000");
-	//	SET_LOGLEVEL("111111111111111111111111");
 
 	}
 	catch (GException &e)
