@@ -58,10 +58,6 @@ void generator(  vector< std::shared_ptr< LGenerator >  > generators,
 
 
 
-
-
-
-
 int main(int /*argc*/, const char ** /*argv*/)
 {
 	SET_LOGFORMAT("00000001");
@@ -86,7 +82,7 @@ int main(int /*argc*/, const char ** /*argv*/)
 			vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems;
 			p->ParseXML(xml, xsd, loglevels,  subsystems );
 
-			G_INFO("Sucessfully validatet %s against %s and parsed the XML file", xml.c_str(), xsd.c_str() );
+			G_INFO("Successfully validatet %s against %s and parsed the XML file", xml.c_str(), xsd.c_str() );
 
 			vector< std::shared_ptr< LGenerator >  > generators;
 			generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumGenerated.h") );
