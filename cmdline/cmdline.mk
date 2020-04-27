@@ -1,7 +1,7 @@
 
 
 LIBNAME_SO:= libcmdline.so
-#LIBNAME_A:= libcmdline.a
+LIBNAME_A:= libcmdline.a
 
 
 SRCCPP+= GArgument.cpp \

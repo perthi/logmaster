@@ -1,7 +1,7 @@
 
 
 LIBNAME_SO=liblogmaster.so
-#LIBNAME_A=liblogmaster.a
+LIBNAME_A=liblogmaster.a
 
 
 SRCCPP:= LColorMap.cpp \

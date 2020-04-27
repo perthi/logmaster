@@ -2,7 +2,7 @@
 
 
 LIBNAME_SO=libconfigurator.so
-#LIBNAME_A=liblogmaster.a
+LIBNAME_A=libconfigurator.a
 
 
 SRCCPP:= LConfigurator.cpp \
