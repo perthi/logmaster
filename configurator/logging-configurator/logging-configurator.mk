@@ -5,7 +5,7 @@ PROGRAM:=logging-configurator
 SRCCPP+=../logging-configurator.cpp 
 
 
-LIBS+=  -llogmaster  -lutilities -lxml-embc  -lxml2 -lpthread  -lreadline -lconfigurator   -lexception
+LIBS+=  -lconfigurator  -lxml-embc  -lxml2  -llogmaster -lexception -lutilities  -lpthread   -lreadline 
 
 include ../../../common.mk
 
