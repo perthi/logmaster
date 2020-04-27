@@ -20,7 +20,10 @@ class  LGeneratorEnum : public LGenerator
 		virtual ~LGeneratorEnum();
 		virtual vector<string>  Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const override;
-	private:
+	private:		
+		void  GenerateLevels(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels, 	vector<string> &lines ) const;
+		void  GenerateSystems( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, 	vector<string> &lines ) const;								   
+		
 		string ToHexString(int num ) const;
 		string ToBinaryString(int num ) const;
 

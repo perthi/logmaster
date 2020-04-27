@@ -23,12 +23,26 @@ LGeneratorEnum::~LGeneratorEnum()
 
 }
 
-
-vector<string>  
- LGeneratorEnum::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/,
-	                        vector< std::shared_ptr<LXmlEntitySubSystem > >   systems ) const
+vector<string>
+LGeneratorEnum::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>> /*levels*/,
+                         vector<std::shared_ptr<LXmlEntitySubSystem>> systems) const
 {
     vector<string> lines;
+    GenerateSystems(systems, lines );
+    return lines;
+}
+
+
+void 
+LGeneratorEnum::GenerateLevels(vector<std::shared_ptr<LXmlEntityLogLevel> > /*levels*/, vector<string> & /*lines*/ ) const
+{
+
+}
+
+
+void 
+LGeneratorEnum::GenerateSystems(vector<std::shared_ptr<LXmlEntitySubSystem>> systems, vector<string> &lines) const
+{
     lines.push_back("// -*- mode: c++ -*-/n/n");
     lines.push_back("#pragma once\n\n");
     lines.push_back(" #ifdef __cplusplus");
@@ -43,21 +57,19 @@ vector<string>
     lines.push_back("\tSYS_USER\t\t=  0x0003,    //  00000000 00000010    User messages");
     lines.push_back("\tSYS_GENERAL\t\t=  0x0004,    //  00000000 00000100    No specific sub system (i.e general message)");
 
-
     int i = 4;
 
-    for( auto sys: systems )
+    for (auto sys : systems)
     {
-        string line =   g_utilities()->TabAlign("\tSYS_" +  sys->fName + " ", 3 )  + "=  " + ToHexString( 1 << i ) +   ",    //  " + ToBinaryString( 1 << i ); 
+        string line = g_utilities()->TabAlign("\tSYS_" + sys->fName + " ", 3) + "=  " + ToHexString(1 << i) + ",    //  " + ToBinaryString(1 << i);
         lines.push_back(line);
-        i ++;
+        i++;
     }
 
     lines.push_back("\tSYS_ALL\t\t\t=  0xffff     //  11111111 11111111    Any sub system (message will apply if logging is turned on for any of the sub system)");
     lines.push_back("};");
-
-    return lines;
 }
+
 
 
 string 
