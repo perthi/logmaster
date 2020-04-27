@@ -54,6 +54,7 @@ main(int  /*argc*/, const char ** /*argv*/ )
 	try
 	{
 		SET_LOGLEVEL("--off --all-debug");
+		SET_LOGFORMAT("01111111");
         SET_LOGTARGET("--target-stdout --target-file");
 		FORCE_DEBUG("Writing some test messages");
 		LLogTest::WriteMessages();
@@ -77,10 +78,15 @@ main(int  /*argc*/, const char ** /*argv*/ )
 		/** Pushing an popping coinfigurations on/off the stack */
 		PUSH();
 		//FORCE_DEBUG(Setting);	
-		SET_LOGLEVEL("--all-off --user-info");
+		SET_LOGLEVEL("--all-off --fsm-info");
 		SET_LOGFORMAT("--short-user");
 		//SET_LOGFORMAT("00000001");
 		FORCE_DEBUG("Selceted only info messages form the FSM subsystem");
+		LLogTest::WriteMessages();		
+		
+		FORCE_DEBUG("Printing mesage body only");
+		SET_LOGFORMAT("00000001");
+		// Could also do SET_LOGFORMAT("00000001");
 		LLogTest::WriteMessages();		
 		//SET_LOGLEVEL("--all-debug");
 		POP();
@@ -98,14 +104,11 @@ main(int  /*argc*/, const char ** /*argv*/ )
 		FSM_ASSERT_FATAL( true == true, "true and true are EQUAL"); // nothing written, assertion is true
 
 		double temp_max = 125;
-		// No exceotion, assertion is true.
+		// No exception, assertion is true.
 		ALARM_ASSERT_EXCEPTION( temperature > temp_max, "Temperature too Low (%f) must be higher than %f",  temperature,  temp_max );
 		
 		// Exection thrown, assertion is false. loglevel is ignored for exceptions
 		ALARM_ASSERT_EXCEPTION( temperature < temp_max, "Temperature too High (%f) must be less than %f",  temperature,  temp_max );
-
-
-
 	}
 
 	catch ( GAlarmException &e )
