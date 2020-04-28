@@ -52,7 +52,8 @@ configurator/logging-configurator/x86/logging-configurator
 **/build/
 **/.vs/
 **/bin
-**/x64
+#**/x64
+#!submodules/xml-parser-1-0-2/xml/3rd-party/libxml/lib
 **/Release
 
 
