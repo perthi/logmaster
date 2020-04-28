@@ -54,7 +54,8 @@ main(int  /*argc*/, const char ** /*argv*/ )
 	try
 	{
 		SET_LOGLEVEL("--off --all-debug");
-		SET_LOGFORMAT("01111111");
+		SET_LOGFILENAME("example.log");
+		SET_LOGFORMAT("01111111");  // long timestamp
         SET_LOGTARGET("--target-stdout --target-file");
 		FORCE_DEBUG("Writing some test messages");
 		LLogTest::WriteMessages();
@@ -63,6 +64,10 @@ main(int  /*argc*/, const char ** /*argv*/ )
 					//| level|  subsystem	|
 		///SET_LOGLEVEL("000000001111111111111111");		
 		FORCE_DEBUG("Turning everything off");
+		FORCE_DEBUG("Setting loglevel to fatal");
+		SET_LOGLEVEL("--fatal"); 
+		LLogTest::WriteMessages(); // should see only fatal log messages
+		FORCE_DEBUG("Setting loglevel to OFF");
 		SET_LOGLEVEL("--off");
 		LLogTest::WriteMessages(); // should see nothing
 		double temperature = 99999.999;
@@ -77,22 +82,19 @@ main(int  /*argc*/, const char ** /*argv*/ )
 		
 		/** Pushing an popping coinfigurations on/off the stack */
 		PUSH();
-		//FORCE_DEBUG(Setting);	
 		SET_LOGLEVEL("--all-off --fsm-info");
 		SET_LOGFORMAT("--short-user");
-		//SET_LOGFORMAT("00000001");
-		FORCE_DEBUG("Selceted only info messages form the FSM subsystem");
+		FORCE_DEBUG("Selceted info messages and above  the FSM subsystem");
 		LLogTest::WriteMessages();		
 		
-		FORCE_DEBUG("Printing mesage body only");
-		SET_LOGFORMAT("00000001");
-		// Could also do SET_LOGFORMAT("00000001");
+		
+		SET_LOGFORMAT("--all-off --msg-body");
+		SET_LOGFORMAT("--all-off --msg-body");
 		LLogTest::WriteMessages();		
-		//SET_LOGLEVEL("--all-debug");
-		POP();
+	
 		FORCE_DEBUG("Popping back the previous configuration");
+		POP();
 		LLogTest::WriteMessages();
-
 	
 		FSM_ASSERT_WARNING( true == false, "true and false are not equal"); 
 		FSM_ASSERT_WARNING( true == true, "true and true are EQUAL"); //nothing writtns since the assertion is true 

@@ -88,16 +88,16 @@ void LLogTest::WriteMessages()
     // ALARM_ERROR("magna aliqua. Ut enim ad minim veniam, quis nostrud");
     // ALARM_FATAL("exercitation ullamco laboris nisi ut aliquip ex ea");
 
-    COM_DEBUG(       "(COM)sed do eiusmod tempor incididunt ut labore et dolore");
-    COM_WARNING(     "(COM)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    COM_INFO(        "(COM)sed do eiusmod tempor incididunt ut labore et dolore");
-    COM_ERROR(       "(COM)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    COM_FATAL(       "(COM)exercitation ullamco laboris nisi ut aliquip ex ea");
-    COM_DEBUG_U(     "(COM)sed do eiusmod tempor incididunt ut labore et dolore");
-    COM_WARNING_U(   "(COM)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    COM_INFO_U(      "(COM)sed do eiusmod tempor incididunt ut labore et dolore");
-    COM_ERROR_U(     "(COM)magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    COM_FATAL_U(     "(COM)exercitation ullamco laboris nisi ut aliquip ex ea");
+    COM_DEBUG(       "sed do eiusmod tempor incididunt ut labore et dolore");
+    COM_WARNING(     "magna aliqua. Ut enim ad minim veniam, quis nostrud");
+    COM_INFO(        "sed do eiusmod tempor incididunt ut labore et dolore");
+    COM_ERROR(       "magna aliqua. Ut enim ad minim veniam, quis nostrud");
+    COM_FATAL(       "exercitation ullamco laboris nisi ut aliquip ex ea");
+    COM_DEBUG_U(     "sed do eiusmod tempor incididunt ut labore et dolore");
+    COM_WARNING_U(   "magna aliqua. Ut enim ad minim veniam, quis nostrud");
+    COM_INFO_U(      "sed do eiusmod tempor incididunt ut labore et dolore");
+    COM_ERROR_U(     "magna aliqua. Ut enim ad minim veniam, quis nostrud");
+    COM_FATAL_U(     "exercitation ullamco laboris nisi ut aliquip ex ea");
 
     Footer();
     cout << endl;

@@ -91,7 +91,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(include);$(SolutionDir)\submodules\xml-parser</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(include);$(SolutionDir)\submodules\xml-parser-1-0-2</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -100,7 +100,7 @@
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>copy  $(SolutionDir)\submodules\xml-parser\xml\3rd-party\libxml\lib\x86\*  $(bindir)</Command>
+      <Command>copy  $(SolutionDir)\submodules\xml-parser-1-0-2\xml\3rd-party\libxml\lib\x86\*  $(bindir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -109,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(include);$(SolutionDir)\submodules\xml-parser</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(include);$(SolutionDir)\submodules\xml-parser-1-0-2</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,7 +118,7 @@
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>copy  $(SolutionDir)\submodules\xml-parser\xml\3rd-party\libxml\lib\x64\*  $(bindir)</Command>
+      <Command>copy  $(SolutionDir)\submodules\xml-parser-1-0-2\xml\3rd-party\libxml\lib\x64\*  $(bindir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -129,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(include);$(SolutionDir)\submodules\xml-parser</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(include);$(SolutionDir)\submodules\xml-parser-1-0-2</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,7 +140,7 @@
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>copy  $(SolutionDir)\submodules\xml-parser\xml\3rd-party\libxml\lib\x86\*  $(bindir)</Command>
+      <Command>copy  $(SolutionDir)\submodules\xml-parser-1-0-2\xml\3rd-party\libxml\lib\x86\*  $(bindir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -151,7 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(include);$(SolutionDir)\submodules\xml-parser</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(include);$(SolutionDir)\submodules\xml-parser-1-0-2</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,7 +162,7 @@
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>copy  $(SolutionDir)\submodules\xml-parser\xml\3rd-party\libxml\lib\x64\*  $(bindir)</Command>
+      <Command>copy  $(SolutionDir)\submodules\xml-parser-1-0-2\xml\3rd-party\libxml\lib\x64\*  $(bindir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
