@@ -1,4 +1,0 @@
-
-include ../xml.mk
-
-
