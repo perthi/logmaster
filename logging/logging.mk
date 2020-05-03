@@ -19,11 +19,10 @@ SRCCPP:= LColorMap.cpp \
 	LMessageGenerator.cpp \
 	LPublisher.cpp     
 
+
+
+
 include ../../common.mk
 
-LIBS+=  -lm
 
-ifneq (arm, $(TARGET))
-LIBS+= -lX11
-endif
 

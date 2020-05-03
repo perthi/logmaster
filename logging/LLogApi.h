@@ -11,10 +11,15 @@
 
 
 #ifdef _WIN32
+#include  "LEnums.h"
+#include  "LLogging.h"
 #define __func__ __FUNCTION__
-#endif
+#else
 #include  <logging/LEnums.h>
 #include  <logging/LLogging.h>
+#endif
+
+
 #include  <utilities/GDefinitions.h>
 
 

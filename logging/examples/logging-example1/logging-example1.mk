@@ -4,8 +4,11 @@ PROGRAM:=logging-example1
 SRCCPP+=logging-example1.cpp 
 
 
-LIBS+=  -lcmdline -llogmaster  -lutilities  -lexception -lreadline -lpthread  
+LIBS+=  -lcmdline -llogmaster  -lutilities  -lexception  -lpthread  
 
+ifneq (arm, $(TARGET))
+LIBS+=   -lreadline
+endif
 
 include ../../../../common.mk
 

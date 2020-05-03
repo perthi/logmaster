@@ -18,4 +18,10 @@ include ../../../../common.mk
 include ../../../../unittest-common.mk
 
 LIBS+= -llogmaster  -lexception  -lutilities -ltestlib -lexception
+
+
+ifneq (arm, $(TARGET))
+LIBS+=  -lreadline
+endif
+
 INCLUDES+=$(GTEST_INCLUDES)

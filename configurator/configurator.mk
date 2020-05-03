@@ -1,6 +1,7 @@
 
 
 
+
 LIBNAME_SO=libconfigurator.so
 LIBNAME_A=libconfigurator.a
 
