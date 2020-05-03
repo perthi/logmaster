@@ -14,7 +14,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logging-unit-tests", "loggi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cmdline", "cmdline\cmdline.vcxproj", "{056929FF-F5CE-44F6-97A1-9F2493E7A9CB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "exception", "exception\exception\exception.vcxproj", "{39D247E2-6263-48FF-A51B-BDFEB36429C3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "exception", "exception\exception.vcxproj", "{39D247E2-6263-48FF-A51B-BDFEB36429C3}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logging", "logging\logging.vcxproj", "{26B32CDF-4053-4C0E-8EC5-88A5F6D2AB0C}"
 EndProject

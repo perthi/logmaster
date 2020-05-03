@@ -61,14 +61,12 @@ GTEST_INCLUDES:= -isystem $(CURDIR)/
 LIBS= -L $(CURDIR)/build/$(TARGET)/lib  -lm
 
 
-export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster  -lreadline
+export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster 
 
 
 export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest -lpthread 
 
 
-#version-info:=	  	 version-info/$(TARGET)
-helloworld:=             helloworld/$(TARGET)
 gtest-linux:=            gtest-linux/$(TARGET)
 testlib:=                testlib/$(TARGET)
 utilities:=              utilities/$(TARGET)
@@ -93,8 +91,7 @@ logging-configurator:=   configurator/logging-configurator/$(TARGET)
 unittests:= 	$(utilities-unittest) \
 		$(exception-unittest) \
                 $(logging-unittest) \
-		$(cmdline-unittest) \
-                $(configurator-unittest)
+		$(cmdline-unittest)
 
 
 support-modules:= 	$(utilities) \
@@ -107,15 +104,17 @@ src-lib:= $(support-modules) \
 	$(testlib) \
 	$(xml) \
 	$(common) \
-        $(exception) \
-	$(configurator) 
+        $(exception)
+
+#	$(configurator) 
 
 
 src-exe:=$(helloworld) \
 	$(unittests) \
 	$(logging-example1) \
-	$(cmdline-example1) \
-	$(xml-validator) \
+	$(cmdline-example1) 
+	
+#	$(xml-validator) \
 	$(configurator-example1) \
         $(logging-configurator)
 
@@ -126,6 +125,10 @@ x86-src:=$(src-lib) $(src-exe)
 
 
 ifeq (x86, $(TARGET))
+unittests+= $(configurator-unittest)
+src-lib+= $(configurator) 
+src-exe+= $(xml-validator) $(configurator-example1) $(logging-configurator)
+x86-src:= $(src-lib) $(src-exe)
 all-src:=$(x86-src)
 endif
 
@@ -186,6 +189,8 @@ $(INSTALLDIRS):
 x86:
 	@$(MAKE) TARGET=x86
 
+arm:
+	@$(MAKE) TARGET=arm
 
 
 .PHONY: clean

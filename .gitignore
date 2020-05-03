@@ -55,5 +55,10 @@ configurator/logging-configurator/x86/logging-configurator
 #**/x64
 #!submodules/xml-parser-1-0-2/xml/3rd-party/libxml/lib
 **/Release
-
+submodules/productivity-1-0-2/utilities/unit-tests/commit/arm/utilities-unit-tests
+cmdline/examples/cmdline-example1/arm/cmdline-example1
+cmdline/unit-tests/commit/arm/cmdline-unit-tests
+exception/unit-tests/commit/arm/exception-unit-tests
+logging/examples/logging-example1/arm/logging-example1
+logging/unit-tests/commit/arm/logging-unit-tests
 
