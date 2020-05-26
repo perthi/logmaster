@@ -48,7 +48,6 @@ std::mutex new_mutex;
 
 namespace LOGMASTER
 {
-    //std::shared_ptr<std::stack< std::map<eMSGTARGET, LMessageFactory   >  > >   LLogging::fConfigurationStack;
     std::stack<   std::shared_ptr<  std::map<eMSGTARGET,  LMessageFactory   >  >     >  LLogging::fConfigurationStack;
 
     LLogging *
@@ -71,11 +70,6 @@ namespace LOGMASTER
 
     LLogging::~LLogging()
     {
-        // delete fConfig;
-        // delete fDefaultConfig;
-        // fConfig = nullptr;
-        // fDefaultConfig = nullptr;
-
         try
         {
             do
@@ -118,10 +112,7 @@ namespace LOGMASTER
         SetLogLevel("--all-warning");
         SetLogFormat("--target-gui --all-off --short-user");
 
-
-       // fMessages = new std::map<eMSGTARGET,  LMessage *  >;
         fMessages =  std::make_shared< std::map<eMSGTARGET,  std::shared_ptr<LMessage>   > >();
-
 
         for ( auto it = fConfig->begin(); it != fConfig->end(); it ++ )
         {
@@ -155,19 +146,9 @@ namespace LOGMASTER
         do
         {
             auto c = fConfigurationStack.top();
-            // if ( c == fConfig )
-            // {
-            //     delete c;
-            // }
-
             fConfigurationStack.pop();
-
         } while ( fConfigurationStack.size() > 0 );
     }
-
-
-
-
 
 
 
@@ -179,14 +160,10 @@ namespace LOGMASTER
      *   @param  fmt The formatting for the message (same as the  C style printf formatting)
      *   @param  ...  Variable argument list
      *   @return  The generated log message */
-    //std::map<eMSGTARGET,  LMessage *  >	*
     std::shared_ptr< std::map<eMSGTARGET,  std::shared_ptr<LMessage>   > >
     LLogging::Log( const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt... )
     {
-        //		static LMessage *msg = new LMessage();
-//#ifdef THREAD_SAFE
         std::lock_guard<std::mutex> guard( log_mutex );
-///#endif
         va_list ap;
         va_start( ap, fmt );
         auto map = LogVarArgs( level, sys, l.fFileName.c_str(), l.fLineNo, l.fFunctName.c_str(), fmt, ap );
@@ -211,27 +188,16 @@ namespace LOGMASTER
      *			 where one wants the message to be genrated regardless (because you want to
      *			catch the exception with an exception handler). This falf is also usefull for debugging
      *   @param  addendum  optional string to attach to the messag */
-    //std::map<eMSGTARGET,  LMessage *  >	*
     std::shared_ptr<std::map<eMSGTARGET,  std::shared_ptr <LMessage>   >	>
     LLogging::LogVarArgs( const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int lineno,
                           const char* function, const char* fmt, va_list ap, const bool force_generate, const string addendum )
     {
-//       cerr <<  string(filename) << ":" << string(function) << "[" << lineno << "]" << endl;
- //      std::shared_ptr<std::map<eMSGTARGET,  std::shared_ptr <LMessage>   >	> m;
-
-  //     return m;
-
        if( fConfig == nullptr )
        {
            CERR << "CONFIG IS A ZERO POINTER" << endl;
            exit(-1);
        }
 
-     //   static  std::mutex l_mutex;
-      //  std::lock_guard<std::mutex> guard( l_mutex );
-
-       // static LMessage*           tmp_msg  =  new  LMessage();
-     //   static  thread_local std::shared_ptr<LMessage>           tmp_msg  =   std::make_shared<LMessage>();
         static std::shared_ptr<LMessage>           tmp_msg  =   std::make_shared<LMessage>();
 
         ClearMessages();
@@ -251,15 +217,11 @@ namespace LOGMASTER
 
                     if ( cl == true )
                     {
-                        //	tmp_msg = it->second.GenerateMessage( system, level, filename, lineno, function, fmt, ap, addendum   );
-
-                       /// auto     tmp_msg = it->second.GenerateMessage( system, level, filename, lineno, function, fmt, ap_l, addendum );
                         LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), it->first );
                         //LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), target );
                         auto it_msg = fMessages->find(it->first);
                         if ( it_msg != fMessages->end() )
                         {
-
                             it_msg->second = tmp_msg;
                         }
 
