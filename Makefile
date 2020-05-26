@@ -44,9 +44,9 @@ export COMMON_FLAGS:= -fPIC -std=c++17  -g
 export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wfatal-errors  -Werror
 
 export HAS_LOGGING:=""
-#export MAKE_SHARED:=""
 
-export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)  -DHAS_LOGGING
+
+export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)   -DHAS_LOGGING
 export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS) $(PEDANTIC_FLAGS)   -DHAS_LOGGING
 
 export XML_DIR:=$(CURDIR)/xml/3rd-party/
@@ -79,7 +79,6 @@ cmdline-example1:=       cmdline/examples/cmdline-example1/$(TARGET)
 cmdline-unittest:=       cmdline/unit-tests/commit/$(TARGET)
 exception:=              exception/$(TARGET)
 exception-unittest:=     exception/unit-tests/commit/$(TARGET)
-
 xml:=                    xml/$(TARGET)
 
 configurator:=           configurator/$(TARGET)
@@ -104,17 +103,15 @@ src-lib:= $(support-modules) \
 	$(testlib) \
 	$(xml) \
 	$(common) \
-        $(exception)
-
-#	$(configurator) 
+        $(exception) \
+	$(configurator) 
 
 
 src-exe:=$(helloworld) \
 	$(unittests) \
 	$(logging-example1) \
-	$(cmdline-example1) 
-	
-#	$(xml-validator) \
+	$(cmdline-example1) \
+	$(xml-validator) \
 	$(configurator-example1) \
         $(logging-configurator)
 

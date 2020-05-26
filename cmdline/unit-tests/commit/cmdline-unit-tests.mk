@@ -17,8 +17,12 @@ LIBS+= -lcmdline -lexception -llogmaster -lutilities
 LIBS+=  -lm
 
 
+#ifneq (arm, $(TARGET))
+#LIBS+= -lX11 -lreadline
+#endif
+
 ifneq (arm, $(TARGET))
-LIBS+= -lX11 -lreadline
+LIBS+=  -lreadline
 endif
 
 INCLUDES+=$(GTEST_INCLUDES)
