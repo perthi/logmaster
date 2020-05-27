@@ -341,34 +341,6 @@ namespace LOGMASTER
     }
 
 
-    /** @brief initialization of the hash table for the logginglevel
-    *
-    *  This hash table holds the current logging level for a given sub-system. This table is checked every time the logging system is asked to log a message, and if logging is enabled for the given level
-    *  and sub-system then the message is created. Where the message is actuall written (if at all) is decided by the target configuration, wether or not logging is enabled to to file, to console, etc..
-    *  @param l  All system are initialized with logging for this level or higher.  */
-    // void
-    // LHashMaps::InitHashLogLevel(const eMSGLEVEL l)
-    // {
-    //         fLogLevelHash.clear();
-    //         eMSGLEVEL level = (eMSGLEVEL)(PAD((int)l));
-
-    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_EX,      (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_ERROR)  );
-    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,    level );
-    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_FSM,     level );
-    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM,   (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
-    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_MESSAGE, level );
-    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_COM,     level );
-          
-    //       ///  fLogLevelHash.emplace(eMSGSYSTEM::SYS_API,     level );
-    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_XML,     level );
-
-
-    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL, level );
-    //         fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,    level );
-
-    // }
-
-
     /** @brief initialization of the hash table for the formatting of the messages,  used  on the command line or via the programming API */
     void
     LHashMaps::InitHashMsgFormat()
@@ -398,6 +370,8 @@ namespace LOGMASTER
         fTargetHash.emplace("--target-stdout",      eMSGTARGET::TARGET_STDOUT);
         fTargetHash.emplace("--target-subscriber",  eMSGTARGET::TARGET_SUBSCRIBERS);
         fTargetHash.emplace("--target-gui",         eMSGTARGET::TARGET_GUI);
+        fTargetHash.emplace("--target-database",    eMSGTARGET::TARGET_DATABASE);
+        fTargetHash.emplace("--target-db",          eMSGTARGET::TARGET_DATABASE);
         fTargetHash.emplace("--target-all",         eMSGTARGET::TARGET_ALL);
     }
 
