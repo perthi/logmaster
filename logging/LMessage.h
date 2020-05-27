@@ -49,6 +49,7 @@ namespace LOGMASTER
             ClearContent(); 
         };
 #endif
+        char  fOriging[1024];
         char  fMsgType[MAX_MSG_TYPE_SIZE];		//!< Message type and subsystem, e.eg <Error|Database>, <Driver|Debug> etc.. 
         char  fTimeStamp[MAX_MSG_TIME_STAMP_SIZE];		//!< The date and time the message was created
         char  fPath[MAX_MSG_PATH_SIZE];			//!< File path to the source code file where the messagee was created 
@@ -70,9 +71,12 @@ namespace LOGMASTER
         eMSGTARGET fTarget;			//!< The intended log target(s), (This varialble can be safely ignored by obsever functions)
         eMSGFORMAT fFormat;			//!< The format of the log message, i.e which files should be dislayed (This varialble can be safely ignored by obsever functions)
         
+        double      fEpochTime = -1;
+
 #ifdef  __cplusplus
         inline void ClearContent()
         {
+            fOriging[0] = 0;
             fMsgType[0] = 0;
             fTimeStamp[0] = 0;
             fPath[0] = 0;
@@ -81,6 +85,7 @@ namespace LOGMASTER
             fMsgBody[0] = 0;
             fMsg[0] = 0;
             fLineNo = -1;
+            fEpochTime = -1;
         }
 #endif
     };

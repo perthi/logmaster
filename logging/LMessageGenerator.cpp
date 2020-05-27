@@ -146,6 +146,8 @@ namespace LOGMASTER
         msg->fAColor = LColorMap::Instance()->GetAnsiColor(l);
         msg->fWColor = LColorMap::Instance()->GetCColor(l);
 
+        msg->fEpochTime = g_time()->GetEpochTime();
+
         if ( (int)eMSGFORMAT::MESSAGE_TYPE & (int)format )
         {
             string ret = ToString(s, l);
