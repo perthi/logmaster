@@ -3,7 +3,7 @@ PROGRAM:=helloworld
 SRCCPP+=helloworld.cpp
 
 
-LIBS+=   -lutilities 
+LIBS+=    -llogmaster  -lutilities  -lexception  -lreadline
 LIBS+=$(PROTOBUF_LIBS)
 
 

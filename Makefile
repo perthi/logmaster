@@ -80,11 +80,10 @@ cmdline-unittest:=       cmdline/unit-tests/commit/$(TARGET)
 exception:=              exception/$(TARGET)
 exception-unittest:=     exception/unit-tests/commit/$(TARGET)
 xml:=                    xml/$(TARGET)
-
 configurator:=           configurator/$(TARGET)
 configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
 logging-configurator:=   configurator/logging-configurator/$(TARGET)
-
+helloworld:=             helloworld/$(TARGET)
 
 
 unittests:= 	$(utilities-unittest) \

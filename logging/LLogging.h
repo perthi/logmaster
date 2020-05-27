@@ -67,7 +67,8 @@ namespace LOGMASTER
         std::shared_ptr<LConfig> API 	GetConfig(  const eMSGTARGET target);
         eMSGLEVEL				API		GetLogLevel(const eMSGSYSTEM system, const eMSGTARGET  target) const;
         string					API		GetLogFileName(const eMSGTARGET  target = eMSGTARGET::TARGET_FILE ) const;
-		
+		std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > >  GetLastMessages()  { return  fMessages; };
+
         vector< void( *)(const std::shared_ptr<LMessage>  ) >  API & GetSubscribers();
         void					API		RegisterSubscriber(  void(  *funct)(const std::shared_ptr<LMessage>   ));
         void					API		ClearSubscribers();
