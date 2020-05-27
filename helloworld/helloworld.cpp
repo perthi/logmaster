@@ -43,7 +43,7 @@ int main ()
    try
    {
 
-      SET_LOGTARGET("--target-off");
+      SET_LOGTARGET("--target-off --target-db");
       SET_LOGLEVEL("--all-debug");
       FORCE_DEBUG("Hellow world");
 
@@ -51,8 +51,8 @@ int main ()
 
       for (auto m : *test)
       {
-         FORCE_DEBUG("target = %d, msg bodyzz =::: %s", m.first, m.second->fMsgBody);         
-         FORCE_DEBUG("Epoch time = %f",  m.second->fEpochTime );
+         FORCE_DEBUG("target = %d, msg body =::: %s, time = %f", m.first, m.second->fMsgBody,    m.second->fEpochTime  );         
+   //      FORCE_DEBUG("Epoch time = %f",  m.second->fEpochTime );
          // FORCE_DEBUG("msg body = %s",  m.second->fMsgBody  );
       }
 

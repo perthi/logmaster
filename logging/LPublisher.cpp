@@ -61,6 +61,13 @@ namespace LOGMASTER
     void
     LPublisher::PublishMessage( const std::shared_ptr<LMessage>  msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target )
     {
+
+        if ( (int)target & (int)eMSGTARGET::TARGET_DATABASE )
+        {
+         //   CERR << "Writing to database not implmented !!" << endl;
+        }
+
+
         if(cfg == nullptr)
         {
             CERR << " CONFIG IS A ZERO POINTER" << endl;
@@ -102,6 +109,9 @@ namespace LOGMASTER
             {
                 PublishToGuiSubscribers( msg );
             }
+            
+        
+
 
         }
 

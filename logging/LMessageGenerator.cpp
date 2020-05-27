@@ -53,14 +53,11 @@ using std::string;
 namespace LOGMASTER
 {
     std::mutex G_gen_mutex;
-  //  LMessage *LMessageGenerator::fgMsgLast = new LMessage();
-  //  LMessage *LMessageGenerator::fgMsg = new LMessage();
 
     LMessageGenerator::LMessageGenerator() 
     {
         fgMsgLast =  std::make_shared<LMessage>();
         fgMsg =  std::make_shared<LMessage>();
-
     }
 
 

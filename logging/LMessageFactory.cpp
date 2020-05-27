@@ -46,13 +46,9 @@ namespace LOGMASTER
 	
 	LMessageFactory::LMessageFactory( const LMessageFactory &gen )
 	{
-		// fConfig = new LConfig( *gen.fConfig );
-		// fMessage = new LMessage( *gen.fMessage );
-		// fGenerator = new LMessageGenerator( *gen.fGenerator );
 		if( gen.fConfig  != nullptr )
 		 {
 			 fConfig     =   std::make_shared<LConfig>( *gen.fConfig );
-		 	//*fConfig =  *gen.fConfig ;
 		 }
 		 else
 		 {
@@ -62,7 +58,6 @@ namespace LOGMASTER
 		 if( gen.fConfig  != nullptr )
 		 {
 			fMessage     =   std::make_shared<LMessage>(*gen.fMessage  ); 
-		 	//*fMessage =  *gen.fMessage ;
 		 }
 		 else
 		 {
@@ -73,31 +68,18 @@ namespace LOGMASTER
 		if( gen.fGenerator  != nullptr )
 		 {
 			fGenerator     =   std::make_shared<LMessageGenerator >( *gen.fGenerator  ); 
-		 //	*fGenerator =  *gen.fGenerator ;
 		 }
 		 else
 		 {
 		 	fGenerator     =   std::make_shared<LMessageGenerator >();
 		 }
 
-
-		
-		// fConfig =  gen.fConfig ;
-		// fMessage =  gen.fMessage  ;
-		// fGenerator = gen.fGenerator;
-
-
 	}
 	
 
 	LMessageFactory::~LMessageFactory()
 	{
-		// delete fConfig;
-		// delete fGenerator;
-		// delete fMessage;
-		// fConfig = nullptr;
-		// fGenerator = nullptr;
-		// fMessage = nullptr;
+
 	}
 
 
