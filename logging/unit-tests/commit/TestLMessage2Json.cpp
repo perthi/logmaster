@@ -15,6 +15,8 @@
 using namespace LOGMASTER;
 
 #include  <utilities/GDefinitions.h>
+#include  <utilities/GTime.h>
+
 
 #include <memory>
 #include <iostream>
@@ -36,14 +38,13 @@ TestLMessage2Json::~TestLMessage2Json()
 }
 
 
+
 TEST_F( TestLMessage2Json,  dummy )
 {
     PUSH();
     FORCE_DEBUG("Testing dummy");
-    EXPECT_EQ( true, false );
+   // EXPECT_EQ( true, false );
     
- 
-
     SET_LOGTARGET("--target-off --target-db");
     SET_LOGLEVEL("--all-debug");
     COM_FATAL("Testing json conversion");
@@ -57,8 +58,20 @@ TEST_F( TestLMessage2Json,  dummy )
 
    // json_dta["module"] = "Logging";
    // json_dta["test"]  = "TEST!!";
+    
+    //GTime::GetRawTime(time_t * sec, int64_t * us)
 
-   cout << "JSON DATA = " << json_dta << endl;
+    double epoch = g_time()->GetEpochTime();
+    long sec = 0;
+    long us = 0;
+
+
+    g_time()->GetRawTime( &sec, &us );
+    FORCE_DEBUG("epcoch = %f", epoch);
+    FORCE_DEBUG("sec.us = %ld.%ld",  sec, us );
+
+    FORCE_DEBUG("ISO: %s",  g_time()->GetTime_ISO8601(true).c_str() );
+    // cout << "JSON DATA = " << json_dta << endl;
 
 
 
