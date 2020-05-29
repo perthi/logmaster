@@ -48,6 +48,8 @@ export HAS_LOGGING:=""
 
 export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)   -DHAS_LOGGING
 export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS) $(PEDANTIC_FLAGS)   -DHAS_LOGGING
+#export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS)    -DHAS_LOGGING
+
 
 export XML_DIR:=$(CURDIR)/xml/3rd-party/
 export XML_INCLUDES:= -I $(XML_DIR)
@@ -56,7 +58,7 @@ export LIBFLAGS:= -shared
 
 export CONFIG_DIR:=$(PWD)/config
 
-INCLUDES:= -I $(CURDIR)/include/
+INCLUDES:= -I $(CURDIR)/include/  -isystem $(CURDIR)/
 GTEST_INCLUDES:= -isystem $(CURDIR)/
 LIBS= -L $(CURDIR)/build/$(TARGET)/lib  -lm
 

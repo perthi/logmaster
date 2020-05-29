@@ -112,7 +112,7 @@ namespace LOGMASTER
                 PublishToGuiSubscribers( msg );
             }
             
-        
+            
 
 
         }
