@@ -26,7 +26,7 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fLogLevelHash.clear();
 //	eMSGLEVEL level = (eMSGLEVEL)(PAD((int)l));
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_EX,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_ERROR)  );
-	fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_INFO ) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_FSM, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_MESSAGE, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
@@ -104,7 +104,13 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fSubCmdHash.emplace("--xml-info",		std::make_pair(eMSGSYSTEM::SYS_XML,  eMSGLEVEL::LOG_INFO));
 	fSubCmdHash.emplace("--xml-debug",		std::make_pair(eMSGSYSTEM::SYS_XML,  eMSGLEVEL::LOG_DEBUG));
 	fSubCmdHash.emplace("--xml-all",		std::make_pair(eMSGSYSTEM::SYS_XML,  eMSGLEVEL::LOG_ALL));
-
+    
+	for (auto it = fSubCmdHash.begin(); it != fSubCmdHash.end(); ++it)
+        {
+            eMSGLEVEL l = std::get<1>(it->second);
+            eMSGLEVEL l_padded =  (eMSGLEVEL)PAD((int)l);
+            std::get<1>(it->second) = l_padded;
+        }
 
    }
 }

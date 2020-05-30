@@ -2,7 +2,6 @@
 
 PROGRAM=logging-unit-tests
 
-
 #SRCCPP:=logging-unit-tests.cpp \
 	TestLConfig.cpp \
 	TestLConversion.cpp \
@@ -14,8 +13,11 @@ PROGRAM=logging-unit-tests
 	TestSubscriber.cpp \
 	TestLMessage2Json.cpp
 
-SRCCPP:=logging-unit-tests.cpp \
+#SRCCPP:=logging-unit-tests.cpp \
 	TestLMessage2Json.cpp
+
+SRCCPP:=logging-unit-tests.cpp \
+	TestLTargets.cpp
 
 include ../../../../common.mk
 include ../../../../unittest-common.mk

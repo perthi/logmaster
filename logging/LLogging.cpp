@@ -535,14 +535,8 @@ namespace LOGMASTER
         }
         else
         {   
-            // CERR  << "0x" << fConfig.get() << endl;          
-            //  CERR  << "0x" << std::hex << fConfig-> << endl;     
             fConfigurationStack.push( fConfig );
-           // fConfig = new std::map<eMSGTARGET, LMessageFactory >( *fConfig );
             fConfig =  std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
-            // CERR  << "0x"<< std::hex << fConfig << endl;    
-            // CERR  << "0x" << fConfig.get() << endl;    
-
             return 0;
         }
         return 0;
@@ -553,7 +547,6 @@ namespace LOGMASTER
     LLogging::Pop(  )
     {
        std::lock_guard<std::mutex> guard( log_mutex );
-     ///   return 0;
         if ( fConfigurationStack.size() > 0 )
         {
             fConfig = fConfigurationStack.top();

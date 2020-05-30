@@ -149,7 +149,8 @@ namespace LOGMASTER
 
             /// We dont let anybody modfy the alarm or the exception sub-system, if the user attempt it we just
             /// masks   of that bit and silently ignore it
-            FilterOut(e_system, { eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EX });  
+        
+        //    FilterOut(e_system, { eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EX });  
             
             if( (int)e_system == 0 )
             {

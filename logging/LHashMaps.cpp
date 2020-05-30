@@ -341,6 +341,8 @@ namespace LOGMASTER
     }
 
 
+
+
     /** @brief initialization of the hash table for the formatting of the messages,  used  on the command line or via the programming API */
     void
     LHashMaps::InitHashMsgFormat()
@@ -423,6 +425,16 @@ namespace LOGMASTER
         fSubCmdHash.emplace("--user-all",			std::make_pair(eMSGSYSTEM::SYS_USER,		eMSGLEVEL::LOG_ALL));
 
         LHashMapsBase::InitHashLogTags();
+
+         
+	    for (auto it = fSubCmdHash.begin(); it != fSubCmdHash.end(); ++it)
+        {
+            eMSGLEVEL l = std::get<1>(it->second);
+            eMSGLEVEL l_padded =  (eMSGLEVEL)PAD((int)l);
+            std::get<1>(it->second) = l_padded;
+        }
+
+  // }
 
 
     }
