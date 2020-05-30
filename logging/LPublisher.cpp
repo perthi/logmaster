@@ -66,17 +66,13 @@ namespace LOGMASTER
 
         if ( (int)target & (int)eMSGTARGET::TARGET_DATABASE )
         {
-         //   CERR << "Writing to database not implmented !!" << endl;
+            CERR << "Writing to database not implmented !!" << endl;
         }
 
 
         if(cfg == nullptr)
         {
             CERR << " CONFIG IS A ZERO POINTER" << endl;
-        }
-
-        if ( msg->fFormat ==  eMSGFORMAT::ALL_FIELDS_OFF  )
-        {
             return;
         }
 
@@ -84,15 +80,46 @@ namespace LOGMASTER
 
         if ( force_debug == true )
         {
-            if ( (int)target & (int)eMSGTARGET::TARGET_TESTING )
-            {
+         //   CERR << "FORCE DEBUG = TRUE  !!!!!!!!! " << endl;  
+        //    if ( (int)target & (int)eMSGTARGET::TARGET_TESTING )
+         //   {
                 PublishToConsole( msg );
                 PublishToFile( cfg->fLogFilename.c_str(), msg );
                 PublishToSubscribers( msg );
-            }
+          //  }
+          //  else
+          //  {
+           //     CERR << "if ( (int)target & (int)eMSGTARGET::TARGET_TESTING )  !!!!! failed" << endl; 
+          //  }
         }
-        else
+
+
+        if ( msg->fFormat ==  eMSGFORMAT::ALL_FIELDS_OFF  )
         {
+           // CERR << "ALL FILEDS ARE OFF !!!!!!!!! " << endl; 
+            return;
+        }
+
+
+
+    ///    bool force_debug = ((int)msg->fLevel & (int)eMSGLEVEL::LOG_FORCE_DEBUG) != 0 ? true : false;
+
+        // if ( force_debug == true )
+        // {
+        //     CERR << "FORCE DEBUG = TRUE  !!!!!!!!! " << endl;  
+        //     if ( (int)target & (int)eMSGTARGET::TARGET_TESTING )
+        //     {
+        //         PublishToConsole( msg );
+        //         PublishToFile( cfg->fLogFilename.c_str(), msg );
+        //         PublishToSubscribers( msg );
+        //     }
+        //     else
+        //     {
+        //         CERR << "if ( (int)target & (int)eMSGTARGET::TARGET_TESTING )  !!!!! failed" << endl; 
+        //     }
+        // }
+        // else
+        // {
             if ( (int)target & (int)eMSGTARGET::TARGET_STDOUT )
             {
                 PublishToConsole( msg );
@@ -112,10 +139,7 @@ namespace LOGMASTER
                 PublishToGuiSubscribers( msg );
             }
             
-            
-
-
-        }
+       // }
 
     }
 

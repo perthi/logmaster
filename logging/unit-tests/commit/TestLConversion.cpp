@@ -48,54 +48,6 @@ TestLConversion::~TestLConversion()
 
 
 
-// #ifdef _WIN32
-// TEST_F( TestLConversion, SplitByTarget )
-// {
-// 	string s = "--target-stdout --all-off --db-debug";
-// 	auto m = LConversion::SplitByTarget(s);
-// 	ASSERT_EQ( 1, m.size() );
-// 	auto it = m.find(eMSGTARGET::TARGET_STDOUT);
-// 	EXPECT_NE( it, m.end() );
-// 	EXPECT_EQ(  eMSGTARGET::TARGET_STDOUT,   it->first  );
-// 	EXPECT_EQ(" --all-off --db-debug", it->second );
-// 	s   =   "--target-stdout --all-off --db-debug --target-file --fsm-fatal  --target-gui --db-error --fsm-info --target-subscriber --all-info";
-// 	m   =    LConversion::SplitByTarget(s);
-// 	ASSERT_EQ( 4, m.size() );
-// 	auto it_m = m.begin();
-// 	EXPECT_EQ( eMSGTARGET::TARGET_STDOUT, it_m->first );
-// 	EXPECT_EQ(" --all-off --db-debug", it_m->second );
-
-// 	it_m++;
-// 	EXPECT_EQ(  eMSGTARGET::TARGET_FILE,   it_m->first  );
-// 	EXPECT_EQ(" --fsm-fatal", it_m->second );
-
-// 	it_m++;
-// 	EXPECT_EQ(  eMSGTARGET::TARGET_GUI,   it_m->first  );
-// 	EXPECT_EQ(" --db-error --fsm-info", it_m->second );
-
-// 	it_m++;
-// 	EXPECT_EQ(  eMSGTARGET::TARGET_SUBSCRIBERS,   it_m->first  );
-// 	EXPECT_EQ(" --all-info", it_m->second );
-
-// 	m = LConversion::SplitByTarget("--target-gui --target-gui --target-file --target-file");
-
-// 	EXPECT_EQ(0, m.size() );
-
-// 	s =    "--all-off --db-debug --fsm-fatal --db-error --fsm-info --all-info";
-// 	m = LConversion::SplitByTarget(s);
-
-// 	ASSERT_EQ(1, m.size() );
-
-// 	it_m = m.begin();
-
-// 	EXPECT_EQ( eMSGTARGET::TARGET_ALL, it_m->first );
-// 	EXPECT_EQ("--all-off --db-debug --fsm-fatal --db-error --fsm-info --all-info", it_m->second  );
-
-// //	EXPECT_EQ()
-// }
-// #endif
-
-
 TEST_F( TestLConversion, HexString2Target )
 {
 	EXPECT_EQ( eMSGTARGET::TARGET_OFF,          LConversion::Instance()->HexString2Target("0x0")  );
@@ -103,13 +55,13 @@ TEST_F( TestLConversion, HexString2Target )
 	EXPECT_EQ( eMSGTARGET::TARGET_STDOUT,       LConversion::Instance()->HexString2Target( "0x2" ) );
 	EXPECT_EQ( eMSGTARGET::TARGET_SUBSCRIBERS,  LConversion::Instance()->HexString2Target( "0x4" ) );
 	EXPECT_EQ( eMSGTARGET::TARGET_GUI,          LConversion::Instance()->HexString2Target( "0x8" ) );
-	EXPECT_EQ( eMSGTARGET::TARGET_ALL,          LConversion::Instance()->HexString2Target( "0x3f" ) );
+	EXPECT_EQ( eMSGTARGET::TARGET_ALL,          LConversion::Instance()->HexString2Target( "0xff" ) );
 	EXPECT_EQ( eMSGTARGET::TARGET_OFF,          LConversion::Instance()->HexString2Target("0x00")  );
 	EXPECT_EQ( eMSGTARGET::TARGET_FILE,         LConversion::Instance()->HexString2Target( "0x01" ) );
 	EXPECT_EQ( eMSGTARGET::TARGET_STDOUT,       LConversion::Instance()->HexString2Target( "0x002" ) );
 	EXPECT_EQ( eMSGTARGET::TARGET_SUBSCRIBERS,  LConversion::Instance()->HexString2Target( "0x0004" ) );
 	EXPECT_EQ( eMSGTARGET::TARGET_GUI,          LConversion::Instance()->HexString2Target( "0x08" ) );
-	EXPECT_EQ( eMSGTARGET::TARGET_ALL,          LConversion::Instance()->HexString2Target( "0x00003f" ) );
+	EXPECT_EQ( eMSGTARGET::TARGET_ALL,          LConversion::Instance()->HexString2Target( "0x0000ff" ) );
 	EXPECT_EQ( eMSGTARGET::TARGET_OFF,          LConversion::Instance()->HexString2Target( "gibberish")  );
 	EXPECT_NE( eMSGTARGET::TARGET_FILE,         LConversion::Instance()->HexString2Target( "gibberish" ) );
 	EXPECT_NE( eMSGTARGET::TARGET_STDOUT,       LConversion::Instance()->HexString2Target( "gibberish" ) );
@@ -189,7 +141,7 @@ TEST_F(TestLConversion,  String2Target )
 	EXPECT_EQ( eMSGTARGET::TARGET_FILE,        LConversion::Instance()->String2Target( "0x1" ) );
 	EXPECT_EQ( eMSGTARGET::TARGET_STDOUT,      LConversion::Instance()->String2Target( "0x2" ) );
 	EXPECT_EQ( eMSGTARGET::TARGET_GUI,         LConversion::Instance()->String2Target( "0x8" ) );
-	EXPECT_EQ( eMSGTARGET::TARGET_ALL,         LConversion::Instance()->String2Target( "0x3f" ) );
+	EXPECT_EQ( eMSGTARGET::TARGET_ALL,         LConversion::Instance()->String2Target( "0xff" ) );
 }
 
 

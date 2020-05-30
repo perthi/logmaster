@@ -161,6 +161,8 @@ TEST_F( TestLTargets, configure_level_specific_target )
 		}
 	}	
 
+
+
 	g->ScanArguments( "-loglevel --off --all-error" );
 	g->ScanArguments( "-loglevel --target-stdout --all-info" );
 	g_utilities()->FilterOut( e_t, { eMSGTARGET::TARGET_STDOUT } );

@@ -128,6 +128,15 @@ namespace LOGMASTER
 
         msg->ClearContent();
 		
+        if ( format == eMSGFORMAT::ALL_FIELDS_OFF)
+        {
+            SPRINTF(msg->fMsg, MAX_MSG_SIZE, "ALL Message fields are turned off !!");
+            fgMsgLast = msg;
+            va_end(ap_l);  
+            return msg;
+        }
+
+
         string lfilepath = string(fname);   // The full path to the file, including the filename
         string ldir;                           // Only the directory part of the path
         string lfilename;                      // Only the filename part of the full path
