@@ -101,26 +101,30 @@ namespace LOGMASTER
      *  @param func  The name of the function where the message was generated ( __FUNCTION__)
      *  @param fmt[in] */
     std::shared_ptr<LMessage>
-    LMessageGenerator::GenerateMsg( std::shared_ptr<LMessage> G_in, const eMSGFORMAT format, const eMSGLEVEL l, const eMSGSYSTEM s, const char * fname, int line, const char * func, const char * fmt, va_list ap, string addendum)
+    LMessageGenerator::GenerateMsg( std::shared_ptr<LMessage> msg_in, const eMSGFORMAT format, const eMSGLEVEL l, 
+                                                                    const eMSGSYSTEM s, const char * fname, int line, 
+                                                                    const char * func, const char * fmt, va_list ap, string addendum)
     {
-          
         std::lock_guard<std::mutex> guard(G_gen_mutex);	
       //  static LMessage *G_l = new LMessage();
         va_list ap_l;
         va_copy(ap_l, ap);
-
-
-        //std::shared_ptr<LMessage> msg = nullptr;
         static std::shared_ptr<LMessage> msg = nullptr;
 
-        if ( G_in != nullptr )
+
+
+
+        if ( msg_in != nullptr )
         {
-            msg = G_in;
+            msg = msg_in;
         }
         else
         {
             msg = fgMsg;
         }
+
+        msg->fEpochTime = g_time()->GetEpochTime();
+
 
         msg->ClearContent();
 		
@@ -143,7 +147,7 @@ namespace LOGMASTER
         msg->fAColor = LColorMap::Instance()->GetAnsiColor(l);
         msg->fWColor = LColorMap::Instance()->GetCColor(l);
 
-        msg->fEpochTime = g_time()->GetEpochTime();
+      
 
         if ( (int)eMSGFORMAT::MESSAGE_TYPE & (int)format )
         {
