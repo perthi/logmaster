@@ -37,7 +37,10 @@
 
 namespace LOGMASTER
 {
-
+ 
+    string  LConfig::fTimeMode = "";
+    
+    
     LConfig::LConfig() : fHash()
     {
         fHash.InitHash( eMSGLEVEL::LOG_WARNING );
@@ -261,6 +264,18 @@ namespace LOGMASTER
     }
 
 
+    void
+    LConfig::SetTimeMode( const string mode )
+    {
+        fTimeMode = mode;
+    }
+
+    string
+    LConfig::GetTimeMode(  )
+    {
+        return  fTimeMode;
+    }
+
     string 
     LConfig::DoxygenDoc(const string filename)
     {
@@ -312,6 +327,8 @@ namespace LOGMASTER
         return "not impledmented";
     }
   
+
+    
 
     
 }

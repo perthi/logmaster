@@ -27,12 +27,10 @@ namespace LOGMASTER
 			virtual ~LMessage2Json();
 			void Message2Json(  const std::shared_ptr<LMessage>  msg, nlohmann::json  &j  );
 
-			inline static void SetJsonuSER( const nlohmann::json j ) {  fJson = j; };
+			inline static void SetJsonUser( const nlohmann::json j ) {  fJson = j; };
 
 		private:
 			static nlohmann::json fJson; 
-
-
 
 };
 
