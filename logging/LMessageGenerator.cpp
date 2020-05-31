@@ -123,10 +123,14 @@ namespace LOGMASTER
             msg = fgMsg;
         }
 
-        msg->fEpochTime = g_time()->GetEpochTime();
+      
 
 
         msg->ClearContent();
+
+        msg->fEpochTime = g_time()->GetEpochTime();
+      //  COUT  << "epcoch times was set to !!!!!" <<  msg->fEpochTime  << endl;
+
 		
         if ( format == eMSGFORMAT::ALL_FIELDS_OFF)
         {
