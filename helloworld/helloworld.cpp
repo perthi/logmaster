@@ -56,10 +56,17 @@ int main ()
       std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage>>> test = LLogging::Instance()->GetLastMessages();
       auto msg = test->at( eMSGTARGET::TARGET_DATABASE );        
       CERR << "msg body = " <<  msg->fMsgBody  << endl;   
-      nlohmann::json j;
-//      LMessage2Json().Message2Json(msg, j);
+      
+      nlohmann::json j_test;
+      j_test["USER"] = "blahhhhh!";
 
-  //    CERR << "JSON = " << j << endl;  
+      LMessage2Json::SetJsonuSER( j_test );
+
+      nlohmann::json j;
+      
+      LMessage2Json().Message2Json(msg, j);
+
+      CERR << "JSON = " << j << endl;  
 
 
    }
