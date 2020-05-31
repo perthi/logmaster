@@ -46,8 +46,13 @@ std::mutex log_mutex;
 std::mutex new_mutex;
 #endif
 
+
+
+string fSource;
+
 namespace LOGMASTER
 {
+
     std::stack<   std::shared_ptr<  std::map<eMSGTARGET,  LMessageFactory   >  >     >  LLogging::fConfigurationStack;
 
     LLogging *

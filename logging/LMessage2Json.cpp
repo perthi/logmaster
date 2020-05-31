@@ -32,6 +32,7 @@ LMessage2Json::Message2Json(  const std::shared_ptr<LMessage>  msg , nlohmann::j
     j["Category"] = sys_hash->at( msg->fSystem);
     j["Message"] = msg->fMsgBody;
     j["TimeEpcoch"] = msg->fEpochTime;
+    j["Time_ISOISO8601"] = g_time()->GetTime_ISO8601();
     
 
 }

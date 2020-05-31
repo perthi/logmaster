@@ -14,13 +14,6 @@ SRCCPP:=logging-unit-tests.cpp \
 	TestLMessage2Json.cpp
 
 
-#SRCCPP:=logging-unit-tests.cpp \
-	TestLMessage2Json.cpp
-
-
-#SRCCPP:=logging-unit-tests.cpp \
-	TestLTargets.cpp
-
 include ../../../../common.mk
 include ../../../../unittest-common.mk
 

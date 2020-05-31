@@ -183,6 +183,8 @@ LGeneratorMacrosLogging::GenerateCommon() const
     lines.push_back("#define SET_LOGFORMAT(format )       LLogging::Instance()->SetLogFormat(format )");
     lines.push_back("#define SET_LOGTARGET(target )       LLogging::Instance()->SetLogTarget(target )");
     lines.push_back("#define SET_LOGFILENAME(filename)    LLogging::Instance()->SetLogFileName(filename )");
+    lines.push_back("#define SET_APPLICATION(src)         LLogging::Instance()->SetApplication(src) ");
+    
     lines.push_back("\n\n");
     lines.push_back("#define PUSH()                       LLogging::Instance()->Push(  )");
     lines.push_back("#define POP()                        LLogging::Instance()->Pop(  )");

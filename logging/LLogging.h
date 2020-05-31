@@ -61,13 +61,17 @@ namespace LOGMASTER
         void					API		SetLogLevel( const  string  &level);
         void					API		SetLogTarget(   const  string  &target, bool eneable = true);
         void					API		SetLogFileName( const string &filename );
-		
+		inline void             API     SetApplication( const string app )  { fApplication =  app ; } ;
+
         eMSGTARGET				API		GetLogTarget()  const;
         eMSGFORMAT				API		GetLogFormat(   const eMSGTARGET target) const;
         std::shared_ptr<LConfig> API 	GetConfig(  const eMSGTARGET target);
         eMSGLEVEL				API		GetLogLevel(const eMSGSYSTEM system, const eMSGTARGET  target) const;
         string					API		GetLogFileName(const eMSGTARGET  target = eMSGTARGET::TARGET_FILE ) const;
 		std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > >  GetLastMessages()  { return  fMessages; };
+        inline string                  API     GetApplication() const { return  fApplication;  };
+
+
 
         vector< void( *)(const std::shared_ptr<LMessage>  ) >  API & GetSubscribers();
         void					API		RegisterSubscriber(  void(  *funct)(const std::shared_ptr<LMessage>   ));
@@ -100,6 +104,10 @@ namespace LOGMASTER
         std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > > fMessages = nullptr;
 
         static std::stack<   std::shared_ptr<  std::map<eMSGTARGET,  LMessageFactory   >  >     >  fConfigurationStack;
+    
+    
+        string fApplication = "";
+    
     };
 
 }

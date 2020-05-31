@@ -44,8 +44,10 @@
 #include <utilities/GColor.h>
 
 #include "LLogApi.h"
+#include "LMessage2Json.h"
 
 #include <memory>
+#include <json/json.hpp>
 
 
 using namespace LOGMASTER;
@@ -120,50 +122,16 @@ namespace LOGMASTER
         }
 
         }
-        
-
     }
 
 
 
-    // void
-    // LPublisher::Publish(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
-    // {
-
-    //     if (((int)target & (int)eMSGTARGET::TARGET_FILE))
-    //     {
-    //         PublishToFile(cfg->fLogFilename.c_str(), msg);
-    //     }
-
-    //     if ((int)target & (int)eMSGTARGET::TARGET_DATABASE)
-    //     {
-    //         PublishToDatabase(msg);
-    //     }
-
-    //     if (((int)target & (int)eMSGTARGET::TARGET_SUBSCRIBERS))
-    //     {
-    //         PublishToSubscribers(msg);
-    //     }
-
-    //     if (((int)target & (int)eMSGTARGET::TARGET_GUI))
-    //     {
-    //         PublishToGuiSubscribers(msg);
-    //     }
-
-    //     if ((int)target & (int)eMSGTARGET::TARGET_DATABASE)
-    //     {
-    //         PublishToConsole(msg);
-    //     }
-
-
-    // }
-
-
     void
-    LPublisher::PublishToDatabase(const std::shared_ptr<LMessage> /*message*/  )
-    {
+    LPublisher::PublishToDatabase(const std::shared_ptr<LMessage> msg  )
+    {nlohmann::json j;
 
-        CERR << "Writing to database not implmented !!" << endl;
+        LMessage2Json().Message2Json(msg, j);
+        //CERR << "JSON = " <<  j << endl;
 
     }
 
@@ -221,10 +189,6 @@ namespace LOGMASTER
             SetConsoleTextAttribute(hConsole, CONSOLE_DEFAULT);
 #endif     
         }
-
-
-
-
 
       void
     LPublisher::PublishToFile(const char * filename, const std::shared_ptr<LMessage> msg)
