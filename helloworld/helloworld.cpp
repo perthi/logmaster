@@ -40,15 +40,22 @@ using namespace LOGMASTER;
 
 
 
+
+
 int main ()
 {
    try
    {
 
 
-      SET_LOGTARGET("--target-off --target-db");
-      SET_LOGLEVEL("--all-debug");
+      SET_LOGTARGET("--target-off --target-db --target-stdout");
+      SET_LOGLEVEL("--all-error");
       FORCE_DEBUG("Hellow world");
+      G_DEBUG("Hellow world");
+      G_INFO("Hellow world");
+      G_WARNING("Hellow world");
+      G_ERROR("Hellow world");
+      G_FATAL("Hellow world");
 
       std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage>>> test = LLogging::Instance()->GetLastMessages();
 
