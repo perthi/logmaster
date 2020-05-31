@@ -38,10 +38,13 @@ using std::cout;
 using namespace LOGMASTER;
 
 
+
+
 int main ()
 {
    try
    {
+
 
       SET_LOGTARGET("--target-off --target-db");
       SET_LOGLEVEL("--all-debug");
@@ -51,10 +54,7 @@ int main ()
 
       for (auto m : *test)
       {
-          cout <<  "target = " <<  (int)m.first << " msg body = "  << m.second->fMsgBody << "\tepcoch time " <<  m.second->fEpochTime  << endl;
-     ///        FORCE_DEBUG("target = %d, msg body =::: %s, time = %f", m.first, m.second->fMsgBody,    m.second->fEpochTime  );         
-    //   FORCE_DEBUG("Epoch time = %f",  m.second->fEpochTime );
-    //   FORCE_DEBUG("msg body = %s",  m.second->fMsgBody  );
+       //   cout <<  "target = " <<  (int)m.first << " msg body = "  << m.second->fMsgBody << "\tepcoch time " <<  m.second->fEpochTime  << endl;
       }
       
    }

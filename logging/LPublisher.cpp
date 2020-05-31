@@ -59,18 +59,11 @@ namespace LOGMASTER
      *   @param[in] msg  The message to publish
      *   @param[in] cfg The current configuration of the logging system. 
      *   This configuration determins what is written and where it is written to (file, console or subscribers )
-     *   @param[in] target The target for wher to publish this message (file, stdout, subscribers etc..) */ 
+     *   @param[in] target The target for wher to publish this message (file, stdout, subscribers etc..) */
     void
-    LPublisher::PublishMessage( const std::shared_ptr<LMessage>  msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target )
+    LPublisher::PublishMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
     {
-
-        if ( (int)target & (int)eMSGTARGET::TARGET_DATABASE )
-        {
-            CERR << "Writing to database not implmented !!" << endl;
-        }
-
-
-        if(cfg == nullptr)
+        if (cfg == nullptr)
         {
             CERR << " CONFIG IS A ZERO POINTER" << endl;
             return;
@@ -78,68 +71,82 @@ namespace LOGMASTER
 
         bool force_debug = ((int)msg->fLevel & (int)eMSGLEVEL::LOG_FORCE_DEBUG) != 0 ? true : false;
 
-        if ( force_debug == true )
+        if (msg->fFormat == eMSGFORMAT::ALL_FIELDS_OFF)
         {
-         //   CERR << "FORCE DEBUG = TRUE  !!!!!!!!! " << endl;  
-        //    if ( (int)target & (int)eMSGTARGET::TARGET_TESTING )
-         //   {
-                PublishToConsole( msg );
-                PublishToFile( cfg->fLogFilename.c_str(), msg );
-                PublishToSubscribers( msg );
-          //  }
-          //  else
-          //  {
-           //     CERR << "if ( (int)target & (int)eMSGTARGET::TARGET_TESTING )  !!!!! failed" << endl; 
-          //  }
-        }
-
-
-        if ( msg->fFormat ==  eMSGFORMAT::ALL_FIELDS_OFF  )
-        {
-           // CERR << "ALL FILEDS ARE OFF !!!!!!!!! " << endl; 
+            PublishToConsole(msg);
+            // CERR << "ALL FILEDS ARE OFF !!!!!!!!! " << endl;
             return;
         }
 
-
-
-    ///    bool force_debug = ((int)msg->fLevel & (int)eMSGLEVEL::LOG_FORCE_DEBUG) != 0 ? true : false;
-
-        // if ( force_debug == true )
-        // {
-        //     CERR << "FORCE DEBUG = TRUE  !!!!!!!!! " << endl;  
-        //     if ( (int)target & (int)eMSGTARGET::TARGET_TESTING )
-        //     {
-        //         PublishToConsole( msg );
-        //         PublishToFile( cfg->fLogFilename.c_str(), msg );
-        //         PublishToSubscribers( msg );
-        //     }
-        //     else
-        //     {
-        //         CERR << "if ( (int)target & (int)eMSGTARGET::TARGET_TESTING )  !!!!! failed" << endl; 
-        //     }
-        // }
-        // else
-        // {
-            if ( (int)target & (int)eMSGTARGET::TARGET_STDOUT )
-            {
-                PublishToConsole( msg );
-            }
-            if ( (int)target & (int)eMSGTARGET::TARGET_FILE )
-            {
-                PublishToFile( cfg->fLogFilename.c_str(), msg );
-            }
-
-            if ( (int)target & (int)eMSGTARGET::TARGET_SUBSCRIBERS )
-            {
-                PublishToSubscribers( msg );
-            }
-
-            if ( (int)target & (int)eMSGTARGET::TARGET_GUI)
-            {
-                PublishToGuiSubscribers( msg );
-            }
+        if (force_debug == true)
+        {
+             if (((int)target & (int)eMSGTARGET::TARGET_FILE))
+             { 
+                PublishToFile(cfg->fLogFilename.c_str(), msg);
+             }
             
-       // }
+            if ((int)target & (int)eMSGTARGET::TARGET_DATABASE)
+            {
+                PublishToDatabase(msg);
+            }
+
+            if (((int)target & (int)eMSGTARGET::TARGET_SUBSCRIBERS))
+            {
+                PublishToSubscribers(msg);
+            }
+
+            if (((int)target & (int)eMSGTARGET::TARGET_GUI))
+            {
+                PublishToGuiSubscribers(msg);
+            }
+
+            if ((int)target & (int)eMSGTARGET::TARGET_DATABASE)
+            {
+                PublishToConsole(msg);
+            }
+        }
+        else
+        {
+
+            if ((int)target & (int)eMSGTARGET::TARGET_DATABASE)
+            {
+                PublishToConsole(msg);
+
+                CERR << "Writing to database not implmented !!" << endl;
+            }
+
+            if ((int)target & (int)eMSGTARGET::TARGET_DATABASE)
+            {
+                PublishToDatabase(msg);
+
+               // CERR << "Writing to database not implmented !!" << endl;
+            }
+
+            if (((int)target & (int)eMSGTARGET::TARGET_FILE))
+
+            {
+                PublishToFile(cfg->fLogFilename.c_str(), msg);
+            }
+
+            if (((int)target & (int)eMSGTARGET::TARGET_SUBSCRIBERS))
+
+            {
+                PublishToSubscribers(msg);
+            }
+
+            if (((int)target & (int)eMSGTARGET::TARGET_GUI))
+            {
+                PublishToGuiSubscribers(msg);
+            }
+        }
+    }
+
+
+    void
+    LPublisher::PublishToDatabase(const std::shared_ptr<LMessage> /*message*/  )
+    {
+
+        CERR << "Writing to database not implmented !!" << endl;
 
     }
 

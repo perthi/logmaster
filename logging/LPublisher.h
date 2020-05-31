@@ -38,6 +38,7 @@ namespace LOGMASTER
         static void     PublishToGuiSubscribers(const std::shared_ptr<LMessage> msg);
         static void     PublishToConsole(const std::shared_ptr<LMessage>  msg);
         static void     PublishToFile(const char * filename, const std::shared_ptr<LMessage>   );
+        static void     PublishToDatabase(const std::shared_ptr<LMessage>  msg);
         static bool     fgEnableColor; 	/* !< Wether or not colors will be used for distinguishing messages when they are written to the console */
     };
 

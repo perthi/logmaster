@@ -111,9 +111,6 @@ namespace LOGMASTER
         va_copy(ap_l, ap);
         static std::shared_ptr<LMessage> msg = nullptr;
 
-
-
-
         if ( msg_in != nullptr )
         {
             msg = msg_in;
@@ -123,14 +120,9 @@ namespace LOGMASTER
             msg = fgMsg;
         }
 
-      
-
-
         msg->ClearContent();
-
         msg->fEpochTime = g_time()->GetEpochTime();
       //  COUT  << "epcoch times was set to !!!!!" <<  msg->fEpochTime  << endl;
-
 		
         if ( format == eMSGFORMAT::ALL_FIELDS_OFF)
         {
@@ -139,7 +131,6 @@ namespace LOGMASTER
             va_end(ap_l);  
             return msg;
         }
-
 
         string lfilepath = string(fname);   // The full path to the file, including the filename
         string ldir;                           // Only the directory part of the path

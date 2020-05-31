@@ -38,8 +38,6 @@ TestLMessage2Json::~TestLMessage2Json()
 }
 
 
-
-/*
 TEST_F( TestLMessage2Json,  dummy )
 {
     PUSH();
@@ -67,10 +65,6 @@ TEST_F( TestLMessage2Json,  dummy )
     long us = 0;
 
 
-
-
-
-
     g_time()->GetRawTime( &sec, &us );
     FORCE_DEBUG("epcoch = %f", epoch);
     FORCE_DEBUG("sec.us = %ld.%ld",  sec, us );
@@ -82,4 +76,4 @@ TEST_F( TestLMessage2Json,  dummy )
 
     POP();
 }
-*/
+
