@@ -40,28 +40,19 @@ using std::cout;
 
 using namespace LOGMASTER;
 
-
 #include <json/json.hpp>
-
-
-
-
-
-
 
 
 
 int main ()
 {
-    LConfig::SetTimeMode("Cloud");
+   LConfig::SetTimeMode("Cloud");
 
    try
    {
-
       nlohmann::json j_test;
       j_test["origin"]["module"] = "ShotCalculation";
       j_test["origin"]["swVersion"] = "1.2.7";
-    
       LMessage2Json::SetJsonUser ( j_test );
 
       SET_LOGTARGET("--target-off --target-db --target-stdout --target-file");
@@ -71,15 +62,11 @@ int main ()
       COM_ERROR("communication fault");
       std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage>>> test = LLogging::Instance()->GetLastMessages();
       auto msg = test->at( eMSGTARGET::TARGET_DATABASE );        
+
       CERR << "msg body = " <<  msg->fMsgBody  << endl;   
-
       nlohmann::json j;
-      
       LMessage2Json().Message2Json(msg, j);
-
       CERR << "JSON = " << j << endl;  
-
-
    }
    catch(  GException &e )
    {
