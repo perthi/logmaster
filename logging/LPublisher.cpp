@@ -54,7 +54,8 @@ using namespace LOGMASTER;
 
 namespace LOGMASTER
 {
-    bool LPublisher::fgEnableColor = true;
+    bool  LPublisher::fgEnableColor = true;
+    bool  LPublisher::fgEnableJson = true;
 
     /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently
      *   than any other log levels and is always written to all targets regardless of the configuration of the logging system.
@@ -128,8 +129,8 @@ namespace LOGMASTER
 
     void
     LPublisher::PublishToDatabase(const std::shared_ptr<LMessage> msg  )
-    {nlohmann::json j;
-
+    {
+        nlohmann::json j;
         LMessage2Json().Message2Json(msg, j);
         //CERR << "JSON = " <<  j << endl;
 
@@ -194,7 +195,6 @@ namespace LOGMASTER
     LPublisher::PublishToFile(const char * filename, const std::shared_ptr<LMessage> msg)
     {
         FILE  *logFile = 0;
-        
 
 #ifdef _WIN32
         fopen_s(&logFile, filename, "a");
@@ -213,7 +213,50 @@ namespace LOGMASTER
             cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << filename << endl;
             CERR << "This message could not be logged:\t" << msg->fMsg << endl;
         }
+
+        if( fgEnableJson == true )
+        {
+             PublishToFileJson( filename , msg );
+        }
     }
+
+
+    void     
+    LPublisher::PublishToFileJson( const char *   filename_base,  const std::shared_ptr<LMessage>  msg )
+    {
+
+    
+        string fname_tmp = string( filename_base ) + ".json";
+        const char * fname_tmp_c  = fname_tmp.c_str();
+        FILE  *logFile = 0;
+
+#ifdef _WIN32
+        fopen_s(&logFile,fname_tmp_c, "a");
+#else
+        logFile = fopen(  fname_tmp_c, "a");
+#endif
+        nlohmann::json j;
+        LMessage2Json::Message2Json( msg, j );
+
+
+        std::stringstream buffer;
+        buffer << j  << endl;
+
+        if (logFile)
+        {
+            fputs(  buffer.str().c_str(), logFile);
+            fclose(logFile);
+            logFile = 0;
+        }
+        else
+        {
+            cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << fname_tmp_c  << endl;
+            CERR << "This message could not be logged:\t" << j << endl;
+        }
+    
+
+    }
+
 
 
     void 
@@ -230,10 +273,30 @@ namespace LOGMASTER
     }
 
 
-    bool *
+    bool  *
     LPublisher::GetEnableColor()
     {
-        return &fgEnableColor;
+        return  &fgEnableColor;
     }
+
+
+    void   
+    LPublisher::EnableJson()
+    {
+        fgEnableJson = true;
+    }
+
+    void   
+    LPublisher::DisableJson()
+    {
+        fgEnableJson = false;
+    }
+    
+    bool   *
+    LPublisher::GetEnableJson()
+    {
+        return &fgEnableJson;
+    }  
+
 
 }

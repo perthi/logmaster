@@ -46,8 +46,12 @@ export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-
 export HAS_LOGGING:=""
 
 
+# export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)  
+# export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS) $(PEDANTIC_FLAGS)  
+
 export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)   -DHAS_LOGGING
 export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS) $(PEDANTIC_FLAGS)   -DHAS_LOGGING
+
 #export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS)    -DHAS_LOGGING
 
 

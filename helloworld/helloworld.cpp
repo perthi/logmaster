@@ -46,13 +46,20 @@ using namespace LOGMASTER;
 
 
 
+
+
 int main ()
 {
     LConfig::SetTimeMode("Cloud");
 
-
    try
    {
+
+      nlohmann::json j_test;
+      j_test["origin"]["module"] = "ShotCalculation";
+      j_test["origin"]["swVersion"] = "1.2.7";
+    
+      LMessage2Json::SetJsonUser ( j_test );
 
       SET_LOGTARGET("--target-off --target-db --target-stdout");
       SET_LOGLEVEL("--all-error");
@@ -61,17 +68,7 @@ int main ()
       auto msg = test->at( eMSGTARGET::TARGET_DATABASE );        
       CERR << "msg body = " <<  msg->fMsgBody  << endl;   
       
-      nlohmann::json j_test;
-      j_test["origin"]["module"] = "ShotCalculation";
-      j_test["origin"]["swVersion"] = "1.2.7";
-    
-    // //  j_test["USER"] = "blahhhhh!";
-    //     j_test["unitGuid"] = "e30c392d-3f6a-4184-bf73-80c20a6a6c93";
-    //     j_test["unitTypeId"] =  "ETARGET";
-    //     j_test["productId"] =  "ITE";
-    //     j_test["application"] =  "escore-ite";
-
-      LMessage2Json::SetJsonUser ( j_test );
+     
 
       nlohmann::json j;
       

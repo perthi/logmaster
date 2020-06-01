@@ -12,6 +12,8 @@
 #include <utilities/GTime.h>
 
 
+#include <sstream>
+
 
 namespace LOGMASTER
 {
@@ -61,8 +63,11 @@ LMessage2Json::Message2Json(  const std::shared_ptr<LMessage>  msg , nlohmann::j
     j ["time"]["timestamp"] = msg->fEpochTime;
     j ["time"]["dateTime"] = g_time()->GetTime_ISO8601();
 
-    j["origin"]["path"] = msg->fPath;
-    
+    std::stringstream buffer;
+    buffer <<   msg->fPath << "/" <<  msg->fFileName << "::" <<  msg->fFunction << "::" << msg->fLineNo;
+    //msg->fFileName
+    j["origin"]["path"] = buffer.str();
+
 
     j ["Category"] = sys_hash->at( msg->fSystem);
     j ["Message"] = msg->fMsgBody;
