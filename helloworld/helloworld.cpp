@@ -48,6 +48,9 @@ using namespace LOGMASTER;
 
 
 
+
+
+
 int main ()
 {
     LConfig::SetTimeMode("Cloud");
@@ -61,14 +64,14 @@ int main ()
     
       LMessage2Json::SetJsonUser ( j_test );
 
-      SET_LOGTARGET("--target-off --target-db --target-stdout");
+      SET_LOGTARGET("--target-off --target-db --target-stdout --target-file");
       SET_LOGLEVEL("--all-error");
       FORCE_DEBUG("Hellow world");
+      FSM_FATAL("fatale message form FSM");
+      COM_ERROR("communication fault");
       std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage>>> test = LLogging::Instance()->GetLastMessages();
       auto msg = test->at( eMSGTARGET::TARGET_DATABASE );        
       CERR << "msg body = " <<  msg->fMsgBody  << endl;   
-      
-     
 
       nlohmann::json j;
       

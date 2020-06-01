@@ -64,7 +64,7 @@ LMessage2Json::Message2Json(  const std::shared_ptr<LMessage>  msg , nlohmann::j
     j ["time"]["dateTime"] = g_time()->GetTime_ISO8601();
 
     std::stringstream buffer;
-    buffer <<   msg->fPath << "/" <<  msg->fFileName << "::" <<  msg->fFunction << "::" << msg->fLineNo;
+    buffer <<   msg->fPath << "/" <<  msg->fFileName << "::" <<  msg->fFunction << ":: line" << msg->fLineNo;
     //msg->fFileName
     j["origin"]["path"] = buffer.str();
 

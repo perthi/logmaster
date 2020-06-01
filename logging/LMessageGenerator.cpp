@@ -171,17 +171,17 @@ namespace LOGMASTER
 
         if ( has_filepath )
         {
-            SPRINTF(msg->fPath, MAX_MSG_PATH_SIZE, "%s; ", ldir.c_str());
+            SPRINTF(msg->fPath, MAX_MSG_PATH_SIZE, "%s;", ldir.c_str());
         }
 
         if ( has_filename )
         {
-            SPRINTF(msg->fFileName, MAX_MSG_FNAME_SIZE, "%s; ", lfilename.c_str());
+            SPRINTF(msg->fFileName, MAX_MSG_FNAME_SIZE, "%s;", lfilename.c_str());
         }
 
         if ( (int)eMSGFORMAT::FUNCTION_NAME & (int)format )
         {
-            SPRINTF(msg->fFunction, MAX_MSG_FUNC_NAME_SIZE, "%s; ", func);
+            SPRINTF(msg->fFunction, MAX_MSG_FUNC_NAME_SIZE, "%s;", func);
         }
         
         if ( (int)eMSGFORMAT::LINE_NO & (int)format  )
