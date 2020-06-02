@@ -90,6 +90,7 @@ configurator:=           configurator/$(TARGET)
 configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
 logging-configurator:=   configurator/logging-configurator/$(TARGET)
 helloworld:=             helloworld/$(TARGET)
+sqlite:=                 logging/sqlite/$(TARGET) 
 
 
 unittests:= 	$(utilities-unittest) \
@@ -109,7 +110,8 @@ src-lib:= $(support-modules) \
 	$(xml) \
 	$(common) \
         $(exception) \
-	$(configurator) 
+	$(configurator) \
+	$(sqlite)
 
 
 src-exe:=$(helloworld) \

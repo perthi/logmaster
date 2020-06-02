@@ -45,6 +45,7 @@
 
 #include "LLogApi.h"
 #include "LMessage2Json.h"
+#include "LDatabase.h"
 
 #include <memory>
 #include <json/json.hpp>
@@ -56,6 +57,8 @@ namespace LOGMASTER
 {
     bool  LPublisher::fgEnableColor = true;
     bool  LPublisher::fgEnableJson = true;
+
+
 
     /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently
      *   than any other log levels and is always written to all targets regardless of the configuration of the logging system.
@@ -128,12 +131,9 @@ namespace LOGMASTER
 
 
     void
-    LPublisher::PublishToDatabase(const std::shared_ptr<LMessage> msg  )
+    LPublisher::PublishToDatabase(const std::shared_ptr<LMessage>  msg  )
     {
-        nlohmann::json j;
-        LMessage2Json().Message2Json(msg, j);
-        //CERR << "JSON = " <<  j << endl;
-
+        LDatabase::Instance()->Log(msg);
     }
 
     /**  Publish messages via the publiser/subscriber interface. The function iterates thrugh an

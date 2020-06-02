@@ -44,6 +44,7 @@ targets_local:=$(PROGRAM) $(LIBNAME_A) $(LIBNAME_SO)
 all: $(targets_local)
 
 
+
 $(INSTALLDIRS):
 	@if [ ! -b $@ ]; \
 		then \
@@ -98,7 +99,7 @@ VPATH=../
 
 
 %.o: %.c  %.h 
-	$(CCLOCAL) $(CFLAGS) -c -o $(@F) $< $(INCLUDES)
+	$(CC) $(CFLAGS) -c -o $(@F) $< $(INCLUDES)
 
 
 %.o:  	%.cpp  %.h

@@ -17,7 +17,7 @@ SRCCPP:=logging-unit-tests.cpp \
 include ../../../../common.mk
 include ../../../../unittest-common.mk
 
-LIBS+= -llogmaster  -lexception  -lutilities -ltestlib -lexception
+LIBS+= -llogmaster  -lexception  -lutilities -ltestlib -lexception  -lsqlite-embc
 
 
 ifneq (arm, $(TARGET))
