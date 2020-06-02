@@ -298,6 +298,7 @@ namespace LOGMASTER
     eMSGFORMAT
     LConversion::Hash2Format( const string & in )
     {
+
         auto hash = LHashMaps::GetFormatHash();
         auto it = hash->find( in );
 
@@ -307,6 +308,7 @@ namespace LOGMASTER
         }
         else
         {
+        //    CERR << "returning all files off !!!!" << endl;
             return eMSGFORMAT::ALL_FIELDS_OFF;
         }
     }

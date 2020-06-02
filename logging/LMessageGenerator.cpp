@@ -126,7 +126,7 @@ namespace LOGMASTER
 		
         if ( format == eMSGFORMAT::ALL_FIELDS_OFF)
         {
-            SPRINTF(msg->fMsg, MAX_MSG_SIZE, "ALL Message fields are turned off !!");
+            SPRINTF(msg->fMsg, MAX_MSG_SIZE, "NO MESSAGE WAS GENERATED BECAUSE ALL FILEDS ARE TURNED OFF !!\n");
             fgMsgLast = msg;
             va_end(ap_l);  
             return msg;

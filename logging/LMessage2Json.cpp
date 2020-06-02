@@ -33,6 +33,8 @@ LMessage2Json::~LMessage2Json()
 }
 
 
+
+
 /** Converts a regluar log messaeg to a message on JSON format which is more suitable for
  * interchange and serialization/deserialization
  *  @param msg[in] The log message
@@ -55,7 +57,15 @@ LMessage2Json::Message2Json(  const std::shared_ptr<LMessage>  msg , nlohmann::j
     //msg->fFileName
     j["origin"]["path"] = buffer.str();
 
-    j ["Category"] = sys_hash->at( msg->fSystem);
+    if( sys_hash->count(  msg->fSystem )  == 0  )
+    { 
+      j["Category"] = "NOT SET !";
+    }
+    else
+    {
+       j ["Category"] = sys_hash->at( msg->fSystem);
+    }
+    
     j ["Message"] = msg->fMsgBody;
 
 }
