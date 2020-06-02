@@ -29,15 +29,8 @@ using namespace LOGMASTER;
 
 int main ()
 {
-   //LPublisher::DisableJson();
-
-
-
-
-   SET_LOGFORMAT("00000000");
-
+   SET_LOGFORMAT("00000001");
     FORCE_DEBUG("This is a test");
-
     return 0;
 
 }
