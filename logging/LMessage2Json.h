@@ -6,11 +6,8 @@
 ***************************************************/
 
 
-// namespace std
-// {
-//     template<class, long unsigned int>
-//     struct array;
-// }
+
+
 
 #include <memory>
 
@@ -20,17 +17,17 @@ namespace LOGMASTER
 {
 	class LMessage;
 
+	/** Convert a regular message to a message on jSON format*/
 	class  LMessage2Json
 	{
 		public:
 			LMessage2Json();
 			virtual ~LMessage2Json();
 			static void Message2Json(  const std::shared_ptr<LMessage>  msg, nlohmann::json  &j  );
-
-			inline static void SetJsonUser( const nlohmann::json j ) {  fJson = j; };
+			static void SetJsonUser( const nlohmann::json j );
 
 		private:
-			static nlohmann::json fJson; 
+			static nlohmann::json fJsonUser; //!< Optional user addition to the json log message
 
 };
 

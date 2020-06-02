@@ -17,7 +17,7 @@
 
 namespace LOGMASTER
 {
-  nlohmann::json  LMessage2Json::fJson; 
+  nlohmann::json  LMessage2Json::fJsonUser; 
 
 
 
@@ -32,31 +32,18 @@ LMessage2Json::~LMessage2Json()
 
 }
 
-// {
-//   "level": "error",
-//   "time": 
-//   {
-//     "mode": "CLOUD", 
-//     "timestamp": 1014987600000,
-//     "datetime": "2002-03-01T13:00:00Z"
-//   },
-//   "origin": 
-//   {
-//     "module": "ShotCalculation",
-//     "path": "SCModule.cpp::CalculateShot4Sensors::129",
-//     "swVersion": "1.2.7"
-//   },
-//   "category": "Database", 
-//   "message": "Error while storing shot (96fce825-d85e-44bd-a5fb-4ff4291c9a8e) in database" 
-// }
 
+/** Converts a regluar log messaeg to a message on JSON format which is more suitable for
+ * interchange and serialization/deserialization
+ *  @param msg[in] The log message
+ *  @param j[in, out]  The json object where the converted message will be stored */
 void 
 LMessage2Json::Message2Json(  const std::shared_ptr<LMessage>  msg , nlohmann::json &  j )
 {
     auto lvl_hash = LHashMaps::Instance()->GetLevel2StringHash();
     auto sys_hash = LHashMaps::Instance()->GetSystem2StringHash();
 
-    j = fJson;
+    j = fJsonUser;
 
     j ["Level"] = lvl_hash->at(msg->fLevel);
     j ["time"]["mode"] = LConfig::GetTimeMode();
@@ -68,12 +55,22 @@ LMessage2Json::Message2Json(  const std::shared_ptr<LMessage>  msg , nlohmann::j
     //msg->fFileName
     j["origin"]["path"] = buffer.str();
 
-
     j ["Category"] = sys_hash->at( msg->fSystem);
     j ["Message"] = msg->fMsgBody;
-    
 
 }
+
+
+/** Set additional information to append to each log message. Typcially this can be 
+ *  additional information need, but that is not directly available 
+ *  from the logging system 
+ *  @param j[in] The additional information to append. Please not that this addition
+ *  is appended to each and every log message */
+void 
+ LMessage2Json::SetJsonUser( const nlohmann::json j ) 
+ {  
+   fJsonUser = j; 
+ }
 
 
 }
