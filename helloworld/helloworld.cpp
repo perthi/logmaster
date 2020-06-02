@@ -43,7 +43,6 @@ int main ()
     FORCE_DEBUG("Epoch time = %f", t );
     time_t rawtime  = (long)t ;
     struct tm *info;
-   // char buffer[80];
     time( &rawtime );
     info = localtime( &rawtime );
     FORCE_DEBUG("Year = %d",   info->tm_year + 1900 );
@@ -51,14 +50,7 @@ int main ()
 
    try
    {
-      nlohmann::json j_test;
-      j_test["origin"]["module"] = "ShotCalculation";
-      j_test["origin"]["swVersion"] = "1.2.7";
-      LMessage2Json::SetJsonUser ( j_test );
-     // SET_LOGTARGET("--target-off --target-db --target-stdout --target-file");
-    
       SET_LOGTARGET("--target-off --target-db");
-    //  SET_LOGTARGET("--target-off --target-db --target-stdout");
       SET_LOGLEVEL("--all-info");
       
       for(int i= 0; i < 5; i++ )
@@ -67,29 +59,13 @@ int main ()
       }
 
         string   test = "<Info:Fsm>";
-        //string   test = "Info";
-
-        COUT << "TP0" << endl;
-        
         LDatabase::Instance()->ReadEntriesPrepare( test, 10000 );
-        
-        COUT << "TP1" << endl;
-
-
         std::shared_ptr<LogEntry> msg = std::make_shared< LogEntry >();
-
-      //  LDatabase::Instance()->ReadEntriesGetEntry( msg ) 
-
 
         while( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true  ) 
         {
             COUT << "id = " << msg->LoggingID << "\tmsgtype = " << msg->LoggingType << "\tmsg = " << msg->Description << endl;
-
-    //        ///FORCE_DEBUG("id = %d",  msg->LoggingID );
-
        }
-
-
 
    }
    catch(  GException &e )
@@ -110,9 +86,7 @@ int main ()
        FORCE_DEBUG("Unknown exception caught !!");
    }
 
-      COUT << "TP2" << endl; 
-   LDatabase::Instance()->CloseDatabase();
-       COUT << "TP3" << endl;
+    LDatabase::Instance()->CloseDatabase();
     return 0;
 }
 

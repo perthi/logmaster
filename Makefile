@@ -90,6 +90,7 @@ configurator:=           configurator/$(TARGET)
 configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
 logging-configurator:=   configurator/logging-configurator/$(TARGET)
 helloworld:=             helloworld/$(TARGET)
+db-test:=                database-test/$(TARGET)
 sqlite:=                 logging/sqlite/$(TARGET) 
 
 
@@ -120,7 +121,8 @@ src-exe:=$(helloworld) \
 	$(cmdline-example1) \
 	$(xml-validator) \
 	$(configurator-example1) \
-        $(logging-configurator)
+        $(logging-configurator) \
+	$(db-test)
 
 
 
