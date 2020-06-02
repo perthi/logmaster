@@ -27,11 +27,11 @@ namespace LOGMASTER
 	{
 		public:
 			static  LDatabase API * Instance( const string db_path = "" );
- 			void Log(  const std::shared_ptr< LMessage > msg );
-
+ 			void AddLogEntry (  const std::shared_ptr< LMessage > msg, const string source  = "unkown");
 			///void SetDatabasePath( const string path );
 			void CloseDatabase();
 			bool OpenDatabase( const char *db_path );
+ 			bool DeleteEntries();
 
 		private:
 			LDatabase( const string db_path );
@@ -40,7 +40,7 @@ namespace LOGMASTER
 			LDatabase( const LDatabase & );
 			LDatabase operator = ( const LDatabase & );
 			
-			void SetDatabasePath();
+			///void SetDatabasePath();
 		
 			sqlite3       *m_DataBase  =  nullptr; 
         	sqlite3_stmt  *m_stmt     =   nullptr;  // SQLite statmement 

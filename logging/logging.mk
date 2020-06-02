@@ -21,7 +21,7 @@ SRCCPP:= LColorMap.cpp \
 	LMessage2Json.cpp \
 	LDatabase.cpp 
 
-
+CPPFLAGS+= -Wno-format-truncation
 
 include ../../common.mk
 

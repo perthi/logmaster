@@ -35,6 +35,9 @@ using std::cout;
 #include <logging/LMessage2Json.h>
 #include <logging/LConfig.h>
 
+#include <logging/LDatabase.h>
+#include <logging/LLogTest.h>
+
 #include <exception/GException.h>
 #include <exception>
 
@@ -43,10 +46,27 @@ using namespace LOGMASTER;
 #include <json/json.hpp>
 
 
+#include <utilities/GTime.h>
+
+#include <time.h>
 
 int main ()
 {
    LConfig::SetTimeMode("Cloud");
+
+    double t = g_time()->GetEpochTime();
+
+    FORCE_DEBUG("Epoch time = %f", t );
+    time_t rawtime  = (long)t ;
+    struct tm *info;
+
+   // char buffer[80];
+
+    time( &rawtime );
+    info = localtime( &rawtime );
+    FORCE_DEBUG("Year = %d",   info->tm_year + 1900 );
+    FORCE_DEBUG("Hour = %d",  info->tm_hour );
+
 
    try
    {
@@ -58,10 +78,21 @@ int main ()
      // SET_LOGTARGET("--target-off --target-db --target-stdout --target-file");
       SET_LOGTARGET("--target-off --target-db");
       
-      SET_LOGLEVEL("--all-error");
-      FORCE_DEBUG("Hellow world");
-      FSM_FATAL("fatale message form FSM");
-      COM_ERROR("communication fault");
+      SET_LOGLEVEL("--all-info");
+      
+      for(int i= 0; i < 10; i++ )
+      {
+         LLogTest::WriteMessages();
+
+    //   FORCE_DEBUG("Hellow world");
+    //   FSM_FATAL("fatale message form FSM");
+    //   COM_ERROR("communication fault");
+
+    //     FORCE_DEBUG("Hellow world");
+    //   FSM_FATAL("fatale message form FSM");
+    //   COM_ERROR("communication fault");
+      } 
+
     //   std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage>>> test = LLogging::Instance()->GetLastMessages();
     //   auto msg = test->at( eMSGTARGET::TARGET_DATABASE );        
 
@@ -88,7 +119,9 @@ int main ()
        FORCE_DEBUG("Unknown exception caught !!");
    }
 
-  return 0;
+    LDatabase::Instance()->CloseDatabase();
+    
+    return 0;
 }
 
 

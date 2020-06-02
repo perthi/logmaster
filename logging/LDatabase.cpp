@@ -12,6 +12,15 @@
 
 #include "sqlite/sqlite3.h"
 
+#include <stdio.h>
+#include <string.h>
+
+#include <utilities/GFileIOHandler.h>
+
+
+#include <thread>
+#include <chrono>
+
 namespace LOGMASTER
 {
 
@@ -32,6 +41,8 @@ namespace LOGMASTER
         }
 
         OpenDatabase( fDBPath.c_str()  );
+       // this->Start();
+       // this->Detach();
     }
 
     LDatabase::~LDatabase()
@@ -39,18 +50,86 @@ namespace LOGMASTER
 
     }
 
-    void 
-    LDatabase::Log(  const  std::shared_ptr< LMessage > /*msg*/ )
+
+//   double t = g_time()->GetEpochTime();
+//     FORCE_DEBUG("Epoch time = %f", t );
+//     time_t rawtime  = (long)t ;
+//     struct tm *info;
+//    // char buffer[80];
+//     time( &rawtime );
+//     info = localtime( &t );
+
+
+    void
+    LDatabase::AddLogEntry(const std::shared_ptr<LMessage> msg,  const string source  )
     {
-        CERR << "Logging to DB is not implemented" << endl;
+        auto t =  msg->fEpochTime;
+        time_t rawtime = (long)t;
+        struct tm *info;
+        time(&rawtime);
+        info = localtime(&rawtime);
+
+        int rc;
+        static char sql[500];
+        char *zErrMsg = 0;
+
+      //  info->tm
+
+        //std::shared_ptr<LogEntry> entry = std::static_pointer_cast<LogEntry>(data);
+
+#ifndef WIN32
+        snprintf(sql,  500, "INSERT INTO Logging (LoggingType, TimeStamp, Day, Month, Year, Source, Description) VALUES ('%s',%ju,%d,%d,%d,'%s','%s')",
+#else
+       sprintf_s(sql, "INSERT INTO Logging (LoggingType, TimeStamp, Day, Month, Year, Source, Description) VALUES ('%s',%I64d,%d,%d,%d,'%s','%s')",
+#endif
+                   msg->fMsgType,   (int64_t)msg->fEpochTime,  info->tm_wday, info->tm_mon,  info->tm_year + 1900,
+                   source.c_str(), msg->fMsgBody );
+
+
+        rc = sqlite3_exec(m_DataBase, sql, NULL, 0, &zErrMsg);
+        if (rc != SQLITE_OK)
+        {
+            //printf("AddEntry SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        }
+
+        COUT << "Added Entry to DB" << endl;
     }
+
+    bool
+    LDatabase::DeleteEntries()
+    {
+        int rc;
+        char sql[200];
+        char *zErrMsg = 0;
+
+       // sprintf_s(sql, "DELETE FROM Logging;");
+        
+        snprintf(sql, 200, "DELETE FROM Logging;");
+
+        rc = sqlite3_exec(m_DataBase, sql, NULL, 0, &zErrMsg);
+        if (rc != SQLITE_OK)
+        {
+            ///::LogError("Log", "DeleteEntries SQL error: %s", zErrMsg);
+            CERR <<  "Log DeleteEntries SQL error: " << zErrMsg << endl;
+            sqlite3_free(zErrMsg);
+            return false;
+        }
+        return true;
+    }
+
 
     bool
     LDatabase::OpenDatabase( const char *db_path  )
     {
+
+
+
         int rc;
         char *zErrMsg = 0;
         rc = sqlite3_open(db_path, &m_DataBase);
+
+       // if( g_file()->DoExists( string( db_path ) );
 
         if (rc)
         {
@@ -82,10 +161,16 @@ namespace LOGMASTER
         }
     }
 
+
     void 
     LDatabase::CloseDatabase()
     {
+        while (sqlite3_close( m_DataBase ) == SQLITE_BUSY)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        }
 
+        COUT << "Database was closed" << endl;
     }
 
 

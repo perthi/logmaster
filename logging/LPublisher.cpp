@@ -129,11 +129,10 @@ namespace LOGMASTER
     }
 
 
-
     void
     LPublisher::PublishToDatabase(const std::shared_ptr<LMessage>  msg  )
     {
-        LDatabase::Instance()->Log(msg);
+        LDatabase::Instance()->AddLogEntry(msg);
     }
 
     /**  Publish messages via the publiser/subscriber interface. The function iterates thrugh an
