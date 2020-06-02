@@ -23,6 +23,19 @@ namespace LOGMASTER
 {
 	class LMessage;
 
+	class LogEntry
+	{
+	public:
+		std::uint32_t LoggingID = 0;
+		std::string LoggingType = "";
+		std::uint64_t TimeStamp = 0;
+		std::uint32_t Day = 0;
+		std::uint32_t Month = 0;
+		std::uint32_t Year = 0;
+		std::string Source = "";
+		std::string Description = "";
+	};
+
 	class LDatabase
 	{
 		public:
@@ -32,6 +45,8 @@ namespace LOGMASTER
 			void CloseDatabase();
 			bool OpenDatabase( const char *db_path );
  			bool DeleteEntries();
+   			bool ReadEntriesPrepare(std::string LoggingTypes, std::uint32_t Count);
+ 			bool ReadEntriesGetEntry( std::shared_ptr<LogEntry>  entry  );
 
 		private:
 			LDatabase( const string db_path );

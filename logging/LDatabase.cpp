@@ -51,15 +51,6 @@ namespace LOGMASTER
     }
 
 
-//   double t = g_time()->GetEpochTime();
-//     FORCE_DEBUG("Epoch time = %f", t );
-//     time_t rawtime  = (long)t ;
-//     struct tm *info;
-//    // char buffer[80];
-//     time( &rawtime );
-//     info = localtime( &t );
-
-
     void
     LDatabase::AddLogEntry(const std::shared_ptr<LMessage> msg,  const string source  )
     {
@@ -119,16 +110,169 @@ namespace LOGMASTER
     }
 
 
+
+     bool  
+     LDatabase::ReadEntriesPrepare(std::string LoggingTypes, uint32_t Count)
+    {
+        int rc;
+        std::string Delimiter = ",", SqlString, WhereString;
+        size_t Last = 0, Next = 0;
+        bool FirstTime = true;
+        std::stringstream  IntStr;
+
+        SqlString = "SELECT * FROM Logging ";
+        WhereString = "";
+        if (LoggingTypes.length() > 0)
+        {
+            while ((Next = LoggingTypes.find(Delimiter, Last)) != std::string::npos)
+            {
+                if (FirstTime)
+                {
+                    WhereString += "WHERE ";
+                    FirstTime = false;
+                }
+                else
+                    WhereString += " OR ";
+                WhereString += " LoggingType='";
+                WhereString += LoggingTypes.substr(Last, Next - Last);
+                WhereString += "'";
+                Last = Next + 1;
+            }
+            if (FirstTime)
+            {
+                WhereString = "WHERE LoggingType='";
+                WhereString += LoggingTypes.substr(Last);
+                WhereString += "'";
+            }
+            else
+            {
+                WhereString += " OR LoggingType='";
+                WhereString += LoggingTypes.substr(Last, Next - Last);
+                WhereString += "'";
+            }
+        }
+        SqlString += WhereString;
+        SqlString += " ORDER BY LoggingID DESC ";
+        if (Count > 0)
+        {
+            SqlString += " LIMIT ";
+            IntStr << Count;
+            SqlString += IntStr.str();
+        }
+
+        rc = sqlite3_prepare(m_DataBase, SqlString.c_str(), SqlString.length(), &m_stmt, nullptr);
+        
+        if (rc != SQLITE_OK)
+        {
+          //  ::LogError("Log", "ReadEntriesPrepare SQL error: %s", sqlite3_errmsg( m_DataBase ));
+            COUT << "Log ReadEntriesPrepare SQL error: " << sqlite3_errmsg( m_DataBase ) << endl;
+            return false;
+        }
+        return true;
+    }
+
+
+
+
+
+
+//	bool ReadEntriesGetEntry( std::shared_ptr<LogEntry>  entry  );
+
+	bool 
+    LDatabase::ReadEntriesGetEntry( std::shared_ptr<LogEntry>  entry )
+    {
+        int rc;
+
+       // int cnt = 0;
+
+       // do
+       // {
+         //   COUT << "cnt = " << cnt << "rc = " << rc << endl;
+          //  cnt ++;
+            rc = sqlite3_step( m_stmt );
+
+      //  } while ((rc != SQLITE_DONE) && (rc != SQLITE_ROW) && (rc != SQLITE_ERROR));
+
+        if (rc == SQLITE_ROW)
+        {
+            int ColumnCount = sqlite3_column_count( m_stmt);
+            for (int i = 0; i < ColumnCount; i++)
+            {
+                if (strcasecmp(sqlite3_column_name( m_stmt, i), "LoggingID") == 0)
+                {
+                    if (sqlite3_column_type( m_stmt, i) == SQLITE_INTEGER)
+                        entry->LoggingID = sqlite3_column_int( m_stmt, i);
+                    else
+                        printf("Log: ReadEntriesGetEntry Incorrect Type LoggingID\n");
+                }
+                else if (strcasecmp(sqlite3_column_name( m_stmt, i), "LoggingType") == 0)
+                {
+                    if (sqlite3_column_type( m_stmt, i) == SQLITE_TEXT )
+                        entry->LoggingType = std::string(reinterpret_cast<const char*>(sqlite3_column_text( m_stmt, i)));
+                    else
+                        printf("Log: ReadEntriesGetEntry Incorrect Type LoggingType\n");
+                }
+                else if (strcasecmp(sqlite3_column_name( m_stmt, i), "TimeStamp") == 0)
+                {
+                    if (sqlite3_column_type( m_stmt, i) == SQLITE_INTEGER)
+                        entry->TimeStamp = sqlite3_column_int( m_stmt, i);
+                    else
+                        printf("Log: ReadEntriesGetEntry Incorrect Type TimeStamp\n");
+                }
+                else if (strcasecmp(sqlite3_column_name( m_stmt, i), "Day") == 0)
+                {
+                    if (sqlite3_column_type( m_stmt, i) == SQLITE_INTEGER)
+                        entry->Day = sqlite3_column_int( m_stmt, i);
+                    else
+                        printf("Log: ReadEntriesGetEntry Incorrect Type Day\n");
+                }
+                else if (strcasecmp(sqlite3_column_name( m_stmt, i), "Month") == 0)
+                {
+                    if (sqlite3_column_type( m_stmt, i) == SQLITE_INTEGER)
+                        entry->Month = sqlite3_column_int( m_stmt, i);
+                    else
+                        printf("Log: ReadEntriesGetEntry Incorrect Type Month\n");
+                }
+                else if (strcasecmp(sqlite3_column_name( m_stmt, i), "Year") == 0)
+                {
+                    if (sqlite3_column_type( m_stmt, i) == SQLITE_INTEGER)
+                        entry->Year = sqlite3_column_int( m_stmt, i);
+                    else
+                        printf("Log: ReadEntriesGetEntry Incorrect Type Year\n");
+                }
+                else if (strcasecmp(sqlite3_column_name(m_stmt, i), "Source") == 0)
+                {
+                    if (sqlite3_column_type( m_stmt, i) == SQLITE_TEXT)
+                        entry->Source = std::string(reinterpret_cast<const char*>(sqlite3_column_text( m_stmt, i)));
+                    else
+                        printf("Log: ReadEntriesGetEntry Incorrect Type Source\n");
+                }
+                else if (strcasecmp(sqlite3_column_name( m_stmt, i), "Description") == 0)
+                {
+                    if (sqlite3_column_type( m_stmt, i) == SQLITE_TEXT)
+                        entry->Description = std::string(reinterpret_cast<const char*>(sqlite3_column_text( m_stmt, i)));
+                    else
+                        printf("Log: ReadEntriesGetEntry Incorrect Type Description\n");
+                }
+            }
+            return true;
+        }
+        else
+        {
+            sqlite3_finalize( m_stmt );
+            return false;
+        }
+
+    }
+    
+
+
     bool
     LDatabase::OpenDatabase( const char *db_path  )
     {
-
-
-
         int rc;
         char *zErrMsg = 0;
         rc = sqlite3_open(db_path, &m_DataBase);
-
        // if( g_file()->DoExists( string( db_path ) );
 
         if (rc)
@@ -165,9 +309,12 @@ namespace LOGMASTER
     void 
     LDatabase::CloseDatabase()
     {
+        int cnt = 0;
         while (sqlite3_close( m_DataBase ) == SQLITE_BUSY)
         {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            COUT << "database is busy, cnt = " << cnt << endl;
+            cnt ++;
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
 
         COUT << "Database was closed" << endl;
