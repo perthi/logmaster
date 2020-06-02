@@ -41,9 +41,8 @@ namespace LOGMASTER
         }
 
         OpenDatabase( fDBPath.c_str()  );
-       // this->Start();
-       // this->Detach();
     }
+
 
     LDatabase::~LDatabase()
     {
@@ -64,10 +63,6 @@ namespace LOGMASTER
         static char sql[500];
         char *zErrMsg = 0;
 
-      //  info->tm
-
-        //std::shared_ptr<LogEntry> entry = std::static_pointer_cast<LogEntry>(data);
-
 #ifndef WIN32
         snprintf(sql,  500, "INSERT INTO Logging (LoggingType, TimeStamp, Day, Month, Year, Source, Description) VALUES ('%s',%ju,%d,%d,%d,'%s','%s')",
 #else
@@ -76,15 +71,13 @@ namespace LOGMASTER
                    msg->fMsgType,   (int64_t)msg->fEpochTime,  info->tm_wday, info->tm_mon,  info->tm_year + 1900,
                    source.c_str(), msg->fMsgBody );
 
-
         rc = sqlite3_exec(m_DataBase, sql, NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK)
         {
-            //printf("AddEntry SQL error: %s\n", zErrMsg);
+            printf("AddEntry SQL error: %s\n", zErrMsg);
             sqlite3_free(zErrMsg);
         }
 
-        COUT << "Added Entry to DB" << endl;
     }
 
     bool
@@ -93,9 +86,7 @@ namespace LOGMASTER
         int rc;
         char sql[200];
         char *zErrMsg = 0;
-
        // sprintf_s(sql, "DELETE FROM Logging;");
-        
         snprintf(sql, 200, "DELETE FROM Logging;");
 
         rc = sqlite3_exec(m_DataBase, sql, NULL, 0, &zErrMsg);
@@ -172,26 +163,15 @@ namespace LOGMASTER
     }
 
 
-
-
-
-
-//	bool ReadEntriesGetEntry( std::shared_ptr<LogEntry>  entry  );
-
 	bool 
     LDatabase::ReadEntriesGetEntry( std::shared_ptr<LogEntry>  entry )
     {
         int rc;
-
-       // int cnt = 0;
-
-       // do
-       // {
-         //   COUT << "cnt = " << cnt << "rc = " << rc << endl;
-          //  cnt ++;
+       do
+       {
             rc = sqlite3_step( m_stmt );
 
-      //  } while ((rc != SQLITE_DONE) && (rc != SQLITE_ROW) && (rc != SQLITE_ERROR));
+       } while ((rc != SQLITE_DONE) && (rc != SQLITE_ROW) && (rc != SQLITE_ERROR));
 
         if (rc == SQLITE_ROW)
         {
@@ -262,10 +242,8 @@ namespace LOGMASTER
             sqlite3_finalize( m_stmt );
             return false;
         }
-
     }
     
-
 
     bool
     LDatabase::OpenDatabase( const char *db_path  )
@@ -273,7 +251,6 @@ namespace LOGMASTER
         int rc;
         char *zErrMsg = 0;
         rc = sqlite3_open(db_path, &m_DataBase);
-       // if( g_file()->DoExists( string( db_path ) );
 
         if (rc)
         {

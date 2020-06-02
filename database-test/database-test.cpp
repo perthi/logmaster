@@ -36,6 +36,7 @@ using namespace LOGMASTER;
 
 
 
+
 int main ()
 {
    LConfig::SetTimeMode("Cloud");
@@ -89,6 +90,7 @@ int main ()
     LDatabase::Instance()->CloseDatabase();
     return 0;
 }
+
 
 
 ///std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > >  Ge
