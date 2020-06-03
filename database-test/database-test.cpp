@@ -36,10 +36,6 @@ using namespace LOGMASTER;
 
 
 
-
-
-
-
 int main ()
 {
    LConfig::SetTimeMode("Cloud");
@@ -53,8 +49,6 @@ int main ()
     FORCE_DEBUG("Hour = %d",  info->tm_hour );
 
 
-
-
    try
    {
       SET_LOGTARGET("--target-off --target-db --target-file --target-stdout");
@@ -65,11 +59,8 @@ int main ()
          LLogTest::WriteMessages();
       }
 
-        string   test = "<Info:Fsm>";
-        
-      //  LDatabase::Instance()->ReadEntriesPrepare( test, 10000 );
-        LDatabase::Instance()->ReadEntriesPrepare(  eMSGLEVEL::LOG_ERROR, 10000 );
-
+        LDatabase::Instance()->InitSQLQuery(  eMSGLEVEL::LOG_INFO, eMSGSYSTEM::SYS_COM | eMSGSYSTEM::SYS_USER , 5 );
+      
         std::shared_ptr<LogEntry> msg = std::make_shared< LogEntry >();
 
         while( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true  ) 

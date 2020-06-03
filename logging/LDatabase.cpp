@@ -73,10 +73,10 @@ namespace LOGMASTER
         LMessage2Json::Message2Json( msg, j );
         std::stringstream buffer;
         buffer << j;
+
 #ifndef WIN32
         snprintf(sql, 1000, "INSERT INTO t_logging (time, level, category, json ) VALUES ('%f',%d, %d,'%s')",
 #else
-    ///   sprintf_s(sql, "INSERT INTO Logging (LoggingType, TimeStamp, Day, Month, Year, Source, Description) VALUES ('%s',%I64d,%d,%d,%d,'%s','%s')",
        snprintf_s(sql, "INSERT INTO  t_logging (time, level, category, json ) VALUES ('%f',%d, %d,'%s')",
 #endif
                    msg->fEpochTime, (int)msg->fLevel,  (int)msg->fSystem, 
@@ -112,19 +112,67 @@ namespace LOGMASTER
         return true;
     }
 
-    bool API 
-    LDatabase::ReadEntriesPrepare( const eMSGLEVEL level, int cnt )
+
+
+    bool  
+    LDatabase::InitSQLQuery( const eMSGLEVEL level, int cnt )
     {
         std::stringstream buffer;
-        buffer <<  "SELECT * FROM t_logging WHERE level = " << (int)level << " ORDER BY id DESC  LIMIT " << cnt ;
-        string SqlString = buffer.str();
+     //   buffer <<  "SELECT * FROM t_logging WHERE level = " << (int)level << " ORDER BY id DESC  LIMIT " << cnt ;
+        buffer <<  "SELECT * FROM t_logging WHERE level = " << (int)level << " ORDER BY id DESC";
+        return InitQuery( buffer.str(), cnt );
+    }
 
-        int rc = sqlite3_prepare(m_DataBase, SqlString.c_str(), SqlString.length(), &m_stmt, nullptr);
-        
+    bool  
+    LDatabase::InitSQLQuery( const eMSGSYSTEM  system, int cnt )
+    {
+        std::stringstream buffer;
+       // buffer <<  "SELECT * FROM t_logging WHERE category = " << (int)system << " ORDER BY id DESC  LIMIT " << cnt ;
+         buffer <<  "SELECT * FROM t_logging WHERE category = " << (int)system << " ORDER BY id DESC"; 
+        return InitQuery( buffer.str(), cnt );
+    }
+
+    bool  
+    LDatabase::InitSQLQuery(  const eMSGLEVEL level,  const eMSGSYSTEM  system, int cnt )
+    {
+        std::stringstream buffer;
+       // buffer <<  "SELECT * FROM t_logging WHERE category = " << (int)system << " AND level = " <<  (int)level << " ORDER BY id DESC  LIMIT " << cnt ;
+          buffer <<  "SELECT * FROM t_logging WHERE category = " << (int)system << " AND level = " <<  (int)level << " ORDER BY id DESC";
+        return InitQuery( buffer.str(), cnt );
+    }
+
+
+    bool 
+    LDatabase::InitSQLQuery(  int cnt )
+    {
+        std::stringstream buffer;
+       // buffer <<  "SELECT * FROM t_logging  ORDER BY id DESC  LIMIT " << cnt ;
+          buffer <<  "SELECT * FROM t_logging  ORDER BY id DESC";
+        return InitQuery( buffer.str(), cnt );
+    }
+
+    string 
+    LDatabase::LimitString( const int limit )
+    {
+        std::stringstream buffer;
+        buffer << " LIMIT " << limit;
+        return buffer.str();
+    }
+
+
+    bool
+    LDatabase::InitQuery( string sql_query,  const int limit  )
+    {
+        if(limit > 0)
+        {
+          sql_query += LimitString(limit);  
+        }
+
+        int rc = sqlite3_prepare(m_DataBase, sql_query.c_str(), sql_query.length(), &m_stmt, nullptr);    
+
         if (rc != SQLITE_OK)
         {
-          //  ::LogError("Log", "ReadEntriesPrepare SQL error: %s", sqlite3_errmsg( m_DataBase ));
-            COUT << "Log ReadEntriesPrepare SQL error: " << sqlite3_errmsg( m_DataBase ) << endl;
+            COUT << "Log ReadEntriesPrepare SQL error: " << sqlite3_errmsg(m_DataBase) << endl;
             return false;
         }
         else
@@ -133,87 +181,15 @@ namespace LOGMASTER
         }
     }
 
-    
-
-/*
-    bool  
-    LDatabase::ReadEntriesPrepare(std::string LoggingTypes, uint32_t Count)
-    {
-        int rc;
-        std::string Delimiter = ",", SqlString, WhereString;
-        size_t Last = 0, Next = 0;
-        bool FirstTime = true;
-        std::stringstream  IntStr;
-
-        SqlString = "SELECT * FROM t_logging ";
-        WhereString = "";
-        if (LoggingTypes.length() > 0)
-        {
-            while ((Next = LoggingTypes.find(Delimiter, Last)) != std::string::npos)
-            {
-                if (FirstTime)
-                {
-                    WhereString += "WHERE ";
-                    FirstTime = false;
-                }
-                else
-                {
-                    WhereString += " OR ";
-                    WhereString += " LoggingType='";
-                    WhereString += LoggingTypes.substr(Last, Next - Last);
-                    WhereString += "'";
-                    Last = Next + 1;
-                }
-            }
-            if (FirstTime)
-            {
-                WhereString = "WHERE LoggingType='";
-                WhereString += LoggingTypes.substr(Last);
-                WhereString += "'";
-            }
-            else
-            {
-                WhereString += " OR LoggingType='";
-                WhereString += LoggingTypes.substr(Last, Next - Last);
-                WhereString += "'";
-            }
-        }
-
-        SqlString += WhereString;
-        SqlString += " ORDER BY LoggingID DESC ";
-        
-        if (Count > 0)
-        {
-            SqlString += " LIMIT ";
-            IntStr << Count;
-            SqlString += IntStr.str();
-        }
-
-        rc = sqlite3_prepare(m_DataBase, SqlString.c_str(), SqlString.length(), &m_stmt, nullptr);
-        
-        if (rc != SQLITE_OK)
-        {
-          //  ::LogError("Log", "ReadEntriesPrepare SQL error: %s", sqlite3_errmsg( m_DataBase ));
-            COUT << "Log ReadEntriesPrepare SQL error: " << sqlite3_errmsg( m_DataBase ) << endl;
-            return false;
-        }
-        return true;
-    }
-*/
-
-
-
-
-    // const char *LoggingSQL = "CREATE TABLE IF NOT EXISTS t_logging ( "
-    //                                  "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
-    //                                  "time FLOAT(53), "
-    //                                  "level INTEGER, "
-    //                                  "category INTEGER,"
-    //                                  "json TEXT );";
-
     bool
     LDatabase::ReadEntriesGetEntry(std::shared_ptr<LogEntry> entry)
     {
+        if( m_stmt == nullptr )
+        {
+            CERR << "NO SQL QUERY INITIALIZED" << endl;
+            return false;    
+        }
+
         int rc;
         do
         {
@@ -306,17 +282,6 @@ namespace LOGMASTER
         }
         else
         {
-            // Define logging table
-            // const char *LoggingSQL = "CREATE TABLE IF NOT EXISTS Logging ( "
-            //                          "LoggingID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
-            //                          "LoggingType TEXT, "
-            //                          "TimeStamp INTEGER, "
-            //                          "Day INTEGER, "
-            //                          "Month INTEGER, "
-            //                          "Year INTEGER, "
-            //                          "Source TEXT, "
-            //                          "Description TEXT );";
-
               const char *LoggingSQL = "CREATE TABLE IF NOT EXISTS t_logging ( "
                                      "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
                                      "time FLOAT(53), "

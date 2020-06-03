@@ -59,8 +59,11 @@ namespace LOGMASTER
  			bool API DeleteEntries();
    //			bool API ReadEntriesPrepare(std::string LoggingTypes, std::uint32_t Count);
  			
-			bool API ReadEntriesPrepare( const  eMSGLEVEL level, const int cnt = 100 );
-			 
+			bool API  InitSQLQuery( const  eMSGLEVEL level, const int cnt = 0 );
+			bool API  InitSQLQuery( const  eMSGSYSTEM  system, int cnt = 0 );
+			bool API  InitSQLQuery( const  eMSGLEVEL level, const eMSGSYSTEM  system, int cnt  = 0);
+			bool API  InitSQLQuery( const int cnt  = 0 );
+
 			bool API ReadEntriesGetEntry( std::shared_ptr<LogEntry>  entry  );
 
 		private:
@@ -70,12 +73,15 @@ namespace LOGMASTER
 			LDatabase( const LDatabase & );
 			LDatabase operator = ( const LDatabase & );
 			
+			bool InitQuery( string query, const int limit  );
+			string LimitString( const int cnt );
 			///void SetDatabasePath();
 		
 			sqlite3       *m_DataBase  =  nullptr; 
         	sqlite3_stmt  *m_stmt     =   nullptr;  // SQLite statmement 
 
 			string  fDBPath = "logmaster.db";
+
 
 	};
 
