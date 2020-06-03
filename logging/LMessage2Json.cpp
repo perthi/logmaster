@@ -43,26 +43,19 @@ LMessage2Json::~LMessage2Json()
 void 
 LMessage2Json::Message2Json(  const std::shared_ptr<LMessage>  msg , nlohmann::json &  j )
 {
-  //  auto lvl_hash = LHashMaps::Instance()->GetLevel2StringHash();
-//    auto sys_hash = LHashMaps::Instance()->GetSystem2StringHash();
-
     j = fJsonUser;
-
-    //j ["Level"] = lvl_hash->at(msg->fLevel);
     
-    j ["Level"] = LMessageGenerator::Instance()->ToString( msg->fLevel );
-    j ["time"]["mode"] = LConfig::GetTimeMode();
-    j ["time"]["timestamp"] = msg->fEpochTime;
-    j ["time"]["dateTime"] = g_time()->GetTime_ISO8601();
+    j["Level"] = LMessageGenerator::Instance()->ToString( msg->fLevel );
+    j["time"]["mode"] = LConfig::GetTimeMode();
+    j["time"]["timestamp"] = (int)msg->fEpochTime;
+    j["time"]["dateTime"] = g_time()->GetTime_ISO8601();
 
     std::stringstream buffer;
     buffer <<   msg->fPath << "/" <<  msg->fFileName << "::" <<  msg->fFunction << ":: line" << msg->fLineNo;
-    //msg->fFileName
+    
     j["origin"]["path"] = buffer.str();
-
-   j["Category"] = LMessageGenerator::Instance()->ToString( msg->fSystem  );
-
-    j ["Message"] = msg->fMsgBody;
+    j["Category"] = LMessageGenerator::Instance()->ToString( msg->fSystem  );
+    j["Message"] = msg->fMsgBody;
 
 }
 
