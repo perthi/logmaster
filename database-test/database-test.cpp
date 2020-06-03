@@ -53,16 +53,17 @@ int main ()
     FORCE_DEBUG("Hour = %d",  info->tm_hour );
 
 
+
+
    try
    {
-      SET_LOGTARGET("--target-off --target-db");
+      SET_LOGTARGET("--target-off --target-db --target-file --target-stdout");
       SET_LOGLEVEL("--all-info");
       
       for(int i= 0; i < 5; i++ )
       {
          LLogTest::WriteMessages();
       }
-
 
         string   test = "<Info:Fsm>";
         

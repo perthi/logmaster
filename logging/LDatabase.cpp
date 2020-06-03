@@ -66,54 +66,13 @@ namespace LOGMASTER
     void
     LDatabase::AddLogEntry(const std::shared_ptr<LMessage> msg,  const string /*source*/  )
     {
-        // auto t =  msg->fEpochTime;
-        // time_t rawtime = (long)t;
-        // struct tm *info;
-        // time(&rawtime);
-        // info = localtime(&rawtime);
-
         int rc;
         static char sql[1000];
         char *zErrMsg = 0;
-
- // const char *LoggingSQL = "CREATE TABLE IF NOT EXISTS t_logging ( "
-    //                                  "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
-    //                                  "time FLOAT(53), "
-    //                                  "level INTEGER, "
-    //                                  "category INTEGER,"
-    //                                  "json TEXT );";
-
-
-
-// #ifndef WIN32
-//         snprintf(sql,  500, "INSERT INTO Logging (LoggingType, TimeStamp, Day, Month, Year, Source, Description) VALUES ('%s',%ju,%d,%d,%d,'%s','%s')",
-// #else
-//        sprintf_s(sql, "INSERT INTO Logging (LoggingType, TimeStamp, Day, Month, Year, Source, Description) VALUES ('%s',%I64d,%d,%d,%d,'%s','%s')",
-// #endif
-//                    msg->fMsgType,   (int64_t)msg->fEpochTime,  info->tm_wday, info->tm_mon,  info->tm_year + 1900,
-//                    source.c_str(), msg->fMsgBody );
-
-    //#include "LMessage2Json.h"
-
-
-
         nlohmann::json j;
         LMessage2Json::Message2Json( msg, j );
-     //      CERR << "TP0" << endl;
-       // std::string j_s = ""; 
-       // j >> j_s ;
-
-
         std::stringstream buffer;
         buffer << j;
-
-       // string j_s = buffer.str();
-
-
-    //     CERR << "TP1" << endl;
-    //     CERR << "JSON = " << buffer.str() << endl;
-    //  CERR << "TP2" << endl;
-
 #ifndef WIN32
         snprintf(sql, 1000, "INSERT INTO t_logging (time, level, category, json ) VALUES ('%f',%d, %d,'%s')",
 #else
@@ -172,10 +131,9 @@ namespace LOGMASTER
         {
             return true;
         }
-        
-
     }
 
+    
 
 /*
     bool  

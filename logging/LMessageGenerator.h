@@ -29,16 +29,18 @@ namespace LOGMASTER
 {
     struct LMessage;
     class LLogging;
-    
+    class LMessage2Json;
+
 
 /** @class  LMessageGenerator
  *  Helper class for the logging system that is responisble for the generation of log messages*/
 class LMessageGenerator
 {
-    friend LLogging;
-    friend TestLogging_level_to_string_Test;
-    friend TestLogging_system_to_string_Test;
-    friend TestLogging_to_string_Test;
+    friend  LLogging;
+    friend  LMessage2Json; 
+    friend  TestLogging_level_to_string_Test;
+    friend  TestLogging_system_to_string_Test;
+    friend  TestLogging_to_string_Test;
 
 public:
     static  LMessageGenerator API * Instance(); // CRAP PTH

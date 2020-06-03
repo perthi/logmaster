@@ -4,10 +4,11 @@
 ***************************************************/
 
 
-#include "LMessage2Json.h"
-#include "LMessage.h"
-#include "LHashMaps.h"
-#include "LConfig.h"
+#include  "LMessage2Json.h"
+#include  "LMessage.h"
+#include  "LHashMaps.h"
+#include  "LConfig.h"
+#include  "LMessageGenerator.h"
 
 #include <utilities/GTime.h>
 
@@ -42,12 +43,14 @@ LMessage2Json::~LMessage2Json()
 void 
 LMessage2Json::Message2Json(  const std::shared_ptr<LMessage>  msg , nlohmann::json &  j )
 {
-    auto lvl_hash = LHashMaps::Instance()->GetLevel2StringHash();
-    auto sys_hash = LHashMaps::Instance()->GetSystem2StringHash();
+  //  auto lvl_hash = LHashMaps::Instance()->GetLevel2StringHash();
+//    auto sys_hash = LHashMaps::Instance()->GetSystem2StringHash();
 
     j = fJsonUser;
 
-    j ["Level"] = lvl_hash->at(msg->fLevel);
+    //j ["Level"] = lvl_hash->at(msg->fLevel);
+    
+    j ["Level"] = LMessageGenerator::Instance()->ToString( msg->fLevel );
     j ["time"]["mode"] = LConfig::GetTimeMode();
     j ["time"]["timestamp"] = msg->fEpochTime;
     j ["time"]["dateTime"] = g_time()->GetTime_ISO8601();
@@ -57,15 +60,8 @@ LMessage2Json::Message2Json(  const std::shared_ptr<LMessage>  msg , nlohmann::j
     //msg->fFileName
     j["origin"]["path"] = buffer.str();
 
-    if( sys_hash->count(  msg->fSystem )  == 0  )
-    { 
-      j["Category"] = "NOT SET !";
-    }
-    else
-    {
-       j ["Category"] = sys_hash->at( msg->fSystem);
-    }
-    
+   j["Category"] = LMessageGenerator::Instance()->ToString( msg->fSystem  );
+
     j ["Message"] = msg->fMsgBody;
 
 }
