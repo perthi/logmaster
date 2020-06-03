@@ -61,4 +61,5 @@ cmdline/unit-tests/commit/arm/cmdline-unit-tests
 exception/unit-tests/commit/arm/exception-unit-tests
 logging/examples/logging-example1/arm/logging-example1
 logging/unit-tests/commit/arm/logging-unit-tests
+helloworld/arm/helloworld
 
