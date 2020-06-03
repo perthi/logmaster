@@ -21,7 +21,7 @@ struct  sqlite3_stmt;
 
 namespace LOGMASTER
 {
-	class LMessage;
+	struct LMessage;
 
 	class LogEntry
 	{
@@ -40,13 +40,12 @@ namespace LOGMASTER
 	{
 		public:
 			static  LDatabase API * Instance( const string db_path = "" );
- 			void AddLogEntry (  const std::shared_ptr< LMessage > msg, const string source  = "unkown");
-			///void SetDatabasePath( const string path );
-			void CloseDatabase();
-			bool OpenDatabase( const char *db_path );
- 			bool DeleteEntries();
-   			bool ReadEntriesPrepare(std::string LoggingTypes, std::uint32_t Count);
- 			bool ReadEntriesGetEntry( std::shared_ptr<LogEntry>  entry  );
+ 			void API AddLogEntry (  const std::shared_ptr< LMessage > msg, const string source  = "unkown");
+			void API CloseDatabase();
+			bool API OpenDatabase( const char *db_path );
+ 			bool API DeleteEntries();
+   			bool API ReadEntriesPrepare(std::string LoggingTypes, std::uint32_t Count);
+ 			bool API ReadEntriesGetEntry( std::shared_ptr<LogEntry>  entry  );
 
 		private:
 			LDatabase( const string db_path );
