@@ -65,7 +65,7 @@ int main ()
 
         while( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true  ) 
         {
-            COUT << "id = " << msg->LoggingID << "\tmsgtype = " << msg->LoggingType << "\tmsg = " << msg->Description << endl;
+            COUT << "id = " << msg->m_id << "\tcategory = " << msg->m_category << "\tmsg = " << msg->m_json << endl;
        }
 
    }

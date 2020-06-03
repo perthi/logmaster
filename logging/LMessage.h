@@ -58,6 +58,8 @@ namespace LOGMASTER
         int   fRgBColor;				//!< Message color in RGB color format ( 0x000000 - 0xFFFFFF)
         int   fWColor;					//!< Message color in windows console format ( 1 -15 )
         int   fAColor;                              //!< Message color in ANSI format ( 30 -97 )
+
+
 #ifdef __cplusplus
         int   fLineNo = -1;				//!< The line number where the messaeg was created
 #else

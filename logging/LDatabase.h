@@ -23,18 +23,30 @@ namespace LOGMASTER
 {
 	struct LMessage;
 
+	// class LogEntry
+	// {
+	// public:
+	// 	std::uint32_t LoggingID = 0;
+	// 	std::string LoggingType = "";
+	// 	std::uint64_t TimeStamp = 0;
+	// 	std::uint32_t Day = 0;
+	// 	std::uint32_t Month = 0;
+	// 	std::uint32_t Year = 0;
+	// 	std::string Source = "";
+	// 	std::string Description = "";
+	// };
+
+
 	class LogEntry
 	{
 	public:
-		std::uint32_t LoggingID = 0;
-		std::string LoggingType = "";
-		std::uint64_t TimeStamp = 0;
-		std::uint32_t Day = 0;
-		std::uint32_t Month = 0;
-		std::uint32_t Year = 0;
-		std::string Source = "";
-		std::string Description = "";
+		std::uint32_t m_id = 0;
+		std::uint8_t  m_level = 0;
+		std::uint8_t  m_category = 0;
+		double        m_time = 0;
+		std::string   m_json = "";
 	};
+
 
 	class LDatabase
 	{

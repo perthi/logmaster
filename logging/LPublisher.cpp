@@ -82,7 +82,7 @@ namespace LOGMASTER
             return;
         }
 
-       bool force_debug = ((int)msg->fLevel & (int)eMSGLEVEL::LOG_FORCE_DEBUG) != 0 ? true : false;
+        bool force_debug = ((int)msg->fLevel & (int)eMSGLEVEL::LOG_FORCE_DEBUG) != 0 ? true : false;
 
 
         if ( force_debug == true )
