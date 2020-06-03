@@ -3,9 +3,11 @@
 PROGRAM:=database-test
 SRCCPP+=database-test.cpp
 
-LIBS+=    -llogmaster  -lutilities  -lexception  -lreadline  -lsqlite-embc -ldl -lpthread
-LIBS+=$(PROTOBUF_LIBS)
+LIBS+=    -llogmaster  -lutilities  -lexception   -lsqlite-embc -ldl -lpthread
 
 
+ifneq (arm, $(TARGET))
+LIBS+=  -lreadline
+endif
 
 include ../../common.mk
