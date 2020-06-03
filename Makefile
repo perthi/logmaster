@@ -156,6 +156,7 @@ CCLOCAL:=c++   -std=c++17
 ARLOCAL:=ar
 else
 CCLOCAL:=arm-linux-gnueabihf-g++   -std=c++17 -DARM
+CC:= arm-linux-gnueabihf-gcc
 ARLOCAL:=arm-linux-gnueabihf-ar
 endif
 
