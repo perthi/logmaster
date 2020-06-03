@@ -114,10 +114,12 @@ namespace LOGMASTER
         if ( msg_in != nullptr )
         {
             msg = msg_in;
+           // COUT <<  "msg = msg_in" <<  endl; 
         }
         else
         {
-            msg = fgMsg;
+          msg = fgMsg;
+          //COUT <<  "msg = fgMsg" << endl;
         }
 
         msg->ClearContent();

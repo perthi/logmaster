@@ -165,7 +165,7 @@ namespace LOGMASTER
      *   @param  l The location of the log  message in the code (filenam, function name line number etc.. )
      *   @param  fmt The formatting for the message (same as the  C style printf formatting)
      *   @param  ...  Variable argument list
-     *   @return  The generated log message */
+     *   @return  The generated log messages */
     std::shared_ptr< std::map<eMSGTARGET,  std::shared_ptr<LMessage>   > >
     LLogging::Log( const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt... )
     {
