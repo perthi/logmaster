@@ -37,6 +37,9 @@ using namespace LOGMASTER;
 
 
 
+
+
+
 int main ()
 {
    LConfig::SetTimeMode("Cloud");
@@ -49,6 +52,7 @@ int main ()
     FORCE_DEBUG("Year = %d",   info->tm_year + 1900 );
     FORCE_DEBUG("Hour = %d",  info->tm_hour );
 
+
    try
    {
       SET_LOGTARGET("--target-off --target-db");
@@ -59,14 +63,18 @@ int main ()
          LLogTest::WriteMessages();
       }
 
+
         string   test = "<Info:Fsm>";
-        LDatabase::Instance()->ReadEntriesPrepare( test, 10000 );
+        
+      //  LDatabase::Instance()->ReadEntriesPrepare( test, 10000 );
+        LDatabase::Instance()->ReadEntriesPrepare(  eMSGLEVEL::LOG_ERROR, 10000 );
+
         std::shared_ptr<LogEntry> msg = std::make_shared< LogEntry >();
 
         while( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true  ) 
         {
-            COUT << "id = " << msg->m_id << "\tcategory = " << msg->m_category << "\tmsg = " << msg->m_json << endl;
-       }
+             COUT << "id = " << msg->m_id << "\tcategory = " << (int)msg->m_category << "\tmsg = " << msg->m_json << endl;
+        }
 
    }
    catch(  GException &e )

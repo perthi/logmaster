@@ -10,6 +10,7 @@
  **************************************************************************/
 
 #include <utilities/GDefinitions.h>
+#include <logging/LEnums.h>
 
 #include <memory>
 
@@ -56,8 +57,11 @@ namespace LOGMASTER
 			void API CloseDatabase();
 			bool API OpenDatabase( const char *db_path );
  			bool API DeleteEntries();
-   			bool API ReadEntriesPrepare(std::string LoggingTypes, std::uint32_t Count);
- 			bool API ReadEntriesGetEntry( std::shared_ptr<LogEntry>  entry  );
+   //			bool API ReadEntriesPrepare(std::string LoggingTypes, std::uint32_t Count);
+ 			
+			bool API ReadEntriesPrepare( const  eMSGLEVEL level, const int cnt = 100 );
+			 
+			bool API ReadEntriesGetEntry( std::shared_ptr<LogEntry>  entry  );
 
 		private:
 			LDatabase( const string db_path );

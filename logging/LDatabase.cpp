@@ -24,6 +24,7 @@
 #include <thread>
 #include <chrono>
 
+#include <sstream>
 
 #if defined(_WIN32) || defined(_WIN64)
 #define snprintf _snprintf
@@ -83,6 +84,7 @@ namespace LOGMASTER
     //                                  "json TEXT );";
 
 
+
 // #ifndef WIN32
 //         snprintf(sql,  500, "INSERT INTO Logging (LoggingType, TimeStamp, Day, Month, Year, Source, Description) VALUES ('%s',%ju,%d,%d,%d,'%s','%s')",
 // #else
@@ -94,19 +96,32 @@ namespace LOGMASTER
     //#include "LMessage2Json.h"
 
 
+
         nlohmann::json j;
         LMessage2Json::Message2Json( msg, j );
-        std::string j_s = j;
+     //      CERR << "TP0" << endl;
+       // std::string j_s = ""; 
+       // j >> j_s ;
 
+
+        std::stringstream buffer;
+        buffer << j;
+
+       // string j_s = buffer.str();
+
+
+    //     CERR << "TP1" << endl;
+    //     CERR << "JSON = " << buffer.str() << endl;
+    //  CERR << "TP2" << endl;
 
 #ifndef WIN32
-        snprintf(sql, 1000, "INSERT INTO Logging (t_logging, time, level, category, json ) VALUES ('%f',%d, %d,'%s')",
+        snprintf(sql, 1000, "INSERT INTO t_logging (time, level, category, json ) VALUES ('%f',%d, %d,'%s')",
 #else
     ///   sprintf_s(sql, "INSERT INTO Logging (LoggingType, TimeStamp, Day, Month, Year, Source, Description) VALUES ('%s',%I64d,%d,%d,%d,'%s','%s')",
-       snprintf_s(sql, "INSERT INTO Logging (t_logging, time, level, category, json ) VALUES ('%f',%d, %d,'%s')",
+       snprintf_s(sql, "INSERT INTO  t_logging (time, level, category, json ) VALUES ('%f',%d, %d,'%s')",
 #endif
                    msg->fEpochTime, (int)msg->fLevel,  (int)msg->fSystem, 
-                   j_s.c_str() );
+                   buffer.str().c_str() );
 
 
         rc = sqlite3_exec(m_DataBase, sql, NULL, 0, &zErrMsg);
@@ -125,7 +140,7 @@ namespace LOGMASTER
         char sql[200];
         char *zErrMsg = 0;
        // sprintf_s(sql, "DELETE FROM Logging;");
-        snprintf(sql, 200, "DELETE FROM Logging;");
+        snprintf(sql, 200, "DELETE FROM t_logging;");
 
         rc = sqlite3_exec(m_DataBase, sql, NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK)
@@ -138,10 +153,33 @@ namespace LOGMASTER
         return true;
     }
 
+    bool API 
+    LDatabase::ReadEntriesPrepare( const eMSGLEVEL level, int cnt )
+    {
+        std::stringstream buffer;
+        buffer <<  "SELECT * FROM t_logging WHERE level = " << (int)level << " ORDER BY id DESC  LIMIT " << cnt ;
+        string SqlString = buffer.str();
+
+        int rc = sqlite3_prepare(m_DataBase, SqlString.c_str(), SqlString.length(), &m_stmt, nullptr);
+        
+        if (rc != SQLITE_OK)
+        {
+          //  ::LogError("Log", "ReadEntriesPrepare SQL error: %s", sqlite3_errmsg( m_DataBase ));
+            COUT << "Log ReadEntriesPrepare SQL error: " << sqlite3_errmsg( m_DataBase ) << endl;
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+        
+
+    }
 
 
-     bool  
-     LDatabase::ReadEntriesPrepare(std::string LoggingTypes, uint32_t Count)
+/*
+    bool  
+    LDatabase::ReadEntriesPrepare(std::string LoggingTypes, uint32_t Count)
     {
         int rc;
         std::string Delimiter = ",", SqlString, WhereString;
@@ -203,6 +241,10 @@ namespace LOGMASTER
         }
         return true;
     }
+*/
+
+
+
 
     // const char *LoggingSQL = "CREATE TABLE IF NOT EXISTS t_logging ( "
     //                                  "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
