@@ -159,6 +159,15 @@ namespace LOGMASTER
     }
 
 
+
+    bool 
+    LDatabase::InitSQLQuery(  const string sql )
+    {
+        return InitQuery( sql, 0 );
+    }
+
+
+
     bool
     LDatabase::InitQuery( string sql_query,  const int limit  )
     {
@@ -206,6 +215,7 @@ namespace LOGMASTER
         }
     }
 
+
     bool   
     LDatabase::InitSQLQuery(  const int time_min, const int time_max,  int cnt )
     {
@@ -214,9 +224,15 @@ namespace LOGMASTER
         return InitQuery( buffer.str(), cnt );
     }
     
+
     bool
-    LDatabase::ReadEntriesGetEntry(std::shared_ptr< LLogEntrySQL > entry)
+    LDatabase::ReadEntriesGetEntry(std::shared_ptr< LLogEntrySQL > entry, const string  sql, const int cnt )
     {
+        if( sql != "" )
+        {
+            InitQuery(sql, cnt);     
+        }
+
         if( m_stmt == nullptr )
         {
             CERR << "NO SQL QUERY INITIALIZED" << endl;

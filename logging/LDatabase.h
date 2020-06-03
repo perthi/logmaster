@@ -48,8 +48,11 @@ namespace LOGMASTER
 			bool API  InitSQLQuery( const  eMSGSYSTEM  system, const int cnt = 0 );
 			bool API  InitSQLQuery( const  eMSGLEVEL level, const eMSGSYSTEM  system,  const int cnt  = 0 );
 			bool API  InitSQLQuery( const int cnt  = 0 );
+	
+			bool API  InitSQLQuery(  const string sql );
 
-			bool API ReadEntriesGetEntry( std::shared_ptr<LLogEntrySQL>  entry  );
+
+			bool API ReadEntriesGetEntry( std::shared_ptr<LLogEntrySQL>  entry, const string sql = "", const int cnt = 0 );
 
 		private:
 			LDatabase( const string db_path );
