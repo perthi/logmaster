@@ -24,6 +24,7 @@ using std::cout;
 #include <logging/LConfig.h>
 #include <logging/LDatabase.h>
 #include <logging/LLogTest.h>
+#include <logging/LLogEntrySQL.h>
 
 #include <exception/GException.h>
 #include <exception>
@@ -33,7 +34,6 @@ using namespace LOGMASTER;
 #include <json/json.hpp>
 #include <utilities/GTime.h>
 #include <time.h>
-
 
 
 int main ()
@@ -48,7 +48,6 @@ int main ()
     FORCE_DEBUG("Year = %d",   info->tm_year + 1900 );
     FORCE_DEBUG("Hour = %d",  info->tm_hour );
 
-
    try
    {
       SET_LOGTARGET("--target-off --target-db --target-file --target-stdout");
@@ -59,13 +58,19 @@ int main ()
          LLogTest::WriteMessages();
       }
 
-        LDatabase::Instance()->InitSQLQuery(  eMSGLEVEL::LOG_INFO, eMSGSYSTEM::SYS_COM | eMSGSYSTEM::SYS_USER , 5 );
-      
-        std::shared_ptr<LogEntry> msg = std::make_shared< LogEntry >();
+     //   LDatabase::Instance()->InitSQLQuery(  );
+        /// LDatabase::Instance()->InitSQLQuery(  eMSGLEVEL::LOG_INFO, eMSGSYSTEM::SYS_COM | eMSGSYSTEM::SYS_USER , 200 );
+       
+       // LDatabase::Instance()->InitSQLQuery( 1591197275 , eTIME_SEARCH_OPTION::EXACTLY );
+
+        LDatabase::Instance()->InitSQLQuery( 1591197270,  1591197277   );
+
+
+        std::shared_ptr<LLogEntrySQL> msg = std::make_shared< LLogEntrySQL  >();
 
         while( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true  ) 
         {
-             COUT << "id = " << msg->m_id << "\tcategory = " << (int)msg->m_category << "\tmsg = " << msg->m_json << endl;
+             COUT << "id = " << msg->m_id << "\ttime = " << (long)msg->m_time <<"\tcategory = " << (int)msg->m_category << "\tmsg = " << msg->m_json << endl;
         }
 
    }

@@ -63,6 +63,7 @@ namespace LOGMASTER
     }
 
 
+
     void
     LDatabase::AddLogEntry(const std::shared_ptr<LMessage> msg,  const string /*source*/  )
     {
@@ -75,11 +76,11 @@ namespace LOGMASTER
         buffer << j;
 
 #ifndef WIN32
-        snprintf(sql, 1000, "INSERT INTO t_logging (time, level, category, json ) VALUES ('%f',%d, %d,'%s')",
+        snprintf(sql, 1000, "INSERT INTO t_logging (time, level, category, json ) VALUES ('%d',%d, %d,'%s')",
 #else
-       snprintf_s(sql, "INSERT INTO  t_logging (time, level, category, json ) VALUES ('%f',%d, %d,'%s')",
+       snprintf_s(sql, "INSERT INTO  t_logging (time, level, category, json ) VALUES ('%d',%d, %d,'%s')",
 #endif
-                   msg->fEpochTime, (int)msg->fLevel,  (int)msg->fSystem, 
+                   (int)msg->fEpochTime, (int)msg->fLevel,  (int)msg->fSystem, 
                    buffer.str().c_str() );
 
 
@@ -113,30 +114,28 @@ namespace LOGMASTER
     }
 
 
-
     bool  
     LDatabase::InitSQLQuery( const eMSGLEVEL level, int cnt )
     {
         std::stringstream buffer;
-     //   buffer <<  "SELECT * FROM t_logging WHERE level = " << (int)level << " ORDER BY id DESC  LIMIT " << cnt ;
         buffer <<  "SELECT * FROM t_logging WHERE level = " << (int)level << " ORDER BY id DESC";
         return InitQuery( buffer.str(), cnt );
     }
+
 
     bool  
     LDatabase::InitSQLQuery( const eMSGSYSTEM  system, int cnt )
     {
         std::stringstream buffer;
-       // buffer <<  "SELECT * FROM t_logging WHERE category = " << (int)system << " ORDER BY id DESC  LIMIT " << cnt ;
          buffer <<  "SELECT * FROM t_logging WHERE category = " << (int)system << " ORDER BY id DESC"; 
         return InitQuery( buffer.str(), cnt );
     }
+
 
     bool  
     LDatabase::InitSQLQuery(  const eMSGLEVEL level,  const eMSGSYSTEM  system, int cnt )
     {
         std::stringstream buffer;
-       // buffer <<  "SELECT * FROM t_logging WHERE category = " << (int)system << " AND level = " <<  (int)level << " ORDER BY id DESC  LIMIT " << cnt ;
           buffer <<  "SELECT * FROM t_logging WHERE category = " << (int)system << " AND level = " <<  (int)level << " ORDER BY id DESC";
         return InitQuery( buffer.str(), cnt );
     }
@@ -146,10 +145,10 @@ namespace LOGMASTER
     LDatabase::InitSQLQuery(  int cnt )
     {
         std::stringstream buffer;
-       // buffer <<  "SELECT * FROM t_logging  ORDER BY id DESC  LIMIT " << cnt ;
-          buffer <<  "SELECT * FROM t_logging  ORDER BY id DESC";
+        buffer <<  "SELECT * FROM t_logging  ORDER BY id DESC";
         return InitQuery( buffer.str(), cnt );
     }
+
 
     string 
     LDatabase::LimitString( const int limit )
@@ -181,8 +180,42 @@ namespace LOGMASTER
         }
     }
 
+
     bool
-    LDatabase::ReadEntriesGetEntry(std::shared_ptr<LogEntry> entry)
+    LDatabase::InitSQLQuery(const int time, const eTIME_SEARCH_OPTION opt, const int cnt )
+    {
+        std::stringstream buffer;
+
+        switch (opt)
+        {
+        case eTIME_SEARCH_OPTION::EXACTLY:
+            buffer <<  "SELECT * FROM t_logging WHERE time = " << time  << " ORDER BY id DESC";
+            return InitQuery( buffer.str(), cnt );
+            break;
+        case eTIME_SEARCH_OPTION::INCLUDING_AND_ABOVE:
+            buffer <<  "SELECT * FROM t_logging WHERE time >= " << time  << " ORDER BY id DESC";
+            return InitQuery( buffer.str(), cnt );
+            break;
+        case eTIME_SEARCH_OPTION::INCLUDING_AND_BELOW:
+            buffer <<  "SELECT * FROM t_logging WHERE time <= " << time  << " ORDER BY id DESC";
+            return InitQuery( buffer.str(), cnt );
+            break;
+        default:
+            return false;
+            break;
+        }
+    }
+
+    bool   
+    LDatabase::InitSQLQuery(  const int time_min, const int time_max,  int cnt )
+    {
+        std::stringstream buffer; 
+        buffer <<   "SELECT * FROM t_logging WHERE time >= " << time_min << " AND time <= " << time_max  << " ORDER BY id DESC";
+        return InitQuery( buffer.str(), cnt );
+    }
+    
+    bool
+    LDatabase::ReadEntriesGetEntry(std::shared_ptr< LLogEntrySQL > entry)
     {
         if( m_stmt == nullptr )
         {
@@ -216,9 +249,9 @@ namespace LOGMASTER
                 }
                 else if (strcasecmp(sqlite3_column_name(m_stmt, i), "time") == 0)
                 {
-                    if (sqlite3_column_type(m_stmt, i) == SQLITE_FLOAT)
+                    if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER )
                     {
-                        entry->m_time = (sqlite3_column_double( m_stmt, i));
+                        entry->m_time = (sqlite3_column_int( m_stmt, i));
                     }
                     else
                     {
@@ -268,6 +301,7 @@ namespace LOGMASTER
         }
     }
 
+
     bool
     LDatabase::OpenDatabase( const char *db_path  )
     {
@@ -284,7 +318,7 @@ namespace LOGMASTER
         {
               const char *LoggingSQL = "CREATE TABLE IF NOT EXISTS t_logging ( "
                                      "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
-                                     "time FLOAT(53), "
+                                     "time INTEGER, "
                                      "level INTEGER, "
                                      "category INTEGER,"
                                      "json TEXT );";
