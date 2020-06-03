@@ -55,15 +55,10 @@ TEST_F( TestLMessage2Json,  dummy )
 
     LMessage2Json().Message2Json( msg, json_dta );
 
-   // json_dta["module"] = "Logging";
-   // json_dta["test"]  = "TEST!!";
-    
-    //GTime::GetRawTime(time_t * sec, int64_t * us)
 
     double epoch = g_time()->GetEpochTime();
-    long sec = 0;
-    long us = 0;
-
+    time_t sec = 0;
+    long long us = 0;
 
     g_time()->GetRawTime( &sec, &us );
     FORCE_DEBUG("epcoch = %f", epoch);

@@ -62,4 +62,5 @@ exception/unit-tests/commit/arm/exception-unit-tests
 logging/examples/logging-example1/arm/logging-example1
 logging/unit-tests/commit/arm/logging-unit-tests
 helloworld/arm/helloworld
-
+database-test/arm/database-test
+database-test/x86/database-test

@@ -45,7 +45,6 @@ export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-
 
 export HAS_LOGGING:=""
 
-
 # export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)  
 # export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS) $(PEDANTIC_FLAGS)  
 
@@ -54,13 +53,11 @@ export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS) $(PEDANTIC_FLAGS)   -DHAS_LOGGING
 
 #export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS)    -DHAS_LOGGING
 
-
 export XML_DIR:=$(CURDIR)/xml/3rd-party/
 export XML_INCLUDES:= -I $(XML_DIR)
-
 export LIBFLAGS:= -shared
-
 export CONFIG_DIR:=$(PWD)/config
+
 
 INCLUDES:= -I $(CURDIR)/include/  -isystem $(CURDIR)/
 GTEST_INCLUDES:= -isystem $(CURDIR)/
@@ -110,8 +107,7 @@ src-lib:= $(support-modules) \
 	$(testlib) \
 	$(xml) \
 	$(common) \
-        $(exception) \
-	$(configurator) \
+    $(exception) \
 	$(sqlite)
 
 
@@ -119,9 +115,6 @@ src-exe:=$(helloworld) \
 	$(unittests) \
 	$(logging-example1) \
 	$(cmdline-example1) \
-	$(xml-validator) \
-	$(configurator-example1) \
-        $(logging-configurator) \
 	$(db-test)
 
 
