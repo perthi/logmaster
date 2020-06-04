@@ -114,39 +114,103 @@ namespace LOGMASTER
     }
 
 
+	vector<  std::shared_ptr< LLogEntrySQL> > 
+    LDatabase::FetchAll(   )
+    {
+        std::vector< std::shared_ptr< LLogEntrySQL> >  msg_v;
+        std::shared_ptr<LLogEntrySQL> msg = std::make_shared< LLogEntrySQL  >();
+
+        while( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true  ) 
+        {
+            msg_v.push_back( msg );
+        }
+
+        return  msg_v;
+
+    } 
+
+
+	vector<  std::shared_ptr< LLogEntrySQL> >  
+    LDatabase::GetEntries( const string sql )
+    {
+        InitSQLQuery(sql  );
+        return FetchAll();
+    }
+
+
+	vector<  std::shared_ptr< LLogEntrySQL> >  
+    LDatabase::GetEntries(const int max_cnt )
+    {
+        InitSQLQuery( max_cnt  );
+        return FetchAll();
+    }
+
+
+	vector<  std::shared_ptr< LLogEntrySQL> >  
+    LDatabase::GetEntriesAfterTim(  const uint64_t time, const int max_cnt )
+    {
+        InitSQLQuery(time, max_cnt);
+        return FetchAll();
+    }
+
+
+	vector<  std::shared_ptr< LLogEntrySQL> >  
+    LDatabase::GetEntriesCategory( const  eMSGSYSTEM sys,  const int max_cnt ) 
+    {
+        InitSQLQuery(sys, max_cnt);
+        return FetchAll();
+    }
+
+
+	vector<  std::shared_ptr< LLogEntrySQL> >  
+    LDatabase::GetEntriesLevel( const  eMSGLEVEL lvl,  const int max_cnt  )  
+    {
+        InitSQLQuery(lvl, max_cnt);
+        return FetchAll();
+
+    }
+
+	vector<  std::shared_ptr< LLogEntrySQL> >  
+    LDatabase::GetEntriesLevelAndCategory( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys, const int max_cnt  )
+    {
+        InitSQLQuery(lvl, sys, max_cnt);
+        return FetchAll();
+    }
+
+
     bool  
-    LDatabase::InitSQLQuery( const eMSGLEVEL level, int cnt )
+    LDatabase::InitSQLQuery( const eMSGLEVEL level,  const int max_cnt )
     {
         std::stringstream buffer;
         buffer <<  "SELECT * FROM t_logging WHERE level = " << (int)level << " ORDER BY id DESC";
-        return InitQuery( buffer.str(), cnt );
+        return InitQuery( buffer.str(), max_cnt );
     }
 
 
     bool  
-    LDatabase::InitSQLQuery( const eMSGSYSTEM  system, int cnt )
+    LDatabase::InitSQLQuery( const eMSGSYSTEM  system,  const int max_cnt )
     {
         std::stringstream buffer;
          buffer <<  "SELECT * FROM t_logging WHERE category = " << (int)system << " ORDER BY id DESC"; 
-        return InitQuery( buffer.str(), cnt );
+        return InitQuery( buffer.str(), max_cnt );
     }
 
 
     bool  
-    LDatabase::InitSQLQuery(  const eMSGLEVEL level,  const eMSGSYSTEM  system, int cnt )
+    LDatabase::InitSQLQuery(  const eMSGLEVEL level,  const eMSGSYSTEM  system, const int max_cnt )
     {
         std::stringstream buffer;
-          buffer <<  "SELECT * FROM t_logging WHERE category = " << (int)system << " AND level = " <<  (int)level << " ORDER BY id DESC";
-        return InitQuery( buffer.str(), cnt );
+        buffer <<  "SELECT * FROM t_logging WHERE category = " << (int)system << " AND level = " <<  (int)level << " ORDER BY id DESC";
+        return InitQuery( buffer.str(), max_cnt );
     }
 
 
     bool 
-    LDatabase::InitSQLQuery(  int cnt )
+    LDatabase::InitSQLQuery(  const int max_cnt )
     {
         std::stringstream buffer;
         buffer <<  "SELECT * FROM t_logging  ORDER BY id DESC";
-        return InitQuery( buffer.str(), cnt );
+        return InitQuery( buffer.str(), max_cnt );
     }
 
 

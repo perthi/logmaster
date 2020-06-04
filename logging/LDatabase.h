@@ -15,7 +15,8 @@
 
 #include <memory>
 
-
+#include <vector>
+using std::vector;
 
 struct  sqlite3;
 struct  sqlite3_stmt;
@@ -41,23 +42,29 @@ namespace LOGMASTER
 			bool API OpenDatabase( const char *db_path );
  			bool API DeleteEntries();
 			
-			bool API  InitSQLQuery(  const int time,  const eTIME_SEARCH_OPTION opt,  const int cnt  = 0   );
-			bool API  InitSQLQuery(  const int time_min, const int time_max,  const int cnt  = 0   );
+			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const string sql );
+			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries(const int max_cnt = 0 );
+			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntriesAfterTim(  const uint64_t time, const int max_cnt = 0 );
+			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntriesCategory( const  eMSGSYSTEM sys,  const int max_cnt = 0 ) ;
+			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntriesLevel( const  eMSGLEVEL lvl,  const int max_cnt = 0 ) ;
+			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntriesLevelAndCategory( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt = 0 ) ;
 
-			bool API  InitSQLQuery( const  eMSGLEVEL level, const int cnt = 0 );
-			bool API  InitSQLQuery( const  eMSGSYSTEM  system, const int cnt = 0 );
-			bool API  InitSQLQuery( const  eMSGLEVEL level, const eMSGSYSTEM  system,  const int cnt  = 0 );
+
+			bool API  InitSQLQuery(  const int time,  const eTIME_SEARCH_OPTION opt,  const int max_cnt  = 0   );
+			bool API  InitSQLQuery(  const int time_min, const int time_max,  const int max_cnt  = 0   );
+			bool API  InitSQLQuery( const  eMSGLEVEL level, const int max_cnt = 0 );
+			bool API  InitSQLQuery( const  eMSGSYSTEM  system, const int max_cnt = 0 );
+			bool API  InitSQLQuery( const  eMSGLEVEL level, const eMSGSYSTEM  system,  const int max_cnt  = 0 );
 			bool API  InitSQLQuery( const int cnt  = 0 );
-	
 			bool API  InitSQLQuery(  const string sql );
-
-
-			bool API ReadEntriesGetEntry( std::shared_ptr<LLogEntrySQL>  entry, const string sql = "", const int cnt = 0 );
+			bool API  ReadEntriesGetEntry( std::shared_ptr<LLogEntrySQL>  entry, const string sql = "", const int cnt = 0 );
 
 		private:
 			LDatabase( const string db_path );
 			virtual ~LDatabase();
 			
+			vector<  std::shared_ptr< LLogEntrySQL> > FetchAll(   ); 
+
 			LDatabase( const LDatabase & );
 			LDatabase operator = ( const LDatabase & );
 			

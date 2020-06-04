@@ -58,7 +58,7 @@ TEST_F( TestLMessage2Json,  dummy )
 
     double epoch = g_time()->GetEpochTime();
     time_t sec = 0;
-    long long us = 0;
+    int64_t us = 0;
 
     g_time()->GetRawTime( &sec, &us );
     FORCE_DEBUG("epcoch = %f", epoch);
