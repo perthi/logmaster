@@ -76,13 +76,13 @@ namespace LOGMASTER
 			bool API OpenDatabase( const char *db_path );
  			bool API DeleteEntries();
 			
-			vector< LLogEntrySQL>  GetEntries( const string sql );
-			vector< LLogEntrySQL>  GetEntries( const int max_cnt);
-			vector< LLogEntrySQL>  GetEntries( const uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
-			vector< LLogEntrySQL>  GetEntries( const  int time_min,        const int time_max,  const int max_cnt );
-			vector< LLogEntrySQL>  GetEntries( const  eMSGSYSTEM sys,  const int max_cnt) ;
-			vector< LLogEntrySQL>  GetEntries( const  eMSGLEVEL lvl,  const int max_cnt) ;
-			vector< LLogEntrySQL>  GetEntries( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
+			vector< LLogEntrySQL>  Query( const string sql );
+			vector< LLogEntrySQL>  Query( const int max_cnt);
+			vector< LLogEntrySQL>  Query( const uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
+			vector< LLogEntrySQL>  Query( const  int time_min,        const int time_max,  const int max_cnt );
+			vector< LLogEntrySQL>  Query( const  eMSGSYSTEM sys,  const int max_cnt) ;
+			vector< LLogEntrySQL>  Query( const  eMSGLEVEL lvl,  const int max_cnt) ;
+			vector< LLogEntrySQL>  Query( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
 
 
 

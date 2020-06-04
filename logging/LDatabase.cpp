@@ -132,18 +132,29 @@ namespace LOGMASTER
         return  msg_v;
     } 
 
-
-	vector<  LLogEntrySQL >  
-    LDatabase::GetEntries( const string sql )
+    /**@{
+    * @brief   Query the database
+    * @details Query the database for all entries matching the search criteria
+    * @param[in] sql SQL search expression
+    * @param[in] time Unix epoch time
+    * @param[in] time_min Unix epoch time
+    * @param[in] time_max Unix epoch time
+    * @param[in] opt  For time search this specfifes wether to return 
+    * log entris with either larger, lower or equla time stamp than "time"
+    * @param[in] max_cnt The maximum number of entries to return
+    * @param[in] sy  subsystem/category ( return the messages matching sub system )
+    * @param[in] lvl subsystem/category ( return the messages for a given log level )
+    @return vector of log entries matching the search criteria */
+    vector<  LLogEntrySQL >  
+    LDatabase::Query( const string sql )
     {
         InitSQLQuery(sql  );
         return FetchAll();
     }
 
 
-
 	vector<  LLogEntrySQL >  
-    LDatabase::GetEntries(const int max_cnt )
+    LDatabase::Query(const int max_cnt )
     {
         InitSQLQuery( max_cnt  );
         return FetchAll();
@@ -151,14 +162,15 @@ namespace LOGMASTER
 
 
 	vector<  LLogEntrySQL >  
-    LDatabase::GetEntries(  const uint64_t time, const eTIME_SEARCH_OPTION  opt, const int max_cnt )
+    LDatabase::Query(  const uint64_t time, const eTIME_SEARCH_OPTION  opt, const int max_cnt )
     {
         InitSQLQuery(time, opt, max_cnt);
         return FetchAll();
     }
 
+
     vector<  LLogEntrySQL >  
-    LDatabase::GetEntries( const  int time_min,        const int time_max,  const int max_cnt )
+    LDatabase::Query( const  int time_min, const int time_max,  const int max_cnt )
     {
         InitSQLQuery(  time_min, time_max, max_cnt );
         return FetchAll();
@@ -166,7 +178,7 @@ namespace LOGMASTER
 
 
 	vector<  LLogEntrySQL >  
-    LDatabase::GetEntries( const  eMSGSYSTEM sys,  const int max_cnt ) 
+    LDatabase::Query( const  eMSGSYSTEM sys,  const int max_cnt ) 
     {
         InitSQLQuery(sys, max_cnt);
         return FetchAll();
@@ -174,7 +186,7 @@ namespace LOGMASTER
 
 
 	vector<  LLogEntrySQL >  
-    LDatabase::GetEntries( const  eMSGLEVEL lvl,  const int max_cnt  )  
+    LDatabase::Query( const  eMSGLEVEL lvl,  const int max_cnt  )  
     {
         InitSQLQuery(lvl, max_cnt);
         return FetchAll();
@@ -182,11 +194,12 @@ namespace LOGMASTER
     }
 
 	vector< LLogEntrySQL >  
-    LDatabase::GetEntries( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys, const int max_cnt  )
+    LDatabase::Query( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys, const int max_cnt  )
     {
         InitSQLQuery(lvl, sys, max_cnt);
         return FetchAll();
     }
+/**@}*/
 
 
     bool  
@@ -223,16 +236,7 @@ namespace LOGMASTER
         buffer <<  "SELECT * FROM t_logging  ORDER BY id DESC";
         return InitQuery( buffer.str(), max_cnt );
     }
-
-
-    string 
-    LDatabase::LimitString( const int limit )
-    {
-        std::stringstream buffer;
-        buffer << " LIMIT " << limit;
-        return buffer.str();
-    }
-
+   
 
 
     bool 
@@ -264,6 +268,11 @@ namespace LOGMASTER
         }
     }
 
+    
+    
+    
+    
+    
 
     bool
     LDatabase::InitSQLQuery(const int time, const eTIME_SEARCH_OPTION opt, const int cnt )
@@ -299,6 +308,16 @@ namespace LOGMASTER
         return InitQuery( buffer.str(), cnt );
     }
     
+
+    string 
+    LDatabase::LimitString( const int limit )
+    {
+        std::stringstream buffer;
+        buffer << " LIMIT " << limit;
+        return buffer.str();
+    }
+
+
 
     bool
     LDatabase::ReadEntriesGetEntry(LLogEntrySQL  &entry, const string  sql, const int cnt )

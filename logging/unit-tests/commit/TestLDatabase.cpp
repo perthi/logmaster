@@ -78,23 +78,23 @@ TestLDatabase::TearDown()
 TEST_F( TestLDatabase , all_entries )
 {
     auto db = fgDatabase;
-    auto entries = db->GetEntries( ALL_ENTRIES );
+    auto entries = db->Query( ALL_ENTRIES );
     size_t entries_max = entries.size();
     EXPECT_EQ(entries_max , 758 );
     
-    entries = db->GetEntries(100 );
+    entries = db->Query(100 );
     EXPECT_EQ(entries.size() ,100 );
 
-    entries = db->GetEntries( 1);
+    entries = db->Query( 1);
     EXPECT_EQ(entries.size() ,1 );
-    entries = db->GetEntries(  758 );
+    entries = db->Query(  758 );
     EXPECT_EQ(entries.size() , 758 );
 
     for(int i = 0; i < 20; i++ )
     {
         int n = g_random()->Uniform<int>( (int)1, (int)entries_max  );
 
-        entries =   db->GetEntries( n );   
+        entries =   db->Query( n );   
         EXPECT_EQ(entries.size() , n  );
 
     }
@@ -109,7 +109,7 @@ TEST_F( TestLDatabase , specific_system )
 
     for( auto s: sys_v )
     {
-        auto entries = db->GetEntries ( s, ALL_ENTRIES );
+        auto entries = db->Query ( s, ALL_ENTRIES );
         EXPECT_GE( entries.size(), 0  );
 
         for( auto  e : entries )
@@ -129,7 +129,7 @@ TEST_F( TestLDatabase , specific_system_multiple )
 
     for( auto s: sys_v )
     {
-        auto entries = db->GetEntries ( s | eMSGSYSTEM::SYS_USER , ALL_ENTRIES );
+        auto entries = db->Query ( s | eMSGSYSTEM::SYS_USER , ALL_ENTRIES );
         EXPECT_GE( entries.size(), 0  );
 
         for( auto  e : entries )
@@ -149,7 +149,7 @@ TEST_F( TestLDatabase , specific_level )
 
     for( auto lvl : level_v )
     {
-        auto entries = db->GetEntries( lvl, ALL_ENTRIES  );
+        auto entries = db->Query( lvl, ALL_ENTRIES  );
         EXPECT_GE( entries.size(), 0  );
 
         for( auto  e : entries )
@@ -173,7 +173,7 @@ TEST_F( TestLDatabase , specific_level_sys )
     {
         for( auto s : sys_v )
         {
-            auto entries = db->GetEntries( lvl,  s, ALL_ENTRIES  ); 
+            auto entries = db->Query( lvl,  s, ALL_ENTRIES  ); 
 
             for( auto  e : entries )
             {
@@ -198,7 +198,7 @@ TEST_F( TestLDatabase , specific_level_sys_multiple )
     {
         for (auto s : sys_v)
         {
-            auto entries = db->GetEntries(lvl, s | eMSGSYSTEM::SYS_USER, ALL_ENTRIES);
+            auto entries = db->Query(lvl, s | eMSGSYSTEM::SYS_USER, ALL_ENTRIES);
 
             EXPECT_GE(  entries.size() , 0 );
 
@@ -218,21 +218,21 @@ TEST_F( TestLDatabase , time )
 {
 
     auto db = fgDatabase;
-    auto entries = db->GetEntries(ALL_ENTRIES);
+    auto entries = db->Query(ALL_ENTRIES);
 
-    entries = db->GetEntries(1591273465, eTIME_SEARCH_OPTION::EXACTLY, ALL_ENTRIES);
+    entries = db->Query(1591273465, eTIME_SEARCH_OPTION::EXACTLY, ALL_ENTRIES);
     for (auto e : entries)
     {
         EXPECT_EQ(1591273465, (int64_t)e.m_time);
     }
 
-    entries = db->GetEntries(1591273465, eTIME_SEARCH_OPTION::INCLUDING_AND_ABOVE, ALL_ENTRIES);
+    entries = db->Query(1591273465, eTIME_SEARCH_OPTION::INCLUDING_AND_ABOVE, ALL_ENTRIES);
     for (auto e : entries)
     {
         EXPECT_TRUE((int64_t)e.m_time >= 1591273465);
     }
 
-    entries = db->GetEntries(1591273465, eTIME_SEARCH_OPTION::INCLUDING_AND_BELOW, ALL_ENTRIES);
+    entries = db->Query(1591273465, eTIME_SEARCH_OPTION::INCLUDING_AND_BELOW, ALL_ENTRIES);
     for (auto e : entries)
     {
         EXPECT_TRUE((int64_t)e.m_time <= 1591273465);
