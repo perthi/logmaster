@@ -44,14 +44,13 @@ namespace LOGMASTER
 			bool API OpenDatabase( const char *db_path );
  			bool API DeleteEntries();
 			
-			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const string sql );
-			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const int max_cnt);
-			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
-			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const  int time_min,        const int time_max,  const int max_cnt );
-
-			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const  eMSGSYSTEM sys,  const int max_cnt) ;
-			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const  eMSGLEVEL lvl,  const int max_cnt) ;
-			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
+			vector< LLogEntrySQL>  GetEntries( const string sql );
+			vector< LLogEntrySQL>  GetEntries( const int max_cnt);
+			vector< LLogEntrySQL>  GetEntries( const uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
+			vector< LLogEntrySQL>  GetEntries( const  int time_min,        const int time_max,  const int max_cnt );
+			vector< LLogEntrySQL>  GetEntries( const  eMSGSYSTEM sys,  const int max_cnt) ;
+			vector< LLogEntrySQL>  GetEntries( const  eMSGLEVEL lvl,  const int max_cnt) ;
+			vector< LLogEntrySQL>  GetEntries( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
 
 
 
@@ -62,13 +61,13 @@ namespace LOGMASTER
 			bool API  InitSQLQuery(  const  eMSGLEVEL level,     const eMSGSYSTEM  system,  const int max_cnt  );
 			bool API  InitSQLQuery(  const  int cnt  );
 			bool API  InitSQLQuery(  const  string sql );
-			bool API  ReadEntriesGetEntry( std::shared_ptr<LLogEntrySQL>  entry, const string sql = "", const int cnt = 0 );
+			bool API  ReadEntriesGetEntry(  LLogEntrySQL  &entry, const string sql = "", const int cnt = 0 );
 
 		private:
 			LDatabase( const string db_path );
 			virtual ~LDatabase();
 			
-			vector<  std::shared_ptr< LLogEntrySQL> > FetchAll(   ); 
+			vector< LLogEntrySQL> FetchAll(   ); 
 
 			LDatabase( const LDatabase & );
 			LDatabase operator = ( const LDatabase & );

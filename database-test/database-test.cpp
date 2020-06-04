@@ -48,6 +48,7 @@ int main ()
     FORCE_DEBUG("Year = %d",   info->tm_year + 1900 );
     FORCE_DEBUG("Hour = %d",  info->tm_hour );
 
+
    try
    {
       SET_LOGTARGET("--target-off --target-db --target-file --target-stdout");
@@ -66,11 +67,11 @@ int main ()
      //   LDatabase::Instance()->InitSQLQuery( 1591197270,  1591197277   );
 
 
-        std::shared_ptr<LLogEntrySQL> msg = std::make_shared< LLogEntrySQL  >();
+        LLogEntrySQL msg;
 
         while( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true  ) 
         {
-             COUT << "id = " << msg->m_id << "\ttime = " << (long)msg->m_time <<"\tcategory = " << (int)msg->m_category << "\tmsg = " << msg->m_json << endl;
+             COUT << "id = " << msg.m_id << "\ttime = " << (long)msg.m_time <<"\tcategory = " << (int)msg.m_category << "\tmsg = " << msg.m_json << endl;
         }
 
    }

@@ -114,23 +114,23 @@ namespace LOGMASTER
     }
 
 
-	vector<  std::shared_ptr< LLogEntrySQL> > 
+
+	vector< LLogEntrySQL> 
     LDatabase::FetchAll(   )
     {
-        std::vector< std::shared_ptr< LLogEntrySQL> >  msg_v;
-        std::shared_ptr<LLogEntrySQL> msg = std::make_shared< LLogEntrySQL  >();
+        std::vector< LLogEntrySQL >  msg_v;
+        LLogEntrySQL msg;
 
-        while( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true  ) 
+        while(  ( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true )   ) 
         {
             msg_v.push_back( msg );
         }
-
         return  msg_v;
-
     } 
 
 
-	vector<  std::shared_ptr< LLogEntrySQL> >  
+
+	vector<  LLogEntrySQL >  
     LDatabase::GetEntries( const string sql )
     {
         InitSQLQuery(sql  );
@@ -139,7 +139,7 @@ namespace LOGMASTER
 
 
 
-	vector<  std::shared_ptr< LLogEntrySQL> >  
+	vector<  LLogEntrySQL >  
     LDatabase::GetEntries(const int max_cnt )
     {
         InitSQLQuery( max_cnt  );
@@ -147,14 +147,14 @@ namespace LOGMASTER
     }
 
 
-	vector<  std::shared_ptr< LLogEntrySQL> >  
+	vector<  LLogEntrySQL >  
     LDatabase::GetEntries(  const uint64_t time, const eTIME_SEARCH_OPTION  opt, const int max_cnt )
     {
         InitSQLQuery(time, opt, max_cnt);
         return FetchAll();
     }
 
-    vector<  std::shared_ptr< LLogEntrySQL> >  
+    vector<  LLogEntrySQL >  
     LDatabase::GetEntries( const  int time_min,        const int time_max,  const int max_cnt )
     {
         InitSQLQuery(  time_min, time_max, max_cnt );
@@ -162,7 +162,7 @@ namespace LOGMASTER
     }
 
 
-	vector<  std::shared_ptr< LLogEntrySQL> >  
+	vector<  LLogEntrySQL >  
     LDatabase::GetEntries( const  eMSGSYSTEM sys,  const int max_cnt ) 
     {
         InitSQLQuery(sys, max_cnt);
@@ -170,7 +170,7 @@ namespace LOGMASTER
     }
 
 
-	vector<  std::shared_ptr< LLogEntrySQL> >  
+	vector<  LLogEntrySQL >  
     LDatabase::GetEntries( const  eMSGLEVEL lvl,  const int max_cnt  )  
     {
         InitSQLQuery(lvl, max_cnt);
@@ -178,7 +178,7 @@ namespace LOGMASTER
 
     }
 
-	vector<  std::shared_ptr< LLogEntrySQL> >  
+	vector< LLogEntrySQL >  
     LDatabase::GetEntries( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys, const int max_cnt  )
     {
         InitSQLQuery(lvl, sys, max_cnt);
@@ -298,7 +298,7 @@ namespace LOGMASTER
     
 
     bool
-    LDatabase::ReadEntriesGetEntry(std::shared_ptr< LLogEntrySQL > entry, const string  sql, const int cnt )
+    LDatabase::ReadEntriesGetEntry(LLogEntrySQL  &entry, const string  sql, const int cnt )
     {
         if( sql != "" )
         {
@@ -327,7 +327,7 @@ namespace LOGMASTER
                 {
                     if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER)
                     {
-                        entry->m_id = sqlite3_column_int(m_stmt, i);
+                        entry.m_id = sqlite3_column_int(m_stmt, i);
                     }
 
                     else
@@ -339,7 +339,7 @@ namespace LOGMASTER
                 {
                     if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER )
                     {
-                        entry->m_time = (sqlite3_column_int( m_stmt, i));
+                        entry.m_time = (sqlite3_column_int( m_stmt, i));
                     }
                     else
                     {
@@ -350,7 +350,7 @@ namespace LOGMASTER
                 {
                     if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER)
                     {
-                        entry->m_level = sqlite3_column_int( m_stmt, i);
+                        entry.m_level = sqlite3_column_int( m_stmt, i);
                     }
                     else
                     {
@@ -361,7 +361,7 @@ namespace LOGMASTER
                 {
                     if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER)
                     {
-                        entry->m_category = sqlite3_column_int( m_stmt, i);
+                        entry.m_category = sqlite3_column_int( m_stmt, i);
                     }
                     else
                     {
@@ -372,7 +372,7 @@ namespace LOGMASTER
                 {
                     if (sqlite3_column_type(m_stmt, i) == SQLITE_TEXT)
                     {
-                        entry->m_json = std::string(reinterpret_cast<const char *>(sqlite3_column_text(m_stmt, i)));
+                        entry.m_json = std::string(reinterpret_cast<const char *>(sqlite3_column_text(m_stmt, i)));
                     }
                     else
                     {
