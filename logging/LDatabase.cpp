@@ -105,7 +105,7 @@ namespace LOGMASTER
         rc = sqlite3_exec(m_DataBase, sql, NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK)
         {
-            ///::LogError("Log", "DeleteEntries SQL error: %s", zErrMsg);
+            //::LogError("Log", "DeleteEntries SQL error: %s", zErrMsg);
             CERR <<  "Log DeleteEntries SQL error: " << zErrMsg << endl;
             sqlite3_free(zErrMsg);
             return false;

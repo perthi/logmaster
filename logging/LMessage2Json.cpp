@@ -38,8 +38,8 @@ LMessage2Json::~LMessage2Json()
 
 /** Converts a regluar log messaeg to a message on JSON format which is more suitable for
  * interchange and serialization/deserialization
- *  @param msg[in] The log message
- *  @param j[in, out]  The json object where the converted message will be stored */
+ *  @param[in] msg The log message
+ *  @param[in, out] j The json object where the converted message will be stored */
 void 
 LMessage2Json::Message2Json(  const std::shared_ptr<LMessage>  msg , nlohmann::json &  j )
 {
@@ -63,7 +63,7 @@ LMessage2Json::Message2Json(  const std::shared_ptr<LMessage>  msg , nlohmann::j
 /** Set additional information to append to each log message. Typcially this can be 
  *  additional information need, but that is not directly available 
  *  from the logging system 
- *  @param j[in] The additional information to append. Please not that this addition
+ *  @param[in] j The additional information to append. Please not that this addition
  *  is appended to each and every log message */
 void 
  LMessage2Json::SetJsonUser( const nlohmann::json j ) 

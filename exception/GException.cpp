@@ -52,39 +52,6 @@ std::shared_ptr<LMessage>   GException::fgMessage = nullptr;
 bool  GException::fIsEnabledStackTrace = false;
 bool  GException::fIsEnabledException = true;
 
-///#include <mutex>
-///std::mutex exception_mutex;
-
-
-
-// #define EXCEPTION_CLASS_CPP(classname) classname::classname (const string file, 
-// 					      const string function,	
-// 					      const int line,
-// 					      const eMSGSYSTEM system, 
-// 					      const char * fmt, ...) 
-//     {
-//     static va_list ap;
-//     va_start(ap, fmt); 
-//     string msg = string(" (") + ExtractClassname(typeid(*this).name()) + string(")") + (fIsEnabledStackTrace == true ?  + "\n" + string("******* Stack Trace START *******") + "\n" + GStackTrace::str() + "\n" + string("******* Stack Trace END *******") + "\n" : "");  
-//     fgMessageMap = LLogging::Instance()->LogVarArgs(eMSGLEVEL::LOG_ERROR, system, file.c_str(), line, function.c_str(), fmt, ap, true, msg ); 
-//     va_end(ap); 							
-// }
-
-// ///fgMessage = LMessageGenerator::GetMsg();
-
-// /**Generating class implementation using a macro for convenience. NB!! These classes must be befriended by the LLogging class since it
-// calls the private method LLogging::LogVaArgs*/
-// EXCEPTION_CLASS_CPP(GException)
-// EXCEPTION_CLASS_CPP(GFileNotFoundException)
-// EXCEPTION_CLASS_CPP(GRangeException)
-// EXCEPTION_CLASS_CPP(GInvalidArgumentException)
-// EXCEPTION_CLASS_CPP(GMissingArgumentException)
-// EXCEPTION_CLASS_CPP(GFSMException)
-// EXCEPTION_CLASS_CPP(GComException)
-// EXCEPTION_CLASS_CPP(GAlarmException)
-// EXCEPTION_CLASS_CPP(GMessageException)
-// EXCEPTION_CLASS_CPP(GXMLException)
-
 
 
 std::shared_ptr<LMessage>

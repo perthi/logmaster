@@ -19,7 +19,12 @@ LHashMapsBase::~LHashMapsBase(){ }
 
 
 
-/** @brief initialization of the hash table for the logginglevel     *     *  This hash table holds the current logging level for a given sub-system. This table is checked every time the logging system is asked to log a message, and if logging is enabled for the given level     *  and sub-system then the message is created. Where the message is actuall written (if at all) is decided by the target configuration, wether or not logging is enabled to to file, to console, etc..     *  @param l  All system are initialized with logging for this level or higher.  */
+/** @brief initialization of the hash table for the logginglevel  
+ *  This hash table holds the current logging level for a given sub-system. 
+ *  This table is checked every time the logging system is asked to log a message, 
+ *  and if logging is enabled for the given level *  
+ *  and sub-system then the message is created. Where the message is actuall written (if at all) is 
+ *  decided by the target configuration, wether or not logging is enabled to to file, to console, etc.. */
    void
    LHashMapsBase::InitHashLogLevel(const eMSGLEVEL /*l*/)
    {

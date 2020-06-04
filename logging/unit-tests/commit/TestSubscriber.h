@@ -7,13 +7,12 @@
 *** General Public License (LGPL) V3 or later. See .cpp file for details ***
 *****************************************************************************/
 
-///#define HAS_LOGGING
 
 #pragma once
 
 #include "TestLogging.h"
 
-//struct LMessage;
+
 
 class TestSubscriber : public TestLogging
 {
@@ -27,11 +26,6 @@ protected:
    
 	static std::shared_ptr<LMessage> fMsg1;
 	static std::shared_ptr<LMessage> fMsg2;
-
-	//static string fgMsg1;
-    //static string fgMsg2;
-    //static eMSGSYSTEM fgSystem;
-    //static eMSGLEVEL  fgLevel;
 
 };
 

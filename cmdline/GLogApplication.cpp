@@ -50,25 +50,6 @@ using namespace GCONSTANTS;
 using namespace LOGMASTER;
 
 
-/** @brief Constructor that reads commandline parameters passed to the application from the system (instead of using C-style argc **argv) and adds "* additional_arument" to the
- *  list of arguments for this aplication.
- *
- *  The application is initialized with the default set og arguments (see Init() ) and the argument "additional_arument" added to this list.
- *  @param[in] argc The number of command line arguments (passed by main)
- *  @param[in] argv Vector of command line argumenst (passed by main)
- *  @param[in] additional_arument additional argument to add to the default list of arguments
- *  @param[in] do_init  Weter or not to scan commandline arguments immediately
- *  @exception GException  If the argumenst passed to the LogApplication via the constructor is invalid*/
-//GLogApplication::GLogApplication( const int argc, const char** argv,  GArgument * additional_arument, bool do_init) : fArgs(0), fHelp(0), fLog(0), fTarget(0), fFormat(0), fColor(0) 
-//{
-//    InitLogArgs();
-//   AddArgument(additional_arument);
-//    if(do_init == true)
-//   {
-//       ScanArguments(argc, argv);
-//    }
-//}
-
 
 
 
@@ -83,10 +64,7 @@ using namespace LOGMASTER;
 *  @exception GException  If the argumenst passed to the LogApplication via the constructor is invalid*/
 GLogApplication::GLogApplication( const int argc, const char** argv, vector  < std::shared_ptr<GArgument>   > *additional_arguments, bool do_init) 
     
-    //    fArgs(0), fHelp(0), fLog(0), fTarget(0), fFormat(0), fColor(0) 
 {
-  //  FORCE_DEBUG("addr = 0x%x", additional_arguments );
-    //FORCE_DEBUG("additional arguments size = %d", additional_arguments->size() );
     InitLogArgs();
     
     if(  additional_arguments != nullptr)

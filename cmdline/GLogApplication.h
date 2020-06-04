@@ -34,14 +34,11 @@ using std::vector;
 
 template <typename T> class GCommandLineArgument;
 
-//#include <cmdline/GArgument.h>
-
 #define DO_INIT true
 #define DONT_INIT false
 #include <functional>
 
 #include <memory>
-///#include <cmdline/GArgument.h>
 
 template <typename T> class GCommandLineArgument;
 class GArgument;
@@ -50,14 +47,6 @@ class GArgument;
 class GLogApplication
 {
 public:
-    // API GLogApplication( const bool init = false ) : fArgs(0), fHelp(0), fLog(0), fTarget(0), fFormat(0), fColor(0)
-    // {
-    //     if(init == true )
-    //     {
-    //         InitLogArgs();
-    //     }
-    // };
-
     API GLogApplication( const bool init = false )
     {
         if(init == true )
@@ -68,7 +57,6 @@ public:
 
     API  GLogApplication(	const int argc, const char** argv,  vector  < std::shared_ptr<GArgument>  > *additional_arguments = nullptr, bool do_init = DO_INIT);
     API  GLogApplication(	const GFileName_t &t,  vector  < std::shared_ptr<GArgument> > *additional_arguments = nullptr);
-   // API  virtual ~GLogApplication();
 
 
     void		API     Purge();

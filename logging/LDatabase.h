@@ -22,6 +22,8 @@ struct  sqlite3;
 struct  sqlite3_stmt;
 
 
+
+
 namespace LOGMASTER
 {
 	struct LMessage;

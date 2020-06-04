@@ -19,7 +19,9 @@
 
 using namespace GCONSTANTS;
 
-/** @brief unit tests for GCmdScan */
+
+
+
 class TestGCmdScan : public TestBase
 {
 public:
