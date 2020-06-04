@@ -99,13 +99,11 @@ namespace LOGMASTER
         int rc;
         char sql[200];
         char *zErrMsg = 0;
-       // sprintf_s(sql, "DELETE FROM Logging;");
         snprintf(sql, 200, "DELETE FROM t_logging;");
 
         rc = sqlite3_exec(m_DataBase, sql, NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK)
         {
-            //::LogError("Log", "DeleteEntries SQL error: %s", zErrMsg);
             CERR <<  "Log DeleteEntries SQL error: " << zErrMsg << endl;
             sqlite3_free(zErrMsg);
             return false;
@@ -390,6 +388,10 @@ namespace LOGMASTER
     }
 
 
+
+    /**  Opens the databse and creates the necessary logging table if it doesn allready exists 
+     *   @param[in]   db_path The fulle path to hte database
+     *   @return      TRUE if the databse was opened sucessfullt, false othervise */
     bool
     LDatabase::OpenDatabase( const char *db_path  )
     {

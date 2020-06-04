@@ -23,6 +23,33 @@ struct  sqlite3_stmt;
 
 
 
+/** @class  LOGMASTER::LDatabase 
+ *  @brief   sqlite wrapper for writing and retrieving log messages from a SQL database
+ *  @details The data base is very simple and contains just a single table holding the log message
+ *  The message is written on a slightly different format than the original message. The tabel contain the following fields
+ *
+ *  field:        id           |  time            |   level              |  category   |  json
+ *                ------------------------------------------------------------------------------- 
+ *  type:         int64        |  int64           |   int                |  int        |  text	           
+ *                -------------------------------------------------------------------------------  
+ *  explanation   primary key  |  unix epoch time |   The log level      |  Sub system |  The original message on json format 
+ *                                                    debug, erro etc..  |             |
+ *                ------------------------------------------------------------------------------------------------------------ 
+ *
+ * The class contain a simple interface AddLogEntry() for writing a log message to the database, and several interfaces for retrieving them. 
+ * The high level interfaces is  GetEntries(...) which return a vector of log entries matching the function argument(s)
+ * 
+ * As an alternative to calling GetEntries() one can use the low level interfaces InitSQLQuery(...) folowed by subesqient calls to  
+ * ReadEntriesGetEntry() untill the  rows matching the SQL query is exhausted (that is, until ReadEntriesGetEntry() return false ). 
+ * 
+ * For the most part one should use the high level interfaces. The low level interfaces is useful however if the number
+ * of log entries is large. It will reduce memory consumtion since the messages are read one by one whereas the
+ * high level inerface returns all matching log enries in a single vector.
+ * 
+ * Furthermore, all that the high level interface does is to call the two low level interfaces  subsequently so that the high and
+ * low level interfcaes should yiled  identical results. */
+
+
 
 namespace LOGMASTER
 {
