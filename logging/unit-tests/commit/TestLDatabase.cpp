@@ -118,9 +118,27 @@ TEST_F( TestLDatabase , specific_system )
         }
 
     }
-
 }
 
+
+
+TEST_F( TestLDatabase , specific_system_multiple )
+{
+    auto db = fgDatabase;
+    vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
+
+    for( auto s: sys_v )
+    {
+        auto entries = db->GetEntries ( s | eMSGSYSTEM::SYS_USER , ALL_ENTRIES );
+        EXPECT_GE( entries.size(), 0  );
+
+        for( auto  e : entries )
+        {
+            EXPECT_EQ ( (int)e.m_category, (int) ( s | eMSGSYSTEM::SYS_USER)  );     
+        }
+
+    }
+}
 
 
 
@@ -141,7 +159,6 @@ TEST_F( TestLDatabase , specific_level )
 
     }
 }
-
 
 
 
@@ -167,6 +184,31 @@ TEST_F( TestLDatabase , specific_level_sys )
 
         }
 
+    }
+}
+
+
+TEST_F( TestLDatabase , specific_level_sys_multiple )
+{
+    auto db = fgDatabase;
+
+    vector <eMSGLEVEL> level_v  = { eMSGLEVEL::LOG_DEBUG,   eMSGLEVEL::LOG_INFO,  eMSGLEVEL::LOG_WARNING,  eMSGLEVEL::LOG_ERROR,  eMSGLEVEL::LOG_FATAL}; 
+    vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
+    for (auto lvl : level_v)
+    {
+        for (auto s : sys_v)
+        {
+            auto entries = db->GetEntries(lvl, s | eMSGSYSTEM::SYS_USER, ALL_ENTRIES);
+
+            EXPECT_GE(  entries.size() , 0 );
+
+            for (auto e : entries)
+            {
+
+                EXPECT_EQ((int)e.m_level, (int) lvl);
+                EXPECT_EQ((int)e.m_category, (int) ( s | eMSGSYSTEM::SYS_USER ) );
+            }
+        }
     }
 }
 
@@ -197,3 +239,4 @@ TEST_F( TestLDatabase , time )
     }
 
 }
+
