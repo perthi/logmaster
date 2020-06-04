@@ -10,20 +10,15 @@
 #include "LDatabase.h"
 #include "LMessage.h"
 #include "LMessage2Json.h"
+#include <utilities/GFileIOHandler.h>
 
 #include "sqlite/sqlite3.h"
-
 #include  <json/json.hpp>
-
-#include <stdio.h>
-#include <string.h>
-
-#include <utilities/GFileIOHandler.h>
-#include "LMessage2Json.h"
+#include  <stdio.h>
+#include  <string.h>
 
 #include <thread>
 #include <chrono>
-
 #include <sstream>
 
 #if defined(_WIN32) || defined(_WIN64)
@@ -37,6 +32,10 @@
 namespace LOGMASTER
 {
 
+    /** Singleton instance of the database
+     *  @param[in] path The full path to the base, if empty then
+     *  The defaul path is used  ( "logmaster.db" ) in the current directory
+     *  @return The database singleton */
     LDatabase  * 
     LDatabase::Instance( const string path )
     {
@@ -59,13 +58,15 @@ namespace LOGMASTER
 
     LDatabase::~LDatabase()
     {
-
+        CloseDatabase();
     }
 
 
 
+    /** @brief Writa a log entry to the databse
+     *  @param[in] A log message as prodcued by the logging system */
     void
-    LDatabase::AddLogEntry(const std::shared_ptr<LMessage> msg,  const string /*source*/  )
+    LDatabase::AddLogEntry(const std::shared_ptr<LMessage> msg  )
     {
         int rc;
         static char sql[1000];
@@ -93,6 +94,8 @@ namespace LOGMASTER
 
     }
 
+    /** @brief  Delete all log entries from the database 
+     *  @return true if the deletion was sucessful, false othervise */
     bool
     LDatabase::DeleteEntries()
     {
@@ -112,7 +115,10 @@ namespace LOGMASTER
     }
 
 
-
+    /** @brief   Fetch all log entries that matches the SQL query
+     *  @details On of the InitSQLQuery() functions must be called firts
+     *  @return a vector of log entries matching the sql query which was previously 
+     *  initialized with  InitSQLQuery(..) */
 	vector< LLogEntrySQL> 
     LDatabase::FetchAll(   )
     {
@@ -125,7 +131,6 @@ namespace LOGMASTER
         }
         return  msg_v;
     } 
-
 
 
 	vector<  LLogEntrySQL >  
