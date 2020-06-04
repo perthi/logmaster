@@ -45,6 +45,7 @@ export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-
 
 export HAS_LOGGING:=""
 
+export LOGMASTER_HOME=$(PWD)
 # export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)  
 # export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS) $(PEDANTIC_FLAGS)  
 
@@ -59,9 +60,11 @@ export LIBFLAGS:= -shared
 export CONFIG_DIR:=$(PWD)/config
 
 
-INCLUDES:= -I $(CURDIR)/include/  -isystem $(CURDIR)/
-GTEST_INCLUDES:= -isystem $(CURDIR)/
-LIBS= -L $(CURDIR)/build/$(TARGET)/lib  -lm
+INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/
+GTEST_INCLUDES:= -isystem $(PWD)/
+
+
+LIBS= -L $(PWD)/build/$(TARGET)/lib  -lm
 
 
 export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster 

@@ -138,6 +138,7 @@ namespace LOGMASTER
     }
 
 
+
 	vector<  std::shared_ptr< LLogEntrySQL> >  
     LDatabase::GetEntries(const int max_cnt )
     {
@@ -147,15 +148,22 @@ namespace LOGMASTER
 
 
 	vector<  std::shared_ptr< LLogEntrySQL> >  
-    LDatabase::GetEntriesAfterTim(  const uint64_t time, const int max_cnt )
+    LDatabase::GetEntries(  const uint64_t time, const eTIME_SEARCH_OPTION  opt, const int max_cnt )
     {
-        InitSQLQuery(time, max_cnt);
+        InitSQLQuery(time, opt, max_cnt);
+        return FetchAll();
+    }
+
+    vector<  std::shared_ptr< LLogEntrySQL> >  
+    LDatabase::GetEntries( const  int time_min,        const int time_max,  const int max_cnt )
+    {
+        InitSQLQuery(  time_min, time_max, max_cnt );
         return FetchAll();
     }
 
 
 	vector<  std::shared_ptr< LLogEntrySQL> >  
-    LDatabase::GetEntriesCategory( const  eMSGSYSTEM sys,  const int max_cnt ) 
+    LDatabase::GetEntries( const  eMSGSYSTEM sys,  const int max_cnt ) 
     {
         InitSQLQuery(sys, max_cnt);
         return FetchAll();
@@ -163,7 +171,7 @@ namespace LOGMASTER
 
 
 	vector<  std::shared_ptr< LLogEntrySQL> >  
-    LDatabase::GetEntriesLevel( const  eMSGLEVEL lvl,  const int max_cnt  )  
+    LDatabase::GetEntries( const  eMSGLEVEL lvl,  const int max_cnt  )  
     {
         InitSQLQuery(lvl, max_cnt);
         return FetchAll();
@@ -171,7 +179,7 @@ namespace LOGMASTER
     }
 
 	vector<  std::shared_ptr< LLogEntrySQL> >  
-    LDatabase::GetEntriesLevelAndCategory( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys, const int max_cnt  )
+    LDatabase::GetEntries( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys, const int max_cnt  )
     {
         InitSQLQuery(lvl, sys, max_cnt);
         return FetchAll();

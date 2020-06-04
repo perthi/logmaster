@@ -58,7 +58,7 @@ int main ()
          LLogTest::WriteMessages();
       }
 
-        LDatabase::Instance()->InitSQLQuery(  );
+        LDatabase::Instance()->InitSQLQuery( 0 );
         /// LDatabase::Instance()->InitSQLQuery(  eMSGLEVEL::LOG_INFO, eMSGSYSTEM::SYS_COM | eMSGSYSTEM::SYS_USER , 200 );
        
        // LDatabase::Instance()->InitSQLQuery( 1591197275 , eTIME_SEARCH_OPTION::EXACTLY );

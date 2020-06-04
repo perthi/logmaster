@@ -26,6 +26,8 @@ namespace LOGMASTER
 {
 	struct LMessage;
 
+	#define ALL_ENTRIES 0
+
 	enum class eTIME_SEARCH_OPTION
 	{
 		EXACTLY = 1,
@@ -43,20 +45,23 @@ namespace LOGMASTER
  			bool API DeleteEntries();
 			
 			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const string sql );
-			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries(const int max_cnt = 0 );
-			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntriesAfterTim(  const uint64_t time, const int max_cnt = 0 );
-			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntriesCategory( const  eMSGSYSTEM sys,  const int max_cnt = 0 ) ;
-			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntriesLevel( const  eMSGLEVEL lvl,  const int max_cnt = 0 ) ;
-			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntriesLevelAndCategory( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt = 0 ) ;
+			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const int max_cnt);
+			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
+			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const  int time_min,        const int time_max,  const int max_cnt );
+
+			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const  eMSGSYSTEM sys,  const int max_cnt) ;
+			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const  eMSGLEVEL lvl,  const int max_cnt) ;
+			vector<  std::shared_ptr< LLogEntrySQL> >  GetEntries( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
 
 
-			bool API  InitSQLQuery(  const int time,  const eTIME_SEARCH_OPTION opt,  const int max_cnt  = 0   );
-			bool API  InitSQLQuery(  const int time_min, const int time_max,  const int max_cnt  = 0   );
-			bool API  InitSQLQuery( const  eMSGLEVEL level, const int max_cnt = 0 );
-			bool API  InitSQLQuery( const  eMSGSYSTEM  system, const int max_cnt = 0 );
-			bool API  InitSQLQuery( const  eMSGLEVEL level, const eMSGSYSTEM  system,  const int max_cnt  = 0 );
-			bool API  InitSQLQuery( const int cnt  = 0 );
-			bool API  InitSQLQuery(  const string sql );
+
+			bool API  InitSQLQuery(  const  int time,            const eTIME_SEARCH_OPTION opt,  const int max_cnt );
+			bool API  InitSQLQuery(  const  int time_min,        const int time_max,  const int max_cnt );
+			bool API  InitSQLQuery(  const  eMSGLEVEL level,     const int max_cnt );
+			bool API  InitSQLQuery(  const  eMSGSYSTEM  system,  const int max_cnt  );
+			bool API  InitSQLQuery(  const  eMSGLEVEL level,     const eMSGSYSTEM  system,  const int max_cnt  );
+			bool API  InitSQLQuery(  const  int cnt  );
+			bool API  InitSQLQuery(  const  string sql );
 			bool API  ReadEntriesGetEntry( std::shared_ptr<LLogEntrySQL>  entry, const string sql = "", const int cnt = 0 );
 
 		private:
