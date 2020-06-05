@@ -18,6 +18,7 @@ using std::cout;
 #include <iostream> 
 #include <string>
 #include <logging/LLogApi.h>
+#include <logging/LDoc.h>
 
 #include <exception/GException.h>
 #include <exception>
@@ -27,10 +28,15 @@ using namespace LOGMASTER;
 
 #include <logging/LPublisher.h>
 
+
+
 int main ()
 {
    SET_LOGFORMAT("00000001");
     FORCE_DEBUG("This is a test");
+    
+    cout << LDoc::Instance()->Help() << endl;
+    
     return 0;
 
 }

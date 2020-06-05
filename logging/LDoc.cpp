@@ -52,7 +52,7 @@ namespace LOGMASTER
 
 
     string
-    LDoc::logTargetDoc()
+    LDoc::LogTargetDoc()
     {
         return string("[logtarget]\n")
             + string("\t\tLogtarget can be either a field with 3 bits or any of the following\n\t\t")
@@ -61,7 +61,7 @@ namespace LOGMASTER
 
 
     string
-    LDoc::logLevelDoc()
+    LDoc::LogLevelDoc()
     {
         return string("[loglevel]\n")
             + string("\t\tLoglevel can be any of the following\n\t\t")
@@ -73,7 +73,7 @@ Example 1) --all-debug = All subsystem is using loglevel debug\n\t\tExample 2) -
 
 
     string
-    LDoc::logFormatDoc()
+    LDoc::LogFormatDoc()
     {
         return string("[logformat]\n")
             + string("\t\tlogformat can be any of the following\n\t\t")
@@ -125,7 +125,21 @@ Example 1) --all-debug = All subsystem is using loglevel debug\n\t\tExample 2) -
         buffer << "2) OR: Specify a number indicating the loglevel" << endl;
         buffer << "3) If on number form the number must be either a string of  ZERO and ONES containing exactly 16 bits" << endl;
         buffer << "\tOr a hex number starting with 0x and  having exactly 4 fields" << endl;
-        buffer << "Available subcommands are: Valid sub-commands are\n" << g_utilities()->Hash2String (LHashMaps::GetSubCmdHash() ) << endl;
+        
+        buffer  << "****  SUB COMMANDS CONTROLLING THE LOGLEVEL ***** " << endl;
+
+   //     buffer << "Available subcommands are: Valid sub-commands are\n" << g_utilities()->Hash2String (LHashMaps::GetSubCmdHash() ) << endl;
+        buffer  << g_utilities()->Hash2String (LHashMaps::GetSubCmdHash() ) << endl;
+        buffer << "           ****   DONE *****                        "    << endl;    
+         
+        buffer  << "****  SUB COMMANDS CONTROLLING THE FORMAT ***** " << endl;
+        buffer  << g_utilities()->Hash2String(LHashMaps::GetFormatHash());
+        buffer << "           ****   DONE *****                        "    << endl;    
+        buffer  << "****  SUB COMMANDS LOG TARGETS ***** " << endl;
+        buffer << g_utilities()->Hash2String (LHashMaps::GetTargetHash( )) << endl;
+
+        buffer << "           ****   DONE *****                        "    << endl;  
+
         return buffer.str();
     }
 
