@@ -42,19 +42,27 @@ TestLDatabase::~TestLDatabase()
 
 
 
+
+
 void 
 TestLDatabase::SetUpTestCase()
 {
     string path = string(LOGMASTER_HOME) + string("/logging/unit-tests/commit/test-data/logmaster-test.db");
+   // LDatabase::Instance();
     fgDatabase =  LDatabase::Instance( path ); 
 }
+
+
 
 
 
 void 
 TestLDatabase::TearDownTestCase()
 {
+
     fgDatabase->CloseDatabase(); 
+    fgDatabase->SetDatabaseDefault();
+
 }
 
 
@@ -72,6 +80,7 @@ TestLDatabase::TearDown()
 {
     POP();
 }
+
 
 
 
@@ -186,6 +195,9 @@ TEST_F( TestLDatabase , specific_level_sys )
 
     }
 }
+
+
+
 
 
 TEST_F( TestLDatabase , specific_level_sys_multiple )

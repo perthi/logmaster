@@ -78,7 +78,12 @@ namespace LOGMASTER
 	{
 		public:
 			static  LDatabase API * Instance( const string db_path = "" );
- 			void API AddLogEntry (  const std::shared_ptr< LMessage > msg  );
+ 			
+			static void SetDatabase(  const string db_path  );
+			static void SetDatabaseDefault(    );
+
+
+			void API AddLogEntry (  const std::shared_ptr< LMessage > msg  );
 			void API CloseDatabase();
 			bool API OpenDatabase( const char *db_path );
  			bool API DeleteEntries();
@@ -102,7 +107,7 @@ namespace LOGMASTER
 			void HandleError( const GLocation l, const char * fmt, ...);
 
 		private:
-			LDatabase( const string db_path );
+			LDatabase(  );
 			virtual ~LDatabase();
 			vector< LLogEntrySQL> FetchAll(   ); 
 			LDatabase( const LDatabase & );
@@ -112,8 +117,9 @@ namespace LOGMASTER
 
 			sqlite3       *m_DataBase  =  nullptr; 
         	sqlite3_stmt  *m_stmt     =   nullptr;  // SQLite statmement 
-
-			string  fDBPath = "logmaster.db";
+ 			
+			static string  fDBPath;
+			static LDatabase *fgInstance;
 
 
 	};

@@ -31,34 +31,72 @@
 
 namespace LOGMASTER
 {
+    LDatabase *LDatabase::fgInstance = nullptr;
+    string    LDatabase::fDBPath = "logmaster.db";
+ //    LDatabase *LDatabase::fgInstance = new LDatabase();
+//	string    LDatabase::fDBPath = "logmaster.db";
 
     /** Singleton instance of the database
      *  @param[in] path The full path to the base, if empty then
      *  The defaul path is used  ( "logmaster.db" ) in the current directory
      *  @return The database singleton */
     LDatabase  * 
-    LDatabase::Instance( const string path )
+    LDatabase::Instance( const  string  path  )
     {
-
-        static LDatabase *instance = new LDatabase( path );
-        return instance;
-    }
-    
-    
-    LDatabase::LDatabase( const string path )
-    {
-        if(  path != "" )
+        if( path != "" )
         {
-            fDBPath = path;
+           SetDatabase(path); 
         }
 
+        if( fgInstance == nullptr  )
+        {
+        //    CERR << "CREATING INSTANCE" << endl;
+            fgInstance = new LDatabase( );
+        
+        }
+        return  fgInstance;
+    }
+
+
+    LDatabase::LDatabase(  )
+    {
         OpenDatabase( fDBPath.c_str()  );
     }
 
 
+	void 
+    LDatabase::SetDatabaseDefault(    )
+    {
+        SetDatabase( "logmaster.db");
+    }
+
+    void 
+    LDatabase::SetDatabase(  const  string  db_path  )
+    {
+        if( db_path != "" )
+        {
+            fDBPath =  db_path;
+        }
+
+        if( fgInstance != nullptr )
+        {
+           delete  fgInstance;
+           fgInstance = nullptr;
+        }
+
+        fgInstance = new LDatabase(   );
+
+    }
+
+
+   
+
+
     LDatabase::~LDatabase()
     {
-        CloseDatabase();
+        // CloseDatabase();
+        // delete fgInstance;
+        // fgInstance = nullptr;
     }
 
 
@@ -282,6 +320,14 @@ namespace LOGMASTER
     bool
     LDatabase::InitQuery( string sql_query,  const int limit  )
     {
+        if( m_DataBase == nullptr )
+        {
+            CERR << "DB = NULLPTR !!!!" << endl;
+            return false;
+        }
+
+
+
         if(limit > 0)
         {
           sql_query += LimitString(limit);  
@@ -448,12 +494,15 @@ namespace LOGMASTER
 
 
 
+
     /**  Opens the databse and creates the necessary logging table if it doesn allready exists 
      *   @param[in]   db_path The fulle path to hte database
      *   @return      TRUE if the databse was opened sucessfullt, false othervise */
     bool
     LDatabase::OpenDatabase( const char *db_path  )
     {
+
+     ///   COUT << "OPENING DB " << string( db_path ) << "   !! " << endl;
         int rc;
         char *zErrMsg = 0;
         rc = sqlite3_open(db_path, &m_DataBase);
@@ -461,6 +510,7 @@ namespace LOGMASTER
         if (rc)
         {
             printf("%s line %d, Can't open database: %s\n", __FILE__, __LINE__, sqlite3_errmsg(m_DataBase));
+
             return false;
         }
         else
@@ -481,6 +531,8 @@ namespace LOGMASTER
                 sqlite3_free(zErrMsg);
                 return false;
             }
+
+           //   CERR << "SUCCESS !!!!!!!" << endl;
             return true;
         }
     }
@@ -497,7 +549,7 @@ namespace LOGMASTER
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
 
-        COUT << "Database was closed" << endl;
+        COUT << "Database " <<  fDBPath  << " was closed" << endl;
     }
 
 

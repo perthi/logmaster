@@ -2,7 +2,7 @@
 
 PROGRAM=logging-unit-tests
 
-#SRCCPP:=logging-unit-tests.cpp \
+SRCCPP:=logging-unit-tests.cpp \
 	TestLConfig.cpp \
 	TestLConversion.cpp \
 	TestLHashMaps.cpp \
@@ -15,7 +15,7 @@ PROGRAM=logging-unit-tests
 	TestLDatabase.cpp
 
 
-SRCCPP:=logging-unit-tests.cpp \
+#SRCCPP:=logging-unit-tests.cpp \
 	TestLDatabase.cpp
 
 include ../../../../common.mk
