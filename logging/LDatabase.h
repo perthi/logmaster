@@ -104,7 +104,7 @@ namespace LOGMASTER
 			bool API  InitSQLQuery(  const  int cnt  );
 			bool API  InitSQLQuery(  const  string sql );
 			bool API  ReadEntriesGetEntry(  LLogEntrySQL  &entry );
-			void HandleError( const GLocation l, const char * fmt, ...);
+	///		void HandleError( const GLocation l,   eMSGLEVEL lvl, const char * fmt, ...);
 
 		private:
 			LDatabase(  );

@@ -7,9 +7,13 @@
  * Please report bugs to pth@embc.no                                      *
  **************************************************************************/
 
+
 #include "LDatabase.h"
 #include "LMessage.h"
 #include "LMessage2Json.h"
+#include "LEnums.h"
+#include "LLogApi.h"
+
 #include <utilities/GFileIOHandler.h>
 
 #include "sqlite/sqlite3.h"
@@ -89,9 +93,6 @@ namespace LOGMASTER
     }
 
 
-   
-
-
     LDatabase::~LDatabase()
     {
         // CloseDatabase();
@@ -100,12 +101,27 @@ namespace LOGMASTER
     }
 
 
+	// void 
+    // LDatabase::HandleError( const GLocation l,  eMSGLEVEL lvl,  const char * fmt, ...)
+    // {
+    //      PUSH();
+    //      SET_LOGTARGET("--target-off --target-stdout --target-file");
+    //      SET_LOGLEVEL("--all-info");   
+    //      va_list ap;
+    //      va_start( ap, fmt ); 
+    //      LLogging::Instance()->LogVarArgs( lvl , eMSGSYSTEM::SYS_DATABASE, l.fFileName.c_str(), l.fLineNo, l.fFunctName.c_str(), fmt, ap );
+    //      va_end( ap );
+    //      POP();
+    // }
+
+
 
     /** @brief Writa a log entry to the databse
      *  @param[in] msg a log message as produced by the logging system */
     void
     LDatabase::AddLogEntry(const std::shared_ptr<LMessage> msg  )
     {
+       // HandleError( GLOCATION, eMSGLEVEL::LOG_ERROR, "this is a test" ) ;
         int rc;
         static char sql[1000];
         char *zErrMsg = 0;
@@ -126,6 +142,7 @@ namespace LOGMASTER
         rc = sqlite3_exec(m_DataBase, sql, NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK)
         {
+         //   HandleError( GLOCATION, eMSGLEVEL::LOG_ERROR, "AddEntry SQL error: %s", zErrMsg );
             printf("AddEntry SQL error: %s\n", zErrMsg);
             sqlite3_free(zErrMsg);
         }
@@ -501,8 +518,6 @@ namespace LOGMASTER
     bool
     LDatabase::OpenDatabase( const char *db_path  )
     {
-
-     ///   COUT << "OPENING DB " << string( db_path ) << "   !! " << endl;
         int rc;
         char *zErrMsg = 0;
         rc = sqlite3_open(db_path, &m_DataBase);
@@ -531,8 +546,6 @@ namespace LOGMASTER
                 sqlite3_free(zErrMsg);
                 return false;
             }
-
-           //   CERR << "SUCCESS !!!!!!!" << endl;
             return true;
         }
     }
@@ -549,7 +562,7 @@ namespace LOGMASTER
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
 
-        COUT << "Database " <<  fDBPath  << " was closed" << endl;
+     ///   COUT << "Database " <<  fDBPath  << " was closed" << endl;
     }
 
 

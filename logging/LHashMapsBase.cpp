@@ -19,24 +19,20 @@ LHashMapsBase::~LHashMapsBase(){ }
 
 
 
-/** @brief initialization of the hash table for the logginglevel  
- *  This hash table holds the current logging level for a given sub-system. 
- *  This table is checked every time the logging system is asked to log a message, 
- *  and if logging is enabled for the given level *  
- *  and sub-system then the message is created. Where the message is actuall written (if at all) is 
- *  decided by the target configuration, wether or not logging is enabled to to file, to console, etc.. */
+/** @brief initialization of the hash table for the logginglevel     *     *  This hash table holds the current logging level for a given sub-system. This table is checked every time the logging system is asked to log a message, and if logging is enabled for the given level     *  and sub-system then the message is created. Where the message is actuall written (if at all) is decided by the target configuration, wether or not logging is enabled to to file, to console, etc..     *  @param l  All system are initialized with logging for this level or higher.  */
    void
    LHashMapsBase::InitHashLogLevel(const eMSGLEVEL /*l*/)
    {
 	fLogLevelHash.clear();
 //	eMSGLEVEL level = (eMSGLEVEL)(PAD((int)l));
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_EX,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_ERROR)  );
-	fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_INFO ) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_FSM, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_MESSAGE, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_COM, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_XML, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_DATABASE, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );
    }
@@ -52,6 +48,7 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_MESSAGE, 	"Message");
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_COM, 	"Com");
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_XML, 	"Xml");
+	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_DATABASE, 	"Database");
    }
    void
    LHashMapsBase::InitHashLevel2String()
@@ -109,13 +106,23 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fSubCmdHash.emplace("--xml-info",		std::make_pair(eMSGSYSTEM::SYS_XML,  eMSGLEVEL::LOG_INFO));
 	fSubCmdHash.emplace("--xml-debug",		std::make_pair(eMSGSYSTEM::SYS_XML,  eMSGLEVEL::LOG_DEBUG));
 	fSubCmdHash.emplace("--xml-all",		std::make_pair(eMSGSYSTEM::SYS_XML,  eMSGLEVEL::LOG_ALL));
-    
-	for (auto it = fSubCmdHash.begin(); it != fSubCmdHash.end(); ++it)
-        {
-            eMSGLEVEL l = std::get<1>(it->second);
-            eMSGLEVEL l_padded =  (eMSGLEVEL)PAD((int)l);
-            std::get<1>(it->second) = l_padded;
-        }
+
+
+	fSubCmdHash.emplace("--database-off",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_OFF));
+	fSubCmdHash.emplace("--database-fatal",	std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_FATAL));
+	fSubCmdHash.emplace("--database-error",	std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_ERROR));
+	fSubCmdHash.emplace("--database-warning",	std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_WARNING));
+	fSubCmdHash.emplace("--database-info",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_INFO));
+	fSubCmdHash.emplace("--database-debug",	std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_DEBUG));
+	fSubCmdHash.emplace("--database-all",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_ALL));
+	fSubCmdHash.emplace("--db-off",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_OFF));
+	fSubCmdHash.emplace("--db-fatal",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_FATAL));
+	fSubCmdHash.emplace("--db-error",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_ERROR));
+	fSubCmdHash.emplace("--db-warning",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_WARNING));
+	fSubCmdHash.emplace("--db-info",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_INFO));
+	fSubCmdHash.emplace("--db-debug",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_DEBUG));
+	fSubCmdHash.emplace("--db-all",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_ALL));
+
 
    }
 }
