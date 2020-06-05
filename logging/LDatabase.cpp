@@ -64,7 +64,7 @@ namespace LOGMASTER
 
 
     /** @brief Writa a log entry to the databse
-     *  @param[in] A log message as prodcued by the logging system */
+     *  @param[in] msg a log message as produced by the logging system */
     void
     LDatabase::AddLogEntry(const std::shared_ptr<LMessage> msg  )
     {
@@ -132,9 +132,15 @@ namespace LOGMASTER
         return  msg_v;
     } 
 
-    /**@{
+//   * -  eTIME_SEARCH_OPTION::EXACTLY
+//      * -  eTIME_SEARCH_OPTION::INCLUDING_AND_ABOVE
+//      * -  eTIME_SEARCH_OPTION::INCLUDING_AND_BELOW
+//      * */   
+
+    /** @name Querey
     * @brief   Query the database
-    * @details Query the database for all entries matching the search criteria
+    * @details Query the database for all entries matching the search criteria. These functions comprises the high level interface.
+    * The quere is performed in two steps. First
     * @param[in] sql SQL search expression
     * @param[in] time Unix epoch time
     * @param[in] time_min Unix epoch time
@@ -145,6 +151,8 @@ namespace LOGMASTER
     * @param[in] sy  subsystem/category ( return the messages matching sub system )
     * @param[in] lvl subsystem/category ( return the messages for a given log level )
     @return vector of log entries matching the search criteria */
+    /**@{ */
+     /** Queries the database uisng a user defiedn SQL query string */   
     vector<  LLogEntrySQL >  
     LDatabase::Query( const string sql )
     {
@@ -152,7 +160,7 @@ namespace LOGMASTER
         return FetchAll();
     }
 
-
+    /** Retiurn all log entries from the dtabase without any filter. max_cnt represnts the */   
 	vector<  LLogEntrySQL >  
     LDatabase::Query(const int max_cnt )
     {
@@ -160,7 +168,14 @@ namespace LOGMASTER
         return FetchAll();
     }
 
-
+  
+    /** Returns all log entries matcing a given time stamp (time). The time si Unix epoc time with
+     * a resolution of seconds. 
+     *  The serach option "opt" serach option  can be one of the follwing 
+     *    -  eTIME_SEARCH_OPTION::EXACTLY Return enties that matches "time" exactly.
+     *    -  eTIME_SEARCH_OPTION::INCLUDING_AND_ABOVE Return entries that are newer than "time" 
+     *    -  eTIME_SEARCH_OPTION::INCLUDING_AND_BELOW Return entries that are older than "time" 
+     * */
 	vector<  LLogEntrySQL >  
     LDatabase::Query(  const uint64_t time, const eTIME_SEARCH_OPTION  opt, const int max_cnt )
     {
@@ -168,7 +183,7 @@ namespace LOGMASTER
         return FetchAll();
     }
 
-
+    /** Return entries with a timestamp that is newer or equal to time_min and older or equla to time_min*/ 
     vector<  LLogEntrySQL >  
     LDatabase::Query( const  int time_min, const int time_max,  const int max_cnt )
     {
@@ -184,7 +199,6 @@ namespace LOGMASTER
         return FetchAll();
     }
 
-
 	vector<  LLogEntrySQL >  
     LDatabase::Query( const  eMSGLEVEL lvl,  const int max_cnt  )  
     {
@@ -193,6 +207,7 @@ namespace LOGMASTER
 
     }
 
+    /** Function 6 in group 2. Details. */    
 	vector< LLogEntrySQL >  
     LDatabase::Query( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys, const int max_cnt  )
     {
@@ -202,6 +217,22 @@ namespace LOGMASTER
 /**@}*/
 
 
+
+    /** @name  InitSQLQuery
+    * @brief   Generates a SQL search string based on the input parameters
+    * @details Query the database for all entries matching the search criteria. These functions comprises the high level interface.
+    * The quere is performed in two steps. First
+    * @param[in] sql SQL search expression
+    * @param[in] time Unix epoch time
+    * @param[in] time_min Unix epoch time
+    * @param[in] time_max Unix epoch time
+    * @param[in] opt  For time search this specfifes wether to return 
+    * log entris with either larger, lower or equla time stamp than "time"
+    * @param[in] max_cnt The maximum number of entries to return
+    * @param[in] sy  subsystem/category ( return the messages matching sub system )
+    * @param[in] lvl subsystem/category ( return the messages for a given log level )
+    @return true if a valid SQL serach string could be generated, false othervise */
+ /**@{ */
     bool  
     LDatabase::InitSQLQuery( const eMSGLEVEL level,  const int max_cnt )
     {
@@ -211,6 +242,7 @@ namespace LOGMASTER
     }
 
 
+  
     bool  
     LDatabase::InitSQLQuery( const eMSGSYSTEM  system,  const int max_cnt )
     {
@@ -269,10 +301,6 @@ namespace LOGMASTER
     }
 
     
-    
-    
-    
-    
 
     bool
     LDatabase::InitSQLQuery(const int time, const eTIME_SEARCH_OPTION opt, const int cnt )
@@ -306,8 +334,10 @@ namespace LOGMASTER
         std::stringstream buffer; 
         buffer <<   "SELECT * FROM t_logging WHERE time >= " << time_min << " AND time <= " << time_max  << " ORDER BY id DESC";
         return InitQuery( buffer.str(), cnt );
-    }
-    
+    }    
+/**@}*/
+
+
 
     string 
     LDatabase::LimitString( const int limit )
@@ -319,13 +349,18 @@ namespace LOGMASTER
 
 
 
+    /** @brief    Loop over all entries matching the current SQL query
+     *  @details  The sql query must be initialized beforehand by calling InitSQLQuery(). The function returns true
+     *  until the log entires matching the SQL query is exhausted.  
+     *  @param[in,out]  entry The retrieved log entry is stored in this object
+     *  @param[in] cnt  cnt The maximum number of entries to return
+     *  @return true was long as ther are more entries to retriev, false
+     *  when the last entry has been reached. 
+     *  @return false if the sql query has not been initialized.
+     * */
     bool
-    LDatabase::ReadEntriesGetEntry(LLogEntrySQL  &entry, const string  sql, const int cnt )
+    LDatabase::ReadEntriesGetEntry(LLogEntrySQL  &entry )
     {
-        if( sql != "" )
-        {
-            InitQuery(sql, cnt);     
-        }
 
         if( m_stmt == nullptr )
         {

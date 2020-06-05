@@ -143,14 +143,14 @@ ALWAYS_DETAILED_SEC    = YES
 # operators of the base classes will not be shown.
 # The default value is: NO.
 
-INLINE_INHERITED_MEMB  = NO
+INLINE_INHERITED_MEMB  = YES
 
 # If the FULL_PATH_NAMES tag is set to YES, doxygen will prepend the full path
 # before files name in the file list and in the header files. If set to NO the
 # shortest path that makes the file name unique will be used
 # The default value is: YES.
 
-FULL_PATH_NAMES        = NO
+FULL_PATH_NAMES        = YES
 
 # The STRIP_FROM_PATH tag can be used to strip a user-defined part of the path.
 # Stripping is only done if one of the specified strings matches the left-hand
@@ -207,7 +207,7 @@ QT_AUTOBRIEF           = NO
 # not recognized any more.
 # The default value is: NO.
 
-MULTILINE_CPP_IS_BRIEF = YES
+MULTILINE_CPP_IS_BRIEF = NO
 
 # If the INHERIT_DOCS tag is set to YES then an undocumented member inherits the
 # documentation from any documented member that it re-implements.
@@ -412,7 +412,7 @@ TYPEDEF_HIDES_STRUCT   = NO
 # the optimal cache size from a speed point of view.
 # Minimum value: 0, maximum value: 9, default value: 0.
 
-LOOKUP_CACHE_SIZE      = 1
+LOOKUP_CACHE_SIZE      = 9
 
 #---------------------------------------------------------------------------
 # Build related configuration options
@@ -569,7 +569,7 @@ SORT_MEMBER_DOCS       = YES
 # this will also influence the order of the classes in the class list.
 # The default value is: NO.
 
-SORT_BRIEF_DOCS        = NO
+SORT_BRIEF_DOCS        = YES
 
 # If the SORT_MEMBERS_CTORS_1ST tag is set to YES then doxygen will sort the
 # (brief and detailed) documentation of class members so that constructors and
@@ -588,7 +588,7 @@ SORT_MEMBERS_CTORS_1ST = YES
 # appear in their defined order.
 # The default value is: NO.
 
-SORT_GROUP_NAMES       = NO
+SORT_GROUP_NAMES       = YES
 
 # If the SORT_BY_SCOPE_NAME tag is set to YES, the class list will be sorted by
 # fully-qualified names, including namespaces. If set to NO, the class list will
@@ -1291,7 +1291,7 @@ GENERATE_HTMLHELP      = NO
 # written to the html output directory.
 # This tag requires that the tag GENERATE_HTMLHELP is set to YES.
 
-CHM_FILE               = ../kns-ts-help.chm
+CHM_FILE               = ../logmaster-help.chm
 
 # The HHC_LOCATION tag can be used to specify the location (absolute path
 # including file name) of the HTML help compiler (hhc.exe). If non-empty,
@@ -2157,7 +2157,7 @@ DIA_PATH               =
 # and usage relations if the target is undocumented or is not a class.
 # The default value is: YES.
 
-HIDE_UNDOC_RELATIONS   = YES
+HIDE_UNDOC_RELATIONS   = NO
 
 # If you set the HAVE_DOT tag to YES then doxygen will assume the dot tool is
 # available from the path. This tool is part of Graphviz (see:
@@ -2176,7 +2176,7 @@ HAVE_DOT               = YES
 # Minimum value: 0, maximum value: 32, default value: 0.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-DOT_NUM_THREADS        = 0
+DOT_NUM_THREADS        = 16
 
 # When you want a differently looking font in the dot files that doxygen
 # generates you can specify the font name using DOT_FONTNAME. You need to make
@@ -2245,7 +2245,7 @@ UML_LOOK               = NO
 # Minimum value: 0, maximum value: 100, default value: 10.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-UML_LIMIT_NUM_FIELDS   = 10
+UML_LIMIT_NUM_FIELDS   = 100
 
 # If the TEMPLATE_RELATIONS tag is set to YES then the inheritance and
 # collaboration graphs will show the relations between templates and their
@@ -2326,6 +2326,7 @@ DIRECTORY_GRAPH        = YES
 # The default value is: png.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
+# DOT_IMAGE_FORMAT       = png
 DOT_IMAGE_FORMAT       = png
 
 # If DOT_IMAGE_FORMAT is set to svg, then this option can be set to YES to
@@ -2338,7 +2339,7 @@ DOT_IMAGE_FORMAT       = png
 # The default value is: NO.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-INTERACTIVE_SVG        = NO
+INTERACTIVE_SVG        = YES
 
 # The DOT_PATH tag can be used to specify the path where the dot tool can be
 # found. If left blank, it is assumed the dot tool can be found in the path.
@@ -2421,7 +2422,7 @@ DOT_TRANSPARENT        = NO
 # The default value is: NO.
 # This tag requires that the tag HAVE_DOT is set to YES.
 
-DOT_MULTI_TARGETS      = NO
+DOT_MULTI_TARGETS      = YES
 
 # If the GENERATE_LEGEND tag is set to YES doxygen will generate a legend page
 # explaining the meaning of the various boxes and arrows in the dot generated
