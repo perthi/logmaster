@@ -36,6 +36,8 @@ using namespace LOGMASTER;
 #include <time.h>
 
 
+
+
 int main ()
 {
    LConfig::SetTimeMode("Cloud");
@@ -47,6 +49,8 @@ int main ()
     info = localtime( &rawtime );
     FORCE_DEBUG("Year = %d",   info->tm_year + 1900 );
     FORCE_DEBUG("Hour = %d",  info->tm_hour );
+
+
 
 
    try
@@ -63,9 +67,12 @@ int main ()
 
         LLogEntrySQL msg;
 
+       
+       
         while( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true  ) 
         {
-             COUT << "id = " << msg.fId << "\ttime_int = " << (long)msg.fTimeI << "\ttime_float"<< msg.fTimeD <<"\tcategory = " << (int)msg.fCategory << "\tmsg = " << msg.fJson << endl;
+       
+            COUT << "id = " << msg.fId << "\ttime_int = " << (long)msg.fTimeI << "\ttime_float"<< msg.fTimeD <<"\tcategory = " << (int)msg.fCategory << "\tmsg = " << msg.fJson << endl;
         }
 
    }

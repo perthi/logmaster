@@ -124,7 +124,6 @@ namespace LOGMASTER
                    (int)msg->fEpochTime,  msg->fEpochTime, (int)msg->fLevel,  (int)msg->fSystem, 
                    buffer.str().c_str() );
 
-
         rc = sqlite3_exec(m_DataBase, sql, NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK)
         {
@@ -356,15 +355,15 @@ namespace LOGMASTER
         switch (opt)
         {
         case eTIME_SEARCH_OPTION::EXACTLY:
-            buffer <<  "SELECT * FROM t_logging WHERE time = " << time  << " ORDER BY id DESC";
+            buffer <<  "SELECT * FROM t_logging WHERE time_int = " << time  << " ORDER BY id DESC";
             return InitQuery( buffer.str(), cnt );
             break;
         case eTIME_SEARCH_OPTION::INCLUDING_AND_ABOVE:
-            buffer <<  "SELECT * FROM t_logging WHERE time >= " << time  << " ORDER BY id DESC";
+            buffer <<  "SELECT * FROM t_logging WHERE time_int >= " << time  << " ORDER BY id DESC";
             return InitQuery( buffer.str(), cnt );
             break;
         case eTIME_SEARCH_OPTION::INCLUDING_AND_BELOW:
-            buffer <<  "SELECT * FROM t_logging WHERE time <= " << time  << " ORDER BY id DESC";
+            buffer <<  "SELECT * FROM t_logging WHERE time_int <= " << time  << " ORDER BY id DESC";
             return InitQuery( buffer.str(), cnt );
             break;
         default:
@@ -392,6 +391,8 @@ namespace LOGMASTER
         buffer << " LIMIT " << limit;
         return buffer.str();
     }
+
+
 
 
 
@@ -479,7 +480,7 @@ namespace LOGMASTER
                 {
                     if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER)
                     {
-                        entry.fLevel = sqlite3_column_int( m_stmt, i);
+                        entry.fCategory = sqlite3_column_int( m_stmt, i);
                     }
                     else
                     {
