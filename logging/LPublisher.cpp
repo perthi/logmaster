@@ -90,7 +90,7 @@ namespace LOGMASTER
     void  
     LPublisher::RunDispatcher()
     {
-        
+
 
     }
 
@@ -102,13 +102,13 @@ namespace LOGMASTER
     }
 
 
-
     void    
     LPublisher::QueMessage( const std::shared_ptr<LMessage>  msg )
     {
-        std::lock_guard<std::mutex> guard( m );
+        std::lock_guard<std::mutex> guard( fMessageQeueMutext );
         fMessageQeue.push( msg );
     }   
+
 
 
     /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently

@@ -14,6 +14,9 @@
 #include <memory>
 #include <queue>  
 #include <mutex>
+#include <thread>
+#include <atomic>
+
 
 namespace LOGMASTER
 {
@@ -41,16 +44,20 @@ namespace LOGMASTER
         void  API   DisableJson() ;
         bool  API  * GetEnableJson() ; 
         void  API   QueMessage( const std::shared_ptr<LMessage>  msg );    
+        
+        void  API   StartDispatcher(); 
+        void  API   StopDispatcher(); 
 
-        void  API  StartDispatcher(); 
         void  API   RunDispatcher();
+
 
     private:
          LPublisher();
         ~LPublisher();
+         LPublisher( const LPublisher   & );
+         LPublisher operator =  ( const LPublisher   & );   
 
          void     DispatchMessages();       
-
          void     PublishMessage( const std::shared_ptr<LMessage>, const std::shared_ptr<LConfig>,  const eMSGTARGET target  );
          void     PublishToSubscribers(const std::shared_ptr<LMessage>   msg);
          void     PublishToGuiSubscribers(const std::shared_ptr<LMessage> msg);
@@ -64,6 +71,7 @@ namespace LOGMASTER
          bool     fgEnableColor = true; 	/* !< Wether or not colors will be used for distinguishing messages when they are written to the console */  
          bool     fgEnableJson = true;
          std::thread *fDispatcher = nullptr;
+         std::atomic_bool  fDoRun = true;    
 
     };
 
