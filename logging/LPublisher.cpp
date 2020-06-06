@@ -144,14 +144,31 @@ namespace LOGMASTER
         }
     }
 
+
     void  
-    LPublisher::DispatchMessages()
-    {
+    // LPublisher::DispatchMessages()
+    // {
+    //     if (  fMessageQeue.size() == 0 ) 
+    //     { 
+    //         return; 
+    //     }
         
-        std::lock_guard<std::mutex> guard( fMessageQeueMutext );
 
 
-    }
+
+
+    //     std::queue< std::shared_ptr <LMessage > > tmp_messages;
+    //     std::lock_guard<std::mutex> guard( fMessageQeueMutext );
+
+
+    // }
+
+	// std::shared_ptr<MBMessageInfo> element = nullptr;
+	// 	{
+	// 		element = tmp_messages.front();
+	// 		tmp_messages.pop();
+	// 		fMsgCntProcessed++;
+	// 	}
 
 
     void    
@@ -168,7 +185,7 @@ namespace LOGMASTER
      *   @param[in] msg  The message to publish
      *   @param[in] cfg The current configuration of the logging system. 
      *   This configuration determins what is written and where it is written to (file, console or subscribers )
-     *   @param[in] target The target for wher to publish this message (file, stdout, subscribers etc..) */
+     *   @param[in] target The target for where to publish this message (file, stdout, subscribers etc..) */
     void
     LPublisher::PublishMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
     {
