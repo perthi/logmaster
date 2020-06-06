@@ -54,24 +54,18 @@ int main ()
       SET_LOGTARGET("--target-off --target-db --target-file --target-stdout");
       SET_LOGLEVEL("--all-info");
       
-      for(int i= 0; i < 5; i++ )
+      for(int i= 0; i < 10; i++ )
       {
          LLogTest::WriteMessages();
       }
 
         LDatabase::Instance()->InitSQLQuery( 0 );
-        /// LDatabase::Instance()->InitSQLQuery(  eMSGLEVEL::LOG_INFO, eMSGSYSTEM::SYS_COM | eMSGSYSTEM::SYS_USER , 200 );
-       
-       // LDatabase::Instance()->InitSQLQuery( 1591197275 , eTIME_SEARCH_OPTION::EXACTLY );
-
-     //   LDatabase::Instance()->InitSQLQuery( 1591197270,  1591197277   );
-
 
         LLogEntrySQL msg;
 
         while( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true  ) 
         {
-             COUT << "id = " << msg.m_id << "\ttime = " << (long)msg.m_time <<"\tcategory = " << (int)msg.m_category << "\tmsg = " << msg.m_json << endl;
+             COUT << "id = " << msg.fId << "\ttime_int = " << (long)msg.fTimeI << "\ttime_float"<< msg.fTimeD <<"\tcategory = " << (int)msg.fCategory << "\tmsg = " << msg.fJson << endl;
         }
 
    }

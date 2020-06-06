@@ -41,9 +41,6 @@ TestLDatabase::~TestLDatabase()
 
 
 
-
-
-
 void 
 TestLDatabase::SetUpTestCase()
 {
@@ -54,15 +51,9 @@ TestLDatabase::SetUpTestCase()
 
 
 
-
-
-
-
-
 void 
 TestLDatabase::TearDownTestCase()
 {
-
     fgDatabase->CloseDatabase(); 
     fgDatabase->SetDatabaseDefault();
 
@@ -86,7 +77,7 @@ TestLDatabase::TearDown()
 
 
 
-
+/*
 TEST_F( TestLDatabase , all_entries )
 {
     auto db = fgDatabase;
@@ -126,7 +117,7 @@ TEST_F( TestLDatabase , specific_system )
 
         for( auto  e : entries )
         {
-           EXPECT_EQ ( (int)e.m_category, (int)s  );     
+           EXPECT_EQ ( (int)e.fCategory, (int)s  );     
         }
 
     }
@@ -146,7 +137,7 @@ TEST_F( TestLDatabase , specific_system_multiple )
 
         for( auto  e : entries )
         {
-            EXPECT_EQ ( (int)e.m_category, (int) ( s | eMSGSYSTEM::SYS_USER)  );     
+            EXPECT_EQ ( (int)e.fCategory, (int) ( s | eMSGSYSTEM::SYS_USER)  );     
         }
 
     }
@@ -170,7 +161,7 @@ TEST_F( TestLDatabase , specific_level )
 
         for( auto  e : entries )
         {
-           EXPECT_EQ ( (int)e.m_level, (int)lvl  );     
+           EXPECT_EQ ( (int)e.fLevel, (int)lvl  );     
         }
 
     }
@@ -194,8 +185,8 @@ TEST_F( TestLDatabase , specific_level_sys )
             for( auto  e : entries )
             {
             
-              EXPECT_EQ ( (int)e.m_level, (int)lvl  );     
-              EXPECT_EQ ( (int)e.m_category , (int)s  );   
+              EXPECT_EQ ( (int)e.fLevel, (int)lvl  );     
+              EXPECT_EQ ( (int)e.fCategory, (int)s  );   
             }
 
         }
@@ -224,12 +215,14 @@ TEST_F( TestLDatabase , specific_level_sys_multiple )
             for (auto e : entries)
             {
 
-                EXPECT_EQ((int)e.m_level, (int) lvl);
-                EXPECT_EQ((int)e.m_category, (int) ( s | eMSGSYSTEM::SYS_USER ) );
+                EXPECT_EQ((int)e.fLevel, (int) lvl);
+                EXPECT_EQ((int)e.fCategory, (int) ( s | eMSGSYSTEM::SYS_USER ) );
             }
         }
     }
 }
+
+*/
 
 
 
@@ -242,19 +235,20 @@ TEST_F( TestLDatabase , time )
     entries = db->Query(1591273465, eTIME_SEARCH_OPTION::EXACTLY, ALL_ENTRIES);
     for (auto e : entries)
     {
-        EXPECT_EQ(1591273465, (int64_t)e.m_time);
+        EXPECT_EQ(1591273465, e.fTimeI);
     }
 
     entries = db->Query(1591273465, eTIME_SEARCH_OPTION::INCLUDING_AND_ABOVE, ALL_ENTRIES);
     for (auto e : entries)
     {
-        EXPECT_TRUE((int64_t)e.m_time >= 1591273465);
+        G_INFO("time = %d", e.fTimeI  );
+        EXPECT_TRUE( e.fTimeI >= 1591273465);
     }
 
     entries = db->Query(1591273465, eTIME_SEARCH_OPTION::INCLUDING_AND_BELOW, ALL_ENTRIES);
     for (auto e : entries)
     {
-        EXPECT_TRUE((int64_t)e.m_time <= 1591273465);
+        EXPECT_TRUE( e.fTimeI <= 1591273465);
     }
 
 }

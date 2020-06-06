@@ -31,6 +31,8 @@
 #include <utilities/GColor.h>
 
 
+namespace LOGMASTER
+{
 
 LColorMap::LColorMap() : fMap()
 {
@@ -114,3 +116,6 @@ LColorMap::Init()
       fMap.emplace(eMSGLEVEL::LOG_FATAL, std::make_tuple(string("FATAL"), C_PURPLE, T_PURPLE, A_PURPLE));
       fMap.emplace(eMSGLEVEL::LOG_ALL, std::make_tuple(string("ALL"), C_DARK_GREEN, T_DARK_GREEN, A_DARK_GREEN));
  }
+
+
+}

@@ -3,11 +3,18 @@
 
 #pragma once
 
-struct LLogEntrySQL
+#include <cstdint>
+
+namespace LOGMASTER
 {
-    std::uint32_t m_id = 0;
-    std::uint32_t m_level = 0;
-    std::uint32_t m_category = 0;
-    double m_time = 0;
-    std::string m_json = "";
-};
+    struct LLogEntrySQL
+    {
+        uint32_t     fId = 0;
+        uint32_t     fLevel = 0;
+        uint32_t     fCategory = 0;
+        uint64_t     fTimeI = 0;
+        double       fTimeD = 0;
+        std::string  fJson = "";
+    };
+
+} // namespace LOGMASTER

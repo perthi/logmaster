@@ -13,6 +13,8 @@
 #include "LMessage2Json.h"
 #include "LEnums.h"
 #include "LLogApi.h"
+#include "LMessageGenerator.h"
+#include "LPublisher.h"
 
 #include <utilities/GFileIOHandler.h>
 
@@ -37,8 +39,6 @@ namespace LOGMASTER
 {
     LDatabase *LDatabase::fgInstance = nullptr;
     string    LDatabase::fDBPath = "logmaster.db";
- //    LDatabase *LDatabase::fgInstance = new LDatabase();
-//	string    LDatabase::fDBPath = "logmaster.db";
 
     /** Singleton instance of the database
      *  @param[in] path The full path to the base, if empty then
@@ -64,6 +64,7 @@ namespace LOGMASTER
 
     LDatabase::LDatabase(  )
     {
+        fMessageGenerator = std::make_shared<LMessageGenerator>(); 
         OpenDatabase( fDBPath.c_str()  );
     }
 
@@ -101,21 +102,6 @@ namespace LOGMASTER
     }
 
 
-	// void 
-    // LDatabase::HandleError( const GLocation l,  eMSGLEVEL lvl,  const char * fmt, ...)
-    // {
-    //      PUSH();
-    //      SET_LOGTARGET("--target-off --target-stdout --target-file");
-    //      SET_LOGLEVEL("--all-info");   
-    //      va_list ap;
-    //      va_start( ap, fmt ); 
-    //      LLogging::Instance()->LogVarArgs( lvl , eMSGSYSTEM::SYS_DATABASE, l.fFileName.c_str(), l.fLineNo, l.fFunctName.c_str(), fmt, ap );
-    //      va_end( ap );
-    //      POP();
-    // }
-
-
-
     /** @brief Writa a log entry to the databse
      *  @param[in] msg a log message as produced by the logging system */
     void
@@ -131,11 +117,11 @@ namespace LOGMASTER
         buffer << j;
 
 #ifndef WIN32
-        snprintf(sql, 1000, "INSERT INTO t_logging (time, level, category, json ) VALUES ('%d',%d, %d,'%s')",
+        snprintf(sql, 1000, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %f, %d, %d,'%s')",
 #else
-       snprintf_s(sql, "INSERT INTO  t_logging (time, level, category, json ) VALUES ('%d',%d, %d,'%s')",
+       snprintf_s(sql, "INSERT INTO  t_logging (time, level, category, json ) VALUES ('%d', %f, %d, %d,'%s')",
 #endif
-                   (int)msg->fEpochTime, (int)msg->fLevel,  (int)msg->fSystem, 
+                   (int)msg->fEpochTime,  msg->fEpochTime, (int)msg->fLevel,  (int)msg->fSystem, 
                    buffer.str().c_str() );
 
 
@@ -146,8 +132,9 @@ namespace LOGMASTER
             printf("AddEntry SQL error: %s\n", zErrMsg);
             sqlite3_free(zErrMsg);
         }
-
     }
+
+
 
     /** @brief  Delete all log entries from the database 
      *  @return true if the deletion was sucessful, false othervise */
@@ -187,10 +174,6 @@ namespace LOGMASTER
         return  msg_v;
     } 
 
-//   * -  eTIME_SEARCH_OPTION::EXACTLY
-//      * -  eTIME_SEARCH_OPTION::INCLUDING_AND_ABOVE
-//      * -  eTIME_SEARCH_OPTION::INCLUDING_AND_BELOW
-//      * */   
 
     /** @name Querey
     * @brief   Query the database
@@ -425,6 +408,8 @@ namespace LOGMASTER
     LDatabase::ReadEntriesGetEntry(LLogEntrySQL  &entry )
     {
 
+     //   HandleError(GLOCATION, eMSGLEVEL::LOG_FATAL, "This is a test");
+
         if( m_stmt == nullptr )
         {
             CERR << "NO SQL QUERY INITIALIZED" << endl;
@@ -447,56 +432,69 @@ namespace LOGMASTER
                 {
                     if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER)
                     {
-                        entry.m_id = sqlite3_column_int(m_stmt, i);
+                        entry.fId = sqlite3_column_int(m_stmt, i);
                     }
 
                     else
                      {
-                        printf("Log: ReadEntriesGetEntry Incorrect Type \"id\"\n");
+                        HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type  (%d = %s)  \"id\"",  SQLITE_INTEGER, SQLType2String(SQLITE_INTEGER ).c_str()  );
                      }   
                 }
-                else if (strcasecmp(sqlite3_column_name(m_stmt, i), "time") == 0)
+                else if (strcasecmp(sqlite3_column_name(m_stmt, i), "time_int") == 0)
                 {
                     if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER )
                     {
-                        entry.m_time = (sqlite3_column_int( m_stmt, i));
+                        entry.fTimeI = (sqlite3_column_int( m_stmt, i));
                     }
                     else
                     {
-                        printf("Log: ReadEntriesGetEntry Incorrect Type \"time\"\n");
+                        HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type  (%d = %s) \"time_int\"",  SQLITE_INTEGER, SQLType2String(SQLITE_INTEGER ).c_str()    );  
                     }
                 }
+
+                else if (strcasecmp(sqlite3_column_name(m_stmt, i), "time_float") == 0)
+                {
+                    if (sqlite3_column_type(m_stmt, i) == SQLITE_FLOAT)
+                    {
+                        entry.fTimeD = (sqlite3_column_double(m_stmt, i));
+                    }
+                    else
+                    {
+                        HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type (%d = %s)   ) \"time_float\"",  SQLITE_FLOAT, SQLType2String(SQLITE_FLOAT).c_str()    );   
+                    }
+                }
+
                 else if (strcasecmp(sqlite3_column_name(m_stmt, i), "level") == 0)
                 {
                     if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER)
                     {
-                        entry.m_level = sqlite3_column_int( m_stmt, i);
+                        entry.fLevel = sqlite3_column_int( m_stmt, i);
                     }
                     else
                     {
-                        printf("Log: ReadEntriesGetEntry Incorrect Type \"level\"\n");
+                        HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type   (%d = %s)  \"level\"",  SQLITE_INTEGER, SQLType2String(SQLITE_INTEGER).c_str()   );   
                     }
                 }
                 else if (strcasecmp(sqlite3_column_name(m_stmt, i), "category") == 0)
                 {
                     if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER)
                     {
-                        entry.m_category = sqlite3_column_int( m_stmt, i);
+                        entry.fLevel = sqlite3_column_int( m_stmt, i);
                     }
                     else
                     {
-                        printf("Log: ReadEntriesGetEntry Incorrect Type \"category\"\n");
+                        HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type  (%d = %s) \"category\"",  SQLITE_INTEGER, SQLType2String(SQLITE_INTEGER).c_str()   );   
                     }
                 }
                 else if (strcasecmp(sqlite3_column_name(m_stmt, i), "json") == 0)
                 {
                     if (sqlite3_column_type(m_stmt, i) == SQLITE_TEXT)
                     {
-                        entry.m_json = std::string(reinterpret_cast<const char *>(sqlite3_column_text(m_stmt, i)));
+                        entry.fJson = std::string(reinterpret_cast<const char *>(sqlite3_column_text(m_stmt, i)));
                     }
                     else
                     {
-                        printf("Log: ReadEntriesGetEntry Incorrect Type \"json\"\n");
+                        HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type (%d = %s) for \"json\"", SQLITE_TEXT, SQLType2String(SQLITE_TEXT).c_str()  );   
                     }
                 }
             }
@@ -509,6 +507,34 @@ namespace LOGMASTER
         }
     }
 
+
+	string 
+    LDatabase::SQLType2String( const int sql_type  ) const
+    {
+        switch ( sql_type )
+        {
+        case  SQLITE_INTEGER:
+            return  "SQLITE_INTEGER";
+            break;
+        case  SQLITE_FLOAT:
+            return  "SQLITE_FLOAT";
+            break;
+        case  SQLITE_BLOB:
+            return  "SQLITE_BLOB (binary large object)";
+            break; 
+        case  SQLITE_TEXT:
+            return  "SQLITE_TEXT";
+            break; 
+        case  SQLITE_NULL:
+            return  "SQLITE_NULL";
+            break;
+        default:
+            std::stringstream buffer;
+            buffer << "Unknown SQL type " << sql_type;
+            return buffer.str();
+            break;
+        }
+    }
 
 
 
@@ -532,7 +558,8 @@ namespace LOGMASTER
         {
               const char *LoggingSQL = "CREATE TABLE IF NOT EXISTS t_logging ( "
                                      "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
-                                     "time INTEGER, "
+                                     "time_int   INTEGER, "
+                                     "time_float FLOAT(53), "
                                      "level INTEGER, "
                                      "category INTEGER,"
                                      "json TEXT );";
@@ -563,6 +590,30 @@ namespace LOGMASTER
         }
 
      ///   COUT << "Database " <<  fDBPath  << " was closed" << endl;
+    }
+
+
+////  std::shared_ptr<LMessage>   API   
+////  GenerateMsg( std::shared_ptr<LMessage> msg,  const eMSGFORMAT format, const eMSGLEVEL l,  const eMSGSYSTEM s, 
+////  const char *fname, int line, const char * func, const char * fmt, va_list ap, string addendum = "" );
+
+
+	void 
+    LDatabase::HandleError( const GLocation l,   eMSGLEVEL lvl, const char * fmt, ...)
+    {
+        va_list ap;
+        va_start(ap, fmt);
+        std::shared_ptr<LMessage>  msg = std::make_shared< LMessage>();
+        
+        char formatted_message[2048] = {0};
+        vsnprintf(formatted_message, sizeof(formatted_message) - 1, fmt, ap);
+        fMessageGenerator->GenerateMsg( msg, eMSGFORMAT::PREFIX_ALL, lvl,  eMSGSYSTEM::SYS_DATABASE, l.fFileName.c_str(), l.fLineNo,  l.fFunctName.c_str(), fmt, ap  );
+
+        LPublisher::PublishToConsole(msg);
+        LPublisher::PublishToFile("db.log", msg);
+        LPublisher::PublishToSubscribers(msg);
+        LPublisher::PublishToSubscribers(msg);
+        va_end(ap);
     }
 
 

@@ -30,6 +30,7 @@ namespace LOGMASTER
     struct LMessage;
     class LLogging;
     class LMessage2Json;
+    class LDatabase;
 
 
 /** @class  LMessageGenerator
@@ -37,7 +38,9 @@ namespace LOGMASTER
 class LMessageGenerator
 {
     friend  LLogging;
-    friend  LMessage2Json; 
+    friend  LMessage2Json;
+    friend  LDatabase;
+
     friend  TestLogging_level_to_string_Test;
     friend  TestLogging_system_to_string_Test;
     friend  TestLogging_to_string_Test;
@@ -48,6 +51,7 @@ public:
     ~LMessageGenerator();
     LMessageGenerator( const LMessageGenerator&  rhs );
     std::shared_ptr<LMessage>   API   GetLastMsg();
+    
     std::shared_ptr<LMessage>   API   GenerateMsg( std::shared_ptr<LMessage> msg,  const eMSGFORMAT format, const eMSGLEVEL l,  const eMSGSYSTEM s, const char *fname, int line, const char * func, const char * fmt, va_list ap, string addendum = "" );
 
 private:

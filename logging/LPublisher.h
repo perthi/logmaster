@@ -19,6 +19,7 @@ namespace LOGMASTER
     struct LMessage;
     class LLogging;
     class LConfig;
+    class LDatabase;
 
     /** @class LPublisher
 	* class that is responsible for writing ( publishing) messages to various targets. Available targets
@@ -27,6 +28,8 @@ namespace LOGMASTER
     class LPublisher
     {
         friend LLogging;
+        friend LDatabase;
+
     public:		
         static  void API  EnableColor();
         static  void API  DisableColor();

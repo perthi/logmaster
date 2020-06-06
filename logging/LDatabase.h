@@ -9,9 +9,10 @@
  * Please report bugs to pth@embc.no                                      *
  **************************************************************************/
 
-#include <utilities/GDefinitions.h>
-#include <logging/LEnums.h>
-#include "LLogEntrySQL.h"
+#include  <utilities/GDefinitions.h>
+#include  <logging/LEnums.h>
+#include  "LLogEntrySQL.h"
+#include  "LMessage.h"
 
 #include <utilities/GLocation.h>
 
@@ -61,9 +62,11 @@ struct  sqlite3_stmt;
  * with an argument only have an effect the first time  LDatabase::Instance()  is called (and the database created), Subsequent calls with another argument
  * will not have any effect */
 
+
 namespace LOGMASTER
 {
 	struct LMessage;
+	class  LMessageGenerator;
 
 	#define ALL_ENTRIES 0
 
@@ -104,7 +107,8 @@ namespace LOGMASTER
 			bool API  InitSQLQuery(  const  int cnt  );
 			bool API  InitSQLQuery(  const  string sql );
 			bool API  ReadEntriesGetEntry(  LLogEntrySQL  &entry );
-	///		void HandleError( const GLocation l,   eMSGLEVEL lvl, const char * fmt, ...);
+
+			void HandleError( const GLocation l,   eMSGLEVEL lvl, const char * fmt, ...);
 
 		private:
 			LDatabase(  );
@@ -112,6 +116,7 @@ namespace LOGMASTER
 			vector< LLogEntrySQL> FetchAll(   ); 
 			LDatabase( const LDatabase & );
 			LDatabase operator = ( const LDatabase & );
+			string SQLType2String( const int sql_type  ) const;	
 			bool InitQuery( string query, const int limit  );
 			string LimitString( const int cnt );
 
@@ -120,6 +125,8 @@ namespace LOGMASTER
  			
 			static string  fDBPath;
 			static LDatabase *fgInstance;
+			std::shared_ptr<LMessageGenerator> fMessageGenerator = nullptr;
+
 
 
 	};
