@@ -223,7 +223,7 @@ namespace LOGMASTER
 
                     if ( cl == true )
                     {
-                        LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), it->first );
+                        LPublisher::Instance()->PublishMessage( tmp_msg, it->second.GetConfig(), it->first );
                         //LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), target );
                         auto it_msg = fMessages->find(it->first);
                         if ( it_msg != fMessages->end() )

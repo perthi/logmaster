@@ -36,13 +36,13 @@
 using std::endl;
 using std::cout;
 
-using namespace LOGMASTER;
 
-
-
-void LLogTest::WriteMessages()
+namespace LOGMASTER
 {
-   // cout << endl << endl;
+
+void 
+LLogTest::WriteMessages()
+{
     Header();
     int a = 40;
     int b = 2;
@@ -106,6 +106,7 @@ void LLogTest::WriteMessages()
 
 
 
+
  void
 LLogTest::test()
 {
@@ -133,3 +134,5 @@ LLogTest::Footer()
 	cout << "*********************************************" << endl;
 }
 
+
+}

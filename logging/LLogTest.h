@@ -13,7 +13,8 @@
 #include  "LLogging.h"
 #include  <utilities/GDefinitions.h>
 
-using namespace  LOGMASTER;
+namespace  LOGMASTER
+{
 
 /**@brief Testing application for the logging system  */
 class LLogTest
@@ -35,5 +36,8 @@ private:
 	static void Header();
 	static void Footer();
 };
+
+
+}
 
 #endif

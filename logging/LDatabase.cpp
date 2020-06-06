@@ -610,10 +610,10 @@ namespace LOGMASTER
         vsnprintf(formatted_message, sizeof(formatted_message) - 1, fmt, ap);
         fMessageGenerator->GenerateMsg( msg, eMSGFORMAT::PREFIX_ALL, lvl,  eMSGSYSTEM::SYS_DATABASE, l.fFileName.c_str(), l.fLineNo,  l.fFunctName.c_str(), fmt, ap  );
 
-        LPublisher::PublishToConsole(msg);
-        LPublisher::PublishToFile("db.log", msg);
-        LPublisher::PublishToSubscribers(msg);
-        LPublisher::PublishToSubscribers(msg);
+        LPublisher::Instance()->PublishToConsole(msg);
+        LPublisher::Instance()->PublishToFile("db.log", msg);
+        LPublisher::Instance()->PublishToSubscribers(msg);
+        LPublisher::Instance()->PublishToSubscribers(msg);
         va_end(ap);
     }
 

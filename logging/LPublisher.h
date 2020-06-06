@@ -12,7 +12,8 @@
 #include "LLogApi.h"
 #include  <utilities/GDefinitions.h>
 #include <memory>
-
+#include <queue>  
+#include <mutex>
 
 namespace LOGMASTER
 {
@@ -31,30 +32,32 @@ namespace LOGMASTER
         friend LDatabase;
 
     public:		
-        static  void API  EnableColor();
-        static  void API  DisableColor();
-        static bool  API  * GetEnableColor();
-    
-        static  void API  EnableJson();
-        static  void API  DisableJson();
-        static bool  API  * GetEnableJson(); 
+        static  LPublisher API * Instance();
+
+        void  API   EnableColor();
+        void  API   DisableColor();
+        bool  API  * GetEnableColor();
+        void  API   EnableJson();
+        void  API   DisableJson();
+        bool  API  * GetEnableJson(); 
+        void  API   QueMessage( const std::shared_ptr<LMessage>  msg );    
 
     private:
-        static void     PublishMessage( const std::shared_ptr<LMessage>, const std::shared_ptr<LConfig>,  const eMSGTARGET target  );
-        static void     PublishToSubscribers(const std::shared_ptr<LMessage>   msg);
-        static void     PublishToGuiSubscribers(const std::shared_ptr<LMessage> msg);
-        static void     PublishToConsole(const std::shared_ptr<LMessage>  msg);
-        
-        static void     PublishToFile(     const char * filename,  const std::shared_ptr<LMessage>   );
-        static void     PublishToFileJson( const char * filename,  const std::shared_ptr<LMessage>   );
-
-        static void     PublishToDatabase(const std::shared_ptr<LMessage>  msg);
-
-      ///  static void     Publish( const std::shared_ptr<LMessage>, const std::shared_ptr<LConfig>,  const eMSGTARGET target );
-
-        static bool     fgEnableColor; 	/* !< Wether or not colors will be used for distinguishing messages when they are written to the console */
-    
-        static bool     fgEnableJson;
+         LPublisher();
+        ~LPublisher();
+         
+         void     PublishMessage( const std::shared_ptr<LMessage>, const std::shared_ptr<LConfig>,  const eMSGTARGET target  );
+         void     PublishToSubscribers(const std::shared_ptr<LMessage>   msg);
+         void     PublishToGuiSubscribers(const std::shared_ptr<LMessage> msg);
+         void     PublishToConsole(const std::shared_ptr<LMessage>  msg);
+         void     PublishToFile(     const char * filename,  const std::shared_ptr<LMessage>   );
+         void     PublishToFileJson( const char * filename,  const std::shared_ptr<LMessage>   );
+         void     PublishToDatabase(const std::shared_ptr<LMessage>  msg);
+ 
+         std::queue<std::shared_ptr<LMessage> > fMessageQeue  = std::queue<std::shared_ptr<LMessage> >();        
+         std::mutex                             fMessageQeueMutext  =  std::mutex() ;  
+         bool     fgEnableColor = true; 	/* !< Wether or not colors will be used for distinguishing messages when they are written to the console */  
+         bool     fgEnableJson = true;
     
     };
 

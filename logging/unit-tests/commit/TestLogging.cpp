@@ -171,7 +171,7 @@ TEST_F(TestLogging, level_to_string )
 
 TEST_F(TestLogging, stdoutIO)
 {
-	LPublisher::DisableColor();
+	LPublisher::Instance()->DisableColor();
     PUSH();
 	SET_LOGLEVEL("--all-warning");
 	SET_LOGFORMAT("00000001");
@@ -192,7 +192,7 @@ TEST_F(TestLogging, stdoutIO)
     EXPECT_EQ(fStrCout.str(), "\tTest message with parameters: a = 1, b = 2\n");
     fStrCout.str("");
 	SET_LOGFORMAT("01000001");
-    LPublisher::EnableColor();
+    LPublisher::Instance()->EnableColor();
 	POP();
 }
 

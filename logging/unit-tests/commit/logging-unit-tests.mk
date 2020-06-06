@@ -15,8 +15,6 @@ SRCCPP:=logging-unit-tests.cpp \
 	TestLDatabase.cpp
 
 
-#SRCCPP:=logging-unit-tests.cpp \
-	TestLDatabase.cpp
 
 include ../../../../common.mk
 include ../../../../unittest-common.mk

@@ -55,9 +55,33 @@ using namespace LOGMASTER;
 
 namespace LOGMASTER
 {
-    bool  LPublisher::fgEnableColor = true;
-    bool  LPublisher::fgEnableJson = true;
+  //  bool  LPublisher::fgEnableColor = true;
+  //  bool  LPublisher::fgEnableJson = true;
+//    std::queue<std::shared_ptr<LMessage> > fMessageQeue =  std::queue<std::shared_ptr<LMessage> >();     
+ //   std::mutex   fMessageQeueMutext;  
 
+    LPublisher  * 
+    LPublisher::Instance()
+    {
+        static  LPublisher *instance = new LPublisher();
+        return instance;
+    }
+
+    LPublisher::LPublisher()
+    {
+
+    }
+
+    LPublisher::~LPublisher()
+    {
+
+    }
+    
+    void    
+    LPublisher::QueMessage( const std::shared_ptr<LMessage>  msg )
+    {
+        fMessageQeue.push( msg );
+    }   
 
 
     /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently

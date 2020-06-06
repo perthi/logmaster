@@ -99,7 +99,7 @@ TEST_F(TestSubscriber, functionRegistration)
 /// We also want to chet that we can set any other combiantions of log targets.
 TEST_F(TestSubscriber, setTargetTest )
 {
-	LPublisher::DisableColor();
+	LPublisher::Instance()->DisableColor();
     PUSH();
 	fStrCout.str( "" );
     SET_LOGFORMAT("01000001");
@@ -121,7 +121,7 @@ TEST_F(TestSubscriber, setTargetTest )
     EXPECT_EQ( fStrCout.str(),  string("<Warning:General>        \tDunbars Number is between 100 and 250\n") );
     EXPECT_NE( FileIOTest(),   "<Warning:General>\t\tDunbars Number is between 100 and 250");
     POP();
-	LPublisher::EnableColor();
+	LPublisher::Instance()->EnableColor();
 }
 
 
@@ -147,7 +147,7 @@ TEST_F(TestSubscriber, setTargetFileTest)
 TEST_F(TestSubscriber, cmdLine  )
 {  
 	g->InitLogArgs();
-	LPublisher::DisableColor();
+	LPublisher::Instance()->DisableColor();
 
 	try
 	{
@@ -216,7 +216,7 @@ TEST_F(TestSubscriber, cmdLine  )
 		throw(e);
 	}
 	
-	LPublisher::EnableColor();
+	LPublisher::Instance()->EnableColor();
 }
 
 
