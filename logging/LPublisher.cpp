@@ -144,16 +144,14 @@ namespace LOGMASTER
         }
     }
 
-
-    void  
-     LPublisher::DispatchMessages()
- {
-     if (  fMessageQeue.size() == 0 ) 
-         { 
-             return; 
-         }
-
- }
+    void
+    LPublisher::DispatchMessages()
+    {
+        if (fMessageQeue.size() == 0)
+        {
+            return;
+        }
+    }
 
  //     std::queue< std::shared_ptr <LMessage > > tmp_messages;
  //     std::lock_guard<std::mutex> guard( fMessageQeueMutext );
