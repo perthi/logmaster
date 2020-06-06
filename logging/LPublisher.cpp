@@ -69,17 +69,44 @@ namespace LOGMASTER
 
     LPublisher::LPublisher()
     {
-
+        StartDispatcher(); 
     }
 
     LPublisher::~LPublisher()
     {
 
     }
-    
+
+
+    void  
+    LPublisher::StartDispatcher()
+    {
+	    static  std::mutex m;
+		std::lock_guard<std::mutex> guard( m );
+        fDispatcher = new std::thread( &::LPublisher::RunDispatcher, this );
+    }
+
+
+    void  
+    LPublisher::RunDispatcher()
+    {
+        
+
+    }
+
+
+    void  
+    LPublisher::DispatchMessages()
+    {
+
+    }
+
+
+
     void    
     LPublisher::QueMessage( const std::shared_ptr<LMessage>  msg )
     {
+        std::lock_guard<std::mutex> guard( m );
         fMessageQeue.push( msg );
     }   
 
