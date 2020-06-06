@@ -153,100 +153,89 @@ namespace LOGMASTER
              return; 
          }
 
- }     
+ }
 
+ //     std::queue< std::shared_ptr <LMessage > > tmp_messages;
+ //     std::lock_guard<std::mutex> guard( fMessageQeueMutext );
 
+ // }
 
+ // std::shared_ptr<MBMessageInfo> element = nullptr;
+ // 	{
+ // 		element = tmp_messages.front();
+ // 		tmp_messages.pop();
+ // 		fMsgCntProcessed++;
+ // 	}
 
-    //     std::queue< std::shared_ptr <LMessage > > tmp_messages;
-    //     std::lock_guard<std::mutex> guard( fMessageQeueMutext );
+ // void
+ // LPublisher::QueMessage( const std::shared_ptr<LMessage>  msg )
+ // {
+ //     std::lock_guard<std::mutex> guard( fMessageQeueMutext );
+ //     fMessageQeue.push( msg );
+ // }
 
-
-    // }
-
-	// std::shared_ptr<MBMessageInfo> element = nullptr;
-	// 	{
-	// 		element = tmp_messages.front();
-	// 		tmp_messages.pop();
-	// 		fMsgCntProcessed++;
-	// 	}
-
-
-    // void    
-    // LPublisher::QueMessage( const std::shared_ptr<LMessage>  msg )
-    // {
-    //     std::lock_guard<std::mutex> guard( fMessageQeueMutext );
-    //     fMessageQeue.push( msg );
-    // }   
-
-
-
-    /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently
+ /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently
      *   than any other log levels and is always written to all targets regardless of the configuration of the logging system.
      *   @param[in] msg  The message to publish
      *   @param[in] cfg The current configuration of the logging system. 
      *   This configuration determins what is written and where it is written to (file, console or subscribers )
      *   @param[in] target The target for where to publish this message (file, stdout, subscribers etc..) */
-    void
-    LPublisher::PublishMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
-    {
-        if (cfg == nullptr)
-        {
-            CERR << " CONFIG IS A ZERO POINTER" << endl;
-            return;
-        }
+ void LPublisher::PublishMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
+ {
+     if (cfg == nullptr)
+     {
+         CERR << " CONFIG IS A ZERO POINTER" << endl;
+         return;
+     }
 
-        if (msg->fFormat == eMSGFORMAT::ALL_FIELDS_OFF)
-        {
-            PublishToConsole(msg);
-            // CERR << "ALL FILEDS ARE OFF !!!!!!!!! " << endl;
-            return;
-        }
+     if (msg->fFormat == eMSGFORMAT::ALL_FIELDS_OFF)
+     {
+         PublishToConsole(msg);
+         // CERR << "ALL FILEDS ARE OFF !!!!!!!!! " << endl;
+         return;
+     }
 
-        bool force_debug = ((int)msg->fLevel & (int)eMSGLEVEL::LOG_FORCE_DEBUG) != 0 ? true : false;
+     bool force_debug = ((int)msg->fLevel & (int)eMSGLEVEL::LOG_FORCE_DEBUG) != 0 ? true : false;
 
+     if (force_debug == true)
+     {
+         if ((int)target & (int)eMSGTARGET::TARGET_TESTING)
+         {
+             PublishToConsole(msg);
+             PublishToFile(cfg->fLogFilename.c_str(), msg);
+             PublishToSubscribers(msg);
+             PublishToDatabase(msg);
+             PublishToGuiSubscribers(msg);
+         }
+     }
+     else
+     {
+         //   Publish(msg,  cfg, target );
+         if (((int)target & (int)eMSGTARGET::TARGET_FILE))
+         {
+             PublishToFile(cfg->fLogFilename.c_str(), msg);
+         }
 
-        if ( force_debug == true )
-        {
-            if ( (int)target & (int)eMSGTARGET::TARGET_TESTING )
-            {
-                PublishToConsole( msg );
-                PublishToFile( cfg->fLogFilename.c_str(), msg );
-                PublishToSubscribers( msg );
-                PublishToDatabase(msg);
-                PublishToGuiSubscribers(msg);
+         if ((int)target & (int)eMSGTARGET::TARGET_DATABASE)
+         {
+             PublishToDatabase(msg);
+         }
 
-            }
-        }
-        else
-        {
-     //   Publish(msg,  cfg, target );
-        if (((int)target & (int)eMSGTARGET::TARGET_FILE))
-        {
-            PublishToFile(cfg->fLogFilename.c_str(), msg);
-        }
+         if (((int)target & (int)eMSGTARGET::TARGET_SUBSCRIBERS))
+         {
+             PublishToSubscribers(msg);
+         }
 
-        if ((int)target & (int)eMSGTARGET::TARGET_DATABASE)
-        {
-            PublishToDatabase(msg);
-        }
+         if (((int)target & (int)eMSGTARGET::TARGET_GUI))
+         {
+             PublishToGuiSubscribers(msg);
+         }
 
-        if (((int)target & (int)eMSGTARGET::TARGET_SUBSCRIBERS))
-        {
-            PublishToSubscribers(msg);
-        }
-
-        if (((int)target & (int)eMSGTARGET::TARGET_GUI))
-        {
-            PublishToGuiSubscribers(msg);
-        }
-
-        if ((int)target & (int)eMSGTARGET::TARGET_STDOUT )
-        {
-            PublishToConsole(msg);
-        }
-
-        }
+         if ((int)target & (int)eMSGTARGET::TARGET_STDOUT)
+         {
+             PublishToConsole(msg);
+         }
+     }
     }
 
 
