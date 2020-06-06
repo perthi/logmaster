@@ -86,18 +86,70 @@ namespace LOGMASTER
         fDispatcher = new std::thread( &::LPublisher::RunDispatcher, this );
     }
 
-
-    void  
-    LPublisher::RunDispatcher()
+    void
+    LPublisher::StopDispatcher()
     {
+        fDoRun = false;
 
-
+        if (fDispatcher != nullptr)
+        {
+            if (fDispatcher->joinable() == true)
+            {
+                {
+                    static std::mutex m;
+                    std::lock_guard<std::mutex> guard(m);
+                    fDispatcher->join();
+                    delete fDispatcher;
+                    fDispatcher = nullptr;
+                    fIsRunning = false;
+                }
+            }
+            else
+            {
+                CERR << "Thread is not joinable" << endl;
+            }
+        }
     }
 
 
     void  
+    LPublisher::PauseDispatcher()
+    {
+       fDoRun = false;  
+    }
+    
+    void  
+    LPublisher::ResumeDispatcher()
+    {
+        fDoRun = true;  
+    }
+
+
+    void
+    LPublisher::RunDispatcher()
+    {
+
+        while (fDoRun == true)
+        {
+            if (fDoPause == true)
+            {
+                fIsRunning = false;
+            }
+            else
+            {
+                fIsRunning = true;
+                DispatchMessages();
+            }
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        }
+    }
+
+    void  
     LPublisher::DispatchMessages()
     {
+        
+        std::lock_guard<std::mutex> guard( fMessageQeueMutext );
+
 
     }
 

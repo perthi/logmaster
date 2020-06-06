@@ -47,6 +47,8 @@ namespace LOGMASTER
         
         void  API   StartDispatcher(); 
         void  API   StopDispatcher(); 
+        void  API   PauseDispatcher();
+        void  API   ResumeDispatcher();
 
         void  API   RunDispatcher();
 
@@ -68,10 +70,12 @@ namespace LOGMASTER
 
          std::queue<std::shared_ptr<LMessage> > fMessageQeue  = std::queue<std::shared_ptr<LMessage> >();        
          std::mutex                             fMessageQeueMutext  =  std::mutex() ;  
-         bool     fgEnableColor = true; 	/* !< Wether or not colors will be used for distinguishing messages when they are written to the console */  
-         bool     fgEnableJson = true;
-         std::thread *fDispatcher = nullptr;
-         std::atomic_bool  fDoRun = true;    
+         bool     fgEnableColor       =   true; 	/* !< Wether or not colors will be used for distinguishing messages when they are written to the console */  
+         bool     fgEnableJson        =   true;
+         std::thread *fDispatcher     =   nullptr;
+         std::atomic_bool  fDoRun     =   true; 
+         std::atomic_bool  fDoPause   =   false;
+         std::atomic_bool  fIsRunning =   false;   
 
     };
 
