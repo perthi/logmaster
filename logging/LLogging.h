@@ -74,12 +74,12 @@ namespace LOGMASTER
      //   inline string                  API     GetTimeMode() const { return    fApplication;  };
 
 
-        vector< void( *)(const std::shared_ptr<LMessage>  ) >  API & GetSubscribers();
-        void					API		RegisterSubscriber(  void(  *funct)(const std::shared_ptr<LMessage>   ));
+        vector< void( *)(const LMessage &  ) >  API & GetSubscribers();
+        void					API		RegisterSubscriber(  void(  *funct)(const LMessage &   ));
         void					API		ClearSubscribers();
 
-        vector< void( *)(const  std::shared_ptr<LMessage> ) >  API & GetGuiSubscribers();
-        void					API		RegisterGuiSubscriber(  void(  *funct)(const  std::shared_ptr<LMessage>  ));
+        vector< void( *)(const LMessage & ) >  API & GetGuiSubscribers();
+        void					API		RegisterGuiSubscriber(  void(  *funct)(const  LMessage  &  ));
         void					API		ClearGuiSubscribers();
 
         void					API		Reset();
@@ -99,8 +99,8 @@ namespace LOGMASTER
         void    TurnOnfAllTargets();
         void	operator=(LLogging &);
         
-        vector< void(*)(const std::shared_ptr<LMessage>   ) > fSubscribers;
-        vector< void(*)(const std::shared_ptr<LMessage>   ) > fGuiSubscribers;
+        vector< void(*)(const LMessage &   ) > fSubscribers;
+        vector< void(*)(const  LMessage &  ) > fGuiSubscribers;
 
         std::shared_ptr<std::map<eMSGTARGET,  LMessageFactory  > >  fConfig = nullptr;
         std::shared_ptr<std::map<eMSGTARGET, LMessageFactory > >   fDefaultConfig = nullptr;

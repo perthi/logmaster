@@ -21,11 +21,11 @@ protected:
     virtual void SetUp();
     virtual void TearDown();
 
-    static void  Subscriber1( const std::shared_ptr<LMessage> msg );
-    static void  Subscriber2( const std::shared_ptr<LMessage> msg );
+    static void  Subscriber1( const  LMessage &msg );
+    static void  Subscriber2( const  LMessage &msg );
    
-	static std::shared_ptr<LMessage> fMsg1;
-	static std::shared_ptr<LMessage> fMsg2;
+	static LMessage fMsg1;
+	static LMessage fMsg2;
 
 };
 

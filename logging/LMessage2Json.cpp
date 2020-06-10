@@ -41,21 +41,21 @@ LMessage2Json::~LMessage2Json()
  *  @param[in] msg The log message
  *  @param[in, out] j The json object where the converted message will be stored */
 void 
-LMessage2Json::Message2Json(  const std::shared_ptr<LMessage>  msg , nlohmann::json &  j )
+LMessage2Json::Message2Json(  const LMessage  &msg , nlohmann::json &  j )
 {
     j = fJsonUser;
     
-    j["Level"] = LMessageGenerator::Instance()->ToString( msg->fLevel );
+    j["Level"] = LMessageGenerator::Instance()->ToString( msg.fLevel );
     j["time"]["mode"] = LConfig::GetTimeMode();
-    j["time"]["timestamp"] = (int)msg->fEpochTime;
+    j["time"]["timestamp"] = (int)msg.fEpochTime;
     j["time"]["dateTime"] = g_time()->GetTime_ISO8601();
 
     std::stringstream buffer;
-    buffer <<   msg->fPath << "/" <<  msg->fFileName << "::" <<  msg->fFunction << ":: line" << msg->fLineNo;
+    buffer <<   msg.fPath << "/" <<  msg.fFileName << "::" <<  msg.fFunction << ":: line" << msg.fLineNo;
     
     j["origin"]["path"] = buffer.str();
-    j["Category"] = LMessageGenerator::Instance()->ToString( msg->fSystem  );
-    j["Message"] = msg->fMsgBody;
+    j["Category"] = LMessageGenerator::Instance()->ToString( msg.fSystem  );
+    j["Message"] = msg.fMsgBody;
 
 }
 

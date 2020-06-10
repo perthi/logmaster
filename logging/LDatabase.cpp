@@ -105,7 +105,7 @@ namespace LOGMASTER
     /** @brief Writa a log entry to the databse
      *  @param[in] msg a log message as produced by the logging system */
     void
-    LDatabase::AddLogEntry(const std::shared_ptr<LMessage> msg  )
+    LDatabase::AddLogEntry(const  LMessage &msg  )
     {
        // HandleError( GLOCATION, eMSGLEVEL::LOG_ERROR, "this is a test" ) ;
         int rc;
@@ -121,7 +121,7 @@ namespace LOGMASTER
 #else
        snprintf_s(sql, "INSERT INTO  t_logging (time, level, category, json ) VALUES ('%d', %f, %d, %d,'%s')",
 #endif
-                   (int)msg->fEpochTime,  msg->fEpochTime, (int)msg->fLevel,  (int)msg->fSystem, 
+                   (int)msg.fEpochTime,  msg.fEpochTime, (int)msg.fLevel,  (int)msg.fSystem, 
                    buffer.str().c_str() );
 
         rc = sqlite3_exec(m_DataBase, sql, NULL, 0, &zErrMsg);
@@ -610,8 +610,9 @@ namespace LOGMASTER
         vsnprintf(formatted_message, sizeof(formatted_message) - 1, fmt, ap);
         
       //  fMessageGenerator->GenerateMsg( msg, eMSGFORMAT::PREFIX_ALL, lvl,  eMSGSYSTEM::SYS_DATABASE, l.fFileName.c_str(), l.fLineNo,  l.fFunctName.c_str(), fmt, ap  );
-        std::shared_ptr<LMessage>  msg = fMessageGenerator->GenerateMsg( eMSGFORMAT::PREFIX_ALL, lvl,  eMSGSYSTEM::SYS_DATABASE, l.fFileName.c_str(), l.fLineNo,  l.fFunctName.c_str(), fmt, ap  );
+        std::shared_ptr<LMessage>  msg_ptr = fMessageGenerator->GenerateMsg( eMSGFORMAT::PREFIX_ALL, lvl,  eMSGSYSTEM::SYS_DATABASE, l.fFileName.c_str(), l.fLineNo,  l.fFunctName.c_str(), fmt, ap  );
 
+        LMessage msg = *msg_ptr;
 
         LPublisher::Instance()->PublishToConsole(msg);
         LPublisher::Instance()->PublishToFile("db.log", msg);

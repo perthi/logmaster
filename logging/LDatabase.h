@@ -86,7 +86,7 @@ namespace LOGMASTER
 			static void SetDatabaseDefault(    );
 
 
-			void API AddLogEntry (  const std::shared_ptr< LMessage > msg  );
+			void API AddLogEntry (  const  LMessage &msg  );
 			void API CloseDatabase();
 			bool API OpenDatabase( const char *db_path );
  			bool API DeleteEntries();

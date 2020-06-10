@@ -438,7 +438,7 @@ namespace LOGMASTER
     }
 
 
-    vector< void( *)(const  std::shared_ptr<LMessage>  ) >  &
+    vector< void( *)(const  LMessage & ) >  &
     LLogging::GetSubscribers()
     {
         return fSubscribers;
@@ -495,7 +495,7 @@ namespace LOGMASTER
 	/** Register a subscriber callbakc function that will be called by the logging system *
 	* NB! You must not call the logging itse�f system within a subscriber function s*/
     void
-    LLogging::RegisterSubscriber( void( *funct )(const  std::shared_ptr<LMessage>  ) )
+    LLogging::RegisterSubscriber( void( *funct )(const  LMessage  &  ) )
     {
       //  std::lock_guard<std::mutex> guard( log_mutex );
         fSubscribers.push_back( funct );
@@ -509,7 +509,7 @@ namespace LOGMASTER
         fSubscribers.clear();
     }
 
-    vector<void( *)(const  std::shared_ptr<LMessage>  )> &
+    vector<void( *)(const  LMessage &  )> &
     LLogging::GetGuiSubscribers()
     {
         return fGuiSubscribers;
@@ -517,7 +517,7 @@ namespace LOGMASTER
     }
 
     void
-    LLogging::RegisterGuiSubscriber( void( *funct )(const std::shared_ptr<LMessage>  ) )
+    LLogging::RegisterGuiSubscriber( void( *funct )(const  LMessage &  ) )
     {
       //  std::lock_guard<std::mutex> guard( log_mutex );
         fGuiSubscribers.push_back(funct);

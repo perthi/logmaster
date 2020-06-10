@@ -83,13 +83,23 @@ namespace LOGMASTER
 
 
          void     DispatchMessages();       
-         void     PublishMessage( const std::shared_ptr<LMessage>, const std::shared_ptr<LConfig>,  const eMSGTARGET target  );
-         void     PublishToSubscribers(const std::shared_ptr<LMessage>   msg);
-         void     PublishToGuiSubscribers(const std::shared_ptr<LMessage> msg);
-         void     PublishToConsole(const std::shared_ptr<LMessage>  msg);
-         void     PublishToFile(     const char * filename,  const std::shared_ptr<LMessage>   );
-         void     PublishToFileJson( const char * filename,  const std::shared_ptr<LMessage>   );
-         void     PublishToDatabase(const std::shared_ptr<LMessage>  msg);
+        //  void     PublishMessage( const std::shared_ptr<LMessage>, const std::shared_ptr<LConfig>,  const eMSGTARGET target  );
+        //  void     PublishToSubscribers(const std::shared_ptr<LMessage>   msg);
+        //  void     PublishToGuiSubscribers(const std::shared_ptr<LMessage> msg);
+        //  void     PublishToConsole(const std::shared_ptr<LMessage>  msg);
+        //  void     PublishToFile(     const char * filename,  const std::shared_ptr<LMessage>   );
+        //  void     PublishToFileJson( const char * filename,  const std::shared_ptr<LMessage>   );
+        //  void     PublishToDatabase(const std::shared_ptr<LMessage>  msg);
+
+
+         void     PublishMessage(          const  LMessage &m, const std::shared_ptr<LConfig>,  const eMSGTARGET target  );
+         void     PublishToSubscribers(    const LMessage   &msg);
+         void     PublishToGuiSubscribers( const LMessage &msg);
+         void     PublishToConsole(        const LMessage  &msg);
+         void     PublishToFile(     const char * filename,  const LMessage &  m );
+         void     PublishToFileJson( const char * filename,  const  LMessage & m   );
+         void     PublishToDatabase(const LMessage  &msg); 
+
 
          std::queue<  std::shared_ptr<Message> >  fMessageQeue  = std::queue<  std::shared_ptr<Message> >();        
          std::mutex                             fMessageQeueMutext  =  std::mutex() ;  
