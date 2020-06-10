@@ -394,8 +394,6 @@ namespace LOGMASTER
 
 
 
-
-
     /** @brief    Loop over all entries matching the current SQL query
      *  @details  The sql query must be initialized beforehand by calling InitSQLQuery(). The function returns true
      *  until the log entires matching the SQL query is exhausted.  
@@ -408,9 +406,6 @@ namespace LOGMASTER
     bool
     LDatabase::ReadEntriesGetEntry(LLogEntrySQL  &entry )
     {
-
-     //   HandleError(GLOCATION, eMSGLEVEL::LOG_FATAL, "This is a test");
-
         if( m_stmt == nullptr )
         {
             CERR << "NO SQL QUERY INITIALIZED" << endl;
@@ -589,14 +584,8 @@ namespace LOGMASTER
             cnt ++;
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
-
-     ///   COUT << "Database " <<  fDBPath  << " was closed" << endl;
     }
 
-
-////  std::shared_ptr<LMessage>   API   
-////  GenerateMsg( std::shared_ptr<LMessage> msg,  const eMSGFORMAT format, const eMSGLEVEL l,  const eMSGSYSTEM s, 
-////  const char *fname, int line, const char * func, const char * fmt, va_list ap, string addendum = "" );
 
 
 	void 
@@ -604,14 +593,9 @@ namespace LOGMASTER
     {
         va_list ap;
         va_start(ap, fmt);
-      ///  std::shared_ptr<LMessage>  msg = std::make_shared< LMessage>();
-        
         char formatted_message[2048] = {0};
         vsnprintf(formatted_message, sizeof(formatted_message) - 1, fmt, ap);
-        
-      //  fMessageGenerator->GenerateMsg( msg, eMSGFORMAT::PREFIX_ALL, lvl,  eMSGSYSTEM::SYS_DATABASE, l.fFileName.c_str(), l.fLineNo,  l.fFunctName.c_str(), fmt, ap  );
         std::shared_ptr<LMessage>  msg_ptr = fMessageGenerator->GenerateMsg( eMSGFORMAT::PREFIX_ALL, lvl,  eMSGSYSTEM::SYS_DATABASE, l.fFileName.c_str(), l.fLineNo,  l.fFunctName.c_str(), fmt, ap  );
-
         LMessage msg = *msg_ptr;
 
         LPublisher::Instance()->PublishToConsole(msg);

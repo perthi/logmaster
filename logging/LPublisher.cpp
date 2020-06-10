@@ -55,10 +55,6 @@ using namespace LOGMASTER;
 
 namespace LOGMASTER
 {
-  //  bool  LPublisher::fgEnableColor = true;
-  //  bool  LPublisher::fgEnableJson = true;
-//    std::queue<std::shared_ptr<LMessage> > fMessageQeue =  std::queue<std::shared_ptr<LMessage> >();     
- //   std::mutex   fMessageQeueMutext;  
 
     LPublisher  * 
     LPublisher::Instance()
@@ -140,12 +136,8 @@ namespace LOGMASTER
                 fIsRunning = true;
                 DispatchMessages();
             }
-            ///std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
     }
-
-
-
 
 
     void
@@ -164,23 +156,9 @@ namespace LOGMASTER
         {
             auto m =  tmp_messages.front();
             tmp_messages.pop();
-            
-            //  fMessageQeueMutext.unlock();
-            
-            //std::shared_ptr<LMessage>  m_tmp  =  std::make_shared<LMessage>( m->fMessage  );
-
-           // PublishMessage( m->fMessage,  m->fConfig, m->fTarget );
             PublishMessage( m->fMessage ,  m->fConfig, m->fTarget );
-
-            //  fMessageQeueMutext.unlock();
-        ///    std::this_thread::sleep_for(std::chrono::milliseconds(1));
-           /// cnt ++;
-        
         }
 
-
-
-    ///      fMessageQeueMutext.unlock();
     }
 
 
@@ -258,7 +236,6 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
 
          if ((int)target & (int)eMSGTARGET::TARGET_STDOUT)
          {
-           ///  CERR << "clling publish to console" << endl;
              PublishToConsole(msg);
          }
      }
@@ -268,9 +245,6 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
     void
     LPublisher::PublishToDatabase(const LMessage  &msg  )
     {
-      //  static  std::mutex m;
-      //  std::lock_guard<std::mutex> guard( m ); 
-
         LDatabase::Instance()->AddLogEntry(msg);
     }
 
@@ -290,10 +264,6 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
     }
 
 
-
-
-
-
     void
     LPublisher::PublishToGuiSubscribers(const LMessage &msg )
     {
@@ -309,9 +279,6 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
 	void
     LPublisher::PublishToConsole(const  LMessage  &msg)
 	{
-      //    static  std::mutex m;
-    //    std::lock_guard<std::mutex> guard( m ); 
-       /// CERR << "Tp0" << endl;
 
 #ifdef _WIN32
             static HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -324,11 +291,7 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
 #else                   
             if( fgEnableColor == true  )
             {
-              // CERR << "writing message !!!!!!!, body = " <<  msg->fMsgBody << " color = " <<  msg->fAColor << endl;
-            // cerr << "\033" << "[1;" << msg->fAColor << "m" << msg->fMsg << "\033" << "[0m" <<  endl <<std::flush ;
                 cerr << "\033" << "[1;" << msg.fAColor << "m" << msg.fMsg << "\033" << "[0m"  ;
-              // cout << "msg = "  << msg->fMsg << endl;
-              // cout << "msg = "  << msg->fMsg << endl <<std::flush  ;
 
             }
             else
@@ -346,9 +309,6 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
       void
     LPublisher::PublishToFile(const char * filename, const  LMessage &msg)
     {
-      //  static  std::mutex m;
-      //  std::lock_guard<std::mutex> guard( m ); 
-
         FILE  *logFile = 0;
 
 #ifdef _WIN32
@@ -375,14 +335,11 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
         }
     }
 
-  ////void     PublishToFileJson( const char * filename,  const  LMessage & m   );
+
 
     void     
     LPublisher::PublishToFileJson( const char *   filename_base, const  LMessage  & msg )
     {
-     ///   static  std::mutex m;
-     ///   std::lock_guard<std::mutex> guard( m ); 
-    
         string fname_tmp = string( filename_base ) + ".json";
         const char * fname_tmp_c  = fname_tmp.c_str();
         FILE  *logFile = 0;
@@ -394,8 +351,6 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
 #endif
         nlohmann::json j;
         LMessage2Json::Message2Json( msg, j );
-
-
         std::stringstream buffer;
         buffer << j  << endl;
 
@@ -410,10 +365,7 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
             cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << fname_tmp_c  << endl;
             CERR << "This message could not be logged:\t" << j << endl;
         }
-    
-
     }
-
 
 
     void 

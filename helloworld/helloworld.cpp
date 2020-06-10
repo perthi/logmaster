@@ -40,11 +40,6 @@ using namespace LOGMASTER;
 
 
 
-
-
-
-
-
 int main ()
 {
     SET_LOGLEVEL("--all-debug");
