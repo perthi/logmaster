@@ -56,28 +56,28 @@ namespace LOGMASTER
 
     LMessageGenerator::LMessageGenerator() 
     {
-        fgMsgLast =  std::make_shared<LMessage>();
-        fgMsg =  std::make_shared<LMessage>();
+       // fgMsgLast =  std::make_shared<LMessage>();
+      //  fgMsg =  std::make_shared<LMessage>();
     }
 
 
    LMessageGenerator::~LMessageGenerator()
    {
-       fgMsg.reset();
-       fgMsgLast.reset();
+      // fgMsg.reset();
+      // fgMsgLast.reset();
    }
 
  
-   LMessageGenerator::LMessageGenerator( const LMessageGenerator&  rhs )
+   LMessageGenerator::LMessageGenerator( const LMessageGenerator&  /*rhs*/ )
    {
-       if(fgMsgLast != nullptr   &&  rhs.fgMsgLast != nullptr )
-       {
-        *fgMsgLast  =  *rhs.fgMsgLast; 
-       }
-        if(fgMsg != nullptr &&  rhs.fgMsg != nullptr )
-        {
-            *fgMsg  =  *rhs.fgMsg; 
-        }
+    //    if(fgMsgLast != nullptr   &&  rhs.fgMsgLast != nullptr )
+    //    {
+    //     *fgMsgLast  =  *rhs.fgMsgLast; 
+    //    }
+    //     if(fgMsg != nullptr &&  rhs.fgMsg != nullptr )
+    //     {
+    //         *fgMsg  =  *rhs.fgMsg; 
+    //     }
    }
 
 
@@ -100,8 +100,13 @@ namespace LOGMASTER
      *  @param line  The line number where the message was generated
      *  @param func  The name of the function where the message was generated ( __FUNCTION__)
      *  @param fmt[in] */
+    // std::shared_ptr<LMessage>
+    // LMessageGenerator::GenerateMsg( std::shared_ptr<LMessage> msg_in, const eMSGFORMAT format, const eMSGLEVEL l, 
+    //                                                                 const eMSGSYSTEM s, const char * fname, int line, 
+    //                                                                 const char * func, const char * fmt, va_list ap, string addendum)
+    
     std::shared_ptr<LMessage>
-    LMessageGenerator::GenerateMsg( std::shared_ptr<LMessage> msg_in, const eMSGFORMAT format, const eMSGLEVEL l, 
+    LMessageGenerator::GenerateMsg(  const eMSGFORMAT format, const eMSGLEVEL l, 
                                                                     const eMSGSYSTEM s, const char * fname, int line, 
                                                                     const char * func, const char * fmt, va_list ap, string addendum)
     {
@@ -109,18 +114,21 @@ namespace LOGMASTER
       //  static LMessage *G_l = new LMessage();
         va_list ap_l;
         va_copy(ap_l, ap);
-        static std::shared_ptr<LMessage> msg = nullptr;
+        
+       std::shared_ptr<LMessage> msg = std::make_shared<LMessage>();
 
-        if ( msg_in != nullptr )
-        {
-            msg = msg_in;
-           // COUT <<  "msg = msg_in" <<  endl; 
-        }
-        else
-        {
-          msg = fgMsg;
-          //COUT <<  "msg = fgMsg" << endl;
-        }
+        // std::shared_ptr<LMessage> msg = nullptr;
+
+        // if ( msg_in != nullptr )
+        // {
+        //     msg = msg_in;
+        //    // COUT <<  "msg = msg_in" <<  endl; 
+        // }
+        // else
+        // {
+        //   msg = fgMsg;
+        //   //COUT <<  "msg = fgMsg" << endl;
+        // }
 
         msg->ClearContent();
         msg->fEpochTime = g_time()->GetEpochTime();
@@ -129,7 +137,7 @@ namespace LOGMASTER
         if ( format == eMSGFORMAT::ALL_FIELDS_OFF)
         {
             SPRINTF(msg->fMsg, MAX_MSG_SIZE, "NO MESSAGE WAS GENERATED BECAUSE ALL FILEDS ARE TURNED OFF !!\n");
-            fgMsgLast = msg;
+           // fgMsgLast = msg;
             va_end(ap_l);  
             return msg;
         }
@@ -230,7 +238,7 @@ namespace LOGMASTER
             }
         }
     
-        fgMsgLast = msg;
+      //  fgMsgLast = msg;
         va_end(ap_l);  
         return msg;
     }
@@ -327,11 +335,11 @@ namespace LOGMASTER
     }
 
 	
-    std::shared_ptr<LMessage>
-    LMessageGenerator::GetLastMsg()
-    {
-        return fgMsgLast;
-    }
+    // std::shared_ptr<LMessage>
+    // LMessageGenerator::GetLastMsg()
+    // {
+    //     return fgMsgLast;
+    // }
 	
 
 }

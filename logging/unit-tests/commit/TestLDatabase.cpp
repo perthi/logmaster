@@ -82,15 +82,15 @@ TEST_F( TestLDatabase , all_entries )
     auto db = fgDatabase;
     auto entries = db->Query( ALL_ENTRIES );
     size_t entries_max = entries.size();
-    EXPECT_EQ(entries_max , 3219 );
+    EXPECT_EQ(entries_max , 3285 );
     
     entries = db->Query(100 );
     EXPECT_EQ(entries.size() ,100 );
 
     entries = db->Query( 1);
     EXPECT_EQ(entries.size() ,1 );
-    entries = db->Query(   3219  );
-    EXPECT_EQ(entries.size() ,  3219 );
+    entries = db->Query(   3285  );
+    EXPECT_EQ(entries.size() ,  3285 );
 
     for(int i = 0; i < 20; i++ )
     {
@@ -221,13 +221,16 @@ TEST_F( TestLDatabase , specific_level_sys_multiple )
 
 
 
+
 TEST_F( TestLDatabase , time )
 {
 
     auto db = fgDatabase;
     auto entries = db->Query(ALL_ENTRIES);
 
-     uint64_t time =  1591452646;
+   //  uint64_t time =  1591452646;
+
+    uint64_t time =  1591452646;
 
     entries = db->Query(  time  , eTIME_SEARCH_OPTION::EXACTLY, ALL_ENTRIES);
     for (auto e : entries)
@@ -245,7 +248,11 @@ TEST_F( TestLDatabase , time )
     entries = db->Query(   time , eTIME_SEARCH_OPTION::INCLUDING_AND_BELOW, ALL_ENTRIES);
     for (auto e : entries)
     {
+        if( ( long int)e.fTimeI  != -1 )
+        {
+       /// G_INFO("e.fTimeI = %d, time = %d ", e.fTimeI, time  );
         EXPECT_TRUE( e.fTimeI <=  time );
+        }
     }
 
 }

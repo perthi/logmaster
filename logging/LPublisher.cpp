@@ -74,7 +74,7 @@ namespace LOGMASTER
 
     LPublisher::~LPublisher()
     {
-
+        CERR << "calling desrtructor " << endl;
     }
 
 
@@ -144,33 +144,84 @@ namespace LOGMASTER
         }
     }
 
+    // void
+    // LPublisher::DispatchMessages()
+    // {
+        
+    //     while ( fMessageQeue.size() > 0  )
+    //     {
+    //        Message m; 
+
+    //         {
+    //             m =  fMessageQeue.front();
+    //             std::lock_guard<std::mutex> guard( fMessageQeueMutext );
+    //             fMessageQeue.pop();   
+    //         }
+
+    //         PublishMessage(m.fMessage,  m.fConfig, m.fTarget ); 
+    //     }
+        
+    // }
+
+
     void
     LPublisher::DispatchMessages()
     {
-        if (fMessageQeue.size() == 0)
+        std::lock_guard<std::mutex> guard( fMessageQeueMutext ); 
+        
+        std::queue< Message> tmp_messages  = std::queue< Message >();   
         {
-            return;
+          //  std::lock_guard<std::mutex> guard( fMessageQeueMutext );
+            std::swap( tmp_messages, fMessageQeue  );
+        }
+
+        if( tmp_messages.size() > 0 )
+        {
+           /// COUT << "running dispatcher, here are " <<  tmp_messages.size() << " messages" << endl;
+        }
+
+        static int cnt = 0;
+
+        while ( tmp_messages.size() > 0  )
+        {
+            auto m =  tmp_messages.front();
+            tmp_messages.pop();
+         ///   COUT << "msg body = " << m.fMessage->fMsgBody << "  ptr = " <<  std::hex << "0x" << m.fMessage <<endl;
+          ///  COUT << "msg body = " << m.fMessage->fMsgBody << endl;
+
+           // CERR << "PUBLØISHING MESSAGE !!! (cnt = " << cnt << " ) " << endl;
+            PublishMessage(m.fMessage,  m.fConfig, m.fTarget );
+            cnt ++;
+
+           /// CERR << "Published " << cnt << " messages" << endl;
+        
         }
     }
 
- //     std::queue< std::shared_ptr <LMessage > > tmp_messages;
- //     std::lock_guard<std::mutex> guard( fMessageQeueMutext );
 
- // }
 
- // std::shared_ptr<MBMessageInfo> element = nullptr;
- // 	{
- // 		element = tmp_messages.front();
- // 		tmp_messages.pop();
- // 		fMsgCntProcessed++;
- // 	}
 
- // void
- // LPublisher::QueMessage( const std::shared_ptr<LMessage>  msg )
- // {
- //     std::lock_guard<std::mutex> guard( fMessageQeueMutext );
- //     fMessageQeue.push( msg );
- // }
+
+
+void
+LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared_ptr<LConfig> cfg,    const eMSGTARGET target    )
+{
+    Message m;
+    m.fMessage =  msg;
+   /// CERR << "message body = " << msg->fMsgBody << endl;
+    m.fConfig = cfg;
+    m.fTarget = target;  
+
+    {
+       std::lock_guard<std::mutex> guard( fMessageQeueMutext );
+//       CERR << "SIZE = " << fMessageQeue.size() << endl;
+
+       fMessageQeue.push( m );
+    }
+
+}
+
+
 
  /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently
      *   than any other log levels and is always written to all targets regardless of the configuration of the logging system.
@@ -180,6 +231,12 @@ namespace LOGMASTER
      *   @param[in] target The target for where to publish this message (file, stdout, subscribers etc..) */
  void LPublisher::PublishMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
  {
+    /// static int cnt = 0;
+     
+    // CERR << "cnt = " << cnt <<  "msgbody = "<< msg->fMsgBody <<endl;
+
+   //  cnt ++;
+
      if (cfg == nullptr)
      {
          CERR << " CONFIG IS A ZERO POINTER" << endl;
@@ -189,7 +246,6 @@ namespace LOGMASTER
      if (msg->fFormat == eMSGFORMAT::ALL_FIELDS_OFF)
      {
          PublishToConsole(msg);
-         // CERR << "ALL FILEDS ARE OFF !!!!!!!!! " << endl;
          return;
      }
 
@@ -240,6 +296,9 @@ namespace LOGMASTER
     void
     LPublisher::PublishToDatabase(const std::shared_ptr<LMessage>  msg  )
     {
+        static  std::mutex m;
+        std::lock_guard<std::mutex> guard( m ); 
+
         LDatabase::Instance()->AddLogEntry(msg);
     }
 
@@ -273,6 +332,9 @@ namespace LOGMASTER
 	void
     LPublisher::PublishToConsole(const std::shared_ptr<LMessage>  msg)
 	{
+          static  std::mutex m;
+        std::lock_guard<std::mutex> guard( m ); 
+
 #ifdef _WIN32
             static HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -301,6 +363,9 @@ namespace LOGMASTER
       void
     LPublisher::PublishToFile(const char * filename, const std::shared_ptr<LMessage> msg)
     {
+        static  std::mutex m;
+        std::lock_guard<std::mutex> guard( m ); 
+
         FILE  *logFile = 0;
 
 #ifdef _WIN32
@@ -331,7 +396,8 @@ namespace LOGMASTER
     void     
     LPublisher::PublishToFileJson( const char *   filename_base,  const std::shared_ptr<LMessage>  msg )
     {
-
+        static  std::mutex m;
+        std::lock_guard<std::mutex> guard( m ); 
     
         string fname_tmp = string( filename_base ) + ".json";
         const char * fname_tmp_c  = fname_tmp.c_str();

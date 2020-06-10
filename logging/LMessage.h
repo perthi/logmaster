@@ -23,6 +23,10 @@
 typedef struct LMessage
 #else
 
+
+#include <utilities/GDefinitions.h>
+
+
 namespace LOGMASTER
 {
 
@@ -47,6 +51,21 @@ public:
         ClearContent();
     };
 #endif
+
+    // LMessage(const LMessage  & ) : fRgBColor(0), fWColor(0), fAColor(), fLevel(eMSGLEVEL::LOG_WARNING), fSystem(eMSGSYSTEM::SYS_ALL), fTarget(eMSGTARGET::TARGET_ALL), fFormat(eMSGFORMAT::PREFIX_ALL)
+    // {
+    //     CERR << "calling copy constructor" << endl;
+    // }
+
+
+    // LMessage  operator = (const LMessage  & ) 
+    // {
+    //     CERR << "calling assignment operator" << endl;
+    //     return *this;
+    // }
+
+
+
     char fOrigin[1024];
     char fMsgType[MAX_MSG_TYPE_SIZE];         //!< Message type and subsystem, e.eg <Error|Database>, <Driver|Debug> etc..
     char fTimeStamp[MAX_MSG_TIME_STAMP_SIZE]; //!< The date and time the message was created

@@ -204,6 +204,7 @@ namespace LOGMASTER
            exit(-1);
        }
 
+
         static std::shared_ptr<LMessage>           tmp_msg  =   std::make_shared<LMessage>();
 
         ClearMessages();
@@ -223,7 +224,12 @@ namespace LOGMASTER
 
                     if ( cl == true )
                     {
-                        LPublisher::Instance()->PublishMessage( tmp_msg, it->second.GetConfig(), it->first );
+                      
+
+                     LPublisher::Instance()->QueMessage( tmp_msg,   it->second.GetConfig(),  it->first   );
+                     
+                     //   LPublisher::Instance()->PublishMessage( tmp_msg, it->second.GetConfig(), it->first );
+                     
                         //LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), target );
                         auto it_msg = fMessages->find(it->first);
                         if ( it_msg != fMessages->end() )

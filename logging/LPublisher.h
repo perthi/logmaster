@@ -43,7 +43,7 @@ namespace LOGMASTER
         void  API   EnableJson();
         void  API   DisableJson() ;
         bool  API  * GetEnableJson() ; 
-        void  API   QueMessage( const std::shared_ptr<LMessage>  msg );    
+        void  API   QueMessage( const std::shared_ptr<LMessage>  msg, const std::shared_ptr<LConfig>,    const eMSGTARGET target  );    
         
         void  API   StartDispatcher(); 
         void  API   StopDispatcher(); 
@@ -59,6 +59,15 @@ namespace LOGMASTER
          LPublisher( const LPublisher   & );
          LPublisher operator =  ( const LPublisher   & );   
 
+         struct Message
+         {
+            std::shared_ptr<LMessage> fMessage = nullptr;
+            std::shared_ptr<LConfig>  fConfig = nullptr;
+            eMSGTARGET     fTarget  = eMSGTARGET::TARGET_OFF;
+
+         };    
+
+
          void     DispatchMessages();       
          void     PublishMessage( const std::shared_ptr<LMessage>, const std::shared_ptr<LConfig>,  const eMSGTARGET target  );
          void     PublishToSubscribers(const std::shared_ptr<LMessage>   msg);
@@ -68,7 +77,7 @@ namespace LOGMASTER
          void     PublishToFileJson( const char * filename,  const std::shared_ptr<LMessage>   );
          void     PublishToDatabase(const std::shared_ptr<LMessage>  msg);
 
-         std::queue<std::shared_ptr<LMessage> > fMessageQeue  = std::queue<std::shared_ptr<LMessage> >();        
+         std::queue< Message>  fMessageQeue  = std::queue< Message >();        
          std::mutex                             fMessageQeueMutext  =  std::mutex() ;  
          bool     fgEnableColor       =   true; 	/* !< Wether or not colors will be used for distinguishing messages when they are written to the console */  
          bool     fgEnableJson        =   true;

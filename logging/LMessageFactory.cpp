@@ -136,7 +136,9 @@ namespace LOGMASTER
 		}
 		eMSGFORMAT f = fConfig->GetLogFormat();
 
-		fMessage =  fGenerator->GenerateMsg(fMessage,  f, l, s, file, line, func, fmt, ap, ad );
+		//fMessage =  fGenerator->GenerateMsg(fMessage,  f, l, s, file, line, func, fmt, ap, ad );
+		fMessage =  fGenerator->GenerateMsg( f, l, s, file, line, func, fmt, ap, ad );
+
 		return fMessage;
 	}
 

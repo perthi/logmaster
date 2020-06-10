@@ -50,17 +50,18 @@ public:
     LMessageGenerator();
     ~LMessageGenerator();
     LMessageGenerator( const LMessageGenerator&  rhs );
-    std::shared_ptr<LMessage>   API   GetLastMsg();
+  //  std::shared_ptr<LMessage>   API   GetLastMsg();
     
-    std::shared_ptr<LMessage>   API   GenerateMsg( std::shared_ptr<LMessage> msg,  const eMSGFORMAT format, const eMSGLEVEL l,  const eMSGSYSTEM s, const char *fname, int line, const char * func, const char * fmt, va_list ap, string addendum = "" );
+   /// std::shared_ptr<LMessage>   API   GenerateMsg( std::shared_ptr<LMessage> msg,  const eMSGFORMAT format, const eMSGLEVEL l,  const eMSGSYSTEM s, const char *fname, int line, const char * func, const char * fmt, va_list ap, string addendum = "" );
+    std::shared_ptr<LMessage>   API   GenerateMsg( const eMSGFORMAT format, const eMSGLEVEL l,  const eMSGSYSTEM s, const char *fname, int line, const char * func, const char * fmt, va_list ap, string addendum = "" );
 
 private:
     LMessageGenerator operator = (LMessageGenerator &rhs );
     string  API  ToString(const eMSGLEVEL    level);
     string  API  ToString(const eMSGSYSTEM   sys);
     string  API  ToString(const eMSGSYSTEM sys, const eMSGLEVEL  level );
-    std::shared_ptr< LMessage>  fgMsgLast = nullptr;
-    std::shared_ptr< LMessage>  fgMsg  = nullptr;
+  //  std::shared_ptr< LMessage>  fgMsgLast = nullptr;
+  ///  std::shared_ptr< LMessage>  fgMsg  = nullptr;
 };
 
 
