@@ -156,7 +156,9 @@ TEST_F(TestSubscriber, setTargetFileTest)
 	SET_LOGTARGET( "--target-off" );
     SET_LOGTARGET( "--target-file" ) ;
 	SET_LOGLEVEL("--all-warning");
-
+	fStrCout.str("");
+	fMsg1.fMsg[0] = 0;
+	fMsg2.fMsg[0] = 0;
     G_WARNING("Dunbars Number is between %d and %d", 50, 200);
 	std::this_thread::sleep_for( std::chrono::milliseconds(100) );
 	EXPECT_EQ(FileIOTest(), string("<Warning:General>        \tDunbars Number is between 50 and 200") );

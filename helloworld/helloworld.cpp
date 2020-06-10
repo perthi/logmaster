@@ -54,15 +54,12 @@ int main ()
    test.push(3);
    test.push(4);
    
-
-
    FORCE_DEBUG("front = %d",  test.front() );
-    test.pop();
+   test.pop();
    FORCE_DEBUG("front = %d",  test.front() ); 
-
- FORCE_DEBUG("back = %d",  test.back() ); 
-        SET_LOGLEVEL("--all-debug");
-    SET_LOGTARGET("--target-all");
+   FORCE_DEBUG("back = %d",  test.back() ); 
+   SET_LOGLEVEL("--all-debug");
+   SET_LOGTARGET("--target-all");
    SET_LOGFORMAT("11111111");
 
 
