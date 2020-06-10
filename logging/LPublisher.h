@@ -9,18 +9,23 @@
 *****************************************************************************/
 
 
+
+
 #include "LLogApi.h"
+#include "LMessage.h"
+
+
 #include  <utilities/GDefinitions.h>
-#include <memory>
-#include <queue>  
-#include <mutex>
-#include <thread>
-#include <atomic>
+#include  <memory>
+#include  <queue>  
+#include  <mutex>
+#include  <thread>
+#include  <atomic>
 
 
 namespace LOGMASTER
 {
-    struct LMessage;
+  //  struct LMessage;
     class LLogging;
     class LConfig;
     class LDatabase;
@@ -59,13 +64,22 @@ namespace LOGMASTER
          LPublisher( const LPublisher   & );
          LPublisher operator =  ( const LPublisher   & );   
 
-         struct Message
+        //  struct Message
+        //  {
+        //     std::shared_ptr<LMessage> fMessage = nullptr;
+        //     std::shared_ptr<LConfig>  fConfig = nullptr;
+        //     eMSGTARGET     fTarget  = eMSGTARGET::TARGET_OFF;
+
+        //  };    
+
+        struct Message
          {
-            std::shared_ptr<LMessage> fMessage = nullptr;
+            LMessage fMessage;
             std::shared_ptr<LConfig>  fConfig = nullptr;
             eMSGTARGET     fTarget  = eMSGTARGET::TARGET_OFF;
 
          };    
+
 
 
          void     DispatchMessages();       
@@ -77,8 +91,10 @@ namespace LOGMASTER
          void     PublishToFileJson( const char * filename,  const std::shared_ptr<LMessage>   );
          void     PublishToDatabase(const std::shared_ptr<LMessage>  msg);
 
-         std::queue< Message>  fMessageQeue  = std::queue< Message >();        
+         std::queue<  std::shared_ptr<Message> >  fMessageQeue  = std::queue<  std::shared_ptr<Message> >();        
          std::mutex                             fMessageQeueMutext  =  std::mutex() ;  
+         std::mutex                              fDispatcherMutext  =  std::mutex() ;  
+
          bool     fgEnableColor       =   true; 	/* !< Wether or not colors will be used for distinguishing messages when they are written to the console */  
          bool     fgEnableJson        =   true;
          std::thread *fDispatcher     =   nullptr;

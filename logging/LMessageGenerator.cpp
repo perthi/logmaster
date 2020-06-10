@@ -100,44 +100,22 @@ namespace LOGMASTER
      *  @param line  The line number where the message was generated
      *  @param func  The name of the function where the message was generated ( __FUNCTION__)
      *  @param fmt[in] */
-    // std::shared_ptr<LMessage>
-    // LMessageGenerator::GenerateMsg( std::shared_ptr<LMessage> msg_in, const eMSGFORMAT format, const eMSGLEVEL l, 
-    //                                                                 const eMSGSYSTEM s, const char * fname, int line, 
-    //                                                                 const char * func, const char * fmt, va_list ap, string addendum)
-    
     std::shared_ptr<LMessage>
     LMessageGenerator::GenerateMsg(  const eMSGFORMAT format, const eMSGLEVEL l, 
                                                                     const eMSGSYSTEM s, const char * fname, int line, 
                                                                     const char * func, const char * fmt, va_list ap, string addendum)
     {
         std::lock_guard<std::mutex> guard(G_gen_mutex);	
-      //  static LMessage *G_l = new LMessage();
         va_list ap_l;
         va_copy(ap_l, ap);
-        
        std::shared_ptr<LMessage> msg = std::make_shared<LMessage>();
-
-        // std::shared_ptr<LMessage> msg = nullptr;
-
-        // if ( msg_in != nullptr )
-        // {
-        //     msg = msg_in;
-        //    // COUT <<  "msg = msg_in" <<  endl; 
-        // }
-        // else
-        // {
-        //   msg = fgMsg;
-        //   //COUT <<  "msg = fgMsg" << endl;
-        // }
 
         msg->ClearContent();
         msg->fEpochTime = g_time()->GetEpochTime();
-      //  COUT  << "epcoch times was set to !!!!!" <<  msg->fEpochTime  << endl;
 		
         if ( format == eMSGFORMAT::ALL_FIELDS_OFF)
         {
             SPRINTF(msg->fMsg, MAX_MSG_SIZE, "NO MESSAGE WAS GENERATED BECAUSE ALL FILEDS ARE TURNED OFF !!\n");
-           // fgMsgLast = msg;
             va_end(ap_l);  
             return msg;
         }

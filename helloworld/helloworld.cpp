@@ -33,7 +33,6 @@ using std::cout;
 using namespace LOGMASTER;
 
 #include <logging/LPublisher.h>
-
 #include <queue>
 #include <chrono>
 #include <thread>
@@ -44,11 +43,13 @@ using namespace LOGMASTER;
 
 
 
+
+
 int main ()
 {
     SET_LOGLEVEL("--all-debug");
-
- //  SET_LOGFORMAT("00000001");
+    SET_LOGTARGET("--target-all");
+   SET_LOGFORMAT("11111111");
  //  FORCE_DEBUG("This is a test");
     
  //  cout << LDoc::Instance()->Help() << endl;
@@ -65,10 +66,15 @@ int main ()
    FORCE_DEBUG("front = %d",  test.front() ); 
 
  FORCE_DEBUG("back = %d",  test.back() ); 
-    
+        SET_LOGLEVEL("--all-debug");
+    SET_LOGTARGET("--target-all");
+   SET_LOGFORMAT("11111111");
+
+
     for(int i = 0; i < 10; i++ )
     {
         LLogTest::WriteMessages();
+        std::this_thread::sleep_for( std::chrono::milliseconds(200));
     }
 
     

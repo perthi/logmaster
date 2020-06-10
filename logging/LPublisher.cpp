@@ -140,63 +140,81 @@ namespace LOGMASTER
                 fIsRunning = true;
                 DispatchMessages();
             }
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            ///std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
     }
 
-    // void
-    // LPublisher::DispatchMessages()
-    // {
-        
-    //     while ( fMessageQeue.size() > 0  )
-    //     {
-    //        Message m; 
 
-    //         {
-    //             m =  fMessageQeue.front();
-    //             std::lock_guard<std::mutex> guard( fMessageQeueMutext );
-    //             fMessageQeue.pop();   
-    //         }
 
-    //         PublishMessage(m.fMessage,  m.fConfig, m.fTarget ); 
-    //     }
-        
-    // }
 
 
     void
     LPublisher::DispatchMessages()
     {
-        std::lock_guard<std::mutex> guard( fMessageQeueMutext ); 
-        
-        std::queue< Message> tmp_messages  = std::queue< Message >();   
-        {
-          //  std::lock_guard<std::mutex> guard( fMessageQeueMutext );
+      std::queue<  std::shared_ptr<Message> > tmp_messages  = std::queue<  std::shared_ptr<Message> >();   
+       {
+           std::lock_guard<std::mutex> guard2( fMessageQeueMutext ); 
             std::swap( tmp_messages, fMessageQeue  );
-        }
+       }
 
-        if( tmp_messages.size() > 0 )
-        {
-           /// COUT << "running dispatcher, here are " <<  tmp_messages.size() << " messages" << endl;
-        }
-
-        static int cnt = 0;
+        static std::mutex mtx;
+        std::lock_guard<std::mutex> guard3( mtx ); 
 
         while ( tmp_messages.size() > 0  )
         {
             auto m =  tmp_messages.front();
             tmp_messages.pop();
-         ///   COUT << "msg body = " << m.fMessage->fMsgBody << "  ptr = " <<  std::hex << "0x" << m.fMessage <<endl;
-          ///  COUT << "msg body = " << m.fMessage->fMsgBody << endl;
+            
+            //  fMessageQeueMutext.unlock();
+            
+            std::shared_ptr<LMessage>  m_tmp  =  std::make_shared<LMessage>( m->fMessage  );
 
-           // CERR << "PUBLØISHING MESSAGE !!! (cnt = " << cnt << " ) " << endl;
-            PublishMessage(m.fMessage,  m.fConfig, m.fTarget );
-            cnt ++;
+           // PublishMessage( m->fMessage,  m->fConfig, m->fTarget );
+            PublishMessage( m_tmp,  m->fConfig, m->fTarget );
 
-           /// CERR << "Published " << cnt << " messages" << endl;
+            //  fMessageQeueMutext.unlock();
+        ///    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+           /// cnt ++;
         
         }
+
+
+
+    ///      fMessageQeueMutext.unlock();
     }
+
+
+//  void
+//     LPublisher::DispatchMessages()
+//     {
+      
+//         // std::queue< Message> tmp_messages  = std::queue< Message >();   
+//         // {
+//         //     std::lock_guard<std::mutex> guard2( fMessageQeueMutext ); 
+//         //     std::swap( tmp_messages, fMessageQeue  );
+//         // }
+
+
+//       ///  static int cnt = 0;
+//       ///  std::lock_guard<std::mutex> guard2( fMessageQeueMutext ); 
+        
+//         //if ( fMessageQeue.size() > 0  )
+//         while ( fMessageQeue.size() > 0  )
+//         {
+//           //  CERR << "size = " <<  fMessageQeue.size()  << endl; 
+//             Message m;
+//             {
+//               std::lock_guard<std::mutex> guard2( fMessageQeueMutext ); 
+//               m =  fMessageQeue.front();
+//               fMessageQeue.pop();
+//               CERR << "MSG = " <<  m.fMessage->fMsgBody << endl;
+//             } 
+            
+//             PublishMessage(m.fMessage,  m.fConfig, m.fTarget );
+//            /// cnt ++;
+        
+//         }
+//     }
 
 
 
@@ -206,18 +224,22 @@ namespace LOGMASTER
 void
 LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared_ptr<LConfig> cfg,    const eMSGTARGET target    )
 {
-    Message m;
-    m.fMessage =  msg;
-   /// CERR << "message body = " << msg->fMsgBody << endl;
-    m.fConfig = cfg;
-    m.fTarget = target;  
+   // Message m;
+    std::lock_guard<std::mutex> guard( fMessageQeueMutext );
+    std::shared_ptr< Message > m = std::make_shared< Message >();
 
-    {
-       std::lock_guard<std::mutex> guard( fMessageQeueMutext );
-//       CERR << "SIZE = " << fMessageQeue.size() << endl;
+    m->fMessage =  *msg;
+    m->fConfig = cfg;
+    m->fTarget = target;  
 
+  //  CERR << "MSG body = " << m.fMessage->fMsgBody << endl;
+
+  //  {
+    //   std::lock_guard<std::mutex> guard2( fMessageQeueMutext );
        fMessageQeue.push( m );
-    }
+      // std::this_thread::sleep_for(std::chrono::milliseconds(1));
+   // }
+
 
 }
 
@@ -231,11 +253,14 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
      *   @param[in] target The target for where to publish this message (file, stdout, subscribers etc..) */
  void LPublisher::PublishMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
  {
-    /// static int cnt = 0;
-     
-    // CERR << "cnt = " << cnt <<  "msgbody = "<< msg->fMsgBody <<endl;
 
-   //  cnt ++;
+    //    if( target ==  eMSGTARGET::TARGET_STDOUT )
+    //    {
+    //        CERR << "msg body = "  << string(msg->fMsgBody)  << " target =" <<  (int)target << " system = "<<  (int)msg->fSystem << endl;
+    //    }
+        
+        // static  std::mutex m;
+        // std::lock_guard<std::mutex> guard( m ); 
 
      if (cfg == nullptr)
      {
@@ -287,6 +312,7 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
 
          if ((int)target & (int)eMSGTARGET::TARGET_STDOUT)
          {
+           ///  CERR << "clling publish to console" << endl;
              PublishToConsole(msg);
          }
      }
@@ -296,8 +322,8 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
     void
     LPublisher::PublishToDatabase(const std::shared_ptr<LMessage>  msg  )
     {
-        static  std::mutex m;
-        std::lock_guard<std::mutex> guard( m ); 
+      //  static  std::mutex m;
+      //  std::lock_guard<std::mutex> guard( m ); 
 
         LDatabase::Instance()->AddLogEntry(msg);
     }
@@ -317,6 +343,11 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
         }
     }
 
+
+
+
+
+
     void
     LPublisher::PublishToGuiSubscribers(const std::shared_ptr<LMessage> message )
     {
@@ -332,8 +363,9 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
 	void
     LPublisher::PublishToConsole(const std::shared_ptr<LMessage>  msg)
 	{
-          static  std::mutex m;
-        std::lock_guard<std::mutex> guard( m ); 
+      //    static  std::mutex m;
+    //    std::lock_guard<std::mutex> guard( m ); 
+       /// CERR << "Tp0" << endl;
 
 #ifdef _WIN32
             static HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -346,7 +378,12 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
 #else                   
             if( fgEnableColor == true  )
             {
-                cout << "\033" << "[1;" << msg->fAColor << "m" << msg->fMsg << "\033" << "[0m";
+              // CERR << "writing message !!!!!!!, body = " <<  msg->fMsgBody << " color = " <<  msg->fAColor << endl;
+            // cerr << "\033" << "[1;" << msg->fAColor << "m" << msg->fMsg << "\033" << "[0m" <<  endl <<std::flush ;
+                cerr << "\033" << "[1;" << msg->fAColor << "m" << msg->fMsg << "\033" << "[0m"  ;
+              // cout << "msg = "  << msg->fMsg << endl;
+              // cout << "msg = "  << msg->fMsg << endl <<std::flush  ;
+
             }
             else
             {
@@ -363,8 +400,8 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
       void
     LPublisher::PublishToFile(const char * filename, const std::shared_ptr<LMessage> msg)
     {
-        static  std::mutex m;
-        std::lock_guard<std::mutex> guard( m ); 
+      //  static  std::mutex m;
+      //  std::lock_guard<std::mutex> guard( m ); 
 
         FILE  *logFile = 0;
 
@@ -396,8 +433,8 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
     void     
     LPublisher::PublishToFileJson( const char *   filename_base,  const std::shared_ptr<LMessage>  msg )
     {
-        static  std::mutex m;
-        std::lock_guard<std::mutex> guard( m ); 
+     ///   static  std::mutex m;
+     ///   std::lock_guard<std::mutex> guard( m ); 
     
         string fname_tmp = string( filename_base ) + ".json";
         const char * fname_tmp_c  = fname_tmp.c_str();
