@@ -177,14 +177,14 @@ TEST_F(TestSubscriber, cmdLine  )
 		
 		SET_LOGLEVEL("--all-warning");
 		G_WARNING("Hello Chuck Norris");
-		std::this_thread::sleep_for( std::chrono::milliseconds(100) );
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ(fMsg1->fMsgBody, "Hello Chuck Norris");
 		EXPECT_STREQ(fMsg2->fMsgBody, "Hello Chuck Norris");
 		EXPECT_EQ(fStrCout.str(), "");
 
 		g->ScanArguments("-logtarget --target-stdout --target-subscriber");
 		G_ERROR("Hello Dolly");
-		std::this_thread::sleep_for( std::chrono::milliseconds(100) );
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ(fMsg1->fMsgBody, "Hello Dolly");
 		EXPECT_EQ(fStrCout.str(), "\tHello Dolly\n");
 
@@ -195,6 +195,7 @@ TEST_F(TestSubscriber, cmdLine  )
 		fMsg2->fMsgBody[0] = 0;
 		g->ScanArguments("-logtarget  --target-subscriber");
 		G_ERROR("Hello Dolly");
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ(fMsg1->fMsgBody, "Hello Dolly");
 		EXPECT_STREQ(fMsg2->fMsgBody, "Hello Dolly");
 		
@@ -206,7 +207,7 @@ TEST_F(TestSubscriber, cmdLine  )
 		fStrCout.str("");
 
 		G_ERROR("Hello Chuck");
-		std::this_thread::sleep_for( std::chrono::milliseconds(100) );
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ("Hello Chuck", fMsg1->fMsgBody);
 		EXPECT_STREQ("Hello Chuck", fMsg2->fMsgBody);
 		EXPECT_EQ("\tHello Chuck\n", fStrCout.str());
@@ -216,6 +217,7 @@ TEST_F(TestSubscriber, cmdLine  )
 
 
 		G_ERROR("Hello Dolly");
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ("Hello Dolly", fMsg1->fMsgBody);
 		EXPECT_STREQ("Hello Dolly", fMsg2->fMsgBody );
 		EXPECT_EQ("", fStrCout.str());
@@ -223,7 +225,7 @@ TEST_F(TestSubscriber, cmdLine  )
 		fStrCout.str("");
 		SET_LOGTARGET("0110");
 		G_ERROR("Hello Donald");
-		std::this_thread::sleep_for( std::chrono::milliseconds(100) );
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ("Hello Donald", fMsg1->fMsgBody);
 		EXPECT_STREQ("Hello Donald", fMsg2->fMsgBody);
 		EXPECT_EQ("\tHello Donald\n", fStrCout.str());
@@ -232,6 +234,7 @@ TEST_F(TestSubscriber, cmdLine  )
 		SET_LOGTARGET("0000");
 		g->ScanArguments("-logtarget 1000 --target-subscriber");
 		G_ERROR("Hello PTH");
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ("Hello PTH", fMsg1->fMsgBody);
 		EXPECT_STREQ("Hello PTH", fMsg2->fMsgBody);
 		EXPECT_EQ("", fStrCout.str());

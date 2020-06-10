@@ -42,8 +42,10 @@
 #include <exception/GException.h>
 
 #include <cmdline/GLogApplication.h>
-
 #include <typeinfo>
+
+#include <chrono>
+#include <thread>
 
 string  TestLogging::fMessage = "";
 std::streambuf*    TestLogging::fOldBuf;
@@ -252,10 +254,14 @@ TEST_F(TestLogging, fileIO)
 	SET_LOGTARGET ( "--target-file");
 	SET_LOGFORMAT("00000001");
 	SET_LOGFILENAME("googletest_logging_file_io.log");
-
 	EXPECT_EQ("googletest_logging_file_io.log", l->GetLogFileName( eMSGTARGET::TARGET_FILE));
 	SET_LOGLEVEL("--all-warning");
+	
+	
 	G_ERROR("Test message");
+	
+	std::this_thread::sleep_for( std::chrono::milliseconds(100) );
+
 	FileIOTest();
 	EXPECT_EQ("\tTest message", FileIOTest());
 	SET_LOGTARGET("--target-off"); // not really neccessary, maybe test fixture takes care of this ?
