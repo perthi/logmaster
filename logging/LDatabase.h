@@ -65,7 +65,7 @@ struct  sqlite3_stmt;
 
 namespace LOGMASTER
 {
-	struct LMessage;
+	class LMessage;
 	class  LMessageGenerator;
 
 	#define ALL_ENTRIES 0

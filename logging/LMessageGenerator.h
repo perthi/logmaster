@@ -27,7 +27,7 @@ class TestLogging_to_string_Test;
 
 namespace LOGMASTER
 {
-    struct LMessage;
+    class LMessage;
     class LLogging;
     class LMessage2Json;
     class LDatabase;

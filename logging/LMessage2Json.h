@@ -15,7 +15,7 @@
 
 namespace LOGMASTER
 {
-	struct LMessage;
+	class LMessage;
 
 	/** Convert a regular message to a message on jSON format*/
 	class  LMessage2Json
