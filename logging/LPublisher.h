@@ -83,8 +83,15 @@ namespace LOGMASTER
          void     PublishToDatabase(const LMessage  &msg); 
 
          std::queue<  std::shared_ptr<Message> >  fMessageQeue  = std::queue<  std::shared_ptr<Message> >();        
-         std::mutex                             fMessageQeueMutext  =  std::mutex() ;  
-         std::mutex                              fDispatcherMutext  =  std::mutex() ;  
+         
+#ifdef _WIN32
+         std::mutex                             fMessageQeueMutext;
+         std::mutex                              fDispatcherMutext;
+#else
+         std::mutex                             fMessageQeueMutext = std::mutex();
+         std::mutex                              fDispatcherMutext = std::mutex();
+
+#endif
 
          bool     fgEnableColor       =   true; 	/* !< Wether or not colors will be used for distinguishing messages when they are written to the console */  
          bool     fgEnableJson        =   true;

@@ -38,7 +38,7 @@ class TestCheckLevel_check_level_Test;
 
 namespace LOGMASTER
 {
-    struct LMessage;
+    class LMessage;
 
     class LLogging
     {

@@ -22,7 +22,7 @@ using std::string;
 
 namespace LOGMASTER
 {
-	struct  LMessage;
+	class  LMessage;
 	class  LMessageGenerator;
 	class  LConfig;
 	class  LLogging;
