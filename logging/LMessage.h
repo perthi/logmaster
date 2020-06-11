@@ -54,19 +54,6 @@ public:
     };
 #endif
 
-    // LMessage(const LMessage  & ) : fRgBColor(0), fWColor(0), fAColor(), fLevel(eMSGLEVEL::LOG_WARNING), fSystem(eMSGSYSTEM::SYS_ALL), fTarget(eMSGTARGET::TARGET_ALL), fFormat(eMSGFORMAT::PREFIX_ALL)
-    // {
-    //     CERR << "calling copy constructor" << endl;
-    // }
-
-
-    // LMessage  operator = (const LMessage  & ) 
-    // {
-    //     CERR << "calling assignment operator" << endl;
-    //     return *this;
-    // }
-
-
 
     char fOrigin[1024] = {0};
     char fMsgType[MAX_MSG_TYPE_SIZE] = {0};         //!< Message type and subsystem, e.eg <Error|Database>, <Driver|Debug> etc..
@@ -109,7 +96,7 @@ public:
     }
 #endif
     LMessage( const LMessage & );
-    LMessage operator = ( const LMessage & );
+    LMessage & operator = ( const LMessage & );
 
     private:
    //   LMessage( const LMessage & );
