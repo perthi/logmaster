@@ -42,6 +42,9 @@
 #include <configurator/LGeneratorMacrosException.h>
 #include <configurator/LGeneratorEnum.h>
 
+#include <cmdline/GCommandLineArgument.h>
+#include <cmdline/GLogApplication.h>
+
 using namespace LOGMASTER;
 
 #include <iostream>
@@ -58,16 +61,39 @@ void generator(  vector< std::shared_ptr< LGenerator >  > generators,
 
 
 
-int main(int /*argc*/, const char ** /*argv*/)
+int main(int  argc, const char **  argv)
 {
 	SET_LOGFORMAT("00000001");
 	SET_LOGLEVEL("--all-info");
 
+	string xml = "";
+	string xsd = "";
+
+	std::shared_ptr<GArgument> xml_arg  =  std::make_shared <GCommandLineArgument< int> >("-xml", 
+                                                    "-xml [file path]",
+                                                    "Sets the xml file to use",
+                                                     &xml , fgkMANDATORY );
+
+	std::shared_ptr<GArgument> xsd_arg  =  std::make_shared <GCommandLineArgument< int> >("-xsd", 
+                                                    "-xsd [file path]",
+                                                    "Sets the xsd file to use for validation of the XML file",
+                                                     &xml , fgkMANDATORY );
+   
+   	vector< std::shared_ptr<GArgument>  > arguments;
+
+	arguments.push_back(xml_arg );
+	arguments.push_back(xsd_arg );
+
+	GLogApplication *g = new GLogApplication();
+    g->ScanArguments(argc, argv, arguments );
+
 	try
 	{
+		g->ScanArguments(argc, argv, arguments );
+
 		SET_LOGLEVEL("--all-debug");
-		string xml = "config/logging.xml";
-		string xsd = "config/logging.xsd";
+	//	string xml = "config/logging.xml";
+//		string xsd = "config/logging.xsd";
 		
 		auto validator = std::make_shared<GXmlValidator>();
 
@@ -143,5 +169,7 @@ void generator( vector< std::shared_ptr< LGenerator >  > generators,
 			G_INFO("created %s", gen->GetFilename().c_str() );
 		}
 	}
+
+	delete g;
 
 }
