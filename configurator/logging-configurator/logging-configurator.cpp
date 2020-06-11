@@ -45,6 +45,8 @@
 #include <cmdline/GCommandLineArgument.h>
 #include <cmdline/GLogApplication.h>
 
+#include <utilities/GUtilities.h>
+
 using namespace LOGMASTER;
 
 #include <iostream>
@@ -57,44 +59,55 @@ using std::endl;
 
 void generator(  vector< std::shared_ptr< LGenerator >  > generators,
                  vector< std::shared_ptr< LXmlEntityLogLevel > > loglevels,
-			     vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems);
+			     vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems, const string autoclause );
 
 
 
 int main(int  argc, const char **  argv)
 {
-	SET_LOGFORMAT("00000001");
-	SET_LOGLEVEL("--all-info");
+  //	SET_LOGFORMAT("11111111");
+  //	SET_LOGLEVEL("--all-info");
+
+//	FORCE_DEBUG ( g_utilities()->AutoClause().c_str();
+
+	//return 0;
 
 	string xml = "";
 	string xsd = "";
 
-	std::shared_ptr<GArgument> xml_arg  =  std::make_shared <GCommandLineArgument< int> >("-xml", 
+	std::shared_ptr<GArgument> xml_arg  =  std::make_shared <GCommandLineArgument< string > >("-xml", 
                                                     "-xml [file path]",
                                                     "Sets the xml file to use",
                                                      &xml , fgkMANDATORY );
 
-	std::shared_ptr<GArgument> xsd_arg  =  std::make_shared <GCommandLineArgument< int> >("-xsd", 
+	std::shared_ptr<GArgument> xsd_arg  =  std::make_shared <GCommandLineArgument< string > >("-xsd", 
                                                     "-xsd [file path]",
                                                     "Sets the xsd file to use for validation of the XML file",
-                                                     &xml , fgkMANDATORY );
+                                                     &xsd , fgkMANDATORY );
    
    	vector< std::shared_ptr<GArgument>  > arguments;
 
 	arguments.push_back(xml_arg );
 	arguments.push_back(xsd_arg );
-
-	GLogApplication *g = new GLogApplication();
-    g->ScanArguments(argc, argv, arguments );
+	std::shared_ptr<GLogApplication>  g =  std::make_shared<GLogApplication>();
 
 	try
 	{
+		SET_LOGLEVEL("--all-off --xml-info");
+		SET_LOGFORMAT("00000001");
+
 		g->ScanArguments(argc, argv, arguments );
 
-		SET_LOGLEVEL("--all-debug");
-	//	string xml = "config/logging.xml";
-//		string xsd = "config/logging.xsd";
+		string addendum = "/*** Generated from " + xml + " **/\n" ;
+		addendum +=  "/*** Validated by " + xsd + " **/\n";
+		addendum += "/*** Copyright Per Thomas Hille pth@embc.no ***/\n";
+
+		string clause =   g_utilities()->AutoClause( addendum );
 		
+		XML_FATAL( "autoclause = %s", g_utilities()->AutoClause( addendum ).c_str() );
+
+
+
 		auto validator = std::make_shared<GXmlValidator>();
 
 		if (validator->IsValid(xml, xsd) == false)
@@ -108,14 +121,14 @@ int main(int  argc, const char **  argv)
 			vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems;
 			p->ParseXML(xml, xsd, loglevels,  subsystems );
 
-			G_INFO("Successfully validatet %s against %s and parsed the XML file", xml.c_str(), xsd.c_str() );
+			XML_INFO("Successfully validatet %s against %s and parsed the XML file", xml.c_str(), xsd.c_str() );
 
 			vector< std::shared_ptr< LGenerator >  > generators;
 			generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumGenerated.h") );
 			generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApi.h") );
 			generators.push_back(std::make_shared < LGeneratorMacrosException >( "exception/GExceptionMacros.h") );
 			generators.push_back(std::make_shared < LGeneratorHashMap >( "logging/LHashMapsBase.cpp") );
-			generator( generators, loglevels, subsystems );
+			generator( generators, loglevels, subsystems ,  clause );
 
 		}
 	}
@@ -135,17 +148,19 @@ int main(int  argc, const char **  argv)
 	{
 		FORCE_DEBUG("Unknown exception caught ....");
 	}
+
+
 }
 
 
 void generator( vector< std::shared_ptr< LGenerator >  > generators,
                 vector< std::shared_ptr< LXmlEntityLogLevel > > loglevels,
-			    vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems) 
+			    vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems,   const string autoclause   ) 
 {
 	for( auto  gen : generators )
 	{
 		///FORCE_DEBUG("genearting %s", gen->GetFilename().c_str() );
-		vector<string> lines = gen->Generate( loglevels, subsystems );
+		vector<string> lines = gen->Generate( loglevels, subsystems, autoclause );
 		FILE* fp = nullptr;
 
 #ifdef _WIN32
@@ -170,6 +185,6 @@ void generator( vector< std::shared_ptr< LGenerator >  > generators,
 		}
 	}
 
-	delete g;
+
 
 }

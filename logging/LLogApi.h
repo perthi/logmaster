@@ -10,6 +10,14 @@
 
 
 
+
+/***** Auto generated file: DO NOT EDIT !!!!!! *****/
+/*** Generated at: Fri 12 June-2020 01:17:58  ***/
+/*** Generated from config/logging.xml **/
+/*** Validated by config/logging.xsd **/
+/*** Copyright Per Thomas Hille pth@embc.no ***/
+
+
 #ifdef _WIN32
 #define __func__ __FUNCTION__
 #endif

@@ -30,13 +30,16 @@ LGeneratorHashMap::~LGeneratorHashMap()
 
 vector< string > 
 LGeneratorHashMap::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                          vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const
+	                          vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, const string autoclause ) const
 {
     vector<string> lines;
+
+     lines.push_back(  autoclause ); 
 
     lines.push_back("#include \"LHashMapsBase.h\"");
     lines.push_back("#include <utilities/GNumbers.h>");
     lines.push_back("#include <utilities/GUtilities.h>");
+  
     lines.push_back("\n");
     lines.push_back("map < string, std::tuple< LOGMASTER::eMSGSYSTEM, LOGMASTER::eMSGLEVEL > >  LOGMASTER::LHashMapsBase::fSubCmdHash;");
     lines.push_back("map < string, LOGMASTER::eMSGTARGET>	LOGMASTER::LHashMapsBase::fTargetHash = map < string, LOGMASTER::eMSGTARGET>();");

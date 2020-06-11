@@ -21,7 +21,7 @@ class  LGeneratorHashMap : public  LGenerator
 	  LGeneratorHashMap( const string fname );
 	  virtual ~LGeneratorHashMap();
 	  virtual vector<string> Generate( vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const override;	
+	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, const string autoclause) const override;	
 	  
 	private:
 	  void   GenerateInitHashLogLevel(       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string> &in )  const;	 	
