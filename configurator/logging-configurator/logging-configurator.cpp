@@ -47,6 +47,10 @@
 
 #include <utilities/GUtilities.h>
 
+
+#include <chrono>
+#include <thread>
+
 using namespace LOGMASTER;
 
 #include <iostream>
@@ -65,13 +69,6 @@ void generator(  vector< std::shared_ptr< LGenerator >  > generators,
 
 int main(int  argc, const char **  argv)
 {
-  //	SET_LOGFORMAT("11111111");
-  //	SET_LOGLEVEL("--all-info");
-
-//	FORCE_DEBUG ( g_utilities()->AutoClause().c_str();
-
-	//return 0;
-
 	string xml = "";
 	string xsd = "";
 
@@ -91,6 +88,7 @@ int main(int  argc, const char **  argv)
 	arguments.push_back(xsd_arg );
 	std::shared_ptr<GLogApplication>  g =  std::make_shared<GLogApplication>();
 
+
 	try
 	{
 		SET_LOGLEVEL("--all-off --xml-info");
@@ -102,17 +100,14 @@ int main(int  argc, const char **  argv)
 		addendum +=  "/*** Validated by " + xsd + " **/\n";
 		addendum += "/*** Copyright Per Thomas Hille pth@embc.no ***/\n";
 
-		string clause =   g_utilities()->AutoClause( addendum );
+        string clause =   g_utilities()->AutoClause( addendum );
 		
-		XML_FATAL( "autoclause = %s", g_utilities()->AutoClause( addendum ).c_str() );
-
-
-
+                
 		auto validator = std::make_shared<GXmlValidator>();
 
 		if (validator->IsValid(xml, xsd) == false)
 		{
-			XML_ERROR("failed to validate %s against %s", xml.c_str(), xsd.c_str());
+                    XML_ERROR("failed to validate %s against %s", xml.c_str(), xsd.c_str());
 		}
 		else
 		{
@@ -134,7 +129,7 @@ int main(int  argc, const char **  argv)
 	}
 	catch( const GException &e )
 	{
-		std::cerr << e.what() << endl;
+            std::cerr << e.what() << endl;
 	}
 	catch (const std::exception &e)
 	{
@@ -142,14 +137,16 @@ int main(int  argc, const char **  argv)
 	}
 	catch (const std::string &e)
 	{
-		std::cerr << e <<  endl;
+            std::cerr << e <<  endl;
 	}
 	catch(...)
 	{
 		FORCE_DEBUG("Unknown exception caught ....");
 	}
 
+	std::this_thread::sleep_for( std::chrono::milliseconds(500) );
 
+        
 }
 
 

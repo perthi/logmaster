@@ -1,6 +1,6 @@
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 12 June-2020 01:17:58  ***/
+/*** Generated at: Fri 12 June-2020 15:13:02  ***/
 /*** Generated from config/logging.xml **/
 /*** Validated by config/logging.xsd **/
 /*** Copyright Per Thomas Hille pth@embc.no ***/
@@ -41,6 +41,11 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_COM, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_XML, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_DATABASE, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_JSON, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_SHOTCAL, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_SHOTEXCEC, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_CONFIGURATION, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_SENSOR, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );
    }
@@ -57,6 +62,11 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_COM, 	"Com");
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_XML, 	"Xml");
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_DATABASE, 	"Database");
+	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_JSON, 	"Json");
+	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_SHOTCAL, 	"Shotcal");
+	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_SHOTEXCEC, 	"Shotexcec");
+	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_CONFIGURATION, 	"Configuration");
+	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_SENSOR, 	"Sensor");
    }
    void
    LHashMapsBase::InitHashLevel2String()
@@ -98,6 +108,13 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fSubCmdHash.emplace("--msg-all",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eMSGLEVEL::LOG_ALL));
 
 
+	fSubCmdHash.emplace("--communication-off",	std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_OFF));
+	fSubCmdHash.emplace("--communication-fatal",	std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_FATAL));
+	fSubCmdHash.emplace("--communication-error",	std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_ERROR));
+	fSubCmdHash.emplace("--communication-warning",	std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_WARNING));
+	fSubCmdHash.emplace("--communication-info",	std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_INFO));
+	fSubCmdHash.emplace("--communication-debug",	std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_DEBUG));
+	fSubCmdHash.emplace("--communication-all",	std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_ALL));
 	fSubCmdHash.emplace("--com-off",		std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_OFF));
 	fSubCmdHash.emplace("--com-fatal",		std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_FATAL));
 	fSubCmdHash.emplace("--com-error",		std::make_pair(eMSGSYSTEM::SYS_COM,  eMSGLEVEL::LOG_ERROR));
@@ -130,6 +147,79 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fSubCmdHash.emplace("--db-info",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_INFO));
 	fSubCmdHash.emplace("--db-debug",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_DEBUG));
 	fSubCmdHash.emplace("--db-all",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eMSGLEVEL::LOG_ALL));
+
+
+	fSubCmdHash.emplace("--json-off",		std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_OFF));
+	fSubCmdHash.emplace("--json-fatal",		std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_FATAL));
+	fSubCmdHash.emplace("--json-error",		std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_ERROR));
+	fSubCmdHash.emplace("--json-warning",		std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_WARNING));
+	fSubCmdHash.emplace("--json-info",		std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_INFO));
+	fSubCmdHash.emplace("--json-debug",		std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_DEBUG));
+	fSubCmdHash.emplace("--json-all",		std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_ALL));
+	fSubCmdHash.emplace("--j-off",			std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_OFF));
+	fSubCmdHash.emplace("--j-fatal",		std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_FATAL));
+	fSubCmdHash.emplace("--j-error",		std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_ERROR));
+	fSubCmdHash.emplace("--j-warning",		std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_WARNING));
+	fSubCmdHash.emplace("--j-info",		std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_INFO));
+	fSubCmdHash.emplace("--j-debug",		std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_DEBUG));
+	fSubCmdHash.emplace("--j-all",			std::make_pair(eMSGSYSTEM::SYS_JSON,  eMSGLEVEL::LOG_ALL));
+
+
+	fSubCmdHash.emplace("--shotcal-off",		std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_OFF));
+	fSubCmdHash.emplace("--shotcal-fatal",		std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_FATAL));
+	fSubCmdHash.emplace("--shotcal-error",		std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_ERROR));
+	fSubCmdHash.emplace("--shotcal-warning",	std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_WARNING));
+	fSubCmdHash.emplace("--shotcal-info",		std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_INFO));
+	fSubCmdHash.emplace("--shotcal-debug",		std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_DEBUG));
+	fSubCmdHash.emplace("--shotcal-all",		std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_ALL));
+	fSubCmdHash.emplace("--sc-off",		std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_OFF));
+	fSubCmdHash.emplace("--sc-fatal",		std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_FATAL));
+	fSubCmdHash.emplace("--sc-error",		std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_ERROR));
+	fSubCmdHash.emplace("--sc-warning",		std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_WARNING));
+	fSubCmdHash.emplace("--sc-info",		std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_INFO));
+	fSubCmdHash.emplace("--sc-debug",		std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_DEBUG));
+	fSubCmdHash.emplace("--sc-all",		std::make_pair(eMSGSYSTEM::SYS_SHOTCAL,  eMSGLEVEL::LOG_ALL));
+
+
+	fSubCmdHash.emplace("--shotexe-off",		std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_OFF));
+	fSubCmdHash.emplace("--shotexe-fatal",		std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_FATAL));
+	fSubCmdHash.emplace("--shotexe-error",		std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_ERROR));
+	fSubCmdHash.emplace("--shotexe-warning",	std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_WARNING));
+	fSubCmdHash.emplace("--shotexe-info",		std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_INFO));
+	fSubCmdHash.emplace("--shotexe-debug",		std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_DEBUG));
+	fSubCmdHash.emplace("--shotexe-all",		std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_ALL));
+	fSubCmdHash.emplace("--se-off",		std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_OFF));
+	fSubCmdHash.emplace("--se-fatal",		std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_FATAL));
+	fSubCmdHash.emplace("--se-error",		std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_ERROR));
+	fSubCmdHash.emplace("--se-warning",		std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_WARNING));
+	fSubCmdHash.emplace("--se-info",		std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_INFO));
+	fSubCmdHash.emplace("--se-debug",		std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_DEBUG));
+	fSubCmdHash.emplace("--se-all",		std::make_pair(eMSGSYSTEM::SYS_SHOTEXCEC,  eMSGLEVEL::LOG_ALL));
+
+
+	fSubCmdHash.emplace("--configuration-off",	std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_OFF));
+	fSubCmdHash.emplace("--configuration-fatal",	std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_FATAL));
+	fSubCmdHash.emplace("--configuration-error",	std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_ERROR));
+	fSubCmdHash.emplace("--configuration-warning",	std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_WARNING));
+	fSubCmdHash.emplace("--configuration-info",	std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_INFO));
+	fSubCmdHash.emplace("--configuration-debug",	std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_DEBUG));
+	fSubCmdHash.emplace("--configuration-all",	std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_ALL));
+	fSubCmdHash.emplace("--config-off",		std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_OFF));
+	fSubCmdHash.emplace("--config-fatal",		std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_FATAL));
+	fSubCmdHash.emplace("--config-error",		std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_ERROR));
+	fSubCmdHash.emplace("--config-warning",	std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_WARNING));
+	fSubCmdHash.emplace("--config-info",		std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_INFO));
+	fSubCmdHash.emplace("--config-debug",		std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_DEBUG));
+	fSubCmdHash.emplace("--config-all",		std::make_pair(eMSGSYSTEM::SYS_CONFIGURATION,  eMSGLEVEL::LOG_ALL));
+
+
+	fSubCmdHash.emplace("--sensor-off",		std::make_pair(eMSGSYSTEM::SYS_SENSOR,  eMSGLEVEL::LOG_OFF));
+	fSubCmdHash.emplace("--sensor-fatal",		std::make_pair(eMSGSYSTEM::SYS_SENSOR,  eMSGLEVEL::LOG_FATAL));
+	fSubCmdHash.emplace("--sensor-error",		std::make_pair(eMSGSYSTEM::SYS_SENSOR,  eMSGLEVEL::LOG_ERROR));
+	fSubCmdHash.emplace("--sensor-warning",	std::make_pair(eMSGSYSTEM::SYS_SENSOR,  eMSGLEVEL::LOG_WARNING));
+	fSubCmdHash.emplace("--sensor-info",		std::make_pair(eMSGSYSTEM::SYS_SENSOR,  eMSGLEVEL::LOG_INFO));
+	fSubCmdHash.emplace("--sensor-debug",		std::make_pair(eMSGSYSTEM::SYS_SENSOR,  eMSGLEVEL::LOG_DEBUG));
+	fSubCmdHash.emplace("--sensor-all",		std::make_pair(eMSGSYSTEM::SYS_SENSOR,  eMSGLEVEL::LOG_ALL));
 
 
    }
