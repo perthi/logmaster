@@ -222,7 +222,7 @@ namespace LOGMASTER
 
     /** Return entries with a timestamp that is newer or equal to time_min and older or equla to time_min*/ 
     vector<  LLogEntrySQL >  
-    LDatabase::Query( const  int time_min, const int time_max,  const int max_cnt )
+    LDatabase::Query( const  uint64_t time_min, const int time_max,  const int max_cnt )
     {
         InitSQLQuery(  time_min, time_max, max_cnt );
         return FetchAll();
@@ -348,7 +348,7 @@ namespace LOGMASTER
     
 
     bool
-    LDatabase::InitSQLQuery(const int time, const eTIME_SEARCH_OPTION opt, const int cnt )
+    LDatabase::InitSQLQuery(const uint64_t time, const eTIME_SEARCH_OPTION opt, const int cnt )
     {
         std::stringstream buffer;
 
@@ -374,7 +374,7 @@ namespace LOGMASTER
 
 
     bool   
-    LDatabase::InitSQLQuery(  const int time_min, const int time_max,  int cnt )
+    LDatabase::InitSQLQuery(  const uint64_t time_min, const uint64_t time_max,  int cnt )
     {
         std::stringstream buffer; 
         buffer <<   "SELECT * FROM t_logging WHERE time >= " << time_min << " AND time <= " << time_max  << " ORDER BY id DESC";

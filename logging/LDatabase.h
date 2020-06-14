@@ -91,19 +91,19 @@ namespace LOGMASTER
 			bool API OpenDatabase( const char *db_path );
  			bool API DeleteEntries();
 			
-			vector< LLogEntrySQL>  Query( const string sql );
-			vector< LLogEntrySQL>  Query( const int max_cnt);
-			vector< LLogEntrySQL>  Query( const uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
-			vector< LLogEntrySQL>  Query( const  int time_min,        const int time_max,  const int max_cnt );
-			vector< LLogEntrySQL>  Query( const  eMSGSYSTEM sys,  const int max_cnt) ;
-			vector< LLogEntrySQL>  Query( const  eMSGLEVEL lvl,  const int max_cnt) ;
-			vector< LLogEntrySQL>  Query( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
+			vector< LLogEntrySQL>  Query( const   string sql );
+			vector< LLogEntrySQL>  Query( const   int max_cnt);
+			vector< LLogEntrySQL>  Query( const   uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
+			vector< LLogEntrySQL>  Query( const   uint64_t time_min,        const int time_max,  const int max_cnt );
+			vector< LLogEntrySQL>  Query( const   eMSGSYSTEM sys,  const int max_cnt) ;
+			vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const int max_cnt) ;
+			vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
 
-			bool API  InitSQLQuery(  const  int time,            const eTIME_SEARCH_OPTION opt,  const int max_cnt );
-			bool API  InitSQLQuery(  const  int time_min,        const int time_max,  const int max_cnt );
-			bool API  InitSQLQuery(  const  eMSGLEVEL level,     const int max_cnt );
-			bool API  InitSQLQuery(  const  eMSGSYSTEM  system,  const int max_cnt  );
-			bool API  InitSQLQuery(  const  eMSGLEVEL level,     const eMSGSYSTEM  system,  const int max_cnt  );
+			bool API  InitSQLQuery(  const  uint64_t time,        const eTIME_SEARCH_OPTION opt,  const int max_cnt );
+			bool API  InitSQLQuery(  const  uint64_t time_min,    const uint64_t time_max,  const int max_cnt );
+			bool API  InitSQLQuery(  const  eMSGLEVEL level,      const int max_cnt );
+			bool API  InitSQLQuery(  const  eMSGSYSTEM  system,   const int max_cnt  );
+			bool API  InitSQLQuery(  const  eMSGLEVEL level,      const eMSGSYSTEM  system,  const int max_cnt  );
 			bool API  InitSQLQuery(  const  int cnt  );
 			bool API  InitSQLQuery(  const  string sql );
 			bool API  ReadEntriesGetEntry(  LLogEntrySQL  &entry );
