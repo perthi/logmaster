@@ -135,10 +135,39 @@ EXCEPTION_CLASS_CPP	(GAlarmException)
 #define G_ASSERT_EXCEPTION(expr, ...)          if(!(expr)) throw_exception( GException(          __FILE__,  __func__, __LINE__ ,    eMSGSYSTEM::SYS_EX , __VA_ARGS__ ) )
 #define ALARM_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GAlarmException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_ALARM ),	__VA_ARGS__ ) )
 
-/** Including auto gnerated macros */
+/** Including auto generated macros */
 #include "GExceptionMacros.h"
 
 
+
+#define  CATCH_EXCEPTION_DB \
+   catch (GException &e) \
+    { \
+        DB_FATAL ("Exception caught: %s", e.what()); \
+    } \
+    catch (std::exception &e) \
+    { \
+        DB_FATAL("Exception caught: %s", e.what()); \
+    } \
+    catch (...) \
+    { \
+        DB_FATAL("Unknown exception caught"); \
+    }
+
+
+#define  CATCH_EXCEPTION \
+   catch (GException &e) \
+    { \
+        G_FATAL ("Exception caught: %s", e.what()); \
+    } \
+    catch (std::exception &e) \
+    { \
+        G_FATAL("Exception caught: %s", e.what()); \
+    } \
+    catch (...) \
+    { \
+        G_FATAL("Unknown exception caught"); \
+    }
 
 
 ///#endif

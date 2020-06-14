@@ -113,26 +113,3 @@ protected:
 };
 
 
-#define CATCH_EXCEPTION \
- catch (GText &e) \
-{ \
-	G_ERROR("%s",e.what()); \
-    throw(e); \
-} \
-catch (GException &e) \
-{ \
-    static char tmp[8096]; \
-    SPRINTF(tmp, 8096, "%s", e.GetMessageL()->fMsgBody );       \
-    G_ERROR("%s", tmp);\
-    throw(e); \
-} \
-catch (std::exception &e) \
-{ \
-	G_ERROR("%s",e.what()); \
-        throw(e);               \
-} \
-catch (...) \
-{ \
-	G_ERROR("%s","Unknown exception caught"); \
-        throw("Unknown exception caught");        \
-}
