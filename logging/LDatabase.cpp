@@ -13,24 +13,24 @@
 #include  "LMessage2Json.h"
 #include  "LEnums.h"
 #include  "LLogEntrySQL.h"
-#include <utilities/GFileIOHandler.h>
+
+///#include  <utilities/GFileIOHandler.h>
+
+#include  <exception/GException.h>
+#include  <utilities/GDefinitions.h>
+
 
 #include "sqlite/sqlite3.h"
 #include  <json/json.hpp>
-#include  <stdio.h>
-#include  <string.h>
+//#include  <stdio.h>
+///#include  <string.h>
 
-#include <thread>
-#include <chrono>
-#include <sstream>
+///#include <thread>
 
-#if defined(_WIN32) || defined(_WIN64)
-#define snprintf _snprintf
-#define vsnprintf _vsnprintf
-#define strcasecmp _stricmp
-#define strncasecmp _strnicmp
-#endif
+//#include <chrono>
+//#include <sstream>
 
+#include <utilities/GCommon.h>
 
 namespace LOGMASTER
 {
@@ -64,12 +64,6 @@ namespace LOGMASTER
     LDatabase::LDatabase(  )
     {
         OpenDatabase( fDBPath.c_str()  );
-    }
-
-  
-    LDatabase::~LDatabase()
-    {
-       /// CloseDatabase();
 
     }
 
@@ -320,7 +314,7 @@ namespace LOGMASTER
     {
         if( fDataBase == nullptr )
         {
-            HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR, "fDataBase  = NULLPTR !!!! " );   
+            HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "fDataBase  = NULLPTR !!!! " );   
             return false;
         }
 
@@ -335,7 +329,7 @@ namespace LOGMASTER
 
         if (rc != SQLITE_OK)
         {
-            HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  "SQL error: %s", sqlite3_errmsg(fDataBase) );   
+            HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION, "SQL error: %s", sqlite3_errmsg(fDataBase) );   
             return false;
         }
         else
@@ -404,7 +398,7 @@ namespace LOGMASTER
     {
         if( fStmt == nullptr )
         {
-            HandleError( GLOCATION, eMSGLEVEL::LOG_FATAL,"NO SQL QUERY INITIALIZED" );   
+            HandleError( GLOCATION, eMSGLEVEL::LOG_FATAL, DISABLE_EXCEPTION,  "NO SQL QUERY INITIALIZED" );   
             return false;    
         }
 
@@ -415,135 +409,54 @@ namespace LOGMASTER
 
         } while ((rc != SQLITE_DONE) && (rc != SQLITE_ROW) && (rc != SQLITE_ERROR));
 
-        if (rc == SQLITE_ROW)
-        {
-            int ColumnCount = sqlite3_column_count(fStmt);
-            for (int i = 0; i < ColumnCount; i++)
-            {
-                if (strcasecmp(sqlite3_column_name(fStmt, i), "id") == 0)
-                {
-                     entry.fId  = ReadInteger( fStmt,  i,  "id",  SQLITE_INTEGER, GLOCATION ); 
-                }
-                else if (strcasecmp(sqlite3_column_name(fStmt, i), "time_int") == 0)
-                {
-                    entry.fTimeI = ReadInteger( fStmt,  i,  "time_int",  SQLITE_INTEGER, GLOCATION );
-                }
-                else if (strcasecmp(sqlite3_column_name(fStmt, i), "time_float") == 0)
-                {
+           if (rc == SQLITE_ROW)
+           {
+             //  int ColumnCount = sqlite3_column_count(fStmt);
+               int i = 0;
 
-                 //   entry.fTimeD =ReadInteger( fStmt,  i,  "time_float",  SQLITE_FLOAT, GLOCATION ); 
-                    entry.fTimeD =ReadFloat( fStmt,  i,  "time_float",  SQLITE_FLOAT, GLOCATION ); 
-                    // if (sqlite3_column_type(fStmt, i) == SQLITE_FLOAT)
-                    // {
-                    //     entry.fTimeD = (sqlite3_column_double(fStmt, i));
-                    // }
-                    // else
-                    // {
-                    //     HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type (%d = %s)   ) \"time_float\"",  SQLITE_FLOAT, SQLType2String(SQLITE_FLOAT).c_str()    );   
-                    // }
+               try
+               {
+                   entry.fId  = ReadInteger( fStmt,  i,  "id",  SQLITE_INTEGER, GLOCATION ); 
+                   i++;
+                   entry.fTimeI = ReadInteger( fStmt,  i,  "time_int",  SQLITE_INTEGER, GLOCATION ); 
+                   i++;
+                   entry.fTimeD =ReadFloat( fStmt,  i,  "time_float",  SQLITE_FLOAT, GLOCATION ); 
+                   i++;
+                   entry.fLevel  = ReadInteger( fStmt,  i,  "level",  SQLITE_INTEGER, GLOCATION ); 
+                   i++;
+                   entry.fCategory   = ReadInteger( fStmt,  i,  "category",  SQLITE_INTEGER, GLOCATION ); 
+                   i++;
+                   entry.fJson = ReadText( fStmt,  i,  "json",  SQLITE_TEXT, GLOCATION ); 
+               }
+               catch( GException &e )
+               {
+                   DB_FATAL("Exception caught: %s", e.what() );
+                   return false;
+               }
+               catch( std::exception &e )
+               {
+                   DB_FATAL("Exception caught: %s", e.what() ); 
+                   return false;
+               }
+               catch(...)
+               {
+                  DB_FATAL("Uknown exception caught" ); 
+                  return false;
+               }
 
-
-                }
-                else if (strcasecmp(sqlite3_column_name(fStmt, i), "level") == 0)
-                {
-                      entry.fLevel  = ReadInteger( fStmt,  i,  "level",  SQLITE_INTEGER, GLOCATION ); 
-                }
-                else if (strcasecmp(sqlite3_column_name(fStmt, i), "category") == 0)
-                {
-                     entry.fCategory   = ReadInteger( fStmt,  i,  "category",  SQLITE_INTEGER, GLOCATION ); 
-                }
-                else if (strcasecmp(sqlite3_column_name(fStmt, i), "json") == 0)
-                {
-                   // entry.fJson = ReadText( fStmt,  i,  "json",  SQLITE_TEXT, GLOCATION ); 
-
-                    if (sqlite3_column_type(fStmt, i) == SQLITE_TEXT)
-                    {
-                        entry.fJson = std::string(reinterpret_cast<const char *>(sqlite3_column_text(fStmt, i)));
-                    }
-                    else
-                    {
-                        HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type (%d = %s) for \"json\"", SQLITE_TEXT, SQLType2String(SQLITE_TEXT).c_str()  );   
-                    }
-                }
-            }
-            return true;
-        }
-        else
-        {
-            sqlite3_finalize(fStmt);
-            return false;
-        }
-    }
-
-
-
-    string 
-    LDatabase::ReadText( sqlite3_stmt *stmt,  const int idx, const string colname,  const int sql_type, const GLocation l )
-    {
-        string tmp = "";
-         if (strcasecmp(sqlite3_column_name( stmt, idx ), "json") == 0)
-        {
-            if (sqlite3_column_type(stmt , idx ) == SQLITE_TEXT)
-            {
-              tmp = std::string(reinterpret_cast<const char *>(sqlite3_column_text( stmt,  idx)));
+              return true;
             }
             else
             {
-               HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type (%d = %s) for \"%s\"", SQLITE_TEXT, SQLType2String(sql_type).c_str(), colname.c_str()   );   
-             }
-         }
+               sqlite3_finalize(fStmt);
+               return false;
+            }
+        }
+//}
 
-
-        return tmp;
-    }
-
-
-
-
-    double 
-    LDatabase::ReadFloat( sqlite3_stmt *stmt,  const int idx, const string colname,  const int sql_type, const GLocation l )
-    {
-        double tmp = -1;
-        if (strcasecmp(sqlite3_column_name(stmt, idx ), colname.c_str() ) == 0 )
-        {
-           if (sqlite3_column_type( stmt, idx ) == SQLITE_FLOAT )
-              {
-                 tmp  = (sqlite3_column_double(  stmt, idx ));
-              }
-              else
-              {
-                 HandleError(l, eMSGLEVEL::LOG_ERROR,"Incorrect Type  (%d = %s) \"%s\"",  SQLITE_INTEGER, SQLType2String(  sql_type ).c_str(),  colname.c_str()   );  
-              }
-        } 
-
-        return tmp;
-    }
-
-
-    int 
-    LDatabase::ReadInteger( sqlite3_stmt *stmt,  const int idx, const string colname,  const int sql_type, const GLocation l )
-    {
-        int tmp = -1;
-        if (strcasecmp(sqlite3_column_name(stmt, idx ), colname.c_str() ) == 0 )
-        {
-           if (sqlite3_column_type( stmt, idx ) == SQLITE_INTEGER )
-              {
-                 tmp  = (sqlite3_column_int(  stmt, idx ));
-              }
-              else
-              {
-                  //  CERR << "should en up here !!!!!!!!, colname = "<< colname << " type = "<< SQLType2String(  SQLITE_INTEGER ) << endl;
-                    HandleError(l, eMSGLEVEL::LOG_ERROR,"Incorrect Type  (%d = %s) \"%s\"",  SQLITE_INTEGER, SQLType2String(  SQLITE_INTEGER  ).c_str(), colname.c_str()  );  
-              
-              }
-        } 
-
-        return tmp;
-    }
+        
 
     
-
-
 
     bool 
     LDatabase::CreateTables()
@@ -561,7 +474,7 @@ namespace LOGMASTER
             int rc = sqlite3_exec(fDataBase, LoggingSQL, NULL, 0, &zErrMsg);
             if (rc != SQLITE_OK)
             {
-                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,   "SQL error:",  zErrMsg  );   
+                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error:",  zErrMsg  );   
                 sqlite3_free(zErrMsg);
                 return false;
             }

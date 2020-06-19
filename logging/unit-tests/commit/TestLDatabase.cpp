@@ -101,9 +101,6 @@ TEST_F( TestLDatabase , all_entries )
 
 
 
-
-
-
 TEST_F( TestLDatabase , specific_system )
 {
     auto db = fgDatabase;

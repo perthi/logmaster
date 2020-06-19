@@ -88,10 +88,7 @@ namespace LOGMASTER
 			static void SetDatabase(  const string db_path  );
 			static void SetDatabaseDefault(    );
 			LDatabase(  );
-	//		LDatabase( const string path  = "");
-			
-			virtual ~LDatabase();
-
+			virtual ~LDatabase() {};
 			virtual bool API CreateTables()  override ;
 
 			void API AddLogEntry (  const   LMessage  &msg  );
@@ -114,9 +111,7 @@ namespace LOGMASTER
 			bool API InitSQLQuery(const int cnt);
 			bool API InitSQLQuery(const string sql);
 
-			int     ReadInteger (  sqlite3_stmt *stmt,  const int idx, const string colname, const int sql_type, const GLocation l);
-			double  ReadFloat   (  sqlite3_stmt *stmt, const int idx, const string colname, const int sql_type, const GLocation l);
-			string  ReadText    (  sqlite3_stmt *stmt, const int idx, const string colname, const int sql_type, const GLocation l);
+		
 
 			bool API ReadEntriesGetEntry(LLogEntrySQL &entry);
 
