@@ -60,6 +60,7 @@ namespace LOGMASTER
 
         void  API   RunDispatcher();
 
+        static void AtExit();     
 
     private:
          LPublisher();
@@ -102,6 +103,8 @@ namespace LOGMASTER
          std::atomic_bool  fDoRun     =   true; 
          std::atomic_bool  fDoPause   =   false;
          std::atomic_bool  fIsRunning =   false;   
+
+         ///std::shared_ptr<LDatabase>
 
     };
 

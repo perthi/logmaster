@@ -37,7 +37,9 @@ namespace LOGMASTER
     LDatabase *LDatabase::fgInstance = nullptr;
     string    LDatabase::fDBPath = "logmaster.db";
 
-    /** Singleton instance of the database
+
+
+  /** Singleton instance of the database
      *  @param[in] path The full path to the base, if empty then
      *  The defaul path is used  ( "logmaster.db" ) in the current directory
      *  @return The database singleton */
@@ -51,6 +53,7 @@ namespace LOGMASTER
 
         if( fgInstance == nullptr  )
         {
+        //    CERR << "CREATING INSTANCE" << endl;
             fgInstance = new LDatabase( );
         
         }
@@ -60,13 +63,13 @@ namespace LOGMASTER
 
     LDatabase::LDatabase(  )
     {
-       /// fMessageGenerator = std::make_shared<LMessageGenerator>(); 
         OpenDatabase( fDBPath.c_str()  );
     }
 
   
     LDatabase::~LDatabase()
     {
+       /// CloseDatabase();
 
     }
 
@@ -97,24 +100,24 @@ namespace LOGMASTER
     }
 
 
-    void 
-   LDatabase::SetDatabaseLocal(  const string db_path, LDatabase **instance  )
-     {
-        if( db_path != "" )
-        {
-            fDBPath =  db_path;
-        }
+//     void 
+//    LDatabase::SetDatabaseLocal(  const string db_path, LDatabase **instance  )
+//      {
+//         if( db_path != "" )
+//         {
+//             fDBPath =  db_path;
+//         }
 
-        if( *instance != nullptr )
-        {
+//         if( *instance != nullptr )
+//         {
            
-           delete  *instance;
-           *instance  = nullptr;
-        }
+//            delete  *instance;
+//            *instance  = nullptr;
+//         }
 
-         *instance = new LDatabase(   );
+//          *instance = new LDatabase(   );
 
-    }
+//     }
 
   
 

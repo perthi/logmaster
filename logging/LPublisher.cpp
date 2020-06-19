@@ -51,7 +51,12 @@
 #include <json/json.hpp>
 
 
+
 using namespace LOGMASTER;
+
+
+#include <chrono>
+
 
 namespace LOGMASTER
 {
@@ -65,6 +70,7 @@ namespace LOGMASTER
 
     LPublisher::LPublisher()
     {
+         std::atexit(  AtExit );
         StartDispatcher(); 
     }
 
@@ -72,6 +78,14 @@ namespace LOGMASTER
     {
         CERR << "calling desrtructor " << endl;
     }
+
+
+
+    void 
+    LPublisher::AtExit()
+    {
+        Instance()->StopDispatcher();
+    }     
 
 
     void  

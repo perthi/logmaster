@@ -83,10 +83,15 @@ namespace LOGMASTER
 	class LDatabase : public GDataBaseIF
 	{
 		public:
-			LDatabase API * Instance ( const string db_path = "" );
+		static LDatabase API * Instance ( const string db_path = "" );
  			
 			static void SetDatabase(  const string db_path  );
 			static void SetDatabaseDefault(    );
+			LDatabase(  );
+	//		LDatabase( const string path  = "");
+			
+			virtual ~LDatabase();
+
 			virtual bool API CreateTables()  override ;
 
 			void API AddLogEntry (  const  LMessage &msg  );
@@ -112,8 +117,8 @@ namespace LOGMASTER
 		
 
 		private:
-			LDatabase(  );
-			virtual ~LDatabase();
+		//	LDatabase(  );
+		//	virtual ~LDatabase();
 			void SetDatabaseLocal(  const string db_path, LDatabase **instance  );
 			vector< LLogEntrySQL> FetchAll(   ); 
 			LDatabase( const LDatabase & );
@@ -122,7 +127,8 @@ namespace LOGMASTER
 			bool InitQuery( string query, const int limit  );
 			string LimitString( const int cnt );
 			
-			static  string  fDBPath;
+			static string  fDBPath;
+		///	string  fDBPathLoggingDefault = "logmaster.db" ;
 			static  LDatabase *fgInstance;
 
 	};

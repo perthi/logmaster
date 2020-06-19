@@ -30,6 +30,10 @@ using std::cout;
 
 
 
+
+
+
+
 using namespace LOGMASTER;
 
 #include <logging/LPublisher.h>
@@ -38,15 +42,49 @@ using namespace LOGMASTER;
 #include <thread>
 
 
+void exiting1() 
+{
+    std::cout << "Exiting 1" << endl;
+}
 
+
+void exiting2() 
+{
+    std::cout << "Exiting 2" << endl;
+}
+
+class A
+{
+  public:
+    static void exiting3()
+    {
+         std::cout << "A::Exiting 3" << endl;
+    } 
+
+};
 
 int main ()
 {
-    SET_LOGLEVEL("--all-debug");
-    SET_LOGTARGET("--target-all");
+   
+   std::atexit(exiting1);
+   std::atexit(exiting2);
+   std::atexit( A::exiting3 );
+
+
+   SET_LOGLEVEL("--all-debug");
+   SET_LOGTARGET("--target-all");
    SET_LOGFORMAT("11111111");
- //  FORCE_DEBUG("This is a test");
-    
+   FORCE_DEBUG("This is a test");
+   std::this_thread::sleep_for( std::chrono::milliseconds(200));
+   
+
+
+
+
+   
+   
+   ///return 0;
+
  //  cout << LDoc::Instance()->Help() << endl;
    std::queue<int> test;
    test.push(1);
@@ -66,11 +104,11 @@ int main ()
     for(int i = 0; i < 10; i++ )
     {
         LLogTest::WriteMessages();
-        std::this_thread::sleep_for( std::chrono::milliseconds(200));
+       // std::this_thread::sleep_for( std::chrono::milliseconds(200));
     }
 
     
-    std::this_thread::sleep_for( std::chrono::milliseconds(2000));
+   /// std::this_thread::sleep_for( std::chrono::milliseconds(2000));
 
     CERR << "Done sleeping" << endl;
 
