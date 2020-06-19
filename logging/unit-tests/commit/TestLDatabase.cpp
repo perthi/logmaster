@@ -30,7 +30,6 @@ LDatabase *  TestLDatabase::fgDatabase = nullptr;
 TestLDatabase::TestLDatabase()
 {
 
-
 }
 
 
@@ -38,7 +37,6 @@ TestLDatabase::~TestLDatabase()
 {
 
 }
-
 
 
 void 
@@ -50,13 +48,11 @@ TestLDatabase::SetUpTestCase()
 }
 
 
-
 void 
 TestLDatabase::TearDownTestCase()
 {
     fgDatabase->CloseDatabase(); 
     fgDatabase->SetDatabaseDefault();
-
 }
 
 
@@ -74,7 +70,6 @@ TestLDatabase::TearDown()
 {
     POP();
 }
-
 
 
 TEST_F( TestLDatabase , all_entries )
@@ -104,6 +99,11 @@ TEST_F( TestLDatabase , all_entries )
 }
 
 
+
+
+
+
+
 TEST_F( TestLDatabase , specific_system )
 {
     auto db = fgDatabase;
@@ -121,6 +121,7 @@ TEST_F( TestLDatabase , specific_system )
 
     }
 }
+
 
 
 

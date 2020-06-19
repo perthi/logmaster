@@ -94,7 +94,7 @@ namespace LOGMASTER
 
 			virtual bool API CreateTables()  override ;
 
-			void API AddLogEntry (  const  LMessage &msg  );
+			void API AddLogEntry (  const   LMessage  &msg  );
 			bool API DeleteEntries();
 			
 			vector< LLogEntrySQL>  Query( const   string sql );
@@ -106,20 +106,24 @@ namespace LOGMASTER
 			vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const int max_cnt) ;
 			vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
 
-			bool API  InitSQLQuery(  const  uint64_t time,        const eTIME_SEARCH_OPTION opt,  const int max_cnt );
-			bool API  InitSQLQuery(  const  uint64_t time_min,    const uint64_t time_max,  const int max_cnt );
-			bool API  InitSQLQuery(  const  eMSGLEVEL level,      const int max_cnt );
-			bool API  InitSQLQuery(  const  eMSGSYSTEM  system,   const int max_cnt  );
-			bool API  InitSQLQuery(  const  eMSGLEVEL level,      const eMSGSYSTEM  system,  const int max_cnt  );
-			bool API  InitSQLQuery(  const  int cnt  );
-			bool API  InitSQLQuery(  const  string sql );
-			bool API  ReadEntriesGetEntry(  LLogEntrySQL  &entry );
-		
+			bool API InitSQLQuery(const uint64_t time, const eTIME_SEARCH_OPTION opt, const int max_cnt);
+			bool API InitSQLQuery(const uint64_t time_min, const uint64_t time_max, const int max_cnt);
+			bool API InitSQLQuery(const eMSGLEVEL level, const int max_cnt);
+			bool API InitSQLQuery(const eMSGSYSTEM system, const int max_cnt);
+			bool API InitSQLQuery(const eMSGLEVEL level, const eMSGSYSTEM system, const int max_cnt);
+			bool API InitSQLQuery(const int cnt);
+			bool API InitSQLQuery(const string sql);
+
+			int     ReadInteger (  sqlite3_stmt *stmt,  const int idx, const string colname, const int sql_type, const GLocation l);
+			double  ReadFloat   (  sqlite3_stmt *stmt, const int idx, const string colname, const int sql_type, const GLocation l);
+			string  ReadText    (  sqlite3_stmt *stmt, const int idx, const string colname, const int sql_type, const GLocation l);
+
+			bool API ReadEntriesGetEntry(LLogEntrySQL &entry);
 
 		private:
 		//	LDatabase(  );
 		//	virtual ~LDatabase();
-			void SetDatabaseLocal(  const string db_path, LDatabase **instance  );
+		///	void SetDatabaseLocal(  const string db_path, LDatabase **instance  );
 			vector< LLogEntrySQL> FetchAll(   ); 
 			LDatabase( const LDatabase & );
 			LDatabase operator = ( const LDatabase & );
