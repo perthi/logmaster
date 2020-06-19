@@ -14,22 +14,10 @@
 #include  "LEnums.h"
 #include  "LLogEntrySQL.h"
 
-///#include  <utilities/GFileIOHandler.h>
-
 #include  <exception/GException.h>
 #include  <utilities/GDefinitions.h>
-
-
 #include "sqlite/sqlite3.h"
 #include  <json/json.hpp>
-//#include  <stdio.h>
-///#include  <string.h>
-
-///#include <thread>
-
-//#include <chrono>
-//#include <sstream>
-
 #include <utilities/GCommon.h>
 
 namespace LOGMASTER
@@ -39,7 +27,7 @@ namespace LOGMASTER
 
 
 
-  /** Singleton instance of the database
+    /** Singleton instance of the database
      *  @param[in] path The full path to the base, if empty then
      *  The defaul path is used  ( "logmaster.db" ) in the current directory
      *  @return The database singleton */
@@ -95,7 +83,7 @@ namespace LOGMASTER
 
 
 
-    /** @brief Writa a log entry to the databse
+    /** @brief Writa a log entry to the database
      *  @param[in] msg a log message as produced by the logging system */
     void
     LDatabase::AddLogEntry(const  LMessage  &msg  )
@@ -376,13 +364,7 @@ namespace LOGMASTER
 /**@}*/
 
 
-    string 
-    LDatabase::LimitString( const int limit )
-    {
-        std::stringstream buffer;
-        buffer << " LIMIT " << limit;
-        return buffer.str();
-    }
+  
 
 
     /** @brief    Loop over all entries matching the current SQL query
