@@ -8,14 +8,11 @@
  **************************************************************************/
 
 
-#include "LDatabase.h"
-#include "LMessage.h"
-#include "LMessage2Json.h"
-#include "LEnums.h"
-#include "LLogApi.h"
-#include "LMessageGenerator.h"
-#include "LPublisher.h"
-
+#include  "LDatabase.h"
+#include  "LMessage.h"
+#include  "LMessage2Json.h"
+#include  "LEnums.h"
+#include  "LLogEntrySQL.h"
 #include <utilities/GFileIOHandler.h>
 
 #include "sqlite/sqlite3.h"
@@ -63,8 +60,14 @@ namespace LOGMASTER
 
     LDatabase::LDatabase(  )
     {
-        fMessageGenerator = std::make_shared<LMessageGenerator>(); 
+       /// fMessageGenerator = std::make_shared<LMessageGenerator>(); 
         OpenDatabase( fDBPath.c_str()  );
+    }
+
+  
+    LDatabase::~LDatabase()
+    {
+
     }
 
 
@@ -84,6 +87,7 @@ namespace LOGMASTER
 
         if( fgInstance != nullptr )
         {
+           
            delete  fgInstance;
            fgInstance = nullptr;
         }
@@ -93,12 +97,26 @@ namespace LOGMASTER
     }
 
 
-    LDatabase::~LDatabase()
-    {
-        // CloseDatabase();
-        // delete fgInstance;
-        // fgInstance = nullptr;
+    void 
+   LDatabase::SetDatabaseLocal(  const string db_path, LDatabase **instance  )
+     {
+        if( db_path != "" )
+        {
+            fDBPath =  db_path;
+        }
+
+        if( *instance != nullptr )
+        {
+           
+           delete  *instance;
+           *instance  = nullptr;
+        }
+
+         *instance = new LDatabase(   );
+
     }
+
+  
 
 
     /** @brief Writa a log entry to the databse
@@ -123,7 +141,7 @@ namespace LOGMASTER
                    (int)msg.fEpochTime,  msg.fEpochTime, (int)msg.fLevel,  (int)msg.fSystem, 
                    buffer.str().c_str() );
 
-        rc = sqlite3_exec(m_DataBase, sql, NULL, 0, &zErrMsg);
+        rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK)
         {
          //   HandleError( GLOCATION, eMSGLEVEL::LOG_ERROR, "AddEntry SQL error: %s", zErrMsg );
@@ -144,7 +162,7 @@ namespace LOGMASTER
         char *zErrMsg = 0;
         snprintf(sql, 200, "DELETE FROM t_logging;");
 
-        rc = sqlite3_exec(m_DataBase, sql, NULL, 0, &zErrMsg);
+        rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK)
         {
             CERR <<  "Log DeleteEntries SQL error: " << zErrMsg << endl;
@@ -318,7 +336,7 @@ namespace LOGMASTER
     bool
     LDatabase::InitQuery( string sql_query,  const int limit  )
     {
-        if( m_DataBase == nullptr )
+        if( fDataBase == nullptr )
         {
             CERR << "DB = NULLPTR !!!!" << endl;
             return false;
@@ -331,11 +349,11 @@ namespace LOGMASTER
           sql_query += LimitString(limit);  
         }
 
-        int rc = sqlite3_prepare(m_DataBase, sql_query.c_str(), sql_query.length(), &m_stmt, nullptr);    
+        int rc = sqlite3_prepare(fDataBase, sql_query.c_str(), sql_query.length(), &fStmt, nullptr);    
 
         if (rc != SQLITE_OK)
         {
-            COUT << "Log ReadEntriesPrepare SQL error: " << sqlite3_errmsg(m_DataBase) << endl;
+            COUT << "Log ReadEntriesPrepare SQL error: " << sqlite3_errmsg(fDataBase) << endl;
             return false;
         }
         else
@@ -382,7 +400,6 @@ namespace LOGMASTER
 /**@}*/
 
 
-
     string 
     LDatabase::LimitString( const int limit )
     {
@@ -392,7 +409,6 @@ namespace LOGMASTER
     }
 
 
-
     /** @brief    Loop over all entries matching the current SQL query
      *  @details  The sql query must be initialized beforehand by calling InitSQLQuery(). The function returns true
      *  until the log entires matching the SQL query is exhausted.  
@@ -400,12 +416,11 @@ namespace LOGMASTER
      *  @param[in] cnt  cnt The maximum number of entries to return
      *  @return true was long as ther are more entries to retriev, false
      *  when the last entry has been reached. 
-     *  @return false if the sql query has not been initialized.
-     * */
+     *  @return false if the sql query has not been initialized. */
     bool
     LDatabase::ReadEntriesGetEntry(LLogEntrySQL  &entry )
     {
-        if( m_stmt == nullptr )
+        if( fStmt == nullptr )
         {
             CERR << "NO SQL QUERY INITIALIZED" << endl;
             return false;    
@@ -414,20 +429,20 @@ namespace LOGMASTER
         int rc;
         do
         {
-            rc = sqlite3_step(m_stmt);
+            rc = sqlite3_step(fStmt);
 
         } while ((rc != SQLITE_DONE) && (rc != SQLITE_ROW) && (rc != SQLITE_ERROR));
 
         if (rc == SQLITE_ROW)
         {
-            int ColumnCount = sqlite3_column_count(m_stmt);
+            int ColumnCount = sqlite3_column_count(fStmt);
             for (int i = 0; i < ColumnCount; i++)
             {
-                if (strcasecmp(sqlite3_column_name(m_stmt, i), "id") == 0)
+                if (strcasecmp(sqlite3_column_name(fStmt, i), "id") == 0)
                 {
-                    if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER)
+                    if (sqlite3_column_type(fStmt, i) == SQLITE_INTEGER)
                     {
-                        entry.fId = sqlite3_column_int(m_stmt, i);
+                        entry.fId = sqlite3_column_int(fStmt, i);
                     }
 
                     else
@@ -435,57 +450,55 @@ namespace LOGMASTER
                         HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type  (%d = %s)  \"id\"",  SQLITE_INTEGER, SQLType2String(SQLITE_INTEGER ).c_str()  );
                      }   
                 }
-                else if (strcasecmp(sqlite3_column_name(m_stmt, i), "time_int") == 0)
+                else if (strcasecmp(sqlite3_column_name(fStmt, i), "time_int") == 0)
                 {
-                    if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER )
+                    if (sqlite3_column_type(fStmt, i) == SQLITE_INTEGER )
                     {
-                        entry.fTimeI = (sqlite3_column_int( m_stmt, i));
+                        entry.fTimeI = (sqlite3_column_int( fStmt, i));
                     }
                     else
                     {
                         HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type  (%d = %s) \"time_int\"",  SQLITE_INTEGER, SQLType2String(SQLITE_INTEGER ).c_str()    );  
                     }
                 }
-
-                else if (strcasecmp(sqlite3_column_name(m_stmt, i), "time_float") == 0)
+                else if (strcasecmp(sqlite3_column_name(fStmt, i), "time_float") == 0)
                 {
-                    if (sqlite3_column_type(m_stmt, i) == SQLITE_FLOAT)
+                    if (sqlite3_column_type(fStmt, i) == SQLITE_FLOAT)
                     {
-                        entry.fTimeD = (sqlite3_column_double(m_stmt, i));
+                        entry.fTimeD = (sqlite3_column_double(fStmt, i));
                     }
                     else
                     {
                         HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type (%d = %s)   ) \"time_float\"",  SQLITE_FLOAT, SQLType2String(SQLITE_FLOAT).c_str()    );   
                     }
                 }
-
-                else if (strcasecmp(sqlite3_column_name(m_stmt, i), "level") == 0)
+                else if (strcasecmp(sqlite3_column_name(fStmt, i), "level") == 0)
                 {
-                    if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER)
+                    if (sqlite3_column_type(fStmt, i) == SQLITE_INTEGER)
                     {
-                        entry.fLevel = sqlite3_column_int( m_stmt, i);
+                        entry.fLevel = sqlite3_column_int( fStmt, i);
                     }
                     else
                     {
                         HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type   (%d = %s)  \"level\"",  SQLITE_INTEGER, SQLType2String(SQLITE_INTEGER).c_str()   );   
                     }
                 }
-                else if (strcasecmp(sqlite3_column_name(m_stmt, i), "category") == 0)
+                else if (strcasecmp(sqlite3_column_name(fStmt, i), "category") == 0)
                 {
-                    if (sqlite3_column_type(m_stmt, i) == SQLITE_INTEGER)
+                    if (sqlite3_column_type(fStmt, i) == SQLITE_INTEGER)
                     {
-                        entry.fCategory = sqlite3_column_int( m_stmt, i);
+                        entry.fCategory = sqlite3_column_int( fStmt, i);
                     }
                     else
                     {
                         HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,"Incorrect Type  (%d = %s) \"category\"",  SQLITE_INTEGER, SQLType2String(SQLITE_INTEGER).c_str()   );   
                     }
                 }
-                else if (strcasecmp(sqlite3_column_name(m_stmt, i), "json") == 0)
+                else if (strcasecmp(sqlite3_column_name(fStmt, i), "json") == 0)
                 {
-                    if (sqlite3_column_type(m_stmt, i) == SQLITE_TEXT)
+                    if (sqlite3_column_type(fStmt, i) == SQLITE_TEXT)
                     {
-                        entry.fJson = std::string(reinterpret_cast<const char *>(sqlite3_column_text(m_stmt, i)));
+                        entry.fJson = std::string(reinterpret_cast<const char *>(sqlite3_column_text(fStmt, i)));
                     }
                     else
                     {
@@ -497,60 +510,16 @@ namespace LOGMASTER
         }
         else
         {
-            sqlite3_finalize(m_stmt);
+            sqlite3_finalize(fStmt);
             return false;
         }
     }
 
 
-	string 
-    LDatabase::SQLType2String( const int sql_type  ) const
+    bool 
+    LDatabase::CreateTables()
     {
-        switch ( sql_type )
-        {
-        case  SQLITE_INTEGER:
-            return  "SQLITE_INTEGER";
-            break;
-        case  SQLITE_FLOAT:
-            return  "SQLITE_FLOAT";
-            break;
-        case  SQLITE_BLOB:
-            return  "SQLITE_BLOB (binary large object)";
-            break; 
-        case  SQLITE_TEXT:
-            return  "SQLITE_TEXT";
-            break; 
-        case  SQLITE_NULL:
-            return  "SQLITE_NULL";
-            break;
-        default:
-            std::stringstream buffer;
-            buffer << "Unknown SQL type " << sql_type;
-            return buffer.str();
-            break;
-        }
-    }
-
-
-
-    /**  Opens the databse and creates the necessary logging table if it doesn allready exists 
-     *   @param[in]   db_path The fulle path to hte database
-     *   @return      TRUE if the databse was opened sucessfullt, false othervise */
-    bool
-    LDatabase::OpenDatabase( const char *db_path  )
-    {
-        int rc;
-        char *zErrMsg = 0;
-        rc = sqlite3_open(db_path, &m_DataBase);
-
-        if (rc)
-        {
-            printf("%s line %d, Can't open database: %s\n", __FILE__, __LINE__, sqlite3_errmsg(m_DataBase));
-
-            return false;
-        }
-        else
-        {
+          char *zErrMsg = 0;  
               const char *LoggingSQL = "CREATE TABLE IF NOT EXISTS t_logging ( "
                                      "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
                                      "time_int   INTEGER, "
@@ -559,50 +528,17 @@ namespace LOGMASTER
                                      "category INTEGER,"
                                      "json TEXT );";
 
-            
             // Create logging table
-            rc = sqlite3_exec(m_DataBase, LoggingSQL, NULL, 0, &zErrMsg);
+            int rc = sqlite3_exec(fDataBase, LoggingSQL, NULL, 0, &zErrMsg);
             if (rc != SQLITE_OK)
             {
-                printf("OpenDatabase SQL error: %s\n", zErrMsg);
+                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,   "SQL error:",  zErrMsg  );   
                 sqlite3_free(zErrMsg);
                 return false;
             }
             return true;
-        }
     }
 
-
-    void 
-    LDatabase::CloseDatabase()
-    {
-        int cnt = 0;
-        while (sqlite3_close( m_DataBase ) == SQLITE_BUSY)
-        {
-            COUT << "database is busy, cnt = " << cnt << endl;
-            cnt ++;
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        }
-    }
-
-
-
-	void 
-    LDatabase::HandleError( const GLocation l,   eMSGLEVEL lvl, const char * fmt, ...)
-    {
-        va_list ap;
-        va_start(ap, fmt);
-        char formatted_message[2048] = {0};
-        vsnprintf(formatted_message, sizeof(formatted_message) - 1, fmt, ap);
-        std::shared_ptr<LMessage>  msg_ptr = fMessageGenerator->GenerateMsg( eMSGFORMAT::PREFIX_ALL, lvl,  eMSGSYSTEM::SYS_DATABASE, l.fFileName.c_str(), l.fLineNo,  l.fFunctName.c_str(), fmt, ap  );
-        LMessage msg = *msg_ptr;
-
-        LPublisher::Instance()->PublishToConsole(msg);
-        LPublisher::Instance()->PublishToFile("db.log", msg);
-        LPublisher::Instance()->PublishToSubscribers(msg);
-        LPublisher::Instance()->PublishToSubscribers(msg);
-        va_end(ap);
-    }
 
 
 } // namespace LOGMASTER

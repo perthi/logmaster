@@ -22,6 +22,7 @@
 #include  <thread>
 #include  <atomic>
 
+class GDataBaseIF;
 
 namespace LOGMASTER
 {
@@ -29,6 +30,7 @@ namespace LOGMASTER
     class LLogging;
     class LConfig;
     class LDatabase;
+  
 
     /** @class LPublisher
 	* class that is responsible for writing ( publishing) messages to various targets. Available targets
@@ -38,6 +40,7 @@ namespace LOGMASTER
     {
         friend LLogging;
         friend LDatabase;
+        friend GDataBaseIF;
 
     public:		
         static  LPublisher API * Instance();

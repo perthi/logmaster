@@ -9,10 +9,11 @@
  * Please report bugs to pth@embc.no                                      *
  **************************************************************************/
 
+
 #include  <utilities/GDefinitions.h>
-#include  <logging/LEnums.h>
+#include  <utilities/GDataBaseIF.h>
 #include  "LLogEntrySQL.h"
-#include  "LMessage.h"
+#include  <logging/LEnums.h>
 
 #include <utilities/GLocation.h>
 
@@ -67,7 +68,7 @@ struct  sqlite3_stmt;
 namespace LOGMASTER
 {
 	class LMessage;
-	class  LMessageGenerator;
+	class LMessageGenerator;
 
 	#define ALL_ENTRIES 0
 
@@ -78,23 +79,22 @@ namespace LOGMASTER
 		INCLUDING_AND_BELOW = 3,
 	};
 
-	class LDatabase
+
+	class LDatabase : public GDataBaseIF
 	{
 		public:
-			static  LDatabase API * Instance( const string db_path = "" );
+			LDatabase API * Instance ( const string db_path = "" );
  			
 			static void SetDatabase(  const string db_path  );
 			static void SetDatabaseDefault(    );
-
-			
-			void API CloseDatabase();
-			bool API OpenDatabase( const char *db_path );
+			virtual bool API CreateTables()  override ;
 
 			void API AddLogEntry (  const  LMessage &msg  );
 			bool API DeleteEntries();
 			
 			vector< LLogEntrySQL>  Query( const   string sql );
 			vector< LLogEntrySQL>  Query( const   int max_cnt);
+			
 			vector< LLogEntrySQL>  Query( const   uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
 			vector< LLogEntrySQL>  Query( const   uint64_t time_min,        const int time_max,  const int max_cnt );
 			vector< LLogEntrySQL>  Query( const   eMSGSYSTEM sys,  const int max_cnt) ;
@@ -109,27 +109,21 @@ namespace LOGMASTER
 			bool API  InitSQLQuery(  const  int cnt  );
 			bool API  InitSQLQuery(  const  string sql );
 			bool API  ReadEntriesGetEntry(  LLogEntrySQL  &entry );
-
-			void HandleError( const GLocation l,   eMSGLEVEL lvl, const char * fmt, ...);
+		
 
 		private:
 			LDatabase(  );
 			virtual ~LDatabase();
+			void SetDatabaseLocal(  const string db_path, LDatabase **instance  );
 			vector< LLogEntrySQL> FetchAll(   ); 
 			LDatabase( const LDatabase & );
 			LDatabase operator = ( const LDatabase & );
-			string SQLType2String( const int sql_type  ) const;	
+			
 			bool InitQuery( string query, const int limit  );
 			string LimitString( const int cnt );
-
-			sqlite3       *m_DataBase  =  nullptr; 
-        	sqlite3_stmt  *m_stmt     =   nullptr;  // SQLite statmement 
- 			
-			static string  fDBPath;
-			static LDatabase *fgInstance;
-			std::shared_ptr<LMessageGenerator> fMessageGenerator = nullptr;
-
-
+			
+			static  string  fDBPath;
+			static  LDatabase *fgInstance;
 
 	};
 
