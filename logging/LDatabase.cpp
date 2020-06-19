@@ -54,7 +54,6 @@ namespace LOGMASTER
 
         if( fgInstance == nullptr  )
         {
-        //    CERR << "CREATING INSTANCE" << endl;
             fgInstance = new LDatabase( );
         
         }

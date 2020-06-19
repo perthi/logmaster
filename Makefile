@@ -63,7 +63,8 @@ export LIBFLAGS:= -shared
 export CONFIG_DIR:=$(PWD)/config
 
 
-INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/
+INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system
+
 GTEST_INCLUDES:= -isystem $(PWD)/
 
 
@@ -94,7 +95,7 @@ configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
 logging-configurator:=   configurator/logging-configurator/$(TARGET)
 helloworld:=             helloworld/$(TARGET)
 db-test:=                database-test/$(TARGET)
-sqlite:=                 logging/sqlite/$(TARGET) 
+sqlite:=                 submodules/productivity//sqlite/$(TARGET) 
 
 
 unittests:= 	$(utilities-unittest) \

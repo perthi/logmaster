@@ -21,6 +21,7 @@
 #include <vector>
 using std::vector;
 
+
 struct  sqlite3;
 struct  sqlite3_stmt;
 
@@ -85,11 +86,12 @@ namespace LOGMASTER
 			static void SetDatabase(  const string db_path  );
 			static void SetDatabaseDefault(    );
 
-
-			void API AddLogEntry (  const  LMessage &msg  );
+			
 			void API CloseDatabase();
 			bool API OpenDatabase( const char *db_path );
- 			bool API DeleteEntries();
+
+			void API AddLogEntry (  const  LMessage &msg  );
+			bool API DeleteEntries();
 			
 			vector< LLogEntrySQL>  Query( const   string sql );
 			vector< LLogEntrySQL>  Query( const   int max_cnt);
