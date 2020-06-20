@@ -296,7 +296,6 @@ namespace LOGMASTER
     }
 
 
-
     bool
     LDatabase::InitQuery( string sql_query,  const int limit  )
     {
@@ -305,8 +304,6 @@ namespace LOGMASTER
             HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "fDataBase  = NULLPTR !!!! " );   
             return false;
         }
-
-
 
         if(limit > 0)
         {

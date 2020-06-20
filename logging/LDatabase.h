@@ -94,6 +94,7 @@ namespace LOGMASTER
 			void API AddLogEntry (  const   LMessage  &msg  );
 			bool API DeleteEntries();
 			
+			
 			bool API InitSQLQuery(const uint64_t time, const eTIME_SEARCH_OPTION opt, const int max_cnt);
 			bool API InitSQLQuery(const uint64_t time_min, const uint64_t time_max, const int max_cnt);
 			bool API InitSQLQuery(const eMSGLEVEL level, const int max_cnt);
