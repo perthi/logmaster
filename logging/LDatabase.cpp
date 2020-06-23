@@ -378,7 +378,7 @@ namespace LOGMASTER
             rc = sqlite3_step(fStmt);
 
         } while ((rc != SQLITE_DONE) && (rc != SQLITE_ROW) && (rc != SQLITE_ERROR));
-        
+
 
            if (rc == SQLITE_ROW)
            {
@@ -424,9 +424,6 @@ namespace LOGMASTER
             }
         }
 //}
-
-        
-
     
 
     bool 
