@@ -22,6 +22,7 @@
 #include <logging/LLogApi.h>
 #include <logging/LLogging.h>
 #include <utilities/GStackTrace.h>
+#include <utilities/GCommon.h>
 
 using namespace LOGMASTER;
 

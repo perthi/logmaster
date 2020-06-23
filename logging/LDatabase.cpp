@@ -26,7 +26,6 @@ namespace LOGMASTER
     string    LDatabase::fDBPath = "logmaster.db";
 
 
-
     /** Singleton instance of the database
      *  @param[in] path The full path to the base, if empty then
      *  The defaul path is used  ( "logmaster.db" ) in the current directory
@@ -38,12 +37,9 @@ namespace LOGMASTER
         {
            SetDatabase(path); 
         }
-
         if( fgInstance == nullptr  )
         {
-        //    CERR << "CREATING INSTANCE" << endl;
             fgInstance = new LDatabase( );
-        
         }
         return  fgInstance;
     }
@@ -52,7 +48,6 @@ namespace LOGMASTER
     LDatabase::LDatabase(  )
     {
         OpenDatabase( fDBPath.c_str()  );
-
     }
 
 
@@ -62,6 +57,7 @@ namespace LOGMASTER
         SetDatabase( "logmaster.db");
     }
 
+
     void 
     LDatabase::SetDatabase(  const  string  db_path  )
     {
@@ -69,18 +65,13 @@ namespace LOGMASTER
         {
             fDBPath =  db_path;
         }
-
         if( fgInstance != nullptr )
         {
-           
            delete  fgInstance;
            fgInstance = nullptr;
         }
-
         fgInstance = new LDatabase(   );
-
     }
-
 
 
     /** @brief Writa a log entry to the database
@@ -100,7 +91,7 @@ namespace LOGMASTER
 #ifndef WIN32
         snprintf(sql, 1000, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %f, %d, %d,'%s')",
 #else
-       snprintf_s(sql, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %f, %d, %d,'%s')",
+        snprintf_s(sql, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %f, %d, %d,'%s')",
 #endif
                    (int)msg.fEpochTime,  msg.fEpochTime, (int)msg.fLevel,  (int)msg.fSystem, 
                    buffer.str().c_str() );
@@ -146,13 +137,13 @@ namespace LOGMASTER
     {
         std::vector< LLogEntrySQL >  msg_v;
         LLogEntrySQL msg;
-
         while(  ( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true )   ) 
         {
             msg_v.push_back( msg );
         }
         return  msg_v;
     } 
+
 
 
     /** @name Querey
@@ -387,6 +378,7 @@ namespace LOGMASTER
             rc = sqlite3_step(fStmt);
 
         } while ((rc != SQLITE_DONE) && (rc != SQLITE_ROW) && (rc != SQLITE_ERROR));
+        
 
            if (rc == SQLITE_ROW)
            {
