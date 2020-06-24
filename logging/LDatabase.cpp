@@ -112,19 +112,20 @@ namespace LOGMASTER
     bool
     LDatabase::DeleteEntries()
     {
-        int rc;
-        char sql[200];
-        char *zErrMsg = 0;
-        snprintf(sql, 200, "DELETE FROM t_logging;");
+        return GDataBaseIF::DeleteEntries(  string("t_logging")  );
+        // int rc;
+        // char sql[200];
+        // char *zErrMsg = 0;
+        // snprintf(sql, 200, "DELETE FROM t_logging;");
 
-        rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
-        if (rc != SQLITE_OK)
-        {
-            CERR <<  "Log DeleteEntries SQL error: " << zErrMsg << endl;
-            sqlite3_free(zErrMsg);
-            return false;
-        }
-        return true;
+        // rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
+        // if (rc != SQLITE_OK)
+        // {
+        //     CERR <<  "Log DeleteEntries SQL error: " << zErrMsg << endl;
+        //     sqlite3_free(zErrMsg);
+        //     return false;
+        // }
+        // return true;
     }
 
 
