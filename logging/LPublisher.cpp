@@ -110,6 +110,7 @@ namespace LOGMASTER
            std::swap(  fMessageQeueTmp , fMessageQeue  );
         }
 
+        std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
         fDoRun = false;
 
         if (fDispatcher != nullptr)

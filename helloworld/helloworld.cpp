@@ -42,6 +42,7 @@ class Less
 
 
 
+
 template<typename C, typename P>
 int count (  const int lim,const C& c, P pred )
 {
@@ -66,14 +67,14 @@ int main()
   int cnt =  count( 42, test, lti );
   FORCE_DEBUG("The number of matches was %d", cnt );
   
-  char buf[255];
 
-  for(int i=0; i < 1000; i++)
-  {
-    sprintf(buf, "Hello%d", i );
-    FORCE_DEBUG("%s", buf);
+  // char buf[255];
+  // for(int i=0; i < 1000; i++)
+  // {
+  //   sprintf(buf, "Hello%d", i );
+  //   FORCE_DEBUG("%s", buf);
 
-  }
+  // }
   
   ///std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 }
