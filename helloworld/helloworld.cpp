@@ -26,12 +26,13 @@ using namespace LOGMASTER;
 #include <queue>
 #include <chrono>
 #include <thread>
+#include <algorithm>
+#include <ostream>
+#include <iostream>
+#include <fstream>
+#include <vector>
 
-
-
-
-
-
+using std::vector;
 
 template< typename T >
 class Less
@@ -39,8 +40,6 @@ class Less
   public:
     bool operator( )( const T & x,  const T & y ) const  { return  x < y; };
 };
-
-
 
 
 template<typename C, typename P>
@@ -60,22 +59,38 @@ int count (  const int lim,const C& c, P pred )
 }
 
 
+void print_modulo( const vector<int> & v, std::ostream & os, int m  )
+{
+
+  for_each( begin(v), end(v),  [&os, m ](int x) 
+  {
+   if(x%m == 0) os << x << '\n'; 
+
+  } );
+
+}
+
+
+
 int main()
 {
   Less<int> lti;
   vector<int> test = {1,2,33,44,55,66,77};
   int cnt =  count( 42, test, lti );
   FORCE_DEBUG("The number of matches was %d", cnt );
+  std::stringstream out;
+  print_modulo( test, out , 11);
+  CERR << out.str()  << endl;
+
   
+
 
   // char buf[255];
   // for(int i=0; i < 1000; i++)
   // {
   //   sprintf(buf, "Hello%d", i );
   //   FORCE_DEBUG("%s", buf);
-
   // }
-  
   ///std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 }
 
