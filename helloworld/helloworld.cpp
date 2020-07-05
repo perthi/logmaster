@@ -30,14 +30,15 @@ using namespace LOGMASTER;
 
 
 
+
+
+
 template< typename T >
 class Less
 {
   public:
     bool operator( )( const T & x,  const T & y ) const  { return  x < y; };
 };
-
-
 
 
 
