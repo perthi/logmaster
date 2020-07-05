@@ -1,6 +1,5 @@
 // -*- mode: c++ -*-
 
-
 #ifdef _WIN32
 #include <Windows.h>
 #endif
@@ -19,105 +18,62 @@ using std::cout;
 #include <string>
 #include <logging/LLogApi.h>
 #include <logging/LDoc.h>
-
 #include <logging/LLogTest.h>
-
 #include <exception/GException.h>
 #include <exception>
-
-
-
-
-
-
-
-
-
-
 using namespace LOGMASTER;
-
 #include <logging/LPublisher.h>
 #include <queue>
 #include <chrono>
 #include <thread>
 
 
-void exiting1() 
-{
-    std::cout << "Exiting 1" << endl;
-}
 
 
-void exiting2() 
-{
-    std::cout << "Exiting 2" << endl;
-}
-
-class A
+template< typename T >
+class Less
 {
   public:
-    static void exiting3()
-    {
-         std::cout << "A::Exiting 3" << endl;
-    } 
-
+    bool operator( )( const T & x,  const T & y ) const  { return  x < y; };
 };
 
-int main ()
+
+
+
+
+template<typename C, typename P>
+int count (  const int lim,const C& c, P pred )
 {
-   
-   std::atexit(exiting1);
-   std::atexit(exiting2);
-   std::atexit( A::exiting3 );
-
-
-   SET_LOGLEVEL("--all-debug");
-   SET_LOGTARGET("--target-all");
-   SET_LOGFORMAT("11111111");
-   FORCE_DEBUG("This is a test");
-   std::this_thread::sleep_for( std::chrono::milliseconds(200));
-   
-
-
-
-
-   
-   
-   ///return 0;
-
- //  cout << LDoc::Instance()->Help() << endl;
-   std::queue<int> test;
-   test.push(1);
-   test.push(2);
-   test.push(3);
-   test.push(4);
-   
-   FORCE_DEBUG("front = %d",  test.front() );
-   test.pop();
-   FORCE_DEBUG("front = %d",  test.front() ); 
-   FORCE_DEBUG("back = %d",  test.back() ); 
-   SET_LOGLEVEL("--all-debug");
-   SET_LOGTARGET("--target-all");
-   SET_LOGFORMAT("11111111");
-
-
-    for(int i = 0; i < 10; i++ )
-    {
-        LLogTest::WriteMessages();
-       // std::this_thread::sleep_for( std::chrono::milliseconds(200));
-    }
-
+  int cnt = 0;
+  for( const auto x : c )
+  {
+    FORCE_DEBUG(" %d is less than %d ? :  %s", lim, x, pred(x, lim )  == true ? "TRUE" : "FALSE"); 
     
-   /// std::this_thread::sleep_for( std::chrono::milliseconds(2000));
-
-    CERR << "Done sleeping" << endl;
-
-//    FORCE_DEBUG("done sleeping");
-   return 0;
-
+    if(pred(x, lim))
+    {
+      cnt ++;
+    }
+  }
+  return cnt;
 }
 
 
+int main()
+{
+  Less<int> lti;
+  vector<int> test = {1,2,33,44,55,66,77};
+  int cnt =  count( 42, test, lti );
+  FORCE_DEBUG("The number of matches was %d", cnt );
+  
+  char buf[255];
 
+  for(int i=0; i < 1000; i++)
+  {
+    sprintf(buf, "Hello%d", i );
+    FORCE_DEBUG("%s", buf);
 
-///std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > >  Ge
+  }
+  
+  ///std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+}
+

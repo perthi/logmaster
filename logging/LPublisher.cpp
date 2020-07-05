@@ -84,7 +84,10 @@ namespace LOGMASTER
     void 
     LPublisher::AtExit()
     {
+        CERR << "STOPPING DISPACTHER" << endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000) );
         Instance()->StopDispatcher();
+        CERR << "DONE STOPPING DISPACTHER" << endl;
     }     
 
 
