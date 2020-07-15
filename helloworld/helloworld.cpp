@@ -1,6 +1,5 @@
 // -*- mode: c++ -*-
 
-
 #ifdef _WIN32
 #include <Windows.h>
 #endif
@@ -14,110 +13,100 @@ using std::string;
 using std::endl;
 using std::cout;
 
-#include <memory>
-#include <iostream> 
-#include <string>
-#include <logging/LLogApi.h>
-#include <logging/LDoc.h>
-
-#include <logging/LLogTest.h>
-
-#include <exception/GException.h>
-#include <exception>
-
-
-
-
-
-
-
-
-
-
+#include   <memory>
+#include   <iostream> 
+#include   <string>
+#include   <logging/LLogApi.h>
+#include   <logging/LDoc.h>
+#include   <logging/LLogTest.h>
+#include   <exception/GException.h>
+#include   <exception>
 using namespace LOGMASTER;
-
-#include <logging/LPublisher.h>
-#include <queue>
-#include <chrono>
-#include <thread>
-
-
-void exiting1() 
-{
-    std::cout << "Exiting 1" << endl;
-}
+#include   <logging/LPublisher.h>
+#include   <queue>
+#include   <chrono>
+#include   <thread>
+#include   <algorithm>
+#include   <ostream>
+#include   <iostream>
+#include   <fstream>
+#include   <vector>
 
 
-void exiting2() 
-{
-    std::cout << "Exiting 2" << endl;
-}
+using std::vector;
 
-class A
+
+template< typename T >
+class Less
 {
   public:
-    static void exiting3()
-    {
-         std::cout << "A::Exiting 3" << endl;
-    } 
-
+    bool operator( )( const T & x,  const T & y ) const  { return  x < y; };
 };
 
-int main ()
+
+template<typename C, typename P>
+int count (  const int lim,const C& c, P pred )
 {
-   
-   std::atexit(exiting1);
-   std::atexit(exiting2);
-   std::atexit( A::exiting3 );
-
-
-   SET_LOGLEVEL("--all-debug");
-   SET_LOGTARGET("--target-all");
-   SET_LOGFORMAT("11111111");
-   FORCE_DEBUG("This is a test");
-   std::this_thread::sleep_for( std::chrono::milliseconds(200));
-   
-
-
-
-
-   
-   
-   ///return 0;
-
- //  cout << LDoc::Instance()->Help() << endl;
-   std::queue<int> test;
-   test.push(1);
-   test.push(2);
-   test.push(3);
-   test.push(4);
-   
-   FORCE_DEBUG("front = %d",  test.front() );
-   test.pop();
-   FORCE_DEBUG("front = %d",  test.front() ); 
-   FORCE_DEBUG("back = %d",  test.back() ); 
-   SET_LOGLEVEL("--all-debug");
-   SET_LOGTARGET("--target-all");
-   SET_LOGFORMAT("11111111");
-
-
-    for(int i = 0; i < 10; i++ )
-    {
-        LLogTest::WriteMessages();
-       // std::this_thread::sleep_for( std::chrono::milliseconds(200));
-    }
-
+  int cnt = 0;
+  for( const auto x : c )
+  {
+    FORCE_DEBUG(" %d is less than %d ? :  %s", lim, x, pred(x, lim )  == true ? "TRUE" : "FALSE"); 
     
-   /// std::this_thread::sleep_for( std::chrono::milliseconds(2000));
+    if(pred(x, lim))
+    {
+      cnt ++;
+    }
+  }
+  return cnt;
+}
 
-    CERR << "Done sleeping" << endl;
 
-//    FORCE_DEBUG("done sleeping");
-   return 0;
+// template<typename T>
+// void print_modulo( const vector<T> & v, std::ostream & os, int m  )
+// {
+//   for_each( begin(v), end(v),  [&os, m ](auto x) 
+//   {
+//   // if(x%m == 0) os << x << '\n'; 
+//     os << x << '\n'; 
+//   } );
+// }
+
+
+template<typename T>
+void print_modulo( const vector<T> & v, std::ostream & os, int m  )
+{
+  auto print =  [&os, m]( T x) {   os << x << " xxxx " << '\n';  };
+  for_each( begin(v), end(v), print ); 
 
 }
 
 
 
+int main()
+{
+  Less<int> lti;
 
-///std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > >  Ge
+  vector<int> test1 = {1,2,33,44,55,66,77};
+  vector<double> test2 = {1.1,2.23,33.33,44.44,55.55,66.66,77.77 };
+  vector<string> test3  {"ole", "dole", "doff", "kinkeliane", "koff" };
+
+  int cnt =  count( 42, test1, lti );
+  FORCE_DEBUG("The number of matches was %d", cnt );
+  std::stringstream out;
+
+  print_modulo( test1, out , 11);
+  print_modulo( test2, out , 11);
+  print_modulo( test3, out , 11);
+
+  CERR << out.str()  << endl;
+
+  // char buf[255];
+  // for(int i=0; i < 1000; i++)
+  // {
+  //   sprintf(buf, "Hello%d", i );
+  //   FORCE_DEBUG("%s", buf);
+  // }
+  ///std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+}
+

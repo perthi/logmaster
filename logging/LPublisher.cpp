@@ -84,7 +84,9 @@ namespace LOGMASTER
     void 
     LPublisher::AtExit()
     {
+//        CERR << "STOPPING DISPACTHER" << endl;
         Instance()->StopDispatcher();
+ //       CERR << "DONE STOPPING DISPACTHER" << endl;
     }     
 
 
@@ -99,20 +101,28 @@ namespace LOGMASTER
     void
     LPublisher::StopDispatcher()
     {
+        while ( fMessageQeueTmp.size()  > 0)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10) );   
+        }
+        {
+           std::lock_guard<std::mutex> guard2( fMessageQeueMutext ); 
+           std::swap(  fMessageQeueTmp , fMessageQeue  );
+        }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
         fDoRun = false;
 
         if (fDispatcher != nullptr)
         {
             if (fDispatcher->joinable() == true)
             {
-                {
                     static std::mutex m;
                     std::lock_guard<std::mutex> guard(m);
                     fDispatcher->join();
                     delete fDispatcher;
                     fDispatcher = nullptr;
                     fIsRunning = false;
-                }
             }
             else
             {
@@ -154,22 +164,21 @@ namespace LOGMASTER
     }
 
 
-    void
+   void
     LPublisher::DispatchMessages()
     {
-      std::queue<  std::shared_ptr<Message> > tmp_messages  = std::queue<  std::shared_ptr<Message> >();   
        {
            std::lock_guard<std::mutex> guard2( fMessageQeueMutext ); 
-            std::swap( tmp_messages, fMessageQeue  );
+            std::swap(  fMessageQeueTmp , fMessageQeue  );
        }
 
         static std::mutex mtx;
         std::lock_guard<std::mutex> guard3( mtx ); 
 
-        while ( tmp_messages.size() > 0  )
+        while (  fMessageQeueTmp.size() > 0  )
         {
-            auto m =  tmp_messages.front();
-            tmp_messages.pop();
+            auto m =   fMessageQeueTmp.front();
+           fMessageQeueTmp.pop();
             PublishMessage( m->fMessage ,  m->fConfig, m->fTarget );
         }
 
@@ -177,17 +186,18 @@ namespace LOGMASTER
 
 
 
+
 void
 LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared_ptr<LConfig> cfg,    const eMSGTARGET target    )
 {
-   // Message m;
-    std::lock_guard<std::mutex> guard( fMessageQeueMutext );
     std::shared_ptr< Message > m = std::make_shared< Message >();
-
     m->fMessage =  *msg;
     m->fConfig = cfg;
-    m->fTarget = target;  
-    fMessageQeue.push( m );
+    m->fTarget = target;
+    {
+        std::lock_guard<std::mutex> guard( fMessageQeueMutext );
+        fMessageQeue.push( m );
+    }
 }
 
 
