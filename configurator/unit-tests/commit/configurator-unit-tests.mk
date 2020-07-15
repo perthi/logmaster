@@ -23,7 +23,7 @@ LIBS+=  -lm
 
 
 ifneq (arm, $(TARGET))
-LIBS+= -lX11 -lreadline
+LIBS+=  -lreadline
 endif
 
 
