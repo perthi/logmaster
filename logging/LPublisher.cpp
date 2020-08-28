@@ -84,9 +84,10 @@ namespace LOGMASTER
     void 
     LPublisher::AtExit()
     {
-//        CERR << "STOPPING DISPACTHER" << endl;
+    //   CERR << "STOPPING DISPACTHER" << endl;
         Instance()->StopDispatcher();
- //       CERR << "DONE STOPPING DISPACTHER" << endl;
+       //  StopDispatcher();
+    //   CERR << "DONE STOPPING DISPACTHER" << endl;
     }     
 
 
@@ -110,8 +111,10 @@ namespace LOGMASTER
            std::swap(  fMessageQeueTmp , fMessageQeue  );
         }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
+     //   std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
         fDoRun = false;
+        
+        std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
 
         if (fDispatcher != nullptr)
         {
@@ -129,6 +132,7 @@ namespace LOGMASTER
                 CERR << "Thread is not joinable" << endl;
             }
         }
+        std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
     }
 
 
@@ -159,6 +163,7 @@ namespace LOGMASTER
             {
                 fIsRunning = true;
                 DispatchMessages();
+              //  std::this_thread::sleep_for(std::chrono::milliseconds(10) ); 
             }
         }
     }
@@ -168,7 +173,7 @@ namespace LOGMASTER
     LPublisher::DispatchMessages()
     {
        {
-           std::lock_guard<std::mutex> guard2( fMessageQeueMutext ); 
+            std::lock_guard<std::mutex> guard2( fMessageQeueMutext ); 
             std::swap(  fMessageQeueTmp , fMessageQeue  );
        }
 
@@ -178,10 +183,12 @@ namespace LOGMASTER
         while (  fMessageQeueTmp.size() > 0  )
         {
             auto m =   fMessageQeueTmp.front();
-           fMessageQeueTmp.pop();
+            fMessageQeueTmp.pop();
             PublishMessage( m->fMessage ,  m->fConfig, m->fTarget );
         }
 
+        std::this_thread::sleep_for(std::chrono::milliseconds(50) ); 
+    
     }
 
 
@@ -372,35 +379,35 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
 
 
     void     
-    LPublisher::PublishToFileJson( const char *   /*filename_base*/, const  LMessage  & /*msg*/ )
+    LPublisher::PublishToFileJson( const char *   filename_base, const  LMessage  & msg )
     {
-//         static  std::mutex m;
-// 		std::lock_guard<std::mutex> guard( m );
-//         string fname_tmp = string( filename_base ) + ".json";
-//         const char * fname_tmp_c  = fname_tmp.c_str();
-//         FILE  *logFile = 0;
+        static  std::mutex m;
+		std::lock_guard<std::mutex> guard( m );
+        string fname_tmp = string( filename_base ) + ".json";
+        const char * fname_tmp_c  = fname_tmp.c_str();
+        FILE  *logFile = 0;
 
-// #ifdef _WIN32
-//         fopen_s(&logFile,fname_tmp_c, "a");
-// #else
-//         logFile = fopen(  fname_tmp_c, "a");
-// #endif
-//         nlohmann::json j;
-//         LMessage2Json::Message2Json( msg, j );
-//         std::stringstream buffer;
-//         buffer << j  << endl;
+#ifdef _WIN32
+        fopen_s(&logFile,fname_tmp_c, "a");
+#else
+        logFile = fopen(  fname_tmp_c, "a");
+#endif
+        nlohmann::json j;
+        LMessage2Json::Message2Json( msg, j );
+        std::stringstream buffer;
+        buffer << j  << endl;
 
-//         if (logFile)
-//         {
-//             fputs(  buffer.str().c_str(), logFile);
-//             fclose(logFile);
-//             logFile = 0;
-//         }
-//         else
-//         {
-//             cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << fname_tmp_c  << endl;
-//             CERR << "This message could not be logged:\t" << j << endl;
-//         }
+        if (logFile)
+        {
+            fputs(  buffer.str().c_str(), logFile);
+            fclose(logFile);
+            logFile = 0;
+        }
+        else
+        {
+            cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << fname_tmp_c  << endl;
+            CERR << "This message could not be logged:\t" << j << endl;
+        }
     }
 
 

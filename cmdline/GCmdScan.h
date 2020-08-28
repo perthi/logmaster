@@ -30,6 +30,8 @@
 using std::vector;
 using std::string;
 
+#include <mutex>
+
 #include <memory>
 
 class GCmdScan;
@@ -101,63 +103,48 @@ GCmdScan::~GCmdScan()
 
 }
 
-
 /*
 * Set parameters of fundamental type + strings
 */
-//#ifdef _WIN32
-template<typename T>
-inline void 
-GCmdScan::SetParameterVal_t( std::shared_ptr<GArgument>  a, GArgumentParsed v) const
+template <typename T>
+inline void
+GCmdScan::SetParameterVal_t(std::shared_ptr<GArgument> a, GArgumentParsed v) const
 {
-///    GCommandLineArgument < T >  *ab = reinterpret_cast<GCommandLineArgument < T> *>(a);
-    std::shared_ptr< GCommandLineArgument < T > > ab =  std::dynamic_pointer_cast< GCommandLineArgument < T >   >( a); 
+    std::shared_ptr<GCommandLineArgument<T>> ab = std::dynamic_pointer_cast<GCommandLineArgument<T>>(a);
+    G_ASSERT_EXCEPTION(ab != nullptr, "ZERO POINTER");
 
-    ///G_FATAL("%s: Argument missing !!",  ab->GetCommand().c_str()   );
-    G_ASSERT_EXCEPTION( ab != nullptr, "ZERO POINTER" );
-
-
-    if (ab !=  nullptr)
+    if (ab != nullptr)
     {
-    //    if (Verify(a, v) == true)
+        double d = 0;
+
+        if (ab->GetTypeIdBase() == "Val_t")
         {
+            vector<string> args_v = v.GetArguments();
 
-            double d = 0;
-
-            if ( ab->GetTypeIdBase() == "Val_t")
+            if (args_v.size() == 0)
             {
-                vector<string> args_v = v.GetArguments();
-
-                if(args_v.size() == 0 )
-                {
-                    G_FATAL("%s: Argument missing !!",  ab->GetCommand().c_str()   );
-                    // d = -1;
-                }
-                else
-                {
-                    d = g_numbers()->ToFloat(v.GetArguments()[0]);
-                }
+                G_FATAL("%s: Argument missing !!", ab->GetCommand().c_str());
+                // d = -1;
             }
-            ab->SetParameterVal_t(&d);
+            else
+            {
+                d = g_numbers()->ToFloat(v.GetArguments()[0]);
+            }
         }
+        ab->SetParameterVal_t(&d);
     }
 }
-//#endif
-
-
 
 template<typename T>
 inline vector<GArgumentParsed> 
 GCmdScan::ScanArgument(const uint64_t argc, const char ** argv,  std::shared_ptr<GCommandLineArgument<T> > arg) const
 {
     vector< std::shared_ptr<GArgument>  > v;
-   // v.push_back( ( GArgument *)arg );
-   
     v.push_back( arg );
-
     return ScanArguments(argc, argv, &v);
    
 }
+
 
 /*
 * Set parameters of fundamental type + strings
@@ -166,9 +153,6 @@ template<typename T>
 inline void
 GCmdScan::SetParametersF(  std::shared_ptr<GArgument>  a, GArgumentParsed v) const
 {
-     //GCommandLineArgument < T >  *ab = reinterpret_cast<GCommandLineArgument < T> *>(a);
-    
-    
     std::shared_ptr<  GCommandLineArgument < T >   > ab = dynamic_pointer_cast<  GCommandLineArgument < T >   >(a);
     G_ASSERT_EXCEPTION(ab != nullptr, "ZERO pointer");
 
@@ -199,8 +183,6 @@ template<>
 inline void 
 GCmdScan::SetParametersF<string>(  std::shared_ptr<GArgument>  a, GArgumentParsed v) const
 {
-   // GCommandLineArgument < string>  *ab = (dynamic_cast<GCommandLineArgument < string> *>( a ));
-
     std::shared_ptr<   GCommandLineArgument < string>  > ab = std::dynamic_pointer_cast<  GCommandLineArgument < string>   >(a);
 
     G_ASSERT_EXCEPTION( ab != nullptr,  "ZERO pointer " );
@@ -219,7 +201,6 @@ template<>
 inline void 
 GCmdScan::SetParametersF<bool>( std::shared_ptr<GArgument>  a, GArgumentParsed v) const
 {
-   // GCommandLineArgument < bool>  *ab = (dynamic_cast<GCommandLineArgument < bool> *>(a));
     std::shared_ptr<   GCommandLineArgument < bool>  > ab = std::dynamic_pointer_cast<  GCommandLineArgument < bool>   >(a);
 
     G_ASSERT_EXCEPTION( ab != nullptr,  "ZERO pointer " );
@@ -322,6 +303,7 @@ GCmdScan::ScanArguments(const int argc, const char ** argv,  std::shared_ptr<GAr
 vector <GArgumentParsed>
 GCmdScan::ScanArguments(const int argc, const char **argv, vector<  std::shared_ptr<GArgument>  >  *args) const
 {
+    
     CheckDuplicates(args);
     if (argc >= 2)
     {
@@ -352,7 +334,6 @@ GCmdScan::ScanArguments(const int argc, const char **argv, vector<  std::shared_
                 vector<string> scanned = v[j].GetArguments();
                 string type = args->at(i)->GetTypeId();
                 string baseType = args->at(i)->GetTypeIdBase();
-                //    Verify(args->at(i), v[j]);
 
                 //#ifdef _WIN32
                 if (baseType == "Val_t")
@@ -404,8 +385,8 @@ GCmdScan::Verify(  std::shared_ptr<GArgument> a, GArgumentParsed v) const
     if (a->ValidateCommands != 0)
     {
         string args_s = g_utilities()->Vec2String( v.GetSubCommands()) + " " +   g_utilities()->Vec2String( v.GetArguments())  ;
-
        // bool test = a->ValidateCommands(v.GetCommand(), "", v.GetSubCommands(), v.GetArguments());
+         CERR << "args_s = " << args_s << endl;
          bool test = a->ValidateCommands(v.GetCommand(), args_s, v.GetSubCommands(), v.GetArguments());
         return test;
     }

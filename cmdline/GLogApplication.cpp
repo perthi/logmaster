@@ -49,6 +49,7 @@ using namespace GCONSTANTS;
 
 using namespace LOGMASTER;
 
+#undef CATCH_EXCEPTION
 
 #define CATCH_EXCEPTION \
  catch (GText &e) \

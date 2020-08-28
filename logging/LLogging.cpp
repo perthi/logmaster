@@ -101,6 +101,7 @@ namespace LOGMASTER
     void
     LLogging::Init()
     {
+      //  LPublisher::Instance()->StartDispatcher();
         fConfig    =            std::make_shared<  std::map<eMSGTARGET,  LMessageFactory  > >();
         fDefaultConfig =        std::make_shared< std::map<eMSGTARGET, LMessageFactory > > ();
 
@@ -124,6 +125,7 @@ namespace LOGMASTER
         {
             fMessages->emplace( it->first, new LMessage() );
         }
+
     }
 
 
