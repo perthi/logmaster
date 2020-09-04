@@ -76,7 +76,6 @@ namespace LOGMASTER
 
     LPublisher::~LPublisher()
     {
-       // CERR << "calling desrtructor " << endl;
     }
 
 
@@ -84,10 +83,7 @@ namespace LOGMASTER
     void 
     LPublisher::AtExit()
     {
-    //   CERR << "STOPPING DISPACTHER" << endl;
         Instance()->StopDispatcher();
-       //  StopDispatcher();
-    //   CERR << "DONE STOPPING DISPACTHER" << endl;
     }     
 
 
@@ -127,7 +123,7 @@ namespace LOGMASTER
             }
             else
             {
-                CERR << "Thread is not joinable" << endl;
+                CERR << "Thread is not joinable" << ENDL;
             }
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
@@ -194,12 +190,10 @@ namespace LOGMASTER
     {
         if (fPublisherMode == ePUBLISH_MODE::SYNCHRONOUS)
         {
-            //CERR << "WE ARE IN SYNCHRONOUS MODE " << endl;
             PublishMessage(*msg, cfg, target);
         }
         else
         {
-            //CERR << "WE ARE NOT !!! SYNCHRONOUS MODE " << endl; 
             std::shared_ptr<Message> m = std::make_shared<Message>();
             m->fMessage = *msg;
             m->fConfig = cfg;
@@ -221,7 +215,7 @@ namespace LOGMASTER
  {
      if (cfg == nullptr)
      {
-         CERR << " CONFIG IS A ZERO POINTER" << endl;
+         CERR << " CONFIG IS A ZERO POINTER" << ENDL;
          return;
      }
 
@@ -370,7 +364,7 @@ namespace LOGMASTER
         else
         {
             cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << filename << endl;
-            CERR << "This message could not be logged:\t" << msg.fMsg << endl;
+            CERR << "This message could not be logged:\t" << msg.fMsg << ENDL;
         }
 
         if( fgEnableJson == true )
@@ -408,8 +402,8 @@ namespace LOGMASTER
         }
         else
         {
-            cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << fname_tmp_c  << endl;
-            CERR << "This message could not be logged:\t" << j << endl;
+            cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << fname_tmp_c  << ENDL;
+            CERR << "This message could not be logged:\t" << j << ENDL;
         }
     }
 
