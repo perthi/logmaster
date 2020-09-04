@@ -73,15 +73,15 @@ $(LIBNAME_A):  $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC) $(INSTALLDIRS)
 	@rm -f !  $(LIBLOCAL)/$(LIBNAME_A) 
 	@cp -p $(LIBNAME_A) $(LIBLOCAL)
 
-ifdef MAKE_SHARED
 $(LIBNAME_SO):  $(OBJS) $(OBJSCPP) $(INSTALLDIRS)
 	$(CCLOCAL) $(LIBFLAGS)   -o $(LIBNAME_SO) $(OBJS) $(OBJSCPP) 
 	@rm -f !  $(LIBLOCAL)/$(LIBNAME_SO) 
 	@cp -p $(LIBNAME_SO) $(LIBLOCAL)
-else
-$(LIBNAME_SO): $(OBJS) $(OBJSCPP) $(INSTALLDIRS)
-	@echo hello world  > /dev/null
-endif
+
+#else
+#$(LIBNAME_SO): $(OBJS) $(OBJSCPP) $(INSTALLDIRS)
+#	@echo hello world  > /dev/null
+#endif
 
 
 

@@ -386,13 +386,12 @@ GCmdScan::Verify(  std::shared_ptr<GArgument> a, GArgumentParsed v) const
     {
         string args_s = g_utilities()->Vec2String( v.GetSubCommands()) + " " +   g_utilities()->Vec2String( v.GetArguments())  ;
        // bool test = a->ValidateCommands(v.GetCommand(), "", v.GetSubCommands(), v.GetArguments());
-         CERR << "args_s = " << args_s << endl;
          bool test = a->ValidateCommands(v.GetCommand(), args_s, v.GetSubCommands(), v.GetArguments());
         return test;
     }
     else
     {
-        G_INFO("Function pointer to validation function is ZERO");
+        G_DEBUG("Function pointer to validation function is ZERO");
         string type = a->GetTypeId();
 
         if (a->GetTypeIdBase() == "Val_t")

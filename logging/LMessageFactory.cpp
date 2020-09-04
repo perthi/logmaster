@@ -46,6 +46,8 @@ namespace LOGMASTER
 	
 	LMessageFactory::LMessageFactory( const LMessageFactory &gen )
 	{
+		fIsEnabled = gen.fIsEnabled;
+		
 		if( gen.fConfig  != nullptr )
 		 {
 			 fConfig     =   std::make_shared<LConfig>( *gen.fConfig );
@@ -73,6 +75,7 @@ namespace LOGMASTER
 		 {
 		 	fGenerator     =   std::make_shared<LMessageGenerator >();
 		 }
+
 
 	}
 	

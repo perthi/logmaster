@@ -31,6 +31,11 @@ namespace LOGMASTER
     class LConfig;
     class LDatabase;
   
+    enum class ePUBLISH_MODE
+    {
+        SYNCHRONOUS,
+        ASYNCHRONOUS
+    };
 
     /** @class LPublisher
 	* class that is responsible for writing ( publishing) messages to various targets. Available targets
@@ -59,6 +64,8 @@ namespace LOGMASTER
         void  API   ResumeDispatcher();
 
         void  API   RunDispatcher();
+
+        void API    SetMode( const ePUBLISH_MODE mode );
 
         static void AtExit();     
 
@@ -103,7 +110,9 @@ namespace LOGMASTER
          std::thread *fDispatcher     =   nullptr;
          std::atomic_bool  fDoRun     =   true; 
          std::atomic_bool  fDoPause   =   false;
-         std::atomic_bool  fIsRunning =   false;   
+         std::atomic_bool  fIsRunning =   false; 
+
+         ePUBLISH_MODE fPublisherMode =  ePUBLISH_MODE::ASYNCHRONOUS;
 
          ///std::shared_ptr<LDatabase>
 

@@ -7,13 +7,9 @@
 ***************************************************/
 
 
-
-
-
-
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 12 June-2020 15:13:02  ***/
-/*** Generated from config/logging.xml **/
+/*** Generated at: Fri 28 August-2020 19:58:18  ***/
+/*** Generated from config/logging-kts.xml **/
 /*** Validated by config/logging.xsd **/
 /*** Copyright Per Thomas Hille pth@embc.no ***/
 
@@ -25,17 +21,11 @@
 #include  <logging/LLogging.h>
 #include  <utilities/GDefinitions.h>
 
-
-
 #ifdef ERROR
 #undef ERROR
 #endif
 
-
-
 #ifdef __cplusplus
-
-
 
 #include <utilities/GLocation.h>
 
@@ -471,6 +461,35 @@
 #define SENSOR_DEBUG(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SENSOR, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define SENSOR_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SENSOR, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define SENSOR_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SENSOR | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define CLI_FATAL(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CLI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define CLI_ERROR(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_CLI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define CLI_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_WARNING_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_CLI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define CLI_INFO(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_INFO_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_CLI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define CLI_DEBUG(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CLI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
 

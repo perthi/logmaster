@@ -314,6 +314,7 @@ namespace LOGMASTER
 
             if ( e_tmp == eMSGTARGET::TARGET_OFF )
             {
+            //    COUT << "Turning off all targets" << endl;
                 TurnOffAllTargets();
                 continue;
             }
@@ -324,10 +325,12 @@ namespace LOGMASTER
                 {
                     if(eneable)
                     {
+                        //COUT << "turning on target "<< std::hex << "0x" << (int)it->first << endl; 
                         it->second.Enable();
                     }
                     else
                     {
+                        //COUT << "turning off target " << std::hex << "0x" << (int)it->first << endl; 
                         it->second.Disable();
                     }
                 }
@@ -549,7 +552,14 @@ namespace LOGMASTER
         else
         {   
             fConfigurationStack.push( fConfig );
+            
+            
+            
             fConfig =  std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
+            
+
+
+            
             return 0;
         }
         return 0;

@@ -76,7 +76,7 @@ namespace LOGMASTER
 
     LPublisher::~LPublisher()
     {
-        CERR << "calling desrtructor " << endl;
+       // CERR << "calling desrtructor " << endl;
     }
 
 
@@ -111,9 +111,7 @@ namespace LOGMASTER
            std::swap(  fMessageQeueTmp , fMessageQeue  );
         }
 
-     //   std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
         fDoRun = false;
-        
         std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
 
         if (fDispatcher != nullptr)
@@ -191,23 +189,27 @@ namespace LOGMASTER
     
     }
 
-
-
-
-void
-LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared_ptr<LConfig> cfg,    const eMSGTARGET target    )
-{
-    std::shared_ptr< Message > m = std::make_shared< Message >();
-    m->fMessage =  *msg;
-    m->fConfig = cfg;
-    m->fTarget = target;
+    void
+    LPublisher::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
     {
-        std::lock_guard<std::mutex> guard( fMessageQeueMutext );
-        fMessageQeue.push( m );
+        if (fPublisherMode == ePUBLISH_MODE::SYNCHRONOUS)
+        {
+            //CERR << "WE ARE IN SYNCHRONOUS MODE " << endl;
+            PublishMessage(*msg, cfg, target);
+        }
+        else
+        {
+            //CERR << "WE ARE NOT !!! SYNCHRONOUS MODE " << endl; 
+            std::shared_ptr<Message> m = std::make_shared<Message>();
+            m->fMessage = *msg;
+            m->fConfig = cfg;
+            m->fTarget = target;
+            {
+                std::lock_guard<std::mutex> guard(fMessageQeueMutext);
+                fMessageQeue.push(m);
+            }
+        }
     }
-}
-
-
 
  /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently
      *   than any other log levels and is always written to all targets regardless of the configuration of the logging system.
@@ -278,6 +280,7 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
     {
         static  std::mutex m;
 		std::lock_guard<std::mutex> guard( m );
+      //  COUT << "WRITING TO DATABASE" << endl;
         LDatabase::Instance()->AddLogEntry(msg);
     }
 
@@ -330,8 +333,8 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
 #else                   
             if( fgEnableColor == true  )
             {
-                cerr << "\033" << "[1;" << msg.fAColor << "m" << msg.fMsg << "\033" << "[0m"  ;
-
+              //  cerr << "\033" << "[1;" << msg.fAColor << "m" << msg.fMsg << "\033" << "[0m";
+                cout << "\033" << "[1;" << msg.fAColor << "m" << msg.fMsg << "\033" << "[0m";
             }
             else
             {
@@ -450,5 +453,22 @@ LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared
         return &fgEnableJson;
     }  
 
+   void 
+   LPublisher::SetMode( const ePUBLISH_MODE mode )
+   {
+       fPublisherMode = mode;
+       if( mode !=fPublisherMode &&  mode == ePUBLISH_MODE::SYNCHRONOUS )
+       {
+           StopDispatcher();
+       }
+
+        if( mode !=fPublisherMode &&  mode == ePUBLISH_MODE::ASYNCHRONOUS )
+       {
+           StartDispatcher();
+       }
+   
+       fPublisherMode = mode; 
+
+   }
 
 }
