@@ -328,7 +328,7 @@ namespace LOGMASTER
             if( fgEnableColor == true  )
             {
               //  cerr << "\033" << "[1;" << msg.fAColor << "m" << msg.fMsg << "\033" << "[0m";
-                cout << "\033" << "[1;" << msg.fAColor << "m" << msg.fMsg << "\033" << "[0m";
+              cout << "\033" << "[1;" << msg.fAColor << "m" << msg.fMsg << "\033" << "[0m";
             }
             else
             {
