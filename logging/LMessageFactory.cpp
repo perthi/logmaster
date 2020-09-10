@@ -46,8 +46,6 @@ namespace LOGMASTER
 	
 	LMessageFactory::LMessageFactory( const LMessageFactory &gen )
 	{
-		fIsEnabled = gen.fIsEnabled;
-		
 		if( gen.fConfig  != nullptr )
 		 {
 			 fConfig     =   std::make_shared<LConfig>( *gen.fConfig );
@@ -75,7 +73,6 @@ namespace LOGMASTER
 		 {
 		 	fGenerator     =   std::make_shared<LMessageGenerator >();
 		 }
-
 
 	}
 	
@@ -132,7 +129,7 @@ namespace LOGMASTER
 	{
 		if( fConfig == nullptr)
 		{
-			CERR << "fConfig is a zero pointer !!!" << ENDL;
+			CERR << "fConfig is a zero pointer !!!" << endl;
 			std::shared_ptr<LMessage> m = std::make_shared<LMessage>();
 			return m;	
 

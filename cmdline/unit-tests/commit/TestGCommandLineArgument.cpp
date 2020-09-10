@@ -263,15 +263,15 @@ TEST_F(TestGCommandLineArgument, mandatoryArgs)
     }
     catch( GException &e )
     {
-        CERR << e.what() << ENDL;
+        CERR << e.what() << endl;
     }
     catch(const std::exception& e)
     {
-        CERR << e.what() <<  ENDL;
+        CERR << e.what() <<  endl;
     }
     catch(...)
     {
-        CERR << "UNKNOWN exception caught" << ENDL;
+        CERR << "UNKNOWN exception caught" << endl;
     }
     
 }

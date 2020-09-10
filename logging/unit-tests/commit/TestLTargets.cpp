@@ -109,7 +109,7 @@ TEST_F(TestLTargets, configure_format_specific_target)
 	}
 	catch ( const GException & e)
 	{
-		CERR << e.what() << ENDL;
+		CERR << e.what() << endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -117,7 +117,7 @@ TEST_F(TestLTargets, configure_format_specific_target)
 	}
 	catch(...)
 	{
-		CERR << "Unkonw execption caught" << ENDL;
+		CERR << "Unkonw execption caught" << endl;
 	}
 	
 

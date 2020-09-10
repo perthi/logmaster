@@ -66,26 +66,20 @@ ifneq "$(MAKECMDGOALS)" "clean"
 endif
 
 
-
-
-
-
-
-ifndef EMBC_SHARED
+#$(LIBNAME_A): compileinfo_dir $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC) $(INSTALLDIRS) 
 $(LIBNAME_A):  $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC) $(INSTALLDIRS) 
 	@$(ARLOCAL) -cr  $(LIBNAME_A) $(OBJS) $(OBJSCPP)
 	@ranlib $(LIBNAME_A)	
 	@rm -f !  $(LIBLOCAL)/$(LIBNAME_A) 
 	@cp -p $(LIBNAME_A) $(LIBLOCAL)
-$(LIBNAME_SO): $(OBJS) $(OBJSCPP) 
-	@echo hello world  > /dev/null
-else
+
+ifdef MAKE_SHARED
 $(LIBNAME_SO):  $(OBJS) $(OBJSCPP) $(INSTALLDIRS)
 	$(CCLOCAL) $(LIBFLAGS)   -o $(LIBNAME_SO) $(OBJS) $(OBJSCPP) 
 	@rm -f !  $(LIBLOCAL)/$(LIBNAME_SO) 
 	@cp -p $(LIBNAME_SO) $(LIBLOCAL)
-
-$(LIBNAME_A): $(OBJS) $(OBJSCPP) $(INSTALLDIRS)
+else
+$(LIBNAME_SO): $(OBJS) $(OBJSCPP) $(INSTALLDIRS)
 	@echo hello world  > /dev/null
 endif
 

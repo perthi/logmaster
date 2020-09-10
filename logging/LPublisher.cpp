@@ -76,6 +76,7 @@ namespace LOGMASTER
 
     LPublisher::~LPublisher()
     {
+        CERR << "calling desrtructor " << endl;
     }
 
 
@@ -83,7 +84,10 @@ namespace LOGMASTER
     void 
     LPublisher::AtExit()
     {
+       // CERR << "STOPPING DISPACTHER" << endl;
         Instance()->StopDispatcher();
+       //  StopDispatcher();
+       // CERR << "DONE STOPPING DISPACTHER" << endl;
     }     
 
 
@@ -107,7 +111,9 @@ namespace LOGMASTER
            std::swap(  fMessageQeueTmp , fMessageQeue  );
         }
 
+     //   std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
         fDoRun = false;
+        
         std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
 
         if (fDispatcher != nullptr)
@@ -123,10 +129,9 @@ namespace LOGMASTER
             }
             else
             {
-                CERR << "Thread is not joinable" << ENDL;
+                CERR << "Thread is not joinable" << endl;
             }
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
     }
 
 
@@ -157,7 +162,6 @@ namespace LOGMASTER
             {
                 fIsRunning = true;
                 DispatchMessages();
-              //  std::this_thread::sleep_for(std::chrono::milliseconds(10) ); 
             }
         }
     }
@@ -185,25 +189,23 @@ namespace LOGMASTER
     
     }
 
-    void
-    LPublisher::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
+
+
+
+void
+LPublisher::QueMessage(  const std::shared_ptr<LMessage>  msg, const std::shared_ptr<LConfig> cfg,    const eMSGTARGET target    )
+{
+    std::shared_ptr< Message > m = std::make_shared< Message >();
+    m->fMessage =  *msg;
+    m->fConfig = cfg;
+    m->fTarget = target;
     {
-        if (fPublisherMode == ePUBLISH_MODE::SYNCHRONOUS)
-        {
-            PublishMessage(*msg, cfg, target);
-        }
-        else
-        {
-            std::shared_ptr<Message> m = std::make_shared<Message>();
-            m->fMessage = *msg;
-            m->fConfig = cfg;
-            m->fTarget = target;
-            {
-                std::lock_guard<std::mutex> guard(fMessageQeueMutext);
-                fMessageQeue.push(m);
-            }
-        }
+        std::lock_guard<std::mutex> guard( fMessageQeueMutext );
+        fMessageQeue.push( m );
     }
+}
+
+
 
  /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently
      *   than any other log levels and is always written to all targets regardless of the configuration of the logging system.
@@ -215,7 +217,7 @@ namespace LOGMASTER
  {
      if (cfg == nullptr)
      {
-         CERR << " CONFIG IS A ZERO POINTER" << ENDL;
+         CERR << " CONFIG IS A ZERO POINTER" << endl;
          return;
      }
 
@@ -274,7 +276,6 @@ namespace LOGMASTER
     {
         static  std::mutex m;
 		std::lock_guard<std::mutex> guard( m );
-      //  COUT << "WRITING TO DATABASE" << endl;
         LDatabase::Instance()->AddLogEntry(msg);
     }
 
@@ -327,8 +328,8 @@ namespace LOGMASTER
 #else                   
             if( fgEnableColor == true  )
             {
-              //  cerr << "\033" << "[1;" << msg.fAColor << "m" << msg.fMsg << "\033" << "[0m";
-              cout << "\033" << "[1;" << msg.fAColor << "m" << msg.fMsg << "\033" << "[0m";
+                cerr << "\033" << "[1;" << msg.fAColor << "m" << msg.fMsg << "\033" << "[0m"  ;
+
             }
             else
             {
@@ -364,7 +365,7 @@ namespace LOGMASTER
         else
         {
             cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << filename << endl;
-            CERR << "This message could not be logged:\t" << msg.fMsg << ENDL;
+            CERR << "This message could not be logged:\t" << msg.fMsg << endl;
         }
 
         if( fgEnableJson == true )
@@ -402,8 +403,8 @@ namespace LOGMASTER
         }
         else
         {
-            cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << fname_tmp_c  << ENDL;
-            CERR << "This message could not be logged:\t" << j << ENDL;
+            cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << fname_tmp_c  << endl;
+            CERR << "This message could not be logged:\t" << j << endl;
         }
     }
 
@@ -447,22 +448,5 @@ namespace LOGMASTER
         return &fgEnableJson;
     }  
 
-   void 
-   LPublisher::SetMode( const ePUBLISH_MODE mode )
-   {
-       fPublisherMode = mode;
-       if( mode !=fPublisherMode &&  mode == ePUBLISH_MODE::SYNCHRONOUS )
-       {
-           StopDispatcher();
-       }
-
-        if( mode !=fPublisherMode &&  mode == ePUBLISH_MODE::ASYNCHRONOUS )
-       {
-           StartDispatcher();
-       }
-   
-       fPublisherMode = mode; 
-
-   }
 
 }

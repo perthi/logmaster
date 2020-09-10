@@ -62,6 +62,8 @@ void TestSubscriber::TearDown()
 void 
 TestSubscriber::Subscriber1( const LMessage  &msg  )
 {
+//	CERR  << "Calling subscirber 1 !!!!!!!!!!!! " << endl;
+//	fMsg1 = const_cast<  std::shared_ptr<LMessage> >(msg);
 	fMsg1 = msg;
 }
 
@@ -69,6 +71,8 @@ TestSubscriber::Subscriber1( const LMessage  &msg  )
 void 
 TestSubscriber::Subscriber2( const  LMessage &msg  )
 {
+//	CERR << "Calling subscirber 2 !!!!!!!!!!!! " << endl;
+//	fMsg2 = const_cast<  LMessage *>(msg);
 	fMsg2 = msg;
 }
 

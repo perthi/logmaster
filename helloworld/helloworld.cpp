@@ -98,7 +98,7 @@ int main()
   print_modulo( test2, out , 11);
   print_modulo( test3, out , 11);
 
-  CERR << out.str()  << ENDL;
+  CERR << out.str()  << endl;
 
   // char buf[255];
   // for(int i=0; i < 1000; i++)

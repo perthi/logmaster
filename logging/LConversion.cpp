@@ -308,6 +308,7 @@ namespace LOGMASTER
         }
         else
         {
+        //    CERR << "returning all files off !!!!" << endl;
             return eMSGFORMAT::ALL_FIELDS_OFF;
         }
     }

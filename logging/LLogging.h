@@ -55,11 +55,14 @@ namespace LOGMASTER
         std::shared_ptr< std::map<eMSGTARGET,  std::shared_ptr<LMessage>  >  >	API 	LogVarArgs(	const eMSGLEVEL level, const eMSGSYSTEM system, const char * filename, const int linenumber,
                                                                         const char * functionname, const char *fmt, va_list ap, 
                                                                         const bool force_generate = false, string addendum = "");
+        
 
         void					API		SetLogFormat(   const  string  &format, bool enable = true);
         void					API		SetLogLevel( const  string  &level);
         void					API		SetLogTarget(   const  string  &target, bool eneable = true);
         void					API		SetLogFileName( const string &filename );
+	//	inline void             API     SetApplication( const string app )  { fApplication =  app ; } ;
+       
 
         eMSGTARGET				API		GetLogTarget()  const;
         eMSGFORMAT				API		GetLogFormat(   const eMSGTARGET target) const;
@@ -67,6 +70,9 @@ namespace LOGMASTER
         eMSGLEVEL				API		GetLogLevel(const eMSGSYSTEM system, const eMSGTARGET  target) const;
         string					API		GetLogFileName(const eMSGTARGET  target = eMSGTARGET::TARGET_FILE ) const;
 		std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > >  GetLastMessages()  { return  fMessages; };
+       // inline string                  API     GetApplication() const { return  fApplication;  };
+     //   inline string                  API     GetTimeMode() const { return    fApplication;  };
+
 
         vector< void( *)(const LMessage &  ) >  API & GetSubscribers();
         void					API		RegisterSubscriber(  void(  *funct)(const LMessage &   ));
@@ -75,10 +81,12 @@ namespace LOGMASTER
         vector< void( *)(const LMessage & ) >  API & GetGuiSubscribers();
         void					API		RegisterGuiSubscriber(  void(  *funct)(const  LMessage  &  ));
         void					API		ClearGuiSubscribers();
+
         void					API		Reset();
         int						API		Push( );                                    
         int						API		Pop( );
         bool					API		CheckLevel(const eMSGSYSTEM system, const eMSGLEVEL level, const eMSGTARGET target);
+
      
 
     private:

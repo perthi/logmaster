@@ -1,7 +1,7 @@
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 28 August-2020 19:58:18  ***/
-/*** Generated from config/logging-kts.xml **/
+/*** Generated at: Fri 12 June-2020 15:13:02  ***/
+/*** Generated from config/logging.xml **/
 /*** Validated by config/logging.xsd **/
 /*** Copyright Per Thomas Hille pth@embc.no ***/
 
@@ -46,7 +46,6 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_SHOTEXCEC, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_CONFIGURATION, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_SENSOR, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
-	fLogLevelHash.emplace(eMSGSYSTEM::SYS_CLI, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );
    }
@@ -68,7 +67,6 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_SHOTEXCEC, 	"Shotexcec");
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_CONFIGURATION, 	"Configuration");
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_SENSOR, 	"Sensor");
-	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_CLI, 	"Cli");
    }
    void
    LHashMapsBase::InitHashLevel2String()
@@ -222,15 +220,6 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fSubCmdHash.emplace("--sensor-info",		std::make_pair(eMSGSYSTEM::SYS_SENSOR,  eMSGLEVEL::LOG_INFO));
 	fSubCmdHash.emplace("--sensor-debug",		std::make_pair(eMSGSYSTEM::SYS_SENSOR,  eMSGLEVEL::LOG_DEBUG));
 	fSubCmdHash.emplace("--sensor-all",		std::make_pair(eMSGSYSTEM::SYS_SENSOR,  eMSGLEVEL::LOG_ALL));
-
-
-	fSubCmdHash.emplace("--cli-off",		std::make_pair(eMSGSYSTEM::SYS_CLI,  eMSGLEVEL::LOG_OFF));
-	fSubCmdHash.emplace("--cli-fatal",		std::make_pair(eMSGSYSTEM::SYS_CLI,  eMSGLEVEL::LOG_FATAL));
-	fSubCmdHash.emplace("--cli-error",		std::make_pair(eMSGSYSTEM::SYS_CLI,  eMSGLEVEL::LOG_ERROR));
-	fSubCmdHash.emplace("--cli-warning",		std::make_pair(eMSGSYSTEM::SYS_CLI,  eMSGLEVEL::LOG_WARNING));
-	fSubCmdHash.emplace("--cli-info",		std::make_pair(eMSGSYSTEM::SYS_CLI,  eMSGLEVEL::LOG_INFO));
-	fSubCmdHash.emplace("--cli-debug",		std::make_pair(eMSGSYSTEM::SYS_CLI,  eMSGLEVEL::LOG_DEBUG));
-	fSubCmdHash.emplace("--cli-all",		std::make_pair(eMSGSYSTEM::SYS_CLI,  eMSGLEVEL::LOG_ALL));
 
 
    }
