@@ -86,12 +86,13 @@ namespace LOGMASTER
         nlohmann::json j;
         LMessage2Json::Message2Json( msg, j );
         std::stringstream buffer;
+        buffer.imbue(std::locale(""));
         buffer << j;
 
 #ifndef WIN32
-        snprintf(sql, 1000, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %f, %d, %d,'%s')",
+        snprintf(sql, 1000, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES (%d, %f, %d, %d,'%s')",
 #else
-        snprintf_s(sql, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %f, %d, %d,'%s')",
+        snprintf_s(sql, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES (%d, %f, %d, %d,'%s')",
 #endif
                    (int)msg.fEpochTime,  msg.fEpochTime, (int)msg.fLevel,  (int)msg.fSystem, 
                    buffer.str().c_str() );
