@@ -114,7 +114,16 @@
             <DEFAULT>WARNING</DEFAULT>
             <CAN_MODIFY>true</CAN_MODIFY>
             <FORCE_OUTPUT>false</FORCE_OUTPUT>
-         </SYSTEM>  
+         </SYSTEM>
+            <SYSTEM> 
+            <NAME>CLI</NAME>
+            <SHORT_NAME>CLI</SHORT_NAME>
+            <TAG>--cli</TAG>
+            <TAG_SHORT>--cli</TAG_SHORT>
+            <DEFAULT>WARNING</DEFAULT>
+            <CAN_MODIFY>true</CAN_MODIFY>
+            <FORCE_OUTPUT>false</FORCE_OUTPUT>
+         </SYSTEM>
 
     </SUBSYSTEMS>
 

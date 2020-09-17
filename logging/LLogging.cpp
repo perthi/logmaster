@@ -88,12 +88,12 @@ namespace LOGMASTER
         }
         catch ( std::exception& e )
         {
-            CERR << ":" << e.what() << endl;
+            CERR << ":" << e.what() << ENDL;
 
         }
         catch ( ... )
         {
-            CERR << ": Unknown exception !!" << endl;
+            CERR << ": Unknown exception !!" << ENDL;
         }
     }
 
@@ -101,6 +101,7 @@ namespace LOGMASTER
     void
     LLogging::Init()
     {
+      //  LPublisher::Instance()->StartDispatcher();
         fConfig    =            std::make_shared<  std::map<eMSGTARGET,  LMessageFactory  > >();
         fDefaultConfig =        std::make_shared< std::map<eMSGTARGET, LMessageFactory > > ();
 
@@ -124,6 +125,7 @@ namespace LOGMASTER
         {
             fMessages->emplace( it->first, new LMessage() );
         }
+
     }
 
 
@@ -200,7 +202,7 @@ namespace LOGMASTER
     {
        if( fConfig == nullptr )
        {
-           CERR << "CONFIG IS A ZERO POINTER" << endl;
+           CERR << "CONFIG IS A ZERO POINTER" << ENDL;
            exit(-1);
        }
 
@@ -312,6 +314,7 @@ namespace LOGMASTER
 
             if ( e_tmp == eMSGTARGET::TARGET_OFF )
             {
+            //    COUT << "Turning off all targets" << endl;
                 TurnOffAllTargets();
                 continue;
             }
@@ -322,10 +325,12 @@ namespace LOGMASTER
                 {
                     if(eneable)
                     {
+                        //COUT << "turning on target "<< std::hex << "0x" << (int)it->first << endl; 
                         it->second.Enable();
                     }
                     else
                     {
+                        //COUT << "turning off target " << std::hex << "0x" << (int)it->first << endl; 
                         it->second.Disable();
                     }
                 }
@@ -541,13 +546,20 @@ namespace LOGMASTER
        // return 0;
         if ( fConfigurationStack.size() >= MAX_STACK_DEPTH )
         {
-            CERR << "stack is full (size = " << fConfigurationStack.size() << ")" << endl;
+            CERR << "stack is full (size = " << fConfigurationStack.size() << ")" << ENDL;
             return -1;
         }
         else
         {   
             fConfigurationStack.push( fConfig );
+            
+            
+            
             fConfig =  std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
+            
+
+
+            
             return 0;
         }
         return 0;

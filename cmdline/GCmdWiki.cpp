@@ -50,24 +50,24 @@ GCmdWiki::~GCmdWiki()
 
 
 void    
-GCmdWiki::GenerateWiki(  vector<GArgument *> *args,  const string  filename  )
+GCmdWiki::GenerateWiki(  vector< std::shared_ptr<GArgument> > args,  const string  filename  )
 {
-    FORCE_DEBUG("arguments size = %d", args->size() );
+    G_INFO("arguments size = %d", args.size() );
     
     G_ASSERT_EXCEPTION(filename != "", "Filename cannot be empty" );
     std::stringstream buffer;
 //    auto args = GetArguments();
-    FORCE_DEBUG("arguments size = %d", args->size() );
+    G_INFO("arguments size = %d", args.size() );
 	
     
     g_file()->Recreate(filename);
     g_file()->Append( filename, "||Command || Usage || Helptex || \n");
 
-    for(size_t i=0; i < args->size(); i ++  )
+    for(size_t i=0; i < args.size(); i ++  )
     {
-        string cmd    =  args->at(i)->GetCommand();
-        string usage  =  args->at(i)->GetUsage();
-        string help   =  args->at(i)->GetHelpText(  );
+        string cmd    =  args.at(i)->GetCommand();
+        string usage  =  args.at(i)->GetUsage();
+        string help   =  args.at(i)->GetHelpText(  );
       //  string subs =  g_utilities()->Vec2String( args->at(i)->GetSubCommands() );
 
         //subs = "blahhhhh";

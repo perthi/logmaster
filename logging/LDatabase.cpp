@@ -97,10 +97,11 @@ namespace LOGMASTER
                    buffer.str().c_str() );
 
         rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
+        
         if (rc != SQLITE_OK)
         {
          //   HandleError( GLOCATION, eMSGLEVEL::LOG_ERROR, "AddEntry SQL error: %s", zErrMsg );
-            printf("AddEntry SQL error: %s\n", zErrMsg);
+            printf("%s:%dAddEntry (msg to log = %s) SQL error: %s\n", __FILE__, __LINE__,   msg.fMsgBody,  zErrMsg );
             sqlite3_free(zErrMsg);
         }
     }
