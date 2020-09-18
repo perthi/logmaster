@@ -225,6 +225,9 @@ clean-x86:
 	done
 	@rm -rf build/x86
 
+.PHONY: clean-logs
+clean-logs:
+	rm -f *.log*  *.db
 
 .PHONY: distclean
 distclean: clean
