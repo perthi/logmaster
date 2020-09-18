@@ -67,6 +67,8 @@ namespace LOGMASTER
 
         void API    SetMode( const ePUBLISH_MODE mode );
 
+        void API    Flush();
+
         static void AtExit();     
 
     private:

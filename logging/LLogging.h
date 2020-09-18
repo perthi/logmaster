@@ -76,10 +76,10 @@ namespace LOGMASTER
         void					API		RegisterGuiSubscriber(  void(  *funct)(const  LMessage  &  ));
         void					API		ClearGuiSubscribers();
         void					API		Reset();
-        int						API		Push( );                                    
-        int						API		Pop( );
-        bool					API		CheckLevel(const eMSGSYSTEM system, const eMSGLEVEL level, const eMSGTARGET target);
-     
+        int					API		Push( );
+        int					API		Pop( );
+        bool 					API CheckLevel(const eMSGSYSTEM system, const eMSGLEVEL level, const eMSGTARGET target);
+        void 					API Flush();
 
     private:
         LLogging();

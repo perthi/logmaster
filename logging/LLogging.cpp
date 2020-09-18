@@ -298,6 +298,11 @@ namespace LOGMASTER
         }
     }
 
+    void LLogging::Flush()
+    {
+        LPublisher::Instance()->Flush();
+    }
+
 
     void
     LLogging::SetLogTarget( const string& target_s, bool eneable )

@@ -461,8 +461,16 @@ namespace LOGMASTER
            StartDispatcher();
        }
    
-       fPublisherMode = mode; 
+       fPublisherMode = mode;
 
+   }
+
+   void LPublisher::Flush()
+   {
+       while ( fMessageQeueTmp.size()  > 0 || fMessageQeue.size() > 0)
+       {
+           std::this_thread::sleep_for(std::chrono::milliseconds(10) );
+       }
    }
 
 }
