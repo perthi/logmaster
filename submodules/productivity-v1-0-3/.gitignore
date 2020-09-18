@@ -1,0 +1,45 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+utilities/unit-tests/commit/x86/utilities-unit-tests
+**/Debug/
+**/build/
+**/.vs/
+**/bin
+**/gtest-md/
+**/testdir/
+**/.vscode/
+utilities/unit-tests/commit/arm/utilities-unit-tests
+configurator/logging-configurator/x86/configurator-example1
+configurator/logging-configurator/x86/logging-example1
+configurator/unit-tests/commit/x86/logging-unit-tests
+exception/unit-tests/commit/x86/logging-unit-tests
