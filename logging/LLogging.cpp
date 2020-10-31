@@ -159,16 +159,16 @@ namespace LOGMASTER
     }
 
 
-
+    /**@{*/
     /** Main logging function that takes a log message, and adds to it the message
-     *  type, and the location in the source file where the message was generated.
+     *  type and the location in the source file where the message was generated.
      *   @param  level  the loglevel/severity of the message
      *   @param  sys    the subsystem the message applies to
      *   @param  l The location of the log  message in the code (filenam, function name line number etc.. )
      *   @param  fmt The formatting for the message (same as the  C style printf formatting)
      *   @param  ...  Variable argument list
      *   @return  The generated log messages */
-    std::shared_ptr< std::map<eMSGTARGET,  std::shared_ptr<LMessage>   > >
+    logmap
     LLogging::Log( const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt... )
     {
         std::lock_guard<std::mutex> guard( log_mutex );
@@ -178,6 +178,18 @@ namespace LOGMASTER
         va_end( ap );
         return map;
     }
+
+    logmap
+    LLogging::Log( const eMSGLEVEL level, const eMSGSYSTEM sys, const char *file, const int line, const char *funct, const char* fmt... )
+    {
+        std::lock_guard<std::mutex> guard( log_mutex );
+        va_list ap;
+        va_start( ap, fmt );
+        auto map = LogVarArgs( level, sys, file, line, funct, fmt, ap );
+        va_end( ap );
+        return map;
+    }
+    /**@}*/
 
 
     /** Helper function for the main logging (Log) function. The severity("level")
@@ -196,7 +208,7 @@ namespace LOGMASTER
      *			 where one wants the message to be genrated regardless (because you want to
      *			catch the exception with an exception handler). This falf is also usefull for debugging
      *   @param  addendum  optional string to attach to the messag */
-    std::shared_ptr<std::map<eMSGTARGET,  std::shared_ptr <LMessage>   >	>
+    logmap
     LLogging::LogVarArgs( const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int lineno,
                           const char* function, const char* fmt, va_list ap, const bool force_generate, const string addendum )
     {

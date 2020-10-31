@@ -32,6 +32,8 @@
 #include   "LConfig.h"
 #include   "LConversion.h"
 #include   "LHashMaps.h"
+#include   "LOperators.h"
+
 #include   <utilities/GNumbers.h>
 
 

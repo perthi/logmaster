@@ -279,8 +279,9 @@ namespace LOGMASTER
     }
 
     /**  Publish messages via the publiser/subscriber interface. The function iterates thrugh an
-     *   array of registered subscribers (if any), and  calls each callback function with the message, subsystem and level as arguments
-     *   @param message  The message to publish */
+     *   array of registered subscribers (if any), and  calls each callback function with the message, 
+     *   subsystem and level as arguments
+     *   @param msg  The message to publish */
     void
     LPublisher::PublishToSubscribers(const LMessage  &msg )
     {

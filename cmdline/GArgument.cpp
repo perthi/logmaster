@@ -59,7 +59,7 @@ GArgument::GArgument(): fCmd("Unknown"),
 
 GArgument::GArgument(const string name,
     const string usage,
-    const string help,
+    const string helptext,
     const bool ismandatory,
     std::function< bool(const string cmnd, const string args_s, const vector<string> sub, const vector<string> par) >  funct ) : fCmd(name),  
         fSubCmds(), 
@@ -67,7 +67,7 @@ GArgument::GArgument(const string name,
         fTypeId("Unknown"), 
         fTypeIdBase("No Base"), 
         fUsage(usage), 
-        fHelpText(help), 
+        fHelpText(helptext), 
         fExecName("NOT SET"), 
         ValidateCommands(funct)
 {

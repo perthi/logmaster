@@ -20,7 +20,7 @@
 #include  <logging/LEnums.h>
 #include  <logging/LLogging.h>
 #include  <utilities/GDefinitions.h>
-
+#include  "LOperators.h"
 #ifdef ERROR
 #undef ERROR
 #endif

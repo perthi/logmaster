@@ -319,7 +319,7 @@ namespace LOGMASTER
     
 
     bool
-    LDatabase::InitSQLQuery(const uint64_t time, const eTIME_SEARCH_OPTION opt, const int cnt )
+    LDatabase::InitSQLQuery(const uint64_t time, const eTIME_SEARCH_OPTION opt, const int max_cnt )
     {
         std::stringstream buffer;
 
@@ -327,15 +327,15 @@ namespace LOGMASTER
         {
         case eTIME_SEARCH_OPTION::EXACTLY:
             buffer <<  "SELECT * FROM t_logging WHERE time_int = " << time  << " ORDER BY id DESC";
-            return InitQuery( buffer.str(), cnt );
+            return InitQuery( buffer.str(), max_cnt );
             break;
         case eTIME_SEARCH_OPTION::INCLUDING_AND_ABOVE:
             buffer <<  "SELECT * FROM t_logging WHERE time_int >= " << time  << " ORDER BY id DESC";
-            return InitQuery( buffer.str(), cnt );
+            return InitQuery( buffer.str(), max_cnt );
             break;
         case eTIME_SEARCH_OPTION::INCLUDING_AND_BELOW:
             buffer <<  "SELECT * FROM t_logging WHERE time_int <= " << time  << " ORDER BY id DESC";
-            return InitQuery( buffer.str(), cnt );
+            return InitQuery( buffer.str(), max_cnt );
             break;
         default:
             return false;

@@ -37,7 +37,7 @@
 export BUILDDIR=$(CURDIR)/build
 export BINDIR=$(BUILDDIR)/$(TARGET)/bin
 export LIBLOCAL=$(BUILDDIR)/$(TARGET)/lib
-export INSTALLDIRS=$(BUILDDIR) $(BUILDDIR)/$(TARGET)  $(BUILDDIR)/$(TARGET)/bin  $(BUILDDIR)/$(TARGET)/lib
+export INSTALLDIRS=$(BUILDDIR) $(BUILDDIR)/x86  $(BUILDDIR)/x86/bin  $(BUILDDIR)/x86/lib  $(BUILDDIR)/arm  $(BUILDDIR)/arm/bin  $(BUILDDIR)/arm/lib
 export VERSIONINFO_EXE=$(BUILDDIR)/x86/bin/version-info
 
 export COMMON_FLAGS:= -fPIC -ggdb -std=c++17  -g 
@@ -193,10 +193,10 @@ $(INSTALLDIRS):
 	mkdir -p $@
 
 
-x86:
+x86:    $(INSTALLDIRS)
 	@$(MAKE) TARGET=x86
 
-arm:
+arm:    $(INSTALLDIRS)
 	@$(MAKE) TARGET=arm
 
 

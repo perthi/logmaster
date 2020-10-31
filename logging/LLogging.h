@@ -39,6 +39,7 @@ class TestCheckLevel_check_level_Test;
 namespace LOGMASTER
 {
     class LMessage;
+    using logmap =    std::shared_ptr< std::map<eMSGTARGET,  std::shared_ptr<LMessage>  >	>;	
 
     class LLogging
     {
@@ -50,12 +51,15 @@ namespace LOGMASTER
     public:
         ~LLogging();
         static LLogging			API *	Instance();
-        std::shared_ptr< std::map<eMSGTARGET,  std::shared_ptr<LMessage>  >	>	API 	Log(const eMSGLEVEL level, const eMSGSYSTEM sys,  const GLocation l , const char * fmt, ...);
+        logmap	API 	Log(const eMSGLEVEL level, const eMSGSYSTEM sys,  const GLocation l , const char * fmt, ...);
+        logmap	API 	Log(const eMSGLEVEL level, const eMSGSYSTEM sys,  const char *file, const int line, const char *funct, const char * fmt, ...);
 
-        std::shared_ptr< std::map<eMSGTARGET,  std::shared_ptr<LMessage>  >  >	API 	LogVarArgs(	const eMSGLEVEL level, const eMSGSYSTEM system, const char * filename, const int linenumber,
+        logmap	API 	LogVarArgs(	const eMSGLEVEL level, const eMSGSYSTEM system, const char * filename, const int linenumber,
                                                                         const char * functionname, const char *fmt, va_list ap, 
                                                                         const bool force_generate = false, string addendum = "");
 
+
+        
         void					API		SetLogFormat(   const  string  &format, bool enable = true);
         void					API		SetLogLevel( const  string  &level);
         void					API		SetLogTarget(   const  string  &target, bool eneable = true);

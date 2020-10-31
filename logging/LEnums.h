@@ -33,12 +33,9 @@
 #ifdef __cplusplus
 namespace LOGMASTER
 {
-
-#include "LEnumGenerated.h" /// NB autognerated
-
-
 #endif
 
+#include "LEnumGenerated.h" /// NB autognerated
 
 
 	/*Enum controling where the logmessages are written*/
@@ -82,7 +79,9 @@ namespace LOGMASTER
          PREFIX_ALL              =	0xff      // 11111111    Prefix contains all options
     };
 
-
+//#ifdef __cplusplus
+	
+	/*
 	inline eMSGSYSTEM operator | ( const eMSGSYSTEM &lhs, const eMSGSYSTEM &rhs )
 	{
 		return (eMSGSYSTEM)((int)lhs | (int)rhs);
@@ -122,6 +121,11 @@ namespace LOGMASTER
 	{
 		return (eMSGTARGET)((int)lhs & (int)rhs);
 	}
+	*/
 
 
+
+#ifdef __cplusplus
 }
+#endif
+
