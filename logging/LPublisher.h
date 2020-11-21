@@ -1,5 +1,6 @@
 // -*- mode: c++ -*-
-#pragma once
+#ifndef LPUBLISHER_H
+#define LPUBLISHER_H
 
 /****************************************************************************
 *** Copyright(C) 2015  Per Thomas Hille, pth@embc.no                     ***
@@ -121,3 +122,4 @@ namespace LOGMASTER
     };
 
 }
+#endif

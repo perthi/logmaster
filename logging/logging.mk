@@ -19,7 +19,8 @@ SRCCPP:= LColorMap.cpp \
 	LMessageGenerator.cpp \
 	LPublisher.cpp \
 	LMessage2Json.cpp \
-	LDatabase.cpp 
+	LDatabase.cpp \
+	LEnum2String.cpp
 
 
 

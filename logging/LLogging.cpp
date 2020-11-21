@@ -61,7 +61,51 @@ namespace LOGMASTER
         static LLogging* instance = new LLogging();
         return instance;
     }
+    logmap LLogging::LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char *filename,
+                                      const int lineno, const char *funct, const bool force_generate, string addendum,
+                                      const char *fmt, va_list ap)
+    {
+        if(fConfig == nullptr)
+        {
+            CERR << "CONFIG IS A ZERO POINTER" << ENDL;
+            exit(-1);
+        }
 
+        static std::shared_ptr<LMessage> tmp_msg = std::make_shared<LMessage>();
+
+        ClearMessages();
+        va_list ap_l;
+        va_copy(ap_l, ap);
+        for(auto it = fConfig->begin(); it != fConfig->end(); ++it)
+        {
+            if(it->second.IsEnabled() == true)
+            {
+                bool cl = CheckLevel(system, level, it->first);
+
+                if((cl == true) || force_generate == true)
+                {
+                    tmp_msg = it->second.GenerateMessageUnsafe(system, level, filename, lineno, funct, addendum, fmt, ap_l);
+
+                    if(cl == true)
+                    {
+                        QueMessage(tmp_msg, it->second.GetConfig(), it->first);
+
+                        //   LPublisher::Instance()->PublishMessage( tmp_msg, it->second.GetConfig(), it->first );
+
+                        // LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), target );
+                        auto it_msg = fMessages->find(it->first);
+                        if(it_msg != fMessages->end())
+                        {
+                            it_msg->second = tmp_msg;
+                        }
+                    }
+                }
+            }
+        }
+        va_end(ap_l);
+        return fMessages;
+
+    }
 
     LLogging::LLogging() : fSubscribers(),
                            fGuiSubscribers(),
@@ -70,6 +114,11 @@ namespace LOGMASTER
                            fMessages(nullptr)
     {
         Init();
+    }
+
+    void LLogging::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
+    {
+                        LPublisher::Instance()->QueMessage( msg,   cfg,  target);
     }
 
 
@@ -168,10 +217,11 @@ namespace LOGMASTER
      *   @param  fmt The formatting for the message (same as the  C style printf formatting)
      *   @param  ...  Variable argument list
      *   @return  The generated log messages */
+    /*
     logmap
     LLogging::Log( const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt... )
     {
-        std::lock_guard<std::mutex> guard( log_mutex );
+        std::lock_guard<std::mutex> guard(log_mutex);
         va_list ap;
         va_start( ap, fmt );
         auto map = LogVarArgs( level, sys, l.fFileName.c_str(), l.fLineNo, l.fFunctName.c_str(), fmt, ap );
@@ -189,6 +239,8 @@ namespace LOGMASTER
         va_end( ap );
         return map;
     }
+*/
+
     /**@}*/
 
 
@@ -208,15 +260,17 @@ namespace LOGMASTER
      *			 where one wants the message to be genrated regardless (because you want to
      *			catch the exception with an exception handler). This falf is also usefull for debugging
      *   @param  addendum  optional string to attach to the messag */
+    /*
     logmap
     LLogging::LogVarArgs( const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int lineno,
-                          const char* function, const char* fmt, va_list ap, const bool force_generate, const string addendum )
+                          const char* function, const char* fmt, va_list ap)
     {
        if( fConfig == nullptr )
        {
            CERR << "CONFIG IS A ZERO POINTER" << ENDL;
            exit(-1);
        }
+        checkFormat(fmt, ap);
 
 
         static std::shared_ptr<LMessage>           tmp_msg  =   std::make_shared<LMessage>();
@@ -259,6 +313,7 @@ namespace LOGMASTER
         va_end(ap_l);
         return fMessages;
     }
+*/
 
 
     /** Checks the loglevel of a message issued by the user against the current loglevel configured for the logging system*

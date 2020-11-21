@@ -7,7 +7,7 @@
 
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 28 August-2020 19:58:18  ***/
+/*** Generated at: Sun 08 November-2020 11:58:52  ***/
 /*** Generated from config/logging-kts.xml **/
 /*** Validated by config/logging.xsd **/
 /*** Copyright Per Thomas Hille pth@embc.no ***/
@@ -35,6 +35,8 @@ EXCEPTION_CLASS_H	(GSensorException)
 EXCEPTION_CLASS_CPP	(GSensorException)
 EXCEPTION_CLASS_H	(GCliException)
 EXCEPTION_CLASS_CPP	(GCliException)
+EXCEPTION_CLASS_H	(GMcuException)
+EXCEPTION_CLASS_CPP	(GMcuException)
 
 
 
@@ -54,6 +56,7 @@ EXCEPTION_CLASS_CPP	(GCliException)
 #define CONFIG_EXCEPTION(...)			throw_exception( GConfigurationException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_CONFIGURATION,	__VA_ARGS__ ) )
 #define SENSOR_EXCEPTION(...)			throw_exception( GSensorException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_SENSOR,	__VA_ARGS__ ) )
 #define CLI_EXCEPTION(...)			throw_exception( GCliException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_CLI,	__VA_ARGS__ ) )
+#define MCU_EXCEPTION(...)			throw_exception( GMcuException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_MCU,	__VA_ARGS__ ) )
 
 
 #define FSM_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GFsmException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_FSM),	__VA_ARGS__ ) )
@@ -72,6 +75,7 @@ EXCEPTION_CLASS_CPP	(GCliException)
 #define CONFIG_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GConfigurationException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_CONFIGURATION),	__VA_ARGS__ ) )
 #define SENSOR_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GSensorException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_SENSOR),	__VA_ARGS__ ) )
 #define CLI_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GCliException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_CLI),	__VA_ARGS__ ) )
+#define MCU_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GMcuException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_MCU),	__VA_ARGS__ ) )
 
 
 

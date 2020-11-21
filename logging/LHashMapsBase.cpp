@@ -1,6 +1,6 @@
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 28 August-2020 19:58:18  ***/
+/*** Generated at: Sun 08 November-2020 11:58:52  ***/
 /*** Generated from config/logging-kts.xml **/
 /*** Validated by config/logging.xsd **/
 /*** Copyright Per Thomas Hille pth@embc.no ***/
@@ -27,12 +27,7 @@ LHashMapsBase::~LHashMapsBase(){ }
 
 
 
-/** @brief initialization of the hash table for the logginglevel     *     
- *  This hash table holds the current logging level for a given sub-system. 
- *  This table is checked every time the logging system is asked to log a message, 
- *  and if logging is enabled for the given level  and sub-system then the message is created. 
- *   Where the message is actuall written (if at all) is decided by the target configuration, 
- *  wether or not logging is enabled to to file, to console, etc..  */   
+/** @brief initialization of the hash table for the logginglevel     *     *  This hash table holds the current logging level for a given sub-system. This table is checked every time the logging system is asked to log a message, and if logging is enabled for the given level     *  and sub-system then the message is created. Where the message is actuall written (if at all) is decided by the target configuration, wether or not logging is enabled to to file, to console, etc..     *  @param l  All system are initialized with logging for this level or higher.  */
    void
    LHashMapsBase::InitHashLogLevel(const eMSGLEVEL /*l*/)
    {
@@ -52,6 +47,7 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_CONFIGURATION, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_SENSOR, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_CLI, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_MCU, (eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );
    }
@@ -74,6 +70,7 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_CONFIGURATION, 	"Configuration");
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_SENSOR, 	"Sensor");
 	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_CLI, 	"Cli");
+	fSystem2StringHash.emplace(eMSGSYSTEM::SYS_MCU, 	"Mcu");
    }
    void
    LHashMapsBase::InitHashLevel2String()
@@ -236,6 +233,15 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fSubCmdHash.emplace("--cli-info",		std::make_pair(eMSGSYSTEM::SYS_CLI,  eMSGLEVEL::LOG_INFO));
 	fSubCmdHash.emplace("--cli-debug",		std::make_pair(eMSGSYSTEM::SYS_CLI,  eMSGLEVEL::LOG_DEBUG));
 	fSubCmdHash.emplace("--cli-all",		std::make_pair(eMSGSYSTEM::SYS_CLI,  eMSGLEVEL::LOG_ALL));
+
+
+	fSubCmdHash.emplace("--mcu-off",		std::make_pair(eMSGSYSTEM::SYS_MCU,  eMSGLEVEL::LOG_OFF));
+	fSubCmdHash.emplace("--mcu-fatal",		std::make_pair(eMSGSYSTEM::SYS_MCU,  eMSGLEVEL::LOG_FATAL));
+	fSubCmdHash.emplace("--mcu-error",		std::make_pair(eMSGSYSTEM::SYS_MCU,  eMSGLEVEL::LOG_ERROR));
+	fSubCmdHash.emplace("--mcu-warning",		std::make_pair(eMSGSYSTEM::SYS_MCU,  eMSGLEVEL::LOG_WARNING));
+	fSubCmdHash.emplace("--mcu-info",		std::make_pair(eMSGSYSTEM::SYS_MCU,  eMSGLEVEL::LOG_INFO));
+	fSubCmdHash.emplace("--mcu-debug",		std::make_pair(eMSGSYSTEM::SYS_MCU,  eMSGLEVEL::LOG_DEBUG));
+	fSubCmdHash.emplace("--mcu-all",		std::make_pair(eMSGSYSTEM::SYS_MCU,  eMSGLEVEL::LOG_ALL));
 
 
    }

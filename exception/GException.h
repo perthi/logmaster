@@ -48,8 +48,10 @@ using std::string;
 class  GException
 {
 public:
-    API inline GException() {};
-    API inline GException(const string file, const string function, const int line, const eMSGSYSTEM system, const char * fmt, ...);
+  API inline GException(){};
+  template<typename... Args>
+  API inline GException(const string file, const string function, const int line, const eMSGSYSTEM system,
+                        const char *fmt, const Args ... args);
 
     virtual API inline  ~GException()
     {
@@ -79,23 +81,21 @@ protected:
  {                                                                     \
  public:                                                               \
      inline classname() { };                                                \
-     API inline classname(const string file, const string function, const int line, const eMSGSYSTEM system, const char * fmt, ... ); \
+     template<typename... Args>	\
+     API inline classname(const string file, const string function, const int line, const eMSGSYSTEM system, const char * fmt, const Args ... args ); \
    virtual inline ~classname() { };                                      \
 };
 
 
 
-#define EXCEPTION_CLASS_CPP(classname) inline classname::classname (const string file, \
+#define EXCEPTION_CLASS_CPP(classname) template<typename... Args> inline classname::classname (const string file, \
 					      const string function,	\
 					      const int line, \
 					      const eMSGSYSTEM system,  \
-					      const char * fmt, ...) \
+                                              const char * fmt, const Args ... args)\
     { \
-    static va_list ap; \
-    va_start(ap, fmt); \
     string msg = string(" (") + ExtractClassname(typeid(*this).name()) + string(")") + (fIsEnabledStackTrace == true ?  + "\n" + string("******* Stack Trace START *******") + "\n" + GStackTrace::str() + "\n" + string("******* Stack Trace END *******") + "\n" : "");  \
-    fgMessageMap = LLogging::Instance()->LogVarArgs(eMSGLEVEL::LOG_ERROR, system, file.c_str(), line, function.c_str(), fmt, ap, true, msg ); \
-    va_end(ap); \
+    fgMessageMap = LLogging::Instance()->LogVarArgs(eMSGLEVEL::LOG_ERROR, system, file.c_str(), line, function.c_str(), true, msg, fmt, args...); \
 }
 
 

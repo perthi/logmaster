@@ -13,7 +13,6 @@ bin
 build
 version-info/x86/version-info
 *.gdb
-*.in
 *.cmd
 *.ko
 *.vs

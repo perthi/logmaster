@@ -170,6 +170,7 @@ TEST_F(TestSubscriber, cmdLine  )
 {  
 	g->InitLogArgs();
 	LPublisher::Instance()->DisableColor();
+	LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 
 	try
 	{

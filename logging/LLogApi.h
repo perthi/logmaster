@@ -7,8 +7,12 @@
 ***************************************************/
 
 
+
+
+
+
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 28 August-2020 19:58:18  ***/
+/*** Generated at: Sun 08 November-2020 11:58:52  ***/
 /*** Generated from config/logging-kts.xml **/
 /*** Validated by config/logging.xsd **/
 /*** Copyright Per Thomas Hille pth@embc.no ***/
@@ -19,13 +23,20 @@
 #endif
 #include  <logging/LEnums.h>
 #include  <logging/LLogging.h>
+#include  <logging/LOperators.h>
 #include  <utilities/GDefinitions.h>
-#include  "LOperators.h"
+
+
+
 #ifdef ERROR
 #undef ERROR
 #endif
 
+
+
 #ifdef __cplusplus
+
+
 
 #include <utilities/GLocation.h>
 
@@ -490,6 +501,35 @@
 #define CLI_DEBUG(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define CLI_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define CLI_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CLI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define MCU_FATAL(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_MCU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define MCU_ERROR(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_MCU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define MCU_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_WARNING_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_MCU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define MCU_INFO(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_INFO_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_MCU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define MCU_DEBUG(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_MCU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
 

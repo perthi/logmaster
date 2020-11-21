@@ -123,7 +123,17 @@
             <DEFAULT>WARNING</DEFAULT>
             <CAN_MODIFY>true</CAN_MODIFY>
             <FORCE_OUTPUT>false</FORCE_OUTPUT>
-         </SYSTEM>
+            </SYSTEM>
+            <SYSTEM> 
+            <NAME>MCU</NAME>
+            <SHORT_NAME>MCU</SHORT_NAME>
+            <TAG>--mcu</TAG>
+            <TAG_SHORT>--mcu</TAG_SHORT>
+            <DEFAULT>WARNING</DEFAULT>
+            <CAN_MODIFY>true</CAN_MODIFY>
+            <FORCE_OUTPUT>false</FORCE_OUTPUT>
+            </SYSTEM>
+            
 
     </SUBSYSTEMS>
 

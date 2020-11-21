@@ -18,6 +18,7 @@
 
 #include "LMessageFactory.h"
 #include <utilities/GLocation.h>
+#include "utilities/GFormatting.h"
 
 #include <string>
 #include <stack>
@@ -51,12 +52,24 @@ namespace LOGMASTER
     public:
         ~LLogging();
         static LLogging			API *	Instance();
-        logmap	API 	Log(const eMSGLEVEL level, const eMSGSYSTEM sys,  const GLocation l , const char * fmt, ...);
-        logmap	API 	Log(const eMSGLEVEL level, const eMSGSYSTEM sys,  const char *file, const int line, const char *funct, const char * fmt, ...);
 
+        template<typename... Args>
+        logmap API Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char *fmt,
+                       const Args ... args);
+        template<typename... Args>
+        logmap API Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const char *file, const int line, const char *funct,
+                       const char *fmt, const Args ... args);
+        template<typename... Args>
+        logmap API LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char *filename,
+                              const int linenumber, const char *functionname, const char *fmt, const Args ... args);
+        template<typename... Args>
         logmap	API 	LogVarArgs(	const eMSGLEVEL level, const eMSGSYSTEM system, const char * filename, const int linenumber,
-                                                                        const char * functionname, const char *fmt, va_list ap, 
-                                                                        const bool force_generate = false, string addendum = "");
+                                                                        const char * functionname,
+                                                                        const bool force_generate, string addendum, const char *fmt, const Args ... args) ;
+        logmap	API 	LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char * filename, const int linenumber,
+                                                                        const char * functionname,
+                                                                        const bool force_generate, string addendum, const char *fmt, va_list ap) ;
+
 
 
         
@@ -87,8 +100,11 @@ namespace LOGMASTER
 
     private:
         LLogging();
-        LLogging( LLogging & );
-		
+        LLogging(LLogging &);
+
+        void QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg,
+                        const eMSGTARGET target);
+
         void	Init();
         void    ClearMessages();
         void    TurnOffAllTargets();
@@ -103,8 +119,108 @@ namespace LOGMASTER
         std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > > fMessages = nullptr;
 
         static std::stack<   std::shared_ptr<  std::map<eMSGTARGET,  LMessageFactory   >  >     >  fConfigurationStack;
-    
     };
 
+    /**@{*/
+    /** Main logging function that takes a log message, and adds to it the message
+     *  type and the location in the source file where the message was generated.
+     *   @param  level  the loglevel/severity of the message
+     *   @param  sys    the subsystem the message applies to
+     *   @param  l    The location of the log  message in the code (filenam, function name line number etc.. )
+     *   @param  fmt The formatting for the message (same as the  C style printf formatting)
+     *   @param  args  Variable argument list
+     *   @return  The generated log messages */
+    template<typename... Args>
+    logmap LLogging::Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char *fmt,
+                         const Args ... args)
+    {
+        return Log(level, sys, l.fFileName.c_str(), l.fLineNo, l.fFunctName.c_str(), fmt, args...);
+    }
+    template<typename... Args>
+    logmap LLogging::Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const char *file, const int line,
+                         const char *funct, const char *fmt, const Args ... args)
+    {
+        return LogVarArgs(level, sys, file, line, funct, fmt, args...);
+    }
+
+    /**@}*/
+
+
+    /**@{*/
+    /** Helper function for the main logging (Log) function. The severity("level")
+     *  and subsystem  ("system") of the message is checked against the configuration
+     *  of the  logging system as given by the assoccicated hash maps. If logging
+     *  is enabled for this level and system., then the message is generated and published.
+     *   @param  level the loglevel/severity of the message
+     *   @param  system the subsystem the message applies to
+     *   @param  filename The name of the source code file where the message i created
+     *   @param  lineno  The line number where the message is generated
+     *   @param  function The name of the function that generated the message
+     *   @param  force_generate Force the generation of message, regardless of the
+     *			 loglevel and subystem. This feature is used by the exception handling system
+     *			 where one wants the message to be genrated regardless (because you want to
+     *			catch the exception with an exception handler). This falf is also usefull for debugging
+     *   @param  addendum  optional string to attach to the messag
+     *   @param  fmt The formatting for the message (same as the  C style printf formatting)
+     *   @param  args  The list of arguments */
+    template<typename... Args>
+    logmap
+    LLogging::LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char * filename, const int lineno,
+                                                                        const char * function,
+                                                                        const bool force_generate, string addendum, const char *fmt, const Args ... args)
+    {
+       if( fConfig == nullptr )
+       {
+           CERR << "CONFIG IS A ZERO POINTER" << ENDL;
+           exit(-1);
+       }
+       GFormatting::checkFormat(filename, lineno, function, fmt, args...); // Throws exception if format is bad
+
+
+        static std::shared_ptr<LMessage>           tmp_msg  =   std::make_shared<LMessage>();
+
+        ClearMessages();
+
+        for ( auto it = fConfig->begin(); it != fConfig->end(); ++it )
+        {
+
+            if ( it->second.IsEnabled() == true )
+            {
+                bool cl = CheckLevel( system, level, it->first );
+
+                if ( (cl == true) || force_generate == true )
+                {
+                    tmp_msg = it->second.GenerateMessage( system, level, filename, lineno, function, addendum, fmt, args...);
+
+                    if ( cl == true )
+                    {
+
+
+                        QueMessage( tmp_msg,   it->second.GetConfig(),  it->first   );
+
+                     //   LPublisher::Instance()->PublishMessage( tmp_msg, it->second.GetConfig(), it->first );
+
+                        //LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), target );
+                        auto it_msg = fMessages->find(it->first);
+                        if ( it_msg != fMessages->end() )
+                        {
+                            it_msg->second = tmp_msg;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        return fMessages;
+
+    }
+    template<typename... Args>
+    logmap LLogging::LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char *filename,
+                                const int linenumber, const char *functionname, const char *fmt, const Args ... args)
+    {
+        return LogVarArgs(level, system, filename, linenumber, functionname, bool(false), (const char*)"", fmt, args...);
+    }
+    /**@}*/
 }
 

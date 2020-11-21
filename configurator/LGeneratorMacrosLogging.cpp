@@ -166,13 +166,16 @@ LGeneratorMacrosLogging::GenerateCommon( const string autoclause   ) const
     vector<string> lines;
     lines.push_back("// -*- mode: c++ -*-\n\n");
     lines.push_back( LCopyright().Copyrightt() + "\n\n\n\n");
-     lines.push_back( autoclause );
+    lines.push_back( autoclause );
     lines.push_back("#ifdef _WIN32");
     lines.push_back("#define __func__ __FUNCTION__");
     lines.push_back("#endif");
     lines.push_back("#include  <logging/LEnums.h>");
     lines.push_back("#include  <logging/LLogging.h>");
+    lines.push_back("#include  <logging/LOperators.h>");
     lines.push_back("#include  <utilities/GDefinitions.h>");
+    
+
     lines.push_back("\n\n");
     lines.push_back("#ifdef ERROR");
     lines.push_back("#undef ERROR");
