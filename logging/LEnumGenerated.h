@@ -1,6 +1,6 @@
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sun 08 November-2020 11:58:52  ***/
+/*** Generated at: Sat 12 December-2020 21:33:12  ***/
 /*** Generated from config/logging-kts.xml **/
 /*** Validated by config/logging.xsd **/
 /*** Copyright Per Thomas Hille pth@embc.no ***/
@@ -30,9 +30,9 @@ enum  eMSGSYSTEM
 	SYS_SHOTCAL 		=  0x0400,    //  00000100 00000000
 	SYS_SHOTEXCEC 		=  0x0800,    //  00001000 00000000
 	SYS_CONFIGURATION 	=  0x1000,    //  00010000 00000000
-	SYS_SENSOR 		=  0x2000,    //  00100000 00000000
-	SYS_CLI 		=  0x4000,    //  01000000 00000000
-	SYS_MCU 		=  0x8000,    //  10000000 00000000
+	SYS_CLI 		=  0x2000,    //  00100000 00000000
+	SYS_MCU 		=  0x4000,    //  01000000 00000000
+	SYS_DRIVER 		=  0x8000,    //  10000000 00000000
 	SYS_ALL			=  0xffff     //  11111111 11111111    Any sub system (message will apply if logging is turned on for any of the sub system)
 };
 

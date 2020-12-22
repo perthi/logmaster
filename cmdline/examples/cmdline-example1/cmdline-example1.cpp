@@ -53,6 +53,10 @@ using std::string;
 #include <vector>
 using std::vector;
 
+#include <deque>
+using std::deque;
+
+
 bool 
 callback_test1(const string cmd, const string, const vector<string> subs, const vector<string> pars)
 {
@@ -93,7 +97,7 @@ int main(const int argc, const char** argv )
     string test4 = "";
     vector<string> test5 = vector<string>();
 
-    vector< std::shared_ptr<GArgument>  > arguments;
+    deque< std::shared_ptr<GArgument>  > arguments;
 
 
     std::shared_ptr<GArgument> a1  =  std::make_shared <GCommandLineArgument< int> >("-myint1", 

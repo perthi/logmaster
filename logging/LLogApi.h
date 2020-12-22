@@ -12,7 +12,7 @@
 
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sun 08 November-2020 11:58:52  ***/
+/*** Generated at: Sat 12 December-2020 21:33:12  ***/
 /*** Generated from config/logging-kts.xml **/
 /*** Validated by config/logging.xsd **/
 /*** Copyright Per Thomas Hille pth@embc.no ***/
@@ -449,35 +449,6 @@
 
 
 
-#define SENSOR_FATAL(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SENSOR, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define SENSOR_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SENSOR, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define SENSOR_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SENSOR | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-
-
-#define SENSOR_ERROR(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SENSOR, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define SENSOR_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SENSOR, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define SENSOR_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SENSOR | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-
-
-#define SENSOR_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SENSOR, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define SENSOR_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SENSOR, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define SENSOR_WARNING_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SENSOR | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-
-
-#define SENSOR_INFO(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SENSOR, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define SENSOR_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SENSOR, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define SENSOR_INFO_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SENSOR | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-
-
-#define SENSOR_DEBUG(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SENSOR, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define SENSOR_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SENSOR, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define SENSOR_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SENSOR | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-
-
-
-
-
-
 #define CLI_FATAL(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define CLI_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define CLI_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CLI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
@@ -530,6 +501,35 @@
 #define MCU_DEBUG(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define MCU_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define MCU_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_MCU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define DRIVER_FATAL(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_DRIVER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define DRIVER_ERROR(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_DRIVER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define DRIVER_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_WARNING_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_DRIVER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define DRIVER_INFO(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_INFO_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_DRIVER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define DRIVER_DEBUG(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_DRIVER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
 

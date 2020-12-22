@@ -12,6 +12,7 @@
 
 #include "TestLogging.h"
 
+#include <memory>
 
 
 class TestSubscriber : public TestLogging
@@ -21,11 +22,11 @@ protected:
     virtual void SetUp();
     virtual void TearDown();
 
-    static void  Subscriber1( const  LMessage &msg );
-    static void  Subscriber2( const  LMessage &msg );
+    static void  Subscriber1(  std::shared_ptr<LMessage>  msg );
+    static void  Subscriber2(  std::shared_ptr<LMessage>  msg );
    
-	static LMessage fMsg1;
-	static LMessage fMsg2;
+	static  std::shared_ptr<LMessage> fMsg1;
+	static  std::shared_ptr<LMessage> fMsg2;
 
 };
 

@@ -53,7 +53,7 @@ string fSource;
 namespace LOGMASTER
 {
 
-    std::stack<   std::shared_ptr<  std::map<eMSGTARGET,  LMessageFactory   >  >     >  LLogging::fConfigurationStack;
+   // std::stack<   std::shared_ptr<  std::map<eMSGTARGET,  LMessageFactory   >  >     >  LLogging::fConfigurationStack;
 
     LLogging *
     LLogging::Instance()
@@ -61,6 +61,19 @@ namespace LOGMASTER
         static LLogging* instance = new LLogging();
         return instance;
     }
+
+
+    LLogging::LLogging() : fSubscribers(),
+                           fGuiSubscribers(),
+                           fConfig(nullptr),
+                           fDefaultConfig(nullptr),
+                           fMessages(nullptr), fConfigurationStack()
+    {
+        Init();
+    }
+
+
+
     logmap LLogging::LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char *filename,
                                       const int lineno, const char *funct, const bool force_generate, string addendum,
                                       const char *fmt, va_list ap)
@@ -107,14 +120,7 @@ namespace LOGMASTER
 
     }
 
-    LLogging::LLogging() : fSubscribers(),
-                           fGuiSubscribers(),
-                           fConfig(nullptr),
-                           fDefaultConfig(nullptr),
-                           fMessages(nullptr)
-    {
-        Init();
-    }
+   
 
     void LLogging::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
     {
@@ -208,112 +214,6 @@ namespace LOGMASTER
     }
 
 
-    /**@{*/
-    /** Main logging function that takes a log message, and adds to it the message
-     *  type and the location in the source file where the message was generated.
-     *   @param  level  the loglevel/severity of the message
-     *   @param  sys    the subsystem the message applies to
-     *   @param  l The location of the log  message in the code (filenam, function name line number etc.. )
-     *   @param  fmt The formatting for the message (same as the  C style printf formatting)
-     *   @param  ...  Variable argument list
-     *   @return  The generated log messages */
-    /*
-    logmap
-    LLogging::Log( const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt... )
-    {
-        std::lock_guard<std::mutex> guard(log_mutex);
-        va_list ap;
-        va_start( ap, fmt );
-        auto map = LogVarArgs( level, sys, l.fFileName.c_str(), l.fLineNo, l.fFunctName.c_str(), fmt, ap );
-        va_end( ap );
-        return map;
-    }
-
-    logmap
-    LLogging::Log( const eMSGLEVEL level, const eMSGSYSTEM sys, const char *file, const int line, const char *funct, const char* fmt... )
-    {
-        std::lock_guard<std::mutex> guard( log_mutex );
-        va_list ap;
-        va_start( ap, fmt );
-        auto map = LogVarArgs( level, sys, file, line, funct, fmt, ap );
-        va_end( ap );
-        return map;
-    }
-*/
-
-    /**@}*/
-
-
-    /** Helper function for the main logging (Log) function. The severity("level")
-     *  and subsystem  ("system") of the message is checked against the configuration
-     *  of the  logging system as given by the assoccicated hash maps. If logging
-     *  is enabled for this level and system., then the message is generated and published.
-     *   @param  level the loglevel/severity of the message
-     *   @param  system the subsystem the message applies to
-     *   @param  filename The name of the source code file where the message i created
-     *   @param  lineno  The line number where the message is generated
-     *   @param  function The name of the function that generated the message
-     *   @param  fmt The formatting for the message (same as the  C style printf formatting)
-     *   @param  ap  The list of arguments
-     *   @param  force_generate Force the generation of message, regardless of the
-     *			 loglevel and subystem. This feature is used by the exception handling system
-     *			 where one wants the message to be genrated regardless (because you want to
-     *			catch the exception with an exception handler). This falf is also usefull for debugging
-     *   @param  addendum  optional string to attach to the messag */
-    /*
-    logmap
-    LLogging::LogVarArgs( const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int lineno,
-                          const char* function, const char* fmt, va_list ap)
-    {
-       if( fConfig == nullptr )
-       {
-           CERR << "CONFIG IS A ZERO POINTER" << ENDL;
-           exit(-1);
-       }
-        checkFormat(fmt, ap);
-
-
-        static std::shared_ptr<LMessage>           tmp_msg  =   std::make_shared<LMessage>();
-
-        ClearMessages();
-        va_list ap_l;
-        va_copy(ap_l, ap);
-
-        for ( auto it = fConfig->begin(); it != fConfig->end(); ++it )
-        {
-
-            if ( it->second.IsEnabled() == true )
-            {
-                bool cl = CheckLevel( system, level, it->first );
-
-                if ( (cl == true) || force_generate == true )
-                {
-                    tmp_msg = it->second.GenerateMessage( system, level, filename, lineno, function, fmt, ap_l, addendum );
-
-                    if ( cl == true )
-                    {
-                      
-
-                     LPublisher::Instance()->QueMessage( tmp_msg,   it->second.GetConfig(),  it->first   );
-                     
-                     //   LPublisher::Instance()->PublishMessage( tmp_msg, it->second.GetConfig(), it->first );
-                     
-                        //LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), target );
-                        auto it_msg = fMessages->find(it->first);
-                        if ( it_msg != fMessages->end() )
-                        {
-                            it_msg->second = tmp_msg;
-                        }
-
-                    }
-                }
-            }
-        }
-
-        va_end(ap_l);
-        return fMessages;
-    }
-*/
 
 
     /** Checks the loglevel of a message issued by the user against the current loglevel configured for the logging system*
@@ -378,7 +278,7 @@ namespace LOGMASTER
         std::lock_guard<std::mutex> guard( log_mutex );
 #endif
         vector<eMSGTARGET> e_targets;
-        vector<string> tokens  = g_tokenizer()->Tokenize( target_s, vector<string>{" ", "\n","\t" } );
+        vector<string> tokens  =  GTokenizer().Tokenize( target_s, vector<string>{" ", "\n","\t" } );
 
         for ( size_t i = 0; i < tokens.size(); i++ )
         {
@@ -515,7 +415,7 @@ namespace LOGMASTER
     }
 
 
-    vector< void( *)(const  LMessage & ) >  &
+    vector< void( *) (  std::shared_ptr<LMessage>  ) >  
     LLogging::GetSubscribers()
     {
         return fSubscribers;
@@ -572,7 +472,7 @@ namespace LOGMASTER
 	/** Register a subscriber callbakc function that will be called by the logging system *
 	* NB! You must not call the logging itse�f system within a subscriber function s*/
     void
-    LLogging::RegisterSubscriber( void( *funct )(const  LMessage  &  ) )
+    LLogging::RegisterSubscriber( void( *funct )(  std::shared_ptr<LMessage>   ) )
     {
       //  std::lock_guard<std::mutex> guard( log_mutex );
         fSubscribers.push_back( funct );
@@ -586,7 +486,7 @@ namespace LOGMASTER
         fSubscribers.clear();
     }
 
-    vector<void( *)(const  LMessage &  )> &
+    vector<void( *)( std::shared_ptr<LMessage>  )> 
     LLogging::GetGuiSubscribers()
     {
         return fGuiSubscribers;
@@ -594,7 +494,7 @@ namespace LOGMASTER
     }
 
     void
-    LLogging::RegisterGuiSubscriber( void( *funct )(const  LMessage &  ) )
+    LLogging::RegisterGuiSubscriber( void( *funct )( std::shared_ptr <LMessage>  ) )
     {
       //  std::lock_guard<std::mutex> guard( log_mutex );
         fGuiSubscribers.push_back(funct);
@@ -624,14 +524,7 @@ namespace LOGMASTER
         else
         {   
             fConfigurationStack.push( fConfig );
-            
-            
-            
             fConfig =  std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
-            
-
-
-            
             return 0;
         }
         return 0;

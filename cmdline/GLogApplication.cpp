@@ -86,7 +86,7 @@ catch (...) \
 *  @param[in] additional_arguments  additional argument to add to the default list of arguments
 *  @param[in] do_init Weter or not to scan commandline arguments immediately
 *  @exception GException  If the argumenst passed to the LogApplication via the constructor is invalid*/
-GLogApplication::GLogApplication( const int argc, const char** argv, vector  < std::shared_ptr<GArgument>   > *additional_arguments, bool do_init) 
+GLogApplication::GLogApplication( const int argc, const char** argv, deque < std::shared_ptr<GArgument>   > *additional_arguments, bool do_init) 
     
 {
     InitLogArgs();
@@ -104,7 +104,7 @@ GLogApplication::GLogApplication( const int argc, const char** argv, vector  < s
 
 
 
-GLogApplication::GLogApplication(const GFileName_t & tf, vector<  std::shared_ptr<GArgument>  > *additional_arguments) : 
+GLogApplication::GLogApplication(const GFileName_t & tf,  arg_deque *additional_arguments) : 
                                                         fArgs( ), fHelp( nullptr ), fLog( nullptr ), fTarget( nullptr ), fFormat(nullptr), 
                                                         fColor( nullptr ) 
 {
@@ -145,25 +145,22 @@ GLogApplication::GLogApplication(const GFileName_t & tf, vector<  std::shared_pt
 
     if ( ( fname_local_content != "" && fname_full_content != "") && ( fname_local_content != fname_full_content ) )
     {
-        INVALID_ARGUMENT_EXCEPTION("conflicting config files. You have two config files in both the current driectory and the exe directory with the same name, but different content ( \"%s\"  vs  \"%s\" ), please delete one of them",   fname_local.c_str(), fname_full.c_str()  );
+        INVALID_ARGUMENT_EXCEPTION("conflicting config files. You have two config files in both the current driectory \
+        and the exe directory with the same name, but different content ( \"%s\"  vs  \"%s\" ), please delete one of them",   
+        fname_local.c_str(), fname_full.c_str()  );
     }
     else
     {
         if ( fname_local_content == "" && fname_full_content == "")
         {
-            INVALID_ARGUMENT_EXCEPTION("Unable to scan arguments from either  \"%s\"   or \"%s\": Either the file does not exist, or it is empty", fname_local.c_str(), fname_full.c_str());
+            INVALID_ARGUMENT_EXCEPTION("Unable to scan arguments from either  \"%s\"   or \"%s\": Either the file does not exist, or it is empty", 
+            fname_local.c_str(), fname_full.c_str());
         }
         else
         {
             
 #ifdef _WIN32
             string cmd = g_system()->GetCommandLineArguments();
-
-
-           // if (cmd != "")
-           // {
-            //    LLogging::Instance()->LogInternalMessage(GLocation(__FILE__, __LINE__, __FUNCTION__), GLocation(__FILE__, __LINE__, __FUNCTION__), "The system is beeing configured from the commandline: cmd =  " + cmd);
-          //  }
 #endif
 
             string f_content;
@@ -180,9 +177,6 @@ GLogApplication::GLogApplication(const GFileName_t & tf, vector<  std::shared_pt
                 f_name = fname_full;
             }
 
-            //  string msg = "The system is beeing configured from file: filename =  " + string(g_system()->GetExePath()) + string("\\") + f_name + ",\tfilecontent = \t" + f_content;
-            // LLogging::Instance()->LogInternalMessage(GLocation(__FILE__, __LINE__, __FUNCTION__), GLocation(__FILE__, __LINE__, __FUNCTION__), msg);
-            
             #ifdef _WIN32
             string temp = f_content + " " + cmd;
             #else
@@ -279,18 +273,21 @@ GLogApplication::ScanArguments(const string  cmdline )
 void
 GLogApplication::ScanArguments(const string cmdline, std::shared_ptr<GArgument>  arg)
 {
-    vector< std::shared_ptr<GArgument> > args;
+    arg_deque  args;
     args.push_back(arg);
     ScanArguments(cmdline, args);
 }
 
 
+#define MAX_ARGS 200
 void
-GLogApplication::ScanArguments(const string cmdline, vector<  std::shared_ptr<GArgument> > args)
+GLogApplication::ScanArguments(const string cmdline, deque <  std::shared_ptr<GArgument> > args)
 {
-    vector<string> tokens = g_tokenizer()->TokenizeCommandline(cmdline);
+    vector<string> tokens = GTokenizer().TokenizeCommandline(cmdline);
     const size_t argc = tokens.size() + 1;
-    const char *argv[200]; // CRAP PTH
+    const char *argv[MAX_ARGS];
+
+    G_ASSERT_EXCEPTION( tokens.size() <= MAX_ARGS, "maximum (%d) number of arguments exeeded, got %d arguments", MAX_ARGS,  tokens.size() );
 
     for ( size_t i = 0; i < tokens.size(); i++)
     {    
@@ -301,7 +298,7 @@ GLogApplication::ScanArguments(const string cmdline, vector<  std::shared_ptr<GA
  
  
 void 
-GLogApplication::ScanArguments(const int argc, const char ** argv, vector< std::shared_ptr<GArgument> > args)
+GLogApplication::ScanArguments(const int argc, const char ** argv, deque < std::shared_ptr<GArgument> > args)
 {
     g_cmdscan()->ScanArguments(argc, argv, &args);
 }        
@@ -331,17 +328,37 @@ void GLogApplication::AddArgument( std::shared_ptr<GArgument>  arg)
 
 
 void  
-GLogApplication::AddArguments( vector< std::shared_ptr<GArgument> >  args)
+GLogApplication::AddArguments(  arg_deque  args)
 {
-   // if (args != 0)
-   // {
-        for (uint16_t i = 0; i < args.size(); i++)
-        {
-            AddArgument( args.at(i) );
-        }
-
-   // }
+    for (uint16_t i = 0; i < args.size(); i++)
+    {
+        AddArgument( args.at(i) );
+    }
 }
+
+
+void 
+GLogApplication::AddArgumentFront( std::shared_ptr<GArgument> arg)
+{
+    if (HasCommand(arg->GetCommand()) == false)
+    {
+        fArgs.push_front(arg);
+    }
+    else
+    {
+        G_ERROR("argument %s allready exists", arg->GetCommand().c_str());
+    }
+}
+
+void	
+GLogApplication::AddArgumentsFront(deque< std::shared_ptr<GArgument> >  args )
+{
+    for (uint16_t i = 0; i < args.size(); i++)
+    {
+        AddArgument( args.at(i) );
+    }  
+}
+
 
 
 std::shared_ptr<GArgument> 
@@ -376,7 +393,7 @@ GLogApplication::RemoveArgument( const string cmd )
 }
 
 
-vector<  std::shared_ptr<GArgument>  >  
+deque< std::shared_ptr<GArgument> >  
 GLogApplication::GetArguments()
 {
     return fArgs;
@@ -391,7 +408,7 @@ GLogApplication::Help( const string cmd  ) const
 
 
 string 
-GLogApplication::Help( const vector< std::shared_ptr <GArgument> > args, const string cmd )
+GLogApplication::Help( const deque < std::shared_ptr <GArgument> > args, const string cmd )
 {
     std::stringstream buffer;
 
@@ -462,7 +479,7 @@ bool
 
 
  bool
- GLogApplication::HasCommand( vector< std::shared_ptr<GArgument> > args, const string cmd )
+ GLogApplication::HasCommand( deque < std::shared_ptr<GArgument> > args, const string cmd )
  {   
     for (uint16_t i = 0; i < args.size(); i++)
     {

@@ -92,6 +92,7 @@ TEST_F( TestLConversion, HexString2Format )
 
 
 
+
 TEST_F(TestLConversion,  String2Format )
 {
 	EXPECT_EQ( eMSGFORMAT::ALL_FIELDS_OFF,   LConversion::Instance()->String2Format( "00000000" ) );

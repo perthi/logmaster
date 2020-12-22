@@ -14,6 +14,7 @@
 #include  <utilities/GDataBaseIF.h>
 #include  "LLogEntrySQL.h"
 #include  <logging/LEnums.h>
+#include  "LMessage2Json.h"
 
 #include <utilities/GLocation.h>
 
@@ -91,7 +92,7 @@ namespace LOGMASTER
 			virtual ~LDatabase() {};
 			virtual bool API CreateTables()  override ;
 
-			void API AddLogEntry (  const   LMessage  &msg  );
+			void API AddLogEntry (  std::shared_ptr<LMessage>  msg  );
 			bool API DeleteEntries();
 			
 			
@@ -121,6 +122,7 @@ namespace LOGMASTER
 		
 			static string  fDBPath;
 			static  LDatabase *fgInstance;
+			LMessage2Json fMessage2Json;
 	};
 
 } // namespace LOGMASTER

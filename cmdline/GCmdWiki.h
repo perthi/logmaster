@@ -19,8 +19,8 @@
 #include <string>
 using std::string;
 
-#include <vector>
-using std::vector;
+#include <deque>
+using std::deque;
 
 #include <memory>
 
@@ -29,7 +29,7 @@ class  GCmdWiki
     public:
         GCmdWiki();
         virtual ~GCmdWiki();
-        static void GenerateWiki( vector< std::shared_ptr< GArgument> > args,  const string  filename  );
+        static void GenerateWiki( deque < std::shared_ptr< GArgument> > args,  const string  filename  );
 };
 
 #endif

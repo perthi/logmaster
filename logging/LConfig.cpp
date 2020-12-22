@@ -97,7 +97,7 @@ namespace LOGMASTER
     void
     LConfig::SetLogFormat(const string &format, bool enable)
     {
-        vector<string> tokens = g_tokenizer()->Tokenize( format, vector <string>{" ","\n", "\t"} );
+        vector<string> tokens =  GTokenizer().Tokenize( format, vector <string>{" ","\n", "\t"} );
 
         for ( size_t i = 0; i < tokens.size(); i++ )
         {
@@ -145,7 +145,7 @@ namespace LOGMASTER
     void
     LConfig::SetLogLevel( const string  &s_lvl )
     {
-		vector<string> tokens = g_tokenizer()->Tokenize(s_lvl, { " ", "\n", "\t" });
+		vector<string> tokens = GTokenizer().Tokenize(s_lvl, { " ", "\n", "\t" });
 
         for ( size_t i = 0; i < tokens.size(); i++ )
         {

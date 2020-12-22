@@ -58,7 +58,11 @@ namespace LOGMASTER
         return   instance;
 
     }
-
+ 
+ //static void API InitHashLogTags(        map<string, std::tuple<eMSGSYSTEM, eMSGLEVEL>>  *SubCmdHash );
+ //       static void API InitHashSystem2String(  map<eMSGSYSTEM, string>  *System2StringHash );
+ //       static void API InitHashLevel2String(   map<eMSGLEVEL, string> *fLevel2StringHash  );
+        
     void
     LHashMaps::InitHash()
     {
@@ -69,8 +73,8 @@ namespace LOGMASTER
             InitHashMsgFormat();
             InitHashLogTargets();
             InitHashLogTags();
-            InitHashSystem2String();
-            InitHashLevel2String();
+            InitHashSystem2String( &fSystem2StringHash );
+            InitHashLevel2String( &fLevel2StringHash);
             is_initialized = true;
         }
 
@@ -287,6 +291,14 @@ namespace LOGMASTER
     LHashMaps::IsSubCmdHash( const string &subcmd )
     {
         InitHash();
+        
+        // CERR << "size = " << fSubCmdHash.size() << endl;
+        
+        // for( auto h: fSubCmdHash )
+        // {
+        //     CERR << "hash = " <<  h.first << endl;
+        // }
+
         return fSubCmdHash.count( subcmd ) > 0 ? true : false;
     }
 
@@ -423,10 +435,9 @@ namespace LOGMASTER
         fSubCmdHash.emplace("--user-info",			std::make_pair(eMSGSYSTEM::SYS_USER,		eMSGLEVEL::LOG_INFO));
         fSubCmdHash.emplace("--user-debug",			std::make_pair(eMSGSYSTEM::SYS_USER,		eMSGLEVEL::LOG_DEBUG));
         fSubCmdHash.emplace("--user-all",			std::make_pair(eMSGSYSTEM::SYS_USER,		eMSGLEVEL::LOG_ALL));
+  
+        LHashMapsBase::InitHashLogTags( &fSubCmdHash );
 
-        LHashMapsBase::InitHashLogTags();
-
-         
 	    for (auto it = fSubCmdHash.begin(); it != fSubCmdHash.end(); ++it)
         {
             eMSGLEVEL l = std::get<1>(it->second);

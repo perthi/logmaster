@@ -7,11 +7,10 @@
 
 
 
-
-
 #include <memory>
 
 #include <json/json.hpp>
+#include <utilities/GTime.h>
 
 namespace LOGMASTER
 {
@@ -23,11 +22,12 @@ namespace LOGMASTER
 		public:
 			LMessage2Json();
 			virtual ~LMessage2Json();
-			static void Message2Json(  const  LMessage  &msg, nlohmann::json  &j  );
-			static void SetJsonUser( const nlohmann::json j );
+			void Message2Json(   std::shared_ptr<LMessage>  msg, nlohmann::json  &j  );
+			void SetJsonUser( const nlohmann::json j );
 
 		private:
-			static nlohmann::json fJsonUser; //!< Optional user addition to the json log message
+			nlohmann::json fJsonUser; //!< Optional user addition to the json log message
+			GTime fTime;
 
 };
 

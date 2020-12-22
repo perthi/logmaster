@@ -50,15 +50,12 @@ GCmdWiki::~GCmdWiki()
 
 
 void    
-GCmdWiki::GenerateWiki(  vector< std::shared_ptr<GArgument> > args,  const string  filename  )
+GCmdWiki::GenerateWiki(  deque< std::shared_ptr<GArgument> > args,  const string  filename  )
 {
     G_INFO("arguments size = %d", args.size() );
-    
     G_ASSERT_EXCEPTION(filename != "", "Filename cannot be empty" );
     std::stringstream buffer;
-//    auto args = GetArguments();
     G_INFO("arguments size = %d", args.size() );
-	
     
     g_file()->Recreate(filename);
     g_file()->Append( filename, "||Command || Usage || Helptex || \n");
@@ -68,18 +65,12 @@ GCmdWiki::GenerateWiki(  vector< std::shared_ptr<GArgument> > args,  const strin
         string cmd    =  args.at(i)->GetCommand();
         string usage  =  args.at(i)->GetUsage();
         string help   =  args.at(i)->GetHelpText(  );
-      //  string subs =  g_utilities()->Vec2String( args->at(i)->GetSubCommands() );
-
-        //subs = "blahhhhh";
 
         buffer  << "\tcmd = "<< cmd;
         buffer  << "\tusage = "<< usage; 
         buffer  << "\thelptext = " << help;
-       // buffer  << "\tsubcommands = " << subs;
-      //buffer  << "\tsubcommands = " << subs;
-
         buffer << endl;
-         g_file()->Append( filename,  "|%s | %s | %s |  \n",  cmd.c_str(), usage.c_str(), help.c_str()  );
+        g_file()->Append( filename,  "|%s | %s | %s |  \n",  cmd.c_str(), usage.c_str(), help.c_str()  );
     }
 
     FORCE_DEBUG("helptex =\n%s", buffer.str().c_str() ) ;

@@ -25,6 +25,7 @@ namespace LOGMASTER
 		virtual ~LEnum2String();
 		static inline string API ToString(const eMSGLEVEL level);
 		static inline string API ToString(const eMSGSYSTEM sys);
+		static inline string API ToString(const eMSGTARGET target);
 		static inline string API ToString(const eMSGSYSTEM sys, const eMSGLEVEL level);
 	};
 
@@ -116,6 +117,52 @@ namespace LOGMASTER
 		}
 	}
 
+	string
+	LEnum2String::ToString(const eMSGTARGET target)
+	{
+		std::stringstream buffer;	
+
+		switch (target)
+		{
+		case  eMSGTARGET::TARGET_ALL:
+			buffer <<  "eMSGTARGET::TARGET_ALL";
+			break;
+		case  eMSGTARGET::TARGET_DATABASE:
+			buffer <<   "eMSGTARGET::TARGET_DATABASE";
+			break;
+		case  eMSGTARGET::TARGET_EXCEPTION:
+			buffer <<   "eMSGTARGET::TARGET_EXCEPTION";
+			break;
+		case  eMSGTARGET::TARGET_FILE:
+			buffer <<  "eMSGTARGET::TARGET_FILE";
+			break;
+		case  eMSGTARGET::TARGET_GUI:
+			buffer <<  "eMSGTARGET::TARGET_GUI";
+			break;
+		case  eMSGTARGET::TARGET_OFF:
+			buffer <<  "eMSGTARGET::TARGET_OFF";
+			break;
+		case  eMSGTARGET::TARGET_STDOUT:
+			buffer <<  "eMSGTARGET::TARGET_STDOUT";
+			break;
+		case  eMSGTARGET::TARGET_TESTING:
+		 	buffer <<  "eMSGTARGET::TARGET_TESTING";
+			 break;
+		case  eMSGTARGET::TARGET_SUBSCRIBERS:
+		 	buffer <<  "eMSGTARGET::TARGET_SUBSCRIBERS";
+			 break;	 
+		default:
+			buffer << "UNKNOWN TARGET";	
+			break;
+		}
+
+		buffer <<  "(" << (int)target << ")";
+
+		return buffer.str();
+
+	}
+
+	
 } // namespace LOGMASTER
 
 #endif

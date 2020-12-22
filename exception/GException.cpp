@@ -46,7 +46,7 @@ using std::string;
 using namespace LOGMASTER;
 
 std::shared_ptr< std::map<eMSGTARGET, std::shared_ptr <LMessage> >  > GException::fgMessageMap = nullptr;
-std::shared_ptr<LMessage>   GException::fgMessage = nullptr;
+//std::shared_ptr<LMessage>   GException::fgMessage = nullptr;
 
 
 bool  GException::fIsEnabledStackTrace = false;
@@ -56,18 +56,16 @@ bool  GException::fIsEnabledException = true;
 
 std::shared_ptr<LMessage>
 GException::GetMessageL()
-{
-    auto test = std::make_shared<LMessage>(); // CRAP PTH
-    //LMessage *test = new LMessage();
-    return test;
-    // return fgMessage;
+{  
+    // what();
+    return fgMessage;
 }
 
 
 bool
 GException::IsEnabledException()
 {
-	return fIsEnabledException;
+    return fIsEnabledException;
 }
 
 
@@ -118,7 +116,7 @@ GException::DisableStackTrace()
 }
 /**@}*/
 
-
+//std::shared_ptr<LOGMASTER::LMessage> API  GetMessageL();
 
 const char *
 GException::what() const
@@ -131,7 +129,7 @@ GException::what() const
 
         if ( it != fgMessageMap->end() )
         {
-            fgMessage = it->second;
+            fgMessage =   std::make_shared< LOGMASTER::LMessage  >(*it->second);
             snprintf( tmp, MAX_MSG_TOTAL_SIZE, "%s", fgMessage->fMsg );
         }
     }

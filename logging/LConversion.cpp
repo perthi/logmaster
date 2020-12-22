@@ -52,7 +52,7 @@ namespace LOGMASTER
     LConversion::String2Format( const string & in )
     {
 
-        vector<string> tokens = g_tokenizer()->Tokenize( in, vector<string>{" ", "\t" } );
+        vector<string> tokens =  GTokenizer().Tokenize( in, vector<string>{" ", "\t" } );
         eMSGFORMAT e_tmp = eMSGFORMAT::ALL_FIELDS_OFF;
 
         if ( tokens.size() != 1 )
@@ -92,7 +92,7 @@ namespace LOGMASTER
     {
         eMSGTARGET e_tmp = eMSGTARGET::TARGET_OFF;
 		
-        vector<string> tokens = g_tokenizer()->Tokenize(in, {" ", "\t", "\n"} );
+        vector<string> tokens =  GTokenizer().Tokenize(in, {" ", "\t", "\n"} );
 
         for(size_t i=0; i < tokens.size(); i ++ )
         {
@@ -338,7 +338,7 @@ namespace LOGMASTER
          std::map  <eMSGTARGET, string> tmp;
         #endif
 
-        vector<string> tokens = g_tokenizer()->Tokenize( in, vector<string>{" ", "\t", "\n"} );
+        vector<string> tokens =  GTokenizer().Tokenize( in, vector<string>{" ", "\t", "\n"} );
 
         bool has_target_hash = false;
 

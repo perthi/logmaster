@@ -52,6 +52,7 @@ public:
   string API GetUsage() const { return fUsage; };
   string API GetHelpText() const { return fHelpText; };
   string API GetHelpText(const bool subcommands) const;
+  void   API SetHelpText(const string help) { fHelpText = help; };
 
   virtual API string str(const bool subcommands = false) const;
   bool Verify();

@@ -28,6 +28,7 @@
 
 
 
+
 #include <configurator/LConfigurator.h>
 #include <configurator/LXmlParser.h>
 #include <xml/GXmlValidator.h>
@@ -59,6 +60,10 @@ using std::endl;
 
 #include <memory>
 
+#include <deque>
+using std::deque;
+
+
 
 
 void generator(  vector< std::shared_ptr< LGenerator >  > generators,
@@ -82,7 +87,7 @@ int main(int  argc, const char **  argv)
                                                     "Sets the xsd file to use for validation of the XML file",
                                                      &xsd , fgkMANDATORY );
    
-   	vector< std::shared_ptr<GArgument>  > arguments;
+   	deque< std::shared_ptr<GArgument>  > arguments;
 
 	arguments.push_back(xml_arg );
 	arguments.push_back(xsd_arg );

@@ -7,14 +7,15 @@
  *  @brief The main logging class providing interfaces for generation of logmessages. This class is tyically called via the interfaces defined in LLogApi.h/CPP */
 
 #define G_STANDALONE
+#define THREAD_SAFE
 
 
-/****************************************************************************
-*** Copyright(C) 2015  Per Thomas Hille, pth@embc.no                     ***
-*** This file is part of logmaster. logmaster is free software : you can ***
-*** redistribute it and / or modify it under the terms of the Lesser GNU ***
-*** General Public License (LGPL) V3 or later. See .cpp file for details ***
-*****************************************************************************/
+ /****************************************************************************
+ *** Copyright(C) 2015  Per Thomas Hille, pth@embc.no                     ***
+ *** This file is part of logmaster. logmaster is free software : you can ***
+ *** redistribute it and / or modify it under the terms of the Lesser GNU ***
+ *** General Public License (LGPL) V3 or later. See .cpp file for details ***
+ *****************************************************************************/
 
 #include "LMessageFactory.h"
 #include <utilities/GLocation.h>
@@ -25,6 +26,7 @@
 #include <vector>
 #include <map>
 #include <memory>
+#include <mutex>
 
 using std::string;
 using std::vector;
@@ -40,7 +42,7 @@ class TestCheckLevel_check_level_Test;
 namespace LOGMASTER
 {
     class LMessage;
-    using logmap =    std::shared_ptr< std::map<eMSGTARGET,  std::shared_ptr<LMessage>  >	>;	
+    using logmap = std::shared_ptr< std::map<eMSGTARGET, std::shared_ptr<LMessage>  >	>;
 
     class LLogging
     {
@@ -51,74 +53,75 @@ namespace LOGMASTER
 
     public:
         ~LLogging();
-        static LLogging			API *	Instance();
+        static LLogging			API* Instance();
 
         template<typename... Args>
-        logmap API Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char *fmt,
-                       const Args ... args);
+        logmap API Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt,
+            const Args ... args);
         template<typename... Args>
-        logmap API Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const char *file, const int line, const char *funct,
-                       const char *fmt, const Args ... args);
+        logmap API Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const char* file, const int line, const char* funct,
+            const char* fmt, const Args ... args);
         template<typename... Args>
-        logmap API LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char *filename,
-                              const int linenumber, const char *functionname, const char *fmt, const Args ... args);
+        logmap API LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename,
+            const int linenumber, const char* functionname, const char* fmt, const Args ... args);
         template<typename... Args>
-        logmap	API 	LogVarArgs(	const eMSGLEVEL level, const eMSGSYSTEM system, const char * filename, const int linenumber,
-                                                                        const char * functionname,
-                                                                        const bool force_generate, string addendum, const char *fmt, const Args ... args) ;
-        logmap	API 	LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char * filename, const int linenumber,
-                                                                        const char * functionname,
-                                                                        const bool force_generate, string addendum, const char *fmt, va_list ap) ;
+        logmap	API 	LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
+            const char* functionname,
+            const bool force_generate, string addendum, const char* fmt, const Args ... args);
+        logmap	API 	LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
+            const char* functionname,
+            const bool force_generate, string addendum, const char* fmt, va_list ap);
 
 
 
-        
-        void					API		SetLogFormat(   const  string  &format, bool enable = true);
-        void					API		SetLogLevel( const  string  &level);
-        void					API		SetLogTarget(   const  string  &target, bool eneable = true);
-        void					API		SetLogFileName( const string &filename );
+
+        void					API		SetLogFormat(const  string& format, bool enable = true);
+        void					API		SetLogLevel(const  string& level);
+        void					API		SetLogTarget(const  string& target, bool eneable = true);
+        void					API		SetLogFileName(const string& filename);
 
         eMSGTARGET				API		GetLogTarget()  const;
-        eMSGFORMAT				API		GetLogFormat(   const eMSGTARGET target) const;
-        std::shared_ptr<LConfig> API 	GetConfig(  const eMSGTARGET target);
+        eMSGFORMAT				API		GetLogFormat(const eMSGTARGET target) const;
+        std::shared_ptr<LConfig> API 	GetConfig(const eMSGTARGET target);
         eMSGLEVEL				API		GetLogLevel(const eMSGSYSTEM system, const eMSGTARGET  target) const;
-        string					API		GetLogFileName(const eMSGTARGET  target = eMSGTARGET::TARGET_FILE ) const;
-		std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > >  GetLastMessages()  { return  fMessages; };
+        string					API		GetLogFileName(const eMSGTARGET  target = eMSGTARGET::TARGET_FILE) const;
+        std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > >  GetLastMessages() { return  fMessages; };
 
-        vector< void( *)(const LMessage &  ) >  API & GetSubscribers();
-        void					API		RegisterSubscriber(  void(  *funct)(const LMessage &   ));
+        vector< void(*)( std::shared_ptr<LMessage> ) >  API GetSubscribers();
+        void					API		RegisterSubscriber(void(*funct)(  std::shared_ptr<LMessage> ));
         void					API		ClearSubscribers();
 
-        vector< void( *)(const LMessage & ) >  API & GetGuiSubscribers();
-        void					API		RegisterGuiSubscriber(  void(  *funct)(const  LMessage  &  ));
+        vector< void(*)( std::shared_ptr<LMessage> ) >  API GetGuiSubscribers();
+        void					API		RegisterGuiSubscriber(void(*funct)( std::shared_ptr<LMessage> ));
         void					API		ClearGuiSubscribers();
         void					API		Reset();
-        int					API		Push( );
-        int					API		Pop( );
+        int					API		Push();
+        int					API		Pop();
         bool 					API CheckLevel(const eMSGSYSTEM system, const eMSGLEVEL level, const eMSGTARGET target);
         void 					API Flush();
 
     private:
         LLogging();
-        LLogging(LLogging &);
+        LLogging(LLogging&);
 
         void QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg,
-                        const eMSGTARGET target);
+            const eMSGTARGET target);
 
         void	Init();
         void    ClearMessages();
         void    TurnOffAllTargets();
         void    TurnOnfAllTargets();
-        void	operator=(LLogging &);
-        
-        vector< void(*)(const LMessage &   ) > fSubscribers;
-        vector< void(*)(const  LMessage &  ) > fGuiSubscribers;
+        void	operator=(LLogging&);
 
-        std::shared_ptr<std::map<eMSGTARGET,  LMessageFactory  > >  fConfig = nullptr;
+        vector< void(*)( std::shared_ptr<LMessage> ) > fSubscribers;
+        vector< void(*)( std::shared_ptr<LMessage> ) > fGuiSubscribers;
+
+        std::shared_ptr<std::map<eMSGTARGET, LMessageFactory  > >  fConfig = nullptr;
         std::shared_ptr<std::map<eMSGTARGET, LMessageFactory > >   fDefaultConfig = nullptr;
         std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > > fMessages = nullptr;
 
-        static std::stack<   std::shared_ptr<  std::map<eMSGTARGET,  LMessageFactory   >  >     >  fConfigurationStack;
+        std::stack<   std::shared_ptr<  std::map<eMSGTARGET, LMessageFactory   >  >     >  fConfigurationStack;
+        std::recursive_mutex fLoggingMutex{};
     };
 
     /**@{*/
@@ -131,14 +134,14 @@ namespace LOGMASTER
      *   @param  args  Variable argument list
      *   @return  The generated log messages */
     template<typename... Args>
-    logmap LLogging::Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char *fmt,
-                         const Args ... args)
+    logmap LLogging::Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt,
+        const Args ... args)
     {
         return Log(level, sys, l.fFileName.c_str(), l.fLineNo, l.fFunctName.c_str(), fmt, args...);
     }
     template<typename... Args>
-    logmap LLogging::Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const char *file, const int line,
-                         const char *funct, const char *fmt, const Args ... args)
+    logmap LLogging::Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const char* file, const int line,
+        const char* funct, const char* fmt, const Args ... args)
     {
         return LogVarArgs(level, sys, file, line, funct, fmt, args...);
     }
@@ -165,44 +168,54 @@ namespace LOGMASTER
      *   @param  args  The list of arguments */
     template<typename... Args>
     logmap
-    LLogging::LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char * filename, const int lineno,
-                                                                        const char * function,
-                                                                        const bool force_generate, string addendum, const char *fmt, const Args ... args)
+        LLogging::LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int lineno,
+            const char* function,
+            const bool force_generate, string addendum, const char* fmt, const Args ... args)
     {
-       if( fConfig == nullptr )
-       {
-           CERR << "CONFIG IS A ZERO POINTER" << ENDL;
-           exit(-1);
-       }
-       GFormatting::checkFormat(filename, lineno, function, fmt, args...); // Throws exception if format is bad
+#ifdef THREAD_SAFE
+        const std::lock_guard<std::recursive_mutex> lock(fLoggingMutex);
+#endif
+        if (fConfig == nullptr)
+        {
+            CERR << "CONFIG IS A ZERO POINTER" << ENDL;
+            exit(-1);
+        }
+        auto formatCheck = GFormatting::checkFormat(filename, lineno, function, fmt, args...);
+        if (formatCheck.first == false)
+        {
+            addendum += " (" + formatCheck.second + ")";
+        }
 
-
-        static std::shared_ptr<LMessage>           tmp_msg  =   std::make_shared<LMessage>();
+        static std::shared_ptr<LMessage>           tmp_msg = std::make_shared<LMessage>();
 
         ClearMessages();
 
-        for ( auto it = fConfig->begin(); it != fConfig->end(); ++it )
+        for (auto it = fConfig->begin(); it != fConfig->end(); ++it)
         {
 
-            if ( it->second.IsEnabled() == true )
+            if (it->second.IsEnabled() == true)
             {
-                bool cl = CheckLevel( system, level, it->first );
+                bool cl = CheckLevel(system, level, it->first);
 
-                if ( (cl == true) || force_generate == true )
+                if ((cl == true) || force_generate == true)
                 {
-                    tmp_msg = it->second.GenerateMessage( system, level, filename, lineno, function, addendum, fmt, args...);
+                    if (formatCheck.first == true)
+                    {
+                        tmp_msg = it->second.GenerateMessage(system, level, filename, lineno, function, addendum, fmt,
+                            args...);
+                    }
+                    else
+                    {
+                        tmp_msg = it->second.GenerateMessage(system, level, filename, lineno, function, addendum, fmt);
+                    }
 
-                    if ( cl == true )
+                    if (cl == true)
                     {
 
+                        QueMessage(tmp_msg, it->second.GetConfig(), it->first);
 
-                        QueMessage( tmp_msg,   it->second.GetConfig(),  it->first   );
-
-                     //   LPublisher::Instance()->PublishMessage( tmp_msg, it->second.GetConfig(), it->first );
-
-                        //LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), target );
                         auto it_msg = fMessages->find(it->first);
-                        if ( it_msg != fMessages->end() )
+                        if (it_msg != fMessages->end())
                         {
                             it_msg->second = tmp_msg;
                         }
@@ -216,8 +229,8 @@ namespace LOGMASTER
 
     }
     template<typename... Args>
-    logmap LLogging::LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char *filename,
-                                const int linenumber, const char *functionname, const char *fmt, const Args ... args)
+    logmap LLogging::LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename,
+        const int linenumber, const char* functionname, const char* fmt, const Args ... args)
     {
         return LogVarArgs(level, system, filename, linenumber, functionname, bool(false), (const char*)"", fmt, args...);
     }

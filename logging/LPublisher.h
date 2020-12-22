@@ -15,8 +15,9 @@
 #include "LLogApi.h"
 #include "LMessage.h"
 
-
+#include "LMessage2Json.h"
 #include  <utilities/GDefinitions.h>
+#include  <utilities/GTime.h>
 #include  <memory>
 #include  <queue>  
 #include  <mutex>
@@ -57,19 +58,15 @@ namespace LOGMASTER
         void  API   EnableJson();
         void  API   DisableJson() ;
         bool  API  * GetEnableJson() ; 
-        void  API   QueMessage( const std::shared_ptr<LMessage>  msg, const std::shared_ptr<LConfig>,    const eMSGTARGET target  );    
+        void  API   QueMessage( std::shared_ptr<LMessage>  msg, std::shared_ptr<LConfig>,    const eMSGTARGET target  );    
         
         void  API   StartDispatcher(); 
         void  API   StopDispatcher(); 
         void  API   PauseDispatcher();
         void  API   ResumeDispatcher();
-
         void  API   RunDispatcher();
-
         void API    SetMode( const ePUBLISH_MODE mode );
-
         void API    Flush();
-
         static void AtExit();     
 
     private:
@@ -81,20 +78,21 @@ namespace LOGMASTER
 
         struct Message
          {
-            LMessage fMessage = LMessage();
+         //   LMessage fMessage = LMessage();
+            std::shared_ptr<LMessage> fMessage = nullptr;
             std::shared_ptr<LConfig>  fConfig = nullptr;
             eMSGTARGET     fTarget  = eMSGTARGET::TARGET_OFF;
 
          };    
 
          void     DispatchMessages();       
-         void     PublishMessage(          const  LMessage &m, const std::shared_ptr<LConfig>,  const eMSGTARGET target  );
-         void     PublishToSubscribers(    const LMessage   &msg);
-         void     PublishToGuiSubscribers( const LMessage &msg);
-         void     PublishToConsole(        const LMessage  &msg);
-         void     PublishToFile(     const char * filename,  const LMessage &  m );
-         void     PublishToFileJson( const char * filename,  const  LMessage & m   );
-         void     PublishToDatabase(const LMessage  &msg); 
+         void     PublishMessage(     std::shared_ptr<LMessage> m, const std::shared_ptr<LConfig>,  const eMSGTARGET target  );
+         void     PublishToSubscribers(   std::shared_ptr<LMessage> msg);
+         void     PublishToGuiSubscribers( std::shared_ptr<LMessage>  msg);
+         void     PublishToConsole(     std::shared_ptr<LMessage> msg);
+         void     PublishToFile(     const char * filename,     std::shared_ptr<LMessage> msg );
+         void     PublishToFileJson( const char * filename,  std::shared_ptr<LMessage> msg    );
+         void     PublishToDatabase( std::shared_ptr<LMessage>  msg); 
 
          std::queue<  std::shared_ptr<Message> >  fMessageQeue      =  std::queue<  std::shared_ptr<Message> >();        
         std::queue<  std::shared_ptr<Message> >   fMessageQeueTmp   =  std::queue<  std::shared_ptr<Message> >();        
@@ -116,7 +114,9 @@ namespace LOGMASTER
          std::atomic_bool  fIsRunning =   false; 
 
          ePUBLISH_MODE fPublisherMode =  ePUBLISH_MODE::ASYNCHRONOUS;
-
+        
+         GTime fTime;
+         LMessage2Json fMessage2Json;
          ///std::shared_ptr<LDatabase>
 
     };

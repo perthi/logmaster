@@ -1,9 +1,6 @@
 // -*- mode: c++ -*-
 
 
-/// #ifndef EXCEPTIONXXX_H
-/// #define EXCEPTIONXXX_H
-
 #pragma once
 
 /*****************************************************************************
@@ -58,7 +55,9 @@ public:
 
     }
 
-    static std::shared_ptr<LOGMASTER::LMessage> API  GetMessageL();
+   // static std::shared_ptr<LOGMASTER::LMessage> API  GetMessageL();
+    std::shared_ptr<LOGMASTER::LMessage> API  GetMessageL();
+
     static bool API IsEnabledException();
     static void API EnableException();
     static void API DisableException();
@@ -70,7 +69,9 @@ public:
 
 protected:
     static std::shared_ptr< std::map<eMSGTARGET, std::shared_ptr<LMessage > > > fgMessageMap;
-    static std::shared_ptr<LOGMASTER::LMessage>  fgMessage;
+    
+    mutable std::shared_ptr<LOGMASTER::LMessage>  fgMessage = nullptr;
+    
     static bool fIsEnabledStackTrace; /* !< If set to true then a stack trace is included in the log message for the exception. This can be usefull for debugging. Default is FALSE*/
     static bool fIsEnabledException;  /* !< If set to FALSE then a fatal error message is written instead of throwing an exception */
 
@@ -96,6 +97,7 @@ protected:
     { \
     string msg = string(" (") + ExtractClassname(typeid(*this).name()) + string(")") + (fIsEnabledStackTrace == true ?  + "\n" + string("******* Stack Trace START *******") + "\n" + GStackTrace::str() + "\n" + string("******* Stack Trace END *******") + "\n" : "");  \
     fgMessageMap = LLogging::Instance()->LogVarArgs(eMSGLEVEL::LOG_ERROR, system, file.c_str(), line, function.c_str(), true, msg, fmt, args...); \
+    what(); \
 }
 
 

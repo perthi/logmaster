@@ -49,6 +49,7 @@
 
 #include <memory>
 #include <json/json.hpp>
+#include "../json/LJson.hpp"
 
 
 
@@ -68,10 +69,10 @@ namespace LOGMASTER
         return instance;
     }
 
-    LPublisher::LPublisher()
+    LPublisher::LPublisher() : fTime(), fMessage2Json()
     {
          std::atexit(  AtExit );
-        StartDispatcher(); 
+         StartDispatcher(); 
     }
 
     LPublisher::~LPublisher()
@@ -186,21 +187,28 @@ namespace LOGMASTER
     }
 
     void
-    LPublisher::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
+    LPublisher::QueMessage(std::shared_ptr<LMessage> msg, std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
     {
+        static std::mutex mtx;
+        std::lock_guard<std::mutex> guard3( mtx ); 
+
         if (fPublisherMode == ePUBLISH_MODE::SYNCHRONOUS)
         {
-            PublishMessage(*msg, cfg, target);
+            PublishMessage( msg, cfg, target);
         }
         else
         {
-            std::shared_ptr<Message> m = std::make_shared<Message>();
-            m->fMessage = *msg;
-            m->fConfig = cfg;
-            m->fTarget = target;
+              std::shared_ptr<Message> m = std::make_shared<Message>();
+              m->fMessage = msg;
+              m->fConfig = cfg;
+              m->fTarget = target;
+            
             {
                 std::lock_guard<std::mutex> guard(fMessageQeueMutext);
+
                 fMessageQeue.push(m);
+
+               // fMessageQeue.push(m);
             }
         }
     }
@@ -211,7 +219,7 @@ namespace LOGMASTER
      *   @param[in] cfg The current configuration of the logging system. 
      *   This configuration determins what is written and where it is written to (file, console or subscribers )
      *   @param[in] target The target for where to publish this message (file, stdout, subscribers etc..) */
- void LPublisher::PublishMessage(const LMessage &msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
+ void LPublisher::PublishMessage(  std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
  {
      if (cfg == nullptr)
      {
@@ -219,13 +227,13 @@ namespace LOGMASTER
          return;
      }
 
-     if (msg.fFormat == eMSGFORMAT::ALL_FIELDS_OFF)
+     if (msg->fFormat == eMSGFORMAT::ALL_FIELDS_OFF)
      {
          PublishToConsole(msg);
          return;
      }
 
-     bool force_debug = ((int)msg.fLevel & (int)eMSGLEVEL::LOG_FORCE_DEBUG) != 0 ? true : false;
+     bool force_debug = ((int)msg->fLevel & (int)eMSGLEVEL::LOG_FORCE_DEBUG) != 0 ? true : false;
 
      if (force_debug == true)
      {
@@ -270,7 +278,7 @@ namespace LOGMASTER
 
 
     void
-    LPublisher::PublishToDatabase(const LMessage  &msg  )
+    LPublisher::PublishToDatabase( std::shared_ptr<LMessage>  msg  )
     {
         static  std::mutex m;
 		std::lock_guard<std::mutex> guard( m );
@@ -283,7 +291,7 @@ namespace LOGMASTER
      *   subsystem and level as arguments
      *   @param msg  The message to publish */
     void
-    LPublisher::PublishToSubscribers(const LMessage  &msg )
+    LPublisher::PublishToSubscribers( std::shared_ptr<LMessage>  msg )
     {
         static  std::mutex m;
 		std::lock_guard<std::mutex> guard( m );
@@ -291,28 +299,28 @@ namespace LOGMASTER
 
         for (uint16_t i = 0; i < subscribers.size(); i++)
         {
-            void(*Subscriberfunct)(const  LMessage &  ) = subscribers.at(i);
+            void(*Subscriberfunct)(  std::shared_ptr<LMessage>  ) = subscribers.at(i);
             Subscriberfunct( msg );
         }
     }
 
 
     void
-    LPublisher::PublishToGuiSubscribers(const LMessage &msg )
+    LPublisher::PublishToGuiSubscribers( std::shared_ptr<LMessage>  msg  )
     {
         static  std::mutex m;
 		std::lock_guard<std::mutex> guard( m );
         auto subscribers = LLogging::Instance()->GetGuiSubscribers();
         for (uint16_t i = 0; i < subscribers.size(); i++)
         {
-            void(*Subscriberfunct)(const LMessage  &) = subscribers.at(i);
+            void(*Subscriberfunct)( std::shared_ptr<LMessage> ) = subscribers.at(i);
             Subscriberfunct(msg);
         }
     }
 
 
 	void
-    LPublisher::PublishToConsole(const  LMessage  &msg)
+    LPublisher::PublishToConsole(  std::shared_ptr<LMessage> msg )
 	{
         static  std::mutex m;
 		std::lock_guard<std::mutex> guard( m );    
@@ -322,18 +330,18 @@ namespace LOGMASTER
 
             if (fgEnableColor == true)
             {
-                SetConsoleTextAttribute(hConsole, msg.fWColor);
+                SetConsoleTextAttribute(hConsole, msg->fWColor);
             }
-            cout << string(msg.fMsg);
+            cout << string(msg->fMsg);
 #else                   
             if( fgEnableColor == true  )
             {
               //  cerr << "\033" << "[1;" << msg.fAColor << "m" << msg.fMsg << "\033" << "[0m";
-              cout << "\033" << "[1;" << msg.fAColor << "m" << msg.fMsg << "\033" << "[0m";
+              cout << "\033" << "[1;" << msg->fAColor << "m" << msg->fMsg << "\033" << "[0m";
             }
             else
             {
-                cout << msg.fMsg;
+                cout << msg->fMsg;
             }
 
 #endif  
@@ -344,7 +352,7 @@ namespace LOGMASTER
         }
 
       void
-    LPublisher::PublishToFile(const char * filename, const  LMessage &msg)
+    LPublisher::PublishToFile(const char * filename,  std::shared_ptr<LMessage> msg  )
     {
         static  std::mutex m;
 		std::lock_guard<std::mutex> guard( m );
@@ -358,14 +366,14 @@ namespace LOGMASTER
         
         if (logFile)
         {
-            fputs( msg.fMsg, logFile);
+            fputs( msg->fMsg, logFile);
             fclose(logFile);
             logFile = 0;
         }
         else
         {
-            cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << filename << endl;
-            CERR << "This message could not be logged:\t" << msg.fMsg << ENDL;
+            cerr << __FILE__ << ":" << __LINE__ <<  fTime.TimeStamp() << ": Error opening Logfile: " << filename << endl;
+            CERR << "This message could not be logged:\t" << msg->fMsg << ENDL;
         }
 
         if( fgEnableJson == true )
@@ -377,7 +385,7 @@ namespace LOGMASTER
 
 
     void     
-    LPublisher::PublishToFileJson( const char *   filename_base, const  LMessage  & msg )
+    LPublisher::PublishToFileJson( const char *   filename_base,  std::shared_ptr<LMessage> msg   )
     {
         static  std::mutex m;
 		std::lock_guard<std::mutex> guard( m );
@@ -391,20 +399,20 @@ namespace LOGMASTER
         logFile = fopen(  fname_tmp_c, "a");
 #endif
         nlohmann::json j;
-        LMessage2Json::Message2Json( msg, j );
-        std::stringstream buffer;
-        buffer << j  << endl;
+        fMessage2Json.Message2Json( msg, j );
+
+        std::string jsonStr = JsonToString(j);
 
         if (logFile)
         {
-            fputs(  buffer.str().c_str(), logFile);
+            fputs(  jsonStr.c_str(), logFile);
             fclose(logFile);
             logFile = 0;
         }
         else
         {
-            cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << fname_tmp_c  << ENDL;
-            CERR << "This message could not be logged:\t" << j << ENDL;
+            cerr << __FILE__ << ":" << __LINE__ <<  fTime.TimeStamp() << ": Error opening Logfile: " << fname_tmp_c  << ENDL;
+            CERR << "This message could not be logged:\t" << jsonStr << ENDL;
         }
     }
 

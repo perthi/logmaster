@@ -34,6 +34,7 @@ namespace LOGMASTER
 {
     LMessage::LMessage( const LMessage & o)
     {
+    
        strcpy( this->fMsgType,  o.fMsgType  );
        strcpy( this->fTimeStamp,  o.fTimeStamp  );
        strcpy( this->fPath,  o.fPath  );
@@ -50,6 +51,7 @@ namespace LOGMASTER
        this->fTarget = o.fTarget;
        this->fFormat = o.fFormat;
        this->fEpochTime  = o.fEpochTime;
+    
     }
 
 
@@ -72,6 +74,7 @@ namespace LOGMASTER
        this->fTarget = o.fTarget;
        this->fFormat = o.fFormat;
        this->fEpochTime  = o.fEpochTime;  
+       
 
        return *this; 
 

@@ -52,33 +52,12 @@ using std::string;
 
 namespace LOGMASTER
 {
-    //std::mutex G_gen_mutex;
 
-    LMessageGenerator::LMessageGenerator() 
+    LMessageGenerator::LMessageGenerator() : fTime(), fTokenizer()
     {
-       // fgMsgLast =  std::make_shared<LMessage>();
-      //  fgMsg =  std::make_shared<LMessage>();
+
     }
 
-
-   LMessageGenerator::~LMessageGenerator()
-   {
-      // fgMsg.reset();
-      // fgMsgLast.reset();
-   }
-
- 
-   LMessageGenerator::LMessageGenerator( const LMessageGenerator&  /*rhs*/ )
-   {
-       //    if(fgMsgLast != nullptr   &&  rhs.fgMsgLast != nullptr )
-       //    {
-       //     *fgMsgLast  =  *rhs.fgMsgLast;
-       //    }
-       //     if(fgMsg != nullptr &&  rhs.fgMsg != nullptr )
-       //     {
-       //         *fgMsg  =  *rhs.fgMsg;
-       //     }
-   }
 
 
     LMessageGenerator *

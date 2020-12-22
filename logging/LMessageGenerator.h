@@ -55,11 +55,8 @@ class LMessageGenerator
     friend  TestLogging_to_string_Test;
 
 public:
-    static  LMessageGenerator API * Instance(); // CRAP PTH
+    static  LMessageGenerator API * Instance();
     LMessageGenerator();
-    ~LMessageGenerator();
-    LMessageGenerator( const LMessageGenerator&  rhs );
-  //  std::shared_ptr<LMessage>   API   GetLastMsg();
 
     template<typename... Args>
     std::shared_ptr<LMessage> API GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const eMSGSYSTEM s,
@@ -79,7 +76,10 @@ public:
 
 
 private:
-    LMessageGenerator operator = (LMessageGenerator &rhs );
+    GTime fTime;
+    GTokenizer fTokenizer;
+   
+
 };
 namespace
 {
@@ -107,7 +107,7 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const
     std::shared_ptr<LMessage> msg = std::make_shared<LMessage>();
 
     msg->ClearContent();
-    msg->fEpochTime = g_time()->GetEpochTime();
+    msg->fEpochTime = fTime.GetEpochTime();
 
     if(format == eMSGFORMAT::ALL_FIELDS_OFF)
     {
@@ -124,7 +124,7 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const
 
     if((has_filepath || has_filename) == true)
     {
-        g_tokenizer()->StripPath(lfilepath, ldir, lfilename);
+        fTokenizer.StripPath(lfilepath, ldir, lfilename);
     }
 
     msg->fLevel = l;
@@ -145,12 +145,12 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const
 
     if((int)eMSGFORMAT::TIME_STAMP & (int)format)
     {
-        SPRINTF(msg->fTimeStamp, MAX_MSG_TIME_STAMP_SIZE, "%s; ", g_time()->TimeStamp().c_str());
+        SPRINTF(msg->fTimeStamp, MAX_MSG_TIME_STAMP_SIZE, "%s; ", fTime.TimeStamp().c_str());
     }
 
     if((int)eMSGFORMAT::TIME_STAMP_SHORT & (int)format)
     {
-        SPRINTF(msg->fTimeStamp, MAX_MSG_TIME_STAMP_SIZE, "%s; ", g_time()->TimeStampShort().c_str());
+        SPRINTF(msg->fTimeStamp, MAX_MSG_TIME_STAMP_SIZE, "%s; ", fTime.TimeStampShort().c_str());
     }
 
     if(has_filepath)

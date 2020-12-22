@@ -26,6 +26,7 @@
 #include <typeinfo>
 
 #include <vector>
+#include <deque>
 #include <string>
 using std::vector;
 using std::string;
@@ -48,15 +49,15 @@ public:
     inline GCmdScan();
     inline virtual ~GCmdScan();
     inline bool   HasArgument(int argc, const char** argv, const string cmd ) const;
-	inline bool   HasArgument(int argc, const char** argv, vector<string> commands ) const;
+	inline bool   HasArgument(int argc, const char** argv, vector <string> commands ) const;
 	inline bool   HasArgument(const vector<string> tokens, const string com) const;
 	inline void   API SetIgnoreStrayArgument(const bool ignore = true);
     inline bool   API GetIgnoreStrayArgument() const;
 
     inline        vector < GArgumentParsed > ScanArguments(const  int  argc, const char **argv, std::shared_ptr<GArgument> arg) const;
-    inline        vector < GArgumentParsed > ScanArguments( const  int  argc, const char **argv,   vector<  std::shared_ptr<GArgument> >  *arg) const;
+    inline        vector < GArgumentParsed > ScanArguments( const  int  argc, const char **argv,   deque<  std::shared_ptr<GArgument> >  *arg) const;
     inline vector < GArgumentParsed >  SplitCommands(const  int argc, const char **argv, const bool skipfirst = true ) const;
-    inline void  SetExecName(  vector<  std::shared_ptr<GArgument>  >  *arg, const char *name) const;
+    inline void  SetExecName(  deque<  std::shared_ptr<GArgument>  >  *arg, const char *name) const;
     inline bool  Verify(  std::shared_ptr<GArgument>  a, GArgumentParsed v ) const;   
 
     template <typename  T>
@@ -84,9 +85,9 @@ private:
 	bool fDoIgnoreStrayArguments;
     inline bool  IsCommand(const string arg) const;
     inline bool  IsSubCommand(const string arg) const ;
-    inline bool  CheckMandatory( const vector<GArgumentParsed> v, const vector < std::shared_ptr<GArgument>  > *args ) const;
-    inline bool  CheckValid( const vector<GArgumentParsed> v, const vector  <  std::shared_ptr < GArgument>  > *args ) const;
-    inline void  CheckDuplicates(vector <  std::shared_ptr<GArgument>  > *args) const;
+    inline bool  CheckMandatory( const vector<GArgumentParsed> v, const deque < std::shared_ptr<GArgument>  > *args ) const;
+    inline bool  CheckValid( const vector<GArgumentParsed> v, const deque  <  std::shared_ptr < GArgument>  > *args ) const;
+    inline void  CheckDuplicates( deque <  std::shared_ptr<GArgument>  > *args) const;
 };
 
 
@@ -139,7 +140,7 @@ template<typename T>
 inline vector<GArgumentParsed> 
 GCmdScan::ScanArgument(const uint64_t argc, const char ** argv,  std::shared_ptr<GCommandLineArgument<T> > arg) const
 {
-    vector< std::shared_ptr<GArgument>  > v;
+    deque< std::shared_ptr<GArgument>  > v;
     v.push_back( arg );
     return ScanArguments(argc, argv, &v);
    
@@ -293,7 +294,7 @@ GCmdScan::SetParametersV< vector < string > >( std::shared_ptr<GArgument>  a, ve
 vector<GArgumentParsed>
 GCmdScan::ScanArguments(const int argc, const char ** argv,  std::shared_ptr<GArgument>  arg) const
 {
-    vector<  std::shared_ptr<GArgument>  > avec;
+    deque<  std::shared_ptr<GArgument>  > avec;
     avec.push_back(arg);
     return ScanArguments(argc, argv, &avec);
 }
@@ -301,7 +302,7 @@ GCmdScan::ScanArguments(const int argc, const char ** argv,  std::shared_ptr<GAr
 
 
 vector <GArgumentParsed>
-GCmdScan::ScanArguments(const int argc, const char **argv, vector<  std::shared_ptr<GArgument>  >  *args) const
+GCmdScan::ScanArguments(const int argc, const char **argv, deque<  std::shared_ptr<GArgument>  >  *args) const
 {
     
     CheckDuplicates(args);
@@ -539,8 +540,9 @@ GCmdScan::IsSubCommand(const string arg) const
 
 
 bool
-GCmdScan::CheckMandatory(const vector<GArgumentParsed> v, const vector <  std::shared_ptr<GArgument> > *args) const
+GCmdScan::CheckMandatory(const vector<GArgumentParsed> v, const deque <  std::shared_ptr<GArgument> > *args) const
 {
+    /** @todo check if  args is nullptr */
     vector<string> tokens;
 
     for (uint16_t i = 0; i < v.size(); i++)
@@ -611,8 +613,9 @@ GCmdScan::HasArgument(const vector<string> tokens, const string command) const
 
 
 bool
-GCmdScan::CheckValid(const vector<GArgumentParsed> v, const vector < std::shared_ptr<GArgument> > *args) const
+GCmdScan::CheckValid(const vector<GArgumentParsed> v, const deque < std::shared_ptr<GArgument> > *args) const
 {
+    /** @todo check if args is nullptr */
     bool iret = false;
     for (uint16_t i = 0; i < v.size(); i++)
     {
@@ -633,14 +636,12 @@ GCmdScan::CheckValid(const vector<GArgumentParsed> v, const vector < std::shared
         {
             string valid_args;
             
-            for (uint16_t k = 0; k < args->size(); k++)
+            for (size_t k = 0; k < args->size(); k++)
             {  
-                //// @todo check why it does not work to call just  valid_args << args.at(k) 
                 valid_args +=  "\t" + args->at(k)->str() + "\n";
             }
             
             string msg = "\nUnknown GArgument: " + v[i].GetCommand() + "\n";
-            //        msg += ", \n\t********** VALID ARGUMENTS BEGIN **********\n";
             msg += valid_args + "\n\t********** VALID ARGUMENTS END **********\n\n";
             msg += "\targument parsing resulted in an error because  \"" + v[i].GetCommand() + "\"  Is an invalid argument";
             
@@ -660,7 +661,7 @@ GCmdScan::CheckValid(const vector<GArgumentParsed> v, const vector < std::shared
 
 
 void
-GCmdScan::CheckDuplicates( vector<  std::shared_ptr<GArgument> > *args) const
+GCmdScan::CheckDuplicates( deque < std::shared_ptr<GArgument> > *args) const
 {
     for (uint16_t i = 0; i < args->size(); i++)
     {
@@ -681,7 +682,7 @@ GCmdScan::CheckDuplicates( vector<  std::shared_ptr<GArgument> > *args) const
 
 
 void
-GCmdScan::SetExecName( vector< std::shared_ptr<GArgument>  >  *arg, const char *name) const
+GCmdScan::SetExecName( deque < std::shared_ptr<GArgument>  >  *arg, const char *name) const
 {
     for (uint16_t i = 0; i < arg->size(); i++)
     {

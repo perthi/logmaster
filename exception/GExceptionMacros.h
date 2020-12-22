@@ -7,7 +7,7 @@
 
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sun 08 November-2020 11:58:52  ***/
+/*** Generated at: Sat 12 December-2020 21:33:12  ***/
 /*** Generated from config/logging-kts.xml **/
 /*** Validated by config/logging.xsd **/
 /*** Copyright Per Thomas Hille pth@embc.no ***/
@@ -31,12 +31,12 @@ EXCEPTION_CLASS_H	(GShotexcecException)
 EXCEPTION_CLASS_CPP	(GShotexcecException)
 EXCEPTION_CLASS_H	(GConfigurationException)
 EXCEPTION_CLASS_CPP	(GConfigurationException)
-EXCEPTION_CLASS_H	(GSensorException)
-EXCEPTION_CLASS_CPP	(GSensorException)
 EXCEPTION_CLASS_H	(GCliException)
 EXCEPTION_CLASS_CPP	(GCliException)
 EXCEPTION_CLASS_H	(GMcuException)
 EXCEPTION_CLASS_CPP	(GMcuException)
+EXCEPTION_CLASS_H	(GDriverException)
+EXCEPTION_CLASS_CPP	(GDriverException)
 
 
 
@@ -54,9 +54,9 @@ EXCEPTION_CLASS_CPP	(GMcuException)
 #define SE_EXCEPTION(...)			throw_exception( GShotexcecException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_SHOTEXCEC,	__VA_ARGS__ ) )
 #define CONFIGURATION_EXCEPTION(...)		throw_exception( GConfigurationException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_CONFIGURATION,	__VA_ARGS__ ) )
 #define CONFIG_EXCEPTION(...)			throw_exception( GConfigurationException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_CONFIGURATION,	__VA_ARGS__ ) )
-#define SENSOR_EXCEPTION(...)			throw_exception( GSensorException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_SENSOR,	__VA_ARGS__ ) )
 #define CLI_EXCEPTION(...)			throw_exception( GCliException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_CLI,	__VA_ARGS__ ) )
 #define MCU_EXCEPTION(...)			throw_exception( GMcuException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_MCU,	__VA_ARGS__ ) )
+#define DRIVER_EXCEPTION(...)			throw_exception( GDriverException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_DRIVER,	__VA_ARGS__ ) )
 
 
 #define FSM_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GFsmException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_FSM),	__VA_ARGS__ ) )
@@ -73,9 +73,9 @@ EXCEPTION_CLASS_CPP	(GMcuException)
 #define SE_ASSERT_EXCEPTION(expr,  ...)		 if(!(expr)) throw_exception( GShotexcecException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_SHOTEXCEC),	__VA_ARGS__ ) )
 #define CONFIGURATION_ASSERT_EXCEPTION(expr,  ...) if(!(expr)) throw_exception( GConfigurationException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_CONFIGURATION),	__VA_ARGS__ ) )
 #define CONFIG_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GConfigurationException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_CONFIGURATION),	__VA_ARGS__ ) )
-#define SENSOR_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GSensorException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_SENSOR),	__VA_ARGS__ ) )
 #define CLI_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GCliException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_CLI),	__VA_ARGS__ ) )
 #define MCU_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GMcuException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_MCU),	__VA_ARGS__ ) )
+#define DRIVER_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GDriverException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_DRIVER),	__VA_ARGS__ ) )
 
 
 

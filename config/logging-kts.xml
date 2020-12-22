@@ -106,15 +106,6 @@
             <CAN_MODIFY>true</CAN_MODIFY>
             <FORCE_OUTPUT>false</FORCE_OUTPUT>
          </SYSTEM>   
-         <SYSTEM> 
-            <NAME>SENSOR</NAME>
-            <SHORT_NAME>SENSOR</SHORT_NAME>
-            <TAG>--sensor</TAG>
-            <TAG_SHORT>--sensor</TAG_SHORT>
-            <DEFAULT>WARNING</DEFAULT>
-            <CAN_MODIFY>true</CAN_MODIFY>
-            <FORCE_OUTPUT>false</FORCE_OUTPUT>
-         </SYSTEM>
             <SYSTEM> 
             <NAME>CLI</NAME>
             <SHORT_NAME>CLI</SHORT_NAME>
@@ -124,7 +115,7 @@
             <CAN_MODIFY>true</CAN_MODIFY>
             <FORCE_OUTPUT>false</FORCE_OUTPUT>
             </SYSTEM>
-            <SYSTEM> 
+         <SYSTEM> 
             <NAME>MCU</NAME>
             <SHORT_NAME>MCU</SHORT_NAME>
             <TAG>--mcu</TAG>
@@ -132,8 +123,17 @@
             <DEFAULT>WARNING</DEFAULT>
             <CAN_MODIFY>true</CAN_MODIFY>
             <FORCE_OUTPUT>false</FORCE_OUTPUT>
-            </SYSTEM>
-            
+          </SYSTEM>
+            <SYSTEM> 
+            <NAME>DRIVER</NAME>
+            <SHORT_NAME>DRIVER</SHORT_NAME>
+            <TAG>--driver</TAG>
+            <TAG_SHORT>--driver</TAG_SHORT>
+            <DEFAULT>WARNING</DEFAULT>
+            <CAN_MODIFY>true</CAN_MODIFY>
+            <FORCE_OUTPUT>false</FORCE_OUTPUT>
+          </SYSTEM>
+          
 
     </SUBSYSTEMS>
 

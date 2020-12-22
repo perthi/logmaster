@@ -28,8 +28,10 @@
 #include <utilities/GDefinitions.h>
 #include <utilities/GFileName_t.h>
 #include <string>
+#include <deque>
 #include <vector>
 using std::string;
+using std::deque;
 using std::vector;
 
 template <typename T> class GCommandLineArgument;
@@ -44,6 +46,8 @@ template <typename T> class GCommandLineArgument;
 class GArgument;
 
 
+#include "GArgumentDefinitions.h"
+
 class GLogApplication
 {
 public:
@@ -57,8 +61,8 @@ public:
  
     API  virtual ~GLogApplication();
  
-    API  GLogApplication(	const int argc, const char** argv,  vector  < std::shared_ptr<GArgument>  > *additional_arguments = nullptr, bool do_init = DO_INIT);
-    API  GLogApplication(	const GFileName_t &t,  vector  < std::shared_ptr<GArgument> > *additional_arguments = nullptr);
+    API  GLogApplication(	const int argc, const char** argv,  arg_deque  *additional_arguments = nullptr, bool do_init = DO_INIT);
+    API  GLogApplication(	const GFileName_t &t, arg_deque *additional_arguments = nullptr);
 
 
     void		API     Purge();
@@ -67,8 +71,11 @@ public:
                                                                      const vector<string> sub, const	vector<string> par ) > funct ) ;
 
     void		API		AddArgument( std::shared_ptr<GArgument>  arg);
-    void		API		AddArguments(vector< std::shared_ptr<GArgument> >  args);
-    API  std::shared_ptr<GArgument>	 	GetArgument(const string cmd);
+    void		API		AddArguments(deque< std::shared_ptr<GArgument> >  args);
+    void		API		AddArgumentFront( std::shared_ptr<GArgument>  arg);
+    void		API		AddArgumentsFront(deque< std::shared_ptr<GArgument> >  args);
+   
+                API     std::shared_ptr<GArgument>	 	GetArgument(const string cmd);
     void		API		RemoveArgument(const string cmd);
 #ifdef _WIN32
     void		API		ScanArguments();
@@ -77,14 +84,14 @@ public:
 public:
     virtual void        API		ScanArguments(const string cmdline);
     virtual void        API		ScanArguments(const string cmdline,  std::shared_ptr<GArgument> arg);
-    virtual void        API		ScanArguments(const string cmdline, vector  < std::shared_ptr<GArgument> > args);
-    virtual void        API		ScanArguments(const int argc, const char** argv, vector  < std::shared_ptr<GArgument>  > arg);
+    virtual void        API		ScanArguments(const string cmdline, deque  < std::shared_ptr<GArgument> > args);
+    virtual void        API		ScanArguments(const int argc, const char** argv, deque  < std::shared_ptr<GArgument>  > arg);
     virtual void        API		ScanArguments(const int argc, const char** argv);
-    static bool			API		HasCommand( vector< std::shared_ptr<GArgument>  >  args, const string cmd);
+    static bool			API		HasCommand( deque < std::shared_ptr<GArgument>  >  args, const string cmd);
     bool				API		HasCommand( const string cmd);
-    vector< std::shared_ptr<GArgument>  >	API	 	GetArguments();
+    deque< std::shared_ptr<GArgument>  >	API	 	GetArguments();
     string				API		Help(const string cmd = "" ) const;
-    static string		API		Help(const vector  <  std::shared_ptr<GArgument>  > args, const string cmd = "" );
+    static string		API		Help(const deque  <  std::shared_ptr<GArgument>  > args, const string cmd = "" );
     string				API		Help(const char *exename, const string heading,  const string cmd = "" ) const;
     virtual void		API		InitLogArgs();
 	int					API		SetMandatory(const string cmd);
@@ -95,7 +102,7 @@ public:
 
 protected:
  //   vector  <  std::shared_ptr<GArgument>  >    fArgs;  //!< vector containing all arguments that is valid for this application
-    vector  <  std::shared_ptr<GArgument>  >    fArgs  =  vector  <  std::shared_ptr<GArgument>  > ()  ; 
+    deque  <  std::shared_ptr<GArgument>  >    fArgs  =  deque  <  std::shared_ptr<GArgument>  > ()  ; 
     
     
     std::shared_ptr<GCommandLineArgument < void > > fHelp = nullptr; //!< Command line argument for printing out version information

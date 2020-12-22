@@ -17,7 +17,7 @@
 #include  <exception/GException.h>
 #include  <utilities/GDefinitions.h>
 #include "sqlite/sqlite3.h"
-#include  <json/json.hpp>
+#include "../json/LJson.hpp"
 #include <utilities/GCommon.h>
 
 namespace LOGMASTER
@@ -45,7 +45,7 @@ namespace LOGMASTER
     }
 
 
-    LDatabase::LDatabase(  )
+    LDatabase::LDatabase(  ) : fMessage2Json()
     {
         OpenDatabase( fDBPath.c_str()  );
     }
@@ -77,31 +77,30 @@ namespace LOGMASTER
     /** @brief Writa a log entry to the database
      *  @param[in] msg a log message as produced by the logging system */
     void
-    LDatabase::AddLogEntry(const  LMessage  &msg  )
+    LDatabase::AddLogEntry( std::shared_ptr<LMessage>  msg  )
     {
        // HandleError( GLOCATION, eMSGLEVEL::LOG_ERROR, "this is a test" ) ;
         int rc;
         static char sql[1000];
         char *zErrMsg = 0;
         nlohmann::json j;
-        LMessage2Json::Message2Json( msg, j );
-        std::stringstream buffer;
-        buffer << j;
+        fMessage2Json.Message2Json(msg, j);
+        std::string jsonStr = JsonToString(j);
 
 #ifndef WIN32
         snprintf(sql, 1000, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %f, %d, %d,'%s')",
 #else
         snprintf_s(sql, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %f, %d, %d,'%s')",
 #endif
-                   (int)msg.fEpochTime,  msg.fEpochTime, (int)msg.fLevel,  (int)msg.fSystem, 
-                   buffer.str().c_str() );
+                   (int)msg->fEpochTime,  msg->fEpochTime, (int)msg->fLevel,  (int)msg->fSystem, 
+                   jsonStr.c_str() );
 
         rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
         
         if (rc != SQLITE_OK)
         {
          //   HandleError( GLOCATION, eMSGLEVEL::LOG_ERROR, "AddEntry SQL error: %s", zErrMsg );
-            printf("%s:%dAddEntry (msg to log = %s) SQL error: %s\n", __FILE__, __LINE__,   msg.fMsgBody,  zErrMsg );
+            printf("%s:%dAddEntry (msg to log = %s) SQL error: %s\n", __FILE__, __LINE__,   msg->fMsgBody,  zErrMsg );
             sqlite3_free(zErrMsg);
         }
     }
