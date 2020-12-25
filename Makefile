@@ -63,7 +63,7 @@ export LIBFLAGS:= -shared
 export CONFIG_DIR:=$(PWD)/config
 
 
-INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system
+INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system 
 
 GTEST_INCLUDES:= -isystem $(PWD)/
 
