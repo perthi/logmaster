@@ -41,6 +41,14 @@ class TestCheckLevel_check_level_Test;
 
 namespace LOGMASTER
 {
+    /** @class LLogging 
+     *  @brief Man logging class
+     * 
+     *  @details This class is the workhorse of the logging system. It is implmented as a singleton and is
+     *  used by all the logging macros defined in LLogApi.h. Functionaltiy for loggimng messages checking loglvelves etc
+     *  is handled by this class */
+
+
     class LMessage;
     using logmap = std::shared_ptr< std::map<eMSGTARGET, std::shared_ptr<LMessage>  >	>;
 
@@ -58,22 +66,17 @@ namespace LOGMASTER
         template<typename... Args>
         logmap API Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt,
             const Args ... args);
-        template<typename... Args>
-        logmap API Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const char* file, const int line, const char* funct,
-            const char* fmt, const Args ... args);
+        
+        
         template<typename... Args>
         logmap API LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename,
             const int linenumber, const char* functionname, const char* fmt, const Args ... args);
+
         template<typename... Args>
         logmap	API 	LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
             const char* functionname,
             const bool force_generate, string addendum, const char* fmt, const Args ... args);
-        logmap	API 	LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
-            const char* functionname,
-            const bool force_generate, string addendum, const char* fmt, va_list ap);
-
-
-
+        
 
         void					API		SetLogFormat(const  string& format, bool enable = true);
         void					API		SetLogLevel(const  string& level);
@@ -124,7 +127,7 @@ namespace LOGMASTER
         std::recursive_mutex fLoggingMutex{};
     };
 
-    /**@{*/
+
     /** Main logging function that takes a log message, and adds to it the message
      *  type and the location in the source file where the message was generated.
      *   @param  level  the loglevel/severity of the message
@@ -137,16 +140,9 @@ namespace LOGMASTER
     logmap LLogging::Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt,
         const Args ... args)
     {
-        return Log(level, sys, l.fFileName.c_str(), l.fLineNo, l.fFunctName.c_str(), fmt, args...);
-    }
-    template<typename... Args>
-    logmap LLogging::Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const char* file, const int line,
-        const char* funct, const char* fmt, const Args ... args)
-    {
-        return LogVarArgs(level, sys, file, line, funct, fmt, args...);
+        return LogVarArgs(level, sys, l.fFileName.c_str(),  l.fLineNo, l.fFunctName.c_str(), false, string(""), fmt, args...);
     }
 
-    /**@}*/
 
 
     /**@{*/
@@ -157,19 +153,19 @@ namespace LOGMASTER
      *   @param  level the loglevel/severity of the message
      *   @param  system the subsystem the message applies to
      *   @param  filename The name of the source code file where the message i created
-     *   @param  lineno  The line number where the message is generated
-     *   @param  function The name of the function that generated the message
+     *   @param  linenumber  The line number where the message is generated
+     *   @param  functionname The name of the function that generated the message
      *   @param  force_generate Force the generation of message, regardless of the
      *			 loglevel and subystem. This feature is used by the exception handling system
      *			 where one wants the message to be genrated regardless (because you want to
-     *			catch the exception with an exception handler). This falf is also usefull for debugging
+     *			catch the exception with an exception handler). This flag is also usefull for debugging
      *   @param  addendum  optional string to attach to the messag
      *   @param  fmt The formatting for the message (same as the  C style printf formatting)
      *   @param  args  The list of arguments */
     template<typename... Args>
     logmap
-        LLogging::LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int lineno,
-            const char* function,
+        LLogging::LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
+            const char* functionname,
             const bool force_generate, string addendum, const char* fmt, const Args ... args)
     {
 #ifdef THREAD_SAFE
@@ -180,7 +176,7 @@ namespace LOGMASTER
             CERR << "CONFIG IS A ZERO POINTER" << ENDL;
             exit(-1);
         }
-        auto formatCheck = GFormatting::checkFormat(filename, lineno, function, fmt, args...);
+        auto formatCheck = GFormatting::checkFormat(filename, linenumber, functionname, fmt, args...);
         if (formatCheck.first == false)
         {
             addendum += " (" + formatCheck.second + ")";
@@ -201,12 +197,12 @@ namespace LOGMASTER
                 {
                     if (formatCheck.first == true)
                     {
-                        tmp_msg = it->second.GenerateMessage(system, level, filename, lineno, function, addendum, fmt,
+                        tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, functionname, addendum, fmt,
                             args...);
                     }
                     else
                     {
-                        tmp_msg = it->second.GenerateMessage(system, level, filename, lineno, function, addendum, fmt);
+                        tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, functionname, addendum, fmt);
                     }
 
                     if (cl == true)
@@ -228,6 +224,8 @@ namespace LOGMASTER
         return fMessages;
 
     }
+
+
     template<typename... Args>
     logmap LLogging::LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename,
         const int linenumber, const char* functionname, const char* fmt, const Args ... args)
@@ -235,5 +233,6 @@ namespace LOGMASTER
         return LogVarArgs(level, system, filename, linenumber, functionname, bool(false), (const char*)"", fmt, args...);
     }
     /**@}*/
+
 }
 

@@ -37,21 +37,18 @@ namespace LOGMASTER
 	{
     protected:
         API LHashMapsBase();
-        API LHashMapsBase(const eMSGLEVEL level );
+     //   API LHashMapsBase( const eMSGLEVEL  level );
         API ~LHashMapsBase();
         
         static void API InitHashLogTags(        map<string, std::tuple<eMSGSYSTEM, eMSGLEVEL>>  *SubCmdHash );
         static void API InitHashSystem2String(  map<eMSGSYSTEM, string>  *System2StringHash );
         static void API InitHashLevel2String(   map<eMSGLEVEL, string> *Level2StringHash  );
         
-        void API InitHashLogLevel(const eMSGLEVEL level );
+        void API InitHashLogLevel(  );
         map<eMSGSYSTEM, eMSGLEVEL> fLogLevelHash;
-        eMSGLEVEL fDefaultLevel;
+     //   eMSGLEVEL fDefaultLevel;
         bool fIsInitialized = false;
 
-   // private:
-    
-      
      
     };
 

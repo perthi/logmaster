@@ -34,12 +34,12 @@ namespace LOGMASTER
 
 	public:
             API    LHashMaps(  );
-            API    LHashMaps(const eMSGLEVEL level  );
+          //  API    LHashMaps(const eMSGLEVEL level  );
             API    ~LHashMaps();
             static  LHashMaps API* Instance();
             
             static void		API		InitHash();
-            void			API		InitHash( const eMSGLEVEL level );
+          //  void			API		InitHash( const eMSGLEVEL level );
             static void		API		InitHashMsgFormat();
             static void		API		InitHashLogTags();
             static void		API		InitHashLogTargets();

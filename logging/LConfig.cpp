@@ -45,19 +45,19 @@ namespace LOGMASTER
     
     LConfig::LConfig() : fHash()
     {
-        fHash.InitHash( eMSGLEVEL::LOG_WARNING );
+        fHash.InitHash(  );
         ApplyLevel( eMSGLEVEL::LOG_WARNING );
         
         fIsInitialized = true;
     }
 
-    void
-    LConfig::InitHash( const eMSGLEVEL level)
-    {
-        fHash.InitHash(level);
-        ApplyLevel( eMSGLEVEL::LOG_WARNING );
-        fIsInitialized = true;
-    }
+    // void
+    // LConfig::InitHash( const eMSGLEVEL level)
+    // {
+    //     fHash.InitHash(level);
+    //     ApplyLevel( eMSGLEVEL::LOG_WARNING );
+    //     fIsInitialized = true;
+    // }
 
     string
     LConfig::GetFilename()

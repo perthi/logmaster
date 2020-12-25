@@ -32,22 +32,17 @@
 #include <configurator/LConfigurator.h>
 #include <configurator/LXmlParser.h>
 #include <xml/GXmlValidator.h>
-
 #include <exception/GException.h>
 #include <logging/LLogApi.h>
-
 #include <configurator/LXmlEntityLogLevel.h>
 #include <configurator/LXmlEntitySubSystem.h>
 #include <configurator/LGeneratorMacrosLogging.h>
 #include <configurator/LGeneratorHashMap.h>
 #include <configurator/LGeneratorMacrosException.h>
 #include <configurator/LGeneratorEnum.h>
-
 #include <cmdline/GCommandLineArgument.h>
 #include <cmdline/GLogApplication.h>
-
 #include <utilities/GUtilities.h>
-
 
 #include <chrono>
 #include <thread>
@@ -59,11 +54,8 @@ using std::cout;
 using std::endl;
 
 #include <memory>
-
 #include <deque>
 using std::deque;
-
-
 
 
 void generator(  vector< std::shared_ptr< LGenerator >  > generators,
@@ -93,10 +85,11 @@ int main(int  argc, const char **  argv)
 	arguments.push_back(xsd_arg );
 	std::shared_ptr<GLogApplication>  g =  std::make_shared<GLogApplication>();
 
+	LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 
 	try
 	{
-		SET_LOGLEVEL("--all-off --xml-info");
+		SET_LOGLEVEL("--all-off --all-debug");
 		SET_LOGFORMAT("00000001");
 
 		g->ScanArguments(argc, argv, arguments );

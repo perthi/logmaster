@@ -55,8 +55,8 @@ LGeneratorHashMap::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  l
     lines.push_back( "namespace LOGMASTER");
     lines.push_back( "{" );
     
-    lines.push_back("LHashMapsBase::LHashMapsBase( ) : fLogLevelHash(), fDefaultLevel(eMSGLEVEL::LOG_WARNING){}");
-    lines.push_back("LHashMapsBase::LHashMapsBase( const eMSGLEVEL  level) : fLogLevelHash(), fDefaultLevel( level ) {}");
+    lines.push_back("LHashMapsBase::LHashMapsBase( ) : fLogLevelHash() {}");
+   // lines.push_back("LHashMapsBase::LHashMapsBase( const eMSGLEVEL  level) : fLogLevelHash(), fDefaultLevel( level ) {}");
     lines.push_back("LHashMapsBase::~LHashMapsBase(){ }");
 
     lines.push_back("\n\n");
@@ -167,12 +167,14 @@ LGeneratorHashMap::GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntityS
     lines.push_back("\n\n");
     lines.push_back("/** @brief initialization of the hash table for the logginglevel \
     * \
-    *  This hash table holds the current logging level for a given sub-system. This table is checked every time the logging system is asked to log a message, and if logging is enabled for the given level \
-    *  and sub-system then the message is created. Where the message is actuall written (if at all) is decided by the target configuration, wether or not logging is enabled to to file, to console, etc.. \
-    *  @param l  All system are initialized with logging for this level or higher.  */");
+    *  This hash table holds the current logging level for a given sub-system. \
+    *  This table is checked every time the logging system is asked to log a message, and if logging \
+    *  is enabled for the given level and sub-system then the message is created. \
+    *  Where the message is actuall written (if at all) is decided by the target configuration,\
+    *  wether or not logging is enabled to to file, to console, etc.. */");
 
     lines.push_back("   void");
-    lines.push_back("   LHashMapsBase::InitHashLogLevel(const eMSGLEVEL /*l*/)");
+    lines.push_back("   LHashMapsBase::InitHashLogLevel( )");
     lines.push_back("   {");
     lines.push_back("\tfLogLevelHash.clear();");
     lines.push_back("//\teMSGLEVEL level = (eMSGLEVEL)(PAD((int)l));");

@@ -7,7 +7,7 @@
 
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sat 12 December-2020 21:33:12  ***/
+/*** Generated at: Wed 23 December-2020 12:34:43  ***/
 /*** Generated from config/logging-kts.xml **/
 /*** Validated by config/logging.xsd **/
 /*** Copyright Per Thomas Hille pth@embc.no ***/

@@ -38,10 +38,11 @@ using namespace LOGMASTER;
 
 
 
+
 int main ()
 {
    LConfig::SetTimeMode("Cloud");
-    double t = g_time()->GetEpochTime();
+    double t = GTime().GetEpochTime();
     FORCE_DEBUG("Epoch time = %f", t );
     time_t rawtime  = (long)t ;
     struct tm *info;
@@ -49,8 +50,6 @@ int main ()
     info = localtime( &rawtime );
     FORCE_DEBUG("Year = %d",   info->tm_year + 1900 );
     FORCE_DEBUG("Hour = %d",  info->tm_hour );
-
-
 
 
    try

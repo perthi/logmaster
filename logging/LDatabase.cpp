@@ -360,8 +360,7 @@ namespace LOGMASTER
      *  @details  The sql query must be initialized beforehand by calling InitSQLQuery(). The function returns true
      *  until the log entires matching the SQL query is exhausted.  
      *  @param[in,out]  entry The retrieved log entry is stored in this object
-     *  @param[in] cnt  cnt The maximum number of entries to return
-     *  @return true was long as ther are more entries to retriev, false
+     *  @return true as long as ther are more entries to retriev, false 
      *  when the last entry has been reached. 
      *  @return false if the sql query has not been initialized. */
     bool

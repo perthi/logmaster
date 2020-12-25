@@ -52,9 +52,6 @@ string fSource;
 
 namespace LOGMASTER
 {
-
-   // std::stack<   std::shared_ptr<  std::map<eMSGTARGET,  LMessageFactory   >  >     >  LLogging::fConfigurationStack;
-
     LLogging *
     LLogging::Instance()
     {
@@ -73,54 +70,6 @@ namespace LOGMASTER
     }
 
 
-
-    logmap LLogging::LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char *filename,
-                                      const int lineno, const char *funct, const bool force_generate, string addendum,
-                                      const char *fmt, va_list ap)
-    {
-        if(fConfig == nullptr)
-        {
-            CERR << "CONFIG IS A ZERO POINTER" << ENDL;
-            exit(-1);
-        }
-
-        static std::shared_ptr<LMessage> tmp_msg = std::make_shared<LMessage>();
-
-        ClearMessages();
-        va_list ap_l;
-        va_copy(ap_l, ap);
-        for(auto it = fConfig->begin(); it != fConfig->end(); ++it)
-        {
-            if(it->second.IsEnabled() == true)
-            {
-                bool cl = CheckLevel(system, level, it->first);
-
-                if((cl == true) || force_generate == true)
-                {
-                    tmp_msg = it->second.GenerateMessageUnsafe(system, level, filename, lineno, funct, addendum, fmt, ap_l);
-
-                    if(cl == true)
-                    {
-                        QueMessage(tmp_msg, it->second.GetConfig(), it->first);
-
-                        //   LPublisher::Instance()->PublishMessage( tmp_msg, it->second.GetConfig(), it->first );
-
-                        // LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), target );
-                        auto it_msg = fMessages->find(it->first);
-                        if(it_msg != fMessages->end())
-                        {
-                            it_msg->second = tmp_msg;
-                        }
-                    }
-                }
-            }
-        }
-        va_end(ap_l);
-        return fMessages;
-
-    }
-
-   
 
     void LLogging::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
     {
@@ -286,7 +235,6 @@ namespace LOGMASTER
 
             if ( e_tmp == eMSGTARGET::TARGET_OFF )
             {
-            //    COUT << "Turning off all targets" << endl;
                 TurnOffAllTargets();
                 continue;
             }
@@ -297,12 +245,10 @@ namespace LOGMASTER
                 {
                     if(eneable)
                     {
-                        //COUT << "turning on target "<< std::hex << "0x" << (int)it->first << endl; 
                         it->second.Enable();
                     }
                     else
                     {
-                        //COUT << "turning off target " << std::hex << "0x" << (int)it->first << endl; 
                         it->second.Disable();
                     }
                 }

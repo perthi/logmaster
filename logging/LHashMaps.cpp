@@ -37,14 +37,15 @@ namespace LOGMASTER
 {
     LHashMaps::LHashMaps( )
     {
-        InitHash( eMSGLEVEL::LOG_WARNING );
+        InitHash(  );
+        InitHashLogLevel( );
     }
 
 
-    LHashMaps::LHashMaps( const eMSGLEVEL  level) 
-    {
-        InitHash( level );
-    }
+    // LHashMaps::LHashMaps( const eMSGLEVEL  level) 
+    // {
+    //     InitHash( level );
+    // }
 
     LHashMaps::~LHashMaps()
     {
@@ -75,18 +76,19 @@ namespace LOGMASTER
             InitHashLogTags();
             InitHashSystem2String( &fSystem2StringHash );
             InitHashLevel2String( &fLevel2StringHash);
+         
             is_initialized = true;
         }
 
     }
 
-    void
-    LHashMaps::InitHash(const eMSGLEVEL level)
-    {
-        InitHash();
-        InitHashLogLevel(level);
-        fIsInitialized = true;
-    }
+    // void
+    // LHashMaps::InitHash(const eMSGLEVEL level)
+    // {
+    //     InitHash();
+    //     InitHashLogLevel(level);
+    //     fIsInitialized = true;
+    // }
 
 
     map < string, std::tuple<  eMSGSYSTEM, eMSGLEVEL > >      *

@@ -11,7 +11,7 @@ static std::string JsonToString(const nlohmann::basic_json<> &j)
     {
         return j.dump();
     }
-    catch(const nlohmann::basic_json<>::exception e)
+    catch(const nlohmann::basic_json<>::exception &e)
     {
         if(e.id == 316)
         {
