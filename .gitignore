@@ -13,7 +13,6 @@ bin
 build
 version-info/x86/version-info
 *.gdb
-*.in
 *.cmd
 *.ko
 *.vs
@@ -61,4 +60,10 @@ cmdline/unit-tests/commit/arm/cmdline-unit-tests
 exception/unit-tests/commit/arm/exception-unit-tests
 logging/examples/logging-example1/arm/logging-example1
 logging/unit-tests/commit/arm/logging-unit-tests
-
+helloworld/arm/helloworld
+database-test/arm/database-test
+database-test/x86/database-test
+configurator/logging-configurator/x86/configurator-example1
+configurator/logging-configurator/x86/logging-example1
+configurator/unit-tests/commit/x86/logging-unit-tests
+exception/unit-tests/commit/x86/logging-unit-tests

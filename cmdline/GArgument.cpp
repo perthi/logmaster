@@ -28,16 +28,14 @@
 
 
 
+
 #include "GArgument.h"
-//#include <exception/GException.h>
-//#include <logging/LLogging.h>
 #include <utilities/GUtilities.h>
 #include <string>
 using std::string;
 #include <vector>
 using std::vector;
 #include <sstream>
-//using namespace LOGMASTER;
 #include <exception>
 
 
@@ -61,7 +59,7 @@ GArgument::GArgument(): fCmd("Unknown"),
 
 GArgument::GArgument(const string name,
     const string usage,
-    const string help,
+    const string helptext,
     const bool ismandatory,
     std::function< bool(const string cmnd, const string args_s, const vector<string> sub, const vector<string> par) >  funct ) : fCmd(name),  
         fSubCmds(), 
@@ -69,7 +67,7 @@ GArgument::GArgument(const string name,
         fTypeId("Unknown"), 
         fTypeIdBase("No Base"), 
         fUsage(usage), 
-        fHelpText(help), 
+        fHelpText(helptext), 
         fExecName("NOT SET"), 
         ValidateCommands(funct)
 {
@@ -112,8 +110,6 @@ GArgument::str(const bool subcommands ) const
     if( subcommands  == true )
     {
         buffer << ";\t" <<  fHelpText;
-
-        ///G_INFO("%s", buffer.str().c_str()); //CRAP PTH
     
         if(  fSubCmds.size() > 0  && subcommands == true )
         {
@@ -154,15 +150,11 @@ GArgument::SetExcecName(const char *name)
 }
 
 
-//void 
-//GArgument::SetValidationFunction( bool (*funct) (const string cmd, const vector<string> sub, const vector<string> par)  )
-
 void 
 GArgument::SetValidationFunction(  std::function< bool(const string cmd, const string args_s, const vector<string> sub, const vector<string> par )> funct )
 {
     ValidateCommands = funct;
 }
-
 
 
 /** The number of tabs to use when aligning the help menu*/
@@ -172,7 +164,6 @@ GArgument::SetNTabs( const int n )
     fNTabs = n;
 } 
 
- //vector<string> &  GetSubCommands()  { return fSubCmds; };
 string        
 GArgument::GetSubCommandsS()
 {

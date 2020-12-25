@@ -1,9 +1,6 @@
 // -*- mode: c++ -*-
 
 
-/// #ifndef EXCEPTIONXXX_H
-/// #define EXCEPTIONXXX_H
-
 #pragma once
 
 /*****************************************************************************
@@ -22,6 +19,7 @@
 #include <logging/LLogApi.h>
 #include <logging/LLogging.h>
 #include <utilities/GStackTrace.h>
+#include <utilities/GCommon.h>
 
 using namespace LOGMASTER;
 
@@ -47,15 +45,19 @@ using std::string;
 class  GException
 {
 public:
-    API inline GException() {};
-    API inline GException(const string file, const string function, const int line, const eMSGSYSTEM system, const char * fmt, ...);
+  API inline GException(){};
+  template<typename... Args>
+  API inline GException(const string file, const string function, const int line, const eMSGSYSTEM system,
+                        const char *fmt, const Args ... args);
 
     virtual API inline  ~GException()
     {
 
     }
 
-    static std::shared_ptr<LOGMASTER::LMessage> API  GetMessageL();
+   // static std::shared_ptr<LOGMASTER::LMessage> API  GetMessageL();
+    std::shared_ptr<LOGMASTER::LMessage> API  GetMessageL();
+
     static bool API IsEnabledException();
     static void API EnableException();
     static void API DisableException();
@@ -67,7 +69,9 @@ public:
 
 protected:
     static std::shared_ptr< std::map<eMSGTARGET, std::shared_ptr<LMessage > > > fgMessageMap;
-    static std::shared_ptr<LOGMASTER::LMessage>  fgMessage;
+    
+    mutable std::shared_ptr<LOGMASTER::LMessage>  fgMessage = nullptr;
+    
     static bool fIsEnabledStackTrace; /* !< If set to true then a stack trace is included in the log message for the exception. This can be usefull for debugging. Default is FALSE*/
     static bool fIsEnabledException;  /* !< If set to FALSE then a fatal error message is written instead of throwing an exception */
 
@@ -78,23 +82,22 @@ protected:
  {                                                                     \
  public:                                                               \
      inline classname() { };                                                \
-     API inline classname(const string file, const string function, const int line, const eMSGSYSTEM system, const char * fmt, ... ); \
+     template<typename... Args>	\
+     API inline classname(const string file, const string function, const int line, const eMSGSYSTEM system, const char * fmt, const Args ... args ); \
    virtual inline ~classname() { };                                      \
 };
 
 
 
-#define EXCEPTION_CLASS_CPP(classname) inline classname::classname (const string file, \
+#define EXCEPTION_CLASS_CPP(classname) template<typename... Args> inline classname::classname (const string file, \
 					      const string function,	\
 					      const int line, \
 					      const eMSGSYSTEM system,  \
-					      const char * fmt, ...) \
+                                              const char * fmt, const Args ... args)\
     { \
-    static va_list ap; \
-    va_start(ap, fmt); \
     string msg = string(" (") + ExtractClassname(typeid(*this).name()) + string(")") + (fIsEnabledStackTrace == true ?  + "\n" + string("******* Stack Trace START *******") + "\n" + GStackTrace::str() + "\n" + string("******* Stack Trace END *******") + "\n" : "");  \
-    fgMessageMap = LLogging::Instance()->LogVarArgs(eMSGLEVEL::LOG_ERROR, system, file.c_str(), line, function.c_str(), fmt, ap, true, msg ); \
-    va_end(ap); \
+    fgMessageMap = LLogging::Instance()->LogVarArgs(eMSGLEVEL::LOG_ERROR, system, file.c_str(), line, function.c_str(), true, msg, fmt, args...); \
+    what(); \
 }
 
 
@@ -135,10 +138,39 @@ EXCEPTION_CLASS_CPP	(GAlarmException)
 #define G_ASSERT_EXCEPTION(expr, ...)          if(!(expr)) throw_exception( GException(          __FILE__,  __func__, __LINE__ ,    eMSGSYSTEM::SYS_EX , __VA_ARGS__ ) )
 #define ALARM_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GAlarmException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_ALARM ),	__VA_ARGS__ ) )
 
-/** Including auto gnerated macros */
+/** Including auto generated macros */
 #include "GExceptionMacros.h"
 
 
+
+#define  CATCH_EXCEPTION_DB \
+   catch (GException &e) \
+    { \
+        DB_FATAL ("Exception caught: %s", e.what()); \
+    } \
+    catch (std::exception &e) \
+    { \
+        DB_FATAL("Exception caught: %s", e.what()); \
+    } \
+    catch (...) \
+    { \
+        DB_FATAL("Unknown exception caught"); \
+    }
+
+
+#define  CATCH_EXCEPTION \
+   catch (GException &e) \
+    { \
+        G_FATAL ("Exception caught: %s", e.what()); \
+    } \
+    catch (std::exception &e) \
+    { \
+        G_FATAL("Exception caught: %s", e.what()); \
+    } \
+    catch (...) \
+    { \
+        G_FATAL("Unknown exception caught"); \
+    }
 
 
 ///#endif

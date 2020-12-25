@@ -10,6 +10,8 @@
 *****************************************************************************/
 
 #include "LEnums.h"
+#include "LMessageGenerator.h"
+#include "LConfig.h"
 
 #include <utilities/GDefinitions.h>
 
@@ -22,8 +24,7 @@ using std::string;
 
 namespace LOGMASTER
 {
-	struct  LMessage;
-	class  LMessageGenerator;
+	class  LMessage;
 	class  LConfig;
 	class  LLogging;
 
@@ -43,15 +44,41 @@ namespace LOGMASTER
             bool      API    IsEnabled() const;
             void      API    Enable();
             void      API    Disable();
-            std::shared_ptr< LMessage>  API GenerateMessage( const eMSGSYSTEM s, const eMSGLEVEL l, const char *file, const int line, const char *func, const char *fmt, va_list ap, const string addedndum );
-            
+            template<typename... Args>
+            std::shared_ptr<LMessage> API GenerateMessage(const eMSGSYSTEM s, const eMSGLEVEL l, const char *file,
+                                                          const int line, const char *func, const string addendum,
+                                                          const char *fmt, const Args ... args);
+            std::shared_ptr<LMessage> API GenerateMessageUnsafe(const eMSGSYSTEM s, const eMSGLEVEL l, const char *file,
+                                                          const int line, const char *func, const string addendum,
+                                                          const char *fmt, va_list ap);
+
 	private:
             LMessageFactory operator = ( const LMessageFactory &);
             bool fIsEnabled = true;
             std::shared_ptr<LMessage> fMessage = nullptr;
             std::shared_ptr<LMessageGenerator> fGenerator = nullptr;
             std::shared_ptr<LConfig> fConfig = nullptr;
-	};
+        };
+
+        template<typename... Args>
+        std::shared_ptr<LMessage> LMessageFactory::GenerateMessage(const eMSGSYSTEM s, const eMSGLEVEL l,
+                                                                   const char *file, const int line, const char *func,
+                                                                   const std::string ad, const char *fmt,
+                                                                   const Args ... args)
+        {
+            if(fConfig == nullptr)
+            {
+                CERR << "fConfig is a zero pointer !!!" << ENDL;
+                std::shared_ptr<LMessage> m = std::make_shared<LMessage>();
+                return m;
+            }
+            eMSGFORMAT f = fConfig->GetLogFormat();
+
+            // fMessage =  fGenerator->GenerateMsg(fMessage,  f, l, s, file, line, func, fmt, ap, ad );
+            fMessage = fGenerator->GenerateMsg(f, l, s, file, line, func, ad, fmt, args...);
+
+            return fMessage;
+        }
 
 }
 

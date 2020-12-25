@@ -23,11 +23,12 @@ LGeneratorMacrosException::~LGeneratorMacrosException()
 
 vector<string>  
 LGeneratorMacrosException::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/ ,
-	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const
+	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,  const string autoclause  ) const
 {
     vector<string> lines;
     lines.push_back("// -*- mode: c++ -*-\n\n");
     lines.push_back("\n#pragma once \n\n" );    
+    lines.push_back(  autoclause );
 
     for( auto sys : systems )
     {

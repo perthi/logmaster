@@ -10,7 +10,7 @@ SRCCPP:=exception-unit-tests.cpp \
 include ../../../../common.mk
 include ../../../../unittest-common.mk
 
-LIBS+= -llogmaster   -lutilities -ltestlib -lexception
+LIBS+= -llogmaster   -lutilities -ltestlib -lexception  -lsqlite-embc -ldl -lpthread
 
 ifneq (arm, $(TARGET))
 LIBS+=   -lreadline

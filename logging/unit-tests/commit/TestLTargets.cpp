@@ -109,7 +109,7 @@ TEST_F(TestLTargets, configure_format_specific_target)
 	}
 	catch ( const GException & e)
 	{
-		CERR << e.what() << endl;
+		CERR << e.what() << ENDL;
 	}
 	catch(const std::exception& e)
 	{
@@ -117,7 +117,7 @@ TEST_F(TestLTargets, configure_format_specific_target)
 	}
 	catch(...)
 	{
-		CERR << "Unkonw execption caught" << endl;
+		CERR << "Unkonw execption caught" << ENDL;
 	}
 	
 
@@ -127,19 +127,22 @@ TEST_F(TestLTargets, configure_format_specific_target)
 
 TEST_F( TestLTargets, configure_level_specific_target )
 {
+	FORCE_DEBUG("START");
 
-///	LLogging *l = LLogging::Instance();
-
-	vector<eMSGSYSTEM> e_s = LHashMaps::Instance()->GetSystemEnums();
+	PUSH();
+	SET_LOGTARGET("--target-stdout");
+	
+    vector<eMSGSYSTEM> e_s = LHashMaps::Instance()->GetSystemEnums();
 	vector<eMSGTARGET> e_t = LHashMaps::Instance()->GetTargetEnums();
+	
 	g->ScanArguments( "-loglevel --all-debug");
-//	EXPECT_EQ(PAD(eMSGLEVEL::LOG_DEBUG),  (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ANALYSIS, eMSGTARGET::TARGET_STDOUT ));
 	EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING),  (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
 
 	g->ScanArguments( "-loglevel --all-warning");
 	g_utilities()->FilterOut( e_s, { eMSGSYSTEM::SYS_ALL, eMSGSYSTEM::SYS_NONE, eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EX } );
 	g_utilities()->FilterOut( e_t, { eMSGTARGET::TARGET_ALL, eMSGTARGET::TARGET_OFF  } );
 	
+
 	for ( size_t s = 0; s < e_s.size(); s++ )
 	{
 		for ( size_t t = 0; t < e_t.size(); t++ )
@@ -154,10 +157,12 @@ TEST_F( TestLTargets, configure_level_specific_target )
 	{
 		for ( size_t t = 0; t < e_t.size(); t++ )
 		{
-			EXPECT_EQ( PAD( eMSGLEVEL::LOG_DEBUG ), (int64_t)l->GetLogLevel( e_s[s],  e_t[t] ) );
+			EXPECT_EQ( PAD( eMSGLEVEL::LOG_DEBUG ), (int64_t)l->GetLogLevel( e_s[s],  e_t[t] )   );
 		}
-	}
-	
+	}	
+
+
+
 	g->ScanArguments( "-loglevel --off --all-error" );
 	g->ScanArguments( "-loglevel --target-stdout --all-info" );
 	g_utilities()->FilterOut( e_t, { eMSGTARGET::TARGET_STDOUT } );
@@ -170,11 +175,14 @@ TEST_F( TestLTargets, configure_level_specific_target )
 		}
 	}
 	
-	
 	EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
 	EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
 	EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
 	EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
 
+	POP();
+
+//	PUSH();
+	FORCE_DEBUG("END");
 }
 

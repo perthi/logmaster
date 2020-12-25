@@ -28,5 +28,56 @@
 
 
 #include "LMessage.h"
+#include <string.h>
+
+namespace LOGMASTER
+{
+    LMessage::LMessage( const LMessage & o)
+    {
+    
+       strcpy( this->fMsgType,  o.fMsgType  );
+       strcpy( this->fTimeStamp,  o.fTimeStamp  );
+       strcpy( this->fPath,  o.fPath  );
+       strcpy( this->fFileName,  o.fFileName );
+       strcpy( this->fFunction,  o.fFunction );
+       strcpy( this-> fMsgBody,  o.fMsgBody );
+       strcpy( this->fMsg ,  o.fMsg  );
+       this->fRgBColor  =  o.fRgBColor;
+       this->fWColor = o.fWColor;
+       this->fAColor = o.fAColor;
+       this->fLineNo = o.fLineNo;
+       this->fLevel  = o.fLevel;
+       this->fSystem = o.fSystem; 
+       this->fTarget = o.fTarget;
+       this->fFormat = o.fFormat;
+       this->fEpochTime  = o.fEpochTime;
+    
+    }
 
 
+    LMessage &
+    LMessage::operator = ( const LMessage & o)
+    {
+        strcpy( this->fMsgType,  o.fMsgType  );
+       strcpy( this->fTimeStamp,  o.fTimeStamp  );
+       strcpy( this->fPath,  o.fPath  );
+       strcpy( this->fFileName,  o.fFileName );
+       strcpy( this->fFunction,  o.fFunction );
+       strcpy( this-> fMsgBody,  o.fMsgBody );
+       strcpy( this->fMsg ,  o.fMsg  );
+       this->fRgBColor  =  o.fRgBColor;
+       this->fWColor = o.fWColor;
+       this->fAColor = o.fAColor;
+       this->fLineNo = o.fLineNo;
+       this->fLevel  = o.fLevel;
+       this->fSystem = o.fSystem; 
+       this->fTarget = o.fTarget;
+       this->fFormat = o.fFormat;
+       this->fEpochTime  = o.fEpochTime;  
+       
+
+       return *this; 
+
+    }
+
+}

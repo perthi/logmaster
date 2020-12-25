@@ -9,16 +9,12 @@ SRCCPP+= cmdline-dll-test.cpp \
 	TestGLogApplication.cpp \
 	TestGCmdScan.cpp
 
-include ../../../../common.mk
+include  ../../../../common.mk
 include ../../../../unittest-common.mk
 
-LIBS+= -lcmdline -lexception -llogmaster -lutilities
+LIBS+=  -llogmaster  -lcmdline  -lexception -lutilities -lreadline -lhistory -lncurses -lsqlite-embc -ldl
 
 LIBS+=  -lm
 
-
-ifneq (arm, $(TARGET))
-LIBS+= -lX11 -lreadline
-endif
 
 INCLUDES+=$(GTEST_INCLUDES)

@@ -24,33 +24,35 @@ using std::vector;
 
 namespace LOGMASTER
 {
+    namespace
+    {
+        map<eMSGLEVEL, string> fLevel2StringHash;
+        map<string, std::tuple<eMSGSYSTEM, eMSGLEVEL>> fSubCmdHash;
+        map<string, eMSGTARGET> fTargetHash;
+        map<string, eMSGFORMAT> fFormatHash;
+        map<eMSGSYSTEM, string> fSystem2StringHash;
+    } // namespace
 
-	class LHashMaps;
-	class LConfig;
-	class LLogging;
-
-	class LHashMapsBase
+    class LHashMapsBase
 	{
-        friend LHashMaps;
-        friend LConfig;
-        friend LLogging;
-
-    private:
+    protected:
         API LHashMapsBase();
-        API LHashMapsBase(const eMSGLEVEL level);
+        API LHashMapsBase(const eMSGLEVEL level );
         API ~LHashMapsBase();
-        static void API InitHashLogTags();
-        static void API InitHashSystem2String();
-        static void API InitHashLevel2String();
-        void API InitHashLogLevel(const eMSGLEVEL level);
-        static map<string, std::tuple<eMSGSYSTEM, eMSGLEVEL>> fSubCmdHash;
-        static map<string, eMSGTARGET> fTargetHash;
-        static map<string, eMSGFORMAT> fFormatHash;
-        static map<eMSGSYSTEM, string> fSystem2StringHash;
-        static map<eMSGLEVEL, string> fLevel2StringHash;
+        
+        static void API InitHashLogTags(        map<string, std::tuple<eMSGSYSTEM, eMSGLEVEL>>  *SubCmdHash );
+        static void API InitHashSystem2String(  map<eMSGSYSTEM, string>  *System2StringHash );
+        static void API InitHashLevel2String(   map<eMSGLEVEL, string> *Level2StringHash  );
+        
+        void API InitHashLogLevel(const eMSGLEVEL level );
         map<eMSGSYSTEM, eMSGLEVEL> fLogLevelHash;
         eMSGLEVEL fDefaultLevel;
         bool fIsInitialized = false;
+
+   // private:
+    
+      
+     
     };
 
 }

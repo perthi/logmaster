@@ -10,16 +10,20 @@
 
 
 
+
+/***** Auto generated file: DO NOT EDIT !!!!!! *****/
+/*** Generated at: Sat 12 December-2020 21:33:12  ***/
+/*** Generated from config/logging-kts.xml **/
+/*** Validated by config/logging.xsd **/
+/*** Copyright Per Thomas Hille pth@embc.no ***/
+
+
 #ifdef _WIN32
-#include  "LEnums.h"
-#include  "LLogging.h"
 #define __func__ __FUNCTION__
-#else
+#endif
 #include  <logging/LEnums.h>
 #include  <logging/LLogging.h>
-#endif
-
-
+#include  <logging/LOperators.h>
 #include  <utilities/GDefinitions.h>
 
 
@@ -42,6 +46,7 @@
 #define SET_LOGFORMAT(format )       LLogging::Instance()->SetLogFormat(format )
 #define SET_LOGTARGET(target )       LLogging::Instance()->SetLogTarget(target )
 #define SET_LOGFILENAME(filename)    LLogging::Instance()->SetLogFileName(filename )
+#define SET_APPLICATION(src)         LLogging::Instance()->SetApplication(src) 
 
 
 
@@ -233,6 +238,298 @@
 #define XML_DEBUG(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_XML, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define XML_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_XML, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define XML_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_XML | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define DATABASE_FATAL(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DATABASE_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_FATAL(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DATABASE_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_DATABASE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_DATABASE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define DATABASE_ERROR(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DATABASE_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_ERROR(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DATABASE_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_DATABASE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_DATABASE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define DATABASE_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DATABASE_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DATABASE_WARNING_U(...) 				LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_DATABASE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_WARNING_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_DATABASE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define DATABASE_INFO(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DATABASE_ASSERT_INFO(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_INFO(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DATABASE_INFO_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_DATABASE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_INFO_U(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_DATABASE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define DATABASE_DEBUG(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DATABASE_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_DEBUG(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DATABASE_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_DATABASE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_DATABASE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define JSON_FATAL(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_JSON, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define JSON_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_JSON, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define JSON_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_JSON | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define JSON_ERROR(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_JSON, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define JSON_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_JSON, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define JSON_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_JSON | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define JSON_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_JSON, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define JSON_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_JSON, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define JSON_WARNING_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_JSON | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define JSON_INFO(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_JSON, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define JSON_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_JSON, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define JSON_INFO_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_JSON | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define JSON_DEBUG(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_JSON, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define JSON_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_JSON, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define JSON_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_JSON | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define SHOTCAL_FATAL(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTCAL_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_FATAL(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTCAL_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SHOTCAL | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SHOTCAL | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define SHOTCAL_ERROR(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTCAL_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_ERROR(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTCAL_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SHOTCAL | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SHOTCAL | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define SHOTCAL_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTCAL_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTCAL_WARNING_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SHOTCAL | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_WARNING_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SHOTCAL | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define SHOTCAL_INFO(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTCAL_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_INFO(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTCAL_INFO_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SHOTCAL | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_INFO_U(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SHOTCAL | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define SHOTCAL_DEBUG(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTCAL_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_DEBUG(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SHOTCAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTCAL_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SHOTCAL | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SC_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SHOTCAL | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define SHOTEXCEC_FATAL(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTEXCEC_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_FATAL(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTEXCEC_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SHOTEXCEC | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_SHOTEXCEC | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define SHOTEXCEC_ERROR(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTEXCEC_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_ERROR(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTEXCEC_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SHOTEXCEC | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_SHOTEXCEC | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define SHOTEXCEC_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTEXCEC_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTEXCEC_WARNING_U(...) 				LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SHOTEXCEC | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_WARNING_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_SHOTEXCEC | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define SHOTEXCEC_INFO(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTEXCEC_ASSERT_INFO(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_INFO(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTEXCEC_INFO_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SHOTEXCEC | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_INFO_U(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_SHOTEXCEC | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define SHOTEXCEC_DEBUG(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTEXCEC_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_DEBUG(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SHOTEXCEC, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SHOTEXCEC_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SHOTEXCEC | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define SE_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_SHOTEXCEC | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define CONFIGURATION_FATAL(...) 				LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIGURATION_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_FATAL(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIGURATION_FATAL_U(...) 				LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CONFIGURATION | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CONFIGURATION | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define CONFIGURATION_ERROR(...) 				LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIGURATION_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_ERROR(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIGURATION_ERROR_U(...) 				LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_CONFIGURATION | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_CONFIGURATION | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define CONFIGURATION_WARNING(...) 				LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIGURATION_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIGURATION_WARNING_U(...) 				LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_CONFIGURATION | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_WARNING_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_CONFIGURATION | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define CONFIGURATION_INFO(...) 				LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIGURATION_ASSERT_INFO(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_INFO(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIGURATION_INFO_U(...) 				LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_CONFIGURATION | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_INFO_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_CONFIGURATION | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define CONFIGURATION_DEBUG(...) 				LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIGURATION_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_DEBUG(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CONFIGURATION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIGURATION_DEBUG_U(...) 				LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CONFIGURATION | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CONFIG_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CONFIGURATION | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define CLI_FATAL(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_CLI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define CLI_ERROR(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_CLI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define CLI_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_WARNING_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_CLI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define CLI_INFO(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_INFO_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_CLI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define CLI_DEBUG(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CLI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define CLI_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_CLI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define MCU_FATAL(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_MCU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define MCU_ERROR(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_MCU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define MCU_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_WARNING_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_MCU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define MCU_INFO(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_INFO_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_MCU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define MCU_DEBUG(...) 						LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_MCU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MCU_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_MCU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define DRIVER_FATAL(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_FATAL_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_DRIVER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define DRIVER_ERROR(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_ERROR_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_DRIVER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define DRIVER_WARNING(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_WARNING_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_DRIVER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define DRIVER_INFO(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_INFO_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_DRIVER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define DRIVER_DEBUG(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_DRIVER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DRIVER_DEBUG_U(...) 					LLogging::Instance()->Log( eMSGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_DRIVER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
 

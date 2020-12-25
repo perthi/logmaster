@@ -32,9 +32,17 @@
 #include <logging/LPublisher.h>
 #include <exception/GException.h>
 
-std::shared_ptr<LMessage>   TestSubscriber::fMsg1 = nullptr;
-std::shared_ptr<LMessage>   TestSubscriber::fMsg2 = nullptr;
+//std::shared_ptr<LMessage>   TestSubscriber::fMsg1 = nullptr;
+//std::shared_ptr<LMessage>   TestSubscriber::fMsg2 = nullptr;
 
+std::shared_ptr<LMessage>   TestSubscriber::fMsg1 =  std::make_shared<LMessage>();
+std::shared_ptr<LMessage>   TestSubscriber::fMsg2 =  std::make_shared<LMessage>();
+
+//LMessage    TestSubscriber::fMsg1;  
+//LMessage    TestSubscriber::fMsg2;
+
+#include <chrono>
+#include <thread>
 
 void TestSubscriber::SetUp()
 {
@@ -52,17 +60,15 @@ void TestSubscriber::TearDown()
 
 
 void 
-TestSubscriber::Subscriber1( const std::shared_ptr<LMessage>  msg  )
+TestSubscriber::Subscriber1(  std::shared_ptr<LMessage>  msg  )
 {
-//	fMsg1 = const_cast<  std::shared_ptr<LMessage> >(msg);
 	fMsg1 = msg;
 }
 
 
 void 
-TestSubscriber::Subscriber2( const  std::shared_ptr<LMessage> msg  )
+TestSubscriber::Subscriber2(   std::shared_ptr<LMessage> msg  )
 {
-//	fMsg2 = const_cast<  LMessage *>(msg);
 	fMsg2 = msg;
 }
 
@@ -83,12 +89,21 @@ TEST_F(TestSubscriber, functionRegistration)
    SET_LOGTARGET("--target-subscriber");
    SET_LOGFORMAT("00000001");
    G_ERROR("Hello Dolly, 12345");
+
+	std::this_thread::sleep_for( std::chrono::milliseconds(100) );
+
    EXPECT_STREQ( fMsg1->fMsgBody, "Hello Dolly, 12345");
    EXPECT_STREQ( fMsg2->fMsgBody, "Hello Dolly, 12345");
+   
+   
    SET_LOGFORMAT("01000001");
    G_ERROR("Hello Chuck, 12345");
+
+  std::this_thread::sleep_for( std::chrono::milliseconds(100) );
+
    EXPECT_STREQ(fMsg1->fMsg, "<Error:General>          \tHello Chuck, 12345\n");
    EXPECT_STREQ(fMsg2->fMsg, "<Error:General>          \tHello Chuck, 12345\n");
+
 }
 
 
@@ -99,7 +114,7 @@ TEST_F(TestSubscriber, functionRegistration)
 /// We also want to chet that we can set any other combiantions of log targets.
 TEST_F(TestSubscriber, setTargetTest )
 {
-	LPublisher::DisableColor();
+	LPublisher::Instance()->DisableColor();
     PUSH();
 	fStrCout.str( "" );
     SET_LOGFORMAT("01000001");
@@ -109,6 +124,9 @@ TEST_F(TestSubscriber, setTargetTest )
     SET_LOGTARGET( "--target-subscriber");   
 
 	G_WARNING("\tThe answer to the UNivers is NOT %d but %d", 43, 42);
+
+ 	std::this_thread::sleep_for( std::chrono::milliseconds(100) );
+
     EXPECT_STREQ(fMsg1->fMsg, "<Warning:General>        \t\tThe answer to the UNivers is NOT 43 but 42\n");
     EXPECT_STREQ(fMsg2->fMsg, "<Warning:General>        \t\tThe answer to the UNivers is NOT 43 but 42\n");
 
@@ -117,11 +135,12 @@ TEST_F(TestSubscriber, setTargetTest )
 //	SET_LOGTARGET( eMSGTARGET::TARGET_SUBSCRIBERS | eMSGTARGET::TARGET_STDOUT  );
 	SET_LOGTARGET( "1111"  );
     G_WARNING("Dunbars Number is between %d and %d", 100, 250);
-    EXPECT_STREQ( fMsg2->fMsg, "<Warning:General>        \tDunbars Number is between 100 and 250\n");
+    std::this_thread::sleep_for( std::chrono::milliseconds(100) );
+	EXPECT_STREQ( fMsg2->fMsg, "<Warning:General>        \tDunbars Number is between 100 and 250\n");
     EXPECT_EQ( fStrCout.str(),  string("<Warning:General>        \tDunbars Number is between 100 and 250\n") );
     EXPECT_NE( FileIOTest(),   "<Warning:General>\t\tDunbars Number is between 100 and 250");
     POP();
-	LPublisher::EnableColor();
+	LPublisher::Instance()->EnableColor();
 }
 
 
@@ -133,8 +152,11 @@ TEST_F(TestSubscriber, setTargetFileTest)
 	SET_LOGTARGET( "--target-off" );
     SET_LOGTARGET( "--target-file" ) ;
 	SET_LOGLEVEL("--all-warning");
-
+	fStrCout.str("");
+	fMsg1->fMsg[0] = 0;
+	fMsg2->fMsg[0] = 0;
     G_WARNING("Dunbars Number is between %d and %d", 50, 200);
+	std::this_thread::sleep_for( std::chrono::milliseconds(100) );
 	EXPECT_EQ(FileIOTest(), string("<Warning:General>        \tDunbars Number is between 50 and 200") );
 	EXPECT_STREQ(fMsg1->fMsg, "");
 	EXPECT_STREQ(fMsg2->fMsg, "");
@@ -147,7 +169,8 @@ TEST_F(TestSubscriber, setTargetFileTest)
 TEST_F(TestSubscriber, cmdLine  )
 {  
 	g->InitLogArgs();
-	LPublisher::DisableColor();
+	LPublisher::Instance()->DisableColor();
+	LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 
 	try
 	{
@@ -156,12 +179,14 @@ TEST_F(TestSubscriber, cmdLine  )
 		
 		SET_LOGLEVEL("--all-warning");
 		G_WARNING("Hello Chuck Norris");
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ(fMsg1->fMsgBody, "Hello Chuck Norris");
 		EXPECT_STREQ(fMsg2->fMsgBody, "Hello Chuck Norris");
 		EXPECT_EQ(fStrCout.str(), "");
 
 		g->ScanArguments("-logtarget --target-stdout --target-subscriber");
 		G_ERROR("Hello Dolly");
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ(fMsg1->fMsgBody, "Hello Dolly");
 		EXPECT_EQ(fStrCout.str(), "\tHello Dolly\n");
 
@@ -172,6 +197,7 @@ TEST_F(TestSubscriber, cmdLine  )
 		fMsg2->fMsgBody[0] = 0;
 		g->ScanArguments("-logtarget  --target-subscriber");
 		G_ERROR("Hello Dolly");
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ(fMsg1->fMsgBody, "Hello Dolly");
 		EXPECT_STREQ(fMsg2->fMsgBody, "Hello Dolly");
 		
@@ -183,6 +209,7 @@ TEST_F(TestSubscriber, cmdLine  )
 		fStrCout.str("");
 
 		G_ERROR("Hello Chuck");
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ("Hello Chuck", fMsg1->fMsgBody);
 		EXPECT_STREQ("Hello Chuck", fMsg2->fMsgBody);
 		EXPECT_EQ("\tHello Chuck\n", fStrCout.str());
@@ -190,7 +217,9 @@ TEST_F(TestSubscriber, cmdLine  )
 		fStrCout.str("");
 		SET_LOGTARGET("0000 --target-subscriber");
 
+
 		G_ERROR("Hello Dolly");
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ("Hello Dolly", fMsg1->fMsgBody);
 		EXPECT_STREQ("Hello Dolly", fMsg2->fMsgBody );
 		EXPECT_EQ("", fStrCout.str());
@@ -198,6 +227,7 @@ TEST_F(TestSubscriber, cmdLine  )
 		fStrCout.str("");
 		SET_LOGTARGET("0110");
 		G_ERROR("Hello Donald");
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ("Hello Donald", fMsg1->fMsgBody);
 		EXPECT_STREQ("Hello Donald", fMsg2->fMsgBody);
 		EXPECT_EQ("\tHello Donald\n", fStrCout.str());
@@ -206,6 +236,7 @@ TEST_F(TestSubscriber, cmdLine  )
 		SET_LOGTARGET("0000");
 		g->ScanArguments("-logtarget 1000 --target-subscriber");
 		G_ERROR("Hello PTH");
+		std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 		EXPECT_STREQ("Hello PTH", fMsg1->fMsgBody);
 		EXPECT_STREQ("Hello PTH", fMsg2->fMsgBody);
 		EXPECT_EQ("", fStrCout.str());
@@ -216,7 +247,8 @@ TEST_F(TestSubscriber, cmdLine  )
 		throw(e);
 	}
 	
-	LPublisher::EnableColor();
+	LPublisher::Instance()->EnableColor();
 }
+
 
 

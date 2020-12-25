@@ -22,9 +22,6 @@
 *   handling system when scanning arguments (see GCmdScan). The main implementation is in the template class GCommandLinArgument.  It would not bes possibel in general to use this class when 
 *   creating a vector *of pointers because different template initializations would yield different pointer types. */
 
-
-
-///#include <utilities/GPrintable.h>
 #include <utilities/GDefinitions.h>
 #include <utilities/GConstants.h>
 #include <vector>
@@ -40,7 +37,7 @@ class  GArgument
   friend class GCmdScan;
 
 public:
-  API GArgument(const string name, const string usage, const string helptxt, const bool ismandatory,
+  API GArgument(const string name, const string usage, const string helptext, const bool ismandatory,
                 std::function<bool(const string cmnd, const string args_s, const vector<string> sub, const vector<string> par)> funct);
   API GArgument();
   virtual API ~GArgument() {}
@@ -55,6 +52,7 @@ public:
   string API GetUsage() const { return fUsage; };
   string API GetHelpText() const { return fHelpText; };
   string API GetHelpText(const bool subcommands) const;
+  void   API SetHelpText(const string help) { fHelpText = help; };
 
   virtual API string str(const bool subcommands = false) const;
   bool Verify();

@@ -46,13 +46,11 @@ namespace LOGMASTER
 	
 	LMessageFactory::LMessageFactory( const LMessageFactory &gen )
 	{
-		// fConfig = new LConfig( *gen.fConfig );
-		// fMessage = new LMessage( *gen.fMessage );
-		// fGenerator = new LMessageGenerator( *gen.fGenerator );
+		fIsEnabled = gen.fIsEnabled;
+		
 		if( gen.fConfig  != nullptr )
 		 {
 			 fConfig     =   std::make_shared<LConfig>( *gen.fConfig );
-		 	//*fConfig =  *gen.fConfig ;
 		 }
 		 else
 		 {
@@ -62,7 +60,6 @@ namespace LOGMASTER
 		 if( gen.fConfig  != nullptr )
 		 {
 			fMessage     =   std::make_shared<LMessage>(*gen.fMessage  ); 
-		 	//*fMessage =  *gen.fMessage ;
 		 }
 		 else
 		 {
@@ -73,7 +70,6 @@ namespace LOGMASTER
 		if( gen.fGenerator  != nullptr )
 		 {
 			fGenerator     =   std::make_shared<LMessageGenerator >( *gen.fGenerator  ); 
-		 //	*fGenerator =  *gen.fGenerator ;
 		 }
 		 else
 		 {
@@ -81,23 +77,12 @@ namespace LOGMASTER
 		 }
 
 
-		
-		// fConfig =  gen.fConfig ;
-		// fMessage =  gen.fMessage  ;
-		// fGenerator = gen.fGenerator;
-
-
 	}
 	
 
 	LMessageFactory::~LMessageFactory()
 	{
-		// delete fConfig;
-		// delete fGenerator;
-		// delete fMessage;
-		// fConfig = nullptr;
-		// fGenerator = nullptr;
-		// fMessage = nullptr;
+
 	}
 
 
@@ -125,38 +110,31 @@ namespace LOGMASTER
 	LMessageFactory::IsEnabled() const
 	{
 		return fIsEnabled;
-	}
+        }
 
 
-	void
-	LMessageFactory::Enable()
-	{
-		fIsEnabled = true;
-	}
+        void LMessageFactory::Enable() { fIsEnabled = true; }
 
 
-	void
-	LMessageFactory::Disable()
-	{
-		fIsEnabled = false;
-	}
+        void LMessageFactory::Disable() { fIsEnabled = false; }
 
+        std::shared_ptr<LMessage> LMessageFactory::GenerateMessageUnsafe(const eMSGSYSTEM s, const eMSGLEVEL l,
+                                                                         const char *file, const int line,
+                                                                         const char *func, const std::string addendum,
+                                                                         const char *fmt, va_list ap)
+        {
+            if(fConfig == nullptr)
+            {
+                CERR << "fConfig is a zero pointer !!!" << ENDL;
+                std::shared_ptr<LMessage> m = std::make_shared<LMessage>();
+                return m;
+            }
+            eMSGFORMAT f = fConfig->GetLogFormat();
 
-	std::shared_ptr<LMessage> 
-	LMessageFactory::GenerateMessage(  const eMSGSYSTEM s, const eMSGLEVEL l, const char *file,  const int line, const char *func, const char *fmt, va_list ap, const string ad )
-	{
-		if( fConfig == nullptr)
-		{
-			CERR << "fConfig is a zero pointer !!!" << endl;
-			std::shared_ptr<LMessage> m = std::make_shared<LMessage>();
-			return m;	
+            // fMessage =  fGenerator->GenerateMsg(fMessage,  f, l, s, file, line, func, fmt, ap, ad );
+            fMessage = fGenerator->GenerateMsg(f, l, s, file, line, func, addendum, fmt, ap);
 
-		}
-		eMSGFORMAT f = fConfig->GetLogFormat();
-
-		fMessage =  fGenerator->GenerateMsg(fMessage,  f, l, s, file, line, func, fmt, ap, ad );
-		return fMessage;
-	}
-
+            return fMessage;
+        }
 
 }

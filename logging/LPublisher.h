@@ -1,5 +1,6 @@
 // -*- mode: c++ -*-
-#pragma once
+#ifndef LPUBLISHER_H
+#define LPUBLISHER_H
 
 /****************************************************************************
 *** Copyright(C) 2015  Per Thomas Hille, pth@embc.no                     ***
@@ -9,16 +10,34 @@
 *****************************************************************************/
 
 
-#include "LLogApi.h"
-#include  <utilities/GDefinitions.h>
-#include <memory>
 
+
+#include "LLogApi.h"
+#include "LMessage.h"
+
+#include "LMessage2Json.h"
+#include  <utilities/GDefinitions.h>
+#include  <utilities/GTime.h>
+#include  <memory>
+#include  <queue>  
+#include  <mutex>
+#include  <thread>
+#include  <atomic>
+
+class GDataBaseIF;
 
 namespace LOGMASTER
 {
-    struct LMessage;
+  //  struct LMessage;
     class LLogging;
     class LConfig;
+    class LDatabase;
+  
+    enum class ePUBLISH_MODE
+    {
+        SYNCHRONOUS,
+        ASYNCHRONOUS
+    };
 
     /** @class LPublisher
 	* class that is responsible for writing ( publishing) messages to various targets. Available targets
@@ -27,18 +46,80 @@ namespace LOGMASTER
     class LPublisher
     {
         friend LLogging;
+        friend LDatabase;
+        friend GDataBaseIF;
+
     public:		
-        static  void API  EnableColor();
-        static  void API  DisableColor();
-        static bool  API *GetEnableColor();
-    
+        static  LPublisher API * Instance();
+
+        void  API   EnableColor();
+        void  API   DisableColor();
+        bool  API  * GetEnableColor();
+        void  API   EnableJson();
+        void  API   DisableJson() ;
+        bool  API  * GetEnableJson() ; 
+        void  API   QueMessage( std::shared_ptr<LMessage>  msg, std::shared_ptr<LConfig>,    const eMSGTARGET target  );    
+        
+        void  API   StartDispatcher(); 
+        void  API   StopDispatcher(); 
+        void  API   PauseDispatcher();
+        void  API   ResumeDispatcher();
+        void  API   RunDispatcher();
+        void API    SetMode( const ePUBLISH_MODE mode );
+        void API    Flush();
+        static void AtExit();     
+
     private:
-        static void     PublishMessage(const std::shared_ptr<LMessage>, const std::shared_ptr<LConfig>,  const eMSGTARGET target );
-        static void     PublishToSubscribers(const std::shared_ptr<LMessage>   msg);
-        static void     PublishToGuiSubscribers(const std::shared_ptr<LMessage> msg);
-        static void     PublishToConsole(const std::shared_ptr<LMessage>  msg);
-        static void     PublishToFile(const char * filename, const std::shared_ptr<LMessage>   );
-        static bool     fgEnableColor; 	/* !< Wether or not colors will be used for distinguishing messages when they are written to the console */
+         LPublisher();
+        ~LPublisher();
+         LPublisher( const LPublisher   & );
+         LPublisher operator =  ( const LPublisher   & );   
+
+
+        struct Message
+         {
+         //   LMessage fMessage = LMessage();
+            std::shared_ptr<LMessage> fMessage = nullptr;
+            std::shared_ptr<LConfig>  fConfig = nullptr;
+            eMSGTARGET     fTarget  = eMSGTARGET::TARGET_OFF;
+
+         };    
+
+         void     DispatchMessages();       
+         void     PublishMessage(     std::shared_ptr<LMessage> m, const std::shared_ptr<LConfig>,  const eMSGTARGET target  );
+         void     PublishToSubscribers(   std::shared_ptr<LMessage> msg);
+         void     PublishToGuiSubscribers( std::shared_ptr<LMessage>  msg);
+         void     PublishToConsole(     std::shared_ptr<LMessage> msg);
+         void     PublishToFile(     const char * filename,     std::shared_ptr<LMessage> msg );
+         void     PublishToFileJson( const char * filename,  std::shared_ptr<LMessage> msg    );
+         void     PublishToDatabase( std::shared_ptr<LMessage>  msg); 
+
+         std::queue<  std::shared_ptr<Message> >  fMessageQeue      =  std::queue<  std::shared_ptr<Message> >();        
+        std::queue<  std::shared_ptr<Message> >   fMessageQeueTmp   =  std::queue<  std::shared_ptr<Message> >();        
+
+#ifdef _WIN32
+         std::mutex                             fMessageQeueMutext;
+         std::mutex                              fDispatcherMutext;
+#else
+         std::mutex                             fMessageQeueMutext = std::mutex();
+         std::mutex                              fDispatcherMutext = std::mutex();
+
+#endif
+
+         bool     fgEnableColor       =   true; 	/* !< Wether or not colors will be used for distinguishing messages when they are written to the console */  
+         bool     fgEnableJson        =   true;
+         std::thread *fDispatcher     =   nullptr;
+         std::atomic_bool  fDoRun     =   true; 
+         std::atomic_bool  fDoPause   =   false;
+         std::atomic_bool  fIsRunning =   false; 
+
+         ePUBLISH_MODE fPublisherMode =  ePUBLISH_MODE::ASYNCHRONOUS;
+        
+         GTime fTime;
+         LMessage2Json fMessage2Json;
+         ///std::shared_ptr<LDatabase>
+
     };
 
 }
+#endif

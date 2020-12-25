@@ -9,8 +9,9 @@ SRCCPP:=configurator-unit-tests.cpp   \
 		TestLXmlParser.cpp
 
 
-include ../../../../common.mk
-include ../../../../unittest-common.mk
+include ../../common.mk
+
+#include ../../../../unittest-common.mk
 
 
 #CPPFLAGS+= -DCONFIG_DIR='"$(CURDIR)"'  
@@ -23,7 +24,7 @@ LIBS+=  -lm
 
 
 ifneq (arm, $(TARGET))
-LIBS+= -lX11 -lreadline
+LIBS+=  -lreadline
 endif
 
 

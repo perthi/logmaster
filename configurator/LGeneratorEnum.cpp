@@ -26,9 +26,10 @@ LGeneratorEnum::~LGeneratorEnum()
 
 vector<string>
 LGeneratorEnum::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>>  levels,
-                         vector<std::shared_ptr<LXmlEntitySubSystem>> systems) const
+                         vector<std::shared_ptr<LXmlEntitySubSystem>> systems,   const string autoclause  ) const
 {
     vector<string> lines;
+     lines.push_back(  autoclause ); 
     GenerateSystems( systems, lines );
     lines.push_back("\n\n");
     GenerateLevels ( levels, lines );
@@ -40,6 +41,8 @@ void
 LGeneratorEnum::GenerateLevels( vector< std::shared_ptr<LXmlEntityLogLevel > >  levels, vector<string> &  lines ) const
 {
  ///   vector<string> lines;
+   
+    
     lines.push_back("/*Enum controlling the log level*/");
     lines.push_back("#ifdef __cplusplus");
     lines.push_back("enum class  eMSGLEVEL");

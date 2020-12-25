@@ -32,12 +32,17 @@
 #include   "LConfig.h"
 #include   "LConversion.h"
 #include   "LHashMaps.h"
+#include   "LOperators.h"
+
 #include   <utilities/GNumbers.h>
 
 
 namespace LOGMASTER
 {
-
+ 
+    string  LConfig::fTimeMode = "";
+    
+    
     LConfig::LConfig() : fHash()
     {
         fHash.InitHash( eMSGLEVEL::LOG_WARNING );
@@ -92,7 +97,7 @@ namespace LOGMASTER
     void
     LConfig::SetLogFormat(const string &format, bool enable)
     {
-        vector<string> tokens = g_tokenizer()->Tokenize( format, vector <string>{" ","\n", "\t"} );
+        vector<string> tokens =  GTokenizer().Tokenize( format, vector <string>{" ","\n", "\t"} );
 
         for ( size_t i = 0; i < tokens.size(); i++ )
         {
@@ -140,7 +145,7 @@ namespace LOGMASTER
     void
     LConfig::SetLogLevel( const string  &s_lvl )
     {
-		vector<string> tokens = g_tokenizer()->Tokenize(s_lvl, { " ", "\n", "\t" });
+		vector<string> tokens = GTokenizer().Tokenize(s_lvl, { " ", "\n", "\t" });
 
         for ( size_t i = 0; i < tokens.size(); i++ )
         {
@@ -149,7 +154,8 @@ namespace LOGMASTER
 
             /// We dont let anybody modfy the alarm or the exception sub-system, if the user attempt it we just
             /// masks   of that bit and silently ignore it
-            FilterOut(e_system, { eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EX });  
+        
+        //    FilterOut(e_system, { eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EX });  
             
             if( (int)e_system == 0 )
             {
@@ -260,6 +266,18 @@ namespace LOGMASTER
     }
 
 
+    void
+    LConfig::SetTimeMode( const string mode )
+    {
+        fTimeMode = mode;
+    }
+
+    string
+    LConfig::GetTimeMode(  )
+    {
+        return  fTimeMode;
+    }
+
     string 
     LConfig::DoxygenDoc(const string filename)
     {
@@ -311,6 +329,8 @@ namespace LOGMASTER
         return "not impledmented";
     }
   
+
+    
 
     
 }

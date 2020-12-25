@@ -14,20 +14,22 @@
 *** General Public License(LGPL) V3 or later.See.cpp file for details     ***
 *****************************************************************************/
 
+#include "GArgument.h"
+
 #include <string>
 using std::string;
 
-#include "GArgument.h"
-#include <vector>
+#include <deque>
+using std::deque;
 
-using std::vector;
+#include <memory>
 
 class  GCmdWiki
 {
     public:
         GCmdWiki();
         virtual ~GCmdWiki();
-        static void GenerateWiki( vector<GArgument *> *args,  const string  filename  );
+        static void GenerateWiki( deque < std::shared_ptr< GArgument> > args,  const string  filename  );
 };
 
 #endif

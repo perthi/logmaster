@@ -46,10 +46,14 @@ std::mutex log_mutex;
 std::mutex new_mutex;
 #endif
 
+
+
+string fSource;
+
 namespace LOGMASTER
 {
-    //std::shared_ptr<std::stack< std::map<eMSGTARGET, LMessageFactory   >  > >   LLogging::fConfigurationStack;
-    std::stack<   std::shared_ptr<  std::map<eMSGTARGET,  LMessageFactory   >  >     >  LLogging::fConfigurationStack;
+
+   // std::stack<   std::shared_ptr<  std::map<eMSGTARGET,  LMessageFactory   >  >     >  LLogging::fConfigurationStack;
 
     LLogging *
     LLogging::Instance()
@@ -63,19 +67,69 @@ namespace LOGMASTER
                            fGuiSubscribers(),
                            fConfig(nullptr),
                            fDefaultConfig(nullptr),
-                           fMessages(nullptr)
+                           fMessages(nullptr), fConfigurationStack()
     {
         Init();
     }
 
 
+
+    logmap LLogging::LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char *filename,
+                                      const int lineno, const char *funct, const bool force_generate, string addendum,
+                                      const char *fmt, va_list ap)
+    {
+        if(fConfig == nullptr)
+        {
+            CERR << "CONFIG IS A ZERO POINTER" << ENDL;
+            exit(-1);
+        }
+
+        static std::shared_ptr<LMessage> tmp_msg = std::make_shared<LMessage>();
+
+        ClearMessages();
+        va_list ap_l;
+        va_copy(ap_l, ap);
+        for(auto it = fConfig->begin(); it != fConfig->end(); ++it)
+        {
+            if(it->second.IsEnabled() == true)
+            {
+                bool cl = CheckLevel(system, level, it->first);
+
+                if((cl == true) || force_generate == true)
+                {
+                    tmp_msg = it->second.GenerateMessageUnsafe(system, level, filename, lineno, funct, addendum, fmt, ap_l);
+
+                    if(cl == true)
+                    {
+                        QueMessage(tmp_msg, it->second.GetConfig(), it->first);
+
+                        //   LPublisher::Instance()->PublishMessage( tmp_msg, it->second.GetConfig(), it->first );
+
+                        // LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), target );
+                        auto it_msg = fMessages->find(it->first);
+                        if(it_msg != fMessages->end())
+                        {
+                            it_msg->second = tmp_msg;
+                        }
+                    }
+                }
+            }
+        }
+        va_end(ap_l);
+        return fMessages;
+
+    }
+
+   
+
+    void LLogging::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
+    {
+                        LPublisher::Instance()->QueMessage( msg,   cfg,  target);
+    }
+
+
     LLogging::~LLogging()
     {
-        // delete fConfig;
-        // delete fDefaultConfig;
-        // fConfig = nullptr;
-        // fDefaultConfig = nullptr;
-
         try
         {
             do
@@ -89,12 +143,12 @@ namespace LOGMASTER
         }
         catch ( std::exception& e )
         {
-            CERR << ":" << e.what() << endl;
+            CERR << ":" << e.what() << ENDL;
 
         }
         catch ( ... )
         {
-            CERR << ": Unknown exception !!" << endl;
+            CERR << ": Unknown exception !!" << ENDL;
         }
     }
 
@@ -102,6 +156,7 @@ namespace LOGMASTER
     void
     LLogging::Init()
     {
+      //  LPublisher::Instance()->StartDispatcher();
         fConfig    =            std::make_shared<  std::map<eMSGTARGET,  LMessageFactory  > >();
         fDefaultConfig =        std::make_shared< std::map<eMSGTARGET, LMessageFactory > > ();
 
@@ -111,22 +166,21 @@ namespace LOGMASTER
         fConfig->emplace(  eMSGTARGET::TARGET_GUI,         LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_EXCEPTION,   LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_TESTING,     LMessageFactory() );
+        fConfig->emplace(  eMSGTARGET::TARGET_DATABASE,     LMessageFactory() );
 
         fDefaultConfig = fConfig;
 
-        SetLogTarget( "--target-off --target-file --target-subscriber --target-stdout --target-gui" );
+        SetLogTarget( "--target-off --target-file --target-subscriber --target-stdout --target-gui --target-db" );
         SetLogLevel("--all-warning");
         SetLogFormat("--target-gui --all-off --short-user");
 
-
-       // fMessages = new std::map<eMSGTARGET,  LMessage *  >;
         fMessages =  std::make_shared< std::map<eMSGTARGET,  std::shared_ptr<LMessage>   > >();
-
 
         for ( auto it = fConfig->begin(); it != fConfig->end(); it ++ )
         {
             fMessages->emplace( it->first, new LMessage() );
         }
+
     }
 
 
@@ -155,122 +209,11 @@ namespace LOGMASTER
         do
         {
             auto c = fConfigurationStack.top();
-            // if ( c == fConfig )
-            // {
-            //     delete c;
-            // }
-
             fConfigurationStack.pop();
-
         } while ( fConfigurationStack.size() > 0 );
     }
 
 
-
-
-
-
-
-    /** Main logging function that takes a log message, and adds to it the message
-     *  type, and the location in the source file where the message was generated.
-     *   @param  level  the loglevel/severity of the message
-     *   @param  sys    the subsystem the message applies to
-     *   @param  l The location of the log  message in the code (filenam, function name line number etc.. )
-     *   @param  fmt The formatting for the message (same as the  C style printf formatting)
-     *   @param  ...  Variable argument list
-     *   @return  The generated log message */
-    //std::map<eMSGTARGET,  LMessage *  >	*
-    std::shared_ptr< std::map<eMSGTARGET,  std::shared_ptr<LMessage>   > >
-    LLogging::Log( const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt... )
-    {
-        //		static LMessage *msg = new LMessage();
-//#ifdef THREAD_SAFE
-        std::lock_guard<std::mutex> guard( log_mutex );
-///#endif
-        va_list ap;
-        va_start( ap, fmt );
-        auto map = LogVarArgs( level, sys, l.fFileName.c_str(), l.fLineNo, l.fFunctName.c_str(), fmt, ap );
-        va_end( ap );
-        return map;
-    }
-
-
-    /** Helper function for the main logging (Log) function. The severity("level")
-     *  and subsystem  ("system") of the message is checked against the configuration
-     *  of the  logging system as given by the assoccicated hash maps. If logging
-     *  is enabled for this level and system., then the message is generated and published.
-     *   @param  level the loglevel/severity of the message
-     *   @param  system the subsystem the message applies to
-     *   @param  filename The name of the source code file where the message i created
-     *   @param  lineno  The line number where the message is generated
-     *   @param  function The name of the function that generated the message
-     *   @param  fmt The formatting for the message (same as the  C style printf formatting)
-     *   @param  ap  The list of arguments
-     *   @param  force_generate Force the generation of message, regardless of the
-     *			 loglevel and subystem. This feature is used by the exception handling system
-     *			 where one wants the message to be genrated regardless (because you want to
-     *			catch the exception with an exception handler). This falf is also usefull for debugging
-     *   @param  addendum  optional string to attach to the messag */
-    //std::map<eMSGTARGET,  LMessage *  >	*
-    std::shared_ptr<std::map<eMSGTARGET,  std::shared_ptr <LMessage>   >	>
-    LLogging::LogVarArgs( const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int lineno,
-                          const char* function, const char* fmt, va_list ap, const bool force_generate, const string addendum )
-    {
-//       cerr <<  string(filename) << ":" << string(function) << "[" << lineno << "]" << endl;
- //      std::shared_ptr<std::map<eMSGTARGET,  std::shared_ptr <LMessage>   >	> m;
-
-  //     return m;
-
-       if( fConfig == nullptr )
-       {
-           CERR << "CONFIG IS A ZERO POINTER" << endl;
-           exit(-1);
-       }
-
-     //   static  std::mutex l_mutex;
-      //  std::lock_guard<std::mutex> guard( l_mutex );
-
-       // static LMessage*           tmp_msg  =  new  LMessage();
-     //   static  thread_local std::shared_ptr<LMessage>           tmp_msg  =   std::make_shared<LMessage>();
-        static std::shared_ptr<LMessage>           tmp_msg  =   std::make_shared<LMessage>();
-
-        ClearMessages();
-        va_list ap_l;
-        va_copy(ap_l, ap);
-
-        for ( auto it = fConfig->begin(); it != fConfig->end(); ++it )
-        {
-
-            if ( it->second.IsEnabled() == true )
-            {
-                bool cl = CheckLevel( system, level, it->first );
-
-                if ( (cl == true) || force_generate == true )
-                {
-                    tmp_msg = it->second.GenerateMessage( system, level, filename, lineno, function, fmt, ap_l, addendum );
-
-                    if ( cl == true )
-                    {
-                        //	tmp_msg = it->second.GenerateMessage( system, level, filename, lineno, function, fmt, ap, addendum   );
-
-                       /// auto     tmp_msg = it->second.GenerateMessage( system, level, filename, lineno, function, fmt, ap_l, addendum );
-                        LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), it->first );
-                        //LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), target );
-                        auto it_msg = fMessages->find(it->first);
-                        if ( it_msg != fMessages->end() )
-                        {
-
-                            it_msg->second = tmp_msg;
-                        }
-
-                    }
-                }
-            }
-        }
-
-        va_end(ap_l);
-        return fMessages;
-    }
 
 
     /** Checks the loglevel of a message issued by the user against the current loglevel configured for the logging system*
@@ -322,17 +265,20 @@ namespace LOGMASTER
         }
     }
 
+    void LLogging::Flush()
+    {
+        LPublisher::Instance()->Flush();
+    }
+
 
     void
     LLogging::SetLogTarget( const string& target_s, bool eneable )
     {
-
-
 #ifdef THREAD_SAFE
         std::lock_guard<std::mutex> guard( log_mutex );
 #endif
         vector<eMSGTARGET> e_targets;
-        vector<string> tokens  = g_tokenizer()->Tokenize( target_s, vector<string>{" ", "\n","\t" } );
+        vector<string> tokens  =  GTokenizer().Tokenize( target_s, vector<string>{" ", "\n","\t" } );
 
         for ( size_t i = 0; i < tokens.size(); i++ )
         {
@@ -340,6 +286,7 @@ namespace LOGMASTER
 
             if ( e_tmp == eMSGTARGET::TARGET_OFF )
             {
+            //    COUT << "Turning off all targets" << endl;
                 TurnOffAllTargets();
                 continue;
             }
@@ -350,10 +297,12 @@ namespace LOGMASTER
                 {
                     if(eneable)
                     {
+                        //COUT << "turning on target "<< std::hex << "0x" << (int)it->first << endl; 
                         it->second.Enable();
                     }
                     else
                     {
+                        //COUT << "turning off target " << std::hex << "0x" << (int)it->first << endl; 
                         it->second.Disable();
                     }
                 }
@@ -466,7 +415,7 @@ namespace LOGMASTER
     }
 
 
-    vector< void( *)(const  std::shared_ptr<LMessage>  ) >  &
+    vector< void( *) (  std::shared_ptr<LMessage>  ) >  
     LLogging::GetSubscribers()
     {
         return fSubscribers;
@@ -523,7 +472,7 @@ namespace LOGMASTER
 	/** Register a subscriber callbakc function that will be called by the logging system *
 	* NB! You must not call the logging itse�f system within a subscriber function s*/
     void
-    LLogging::RegisterSubscriber( void( *funct )(const  std::shared_ptr<LMessage>  ) )
+    LLogging::RegisterSubscriber( void( *funct )(  std::shared_ptr<LMessage>   ) )
     {
       //  std::lock_guard<std::mutex> guard( log_mutex );
         fSubscribers.push_back( funct );
@@ -537,7 +486,7 @@ namespace LOGMASTER
         fSubscribers.clear();
     }
 
-    vector<void( *)(const  std::shared_ptr<LMessage>  )> &
+    vector<void( *)( std::shared_ptr<LMessage>  )> 
     LLogging::GetGuiSubscribers()
     {
         return fGuiSubscribers;
@@ -545,7 +494,7 @@ namespace LOGMASTER
     }
 
     void
-    LLogging::RegisterGuiSubscriber( void( *funct )(const std::shared_ptr<LMessage>  ) )
+    LLogging::RegisterGuiSubscriber( void( *funct )( std::shared_ptr <LMessage>  ) )
     {
       //  std::lock_guard<std::mutex> guard( log_mutex );
         fGuiSubscribers.push_back(funct);
@@ -569,19 +518,13 @@ namespace LOGMASTER
        // return 0;
         if ( fConfigurationStack.size() >= MAX_STACK_DEPTH )
         {
-            CERR << "stack is full (size = " << fConfigurationStack.size() << ")" << endl;
+            CERR << "stack is full (size = " << fConfigurationStack.size() << ")" << ENDL;
             return -1;
         }
         else
         {   
-            // CERR  << "0x" << fConfig.get() << endl;          
-            //  CERR  << "0x" << std::hex << fConfig-> << endl;     
             fConfigurationStack.push( fConfig );
-           // fConfig = new std::map<eMSGTARGET, LMessageFactory >( *fConfig );
             fConfig =  std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
-            // CERR  << "0x"<< std::hex << fConfig << endl;    
-            // CERR  << "0x" << fConfig.get() << endl;    
-
             return 0;
         }
         return 0;
@@ -592,7 +535,6 @@ namespace LOGMASTER
     LLogging::Pop(  )
     {
        std::lock_guard<std::mutex> guard( log_mutex );
-     ///   return 0;
         if ( fConfigurationStack.size() > 0 )
         {
             fConfig = fConfigurationStack.top();

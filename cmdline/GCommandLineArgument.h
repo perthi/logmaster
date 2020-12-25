@@ -17,6 +17,8 @@
 
 #include <utilities/GDataTypes.h>
 #include <utilities/GDefinitions.h>
+
+#include <logging/LLogApi.h>
 #include <logging/LLogging.h>
 #include <logging/LPublisher.h>
 

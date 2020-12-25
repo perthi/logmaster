@@ -16,6 +16,7 @@
 #include  <utilities/GNumbers.h>
 #include  <utilities/GDefinitions.h>
 
+
 #include  <string>
 using std::string;
  
@@ -35,6 +36,8 @@ class  TestLConversion_Hash2System_Test;
 class  TestLConversion_Hash2Level_Test;
 class  TestLConversion_Hash2Format_Test;
 class  TestLConversion_SplitByTarget_Test;
+
+
 
 
 namespace LOGMASTER

@@ -17,10 +17,14 @@ SRCCPP:= LColorMap.cpp \
 	LLogApi.cpp \
 	LMessage.cpp \
 	LMessageGenerator.cpp \
-	LPublisher.cpp     
+	LPublisher.cpp \
+	LMessage2Json.cpp \
+	LDatabase.cpp \
+	LEnum2String.cpp
 
 
 
+CPPFLAGS+= -Wno-format-truncation
 
 include ../../common.mk
 

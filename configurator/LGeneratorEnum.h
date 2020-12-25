@@ -19,7 +19,7 @@ class  LGeneratorEnum : public LGenerator
 		LGeneratorEnum( const string fname );
 		virtual ~LGeneratorEnum();
 		virtual vector<string>  Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const override;
+	                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, const string autoclause ) const override;
 	private:		
 		void  GenerateLevels(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels, 	vector<string> &lines ) const;
 		void  GenerateSystems( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, 	vector<string> &lines ) const;								   

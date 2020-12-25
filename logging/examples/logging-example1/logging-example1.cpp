@@ -26,9 +26,6 @@
 ******************************************************************************
 ******************************************************************************/
 
-//#include <version-info/GMenu.h>
-///#include <boost/regex.hpp>
-
 #define G_STANDALONE
 
 #include  <iostream>
@@ -59,10 +56,7 @@ main(int  /*argc*/, const char ** /*argv*/ )
         SET_LOGTARGET("--target-stdout --target-file");
 		FORCE_DEBUG("Writing some test messages");
 		LLogTest::WriteMessages();
-		/// turn off all loglevles for all subsystems
-		/// Turning of Alrams and Exceptions will be vetoed by the system
-					//| level|  subsystem	|
-		///SET_LOGLEVEL("000000001111111111111111");		
+
 		FORCE_DEBUG("Turning everything off");
 		FORCE_DEBUG("Setting loglevel to fatal");
 		SET_LOGLEVEL("--fatal"); 

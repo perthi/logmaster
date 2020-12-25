@@ -4,7 +4,7 @@
 #include <utilities/GFileIOHandler.h>
 #include <exception/GException.h>
 #include <cmdline/GCommandLineArgument.h>
-
+#include <cmdline/GArgumentDefinitions.h>
 
 TestGLogApplication::TestGLogApplication()
 {
@@ -82,11 +82,11 @@ TEST_F(TestGLogApplication, extra_arguments)
     std::shared_ptr < GArgument> arg2 = std::make_shared < GCommandLineArgument<double> > ("-fval2", &f2);
     std::shared_ptr < GArgument> arg3 = std::make_shared < GCommandLineArgument<double> > ("-fval3", &f3);
 
-    vector< std::shared_ptr < GArgument>  > all_args = { arg1, arg2, arg3 };
+    arg_deque all_args = { arg1, arg2, arg3 };
 
     // We expect an execption for both filenames because the files are emty (they are delet in th teardown function)
     
-    vector< std::shared_ptr<GArgument>  >  arg1_v = {arg1};
+    arg_deque   arg1_v = {arg1};
 
     
     EXPECT_ANY_THROW( new  GLogApplication(GFileName_t(fValidCommands), &arg1_v));
@@ -103,10 +103,6 @@ TEST_F(TestGLogApplication, extra_arguments)
     EXPECT_NEAR(f1, 3.1415901, 0.0001);
     EXPECT_NEAR(f2, 1.61803, 0.0001);
     EXPECT_NEAR(f3, 0.76422, 0.0001);
-    
-    // delete arg1;
-    // delete arg2;
-    // delete arg3;
     
 }
  

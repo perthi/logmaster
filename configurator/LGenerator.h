@@ -24,7 +24,7 @@ class  LGenerator
 	 virtual ~LGenerator();
 
 	virtual vector<string>  Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems ) const = 0;
+	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, const string autoclause ) const = 0;
 
 	string GetFilename( ) const { return fFileName; };	
 

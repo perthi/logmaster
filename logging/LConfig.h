@@ -50,9 +50,12 @@ namespace LOGMASTER
         eMSGFORMAT		API		GetLogFormat()  const  { return fLogFormat; };
         eMSGLEVEL		API		GetLogLevel(const eMSGSYSTEM system) const;
         LHashMaps		API	*	GetHash();
+        static string   API     GetTimeMode();
+        
         void			API		SetLogFormat(const string &format, bool enable);
         void			API		SetLogLevel(const  string  &level );
         void			API		SetLogFileName(const string &filename );
+        static void     API     SetTimeMode(const string mode);
         bool			API		IsInitialized() const { return fIsInitialized; };
         void            API     FilterOut( eMSGSYSTEM &sys,  vector<eMSGSYSTEM>  systems);
 
@@ -65,6 +68,9 @@ namespace LOGMASTER
         eMSGFORMAT             fLogFormat = eMSGFORMAT::PREFIX_ALL; // 11111111 i.e all fields enabled
         string				   fLogFilename = "mylogfile.log";
         LHashMaps              fHash;
+    
+        static string fTimeMode;
+    
     };
 }
 

@@ -29,18 +29,13 @@
 ******************************************************************************
 ******************************************************************************/
 
-///#include "LEnumsLevels.h"
-
 
 #ifdef __cplusplus
 namespace LOGMASTER
 {
-
-#include "LEnumGenerated.h" /// NB autognerated
-
-
 #endif
 
+#include "LEnumGenerated.h" /// NB autognerated
 
 
 	/*Enum controling where the logmessages are written*/
@@ -57,7 +52,8 @@ namespace LOGMASTER
         TARGET_GUI              =   0x08,    // 00001000     Send messages to the GUI
         TARGET_EXCEPTION        =   0x10,    // 00010000     The exection system, always ON, not configurable
         TARGET_TESTING          =   0x20,    // 00100000     Dedicated targe t for debugging
-        TARGET_ALL              =   0x3f     // 00111111     Write log messages to all availabel log targets.
+        TARGET_DATABASE         =   0x40,    // 01000000     Dedicated targe t for debugging
+        TARGET_ALL              =   0xff     // 01111111     Write log messages to all availabel log targets.
     };
 
 
@@ -83,7 +79,9 @@ namespace LOGMASTER
          PREFIX_ALL              =	0xff      // 11111111    Prefix contains all options
     };
 
-
+//#ifdef __cplusplus
+	
+	/*
 	inline eMSGSYSTEM operator | ( const eMSGSYSTEM &lhs, const eMSGSYSTEM &rhs )
 	{
 		return (eMSGSYSTEM)((int)lhs | (int)rhs);
@@ -123,6 +121,11 @@ namespace LOGMASTER
 	{
 		return (eMSGTARGET)((int)lhs & (int)rhs);
 	}
+	*/
 
 
+
+#ifdef __cplusplus
 }
+#endif
+

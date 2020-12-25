@@ -1,21 +1,11 @@
 // -*- mode: c++ -*-
 
-
 #ifdef _WIN32
 #include <Windows.h>
 #endif
 
-
-
-
-//#include <utilities/GSystem.h>
-// auto client = std::make_shared<KFClientMain >(argc, argv);
- //       th1 = thread( &KFClientMain::Run, client  );
-
 #include <stdio.h>
-
 //#include <unistd.h>
-
 #include <string>
 using std::string;
 
@@ -23,66 +13,100 @@ using std::string;
 using std::endl;
 using std::cout;
 
+#include   <memory>
+#include   <iostream> 
+#include   <string>
+#include   <logging/LLogApi.h>
+#include   <logging/LDoc.h>
+#include   <logging/LLogTest.h>
+#include   <exception/GException.h>
+#include   <exception>
+using namespace LOGMASTER;
+#include   <logging/LPublisher.h>
+#include   <queue>
+#include   <chrono>
+#include   <thread>
+#include   <algorithm>
+#include   <ostream>
+#include   <iostream>
+#include   <fstream>
+#include   <vector>
 
-#include <memory>
 
-#include <iostream> 
-#include <string>
+using std::vector;
 
 
-int main ()
+template< typename T >
+class Less
 {
-
- //  int *test = new int(100);
-   std::shared_ptr<int>  test = std::make_shared<int>(222);
-
-/*
-   cout << "int = " << *test << endl; 
+  public:
+    bool operator( )( const T & x,  const T & y ) const  { return  x < y; };
+};
 
 
-  std::string str_dec = "2001, A Space Odyssey";
-  std::string str_hex = "40c3";
-  std::string str_bin = "-10010110001";
-  std::string str_auto = "0x7f";
-
-  std::string::size_type sz;   // alias of size_t
-
-  int i_dec = std::stoi (str_dec,&sz);
-  int i_hex = std::stoi (str_hex,nullptr,16);
-  int i_bin = std::stoi (str_bin,nullptr,2);
-  int i_auto = std::stoi (str_auto,nullptr,0);
-
-  std::cout << str_dec << ": " << i_dec << " and [" << str_dec.substr(sz) << "]\n";
-  std::cout << str_hex << ": " << i_hex << '\n';
-  std::cout << str_bin << ": " << i_bin << '\n';
-  std::cout << str_auto << ": " << i_auto << '\n';
-*/
-
-   int num = -1;
-   
-   double f = -1;
-   
-   std::string::size_type sz = 99; 
-
-   try
-   {
-      //  num = std::stoi("123345blahhhh456", &sz); 
-        num = std::stoi("0", &sz); 
-       f  = std::stod("3.15");
-   }
-   catch(const std::exception& e)
-   {
-      std::cout  <<  string ( e.what() ) << endl; ;
-   }
-   
-   cout << "num = " << num << endl;
-    cout << "f = " << f << endl;
-   cout << "sz = " << sz << endl;
-   
-
-
-
-  return 0;
+template<typename C, typename P>
+int count (  const int lim,const C& c, P pred )
+{
+  int cnt = 0;
+  for( const auto x : c )
+  {
+    FORCE_DEBUG(" %d is less than %d ? :  %s", lim, x, pred(x, lim )  == true ? "TRUE" : "FALSE"); 
+    
+    if(pred(x, lim))
+    {
+      cnt ++;
+    }
+  }
+  return cnt;
 }
 
+
+// template<typename T>
+// void print_modulo( const vector<T> & v, std::ostream & os, int m  )
+// {
+//   for_each( begin(v), end(v),  [&os, m ](auto x) 
+//   {
+//   // if(x%m == 0) os << x << '\n'; 
+//     os << x << '\n'; 
+//   } );
+// }
+
+
+template<typename T>
+void print_modulo( const vector<T> & v, std::ostream & os, int m  )
+{
+  auto print =  [&os, m]( T x) {   os << x << " xxxx " << '\n';  };
+  for_each( begin(v), end(v), print ); 
+
+}
+
+
+
+int main()
+{
+  Less<int> lti;
+
+  vector<int> test1 = {1,2,33,44,55,66,77};
+  vector<double> test2 = {1.1,2.23,33.33,44.44,55.55,66.66,77.77 };
+  vector<string> test3  {"ole", "dole", "doff", "kinkeliane", "koff" };
+
+  int cnt =  count( 42, test1, lti );
+  FORCE_DEBUG("The number of matches was %d", cnt );
+  std::stringstream out;
+
+  print_modulo( test1, out , 11);
+  print_modulo( test2, out , 11);
+  print_modulo( test3, out , 11);
+
+  CERR << out.str()  << ENDL;
+
+  // char buf[255];
+  // for(int i=0; i < 1000; i++)
+  // {
+  //   sprintf(buf, "Hello%d", i );
+  //   FORCE_DEBUG("%s", buf);
+  // }
+  ///std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+}
 

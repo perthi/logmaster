@@ -44,6 +44,7 @@ targets_local:=$(PROGRAM) $(LIBNAME_A) $(LIBNAME_SO)
 all: $(targets_local)
 
 
+
 $(INSTALLDIRS):
 	@if [ ! -b $@ ]; \
 		then \
@@ -65,22 +66,28 @@ ifneq "$(MAKECMDGOALS)" "clean"
 endif
 
 
-#$(LIBNAME_A): compileinfo_dir $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC) $(INSTALLDIRS) 
-$(LIBNAME_A):  $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC) $(INSTALLDIRS) 
+
+ifndef KTS_SHARED
+$(LIBNAME_A): $(OBJS) $(OBJSCPP) 
 	@$(ARLOCAL) -cr  $(LIBNAME_A) $(OBJS) $(OBJSCPP)
 	@ranlib $(LIBNAME_A)	
 	@rm -f !  $(LIBLOCAL)/$(LIBNAME_A) 
 	@cp -p $(LIBNAME_A) $(LIBLOCAL)
 
-ifdef MAKE_SHARED
-$(LIBNAME_SO):  $(OBJS) $(OBJSCPP) $(INSTALLDIRS)
-	$(CCLOCAL) $(LIBFLAGS)   -o $(LIBNAME_SO) $(OBJS) $(OBJSCPP) 
-	@rm -f !  $(LIBLOCAL)/$(LIBNAME_SO) 
-	@cp -p $(LIBNAME_SO) $(LIBLOCAL)
+
+$(LIBNAME_SO): $(OBJS) $(OBJSCPP) 
+	@echo hello world  > /dev/null
 else
 $(LIBNAME_SO): $(OBJS) $(OBJSCPP) $(INSTALLDIRS)
+	@$(CCLOCAL) $(LIBFLAGS) -fPIC  -shared  -o $(LIBNAME_SO) $(OBJS) $(OBJSCPP) $(LIBS)
+	@rm -f !  $(LIBLOCAL)/$(LIBNAME_SO) 
+	@cp -p $(LIBNAME_SO) $(LIBLOCAL)
+
+$(LIBNAME_A): $(OBJS) $(OBJSCPP) 
 	@echo hello world  > /dev/null
+
 endif
+
 
 
 
@@ -98,7 +105,7 @@ VPATH=../
 
 
 %.o: %.c  %.h 
-	$(CCLOCAL) $(CFLAGS) -c -o $(@F) $< $(INCLUDES)
+	$(CC) $(CFLAGS) -c -o $(@F) $< $(INCLUDES)
 
 
 %.o:  	%.cpp  %.h

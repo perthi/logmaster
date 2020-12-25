@@ -27,6 +27,8 @@
 ******************************************************************************/
 
 
+
+
 #include "LPublisher.h"
 
 #include "LConfig.h"
@@ -42,101 +44,287 @@
 #include <utilities/GColor.h>
 
 #include "LLogApi.h"
+#include "LMessage2Json.h"
+#include "LDatabase.h"
 
 #include <memory>
+#include <json/json.hpp>
+#include "../json/LJson.hpp"
+
 
 
 using namespace LOGMASTER;
 
+
+#include <chrono>
+
+
 namespace LOGMASTER
 {
-    bool LPublisher::fgEnableColor = true;
 
-    /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently
+    LPublisher  * 
+    LPublisher::Instance()
+    {
+        static  LPublisher *instance = new LPublisher();
+        return instance;
+    }
+
+    LPublisher::LPublisher() : fTime(), fMessage2Json()
+    {
+         std::atexit(  AtExit );
+         StartDispatcher(); 
+    }
+
+    LPublisher::~LPublisher()
+    {
+    }
+
+
+
+    void 
+    LPublisher::AtExit()
+    {
+        Instance()->StopDispatcher();
+    }     
+
+
+    void  
+    LPublisher::StartDispatcher()
+    {
+	    static  std::mutex m;
+		std::lock_guard<std::mutex> guard( m );
+        fDispatcher = new std::thread( &::LPublisher::RunDispatcher, this );
+    }
+
+    void
+    LPublisher::StopDispatcher()
+    {
+        while ( fMessageQeueTmp.size()  > 0)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10) );   
+        }
+        {
+           std::lock_guard<std::mutex> guard2( fMessageQeueMutext ); 
+           std::swap(  fMessageQeueTmp , fMessageQeue  );
+        }
+
+        fDoRun = false;
+        std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
+
+        if (fDispatcher != nullptr)
+        {
+            if (fDispatcher->joinable() == true)
+            {
+                    static std::mutex m;
+                    std::lock_guard<std::mutex> guard(m);
+                    fDispatcher->join();
+                    delete fDispatcher;
+                    fDispatcher = nullptr;
+                    fIsRunning = false;
+            }
+            else
+            {
+                CERR << "Thread is not joinable" << ENDL;
+            }
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
+    }
+
+
+    void  
+    LPublisher::PauseDispatcher()
+    {
+       fDoRun = false;  
+    }
+    
+    void  
+    LPublisher::ResumeDispatcher()
+    {
+        fDoRun = true;  
+    }
+
+
+    void
+    LPublisher::RunDispatcher()
+    {
+
+        while (fDoRun == true)
+        {
+            if (fDoPause == true)
+            {
+                fIsRunning = false;
+            }
+            else
+            {
+                fIsRunning = true;
+                DispatchMessages();
+              //  std::this_thread::sleep_for(std::chrono::milliseconds(10) ); 
+            }
+        }
+    }
+
+
+   void
+    LPublisher::DispatchMessages()
+    {
+       {
+            std::lock_guard<std::mutex> guard2( fMessageQeueMutext ); 
+            std::swap(  fMessageQeueTmp , fMessageQeue  );
+       }
+
+        static std::mutex mtx;
+        std::lock_guard<std::mutex> guard3( mtx ); 
+
+        while (  fMessageQeueTmp.size() > 0  )
+        {
+            auto m =   fMessageQeueTmp.front();
+            fMessageQeueTmp.pop();
+            PublishMessage( m->fMessage ,  m->fConfig, m->fTarget );
+        }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(50) ); 
+    
+    }
+
+    void
+    LPublisher::QueMessage(std::shared_ptr<LMessage> msg, std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
+    {
+        static std::mutex mtx;
+        std::lock_guard<std::mutex> guard3( mtx ); 
+
+        if (fPublisherMode == ePUBLISH_MODE::SYNCHRONOUS)
+        {
+            PublishMessage( msg, cfg, target);
+        }
+        else
+        {
+              std::shared_ptr<Message> m = std::make_shared<Message>();
+              m->fMessage = msg;
+              m->fConfig = cfg;
+              m->fTarget = target;
+            
+            {
+                std::lock_guard<std::mutex> guard(fMessageQeueMutext);
+
+                fMessageQeue.push(m);
+
+               // fMessageQeue.push(m);
+            }
+        }
+    }
+
+ /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently
      *   than any other log levels and is always written to all targets regardless of the configuration of the logging system.
      *   @param[in] msg  The message to publish
      *   @param[in] cfg The current configuration of the logging system. 
      *   This configuration determins what is written and where it is written to (file, console or subscribers )
-     *   @param[in] target The target for wher to publish this message (file, stdout, subscribers etc..) */ 
+     *   @param[in] target The target for where to publish this message (file, stdout, subscribers etc..) */
+ void LPublisher::PublishMessage(  std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
+ {
+     if (cfg == nullptr)
+     {
+         CERR << " CONFIG IS A ZERO POINTER" << ENDL;
+         return;
+     }
+
+     if (msg->fFormat == eMSGFORMAT::ALL_FIELDS_OFF)
+     {
+         PublishToConsole(msg);
+         return;
+     }
+
+     bool force_debug = ((int)msg->fLevel & (int)eMSGLEVEL::LOG_FORCE_DEBUG) != 0 ? true : false;
+
+     if (force_debug == true)
+     {
+         if ((int)target & (int)eMSGTARGET::TARGET_TESTING)
+         {
+             PublishToConsole(msg);
+             PublishToFile(cfg->fLogFilename.c_str(), msg);
+             PublishToSubscribers(msg);
+             PublishToDatabase(msg);
+             PublishToGuiSubscribers(msg);
+         }
+     }
+     else
+     {
+         //   Publish(msg,  cfg, target );
+         if (((int)target & (int)eMSGTARGET::TARGET_FILE))
+         {
+             PublishToFile(cfg->fLogFilename.c_str(), msg);
+         }
+
+         if ((int)target & (int)eMSGTARGET::TARGET_DATABASE)
+         {
+             PublishToDatabase(msg);
+         }
+
+         if (((int)target & (int)eMSGTARGET::TARGET_SUBSCRIBERS))
+         {
+             PublishToSubscribers(msg);
+         }
+
+         if (((int)target & (int)eMSGTARGET::TARGET_GUI))
+         {
+             PublishToGuiSubscribers(msg);
+         }
+
+         if ((int)target & (int)eMSGTARGET::TARGET_STDOUT)
+         {
+             PublishToConsole(msg);
+         }
+     }
+    }
+
+
     void
-    LPublisher::PublishMessage( const std::shared_ptr<LMessage>  msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target )
+    LPublisher::PublishToDatabase( std::shared_ptr<LMessage>  msg  )
     {
-        if(cfg == nullptr)
-        {
-            CERR << " CONFIG IS A ZERO POINTER" << endl;
-        }
-
-        if ( msg->fFormat ==  eMSGFORMAT::ALL_FIELDS_OFF  )
-        {
-            return;
-        }
-
-        bool force_debug = ((int)msg->fLevel & (int)eMSGLEVEL::LOG_FORCE_DEBUG) != 0 ? true : false;
-
-        if ( force_debug == true )
-        {
-            if ( (int)target & (int)eMSGTARGET::TARGET_TESTING )
-            {
-                PublishToConsole( msg );
-                PublishToFile( cfg->fLogFilename.c_str(), msg );
-                PublishToSubscribers( msg );
-            }
-        }
-        else
-        {
-            if ( (int)target & (int)eMSGTARGET::TARGET_STDOUT )
-            {
-                PublishToConsole( msg );
-            }
-            if ( (int)target & (int)eMSGTARGET::TARGET_FILE )
-            {
-                PublishToFile( cfg->fLogFilename.c_str(), msg );
-            }
-
-            if ( (int)target & (int)eMSGTARGET::TARGET_SUBSCRIBERS )
-            {
-                PublishToSubscribers( msg );
-            }
-
-            if ( (int)target & (int)eMSGTARGET::TARGET_GUI)
-            {
-                PublishToGuiSubscribers( msg );
-            }
-
-        }
-
+        static  std::mutex m;
+		std::lock_guard<std::mutex> guard( m );
+      //  COUT << "WRITING TO DATABASE" << endl;
+        LDatabase::Instance()->AddLogEntry(msg);
     }
 
     /**  Publish messages via the publiser/subscriber interface. The function iterates thrugh an
-     *   array of registered subscribers (if any), and  calls each callback function with the message, subsystem and level as arguments
-     *   @param message  The message to publish */
+     *   array of registered subscribers (if any), and  calls each callback function with the message, 
+     *   subsystem and level as arguments
+     *   @param msg  The message to publish */
     void
-    LPublisher::PublishToSubscribers(const std::shared_ptr<LMessage>  message )
+    LPublisher::PublishToSubscribers( std::shared_ptr<LMessage>  msg )
     {
+        static  std::mutex m;
+		std::lock_guard<std::mutex> guard( m );
         auto subscribers = LLogging::Instance()->GetSubscribers();
 
         for (uint16_t i = 0; i < subscribers.size(); i++)
         {
-            void(*Subscriberfunct)(const  std::shared_ptr<LMessage>  ) = subscribers.at(i);
-            Subscriberfunct(message);
+            void(*Subscriberfunct)(  std::shared_ptr<LMessage>  ) = subscribers.at(i);
+            Subscriberfunct( msg );
         }
     }
 
+
     void
-    LPublisher::PublishToGuiSubscribers(const std::shared_ptr<LMessage> message )
+    LPublisher::PublishToGuiSubscribers( std::shared_ptr<LMessage>  msg  )
     {
+        static  std::mutex m;
+		std::lock_guard<std::mutex> guard( m );
         auto subscribers = LLogging::Instance()->GetGuiSubscribers();
         for (uint16_t i = 0; i < subscribers.size(); i++)
         {
-            void(*Subscriberfunct)(const std::shared_ptr<LMessage>) = subscribers.at(i);
-            Subscriberfunct(message);
+            void(*Subscriberfunct)( std::shared_ptr<LMessage> ) = subscribers.at(i);
+            Subscriberfunct(msg);
         }
     }
 
 
 	void
-    LPublisher::PublishToConsole(const std::shared_ptr<LMessage>  msg)
+    LPublisher::PublishToConsole(  std::shared_ptr<LMessage> msg )
 	{
+        static  std::mutex m;
+		std::lock_guard<std::mutex> guard( m );    
+
 #ifdef _WIN32
             static HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -148,7 +336,8 @@ namespace LOGMASTER
 #else                   
             if( fgEnableColor == true  )
             {
-                cout << "\033" << "[1;" << msg->fAColor << "m" << msg->fMsg << "\033" << "[0m";
+              //  cerr << "\033" << "[1;" << msg.fAColor << "m" << msg.fMsg << "\033" << "[0m";
+              cout << "\033" << "[1;" << msg->fAColor << "m" << msg->fMsg << "\033" << "[0m";
             }
             else
             {
@@ -162,15 +351,12 @@ namespace LOGMASTER
 #endif     
         }
 
-
-
-
-
       void
-    LPublisher::PublishToFile(const char * filename, const std::shared_ptr<LMessage> msg)
+    LPublisher::PublishToFile(const char * filename,  std::shared_ptr<LMessage> msg  )
     {
+        static  std::mutex m;
+		std::lock_guard<std::mutex> guard( m );
         FILE  *logFile = 0;
-        
 
 #ifdef _WIN32
         fopen_s(&logFile, filename, "a");
@@ -180,14 +366,53 @@ namespace LOGMASTER
         
         if (logFile)
         {
-            fputs(msg->fMsg, logFile);
+            fputs( msg->fMsg, logFile);
             fclose(logFile);
             logFile = 0;
         }
         else
         {
-            cerr << __FILE__ << ":" << __LINE__ << g_time()->TimeStamp() << ": Error opening Logfile: " << filename << endl;
-            CERR << "This message could not be logged:\t" << msg->fMsg << endl;
+            cerr << __FILE__ << ":" << __LINE__ <<  fTime.TimeStamp() << ": Error opening Logfile: " << filename << endl;
+            CERR << "This message could not be logged:\t" << msg->fMsg << ENDL;
+        }
+
+        if( fgEnableJson == true )
+        {
+             PublishToFileJson( filename , msg );
+        }
+    }
+
+
+
+    void     
+    LPublisher::PublishToFileJson( const char *   filename_base,  std::shared_ptr<LMessage> msg   )
+    {
+        static  std::mutex m;
+		std::lock_guard<std::mutex> guard( m );
+        string fname_tmp = string( filename_base ) + ".json";
+        const char * fname_tmp_c  = fname_tmp.c_str();
+        FILE  *logFile = 0;
+
+#ifdef _WIN32
+        fopen_s(&logFile,fname_tmp_c, "a");
+#else
+        logFile = fopen(  fname_tmp_c, "a");
+#endif
+        nlohmann::json j;
+        fMessage2Json.Message2Json( msg, j );
+
+        std::string jsonStr = JsonToString(j);
+
+        if (logFile)
+        {
+            fputs(  jsonStr.c_str(), logFile);
+            fclose(logFile);
+            logFile = 0;
+        }
+        else
+        {
+            cerr << __FILE__ << ":" << __LINE__ <<  fTime.TimeStamp() << ": Error opening Logfile: " << fname_tmp_c  << ENDL;
+            CERR << "This message could not be logged:\t" << jsonStr << ENDL;
         }
     }
 
@@ -206,10 +431,55 @@ namespace LOGMASTER
     }
 
 
-    bool *
+    bool  *
     LPublisher::GetEnableColor()
     {
-        return &fgEnableColor;
+        return  &fgEnableColor;
     }
+
+
+    void   
+    LPublisher::EnableJson()
+    {
+        fgEnableJson = true;
+    }
+
+    void   
+    LPublisher::DisableJson()
+    {
+        fgEnableJson = false;
+    }
+    
+    bool   *
+    LPublisher::GetEnableJson()
+    {
+        return &fgEnableJson;
+    }  
+
+   void 
+   LPublisher::SetMode( const ePUBLISH_MODE mode )
+   {
+       fPublisherMode = mode;
+       if( mode !=fPublisherMode &&  mode == ePUBLISH_MODE::SYNCHRONOUS )
+       {
+           StopDispatcher();
+       }
+
+        if( mode !=fPublisherMode &&  mode == ePUBLISH_MODE::ASYNCHRONOUS )
+       {
+           StartDispatcher();
+       }
+   
+       fPublisherMode = mode;
+
+   }
+
+   void LPublisher::Flush()
+   {
+       while ( fMessageQeueTmp.size()  > 0 || fMessageQeue.size() > 0)
+       {
+           std::this_thread::sleep_for(std::chrono::milliseconds(10) );
+       }
+   }
 
 }

@@ -37,34 +37,44 @@
 export BUILDDIR=$(CURDIR)/build
 export BINDIR=$(BUILDDIR)/$(TARGET)/bin
 export LIBLOCAL=$(BUILDDIR)/$(TARGET)/lib
-export INSTALLDIRS=$(BUILDDIR) $(BUILDDIR)/$(TARGET)  $(BUILDDIR)/$(TARGET)/bin  $(BUILDDIR)/$(TARGET)/lib
+export INSTALLDIRS=$(BUILDDIR) $(BUILDDIR)/x86  $(BUILDDIR)/x86/bin  $(BUILDDIR)/x86/lib  $(BUILDDIR)/arm  $(BUILDDIR)/arm/bin  $(BUILDDIR)/arm/lib
 export VERSIONINFO_EXE=$(BUILDDIR)/x86/bin/version-info
 
-export COMMON_FLAGS:= -fPIC -std=c++17  -g 
-export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wfatal-errors  -Werror
+export COMMON_FLAGS:= -fPIC -O3 -std=c++17  -g 
+
+## export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wfatal-errors  -Werror
+export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security  
+
 
 export HAS_LOGGING:=""
-#export MAKE_SHARED:=""
 
-export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)  -DHAS_LOGGING
+export LOGMASTER_HOME=$(PWD)
+# export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)  
+# export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS) $(PEDANTIC_FLAGS)  
+
+export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)   -DHAS_LOGGING
 export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS) $(PEDANTIC_FLAGS)   -DHAS_LOGGING
+
+#export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS)    -DHAS_LOGGING
 
 export XML_DIR:=$(CURDIR)/xml/3rd-party/
 export XML_INCLUDES:= -I $(XML_DIR)
-
 export LIBFLAGS:= -shared
-
 export CONFIG_DIR:=$(PWD)/config
 
-INCLUDES:= -I $(CURDIR)/include/
-GTEST_INCLUDES:= -isystem $(CURDIR)/
-LIBS= -L $(CURDIR)/build/$(TARGET)/lib  -lm
+
+INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system
+
+GTEST_INCLUDES:= -isystem $(PWD)/
+
+
+LIBS= -L $(PWD)/build/$(TARGET)/lib  -lm
 
 
 export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster 
 
 
-export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest -lpthread 
+export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest-embc -lpthread 
 
 
 gtest-linux:=            gtest-linux/$(TARGET)
@@ -79,13 +89,13 @@ cmdline-example1:=       cmdline/examples/cmdline-example1/$(TARGET)
 cmdline-unittest:=       cmdline/unit-tests/commit/$(TARGET)
 exception:=              exception/$(TARGET)
 exception-unittest:=     exception/unit-tests/commit/$(TARGET)
-
 xml:=                    xml/$(TARGET)
-
 configurator:=           configurator/$(TARGET)
 configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
 logging-configurator:=   configurator/logging-configurator/$(TARGET)
-
+helloworld:=             helloworld/$(TARGET)
+db-test:=                database-test/$(TARGET)
+sqlite:=                 submodules/productivity//sqlite/$(TARGET) 
 
 
 unittests:= 	$(utilities-unittest) \
@@ -104,19 +114,15 @@ src-lib:= $(support-modules) \
 	$(testlib) \
 	$(xml) \
 	$(common) \
-        $(exception)
-
-#	$(configurator) 
+    $(exception) \
+	$(sqlite)
 
 
 src-exe:=$(helloworld) \
 	$(unittests) \
 	$(logging-example1) \
-	$(cmdline-example1) 
-	
-#	$(xml-validator) \
-	$(configurator-example1) \
-        $(logging-configurator)
+	$(cmdline-example1) \
+	$(db-test)
 
 
 
@@ -150,6 +156,7 @@ CCLOCAL:=c++   -std=c++17
 ARLOCAL:=ar
 else
 CCLOCAL:=arm-linux-gnueabihf-g++   -std=c++17 -DARM
+CC:= arm-linux-gnueabihf-gcc
 ARLOCAL:=arm-linux-gnueabihf-ar
 endif
 
@@ -186,10 +193,10 @@ $(INSTALLDIRS):
 	mkdir -p $@
 
 
-x86:
+x86:    $(INSTALLDIRS)
 	@$(MAKE) TARGET=x86
 
-arm:
+arm:    $(INSTALLDIRS)
 	@$(MAKE) TARGET=arm
 
 
@@ -218,14 +225,18 @@ clean-x86:
 	done
 	@rm -rf build/x86
 
+.PHONY: clean-logs
+clean-logs:
+	rm -f *.log*  *.db
+
 
 .PHONY: distclean
 distclean: clean
 	@-$(RM) -r build
 	@-$(RM) `find -name "SvnInfo*" | grep -v .svn`
-	@find -name *.so    |  egrep  -v  '^\./3rd-party/'  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |  egrep -v   '^\./arm-lib-dep/' |  xargs rm -f
-	@find -name *.so.*  |  egrep  -v  '^\./3rd-party/'  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |  egrep -v   '^\./arm-lib-dep/' |  xargs rm -f
-	@find -name *.a     |  egrep  -v  '^\./3rd-party/'  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |   xargs rm -f
+	@find -name *.so    |  egrep  -v  3rd-party  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |  egrep -v   '^\./arm-lib-dep/' |  xargs rm -f
+	@find -name *.so.*  |  egrep  -v  3rd-party  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |  egrep -v   '^\./arm-lib-dep/' |  xargs rm -f
+	@find -name *.a     |  egrep  -v  3rd-party  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |   xargs rm -f
 	@find -name *~ -exec rm {} \;
 #	@find -name GVersion.cpp | xargs rm -f;
 	@find -name tmp.cpp | xargs rm -f;

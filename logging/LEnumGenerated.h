@@ -1,3 +1,11 @@
+
+/***** Auto generated file: DO NOT EDIT !!!!!! *****/
+/*** Generated at: Sat 12 December-2020 21:33:12  ***/
+/*** Generated from config/logging-kts.xml **/
+/*** Validated by config/logging.xsd **/
+/*** Copyright Per Thomas Hille pth@embc.no ***/
+
+
 // -*- mode: c++ -*-/n/n
 #pragma once
 
@@ -17,6 +25,14 @@ enum  eMSGSYSTEM
 	SYS_MESSAGE 		=  0x0020,    //  00000000 00100000
 	SYS_COM 		=  0x0040,    //  00000000 01000000
 	SYS_XML 		=  0x0080,    //  00000000 10000000
+	SYS_DATABASE 		=  0x0100,    //  00000001 00000000
+	SYS_JSON 		=  0x0200,    //  00000010 00000000
+	SYS_SHOTCAL 		=  0x0400,    //  00000100 00000000
+	SYS_SHOTEXCEC 		=  0x0800,    //  00001000 00000000
+	SYS_CONFIGURATION 	=  0x1000,    //  00010000 00000000
+	SYS_CLI 		=  0x2000,    //  00100000 00000000
+	SYS_MCU 		=  0x4000,    //  01000000 00000000
+	SYS_DRIVER 		=  0x8000,    //  10000000 00000000
 	SYS_ALL			=  0xffff     //  11111111 11111111    Any sub system (message will apply if logging is turned on for any of the sub system)
 };
 
