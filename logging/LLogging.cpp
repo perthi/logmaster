@@ -416,7 +416,7 @@ namespace LOGMASTER
 
 
 	/** Register a subscriber callbakc function that will be called by the logging system *
-	* NB! You must not call the logging itse�f system within a subscriber function s*/
+	* NB! You must not call the logging itself system within a subscriber function s*/
     void
     LLogging::RegisterSubscriber( void( *funct )(  std::shared_ptr<LMessage>   ) )
     {

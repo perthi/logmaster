@@ -96,7 +96,7 @@ protected:
                                               const char * fmt, const Args ... args)\
     { \
     string msg = string(" (") + ExtractClassname(typeid(*this).name()) + string(")") + (fIsEnabledStackTrace == true ?  + "\n" + string("******* Stack Trace START *******") + "\n" + GStackTrace::str() + "\n" + string("******* Stack Trace END *******") + "\n" : "");  \
-    fgMessageMap = LLogging::Instance()->LogVarArgs(eMSGLEVEL::LOG_ERROR, system, file.c_str(), line, function.c_str(), true, msg, fmt, args...); \
+    fgMessageMap = LLogging::Instance()->LogVarArgs(eMSGLEVEL::LOG_FATAL, system, file.c_str(), line, function.c_str(), true, msg, fmt, args...); \
     what(); \
 }
 
