@@ -76,7 +76,11 @@ namespace LOGMASTER
         logmap	API 	LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
             const char* functionname,
             const bool force_generate, string addendum, const char* fmt, const Args ... args);
-        
+        logmap	API 	LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
+            const char* functionname,
+            const bool force_generate, string addendum, const char* fmt, va_list ap);
+
+
 
         void					API		SetLogFormat(const  string& format, bool enable = true);
         void					API		SetLogLevel(const  string& level);

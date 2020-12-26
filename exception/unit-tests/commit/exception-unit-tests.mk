@@ -10,7 +10,8 @@ SRCCPP:=exception-unit-tests.cpp \
 include ../../../../common.mk
 include ../../../../unittest-common.mk
 
-LIBS+= -llogmaster   -lutilities -ltestlib -lexception  -lsqlite-embc -ldl -lpthread
+LIBS+= -llogmaster   -lutilities -ltestlib -lexception  -lsqlite-embc -lreadline -lhistory -lncurses -ldl -lpthread
+#LIBS+=$(PROTOBUF_LIBS)
 
 ifneq (arm, $(TARGET))
 LIBS+=   -lreadline

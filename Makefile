@@ -155,6 +155,7 @@ ifeq (x86, $(TARGET))
 CCLOCAL:=c++   -std=c++17
 ARLOCAL:=ar
 else
+LIBS+= -L$(CURDIR)/3rd-party/arm/lib/
 CCLOCAL:=arm-linux-gnueabihf-g++   -std=c++17 -DARM
 CC:= arm-linux-gnueabihf-gcc
 ARLOCAL:=arm-linux-gnueabihf-ar
