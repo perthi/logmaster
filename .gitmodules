@@ -1,0 +1,6 @@
+[submodule "submodules/productivity"]
+	path = submodules/productivity
+	url = git@github.com:perthi/productivity.git
+[submodule "submodules/xml-parser"]
+	path = submodules/xml-parser
+	url = git@github.com:perthi/xml-parser.git

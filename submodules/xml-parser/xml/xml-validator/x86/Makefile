@@ -1,4 +1,0 @@
-
-include ../xml-validator.mk
-
-
