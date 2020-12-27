@@ -41,6 +41,8 @@ pipeline
 		}
 		stage("Unit tests")
 		{
+			stages
+			{
 			stage("X86")
 			{							
 				steps
@@ -55,6 +57,7 @@ pipeline
 				{
 						sh   './scripts/host/compile.sh arm'
 				}
+			}
 			}	
 
 		}
