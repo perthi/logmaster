@@ -8,7 +8,7 @@ pipeline
 		{
 			steps
 			{
-				dir("docker-cross")
+				dir("docker-cross2")
 				{
 					sh './create-image.sh'
 				}
