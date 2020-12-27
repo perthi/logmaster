@@ -34,14 +34,13 @@ pipeline
 					}
 
 				stage("ARM")
+				{
+					steps
 					{
-						steps
-						{
-							sh   './scripts/host/compile.sh arm'
-						}
+						sh   './scripts/host/compile.sh arm'
+					}
 				}
 			}
-			
 		}		
 		stage('Unit tests')
 		{
