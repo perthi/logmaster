@@ -1,7 +1,7 @@
 
 pipeline
 {
-    agent master
+    agent any
     stages
     {
 		stage("Build compiler docker image")
