@@ -26,7 +26,7 @@ pipeline
 				{							
 					steps
 					{
-						sh   './make  distclean'
+						sh   'make  distclean'
 						sh   './scripts/host/compile.sh x86'
 					}
 				}
