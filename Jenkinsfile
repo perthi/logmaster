@@ -5,7 +5,9 @@ pipeline
 {
     agent any
 
-	stage('Build')
+	stages
+	{
+	stage("Build")
 	{
 		stages
 		{	
@@ -37,7 +39,7 @@ pipeline
 			}
 		}
 	}
-	
+	}
 
 }
 
