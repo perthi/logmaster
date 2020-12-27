@@ -6,10 +6,6 @@ pipeline
     {
 		stage("Build compiler docker image")
 		{
-			agent
-			{
-				label "linuxdocker"
-			}
 			steps
 			{
 				dir("docker-cross")
