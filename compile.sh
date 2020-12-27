@@ -1,0 +1,1 @@
+submodules/productivity/scripts/host/compile.sh
