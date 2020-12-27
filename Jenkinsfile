@@ -5,37 +5,39 @@ pipeline
 {
     agent any
 
-	stages
-	{	
-		stage("Build compiler docker image")
-		{
-			steps
+	stage('Build')
+	{
+		stages
+		{	
+			stage("Build compiler docker image")
 			{
-				dir("docker-cross")
-				{	
-					sh 'whoami'
-					sh './create-image.sh'
+				steps
+				{
+					dir("docker-cross")
+					{	
+						sh 'whoami'
+						sh './create-image.sh'
+					}
+				}
+			}
+			stage("X86")
+			{							
+				steps
+				{
+					sh   './scripts/host/compile.sh clean'
+					sh   './scripts/host/compile.sh x86'
+				}
+			}
+			stage("ARM")
+			{							
+				steps
+				{
+					sh   './scripts/host/compile.sh arm'
 				}
 			}
 		}
-		stage("X86")
-		{							
-			steps
-			{
-				sh 'pwd'
-				sh   './scripts/host/compile.sh clean'
-				sh   './scripts/host/compile.sh x86'
-			}
-		}
-		stage("ARM")
-		{							
-			steps
-			{
-				sh 'pwd'
-				sh   './scripts/host/compile.sh arm'
-			}
-		}
 	}
+	
 
 }
 
