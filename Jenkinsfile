@@ -47,15 +47,14 @@ pipeline
 			{							
 				steps
 				{
-					sh   './scripts/host/compile.sh clean'
-					sh   './scripts/host/compile.sh x86'
+					sh './scripts/host/run-tests.sh x86 --gtest_output=\"xml:reports/linux_x86_unit_test_report.xml\"'
 				}
 			}
 			stage("ARM")
 			{							
 				steps
 				{
-						sh   './scripts/host/compile.sh arm'
+					sh './scripts/host/run-tests.sh arm --gtest_output=\"xml:reports/linux_arm_unit_test_report.xml\"'
 				}
 			}
 			}	
