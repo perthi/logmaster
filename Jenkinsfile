@@ -7,21 +7,40 @@ pipeline
 
 	stages
 	{
-	stage("Build")
-	{
-		stages
+		stage("Build")
 		{	
-			stage("Build compiler docker image")
-			{
-				steps
+			stages
+			{	
+				stage("Build compiler docker image")
 				{
-					dir("docker-cross")
-					{	
-						sh 'whoami'
-						sh './create-image.sh'
+					steps
+					{
+						dir("docker-cross")
+						{	
+							sh 'whoami'
+							sh './create-image.sh'
+						}
+					}
+				}
+				stage("X86")
+				{							
+					steps
+					{
+						sh   './scripts/host/compile.sh clean'
+						sh   './scripts/host/compile.sh x86'
+					}
+				}
+				stage("ARM")
+				{							
+					steps
+					{
+						sh   './scripts/host/compile.sh arm'
 					}
 				}
 			}
+		}
+		stage("Unit tests")
+		{
 			stage("X86")
 			{							
 				steps
@@ -34,11 +53,12 @@ pipeline
 			{							
 				steps
 				{
-					sh   './scripts/host/compile.sh arm'
+						sh   './scripts/host/compile.sh arm'
 				}
-			}
+			}	
+
 		}
-	}
+
 	}
 
 }
