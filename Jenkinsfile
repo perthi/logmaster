@@ -11,7 +11,7 @@ pipeline
 			{
 				dir("docker-cross")
 				{	
-					sh 'whomai'
+					sh 'whoami'
 					sh './create-image.sh'
 				}
 			}
