@@ -16,28 +16,15 @@ pipeline
 				}
 			}
 		}
-
-		stage('Linux')
-		{
-			stages
+		stage("X86")
+		{							
+			steps
 			{
-				stage("X86")
-				{							
-				 	steps
-					{
-					 	sh   './scripts/host/compile.sh clean'
-						sh   './scripts/host/compile.sh x86'
-					}
+				sh   './scripts/host/compile.sh clean'
+				sh   './scripts/host/compile.sh x86'
+			}
 
-				}
-				stage("ARM")
-				{
-					steps
-					{
-						sh   './scripts/host/compile.sh arm'
-						}
-					}
-				}
 		}
+
 
 }
