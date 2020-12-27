@@ -42,7 +42,7 @@ pipeline
 				}
 			}
 			
-		}
+		}		
 		stage('Unit tests')
 		{
 			parallel 
@@ -71,19 +71,9 @@ pipeline
 							}
 						}
 					}
-					post
-					{
-						always
-						{
-							junit 'reports/*unit_test_report.xml'
-						}
-					}
 				}
 			}
-		}				
-        
+		}				   
     
 	}
-
 }
-
