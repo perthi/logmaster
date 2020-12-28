@@ -10,6 +10,14 @@ The logging system can be configured for various sub system. It is possible to s
 
 From the logging systems point of view exception are just a subsystem, that is when an exception is thrown using the exception system ,then a log message of sub-type exception wit severity ERROR or FATAL is generated. These messages is written to log files just as any other log message.
 
+# Plattforms
+Logmaster supports the following plattforms/targets
+* Linux X86
+* ARM
+* Windows
+
+For Linux bases ARM or X86 system a flat makefile is used. For Windoes there is a .snl projec solution file for Visual Studio provided
+
 # Jenkins Build status at AWS
 [![Build Status](http://3.139.180.7:8080/buildStatus/icon?job=logmaster)](http://3.139.180.7:8080/job/logmaster/)
 
