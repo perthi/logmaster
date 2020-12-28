@@ -3,7 +3,7 @@
 
 pipeline
 {
-    agent localhost
+    agent any
 
 	stages
 	{
