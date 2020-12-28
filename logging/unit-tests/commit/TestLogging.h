@@ -18,7 +18,7 @@
 
 namespace LOGMASTER
 {
-    struct LMessage;
+    class LMessage;
 }
 
 using namespace LOGMASTER;
