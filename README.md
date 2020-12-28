@@ -1,4 +1,15 @@
-[TOC]
+- [Welcome to the logmaster wiki](#welcome-to-the-logmaster-wiki)
+- [Plattforms](#plattforms)
+- [Jenkins Build status at AWS](#jenkins-build-status-at-aws)
+- [Quick Start by Examples](#quick-start-by-examples)
+  * [Simple log message](#simple-log-message)
+  * [Simple Assert Statement](#simple-assert-statement)
+  * [Simple Exception](#simple-exception)
+  * [Simple Exception with Assert](#simple-exception-with-assert)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+
 # Welcome to the logmaster wiki
 Logmaster is logging system that lets you write custom log messages in the code using printf formatting.
 Messages can be written according to various log levels, or sub systems.
