@@ -10,7 +10,8 @@ The logging system can be configured for various sub system. It is possible to s
 
 From the logging systems point of view exception are just a subsystem, that is when an exception is thrown using the exception system ,then a log message of sub-type exception wit severity ERROR or FATAL is generated. These messages is written to log files just as any other log message.
 
-
+# Build status
+[![Build Status](http://3.140.200.151:8080/buildStatus/icon?job=logmaster)](http://3.140.200.151:8080/job/logmaster/)
 
 # Quick Start by Examples
 This section
