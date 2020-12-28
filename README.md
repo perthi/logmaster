@@ -1,4 +1,4 @@
-<<toc>> 
+[TOC]
 # Welcome to the logmaster wiki
 Logmaster is logging system that lets you write custom log messages in the code using printf formatting.
 Messages can be written according to various log levels, or sub systems.
