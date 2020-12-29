@@ -37,6 +37,8 @@
 #include "LConfig.h"
 #include "LPublisher.h"
 #include "LConversion.h"
+#include <utilities/GTime.h>
+
 
 #include <cstdarg>
 
@@ -70,8 +72,21 @@ namespace LOGMASTER
     }
 
 
+    void            
+    LLogging::SetExternalTimeSource(  std::function<double()>  funct )
+    {
+        GTime::SetExternalTimeSource( funct );    
+    }
 
-    void LLogging::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
+
+    void 
+    LLogging::SetPublishingMode( const ePUBLISH_MODE mode )
+    {  
+        LPublisher::Instance()->SetMode( mode ); 
+    }
+
+    void 
+    LLogging::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
     {
                         LPublisher::Instance()->QueMessage( msg,   cfg,  target);
     }

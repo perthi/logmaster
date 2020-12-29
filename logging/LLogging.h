@@ -62,6 +62,9 @@ namespace LOGMASTER
     public:
         ~LLogging();
         static LLogging			API* Instance();
+        
+        void            SetExternalTimeSource(  std::function<double()>  funct ); 
+        void API        SetPublishingMode( const ePUBLISH_MODE mode );
 
         template<typename... Args>
         logmap API Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt,

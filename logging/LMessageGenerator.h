@@ -103,7 +103,7 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const
                                                          const char *fname, int line, const char *func, string addendum,
                                                          const char *fmt, const Args ... args)
 {
-    std::lock_guard<std::mutex> guard(G_gen_mutex);
+   // std::lock_guard<std::mutex> guard(G_gen_mutex);
     std::shared_ptr<LMessage> msg = std::make_shared<LMessage>();
 
     msg->ClearContent();

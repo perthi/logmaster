@@ -14,10 +14,11 @@
 
 #include "LLogApi.h"
 #include "LMessage.h"
+#include "LEnums.h"
 
 #include "LMessage2Json.h"
 #include  <utilities/GDefinitions.h>
-#include  <utilities/GTime.h>
+//#include  <utilities/GTime.h>
 #include  <memory>
 #include  <queue>  
 #include  <mutex>
@@ -33,11 +34,7 @@ namespace LOGMASTER
     class LConfig;
     class LDatabase;
   
-    enum class ePUBLISH_MODE
-    {
-        SYNCHRONOUS,
-        ASYNCHRONOUS
-    };
+   
 
     /** @class LPublisher
 	* class that is responsible for writing ( publishing) messages to various targets. Available targets
@@ -51,6 +48,8 @@ namespace LOGMASTER
 
     public:		
         static  LPublisher API * Instance();
+
+        void            SetExternalTimeSource(  std::function<double()> funct ) {   GTime().SetExternalTimeSource(funct); };
 
         void  API   EnableColor();
         void  API   DisableColor();

@@ -38,6 +38,18 @@ namespace LOGMASTER
 #include "LEnumGenerated.h" /// NB autognerated
 
 
+#ifdef __cplusplus
+ enum class ePUBLISH_MODE
+ #else
+enum  ePUBLISH_MODE
+#endif
+    {
+        SYNCHRONOUS,
+        ASYNCHRONOUS
+    };
+
+
+
 	/*Enum controling where the logmessages are written*/
 #ifdef __cplusplus
 	enum class eMSGTARGET
