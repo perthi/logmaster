@@ -9,7 +9,7 @@ def sendMail()
 	 from: 'pth@embc.no', 
 	 mimeType: 'text/html', 
 	 replyTo:   'noreply@logmaster-jenkins', 
-	 subject:   "${currentBuild.result} CI: Project name -> ${env.JOB_NAME}", 
+	 subject:   "${currentBuild.result} CIxxxx: Project name -> ${env.JOB_NAME}", 
 	 to: "pth@embc.no";  	
 }
 
