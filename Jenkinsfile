@@ -72,7 +72,8 @@ pipeline
              echo 'This will run only if successful'  
          }  
          failure {  
-             mail bcc: '', 
+             env.BUILD_STATUS = "blahhhhhh"
+			 mail bcc: '', 
 			 body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL: ${env.BUILD_URL}", 
 			 cc: '', 
 			 charset: 'UTF-8', 
