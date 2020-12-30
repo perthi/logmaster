@@ -79,7 +79,7 @@ pipeline
 			 from: 'pth@embc.no', 
 			 mimeType: 'text/html', 
 			 replyTo: 'noreply@logmaster-jenkins', 
-			 subject:  "${env.JOB_RESULT} ERROR CI: Project name -> ${env.JOB_NAME}", 
+			 subject:  "${env.STATUS} ERROR CI: Project name -> ${env.JOB_NAME}", 
 			 to: "pth@embc.no";  
          }  
          unstable {  
