@@ -73,13 +73,13 @@ pipeline
          }  
          failure {  
              mail bcc: '', 
-			 body: "<b>Example</b><br>Project: ${env.JOB_STATUS} <b> ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL: ${env.BUILD_URL}", 
+			 body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL: ${env.BUILD_URL}", 
 			 cc: '', 
 			 charset: 'UTF-8', 
 			 from: 'pth@embc.no', 
 			 mimeType: 'text/html', 
 			 replyTo: 'noreply@logmaster-jenkins', 
-			 subject:  "${env.JOB_STATUS} ERROR CI: Project name -> ${env.JOB_NAME}", 
+			 subject:  "${env.RESULT} ERROR CI: Project name -> ${env.JOB_NAME}", 
 			 to: "pth@embc.no";  
          }  
          unstable {  
