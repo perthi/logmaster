@@ -62,6 +62,11 @@ pipeline
 		}
 
 	}
+
+
+}
+
+
 	def notifyStarted() 
 	{
 	 emailext (
@@ -71,6 +76,4 @@ pipeline
       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
     )
 	}
-
-}
 
