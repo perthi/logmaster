@@ -78,7 +78,8 @@ pipeline
 	}
 	 post {  
          always {  
-             echo 'This will always run'  
+             echo 'This will always run' 
+			 sendMail();    
          }  
          success {  
              echo 'This will run only if successful'  
