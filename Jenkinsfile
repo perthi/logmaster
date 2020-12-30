@@ -4,12 +4,13 @@
 pipeline
 {
     agent any
+	notifyStarted(); 
 
 	stages
 	{
 		stage("Build")
 		{	
-			notifyStarted(); 
+		
 			stages
 			{	
 				stage("Build compiler docker image")
