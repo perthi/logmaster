@@ -73,7 +73,7 @@ pipeline
          }  
          failure {  
              mail bcc: '', 
-			 body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", 
+			 body: "<b>Example</b><br>Project: ${env.JOB_STATUS} <b> ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL: ${env.BUILD_URL}", 
 			 cc: '', 
 			 charset: 'UTF-8', 
 			 from: 'pth@embc.no', 
