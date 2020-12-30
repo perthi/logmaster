@@ -3,7 +3,7 @@
 def sendMail() 
 {
 	 mail bcc: '', 
-	 body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL:<a href = ${env.BUILD_URL}>${env.BUILD_URL}</a>", 
+	 body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL: <a href = ${env.BUILD_URL}>${env.BUILD_URL}</a>", 
 	 cc: '', 
 	 charset: 'UTF-8', 
 	 from: 'pth@embc.no', 
