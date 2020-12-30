@@ -4,7 +4,12 @@
 pipeline
 {
     agent any
-	notifyStarted(); 
+	
+	node
+	{
+		notifyStarted(); 
+	}
+
 
 	stages
 	{
