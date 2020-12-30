@@ -67,6 +67,8 @@ pipeline
 	 post {  
          always {  
              echo 'This will always run'  
+			println(currentBuild.getPreviousBuild())
+			println(currentBuild.getPreviousBuild().result) 
          }  
          success {  
              echo 'This will run only if successful'  
@@ -78,8 +80,8 @@ pipeline
 			 charset: 'UTF-8', 
 			 from: 'pth@embc.no', 
 			 mimeType: 'text/html', 
-			 replyTo: 'noreply@logmaster-jenkins', 
-			 subject:  currentBuild.getPreviousBuild().result ERROR CI: Project name -> ${env.JOB_NAME}", 
+			 replyTo:   'noreply@logmaster-jenkins', 
+			 subject:   "ERROR CI: Project name -> ${env.JOB_NAME}", 
 			 to: "pth@embc.no";  
          }  
          unstable {  
