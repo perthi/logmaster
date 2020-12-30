@@ -77,7 +77,7 @@ export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster
 export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest-embc -lpthread 
 
 
-gtest-linux:=            gtest-linux/$(TARGET)
+gtest-embc:=             submodules/productivity/gtest-embc/$(TARGET)
 testlib:=                testlib/$(TARGET)
 utilities:=              utilities/$(TARGET)
 utilities-unittest:=     utilities/unit-tests/commit/$(TARGET)
@@ -110,7 +110,7 @@ support-modules:= 	$(utilities) \
 
 
 src-lib:= $(support-modules) \
-	$(gtest-linux) \
+	$(gtest-embc) \
 	$(testlib) \
 	$(xml) \
 	$(common) \
@@ -175,7 +175,7 @@ all: $(all-src)
 
 
 all-clean:=$(x86-src)
-unittest-common =  $(testlib)  $(support-modules)  $(gtest-linux)
+unittest-common =  $(testlib)  $(support-modules)  $(gtest-embc)
 
 
 $(src-exe) : $(src-lib)
