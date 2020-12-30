@@ -79,7 +79,7 @@ pipeline
 			 from: 'pth@embc.no', 
 			 mimeType: 'text/html', 
 			 replyTo: 'noreply@logmaster-jenkins', 
-			 subject:  ${env.BUILD_STATUS} "ERROR CI: Project name -> ${env.JOB_NAME}", to: "pth@embc.no";  
+			 subject:  "${env.BUILD_STATUS} ERROR CI: Project name -> ${env.JOB_NAME}", to: "pth@embc.no";  
          }  
          unstable {  
              echo 'This will run only if the run was marked as unstable'  
