@@ -28,7 +28,7 @@ pipeline
 				{							
 					steps
 					{
-						sh   './scripts/host/compile.sh clean'
+					//	sh   './scripts/host/compile.sh clean'
 						sh   './scripts/host/compile.sh x86'
 					}
 				}
