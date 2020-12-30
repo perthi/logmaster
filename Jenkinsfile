@@ -9,6 +9,7 @@ pipeline
 	{
 		stage("Build")
 		{	
+			notifyStarted(); 
 			stages
 			{	
 				stage("Build compiler docker image")
