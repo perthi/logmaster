@@ -14,6 +14,8 @@ SRCCPP:=logging-unit-tests.cpp \
 	TestLMessage2Json.cpp \
 	TestLDatabase.cpp
 
+#SRCCPP:=logging-unit-tests.cpp \
+TestLFormat.cpp \
 
 include ../../../../common.mk
 include ../../../../unittest-common.mk

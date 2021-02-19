@@ -584,5 +584,19 @@ namespace LOGMASTER
         }
     }
 
+
+   /** @brief Wether or not to perform printf format check on all messages or just on messages that will be written.i.e
+    *  that is above a given loglevel.
+    *  @details In a production system the performance can be significantly improved by only performing a format check
+    *  on messages that will actually be written to any of the log targets. However this has the drawback that
+    *  formatting errors for DEBUG, INFO etch will not be detected if the loglevel is for instance WARNING, so one can get a suprise
+    *  if the loglevel is changed.
+    *  @param val[in] true/false. TRUE: all messages are checked, FALSE: Only messages matching the log level will be checked. */ 
+   void  
+   LLogging::SetFormatCheckAll( const bool val )
+   {
+        fFormatCheckAll = val;
+   }    
+
 } // namespace LOGMASTER
 

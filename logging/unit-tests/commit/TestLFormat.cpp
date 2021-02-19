@@ -27,9 +27,13 @@
 ******************************************************************************/
 
 
+
 #include "TestLFormat.h"
 #include <logging/LEnums.h>
 #include <logging/LLogApi.h>
+#include <logging/LPublisher.h>
+#include <exception/GException.h>
+
 
 using namespace LOGMASTER;
 
@@ -40,13 +44,41 @@ TestLFormat::TestLFormat()
 }
 
 
+
+
 TestLFormat::~TestLFormat()
 {
 
 }
 
+TEST_F( TestLFormat, msg_format )
+{
+	PUSH();
+	LPublisher::Instance()->SetMode( ePUBLISH_MODE::SYNCHRONOUS );
+	int s1 = 0;
+	int s2 = 1;
+	SET_LOGLEVEL("--all-off --com-warning");
+	//EXPECT_NO_THROW( COM_DEBUG("s1 = %d", s1, s2) );
+	
+	EXPECT_THROW(  COM_ERROR("s1 = %d, s2 = %d, s3 = %d", s1, s2), GMissingArgumentException  );
+	EXPECT_THROW(  COM_ERROR("s1 = %d", s1, s2), GInvalidArgumentException  );
 
-TEST_F( TestLFormat, dummy )
+	EXPECT_THROW(  COM_INFO("s1 = %d, s2 = %d, s3 = %d", s1, s2), GMissingArgumentException  );
+	EXPECT_THROW(  COM_INFO("s1 = %d", s1, s2), GInvalidArgumentException  );
+	LLogging::Instance()->SetFormatCheckAll(false);
+	EXPECT_THROW(  COM_ERROR("s1 = %d, s2 = %d, s3 = %d", s1, s2), GMissingArgumentException  );
+	EXPECT_THROW(  COM_ERROR("s1 = %d", s1, s2), GInvalidArgumentException  );
+
+	EXPECT_NO_THROW(  COM_INFO("s1 = %d, s2 = %d, s3 = %d", s1, s2) );
+	EXPECT_NO_THROW(  COM_INFO("s1 = %d", s1, s2)  );
+
+	POP();
+
+}
+
+
+
+TEST_F( TestLFormat, targets )
 {
 ///	auto l = LLogging::Instance();
 	SET_LOGFORMAT("--target-file 00000001");

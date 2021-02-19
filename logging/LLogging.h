@@ -109,7 +109,7 @@ namespace LOGMASTER
         int					API		Pop();
         bool 					API CheckLevel(const eMSGSYSTEM system, const eMSGLEVEL level, const eMSGTARGET target);
         void 					API Flush();
-
+        void                API SetFormatCheckAll( const bool val );    
     private:
         LLogging();
         LLogging(LLogging&);
@@ -132,6 +132,9 @@ namespace LOGMASTER
 
         std::stack<   std::shared_ptr<  std::map<eMSGTARGET, LMessageFactory   >  >     >  fConfigurationStack;
         std::recursive_mutex fLoggingMutex{};
+        
+        bool fFormatCheckAll = true; //!< Wether or not to perform format check on all messages 
+
     };
 
 
@@ -181,27 +184,44 @@ namespace LOGMASTER
         if (fConfig == nullptr)
         {
             CERR << "CONFIG IS A ZERO POINTER" << ENDL;
-            exit(-1);
+            throw( std::invalid_argument("CONFIG IS A ZERO POINTER") );
+            //exit(-1);
         }
-        auto formatCheck = GFormatting::checkFormat(filename, linenumber, functionname, fmt, args...);
-        if (formatCheck.first == false)
+
+        //static std::shared_ptr<LMessage>           tmp_msg = std::make_shared<LMessage>();
+         std::shared_ptr<LMessage>  tmp_msg =  nullptr;
+        std::pair<bool, string>  formatCheck;
+
+        auto format_check = [ &addendum, &filename, &linenumber, &functionname, fmt, args...](  )
         {
-            addendum += " (" + formatCheck.second + ")";
+            std::pair<bool, string>  f = GFormatting::checkFormat(filename, linenumber, functionname, fmt, args...);
+            if (f.first == false)
+            {
+                addendum += " (" + f.second + ")";
+            }
+            return f;
+        };
+
+
+        if( fFormatCheckAll  == true )
+        {
+           formatCheck = format_check();
         }
 
-        static std::shared_ptr<LMessage>           tmp_msg = std::make_shared<LMessage>();
-
-        ClearMessages();
+   //     ClearMessages();
 
         for (auto it = fConfig->begin(); it != fConfig->end(); ++it)
         {
-
             if (it->second.IsEnabled() == true)
             {
                 bool cl = CheckLevel(system, level, it->first);
-
                 if ((cl == true) || force_generate == true)
                 {
+                    if( fFormatCheckAll  == false )
+                    {
+                       formatCheck = format_check();  
+                    }
+
                     if (formatCheck.first == true)
                     {
                         tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, functionname, addendum, fmt,

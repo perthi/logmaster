@@ -363,10 +363,17 @@ namespace LOGMASTER
 #else
         logFile = fopen(filename, "a");
 #endif
-        
         if (logFile)
         {
-            fputs( msg->fMsg, logFile);
+            if(  msg->fMsg[0] == 0 )
+            {
+                fputs( "Empty message !!!\n", logFile);      
+            }
+            else
+            {
+                fputs( msg->fMsg, logFile);
+            }
+            
             fclose(logFile);
             logFile = 0;
         }
@@ -406,6 +413,7 @@ namespace LOGMASTER
         if (logFile)
         {
             fputs(  jsonStr.c_str(), logFile);
+            fputs("\n", logFile );
             fclose(logFile);
             logFile = 0;
         }

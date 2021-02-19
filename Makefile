@@ -2,12 +2,9 @@
 
 
 ########################################
-## MAKEFILE FOR FERROTECH
 ## AUTHOR: Per Thomas Hille pth@embc.no
 ## COPYRIGHT: Embedded Consulting A/S
 ########################################
-
-
 
 
 
@@ -44,19 +41,10 @@ export COMMON_FLAGS:= -fPIC -O3 -std=c++17  -g
 
 ## export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wfatal-errors  -Werror
 export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security  
-
-
 export HAS_LOGGING:=""
-
 export LOGMASTER_HOME=$(PWD)
-# export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)  
-# export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS) $(PEDANTIC_FLAGS)  
-
 export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)   -DHAS_LOGGING
 export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS) $(PEDANTIC_FLAGS)   -DHAS_LOGGING
-
-#export CPPFLAGS_RELAXED:=   $(COMMON_FLAGS)    -DHAS_LOGGING
-
 export XML_DIR:=$(CURDIR)/xml/3rd-party/
 export XML_INCLUDES:= -I $(XML_DIR)
 export LIBFLAGS:= -shared
@@ -64,16 +52,10 @@ export CONFIG_DIR:=$(PWD)/config
 
 
 INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system
-
 GTEST_INCLUDES:= -isystem $(PWD)/
-
-
 LIBS= -L $(PWD)/build/$(TARGET)/lib  -lm
 
-
 export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster 
-
-
 export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest-embc -lpthread 
 
 
