@@ -112,17 +112,26 @@ namespace LOGMASTER
 			vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const int max_cnt) ;
 			vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
 
-			bool  ReadEntriesGetEntry(LLogEntrySQL &entry);
+                        bool  ReadEntriesGetEntry(LLogEntrySQL &entry);
+
+                        void SetMaxDbFileSize(const uint64_t maxSize);
+
+                        string GetDBPath() const;
 
 		private:
 			vector< LLogEntrySQL> FetchAll(   ); 
 			LDatabase( const LDatabase & );
 			LDatabase operator = ( const LDatabase & );
-			bool InitQuery( string query, const int limit  );
+                        bool InitQuery( string query, const int limit  );
+                        bool DeleteOldestEntries(int nEntries = 10);
 		
 			static string  fDBPath;
 			static  LDatabase *fgInstance;
-			LMessage2Json fMessage2Json;
+                        LMessage2Json fMessage2Json;
+
+                        uint64_t fMaxDbFileSize{0};
+
+
 	};
 
 } // namespace LOGMASTER

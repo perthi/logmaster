@@ -30,6 +30,7 @@ class  TestLDatabase : public TestBase
 
 	protected:	
 		static  LDatabase * fgDatabase;
+                static  LDatabase * fgRotateDatabase;
 };
 
 #endif

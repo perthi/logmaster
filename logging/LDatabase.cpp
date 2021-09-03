@@ -80,6 +80,28 @@ namespace LOGMASTER
     LDatabase::AddLogEntry( std::shared_ptr<LMessage>  msg  )
     {
        // HandleError( GLOCATION, eMSGLEVEL::LOG_ERROR, "this is a test" ) ;
+
+        if(fMaxDbFileSize)
+        {
+            FILE *p_file = NULL;
+            p_file = fopen(fDBPath.c_str(),"rb");
+            fseek(p_file,0,SEEK_END);
+            auto fileSize = ftell(p_file);
+            fclose(p_file);
+            if(fileSize > fMaxDbFileSize)
+            {
+                char *zErrMsg = 0;
+                const char *sql = "REPLACE INTO t_triggerControl (name, enabled) VALUES ('delete_old', 1)";
+                int rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
+                if (rc != SQLITE_OK)
+                {
+                    HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+
+                    sqlite3_free(zErrMsg);
+                }
+                fMaxDbFileSize = fileSize;
+            }
+        }
         int rc;
         static char sql[1000];
         char *zErrMsg = 0;
@@ -99,6 +121,7 @@ namespace LOGMASTER
         
         if (rc != SQLITE_OK)
         {
+
          //   HandleError( GLOCATION, eMSGLEVEL::LOG_ERROR, "AddEntry SQL error: %s", zErrMsg );
             printf("%s:%dAddEntry (msg to log = %s) SQL error: %s\n", __FILE__, __LINE__,   msg->fMsgBody,  zErrMsg );
             sqlite3_free(zErrMsg);
@@ -315,6 +338,26 @@ namespace LOGMASTER
         }
     }
 
+    bool LDatabase::DeleteOldestEntries(int nEntries)
+    {
+        int rc;
+        char sql[200];
+        char *zErrMsg = 0;
+        snprintf(sql, 200, "DELETE FROM t_logging WHERE id IN (SELECT id FROM t_logging ORDER BY id ASC LIMIT %d);", nEntries );
+
+        rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
+        if (rc != SQLITE_OK)
+        {
+            HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION, "Could not delete old entries: SQL error: %s", sqlite3_errmsg(fDataBase) );
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+    }
+
     
 
     bool
@@ -422,7 +465,29 @@ namespace LOGMASTER
                sqlite3_finalize(fStmt);
                return false;
             }
+    }
+
+    void LDatabase::SetMaxDbFileSize(const uint64_t maxSize)
+    {
+        fMaxDbFileSize = maxSize;
+        char *zErrMsg = 0;
+        const char *sql = "REPLACE INTO t_triggerControl (name, enabled) VALUES ('delete_old', 0)";
+
+
+        int rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
+
+        if (rc != SQLITE_OK)
+        {
+                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+
+            sqlite3_free(zErrMsg);
         }
+    }
+
+    std::string LDatabase::GetDBPath() const
+    {
+        return fDBPath;
+    }
 //}
     
 
@@ -442,10 +507,54 @@ namespace LOGMASTER
             int rc = sqlite3_exec(fDataBase, LoggingSQL, NULL, 0, &zErrMsg);
             if (rc != SQLITE_OK)
             {
-                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error:",  zErrMsg  );   
+                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
                 sqlite3_free(zErrMsg);
                 return false;
             }
+
+            const char *TriggerControlSQL = "CREATE TABLE IF NOT EXISTS t_triggerControl ( "
+                                            "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
+                                            "name TEXT, "
+                                            "enabled INTEGER);";
+            rc = sqlite3_exec(fDataBase, TriggerControlSQL, NULL, 0, &zErrMsg);
+            if (rc != SQLITE_OK)
+            {
+                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+                sqlite3_free(zErrMsg);
+                return false;
+            }
+
+            const char *RingBufferTriggerSQL = "CREATE TRIGGER IF NOT EXISTS delete_old AFTER INSERT ON t_logging "
+                                               "WHEN (SELECT enabled from t_triggerControl WHERE name='delete_old') "
+                                               "BEGIN "
+                                               "DELETE FROM t_logging WHERE id IN (SELECT id FROM t_logging ORDER BY id ASC LIMIT 1); "
+                                               "END";
+/*            const char *RingBufferTriggerSQL = "CREATE TRIGGER IF NOT EXISTS "
+                                               "delete_old "
+                                               "BEFORE INSERT ON t_logging "
+                                               "WHEN (SELECT enabled from t_triggerControl where name='delete_old') "
+                                               "t_logging "
+                                               "BEGIN "
+                                               "DELETE FROM t_logging";
+*/
+            rc = sqlite3_exec(fDataBase, RingBufferTriggerSQL, NULL, 0, &zErrMsg);
+            if (rc != SQLITE_OK)
+            {
+                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+                sqlite3_free(zErrMsg);
+                return false;
+            }
+
+            const char *UniqueIdxSQL = "CREATE UNIQUE INDEX IF NOT EXISTS idx_triggerControl_name  ON t_triggerControl (name)";
+
+            rc = sqlite3_exec(fDataBase, UniqueIdxSQL, NULL, 0, &zErrMsg);
+            if (rc != SQLITE_OK)
+            {
+                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+                sqlite3_free(zErrMsg);
+                return false;
+            }
+
             return true;
     }
 

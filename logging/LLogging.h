@@ -79,6 +79,8 @@ namespace LOGMASTER
         logmap	API 	LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
             const char* functionname,
             const bool force_generate, string addendum, const char* fmt, const Args ... args);
+
+            
         logmap	API 	LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
             const char* functionname,
             const bool force_generate, string addendum, const char* fmt, va_list ap);
@@ -105,11 +107,14 @@ namespace LOGMASTER
         void					API		RegisterGuiSubscriber(void(*funct)( std::shared_ptr<LMessage> ));
         void					API		ClearGuiSubscribers();
         void					API		Reset();
-        int					API		Push();
-        int					API		Pop();
-        bool 					API CheckLevel(const eMSGSYSTEM system, const eMSGLEVEL level, const eMSGTARGET target);
-        void 					API Flush();
-        void                API SetFormatCheckAll( const bool val );    
+        int					    API		Push();
+        int					    API		Pop();
+        bool 					API     CheckLevel(const eMSGSYSTEM system, const eMSGLEVEL level, const eMSGTARGET target);
+        void 					API     Flush();
+        void                    API     SetFormatCheckAll( const bool val );   
+        void                    API     DisableFormatCheck() { fFormatCheck  = false;};  
+        void                    API     EnableFormatCheck() {  fFormatCheck  = true;};  
+
     private:
         LLogging();
         LLogging(LLogging&);
@@ -134,6 +139,8 @@ namespace LOGMASTER
         std::recursive_mutex fLoggingMutex{};
         
         bool fFormatCheckAll = true; //!< Wether or not to perform format check on all messages 
+
+        bool fFormatCheck = true;
 
     };
 
@@ -203,10 +210,15 @@ namespace LOGMASTER
         };
 
 
-        if( fFormatCheckAll  == true )
+        if( fFormatCheckAll  == true && fFormatCheck == true )
         {
            formatCheck = format_check();
         }
+        else
+        {
+            formatCheck = std::make_pair<bool, string>(true, ""); 
+        }
+        
 
    //     ClearMessages();
 
@@ -217,10 +229,15 @@ namespace LOGMASTER
                 bool cl = CheckLevel(system, level, it->first);
                 if ((cl == true) || force_generate == true)
                 {
-                    if( fFormatCheckAll  == false )
+                    if( fFormatCheckAll  == false &&  fFormatCheck == true )
                     {
                        formatCheck = format_check();  
                     }
+                    else
+                    {
+                        formatCheck = std::make_pair<bool, string>(true, ""); 
+                    }
+                    
 
                     if (formatCheck.first == true)
                     {

@@ -44,7 +44,8 @@ TestLDatabase::SetUpTestCase()
 {
     string path = string(LOGMASTER_HOME) + string("/logging/unit-tests/commit/test-data/logmaster-test.db");
    // LDatabase::Instance();
-    fgDatabase =  LDatabase::Instance( path ); 
+    fgDatabase =  LDatabase::Instance( path );
+
 }
 
 
@@ -255,3 +256,26 @@ TEST_F( TestLDatabase , time )
 
 }
 
+TEST_F( TestLDatabase , logrotation)
+{
+
+    auto oldPath = fgDatabase->GetDBPath();
+    string rotatePath = string(LOGMASTER_HOME) + string("/logging/unit-tests/commit/test-data/logmaster-test-rotate.db");
+    fgDatabase =  LDatabase::Instance(rotatePath);
+    fgDatabase->SetMaxDbFileSize(1);
+    auto db = fgDatabase;
+    auto nEntries = db->Query(ALL_ENTRIES).size();
+
+    std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr< LMessage > > > test = LLogging::Instance()->GetLastMessages();
+    auto msg =  ( (*test)[eMSGTARGET::TARGET_STDOUT] );
+    db->AddLogEntry(msg);
+    db->AddLogEntry(msg);
+    db->AddLogEntry(msg);
+    db->AddLogEntry(msg);
+    db->AddLogEntry(msg);
+
+    EXPECT_EQ(nEntries, db->Query(ALL_ENTRIES).size());
+    db->SetMaxDbFileSize(0);
+    db = LDatabase::Instance(oldPath);
+
+}
