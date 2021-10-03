@@ -43,7 +43,7 @@ namespace LOGMASTER
 
 
 /** @class  LMessageGenerator
- *  Helper class for the logging system that is responisble for the generation of log messages*/
+ *  Helper class for the logging system that is responsible for the generation of log messages*/
 class LMessageGenerator
 {
     friend  LLogging;
@@ -68,12 +68,6 @@ public:
                                               const char *fname, int line, const char *func, string addendum,
                                               const char *fmt, const Args ... args);
     
-    /*
-    std::shared_ptr<LMessage> API GenerateMsgUnsafe(const eMSGFORMAT format, const eMSGLEVEL l, const eMSGSYSTEM s,
-                                              const char *fname, int line, const char *func, string addendum,
-                                              const char *fmt, va_list ap);
-    */
-
 
 private:
     GTime fTime;
@@ -87,12 +81,12 @@ namespace
 }
 
 /**@{*/
-/* Generates a message and stores it in the LMessage struct m. This funcxtion is typiclally called via a macro, an using the
-* build in preprocessor directivee __FILE__, __FUNCTION__, __LINE__
+/* Generates a message and stores it in the LMessage struct m. This function is typically called via a macro, an using the
+* build in preprocessor directives __FILE__, __FUNCTION__, __LINE__
 *  @param m[in|out] A pointer to the LMessage struct that will be filled in
 *  @param format[in] Controls which fields in the message  will be filled in
 *  @param l[in] The severity level of this message
-*  @param s[in] The subsyste this messsage applies to
+*  @param s[in] The subsystem this messsage applies to
 *  @param fname[in]  The name of the files where the message was generated   (stripped form __FILE__ )
 *  @param line  The line number where the message was generated
 *  @param func  The name of the function where the message was generated ( __FUNCTION__)
@@ -181,8 +175,6 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const
         {
             if(sizeof...(args) > 0)
             {
-               //int snprintf ( char * s, size_t n, const char * format, ... ); 
-                //SPRINTF(formatted_message, sizeof(formatted_message) - 1, fmt, args...);
                  SPRINTF(formatted_message, sizeof(formatted_message) - 1, fmt, args... );
                 SPRINTF(msg->fMsgBody, MAX_MSG_SIZE, "%s%s", formatted_message, addendum.c_str());
             }

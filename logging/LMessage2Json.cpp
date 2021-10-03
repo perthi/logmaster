@@ -19,9 +19,6 @@
 
 namespace LOGMASTER
 {
-//  nlohmann::json  LMessage2Json::fJsonUser;
-
-
 
   LMessage2Json::LMessage2Json() : fJsonUser(), fTime()
   {
@@ -35,9 +32,7 @@ namespace LOGMASTER
   }
 
 
-
-
-  /** Converts a regluar log messaeg to a message on JSON format which is more suitable for
+  /** Converts a regular log message to a message on JSON format which is more suitable for
    * interchange and serialization/deserialization
    *  @param[in] msg The log message
    *  @param[in, out] j The json object where the converted message will be stored */
@@ -59,7 +54,7 @@ namespace LOGMASTER
   }
 
 
-  /** Set additional information to append to each log message. Typcially this can be
+  /** Set additional information to append to each log message. Typically this can be
    *  additional information need, but that is not directly available
    *  from the logging system
    *  @param[in] j The additional information to append. Please not that this addition

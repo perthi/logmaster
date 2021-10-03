@@ -10,15 +10,12 @@
 *****************************************************************************/
 
 
-
-
 #include "LLogApi.h"
 #include "LMessage.h"
 #include "LEnums.h"
 
-#include "LMessage2Json.h"
+#include  "LMessage2Json.h"
 #include  <utilities/GDefinitions.h>
-//#include  <utilities/GTime.h>
 #include  <memory>
 #include  <queue>  
 #include  <mutex>
@@ -37,16 +34,16 @@ namespace LOGMASTER
    
 
     /** @class LPublisher
-	* class that is responsible for writing ( publishing) messages to various targets. Available targets
-	* for the moment is  File, subscribere functions, or standra output (i.e the console). Targets soon to
-	* be added is GUI, and TCP/IP port */
+    * class that is responsible for writing ( publishing) messages to various targets. Available targets
+    * for the moment is  File, subscribere functions, or standard output (i.e the console). Targets soon to
+    * be added is GUI, and TCP/IP port */
     class LPublisher
     {
         friend LLogging;
         friend LDatabase;
         friend GDataBaseIF;
 
-    public:		
+    public:        
         static  LPublisher API * Instance();
 
         void            SetExternalTimeSource(  std::function<double()> funct ) {   GTime().SetExternalTimeSource(funct); };
@@ -64,8 +61,8 @@ namespace LOGMASTER
         void  API   PauseDispatcher();
         void  API   ResumeDispatcher();
         void  API   RunDispatcher();
-        void API    SetMode( const ePUBLISH_MODE mode );
-        void API    Flush();
+        void  API   SetMode( const ePUBLISH_MODE mode );
+        void  API   Flush();
         static void AtExit();     
 
     private:
@@ -105,7 +102,7 @@ namespace LOGMASTER
 
 #endif
 
-         bool     fgEnableColor       =   true; 	/* !< Wether or not colors will be used for distinguishing messages when they are written to the console */  
+         bool     fgEnableColor       =   true;     /* !< Wether or not colors will be used for distinguishing messages when they are written to the console */  
          bool     fgEnableJson        =   true;
          std::thread *fDispatcher     =   nullptr;
          std::atomic_bool  fDoRun     =   true; 

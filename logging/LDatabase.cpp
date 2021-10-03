@@ -1,6 +1,6 @@
 // -*- mode: c++ -*-
 /**************************************************************************
- * This file is property of and copyright by Embedded Cosnulting  2020    *
+ * This file is property of and copyright by Embedded Consulting'  2020    *
  *                                                                        *
  * Author: Per Thomas Hille <pth@embc.no>                                 *
  * Contributors are mentioned in the code where appropriate.              *
@@ -28,7 +28,7 @@ namespace LOGMASTER
 
     /** Singleton instance of the database
      *  @param[in] path The full path to the base, if empty then
-     *  The defaul path is used  ( "logmaster.db" ) in the current directory
+     *  The default path is used  ( "logmaster.db" ) in the current directory
      *  @return The database singleton */
     LDatabase  * 
     LDatabase::Instance( const  string  path  )
@@ -51,7 +51,7 @@ namespace LOGMASTER
     }
 
 
-	void 
+    void 
     LDatabase::SetDatabaseDefault(    )
     {
         SetDatabase( "logmaster.db");
@@ -74,7 +74,7 @@ namespace LOGMASTER
     }
 
 
-    /** @brief Writa a log entry to the database
+    /** @brief Writ a log entry to the database
      *  @param[in] msg a log message as produced by the logging system */
     void
     LDatabase::AddLogEntry( std::shared_ptr<LMessage>  msg  )
@@ -131,32 +131,19 @@ namespace LOGMASTER
 
 
     /** @brief  Delete all log entries from the database 
-     *  @return true if the deletion was sucessful, false othervise */
+     *  @return true if the deletion was successful, false othervise */
     bool
     LDatabase::DeleteEntries()
     {
         return GDataBaseIF::DeleteEntries(  string("t_logging")  );
-        // int rc;
-        // char sql[200];
-        // char *zErrMsg = 0;
-        // snprintf(sql, 200, "DELETE FROM t_logging;");
-
-        // rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
-        // if (rc != SQLITE_OK)
-        // {
-        //     CERR <<  "Log DeleteEntries SQL error: " << zErrMsg << endl;
-        //     sqlite3_free(zErrMsg);
-        //     return false;
-        // }
-        // return true;
     }
 
 
     /** @brief   Fetch all log entries that matches the SQL query
-     *  @details On of the InitSQLQuery() functions must be called firts
+     *  @details On of the InitSQLQuery() functions must be called first
      *  @return a vector of log entries matching the sql query which was previously 
      *  initialized with  InitSQLQuery(..) */
-	vector< LLogEntrySQL> 
+    vector< LLogEntrySQL> 
     LDatabase::FetchAll(   )
     {
         std::vector< LLogEntrySQL >  msg_v;
@@ -173,19 +160,19 @@ namespace LOGMASTER
     /** @name Querey
     * @brief   Query the database
     * @details Query the database for all entries matching the search criteria. These functions comprises the high level interface.
-    * The quere is performed in two steps. First
+    * The query is performed in two steps. First
     * @param[in] sql SQL search expression
     * @param[in] time Unix epoch time
     * @param[in] time_min Unix epoch time
     * @param[in] time_max Unix epoch time
     * @param[in] opt  For time search this specfifes wether to return 
-    * log entris with either larger, lower or equla time stamp than "time"
+    * log entries with either larger, lower or equal time stamp than "time"
     * @param[in] max_cnt The maximum number of entries to return
     * @param[in] sy  subsystem/category ( return the messages matching sub system )
     * @param[in] lvl subsystem/category ( return the messages for a given log level )
     @return vector of log entries matching the search criteria */
     /**@{ */
-     /** Queries the database uisng a user defiedn SQL query string */   
+     /** Queries the database using a user defined SQL query string */   
     vector<  LLogEntrySQL >  
     LDatabase::Query( const string sql )
     {
@@ -194,7 +181,7 @@ namespace LOGMASTER
     }
 
     /** Retiurn all log entries from the dtabase without any filter. max_cnt represnts the */   
-	vector<  LLogEntrySQL >  
+    vector<  LLogEntrySQL >  
     LDatabase::Query(const int max_cnt )
     {
         InitSQLQuery( max_cnt  );
@@ -202,14 +189,14 @@ namespace LOGMASTER
     }
 
   
-    /** Returns all log entries matcing a given time stamp (time). The time si Unix epoc time with
+    /** Returns all log entries matching a given time stamp (time). The time si Unix epoch time with
      * a resolution of seconds. 
-     *  The serach option "opt" serach option  can be one of the follwing 
+     *  The search option "opt" search option  can be one of the follwing 
      *    -  eTIME_SEARCH_OPTION::EXACTLY Return enties that matches "time" exactly.
      *    -  eTIME_SEARCH_OPTION::INCLUDING_AND_ABOVE Return entries that are newer than "time" 
      *    -  eTIME_SEARCH_OPTION::INCLUDING_AND_BELOW Return entries that are older than "time" 
      * */
-	vector<  LLogEntrySQL >  
+    vector<  LLogEntrySQL >  
     LDatabase::Query(  const uint64_t time, const eTIME_SEARCH_OPTION  opt, const int max_cnt )
     {
         InitSQLQuery(time, opt, max_cnt);
@@ -225,14 +212,14 @@ namespace LOGMASTER
     }
 
 
-	vector<  LLogEntrySQL >  
+    vector<  LLogEntrySQL >  
     LDatabase::Query( const  eMSGSYSTEM sys,  const int max_cnt ) 
     {
         InitSQLQuery(sys, max_cnt);
         return FetchAll();
     }
 
-	vector<  LLogEntrySQL >  
+    vector<  LLogEntrySQL >  
     LDatabase::Query( const  eMSGLEVEL lvl,  const int max_cnt  )  
     {
         InitSQLQuery(lvl, max_cnt);
@@ -241,7 +228,7 @@ namespace LOGMASTER
     }
 
     /** Function 6 in group 2. Details. */    
-	vector< LLogEntrySQL >  
+    vector< LLogEntrySQL >  
     LDatabase::Query( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys, const int max_cnt  )
     {
         InitSQLQuery(lvl, sys, max_cnt);
@@ -254,17 +241,17 @@ namespace LOGMASTER
     /** @name  InitSQLQuery
     * @brief   Generates a SQL search string based on the input parameters
     * @details Query the database for all entries matching the search criteria. These functions comprises the high level interface.
-    * The quere is performed in two steps. First
+    * The query is performed in two steps. First
     * @param[in] sql SQL search expression
     * @param[in] time Unix epoch time
     * @param[in] time_min Unix epoch time
     * @param[in] time_max Unix epoch time
     * @param[in] opt  For time search this specfifes wether to return 
-    * log entris with either larger, lower or equla time stamp than "time"
+    * log entries with either larger, lower or equal time stamp than "time"
     * @param[in] max_cnt The maximum number of entries to return
     * @param[in] sy  subsystem/category ( return the messages matching sub system )
     * @param[in] lvl subsystem/category ( return the messages for a given log level )
-    @return true if a valid SQL serach string could be generated, false othervise */
+    @return true if a valid SQL search string could be generated, false othervise */
  /**@{ */
     bool  
     LDatabase::InitSQLQuery( const eMSGLEVEL level,  const int max_cnt )
@@ -397,13 +384,11 @@ namespace LOGMASTER
 
 
   
-
-
     /** @brief    Loop over all entries matching the current SQL query
      *  @details  The sql query must be initialized beforehand by calling InitSQLQuery(). The function returns true
      *  until the log entires matching the SQL query is exhausted.  
      *  @param[in,out]  entry The retrieved log entry is stored in this object
-     *  @return true as long as ther are more entries to retriev, false 
+     *  @return true as long as ther are more entries to retrieve, false 
      *  when the last entry has been reached. 
      *  @return false if the sql query has not been initialized. */
     bool
@@ -529,14 +514,6 @@ namespace LOGMASTER
                                                "BEGIN "
                                                "DELETE FROM t_logging WHERE id IN (SELECT id FROM t_logging ORDER BY id ASC LIMIT 1); "
                                                "END";
-/*            const char *RingBufferTriggerSQL = "CREATE TRIGGER IF NOT EXISTS "
-                                               "delete_old "
-                                               "BEFORE INSERT ON t_logging "
-                                               "WHEN (SELECT enabled from t_triggerControl where name='delete_old') "
-                                               "t_logging "
-                                               "BEGIN "
-                                               "DELETE FROM t_logging";
-*/
             rc = sqlite3_exec(fDataBase, RingBufferTriggerSQL, NULL, 0, &zErrMsg);
             if (rc != SQLITE_OK)
             {

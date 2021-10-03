@@ -2,7 +2,7 @@
 #ifndef TESTLDATABASE_H
 #define TESTLDATABASE_H
 /**************************************************************************
- * This file is property of and copyright by Embedded Cosnulting  2020    *
+ * This file is property of and copyright by Embedded Consulting'  2020    *
  *                                                                        *
  * Author: Per Thomas Hille <pth@embc.no>                                 *
  * Contributors are mentioned in the code where appropriate.              *

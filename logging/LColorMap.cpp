@@ -43,12 +43,12 @@ LColorMap::LColorMap() : fMap()
 
 LColorMap* LColorMap::Instance()
 {
-	static  LColorMap *instance = new LColorMap();
-	return instance;
+    static  LColorMap *instance = new LColorMap();
+    return instance;
 }
 
  
-/** Get the color in RGB (Red, Gren, Blue) format for a given loglevel
+/** Get the color in RGB (Red, Green, Blue) format for a given loglevel
 *   level l[in] The level to get the color for
 *   @return the RGB color code if a color code exists for this loglevel 
 *   othervise the default color which is CYAN*/
@@ -91,8 +91,6 @@ LColorMap::GetCColor( const eMSGLEVEL l)
 int
 LColorMap::GetAnsiColor(eMSGLEVEL l)
 {
-  
-   // Init();
     if (fMap.find(l) != fMap.end())
     {
         return std::get<3>(fMap.find(l)->second);

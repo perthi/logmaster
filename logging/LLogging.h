@@ -44,13 +44,13 @@ namespace LOGMASTER
     /** @class LLogging 
      *  @brief Man logging class
      * 
-     *  @details This class is the workhorse of the logging system. It is implmented as a singleton and is
-     *  used by all the logging macros defined in LLogApi.h. Functionaltiy for loggimng messages checking loglvelves etc
+     *  @details This class is the workhorse of the logging system. It is implemented as a singleton and is
+     *  used by all the logging macros defined in LLogApi.h. Functionality for logging messages checking loglevels etc
      *  is handled by this class */
 
 
     class LMessage;
-    using logmap = std::shared_ptr< std::map<eMSGTARGET, std::shared_ptr<LMessage>  >	>;
+    using logmap = std::shared_ptr< std::map<eMSGTARGET, std::shared_ptr<LMessage>  >    >;
 
     class LLogging
     {
@@ -61,7 +61,7 @@ namespace LOGMASTER
 
     public:
         ~LLogging();
-        static LLogging			API* Instance();
+        static LLogging            API* Instance();
         
         void            SetExternalTimeSource(  std::function<double()>  funct ); 
         void API        SetPublishingMode( const ePUBLISH_MODE mode );
@@ -76,41 +76,39 @@ namespace LOGMASTER
             const int linenumber, const char* functionname, const char* fmt, const Args ... args);
 
         template<typename... Args>
-        logmap	API 	LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
+        logmap    API     LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
             const char* functionname,
             const bool force_generate, string addendum, const char* fmt, const Args ... args);
 
             
-        logmap	API 	LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
+        logmap    API     LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
             const char* functionname,
             const bool force_generate, string addendum, const char* fmt, va_list ap);
 
+        void                     API       SetLogFormat(const  string& format, bool enable = true);
+        void                     API       SetLogLevel(const  string& level);
+        void                     API       SetLogTarget(const  string& target, bool eneable = true);
+        void                     API       SetLogFileName(const string& filename);
 
-
-        void					API		SetLogFormat(const  string& format, bool enable = true);
-        void					API		SetLogLevel(const  string& level);
-        void					API		SetLogTarget(const  string& target, bool eneable = true);
-        void					API		SetLogFileName(const string& filename);
-
-        eMSGTARGET				API		GetLogTarget()  const;
-        eMSGFORMAT				API		GetLogFormat(const eMSGTARGET target) const;
-        std::shared_ptr<LConfig> API 	GetConfig(const eMSGTARGET target);
-        eMSGLEVEL				API		GetLogLevel(const eMSGSYSTEM system, const eMSGTARGET  target) const;
-        string					API		GetLogFileName(const eMSGTARGET  target = eMSGTARGET::TARGET_FILE) const;
+        eMSGTARGET               API       GetLogTarget()  const;
+        eMSGFORMAT               API       GetLogFormat(const eMSGTARGET target) const;
+        std::shared_ptr<LConfig> API       GetConfig(const eMSGTARGET target);
+        eMSGLEVEL                API       GetLogLevel(const eMSGSYSTEM system, const eMSGTARGET  target) const;
+        string                   API       GetLogFileName(const eMSGTARGET  target = eMSGTARGET::TARGET_FILE) const;
         std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > >  GetLastMessages() { return  fMessages; };
 
         vector< void(*)( std::shared_ptr<LMessage> ) >  API GetSubscribers();
-        void					API		RegisterSubscriber(void(*funct)(  std::shared_ptr<LMessage> ));
-        void					API		ClearSubscribers();
+        void                    API        RegisterSubscriber(void(*funct)(  std::shared_ptr<LMessage> ));
+        void                    API        ClearSubscribers();
 
         vector< void(*)( std::shared_ptr<LMessage> ) >  API GetGuiSubscribers();
-        void					API		RegisterGuiSubscriber(void(*funct)( std::shared_ptr<LMessage> ));
-        void					API		ClearGuiSubscribers();
-        void					API		Reset();
-        int					    API		Push();
-        int					    API		Pop();
-        bool 					API     CheckLevel(const eMSGSYSTEM system, const eMSGLEVEL level, const eMSGTARGET target);
-        void 					API     Flush();
+        void                    API     RegisterGuiSubscriber(void(*funct)( std::shared_ptr<LMessage> ));
+        void                    API     ClearGuiSubscribers();
+        void                    API     Reset();
+        int                     API     Push();
+        int                     API     Pop();
+        bool                    API     CheckLevel(const eMSGSYSTEM system, const eMSGLEVEL level, const eMSGTARGET target);
+        void                    API     Flush();
         void                    API     SetFormatCheckAll( const bool val );   
         void                    API     DisableFormatCheck() { fFormatCheck  = false;};  
         void                    API     EnableFormatCheck() {  fFormatCheck  = true;};  
@@ -120,28 +118,23 @@ namespace LOGMASTER
         LLogging(LLogging&);
 
         void QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg,
-            const eMSGTARGET target);
+        const eMSGTARGET target);
 
-        void	Init();
+        void    Init();
         void    ClearMessages();
         void    TurnOffAllTargets();
         void    TurnOnfAllTargets();
-        void	operator=(LLogging&);
+        void    operator=(LLogging&);
 
         vector< void(*)( std::shared_ptr<LMessage> ) > fSubscribers;
         vector< void(*)( std::shared_ptr<LMessage> ) > fGuiSubscribers;
-
         std::shared_ptr<std::map<eMSGTARGET, LMessageFactory  > >  fConfig = nullptr;
         std::shared_ptr<std::map<eMSGTARGET, LMessageFactory > >   fDefaultConfig = nullptr;
         std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > > fMessages = nullptr;
-
         std::stack<   std::shared_ptr<  std::map<eMSGTARGET, LMessageFactory   >  >     >  fConfigurationStack;
         std::recursive_mutex fLoggingMutex{};
-        
         bool fFormatCheckAll = true; //!< Wether or not to perform format check on all messages 
-
         bool fFormatCheck = true;
-
     };
 
 
@@ -165,7 +158,7 @@ namespace LOGMASTER
     /**@{*/
     /** Helper function for the main logging (Log) function. The severity("level")
      *  and subsystem  ("system") of the message is checked against the configuration
-     *  of the  logging system as given by the assoccicated hash maps. If logging
+     *  of the  logging system as given by the associated hash maps. If logging
      *  is enabled for this level and system., then the message is generated and published.
      *   @param  level the loglevel/severity of the message
      *   @param  system the subsystem the message applies to
@@ -173,9 +166,9 @@ namespace LOGMASTER
      *   @param  linenumber  The line number where the message is generated
      *   @param  functionname The name of the function that generated the message
      *   @param  force_generate Force the generation of message, regardless of the
-     *			 loglevel and subystem. This feature is used by the exception handling system
-     *			 where one wants the message to be genrated regardless (because you want to
-     *			catch the exception with an exception handler). This flag is also usefull for debugging
+     *             loglevel and subsystem. This feature is used by the exception handling system
+     *             where one wants the message to be genrated regardless (because you want to
+     *            catch the exception with an exception handler). This flag is also usefull for debugging
      *   @param  addendum  optional string to attach to the messag
      *   @param  fmt The formatting for the message (same as the  C style printf formatting)
      *   @param  args  The list of arguments */

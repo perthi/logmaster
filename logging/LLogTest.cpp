@@ -53,7 +53,7 @@ LLogTest::WriteMessages()
     G_ERROR("This a system wide general ERROR message with parameters: a = %d, b = %d", a, b);
     G_FATAL("Oppps.... a system wide general (non system specific) fatal nessage");
 
-	// ALL_DEBUG("This is a ALL_DEBUG message (applied if any of the subsystems are on)");
+    // ALL_DEBUG("This is a ALL_DEBUG message (applied if any of the subsystems are on)");
     // ALL_INFO("This is a system wide  ALL_INFO message (applied if any of the subsystems are on)");
     // ALL_WARNING("This is a system wide ALL_WARNING message (applied if any of the subsystems are on)");
     // ALL_ERROR("This a This is a system wide ALL_ERROR message (applied if any of the subsystems are on) with parameters: a = %d, b = %d", a, b);
@@ -82,11 +82,6 @@ LLogTest::WriteMessages()
     FSM_WARNING_U("This is a FSM_WARNING and USER message");
     FSM_ERROR_U("This is a FSM_ERROR USERmessage with parameters: a = %d, b = %d", a, b);
     FSM_FATAL("Oppps.... a  FSM_FATAL USER message");
-    //   ALARM_DEBUG("Lorem ipsum dolor sit amet,");
-    //  ALARM_INFO("consectetur adipiscing elit,");
-    // ALARM_WARNING("sed do eiusmod tempor incididunt ut labore et dolore");
-    // ALARM_ERROR("magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    // ALARM_FATAL("exercitation ullamco laboris nisi ut aliquip ex ea");
 
     COM_DEBUG(       "sed do eiusmod tempor incididunt ut labore et dolore");
     COM_WARNING(     "magna aliqua. Ut enim ad minim veniam, quis nostrud");
@@ -120,18 +115,18 @@ LLogTest::test()
 void
 LLogTest::Header()
 {
-	cout << "*********************************************" << endl;
-	cout << "********** WRITING MESSAGES *****************" << endl;
-	cout << "*********************************************" << endl;
+    cout << "*********************************************" << endl;
+    cout << "********** WRITING MESSAGES *****************" << endl;
+    cout << "*********************************************" << endl;
 }
 
 
 void
 LLogTest::Footer()
 {
-	cout << "*********************************************" << endl;
-	cout << "************** DONE *************************" << endl;
-	cout << "*********************************************" << endl;
+    cout << "*********************************************" << endl;
+    cout << "************** DONE *************************" << endl;
+    cout << "*********************************************" << endl;
 }
 
 

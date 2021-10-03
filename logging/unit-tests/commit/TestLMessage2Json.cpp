@@ -46,13 +46,9 @@ TEST_F( TestLMessage2Json,  dummy )
     SET_LOGTARGET("--target-off --target-file --target-stdout");
     SET_LOGLEVEL("--all-debug");
     std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr< LMessage > > > test = LLogging::Instance()->GetLastMessages();
-    
     auto msg =  ( (*test)[eMSGTARGET::TARGET_STDOUT] );
-    COUT << "msg body = " <<  msg->fMsgBody  << endl;
     nlohmann::json json_dta;
-
     LMessage2Json().Message2Json( msg, json_dta );
-
 
     POP();
 }

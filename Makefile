@@ -41,7 +41,9 @@ export VERSIONINFO_EXE=$(BUILDDIR)/x86/bin/version-info
 export COMMON_FLAGS:= -fPIC  -std=c++17  -g
 
 ## export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wfatal-errors  -Werror
-export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security  
+export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security  
+## export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum  -Wignored-qualifiers -Wno-format-security  
+
 export HAS_LOGGING:=""
 export LOGMASTER_HOME=$(PWD)
 export CPPFLAGS:=           $(COMMON_FLAGS) $(PEDANTIC_FLAGS)   -DHAS_LOGGING
@@ -51,7 +53,6 @@ export XML_INCLUDES:= -I $(XML_DIR)
 export LIBFLAGS:= -shared
 export CONFIG_DIR:=$(PWD)/config
 
-export HAS_LOGGING:=""
 
 INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system
 GTEST_INCLUDES:= -isystem $(PWD)/
@@ -59,7 +60,6 @@ LIBS= -L $(PWD)/build/$(TARGET)/lib  -lm
 
 export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster 
 export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest-embc -lpthread 
-
 
 
 gtest-embc:=             submodules/productivity/gtest-embc/$(TARGET)

@@ -1,6 +1,6 @@
 // -*- mode: c++ -*-
 /**************************************************************************
- * This file is property of and copyright by Embedded Cosnulting  2020    *
+ * This file is property of and copyright by Embedded Consulting'  2020    *
  *                                                                        *
  * Author: Per Thomas Hille <pth@embc.no>                                 *
  * Contributors are mentioned in the code where appropriate.              *
@@ -218,16 +218,10 @@ TEST_F( TestLDatabase , specific_level_sys_multiple )
 
 
 
-
-
-
 TEST_F( TestLDatabase , time )
 {
-
     auto db = fgDatabase;
     auto entries = db->Query(ALL_ENTRIES);
-
-   //  uint64_t time =  1591452646;
 
     uint64_t time =  1591452646;
 
@@ -240,7 +234,6 @@ TEST_F( TestLDatabase , time )
     entries = db->Query( time , eTIME_SEARCH_OPTION::INCLUDING_AND_ABOVE, ALL_ENTRIES);
     for (auto e : entries)
     {
-       /// G_INFO("time_i = %d", e.fTimeI  );
         EXPECT_TRUE( e.fTimeI >=  time  );
     }
 
@@ -249,8 +242,7 @@ TEST_F( TestLDatabase , time )
     {
         if( ( long int)e.fTimeI  != -1 )
         {
-       /// G_INFO("e.fTimeI = %d, time = %d ", e.fTimeI, time  );
-        EXPECT_TRUE( e.fTimeI <=  time );
+           EXPECT_TRUE( e.fTimeI <=  time );
         }
     }
 

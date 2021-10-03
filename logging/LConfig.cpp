@@ -51,20 +51,13 @@ namespace LOGMASTER
         fIsInitialized = true;
     }
 
-    // void
-    // LConfig::InitHash( const eMSGLEVEL level)
-    // {
-    //     fHash.InitHash(level);
-    //     ApplyLevel( eMSGLEVEL::LOG_WARNING );
-    //     fIsInitialized = true;
-    // }
 
     string
     LConfig::GetFilename()
     {
         return  fLogFilename;
     }
-	
+    
 
     /** Get the loglevel for a given sub-system
      *  @param[in] system
@@ -82,7 +75,7 @@ namespace LOGMASTER
         }
     }
 
-	
+    
     void
     LConfig::SetLogFormat(const eMSGFORMAT format  )
     {
@@ -117,7 +110,7 @@ namespace LOGMASTER
                 {
                     if(enable)
                     {
-                        SetLogFormat( fLogFormat | e_tmp );	// Bit will be set
+                        SetLogFormat( fLogFormat | e_tmp );    // Bit will be set
                     }
                     else
                     {
@@ -145,18 +138,15 @@ namespace LOGMASTER
     void
     LConfig::SetLogLevel( const string  &s_lvl )
     {
-		vector<string> tokens = GTokenizer().Tokenize(s_lvl, { " ", "\n", "\t" });
+        vector<string> tokens = GTokenizer().Tokenize(s_lvl, { " ", "\n", "\t" });
 
         for ( size_t i = 0; i < tokens.size(); i++ )
         {
-            eMSGSYSTEM		e_system = LConversion::String2System( tokens[i] );
-            eMSGLEVEL		e_level = LConversion::String2Level( tokens[i] );
+            eMSGSYSTEM        e_system = LConversion::String2System( tokens[i] );
+            eMSGLEVEL        e_level = LConversion::String2Level( tokens[i] );
 
-            /// We dont let anybody modfy the alarm or the exception sub-system, if the user attempt it we just
+            /// We dont let anybody modify the alarm or the exception sub-system, if the user attempt it we just
             /// masks   of that bit and silently ignore it
-        
-        //    FilterOut(e_system, { eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EX });  
-            
             if( (int)e_system == 0 )
             {
                 continue;
@@ -181,13 +171,13 @@ namespace LOGMASTER
         for (auto iterator = h->begin(); iterator != h->end(); iterator++)
         {
             eMSGSYSTEM syst = (eMSGSYSTEM)iterator->first;
-			
+            
             if (((int)sys & (int)syst) != 0)
             {
                 iterator->second = lv;
             }
         }
-		 
+         
         fHash.fLogLevelHash[sys] = lv;
         return void API();
     }
@@ -211,7 +201,7 @@ namespace LOGMASTER
     LConfig::ApplyLevel(const eMSGLEVEL l, const bool pad )
     {
         auto hash = &fHash.fLogLevelHash;
-		
+        
         for (auto it = hash->begin(); it != hash->end(); it++)
         {
             ApplyLevel(it->first, l, pad);
@@ -223,14 +213,11 @@ namespace LOGMASTER
     LConfig::ApplyLevel( const eMSGSYSTEM  system, const eMSGLEVEL  level, const bool pad )
     {
         eMSGLEVEL  l_level = level;
-		eMSGSYSTEM l_system = system;
+        eMSGSYSTEM l_system = system;
         FilterOut( l_system, {eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EX });
 
         if (pad == true)
         {
-            //FilterOut( l_level, {eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EX });
-
-
             l_level = (eMSGLEVEL)(PAD((uint64_t)l_level) );
         }
 
@@ -289,48 +276,45 @@ namespace LOGMASTER
         fp = fopen(filename.c_str(), "w");
 #endif   
         
-		if (fp != 0)
-		{
-			fprintf(fp, "%s", "/**  \\page \"Logging System\"\n");
-			fprintf(fp, "%s", "* \\section command_line_options Command line options for the logging system\n");
-			fprintf(fp, "%s", "* Command | Parameters | Default | Explanation \n");
-			fprintf(fp, "%s", "* --------- | ---------- | --------- | --------- \n");
+        if (fp != 0)
+        {
+            fprintf(fp, "%s", "/**  \\page \"Logging System\"\n");
+            fprintf(fp, "%s", "* \\section command_line_options Command line options for the logging system\n");
+            fprintf(fp, "%s", "* Command | Parameters | Default | Explanation \n");
+            fprintf(fp, "%s", "* --------- | ---------- | --------- | --------- \n");
 
 
-			auto t = LHashMaps::GetTargetHash();
-			auto f = LHashMaps::GetFormatHash();
-			auto s = LHashMaps::GetSubCmdHash();
+            auto t = LHashMaps::GetTargetHash();
+            auto f = LHashMaps::GetFormatHash();
+            auto s = LHashMaps::GetSubCmdHash();
 
-			fprintf(fp, "%s", "* -target |");
-			for (auto it = t->begin(); it != t->end(); it++)
-			{
-				fprintf(fp, "%s\\n", it->first.c_str());
-			}
+            fprintf(fp, "%s", "* -target |");
+            for (auto it = t->begin(); it != t->end(); it++)
+            {
+                fprintf(fp, "%s\\n", it->first.c_str());
+            }
 
-			fprintf(fp, "%s", " | --file | Where to write the log messages\n");
+            fprintf(fp, "%s", " | --file | Where to write the log messages\n");
 
-			fprintf(fp, "%s", "* -format |");
-			for (auto it = f->begin(); it != f->end(); it++)
-			{
-				fprintf(fp, "%s\\n", it->first.c_str());
-			}
+            fprintf(fp, "%s", "* -format |");
+            for (auto it = f->begin(); it != f->end(); it++)
+            {
+                fprintf(fp, "%s\\n", it->first.c_str());
+            }
 
-			fprintf(fp, "%s", " |  1111111 | Options controlling the format of the log messages\n");
-			fprintf(fp, "%s", "* -loglevel |");
-			for (auto it = s->begin(); it != s->end(); it++)
-			{
-				fprintf(fp, " %s\\n", it->first.c_str());
-			}
+            fprintf(fp, "%s", " |  1111111 | Options controlling the format of the log messages\n");
+            fprintf(fp, "%s", "* -loglevel |");
+            for (auto it = s->begin(); it != s->end(); it++)
+            {
+                fprintf(fp, " %s\\n", it->first.c_str());
+            }
 
-			fprintf(fp, "%s", " |  --all-error | Which subsystem / loglevel to log information from\n");
-			fprintf(fp, "%s", "*/");
-			fclose(fp);
-		}
+            fprintf(fp, "%s", " |  --all-error | Which subsystem / loglevel to log information from\n");
+            fprintf(fp, "%s", "*/");
+            fclose(fp);
+        }
         return "not impledmented";
     }
   
-
-    
-
     
 }

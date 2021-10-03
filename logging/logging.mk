@@ -7,7 +7,7 @@ LIBNAME_A=liblogmaster.a
 SRCCPP:= LColorMap.cpp \
 	LConversion.cpp \
 	LHashMaps.cpp \
-        LHashMapsBase.cpp \
+    LHashMapsBase.cpp \
 	LLogging.cpp \
 	LLogTest.cpp \
 	LMessageFactory.cpp \
@@ -24,7 +24,8 @@ SRCCPP:= LColorMap.cpp \
 
 
 
-CPPFLAGS+= -Wno-format-truncation
+#CPPFLAGS+= -Wno-format-truncation  -Wno-format-security
+
 
 include ../../common.mk
 

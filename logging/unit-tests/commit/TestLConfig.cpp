@@ -43,14 +43,14 @@ using namespace LOGMASTER;
 void
 TestLConfig::SetUp()
 {
-	LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
-	fConfig = new LConfig();
-	s_v	=	LHashMaps::Instance()->GetSystemEnums();
-	l_v	=	LHashMaps::Instance()->GetLevelEnums();
-	t_v =   LHashMaps::Instance()->GetTargetEnums();
-	g_utilities()->FilterOut( s_v, { eMSGSYSTEM::SYS_NONE, eMSGSYSTEM::SYS_ALL, eMSGSYSTEM::SYS_EX, eMSGSYSTEM::SYS_ALARM } );
-	g_utilities()->FilterOut( l_v, { eMSGLEVEL::LOG_FORCE_DEBUG  } );
-	g_utilities()->FilterOut( t_v, { eMSGTARGET::TARGET_OFF, eMSGTARGET::TARGET_ALL } );
+    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+    fConfig = new LConfig();
+    s_v    =    LHashMaps::Instance()->GetSystemEnums();
+    l_v    =    LHashMaps::Instance()->GetLevelEnums();
+    t_v =   LHashMaps::Instance()->GetTargetEnums();
+    g_utilities()->FilterOut( s_v, { eMSGSYSTEM::SYS_NONE, eMSGSYSTEM::SYS_ALL, eMSGSYSTEM::SYS_EX, eMSGSYSTEM::SYS_ALARM } );
+    g_utilities()->FilterOut( l_v, { eMSGLEVEL::LOG_FORCE_DEBUG  } );
+    g_utilities()->FilterOut( t_v, { eMSGTARGET::TARGET_OFF, eMSGTARGET::TARGET_ALL } );
 }
 
 
@@ -67,21 +67,21 @@ TestLConfig::TearDown()
 
 TEST_F( TestLConfig, target_all )
 {
-	LLogging *log = LLogging::Instance();
-	log->SetLogLevel( "--all-off");
-	std::this_thread::sleep_for( std::chrono::milliseconds(50) );
+    LLogging *log = LLogging::Instance();
+    log->SetLogLevel( "--all-off");
+    std::this_thread::sleep_for( std::chrono::milliseconds(50) );
 
 
-	for ( size_t t = 0; t < t_v.size(); t++ )
-	{
-		for ( size_t s = 0; s < s_v.size(); s++ )
-		{
-			for ( size_t u = 0; u < l_v.size(); u++ )
-			{
-				EXPECT_FALSE( log->CheckLevel( s_v[s], l_v[u], t_v[t] ) );
-			}
-		}
-	}
+    for ( size_t t = 0; t < t_v.size(); t++ )
+    {
+        for ( size_t s = 0; s < s_v.size(); s++ )
+        {
+            for ( size_t u = 0; u < l_v.size(); u++ )
+            {
+                EXPECT_FALSE( log->CheckLevel( s_v[s], l_v[u], t_v[t] ) );
+            }
+        }
+    }
 
 }
 
@@ -90,30 +90,30 @@ TEST_F( TestLConfig, target_all )
 
 TEST_F(TestLConfig, format)
 {
-	vector<string> format = LHashMaps::Instance()->GetLogFormatTags();
-	EXPECT_TRUE(g_utilities()->HasElement(string("--prefix-none"), format));
-	EXPECT_TRUE(g_utilities()->HasElement(string("--msg-type"), format));
-	EXPECT_TRUE(g_utilities()->HasElement(string("--time-stamp"), format));
-	EXPECT_TRUE(g_utilities()->HasElement(string("--file-path"), format));
-	EXPECT_TRUE(g_utilities()->HasElement(string("--file-name"), format));
-	EXPECT_TRUE(g_utilities()->HasElement(string("--func-name"), format));
-	EXPECT_TRUE(g_utilities()->HasElement(string("--line-no"), format));
-	EXPECT_TRUE(g_utilities()->HasElement(string("--msg-body"), format));
-	EXPECT_TRUE(g_utilities()->HasElement(string("--short"), format));
-	EXPECT_TRUE(g_utilities()->HasElement(string("--prefix-all"), format));
+    vector<string> format = LHashMaps::Instance()->GetLogFormatTags();
+    EXPECT_TRUE(g_utilities()->HasElement(string("--prefix-none"), format));
+    EXPECT_TRUE(g_utilities()->HasElement(string("--msg-type"), format));
+    EXPECT_TRUE(g_utilities()->HasElement(string("--time-stamp"), format));
+    EXPECT_TRUE(g_utilities()->HasElement(string("--file-path"), format));
+    EXPECT_TRUE(g_utilities()->HasElement(string("--file-name"), format));
+    EXPECT_TRUE(g_utilities()->HasElement(string("--func-name"), format));
+    EXPECT_TRUE(g_utilities()->HasElement(string("--line-no"), format));
+    EXPECT_TRUE(g_utilities()->HasElement(string("--msg-body"), format));
+    EXPECT_TRUE(g_utilities()->HasElement(string("--short"), format));
+    EXPECT_TRUE(g_utilities()->HasElement(string("--prefix-all"), format));
 }
 
 
 
 TEST_F(TestLConfig, targets)
 {
-	vector<string> targets = LHashMaps::Instance()->GetLogTargetTags();
+    vector<string> targets = LHashMaps::Instance()->GetLogTargetTags();
 
-	EXPECT_TRUE( g_utilities()->HasElement(string("--target-off"), targets));
-	EXPECT_TRUE( g_utilities()->HasElement(string("--target-subscriber"), targets));
-	EXPECT_TRUE( g_utilities()->HasElement(string("--target-file"), targets));
-	EXPECT_TRUE( g_utilities()->HasElement(string("--target-stdout"), targets));
-	EXPECT_TRUE( g_utilities()->HasElement(string("--target-all"), targets));
+    EXPECT_TRUE( g_utilities()->HasElement(string("--target-off"), targets));
+    EXPECT_TRUE( g_utilities()->HasElement(string("--target-subscriber"), targets));
+    EXPECT_TRUE( g_utilities()->HasElement(string("--target-file"), targets));
+    EXPECT_TRUE( g_utilities()->HasElement(string("--target-stdout"), targets));
+    EXPECT_TRUE( g_utilities()->HasElement(string("--target-all"), targets));
 }
 
 
@@ -121,46 +121,84 @@ TEST_F(TestLConfig, targets)
 
 TEST_F(TestLConfig, apply_get_level)
 {
-	LConfig *c = new LConfig();
-	EXPECT_EQ( (int64_t)c->GetLogLevel(eMSGSYSTEM::SYS_EX),  PAD(eMSGLEVEL::LOG_ERROR ) );
-	EXPECT_EQ( (int64_t)c->GetLogLevel( eMSGSYSTEM::SYS_USER), PAD(eMSGLEVEL::LOG_WARNING) );
-	EXPECT_EQ( (int64_t)c->GetLogLevel( eMSGSYSTEM::SYS_FSM), PAD(eMSGLEVEL::LOG_WARNING) );
-	EXPECT_EQ( (int64_t)c->GetLogLevel( eMSGSYSTEM::SYS_GENERAL), PAD(eMSGLEVEL::LOG_WARNING) );
-	delete c;
+    LConfig *c = new LConfig();
+    EXPECT_EQ( (int64_t)c->GetLogLevel(eMSGSYSTEM::SYS_EX),  PAD(eMSGLEVEL::LOG_ERROR ) );
+    EXPECT_EQ( (int64_t)c->GetLogLevel( eMSGSYSTEM::SYS_USER), PAD(eMSGLEVEL::LOG_WARNING) );
+    EXPECT_EQ( (int64_t)c->GetLogLevel( eMSGSYSTEM::SYS_FSM), PAD(eMSGLEVEL::LOG_WARNING) );
+    EXPECT_EQ( (int64_t)c->GetLogLevel( eMSGSYSTEM::SYS_GENERAL), PAD(eMSGLEVEL::LOG_WARNING) );
+    delete c;
 }
 
 
 
-TEST_F(TestLConfig, apply_get_level_llogging)
+
+TEST_F(TestLConfig, apply_get_level_logging)
 {
-	PUSH();
-	LLogging *log = LLogging::Instance();
-	
-	vector<eMSGTARGET> targets = LHashMaps::GetTargetEnums();
-	vector<eMSGSYSTEM> systems = LHashMaps::GetSystemEnums();
+    PUSH();
+    LLogging *log = LLogging::Instance();
+    
+    SET_LOGLEVEL( "--all-off --all-warning --user-info --fsm-warning --gen-info" );
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_FILE),         PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EX,       eMSGTARGET::TARGET_FILE),         PAD(eMSGLEVEL::LOG_ERROR));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_USER,     eMSGTARGET::TARGET_FILE),         PAD(eMSGLEVEL::LOG_INFO));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_FSM,      eMSGTARGET::TARGET_FILE),         PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_GENERAL,  eMSGTARGET::TARGET_FILE),         PAD(eMSGLEVEL::LOG_INFO));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_STDOUT),       PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EX,       eMSGTARGET::TARGET_STDOUT),       PAD(eMSGLEVEL::LOG_ERROR));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_USER,     eMSGTARGET::TARGET_STDOUT),       PAD(eMSGLEVEL::LOG_INFO));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_FSM,      eMSGTARGET::TARGET_STDOUT),       PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_GENERAL,  eMSGTARGET::TARGET_STDOUT),       PAD(eMSGLEVEL::LOG_INFO));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_GUI),          PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EX,       eMSGTARGET::TARGET_GUI),          PAD(eMSGLEVEL::LOG_ERROR));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_USER,     eMSGTARGET::TARGET_GUI),          PAD(eMSGLEVEL::LOG_INFO));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_FSM,      eMSGTARGET::TARGET_GUI),          PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_GENERAL,  eMSGTARGET::TARGET_GUI),          PAD(eMSGLEVEL::LOG_INFO));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EX,       eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eMSGLEVEL::LOG_ERROR));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_USER,     eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eMSGLEVEL::LOG_INFO));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_FSM,      eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_GENERAL,  eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eMSGLEVEL::LOG_INFO));
 
-	SET_LOGLEVEL( "--all-off --all-warning --user-info --driver-info " );
+    POP();
+}
 
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_NONE,		eMSGTARGET::TARGET_FILE), 				PAD(eMSGLEVEL::LOG_WARNING));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_EX,			eMSGTARGET::TARGET_FILE), 				PAD(eMSGLEVEL::LOG_ERROR));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_USER,		eMSGTARGET::TARGET_FILE), 				PAD(eMSGLEVEL::LOG_INFO));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_FSM,		eMSGTARGET::TARGET_FILE), 				PAD(eMSGLEVEL::LOG_WARNING));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_GENERAL,	eMSGTARGET::TARGET_FILE), 				PAD(eMSGLEVEL::LOG_WARNING));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_NONE,		eMSGTARGET::TARGET_STDOUT), 			PAD(eMSGLEVEL::LOG_WARNING));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_EX,			eMSGTARGET::TARGET_STDOUT), 			PAD(eMSGLEVEL::LOG_ERROR));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_USER,		eMSGTARGET::TARGET_STDOUT), 			PAD(eMSGLEVEL::LOG_INFO));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_FSM,		eMSGTARGET::TARGET_STDOUT), 			PAD(eMSGLEVEL::LOG_WARNING));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_GENERAL,	eMSGTARGET::TARGET_STDOUT), 			PAD(eMSGLEVEL::LOG_WARNING));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_NONE,		eMSGTARGET::TARGET_GUI), 				PAD(eMSGLEVEL::LOG_WARNING));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_EX,			eMSGTARGET::TARGET_GUI), 				PAD(eMSGLEVEL::LOG_ERROR));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_USER,		eMSGTARGET::TARGET_GUI), 				PAD(eMSGLEVEL::LOG_INFO));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_FSM,		eMSGTARGET::TARGET_GUI), 				PAD(eMSGLEVEL::LOG_WARNING));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_GENERAL,	eMSGTARGET::TARGET_GUI), 				PAD(eMSGLEVEL::LOG_WARNING));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_NONE,		eMSGTARGET::TARGET_SUBSCRIBERS), 		PAD(eMSGLEVEL::LOG_WARNING));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_EX,			eMSGTARGET::TARGET_SUBSCRIBERS), 		PAD(eMSGLEVEL::LOG_ERROR));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_USER,		eMSGTARGET::TARGET_SUBSCRIBERS), 		PAD(eMSGLEVEL::LOG_INFO));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_FSM,		eMSGTARGET::TARGET_SUBSCRIBERS), 		PAD(eMSGLEVEL::LOG_WARNING));
-	EXPECT_EQ((int64_t)log->GetLogLevel(	eMSGSYSTEM::SYS_GENERAL,	eMSGTARGET::TARGET_SUBSCRIBERS), 		PAD(eMSGLEVEL::LOG_WARNING));
 
-	POP();
+TEST_F(TestLConfig, apply_get_level_logging_target)
+{
+    PUSH();
+    LLogging *log = LLogging::Instance();
+    SET_LOGLEVEL( "--all-off  --all-warning ");
+    SET_LOGLEVEL( "--target-gui  --all-debug");
+
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_FILE),         PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EX,       eMSGTARGET::TARGET_FILE),         PAD(eMSGLEVEL::LOG_ERROR));
+    
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_USER,     eMSGTARGET::TARGET_FILE),         PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_FSM,      eMSGTARGET::TARGET_FILE),         PAD(eMSGLEVEL::LOG_WARNING));
+    
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_GENERAL,  eMSGTARGET::TARGET_FILE),         PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_STDOUT),       PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EX,       eMSGTARGET::TARGET_STDOUT),       PAD(eMSGLEVEL::LOG_ERROR));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_USER,     eMSGTARGET::TARGET_STDOUT),       PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_FSM,      eMSGTARGET::TARGET_STDOUT),       PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_GENERAL,  eMSGTARGET::TARGET_STDOUT),       PAD(eMSGLEVEL::LOG_WARNING));
+
+  // This test should pass
+   // EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_GUI),          PAD(eMSGLEVEL::LOG_DEBUG));
+   
+   EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EX,       eMSGTARGET::TARGET_GUI),          PAD(eMSGLEVEL::LOG_ERROR));
+    
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_USER,     eMSGTARGET::TARGET_GUI),          PAD(eMSGLEVEL::LOG_DEBUG));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_FSM,      eMSGTARGET::TARGET_GUI),          PAD(eMSGLEVEL::LOG_DEBUG));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_GENERAL,  eMSGTARGET::TARGET_GUI),          PAD(eMSGLEVEL::LOG_DEBUG));
+    
+    
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EX,       eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eMSGLEVEL::LOG_ERROR));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_USER,     eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_FSM,      eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eMSGLEVEL::LOG_WARNING));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_GENERAL,  eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eMSGLEVEL::LOG_WARNING));
+    
+
+    POP();
 }

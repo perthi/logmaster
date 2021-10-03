@@ -116,7 +116,7 @@ namespace LOGMASTER
         }
     }
 
-	//  std::shared_ptr<std::map<eMSGTARGET,  LMessageFactory  > >  fConfig = nullptr;
+    //  std::shared_ptr<std::map<eMSGTARGET,  LMessageFactory  > >  fConfig = nullptr;
     void
     LLogging::Init()
     {
@@ -224,8 +224,6 @@ namespace LOGMASTER
         return fMessages;
 
     }
-
-
 
 
     /** Checks the loglevel of a message issued by the user against the current loglevel configured for the logging system*
@@ -478,8 +476,8 @@ namespace LOGMASTER
     }
 
 
-	/** Register a subscriber callbakc function that will be called by the logging system *
-	* NB! You must not call the logging itself system within a subscriber function s*/
+    /** Register a subscriber callback function that will be called by the logging system *
+    * NB! You must not call the logging itself system within a subscriber function s*/
     void
     LLogging::RegisterSubscriber( void( *funct )(  std::shared_ptr<LMessage>   ) )
     {

@@ -91,7 +91,7 @@ namespace LOGMASTER
     LConversion::String2Target( const string & in )
     {
         eMSGTARGET e_tmp = eMSGTARGET::TARGET_OFF;
-		
+        
         vector<string> tokens =  GTokenizer().Tokenize(in, {" ", "\t", "\n"} );
 
         for(size_t i=0; i < tokens.size(); i ++ )
@@ -111,8 +111,7 @@ namespace LOGMASTER
             }
             else
             {
-                ///auto h = LHashMaps::GetTargetHash();
-                throw(std::invalid_argument( ("2_invalid argument " + in).c_str() ));	
+                throw(std::invalid_argument( ("2_invalid argument " + in).c_str() ));    
             }
         }
 
@@ -134,7 +133,7 @@ namespace LOGMASTER
         }
         else
         {
-            throw(std::invalid_argument( ("3_invalid argument " + in).c_str() ));	
+            throw(std::invalid_argument( ("3_invalid argument " + in).c_str() ));    
         }
 
         return eMSGLEVEL::LOG_OFF;
@@ -158,12 +157,12 @@ namespace LOGMASTER
         }
         else
         {
-            throw(std::invalid_argument( ("4_invalid argument " + in).c_str() ));	
+            throw(std::invalid_argument( ("4_invalid argument " + in).c_str() ));    
         }
 
         return eMSGSYSTEM::SYS_NONE;
     }
-	
+    
 
     eMSGSYSTEM
     LConversion::BinaryString2System( const string & in )
@@ -210,12 +209,12 @@ namespace LOGMASTER
 
     }
 
-	
+    
     eMSGFORMAT
     LConversion::HexString2Format( const string & in )
     {
         eMSGFORMAT e_tmp = eMSGFORMAT::ALL_FIELDS_OFF;
-		
+        
         if ( g_numbers()->IsHex( in ) )
         {
             e_tmp = (eMSGFORMAT)g_numbers()->ToHex( in );
@@ -231,7 +230,7 @@ namespace LOGMASTER
     {
         CheckWidth( in, LOG_TARGET_WIDTH ); 
         return String2Enum<eMSGTARGET>( in, 0, 4 );
-	
+    
     }
 
 
@@ -274,7 +273,7 @@ namespace LOGMASTER
         else
         {
             return eMSGLEVEL::LOG_OFF;
-			
+            
         }
     }
 
@@ -324,7 +323,7 @@ namespace LOGMASTER
             throw(std::invalid_argument( buffer.str().c_str() ));
         }
     }
-	
+    
     #ifdef _WIN32
     std::unordered_map<eMSGTARGET, string>
     #else

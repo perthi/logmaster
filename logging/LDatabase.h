@@ -2,7 +2,7 @@
 #ifndef LDATABASE_H
 #define LDATABASE_H
 /**************************************************************************
- * This file is property of and copyright by Embedded Cosnulting  2020    *
+ * This file is property of and copyright by Embedded Consulting'  2020    *
  *                                                                        *
  * Author: Per Thomas Hille <pth@embc.no>                                 *
  * Contributors are mentioned in the code where appropriate.              *
@@ -95,7 +95,6 @@ namespace LOGMASTER
 			void API AddLogEntry (  std::shared_ptr<LMessage>  msg  );
 			bool API DeleteEntries();
 			
-			
 			bool API InitSQLQuery(const uint64_t time, const eTIME_SEARCH_OPTION opt, const int max_cnt);
 			bool API InitSQLQuery(const uint64_t time_min, const uint64_t time_max, const int max_cnt);
 			bool API InitSQLQuery(const eMSGLEVEL level, const int max_cnt);
@@ -111,25 +110,22 @@ namespace LOGMASTER
 			vector< LLogEntrySQL>  Query( const   eMSGSYSTEM sys,  const int max_cnt) ;
 			vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const int max_cnt) ;
 			vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
-
-                        bool  ReadEntriesGetEntry(LLogEntrySQL &entry);
-
-                        void SetMaxDbFileSize(const uint64_t maxSize);
-
-                        string GetDBPath() const;
+            bool  ReadEntriesGetEntry(LLogEntrySQL &entry);
+            void SetMaxDbFileSize(const uint64_t maxSize);
+            string GetDBPath() const;
 
 		private:
 			vector< LLogEntrySQL> FetchAll(   ); 
 			LDatabase( const LDatabase & );
 			LDatabase operator = ( const LDatabase & );
-                        bool InitQuery( string query, const int limit  );
-                        bool DeleteOldestEntries(int nEntries = 10);
+            bool InitQuery( string query, const int limit  );
+            bool DeleteOldestEntries(int nEntries = 10);
 		
 			static string  fDBPath;
 			static  LDatabase *fgInstance;
-                        LMessage2Json fMessage2Json;
+            LMessage2Json fMessage2Json;
 
-                        uint64_t fMaxDbFileSize{0};
+            long fMaxDbFileSize{0};
 
 
 	};
