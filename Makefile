@@ -51,6 +51,7 @@ export XML_INCLUDES:= -I $(XML_DIR)
 export LIBFLAGS:= -shared
 export CONFIG_DIR:=$(PWD)/config
 
+export HAS_LOGGING:=""
 
 INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system
 GTEST_INCLUDES:= -isystem $(PWD)/
@@ -58,6 +59,7 @@ LIBS= -L $(PWD)/build/$(TARGET)/lib  -lm
 
 export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster 
 export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest-embc -lpthread 
+
 
 
 gtest-embc:=             submodules/productivity/gtest-embc/$(TARGET)
