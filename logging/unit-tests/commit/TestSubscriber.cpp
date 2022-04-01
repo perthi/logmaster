@@ -77,7 +77,7 @@ TestSubscriber::Subscriber2(   std::shared_ptr<LMessage> msg  )
 TEST_F(TestSubscriber, LogFilter)
 {
     SET_LOGTARGET("--target-subscriber");
-    SET_LOGFORMAT("00000001");
+    SET_LOGFORMAT("0000001");
     ALARM_FATAL("a fatal QA message");
     //DB_ERROR("a DB Error message");
 }
@@ -87,7 +87,7 @@ TEST_F(TestSubscriber, LogFilter)
 TEST_F(TestSubscriber, functionRegistration)
 {
    SET_LOGTARGET("--target-subscriber");
-   SET_LOGFORMAT("00000001");
+   SET_LOGFORMAT("0000001");
    G_ERROR("Hello Dolly, 12345");
 
     std::this_thread::sleep_for( std::chrono::milliseconds(100) );
@@ -96,7 +96,7 @@ TEST_F(TestSubscriber, functionRegistration)
    EXPECT_STREQ( fMsg2->fMsgBody, "Hello Dolly, 12345");
    
    
-   SET_LOGFORMAT("01000001");
+   SET_LOGFORMAT("1000001");
    G_ERROR("Hello Chuck, 12345");
 
   std::this_thread::sleep_for( std::chrono::milliseconds(100) );
@@ -117,7 +117,7 @@ TEST_F(TestSubscriber, setTargetTest )
     LPublisher::Instance()->DisableColor();
     PUSH();
     fStrCout.str( "" );
-    SET_LOGFORMAT("01000001");
+    SET_LOGFORMAT("1000001");
     SET_LOGLEVEL("--all-warning");
     
     SET_LOGTARGET("--target-off");
@@ -148,7 +148,7 @@ TEST_F(TestSubscriber, setTargetTest )
 TEST_F(TestSubscriber, setTargetFileTest)
 {
     PUSH();
-    SET_LOGFORMAT("01000001");
+    SET_LOGFORMAT("1000001");
     SET_LOGTARGET( "--target-off" );
     SET_LOGTARGET( "--target-file" ) ;
     SET_LOGLEVEL("--all-warning");
@@ -175,7 +175,7 @@ TEST_F(TestSubscriber, cmdLine  )
     try
     {
         fStrCout.str("");
-        g->ScanArguments("-logtarget    --target-off    --target-subscriber  -logformat 00000001");
+        g->ScanArguments("-logtarget    --target-off    --target-subscriber  -logformat 0000001");
         
         SET_LOGLEVEL("--all-warning");
         G_WARNING("Hello Chuck Norris");
@@ -205,7 +205,7 @@ TEST_F(TestSubscriber, cmdLine  )
         fStrCout.str("");
 
         SET_LOGTARGET("1111");
-        SET_LOGFORMAT("00000001");
+        SET_LOGFORMAT("0000001");
         fStrCout.str("");
 
         G_ERROR("Hello Chuck");

@@ -2,7 +2,7 @@
 
 PROGRAM=logging-unit-tests
 
-#SRCCPP:=logging-unit-tests.cpp \
+SRCCPP:=logging-unit-tests.cpp \
 	TestLConfig.cpp \
 	TestLConversion.cpp \
 	TestLHashMaps.cpp \
@@ -14,8 +14,10 @@ PROGRAM=logging-unit-tests
 	TestLMessage2Json.cpp \
 	TestLDatabase.cpp
 
-SRCCPP:=logging-unit-tests.cpp \
-     TestLogging.cpp 
+#SRCCPP:=logging-unit-tests.cpp \
+    	TestLogging.cpp \
+	  	TestLMessage2Json.cpp \
+	TestLDatabase.cpp
 
 include ../../../../common.mk
 include ../../../../unittest-common.mk

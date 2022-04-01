@@ -110,7 +110,7 @@ TestLogging::Subscriber(const   std::shared_ptr<LOGMASTER::LMessage>  msg  )
 
 
 
-/*
+
 TEST_F(TestLogging, set_logtarget_g_logapplication)
 {
     ///auto l = LLogging::Instance();
@@ -169,6 +169,7 @@ TEST_F( TestLogging, set_logtarget )
 
 
 
+
 TEST_F(TestLogging, level_to_string )
 {
     EXPECT_EQ( "Error",       LEnum2String::ToString( eMSGLEVEL::LOG_ERROR ));
@@ -213,6 +214,7 @@ TEST_F(TestLogging, stdoutIO)
 
 
 
+
 TEST_F(TestLogging, exeptions)
 {
     SET_LOGTARGET("0000 --target-file");
@@ -235,9 +237,6 @@ TEST_F(TestLogging, messageBody)
     EXPECT_STREQ( "\tTesting integer parameters: a = 1, b = 3\n", G_ERROR( "Testing integer parameters: a = %d, b = %d", 1, 3 )->at(eMSGTARGET::TARGET_FILE)->fMsg );
     EXPECT_STREQ( "\tTesting float parameters: a = 4.55, b = 3.333\n", G_ERROR( "Testing float parameters: a = %0.2f, b = %0.3f", 4.55, 3.333 )->at(eMSGTARGET::TARGET_FILE)->fMsg );
 }
-
-
-
 
 
 
@@ -325,7 +324,7 @@ TEST_F(TestLogging, NSR219)
     EXPECT_ANY_THROW(SET_LOGFORMAT("0xabc" ));
 
 }
-*/
+
 
 
 
@@ -352,14 +351,15 @@ TEST_F(TestLogging, NSR207)
     SET_LOGTARGET("--target-file --target-stdout");
    // SET_LOGFORMAT("1111111");
     SET_LOGLEVEL("--all-debug");
-    FORCE_DEBUG("blahhhhhh");
     G_ERROR("\tHello Chuck");
     EXPECT_EQ("\t\tHello Chuck\n", fMessage) << "logfilename = " <<      l->GetLogFileName() << endl;
  }
 
 
 
-/*
+
+
+
 TEST_F(TestLogging, NSR790HugeMessage)
 {
     SET_LOGFORMAT("--all-off --msg-body");
@@ -381,7 +381,7 @@ TEST_F(TestLogging, NSR790HugeMessage)
 TEST_F(TestLogging, NSR724ForceDebug)
 {
     SET_LOGLEVEL("--all");
-    SET_LOGFORMAT("01000001");
+    SET_LOGFORMAT("1000001");
 
     //If we use the force debug macro we shall generate a message regardless of the configuration of the logging system
     EXPECT_STREQ("<Force_Debug:General>    \tForcing the logging system to write a message\n",   FORCE_DEBUG("Forcing the logging system to write a message")->at(eMSGTARGET::TARGET_FILE)->fMsg );
@@ -423,7 +423,7 @@ TEST_F(TestLogging, NSR939Subscribers)
     EXPECT_EQ(BIN("0000000000110101"), (int)l->GetLogTarget());
 
 }
-*/
+
 
 
 // TEST_F(TestLogging, logBinary)
@@ -456,9 +456,6 @@ TEST_F(TestLogging, NSR939Subscribers)
 
 
 
-
-
-/*
 #if defined NDEBUG && defined _WIN64
 TEST_F( TestLogging, performance )
 {
@@ -514,6 +511,4 @@ TEST_F( TestLogging, performance2 )
     ASSERT_TRUE( average < time);
 }
 #endif
-*/
-
 
