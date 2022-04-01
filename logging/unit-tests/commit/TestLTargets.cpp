@@ -32,6 +32,9 @@
 
 #include <logging/LHashMaps.h>
 #include <logging/LLogApi.h>
+#include <logging/LPublisher.h>
+
+
 
 using namespace LOGMASTER;
 
@@ -52,14 +55,15 @@ TestLTargets::~TestLTargets()
 void 
 TestLTargets::SetUp()
 {    
-
+   LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS );
+   PUSH();
 }
 
 
 void 
 TestLTargets::TearDown()
 {
-
+    POP();
 }
 
 
@@ -68,36 +72,35 @@ TEST_F(TestLTargets, configure_format_specific_target)
 {
     try
     {
-        /* code */
-        SET_LOGFORMAT("--target-file 00000001");
+        SET_LOGFORMAT("--target-file 0000001");
         EXPECT_EQ(eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_FILE));
-        SET_LOGFORMAT("--target-stdout 01000000");
+        SET_LOGFORMAT("--target-stdout 1000000");
         EXPECT_EQ(eMSGFORMAT::MESSAGE_TYPE, l->GetLogFormat(eMSGTARGET::TARGET_STDOUT));
         EXPECT_EQ(eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_FILE));
-        SET_LOGFORMAT("11111111");
-        SET_LOGFORMAT("--target-file 00000001");
+        SET_LOGFORMAT("1111111");
+        SET_LOGFORMAT("--target-file 0000001");
         EXPECT_EQ(eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_FILE));
-        SET_LOGFORMAT("--target-stdout 01000000");
+        SET_LOGFORMAT("--target-stdout 1000000");
         EXPECT_EQ(eMSGFORMAT::MESSAGE_TYPE, l->GetLogFormat(eMSGTARGET::TARGET_STDOUT));
         EXPECT_EQ(eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_FILE));
-        SET_LOGFORMAT("11111111");
+        SET_LOGFORMAT("1111111");
         EXPECT_EQ(eMSGFORMAT::PREFIX_ALL, l->GetLogFormat(eMSGTARGET::TARGET_STDOUT));
         EXPECT_EQ(eMSGFORMAT::PREFIX_ALL, l->GetLogFormat(eMSGTARGET::TARGET_FILE));
+        SET_LOGFORMAT("0000000");
         
-        SET_LOGFORMAT("00000000");
+        
         EXPECT_EQ(eMSGFORMAT::ALL_FIELDS_OFF, l->GetLogFormat(eMSGTARGET::TARGET_STDOUT));
         EXPECT_EQ(eMSGFORMAT::ALL_FIELDS_OFF, l->GetLogFormat(eMSGTARGET::TARGET_FILE));
-
-        g->ScanArguments("-logformat --target-stdout 00000001");
-        EXPECT_EQ(eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_STDOUT));
         
-        g->ScanArguments("-logformat --target-stdout 00000001");
         
+        g->ScanArguments("-logformat --target-stdout 0000001");
         EXPECT_EQ(eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_STDOUT));
-        g->ScanArguments("-logformat --target-file 01000001");
+        g->ScanArguments("-logformat --target-stdout 0000001");
+        EXPECT_EQ(eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_STDOUT));
+        g->ScanArguments("-logformat --target-file 1000001");
         EXPECT_EQ(eMSGFORMAT::MESSAGE_TYPE | eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat(eMSGTARGET::TARGET_FILE));
-        g->ScanArguments("-logformat --target-stdout 00000001");
-        g->ScanArguments("-logformat --target-stdout 01111111");
+        g->ScanArguments("-logformat --target-stdout 0000001");
+        g->ScanArguments("-logformat --target-stdout 0111111");
         SET_LOGLEVEL("--target-file --off --fatal");
         SET_LOGLEVEL("--target-stdout --off --debug");
         G_DEBUG("This a debug message");
@@ -105,19 +108,22 @@ TEST_F(TestLTargets, configure_format_specific_target)
         G_WARNING("This a warning message");
         G_ERROR("This an error warning message");
         G_FATAL("This a fatal message");
-
+        
     }
     catch ( const GException & e)
     {
         CERR << e.what() << ENDL;
+        FAIL();
     }
     catch(const std::exception& e)
     {
         CERR << e.what() << '\n';
+        FAIL();
     }
     catch(...)
     {
         CERR << "Unkown exception caught" << ENDL;
+        FAIL();
     }
     
 
@@ -125,12 +131,15 @@ TEST_F(TestLTargets, configure_format_specific_target)
 
 
 
+
 TEST_F( TestLTargets, configure_level_specific_target )
 {
-    FORCE_DEBUG("START");
-
-    PUSH();
-    SET_LOGTARGET("--target-stdout");
+     //SET_LOGFORMAT("0000000");
+    //SET_LOGTARGET("--target-stdout");
+    
+    g->ScanArguments( "-loglevel --all-debug");
+   
+    FORCE_DEBUG("START1");
     
     vector<eMSGSYSTEM> e_s = LHashMaps::Instance()->GetSystemEnums();
     vector<eMSGTARGET> e_t = LHashMaps::Instance()->GetTargetEnums();
@@ -179,10 +188,12 @@ TEST_F( TestLTargets, configure_level_specific_target )
     EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
     EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
     EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
+    
 
-    POP();
+   FORCE_DEBUG("END1");
+    
 
-//    PUSH();
-    FORCE_DEBUG("END");
 }
+
+
 

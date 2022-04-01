@@ -348,7 +348,7 @@ namespace LOGMASTER
         fFormatHash.emplace("--all-off",        eMSGFORMAT::ALL_FIELDS_OFF);
         fFormatHash.emplace("--msg-type",        eMSGFORMAT::MESSAGE_TYPE);
         fFormatHash.emplace("--time-stamp",        eMSGFORMAT::TIME_STAMP);
-        fFormatHash.emplace("--time-short",        eMSGFORMAT::TIME_STAMP_SHORT);
+       // fFormatHash.emplace("--time-short",        eMSGFORMAT::TIME_STAMP_SHORT);
         fFormatHash.emplace("--file-path",        eMSGFORMAT::FILE_PATH);
         fFormatHash.emplace("--file-name",        eMSGFORMAT::FILE_NAME);
         fFormatHash.emplace("--func-name",        eMSGFORMAT::FUNCTION_NAME);

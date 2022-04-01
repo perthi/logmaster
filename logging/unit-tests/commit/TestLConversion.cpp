@@ -84,7 +84,7 @@ TEST_F( TestLConversion, HexString2Format )
     EXPECT_EQ( eMSGFORMAT::MESSAGE_BODY,        LConversion::Instance()->HexString2Format("0x01") );
     EXPECT_EQ( eMSGFORMAT::PREFIX_OFF,            LConversion::Instance()->HexString2Format("0x01") );
     EXPECT_EQ( eMSGFORMAT::SHORT_MSG,            LConversion::Instance()->HexString2Format("0x4b") );
-    EXPECT_EQ( eMSGFORMAT::PREFIX_ALL,            LConversion::Instance()->HexString2Format("0xff") );
+    EXPECT_EQ( eMSGFORMAT::PREFIX_ALL,            LConversion::Instance()->HexString2Format("0x7f") );
     EXPECT_EQ( eMSGFORMAT::SHORT_MSG,            LConversion::Instance()->HexString2Format("0x4B") );
     //EXPECT_EQ( eMSGFORMAT::PREFIX_ALL,            LConversion::HexString2Format("0x7F") );
 
@@ -95,17 +95,17 @@ TEST_F( TestLConversion, HexString2Format )
 
 TEST_F(TestLConversion,  String2Format )
 {
-    EXPECT_EQ( eMSGFORMAT::ALL_FIELDS_OFF,   LConversion::Instance()->String2Format( "00000000" ) );
-    EXPECT_EQ( eMSGFORMAT::MESSAGE_TYPE,     LConversion::Instance()->String2Format( "01000000" ) );
-    EXPECT_EQ( eMSGFORMAT::TIME_STAMP,       LConversion::Instance()->String2Format( "00100000" ) );
-    EXPECT_EQ( eMSGFORMAT::FILE_PATH,        LConversion::Instance()->String2Format( "00010000" ) );
-    EXPECT_EQ( eMSGFORMAT::FILE_NAME,        LConversion::Instance()->String2Format( "00001000" ) );
-    EXPECT_EQ( eMSGFORMAT::FUNCTION_NAME,    LConversion::Instance()->String2Format( "00000100" ) );
-    EXPECT_EQ( eMSGFORMAT::LINE_NO,          LConversion::Instance()->String2Format( "00000010" ) );
-    EXPECT_EQ( eMSGFORMAT::MESSAGE_BODY,     LConversion::Instance()->String2Format( "00000001" ) );
-    EXPECT_EQ( eMSGFORMAT::PREFIX_OFF,       LConversion::Instance()->String2Format( "00000001" ) );
-    EXPECT_EQ( eMSGFORMAT::SHORT_MSG,        LConversion::Instance()->String2Format( "01001011" ) );
-    EXPECT_EQ( eMSGFORMAT::PREFIX_ALL,       LConversion::Instance()->String2Format( "11111111" ) );
+    EXPECT_EQ( eMSGFORMAT::ALL_FIELDS_OFF,   LConversion::Instance()->String2Format( "0000000" ) );
+    EXPECT_EQ( eMSGFORMAT::MESSAGE_TYPE,     LConversion::Instance()->String2Format( "1000000" ) );
+    EXPECT_EQ( eMSGFORMAT::TIME_STAMP,       LConversion::Instance()->String2Format( "0100000" ) );
+    EXPECT_EQ( eMSGFORMAT::FILE_PATH,        LConversion::Instance()->String2Format( "0010000" ) );
+    EXPECT_EQ( eMSGFORMAT::FILE_NAME,        LConversion::Instance()->String2Format( "0001000" ) );
+    EXPECT_EQ( eMSGFORMAT::FUNCTION_NAME,    LConversion::Instance()->String2Format( "0000100" ) );
+    EXPECT_EQ( eMSGFORMAT::LINE_NO,          LConversion::Instance()->String2Format( "0000010" ) );
+    EXPECT_EQ( eMSGFORMAT::MESSAGE_BODY,     LConversion::Instance()->String2Format( "0000001" ) );
+    EXPECT_EQ( eMSGFORMAT::PREFIX_OFF,       LConversion::Instance()->String2Format( "0000001" ) );
+    EXPECT_EQ( eMSGFORMAT::SHORT_MSG,        LConversion::Instance()->String2Format( "1001011" ) );
+    EXPECT_EQ( eMSGFORMAT::PREFIX_ALL,       LConversion::Instance()->String2Format( "1111111" ) );
 
     EXPECT_EQ( (eMSGFORMAT::MESSAGE_TYPE | eMSGFORMAT::FILE_NAME), LConversion::Instance()->String2Format( "01001000" ) );
 

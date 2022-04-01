@@ -88,7 +88,7 @@ namespace LOGMASTER
     void 
     LLogging::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
     {
-                        LPublisher::Instance()->QueMessage( msg,   cfg,  target);
+         LPublisher::Instance()->QueMessage( msg,   cfg,  target);
     }
 
 

@@ -61,17 +61,6 @@ int count (  const int lim,const C& c, P pred )
 }
 
 
-// template<typename T>
-// void print_modulo( const vector<T> & v, std::ostream & os, int m  )
-// {
-//   for_each( begin(v), end(v),  [&os, m ](auto x) 
-//   {
-//   // if(x%m == 0) os << x << '\n'; 
-//     os << x << '\n'; 
-//   } );
-// }
-
-
 template<typename T>
 void print_modulo( const vector<T> & v, std::ostream & os, int m  )
 {
@@ -82,8 +71,46 @@ void print_modulo( const vector<T> & v, std::ostream & os, int m  )
 
 
 
+
+
 int main()
 {
+
+  LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+  SET_LOGLEVEL("--all-info");
+  printf("line %d\t\t", __LINE__); G_INFO("This is a test (-1)");
+  SET_LOGFORMAT("00000000");
+  printf("line %d\t\t", __LINE__); G_INFO("This is a test (0)");
+
+  SET_LOGFORMAT("10000000");
+  printf("line %d\t\t", __LINE__);  G_INFO("This is a test (1)");
+
+  SET_LOGFORMAT("01000000");
+  printf("line %d\t\t", __LINE__);  G_INFO("This is a test (2)");
+
+  SET_LOGFORMAT("00100000");
+  printf("line %d\t\t", __LINE__); G_INFO("This is a test (3)");
+
+  SET_LOGFORMAT("00010000");
+  printf("line %d\t\t", __LINE__);  G_INFO("This is a test (4)");
+
+  SET_LOGFORMAT("00001000");
+  printf("line %d\t\t", __LINE__); G_INFO("This is a test (5)");
+
+  SET_LOGFORMAT("00000100");
+  printf("line %d\t", __LINE__); G_INFO("This is a test (6)");
+
+  SET_LOGFORMAT("00000010");
+  printf("line %d\t", __LINE__); G_INFO("This is a test (7)");
+
+  SET_LOGFORMAT("00000001");
+  printf("line %d\t", __LINE__); G_INFO("This is a test (8)");
+
+ SET_LOGFORMAT("11111111");
+  printf("line %d\t", __LINE__); G_INFO("This is a test (9)");
+
+
+/*
   Less<int> lti;
 
   vector<int> test1 = {1,2,33,44,55,66,77};
@@ -97,16 +124,7 @@ int main()
   print_modulo( test1, out , 11);
   print_modulo( test2, out , 11);
   print_modulo( test3, out , 11);
-
   CERR << out.str()  << ENDL;
-
-  // char buf[255];
-  // for(int i=0; i < 1000; i++)
-  // {
-  //   sprintf(buf, "Hello%d", i );
-  //   FORCE_DEBUG("%s", buf);
-  // }
-  ///std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-
+*/
 }
 

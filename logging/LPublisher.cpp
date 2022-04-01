@@ -91,8 +91,8 @@ namespace LOGMASTER
     void  
     LPublisher::StartDispatcher()
     {
-	    static  std::mutex m;
-		std::lock_guard<std::mutex> guard( m );
+        static  std::mutex m;
+        std::lock_guard<std::mutex> guard( m );
         fDispatcher = new std::thread( &::LPublisher::RunDispatcher, this );
     }
 
@@ -214,7 +214,7 @@ namespace LOGMASTER
     }
 
  /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently
-     *   than any other log levels and is always written to all targets regardless of the configuration of the logging system.
+     *   than any other log levels and is always written to all targets (provided that the tagtet os enabled) regardless of the configuration of the logging system.
      *   @param[in] msg  The message to publish
      *   @param[in] cfg The current configuration of the logging system. 
      *   This configuration determins what is written and where it is written to (file, console or subscribers )
@@ -229,8 +229,8 @@ namespace LOGMASTER
 
      if (msg->fFormat == eMSGFORMAT::ALL_FIELDS_OFF)
      {
-         PublishToConsole(msg);
-         return;
+       //  PublishToConsole(msg);
+         //return;
      }
 
      bool force_debug = ((int)msg->fLevel & (int)eMSGLEVEL::LOG_FORCE_DEBUG) != 0 ? true : false;
@@ -239,14 +239,16 @@ namespace LOGMASTER
      {
          if ((int)target & (int)eMSGTARGET::TARGET_TESTING)
          {
+             /*
              PublishToConsole(msg);
              PublishToFile(cfg->fLogFilename.c_str(), msg);
              PublishToSubscribers(msg);
              PublishToDatabase(msg);
              PublishToGuiSubscribers(msg);
+            */
          }
      }
-     else
+   //  else
      {
          //   Publish(msg,  cfg, target );
          if (((int)target & (int)eMSGTARGET::TARGET_FILE))
@@ -269,10 +271,14 @@ namespace LOGMASTER
              PublishToGuiSubscribers(msg);
          }
 
-         if ((int)target & (int)eMSGTARGET::TARGET_STDOUT)
-         {
+        // if ( ( (int)target & (int)eMSGTARGET::TARGET_STDOUT)  &&  (  (int)target & (int)eMSGTARGET::TARGET_STDOUT)  || (force_debug == true))
+        //   if ( ((int)target & (int)eMSGTARGET::TARGET_STDOUT) ||  (force_debug == true) )
+        
+        if ( ( (int)target & (int)eMSGTARGET::TARGET_STDOUT) ) 
+        {
+            /// CERR << "TARGET = STDOUT(" << (int)target << ") " << endl;
              PublishToConsole(msg);
-         }
+        }
      }
     }
 
@@ -281,12 +287,12 @@ namespace LOGMASTER
     LPublisher::PublishToDatabase( std::shared_ptr<LMessage>  msg  )
     {
         static  std::mutex m;
-		std::lock_guard<std::mutex> guard( m );
+        std::lock_guard<std::mutex> guard( m );
       //  COUT << "WRITING TO DATABASE" << endl;
         LDatabase::Instance()->AddLogEntry(msg);
     }
 
-    /**  Publish messages via the publiser/subscriber interface. The function iterates thrugh an
+    /**  Publish messages via the publisher/subscriber interface. The function iterates thrugh an
      *   array of registered subscribers (if any), and  calls each callback function with the message, 
      *   subsystem and level as arguments
      *   @param msg  The message to publish */
@@ -294,7 +300,7 @@ namespace LOGMASTER
     LPublisher::PublishToSubscribers( std::shared_ptr<LMessage>  msg )
     {
         static  std::mutex m;
-		std::lock_guard<std::mutex> guard( m );
+        std::lock_guard<std::mutex> guard( m );
         auto subscribers = LLogging::Instance()->GetSubscribers();
 
         for (uint16_t i = 0; i < subscribers.size(); i++)
@@ -309,7 +315,7 @@ namespace LOGMASTER
     LPublisher::PublishToGuiSubscribers( std::shared_ptr<LMessage>  msg  )
     {
         static  std::mutex m;
-		std::lock_guard<std::mutex> guard( m );
+        std::lock_guard<std::mutex> guard( m );
         auto subscribers = LLogging::Instance()->GetGuiSubscribers();
         for (uint16_t i = 0; i < subscribers.size(); i++)
         {
@@ -319,11 +325,11 @@ namespace LOGMASTER
     }
 
 
-	void
+    void
     LPublisher::PublishToConsole(  std::shared_ptr<LMessage> msg )
-	{
+    {
         static  std::mutex m;
-		std::lock_guard<std::mutex> guard( m );    
+        std::lock_guard<std::mutex> guard( m );    
 
 #ifdef _WIN32
             static HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -355,7 +361,7 @@ namespace LOGMASTER
     LPublisher::PublishToFile(const char * filename,  std::shared_ptr<LMessage> msg  )
     {
         static  std::mutex m;
-		std::lock_guard<std::mutex> guard( m );
+        std::lock_guard<std::mutex> guard( m );
         FILE  *logFile = 0;
 
 #ifdef _WIN32
@@ -395,7 +401,7 @@ namespace LOGMASTER
     LPublisher::PublishToFileJson( const char *   filename_base,  std::shared_ptr<LMessage> msg   )
     {
         static  std::mutex m;
-		std::lock_guard<std::mutex> guard( m );
+        std::lock_guard<std::mutex> guard( m );
         string fname_tmp = string( filename_base ) + ".json";
         const char * fname_tmp_c  = fname_tmp.c_str();
         FILE  *logFile = 0;

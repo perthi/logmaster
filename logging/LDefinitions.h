@@ -13,7 +13,7 @@
 #define BINARY_TOTAL_FIELD_WIDTH  (BINARY_SYSTEM_WIDTH + BINARY_LEVEL_WIDT)
 #define SUBSYSTEM_MASK 0xffff       
 #define HEX_WIDTH 8
-#define LOG_FORMAT_WIDTH 8        ///  The number of bits used to specify the log format
+#define LOG_FORMAT_WIDTH 7        ///  The number of bits used to specify the log format
 #define LOG_TARGET_WIDTH 4            ///  The number of bits used to specify the log target  
 #define NO_PADDING false
 #define WITH_PADDING true

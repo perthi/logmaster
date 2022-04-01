@@ -2,7 +2,7 @@
 
 PROGRAM=logging-unit-tests
 
-SRCCPP:=logging-unit-tests.cpp \
+#SRCCPP:=logging-unit-tests.cpp \
 	TestLConfig.cpp \
 	TestLConversion.cpp \
 	TestLHashMaps.cpp \
@@ -13,6 +13,10 @@ SRCCPP:=logging-unit-tests.cpp \
 	TestSubscriber.cpp \
 	TestLMessage2Json.cpp \
 	TestLDatabase.cpp
+
+SRCCPP:=logging-unit-tests.cpp \
+	TestLTargets.cpp
+
 
 #SRCCPP:=logging-unit-tests.cpp \
 TestLFormat.cpp \

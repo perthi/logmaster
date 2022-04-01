@@ -106,7 +106,7 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const
     if(format == eMSGFORMAT::ALL_FIELDS_OFF)
     {
         SPRINTF(msg->fMsg, MAX_MSG_SIZE, "%s::%s::line[%d] NO MESSAGE WAS GENERATED BECAUSE ALL FIELDS IN LOG FORMAT IS TURNED OFF !!\n", fname, func, line);
-        return msg;
+        //return msg;
     }
 
     string lfilepath = string(fname); // The full path to the file, including the filename
@@ -129,6 +129,8 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const
     msg->fWColor = LColorMap::Instance()->GetCColor(l);
 
 
+
+
     //int snprintf ( char * s, size_t n, const char * format, ... );
 
     if((int)eMSGFORMAT::MESSAGE_TYPE & (int)format)
@@ -142,10 +144,10 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const
         SPRINTF(msg->fTimeStamp, MAX_MSG_TIME_STAMP_SIZE, "%s; ", fTime.TimeStamp().c_str());
     }
 
-    if((int)eMSGFORMAT::TIME_STAMP_SHORT & (int)format)
-    {
-        SPRINTF(msg->fTimeStamp, MAX_MSG_TIME_STAMP_SIZE, "%s; ", fTime.TimeStampShort().c_str());
-    }
+    // if((int)eMSGFORMAT::TIME_STAMP_SHORT & (int)format)
+    // {
+    //     SPRINTF(msg->fTimeStamp, MAX_MSG_TIME_STAMP_SIZE, "%s; ", fTime.TimeStampShort().c_str());
+    // }
 
     if(has_filepath)
     {
