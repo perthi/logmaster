@@ -27,6 +27,7 @@
 ******************************************************************************/
 
 
+
 #include "TestGCmdScan.h"
 #include <utilities/GNumbers.h>
 #include <cmdline/GCmdApi.h>
@@ -65,7 +66,7 @@ void TestGCmdScan::TearDown()
 
 bool  callback_test( const string  cmd, const vector<string>  sub, const vector<string>  par )
 {
-    FORCE_DEBUG("callback function invoced");
+    FORCE_DEBUG("callback function invoked");
     FORCE_DEBUG("cmd = %s", cmd.c_str() );
     FORCE_DEBUG("parameters = %s",   g_utilities()->Vec2String(par).c_str() );
     FORCE_DEBUG("subcommands = %s",  g_utilities()->Vec2String(sub).c_str() );

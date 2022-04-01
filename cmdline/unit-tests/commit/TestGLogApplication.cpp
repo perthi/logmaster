@@ -19,7 +19,8 @@ TestGLogApplication::~TestGLogApplication()
 void 
 TestGLogApplication::SetUp()
 {
-      l->SetLogTarget("--target-file");    
+    g_cmdscan()->SetIgnoreStrayArgument(false);
+    l->SetLogTarget("--target-file");    
 }
 
 
@@ -32,20 +33,20 @@ TestGLogApplication::TearDown()
 
 TEST_F(TestGLogApplication, get_argument )
 {
-	EXPECT_NE(nullptr, g->GetArgument("-loglevel")  );
+    EXPECT_NE(nullptr, g->GetArgument("-loglevel")  );
  // delete g;
 }
 
 
 TEST_F(TestGLogApplication,   remove_argument )
 {
-	g->InitLogArgs();
+    g->InitLogArgs();
   EXPECT_NE(nullptr, g->GetArgument("-loglevel")  );
-	size_t size_before = g->GetArguments().size();
-	g->RemoveArgument("-loglevel");
-	EXPECT_EQ(nullptr, g->GetArgument("-loglevel")  );
-	size_t size_after = g->GetArguments().size();
-	EXPECT_EQ(size_after, size_before -1 );
+    size_t size_before = g->GetArguments().size();
+    g->RemoveArgument("-loglevel");
+    EXPECT_EQ(nullptr, g->GetArgument("-loglevel")  );
+    size_t size_after = g->GetArguments().size();
+    EXPECT_EQ(size_after, size_before -1 );
 
 }
 

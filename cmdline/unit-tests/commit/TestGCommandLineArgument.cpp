@@ -43,7 +43,7 @@ using namespace std::placeholders;
 
 TestGCommandLineArgument::TestGCommandLineArgument() : TestBase() 
 {
-	std::function< bool( const string , const string ) >    
+    std::function< bool( const string , const string ) >    
     testFunc(std::bind(&TestGCommandLineArgument::ValidateFunct2, this, _1, _2 ));
 }
 
@@ -57,8 +57,9 @@ TestGCommandLineArgument::~TestGCommandLineArgument()
 void TestGCommandLineArgument::SetUp()
 {
  ////  SET_LOGTARGET(eMSGTARGET::TARGET_OFF);
-  
-	SET_LOGTARGET("0000");
+
+g_cmdscan()->SetIgnoreStrayArgument(false);
+  SET_LOGTARGET("0000");
    g->AddArgument(farg);
    g->AddArgument(darg);
    g->AddArgument(ldarg);    
@@ -120,58 +121,58 @@ TestGCommandLineArgument::TearDown()
  
  TEST_F(TestGCommandLineArgument, simpleArgs)
  {
- //	LLogging::Instance()->SetLogTarget("--target-all");
-//	 SET_LOGFORMAT("1111111");
- 	
-// 	try
- //	{    
- 		g->ScanArguments("-myint 10");
- 		
-		EXPECT_EQ(i, 10);
+ // LLogging::Instance()->SetLogTarget("--target-all");
+//   SET_LOGFORMAT("1111111");
+    
+//  try
+ // {    
+        g->ScanArguments("-myint 10");
+        
+        EXPECT_EQ(i, 10);
         g->ScanArguments("-mydouble 1.2345");
- 		EXPECT_DOUBLE_EQ(d, 1.2345);
- 		g->ScanArguments("-myint 42 -mydouble 3.14159265358979323846  -mystring  \"hello world\"");
- 		EXPECT_EQ(i, 42);
- 		EXPECT_DOUBLE_EQ(d, 3.14159265358979323846);
- 		g->ScanArguments("-myfloat 3.14");
- 		EXPECT_FLOAT_EQ(f, (float)3.14);
- 		EXPECT_NO_THROW(  g->ScanArguments("-myvoid"));
- 		EXPECT_ANY_THROW( g->ScanArguments("-myvoid  gibberish --blahh --blahh2"));
- 		EXPECT_ANY_THROW( g->ScanArguments("-myint 10.123"));  // we expect an exeption since we give float argument to an int parameter
+        EXPECT_DOUBLE_EQ(d, 1.2345);
+        g->ScanArguments("-myint 42 -mydouble 3.14159265358979323846  -mystring  \"hello world\"");
+        EXPECT_EQ(i, 42);
+        EXPECT_DOUBLE_EQ(d, 3.14159265358979323846);
+        g->ScanArguments("-myfloat 3.14");
+        EXPECT_FLOAT_EQ(f, (float)3.14);
+        EXPECT_NO_THROW(  g->ScanArguments("-myvoid"));
+        EXPECT_ANY_THROW( g->ScanArguments("-myvoid  gibberish --blahh --blahh2"));
+        EXPECT_ANY_THROW( g->ScanArguments("-myint 10.123"));  // we expect an exception since we give float argument to an int parameter
  
- 		g->ScanArguments("-mylint 1234546");
- 		EXPECT_EQ(li, 1234546);
+        g->ScanArguments("-mylint 1234546");
+        EXPECT_EQ(li, 1234546);
        
- 		g->ScanArguments("-mysint 1234");
- 		EXPECT_EQ(si, 1234);
+        g->ScanArguments("-mysint 1234");
+        EXPECT_EQ(si, 1234);
  
- 		g->ScanArguments("-myldouble  3.14159265358979");
- 		EXPECT_DOUBLE_EQ(ld, 3.14159265358979);
- 		g->ScanArguments("-myldouble  42");
- 		EXPECT_DOUBLE_EQ(ld, 42);
- 		g->ScanArguments("-myldouble  -42");
- 		EXPECT_DOUBLE_EQ(ld, -42);
+        g->ScanArguments("-myldouble  3.14159265358979");
+        EXPECT_DOUBLE_EQ(ld, 3.14159265358979);
+        g->ScanArguments("-myldouble  42");
+        EXPECT_DOUBLE_EQ(ld, 42);
+        g->ScanArguments("-myldouble  -42");
+        EXPECT_DOUBLE_EQ(ld, -42);
  
- 		g->ScanArguments("-myllint 1234567891011121");
- 		EXPECT_EQ(lli, 1234567891011121);
- 		g->ScanArguments("-myllint -1234567891011121");
- 		EXPECT_EQ(lli, -1234567891011121);
+        g->ScanArguments("-myllint 1234567891011121");
+        EXPECT_EQ(lli, 1234567891011121);
+        g->ScanArguments("-myllint -1234567891011121");
+        EXPECT_EQ(lli, -1234567891011121);
  
- 		g->ScanArguments("-myulint 999222333");
- 		EXPECT_EQ(uli, 999222333);
- 		EXPECT_ANY_THROW(g->ScanArguments("-myulint -999222333"));
+        g->ScanArguments("-myulint 999222333");
+        EXPECT_EQ(uli, 999222333);
+        EXPECT_ANY_THROW(g->ScanArguments("-myulint -999222333"));
  
- 		g->ScanArguments("-myullint 111222333");
- 		EXPECT_EQ(ulli, 111222333);
- 		EXPECT_ANY_THROW(g->ScanArguments("-myullint -111222333"));
+        g->ScanArguments("-myullint 111222333");
+        EXPECT_EQ(ulli, 111222333);
+        EXPECT_ANY_THROW(g->ScanArguments("-myullint -111222333"));
         
     //  }
- 	// catch(GException &e){
+    // catch(GException &e){
  
- 		
+        
     //      cerr << e.what() << endl;
- 	// 	throw;
- 	// }
+    //  throw;
+    // }
  
     
  }
@@ -222,26 +223,26 @@ TestGCommandLineArgument::TearDown()
  
 TEST_F(TestGCommandLineArgument, boolArgs)
 {
-	//Testing for bug NSR-168
-	g->ScanArguments("-mybool");
-	EXPECT_EQ(b, true);
-	// Testing for bug NSR-168 and NSR-169
-	 EXPECT_NO_THROW(g->ScanArguments("-mybool --true"));
-	EXPECT_ANY_THROW(g->ScanArguments("-mybool --false --gibberish"));
-	EXPECT_ANY_THROW(g->ScanArguments("-mybool -alpha beta gamma"));
+    //Testing for bug NSR-168
+    g->ScanArguments("-mybool");
+    EXPECT_EQ(b, true);
+    // Testing for bug NSR-168 and NSR-169
+     EXPECT_NO_THROW(g->ScanArguments("-mybool --true"));
+    EXPECT_ANY_THROW(g->ScanArguments("-mybool --false --gibberish"));
+    EXPECT_ANY_THROW(g->ScanArguments("-mybool -alpha beta gamma"));
  
-	 //* Now we try with a validation function. We use a default validation function for 
-	// * boolean argumenst which takes --true and --false as subcommands 
-	barg->SetValidationFunction(GCmdApi::bool2);
-	g->ScanArguments("-mybool");
-	EXPECT_EQ(b, true);
-	g->ScanArguments("-mybool --true");
-	EXPECT_EQ(b, true);
-	g->ScanArguments("-mybool --false");
-	EXPECT_EQ(b, false);
-	EXPECT_ANY_THROW(g->ScanArguments("-mybool --true gibberish"));
-	EXPECT_ANY_THROW(g->ScanArguments("-mybool --false --gibberish"));
-	EXPECT_ANY_THROW(g->ScanArguments("-mybool -alpha beta gamm"));
+     //* Now we try with a validation function. We use a default validation function for 
+    // * boolean argumenst which takes --true and --false as subcommands 
+    barg->SetValidationFunction(GCmdApi::bool2);
+    g->ScanArguments("-mybool");
+    EXPECT_EQ(b, true);
+    g->ScanArguments("-mybool --true");
+    EXPECT_EQ(b, true);
+    g->ScanArguments("-mybool --false");
+    EXPECT_EQ(b, false);
+    EXPECT_ANY_THROW(g->ScanArguments("-mybool --true gibberish"));
+    EXPECT_ANY_THROW(g->ScanArguments("-mybool --false --gibberish"));
+    EXPECT_ANY_THROW(g->ScanArguments("-mybool -alpha beta gamm"));
 }
 
 
@@ -251,9 +252,9 @@ TEST_F(TestGCommandLineArgument, mandatoryArgs)
     {
 
     // Adding a mandatory argument to the argument list
-    std::shared_ptr<GCommandLineArgument <double> > mdarg =  std::make_shared < GCommandLineArgument <double> >("-mandatory", "-andatory [value]", "This is the documentation", &d, fgkMANDATORY, nullptr);
+    std::shared_ptr<GCommandLineArgument <double> > mdarg =  std::make_shared < GCommandLineArgument <double> >("-mandatory", "-mandatory [value]", "This is the documentation", &d, fgkMANDATORY, nullptr);
     g->AddArgument(mdarg);
-    ///-myint is  valdi argument, but since -mandatory is missing, we shall still get an exception 
+    ///-myint is  valid  argument, but since -mandatory is missing, we shall still get an exception 
     EXPECT_ANY_THROW(g->ScanArguments("-myint 20"));
     
     g->RemoveArgument( "-myint 30" );
@@ -284,9 +285,9 @@ TEST_F(TestGCommandLineArgument, validationFunction)
     i = -1;
     g->ScanArguments("-myint 30");
     EXPECT_EQ(i, 30);
-	std::function< bool( const string cmd, const string args_s, const vector<string> sub, const vector<string> par) >    
-	testFunc(std::bind(&TestGCommandLineArgument::ValidateFunct, this, _1, _2, _3, _4 ));
-	iarg->SetValidationFunction(testFunc);
+    std::function< bool( const string cmd, const string args_s, const vector<string> sub, const vector<string> par) >    
+    testFunc(std::bind(&TestGCommandLineArgument::ValidateFunct, this, _1, _2, _3, _4 ));
+    iarg->SetValidationFunction(testFunc);
 
     i = -2;
     g->ScanArguments("-myint 33");
@@ -300,7 +301,7 @@ TEST_F(TestGCommandLineArgument, validationFunction)
 TEST_F(TestGCommandLineArgument, vectorIntArgs)
 {
     g->ScanArguments("-myivector 11 22 33 0X10 0xabcd 0xabcdef");
-	//std::vector test;
+    //std::vector test;
     EXPECT_EQ(vi.size(), 6);
    
     if (vi.size() == 6)
@@ -509,8 +510,8 @@ TEST_F(TestGCommandLineArgument, simpleconstructorNSR216)
     g->ScanArguments("-dummy 27.1828182845", c_arg );
     EXPECT_EQ(33, i);
     EXPECT_DOUBLE_EQ(2.71828182845, d );
-	EXPECT_DOUBLE_EQ(27.1828182845, t->GetValue() );
-	EXPECT_ANY_THROW(g->ScanArguments("-dummxxy 200", c_arg ) );
+    EXPECT_DOUBLE_EQ(27.1828182845, t->GetValue() );
+    EXPECT_ANY_THROW(g->ScanArguments("-dummxxy 200", c_arg ) );
     delete t;
  
   }
