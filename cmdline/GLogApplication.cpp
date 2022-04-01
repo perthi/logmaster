@@ -54,7 +54,7 @@ using namespace LOGMASTER;
 #define CATCH_EXCEPTION \
  catch (GText &e) \
 { \
-	G_ERROR("%s",e.what()); \
+    G_ERROR("%s",e.what()); \
     throw(e); \
 } \
 catch (GException &e) \
@@ -66,12 +66,12 @@ catch (GException &e) \
 } \
 catch (std::exception &e) \
 { \
-	G_ERROR("%s",e.what()); \
+    G_ERROR("%s",e.what()); \
         throw(e);               \
 } \
 catch (...) \
 { \
-	G_ERROR("%s","Unknown exception caught"); \
+    G_ERROR("%s","Unknown exception caught"); \
         throw("Unknown exception caught");        \
 }
 
@@ -119,7 +119,7 @@ GLogApplication::GLogApplication(const GFileName_t & tf,  arg_deque *additional_
     string fname_local = tf.str();
 
     G_DEBUG("Attempting to read configuration from file \"%s\"", fname_local.c_str());
-	string fname_local_content = g_file()->ReadFirstLine(fname_local);
+    string fname_local_content = g_file()->ReadFirstLine(fname_local);
     if (fname_local_content != "")
     {
         G_INFO("The file \"%s\" was found. The content of first line is: %s", fname_local.c_str(), fname_local_content.c_str());
@@ -128,7 +128,7 @@ GLogApplication::GLogApplication(const GFileName_t & tf,  arg_deque *additional_
     string fname_full    =  g_system()->GetExeDir()  + fname_local;
     
     G_DEBUG("Attempting to read configuration from file: \"%s\"", fname_full.c_str());
-	string fname_full_content    =  g_file()->ReadFirstLine(fname_full);
+    string fname_full_content    =  g_file()->ReadFirstLine(fname_full);
 
 
     if (fname_full_content != "")
@@ -202,30 +202,30 @@ GLogApplication::~GLogApplication()
 
 void 
 GLogApplication::SetCallBackFunction(const string cmd,  std::function<bool( const string cmd, const string args_s,
-	const vector<string>sub, const vector<string>par) > funct )
+    const vector<string>sub, const vector<string>par) > funct )
 {
-	for (size_t i = 0; i < fArgs.size(); i++)
-	{
-		if (fArgs.at(i)->GetCommand() == cmd)
-		{
-			fArgs.at(i)->SetValidationFunction(funct);
-			G_INFO( "Successfully set new validation function" );
-			return;
-		}
-	}
-	G_FATAL("Coukd not set callbakc function, unknown command %s", cmd.c_str() );
+    for (size_t i = 0; i < fArgs.size(); i++)
+    {
+        if (fArgs.at(i)->GetCommand() == cmd)
+        {
+            fArgs.at(i)->SetValidationFunction(funct);
+            G_INFO( "Successfully set new validation function" );
+            return;
+        }
+    }
+    G_FATAL("Coukd not set callbakc function, unknown command %s", cmd.c_str() );
 }
 
 
 void  
 GLogApplication::Purge()
 {
-	// for (size_t i = 0; i < fArgs.size(); i++)
-	// {
-	// 	delete fArgs.at(i);
-	// }
+    // for (size_t i = 0; i < fArgs.size(); i++)
+    // {
+    //  delete fArgs.at(i);
+    // }
 
-	fArgs.erase(fArgs.begin(), fArgs.end() );
+    fArgs.erase(fArgs.begin(), fArgs.end() );
 
 }
 
@@ -287,11 +287,11 @@ GLogApplication::ScanArguments(const string cmdline, deque <  std::shared_ptr<GA
     const size_t argc = tokens.size() + 1;
     const char *argv[MAX_ARGS];
 
-    G_ASSERT_EXCEPTION( tokens.size() <= MAX_ARGS, "maximum (%d) number of arguments exeeded, got %d arguments", MAX_ARGS,  tokens.size() );
+    G_ASSERT_EXCEPTION( tokens.size() <= MAX_ARGS, "maximum (%d) number of arguments exceeded, got %d arguments", MAX_ARGS,  tokens.size() );
 
     for ( size_t i = 0; i < tokens.size(); i++)
     {    
-		argv[i + 1] = tokens[i].c_str();
+        argv[i + 1] = tokens[i].c_str();
     }
     ScanArguments((int)argc, argv, args);
 }
@@ -350,7 +350,7 @@ GLogApplication::AddArgumentFront( std::shared_ptr<GArgument> arg)
     }
 }
 
-void	
+void    
 GLogApplication::AddArgumentsFront(deque< std::shared_ptr<GArgument> >  args )
 {
     for (uint16_t i = 0; i < args.size(); i++)
@@ -364,31 +364,31 @@ GLogApplication::AddArgumentsFront(deque< std::shared_ptr<GArgument> >  args )
 std::shared_ptr<GArgument> 
 GLogApplication::GetArgument(const string cmd)
 {
-	for (size_t i = 0; i < fArgs.size(); i++)
-	{
-		if (cmd == fArgs.at(i)->GetCommand())
-		{	
-			return fArgs.at(i);
-		}
-	}
+    for (size_t i = 0; i < fArgs.size(); i++)
+    {
+        if (cmd == fArgs.at(i)->GetCommand())
+        {   
+            return fArgs.at(i);
+        }
+    }
 
     COUT << "Returning NULLPTR !!!!" << endl;
 
-	return nullptr;
+    return nullptr;
 }
 
 
 void  
 GLogApplication::RemoveArgument( const string cmd )
 {
-	for (auto it = fArgs.begin(); it != fArgs.end(); it++)
-	{	
-		if ((*it)->GetCommand() == cmd)
-		{
-			fArgs.erase(it);
-			return;
-		}
-	}
+    for (auto it = fArgs.begin(); it != fArgs.end(); it++)
+    {   
+        if ((*it)->GetCommand() == cmd)
+        {
+            fArgs.erase(it);
+            return;
+        }
+    }
 
 }
 
@@ -441,7 +441,7 @@ GLogApplication::Help( const deque < std::shared_ptr <GArgument> > args, const s
 
 
 
-string			
+string          
 GLogApplication::Help(const char *  exename, const string heading,  const string cmd ) const
 {
     if (cmd != "")
@@ -496,52 +496,52 @@ bool
 int 
 GLogApplication::SetMandatory(const string cmd)
 {
-	for (size_t i = 0; i < fArgs.size(); i++)
-	{
-		if (cmd == fArgs.at(i)->GetCommand())
-		{
-			fArgs.at(i)->SetMandatory();
-			return 0;
-		}
-	}
+    for (size_t i = 0; i < fArgs.size(); i++)
+    {
+        if (cmd == fArgs.at(i)->GetCommand())
+        {
+            fArgs.at(i)->SetMandatory();
+            return 0;
+        }
+    }
 
-	return -1;
+    return -1;
 }
 
 
 int 
 GLogApplication::SetOptional(const string cmd )
 {
-	for (size_t i = 0; i < fArgs.size(); i++)
-	{
-		if (cmd == fArgs.at(i)->GetCommand())
-		{
-			fArgs.at(i)->SetOptional();
-			return 0;
-		}
-	}
-	return -1;
+    for (size_t i = 0; i < fArgs.size(); i++)
+    {
+        if (cmd == fArgs.at(i)->GetCommand())
+        {
+            fArgs.at(i)->SetOptional();
+            return 0;
+        }
+    }
+    return -1;
 }
 
 
 bool 
 GLogApplication::IsMandatory(const string cmd) const
 {
-	for (size_t i = 0; i < fArgs.size(); i++)
-	{
-		if (cmd == fArgs.at(i)->GetCommand())
-		{
-			return  fArgs.at(i)->IsMandatory();
-		}
-	}
+    for (size_t i = 0; i < fArgs.size(); i++)
+    {
+        if (cmd == fArgs.at(i)->GetCommand())
+        {
+            return  fArgs.at(i)->IsMandatory();
+        }
+    }
 
-	return false;
+    return false;
 }
 
 
 bool 
 GLogApplication::IsOptional(const string  cmd) const
  {
-	 return !IsMandatory(cmd);
+     return !IsMandatory(cmd);
  }
 
