@@ -33,6 +33,7 @@
 #include  <logging/LLogTest.h>
 #include  <logging/LMessage.h>
 #include  <logging/LConfig.h>
+#include  <logging/LPublisher.h>
 #include  <cmdline/GLogApplication.h>
 #include  <exception/GException.h>
 
@@ -48,85 +49,88 @@ using namespace LOGMASTER;
 int
 main(int  /*argc*/, const char ** /*argv*/ )
 {
-	try
-	{
-		SET_LOGLEVEL("--off --all-debug");
-		SET_LOGFILENAME("example.log");
-		SET_LOGFORMAT("01111111");  // long timestamp
+    try
+    {
+        LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+        SET_LOGLEVEL("--off --all-debug");
+        SET_LOGFILENAME("example.log");
+        SET_LOGFORMAT("01111111");  // long timestamp
         SET_LOGTARGET("--target-stdout --target-file");
-		FORCE_DEBUG("Writing some test messages");
-		LLogTest::WriteMessages();
+        FORCE_DEBUG("Writing some test messages");
+                
+        LLogTest::WriteMessages();
 
-		FORCE_DEBUG("Turning everything off");
-		FORCE_DEBUG("Setting loglevel to fatal");
-		SET_LOGLEVEL("--fatal"); 
-		LLogTest::WriteMessages(); // should see only fatal log messages
-		FORCE_DEBUG("Setting loglevel to OFF");
-		SET_LOGLEVEL("--off");
-		LLogTest::WriteMessages(); // should see nothing
-		double temperature = 99999.999;
-		FORCE_DEBUG("Alarms are always writing, attempt to turn them off are vetoed by the system");
-		ALARM_FATAL("Temperature reached %f degrees\n\n", temperature );
+        FORCE_DEBUG("Turning everything off");
+        FORCE_DEBUG("Setting loglevel to fatal");
+        SET_LOGLEVEL("--fatal"); 
+        LLogTest::WriteMessages(); // should see only fatal log messages
+        FORCE_DEBUG("Setting loglevel to OFF");
+        SET_LOGLEVEL("--off");
+        LLogTest::WriteMessages(); // should see nothing
+        double temperature = 99999.999;
+        FORCE_DEBUG("Alarms are always writing, attempt to turn them off are vetoed by the system");
+        ALARM_FATAL("Temperature reached %f degrees\n\n", temperature );
 
-		FORCE_DEBUG("Forcing output to stdout, all settings ignored");
-		FORCE_DEBUG("Setting  log level to debug for all subsystems");
-		SET_LOGLEVEL("--debug");
-		LLogTest::WriteMessages();
-		
-		
-		/** Pushing an popping coinfigurations on/off the stack */
-		PUSH();
-		SET_LOGLEVEL("--all-off --fsm-info");
-		SET_LOGFORMAT("--short-user");
-		FORCE_DEBUG("Selceted info messages and above  the FSM subsystem");
-		LLogTest::WriteMessages();		
-		
-		
-		SET_LOGFORMAT("--all-off --msg-body");
-		SET_LOGFORMAT("--all-off --msg-body");
-		LLogTest::WriteMessages();		
-	
-		FORCE_DEBUG("Popping back the previous configuration");
-		POP();
-		LLogTest::WriteMessages();
-	
-		FSM_ASSERT_WARNING( true == false, "true and false are not equal"); 
-		FSM_ASSERT_WARNING( true == true, "true and true are EQUAL"); //nothing writtns since the assertion is true 
-	
-		SET_LOGLEVEL("--fatal");
-		FSM_ASSERT_WARNING( true == false, "true and false are not equal"); // nothing written because loglevel is fatal 
-		FSM_ASSERT_ERROR( true == false, "true and false are not equal"); // nothing written because loglevel is fatal
-		FSM_ASSERT_FATAL( true == false, "true and false are not equal"); // written beacause level is fatal, and assertion is false
-		FSM_ASSERT_FATAL( true == true, "true and true are EQUAL"); // nothing written, assertion is true
+        FORCE_DEBUG("Forcing output to stdout, all settings ignored");
+        FORCE_DEBUG("Setting  log level to debug for all subsystems");
+        SET_LOGLEVEL("--debug");
+        LLogTest::WriteMessages();
+        
+        
+        // Pushing an popping coinfigurations on/off the stack 
+        PUSH();
+        SET_LOGLEVEL("--all-off --fsm-info");
+        SET_LOGFORMAT("--short-user");
+        FORCE_DEBUG("Selected info messages and above  the FSM subsystem");
+        LLogTest::WriteMessages();      
+        
+        
+        SET_LOGFORMAT("--all-off --msg-body");
+        SET_LOGFORMAT("--all-off --msg-body");
+        LLogTest::WriteMessages();      
+    
+        FORCE_DEBUG("Popping back the previous configuration");
+        POP();
+        LLogTest::WriteMessages();
+    
+        FSM_ASSERT_WARNING( true == false, "true and false are not equal"); 
+        FSM_ASSERT_WARNING( true == true, "true and true are EQUAL"); //nothing writtns since the assertion is true 
+    
+        SET_LOGLEVEL("--fatal");
+        FSM_ASSERT_WARNING( true == false, "true and false are not equal"); // nothing written because loglevel is fatal 
+        FSM_ASSERT_ERROR( true == false, "true and false are not equal"); // nothing written because loglevel is fatal
+        FSM_ASSERT_FATAL( true == false, "true and false are not equal"); // written beacause level is fatal, and assertion is false
+        FSM_ASSERT_FATAL( true == true, "true and true are EQUAL"); // nothing written, assertion is true
 
-		double temp_max = 125;
-		// No exception, assertion is true.
-		ALARM_ASSERT_EXCEPTION( temperature > temp_max, "Temperature too Low (%f) must be higher than %f",  temperature,  temp_max );
-		
-		// Exection thrown, assertion is false. loglevel is ignored for exceptions
-		ALARM_ASSERT_EXCEPTION( temperature < temp_max, "Temperature too High (%f) must be less than %f",  temperature,  temp_max );
-	}
+        double temp_max = 125;
+        // No exception, assertion is true.
+        ALARM_ASSERT_EXCEPTION( temperature > temp_max, "Temperature too Low (%f) must be higher than %f",  temperature,  temp_max );
+        
+        // Exception thrown, assertion is false. loglevel is ignored for exceptions
+        ALARM_ASSERT_EXCEPTION( temperature < temp_max, "Temperature too High (%f) must be less than %f",  temperature,  temp_max );
+        
+    }
 
-	catch ( GAlarmException &e )
-	{
-		cout << "Alarm exception caught:" << e.what() << endl;
-	}
-	catch (GException &e)
-	{
-		cout << "exception caught:" << e.what() << endl;
-	}
-	catch (std::exception &e)
-	{
-		cout << "std::exception caught: " << e.what() << endl;
-	}
-	catch(string &e)
-	{
-		CERR << e << endl;
-	}
-	catch (...)
-	{
-		cout << "unknown exception caught" << endl;
-	}
+    catch ( GAlarmException &e )
+    {
+        cout << "Alarm exception caught:" << e.what() << endl;
+    }
+    catch (GException &e)
+    {
+        cout << "exception caught:" << e.what() << endl;
+    }
+    catch (std::exception &e)
+    {
+        cout << "std::exception caught: " << e.what() << endl;
+    }
+    catch(string &e)
+    {
+        CERR << e << endl;
+    }
+    catch (...)
+    {
+        cout << "unknown exception caught" << endl;
+    }
     return 0;
 
 }
