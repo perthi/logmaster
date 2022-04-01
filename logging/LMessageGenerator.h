@@ -105,7 +105,7 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const
 
     if(format == eMSGFORMAT::ALL_FIELDS_OFF)
     {
-        SPRINTF(msg->fMsg, MAX_MSG_SIZE, "NO MESSAGE WAS GENERATED BECAUSE ALL FILEDS ARE TURNED OFF !!\n");
+        SPRINTF(msg->fMsg, MAX_MSG_SIZE, "%s::%s::line[%d] NO MESSAGE WAS GENERATED BECAUSE ALL FIELDS IN LOG FORMAT IS TURNED OFF !!\n", fname, func, line);
         return msg;
     }
 
