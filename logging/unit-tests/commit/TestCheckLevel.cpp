@@ -55,7 +55,7 @@ TEST_F( TestCheckLevel, check_level )
 
 
     l->SetLogLevel( "--target-stdout --fsm-fatal" );
-    l->SetLogFormat( "--target-file 01000001" );
+    l->SetLogFormat( "--target-file 1000001" );
 
 
     EXPECT_FALSE( l->CheckLevel( eMSGSYSTEM::SYS_FSM, eMSGLEVEL::LOG_WARNING, eMSGTARGET::TARGET_STDOUT ) );

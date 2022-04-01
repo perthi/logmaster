@@ -81,9 +81,9 @@ TEST_F( TestLFormat, msg_format )
 TEST_F( TestLFormat, targets )
 {
 /// auto l = LLogging::Instance();
-    SET_LOGFORMAT("--target-file 00000001");
+    SET_LOGFORMAT("--target-file 0000001");
     EXPECT_EQ( eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat( eMSGTARGET::TARGET_FILE ) );
-    SET_LOGFORMAT("--target-file 00000000");
+    SET_LOGFORMAT("--target-file 0000000");
     EXPECT_EQ( eMSGFORMAT::ALL_FIELDS_OFF, l->GetLogFormat( eMSGTARGET::TARGET_FILE ) );
 
     SET_LOGFORMAT("--target-file --short-user");
@@ -109,10 +109,10 @@ TEST_F( TestLFormat, targets )
 //    EXPECT_EQ(  eMSGFORMAT::TIME_STAMP_SHORT , l->GetLogFormat( eMSGTARGET::TARGET_FILE ) );
 
 
-    SET_LOGFORMAT("--target-gui 00000001");
+    SET_LOGFORMAT("--target-gui 0000001");
     EXPECT_EQ( eMSGFORMAT::MESSAGE_BODY, l->GetLogFormat( eMSGTARGET::TARGET_GUI ) );
     
-    SET_LOGFORMAT("--target-gui 00000000");
+    SET_LOGFORMAT("--target-gui 0000000");
     EXPECT_EQ( eMSGFORMAT::ALL_FIELDS_OFF, l->GetLogFormat( eMSGTARGET::TARGET_GUI ) );
 
     SET_LOGFORMAT("--target-gui --short-user");
@@ -133,8 +133,6 @@ TEST_F( TestLFormat, targets )
 //    SET_LOGFORMAT("--target-gui  --all-off --msg-body --line-no --func-name --file-name --file-path --time-stamp --msg-type --time-short");
     SET_LOGFORMAT("--target-gui  --all-off --msg-body --line-no --func-name --file-name --file-path --time-stamp --msg-type");
     EXPECT_EQ(  eMSGFORMAT::PREFIX_ALL, l->GetLogFormat( eMSGTARGET::TARGET_GUI ) );
-
-    CERR << "GUI  = " <<  (int)l->GetLogFormat( eMSGTARGET::TARGET_GUI  ) << endl;;
 
     SET_LOGFORMAT("--target-gui  --all-off --file-name");
     EXPECT_EQ(  eMSGFORMAT::FILE_NAME, l->GetLogFormat( eMSGTARGET::TARGET_GUI ) );

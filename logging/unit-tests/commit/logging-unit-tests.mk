@@ -15,11 +15,7 @@ PROGRAM=logging-unit-tests
 	TestLDatabase.cpp
 
 SRCCPP:=logging-unit-tests.cpp \
-	TestLTargets.cpp
-
-
-#SRCCPP:=logging-unit-tests.cpp \
-TestLFormat.cpp \
+     TestLogging.cpp 
 
 include ../../../../common.mk
 include ../../../../unittest-common.mk

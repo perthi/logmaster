@@ -75,6 +75,9 @@ TestLogging::SetUpTestCase()
 void 
 TestLogging::SetUp() 
 {
+     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+
+    
     GCmdScan::Instance()->SetIgnoreStrayArgument(false);
     g = new GLogApplication();
 
@@ -85,14 +88,16 @@ TestLogging::SetUp()
     fOldBuf = cout.rdbuf();
     cout.rdbuf( fStrCout.rdbuf() );
     fStrCout.str( "" );
-
+    
 }
 
 
 void TestLogging::TearDown()
 {
+
    TestBase::TearDown();
    cout.rdbuf(fOldBuf);
+
 }
 
 
@@ -105,12 +110,13 @@ TestLogging::Subscriber(const   std::shared_ptr<LOGMASTER::LMessage>  msg  )
 
 
 
+/*
 TEST_F(TestLogging, set_logtarget_g_logapplication)
 {
     ///auto l = LLogging::Instance();
-    g->ScanArguments("-logtarget --target-off --target-subscriber -logformat 00000001");
+    g->ScanArguments("-logtarget --target-off --target-subscriber -logformat 0000001");
     EXPECT_EQ((int)(eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS), (int)l->GetLogTarget());
-    g->ScanArguments("-logtarget --target-off -logformat 00000001");
+    g->ScanArguments("-logtarget --target-off -logformat 0000001");
     EXPECT_EQ((int)(eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION), (int)l->GetLogTarget());
 }
 
@@ -179,7 +185,7 @@ TEST_F(TestLogging, stdoutIO)
     LPublisher::Instance()->DisableColor();
     PUSH();
     SET_LOGLEVEL("--all-warning");
-    SET_LOGFORMAT("00000001");
+    SET_LOGFORMAT("0000001");
     //SET_LOGFORMAT("0000001", eMSGTARGET::TARGET_STDOUT);
     fStrCout.str("");
     SET_LOGTARGET("--target-stdout");
@@ -187,12 +193,12 @@ TEST_F(TestLogging, stdoutIO)
 
 //    EXPECT_EQ(fStrCout.str(), "\tTest message with parameters: a = 1, b = 2\n");
     
-    SET_LOGFORMAT("00000000");
+    SET_LOGFORMAT("0000000");
     fStrCout.str("");
     G_INFO("Test message with parameters: a = %d, b = %d", 1, 2);
     EXPECT_EQ(fStrCout.str(), "");
     
-    SET_LOGFORMAT("00000001");
+    SET_LOGFORMAT("0000001");
     fStrCout.str("");
     G_WARNING("Test message with parameters: a = %d, b = %d", 1, 2);
     
@@ -200,7 +206,7 @@ TEST_F(TestLogging, stdoutIO)
     
     fStrCout.str("");
     
-    SET_LOGFORMAT("01000001");
+    SET_LOGFORMAT("1000001");
     LPublisher::Instance()->EnableColor();
     POP();
 }
@@ -210,7 +216,7 @@ TEST_F(TestLogging, stdoutIO)
 TEST_F(TestLogging, exeptions)
 {
     SET_LOGTARGET("0000 --target-file");
-    SET_LOGFORMAT("11111111");
+    SET_LOGFORMAT("1111111");
     EXPECT_ANY_THROW( g->ScanArguments("-gibberish"));
     EXPECT_ANY_THROW( g->ScanArguments("-loglevel -gibberish"));
     EXPECT_ANY_THROW( g->ScanArguments("-loglevel --gibberish"));
@@ -221,7 +227,7 @@ TEST_F(TestLogging, exeptions)
 
 TEST_F(TestLogging, messageBody)
 {
-    SET_LOGFORMAT("00000001");
+    SET_LOGFORMAT("0000001");
     SET_LOGTARGET("--target-off --target-file");
     SET_LOGLEVEL("--off --warning");
     EXPECT_STREQ("\tTest\n", G_ERROR("Test")->at(eMSGTARGET::TARGET_FILE)->fMsg);
@@ -239,7 +245,7 @@ TEST_F(TestLogging, loglevels)
 {
     PUSH();
     SET_LOGLEVEL("--all-warning");
-    SET_LOGFORMAT( "11111111" ); //We mask out only the mesage typ, all other fields ar empty
+    SET_LOGFORMAT( "1111111" ); //We mask out only the mesage typ, all other fields ar empty
     EXPECT_GT( string( G_FATAL( "a message" )->at( eMSGTARGET::TARGET_FILE )->fMsg ).size(), (size_t)0 );
     EXPECT_GT( string( G_ERROR( "a message" )->at( eMSGTARGET::TARGET_FILE )->fMsg ).size(), (size_t)0 );
     EXPECT_GT( string( G_WARNING( "a message" )->at( eMSGTARGET::TARGET_FILE )->fMsg ).size(), (size_t)0 );
@@ -255,7 +261,7 @@ TEST_F(TestLogging, fileIO)
 {
     PUSH();
     SET_LOGTARGET ( "--target-file");
-    SET_LOGFORMAT("00000001");
+    SET_LOGFORMAT("0000001");
     SET_LOGFILENAME("googletest_logging_file_io.log");
     EXPECT_EQ("googletest_logging_file_io.log", l->GetLogFileName( eMSGTARGET::TARGET_FILE));
     SET_LOGLEVEL("--all-warning");
@@ -300,7 +306,7 @@ TEST_F(TestLogging, NSR218)
     EXPECT_NO_THROW( g->ScanArguments( "-loglevel --warning" ) );
     EXPECT_NO_THROW( g->ScanArguments( "-loglevel --error" ) );
     EXPECT_NO_THROW( g->ScanArguments( "-loglevel --fatal" ) );
-    SET_LOGFORMAT("01000001");
+    SET_LOGFORMAT("1000001");
  //   EXPECT_STREQ("",  G_ERROR("This is a test" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
     EXPECT_STREQ("<Fatal:General>          \tThis is a test\n", G_FATAL("This is a test")->at(eMSGTARGET::TARGET_FILE)->fMsg );
    }
@@ -310,20 +316,22 @@ TEST_F(TestLogging, NSR218)
 
 TEST_F(TestLogging, NSR219)
 {
-    EXPECT_NO_THROW(SET_LOGFORMAT("01111111" ) );
-    EXPECT_NO_THROW(SET_LOGFORMAT("01000001") );
-    EXPECT_NO_THROW(SET_LOGFORMAT("00000000") );
-    EXPECT_ANY_THROW( SET_LOGFORMAT("0100001" ) );
+    EXPECT_NO_THROW(SET_LOGFORMAT("1111111" ) );
+    EXPECT_NO_THROW(SET_LOGFORMAT("1000001") );
+    EXPECT_NO_THROW(SET_LOGFORMAT("0000000") );
+    EXPECT_ANY_THROW( SET_LOGFORMAT("100001" ) );
     EXPECT_ANY_THROW(SET_LOGFORMAT("1111" ));
     EXPECT_ANY_THROW(SET_LOGFORMAT("gibberish"));
     EXPECT_ANY_THROW(SET_LOGFORMAT("0xabc" ));
 
 }
+*/
 
 
 
 TEST_F(TestLogging, NSR207)
 {
+    
     EXPECT_NO_THROW(SET_LOGTARGET("1111"));
     EXPECT_NO_THROW( g->ScanArguments("-logtarget 1111"));
     //EXPECT_NO_THROW(SET_LOGTARGET((eMSGTARGET)0x7));
@@ -332,22 +340,26 @@ TEST_F(TestLogging, NSR207)
 
     EXPECT_NO_THROW(SET_LOGTARGET("0000"));
    // fStrCout.str("");
-    SET_LOGFORMAT("00000001");
+    SET_LOGFORMAT("0000001");
     G_ERROR("Hello Dolly");
   //  EXPECT_EQ("", fStrCout.str());
     EXPECT_NE("\t\tHello Dolly\n", FileIOTest());
     EXPECT_EQ("", fMessage);
     l->RegisterSubscriber(Subscriber);
-    EXPECT_NO_THROW(SET_LOGTARGET("1111"));    
+    
 
+    EXPECT_NO_THROW(SET_LOGTARGET("1111"));    
+    SET_LOGTARGET("--target-file --target-stdout");
+   // SET_LOGFORMAT("1111111");
     SET_LOGLEVEL("--all-debug");
+    FORCE_DEBUG("blahhhhhh");
     G_ERROR("\tHello Chuck");
     EXPECT_EQ("\t\tHello Chuck\n", fMessage) << "logfilename = " <<      l->GetLogFileName() << endl;
  }
 
 
 
-
+/*
 TEST_F(TestLogging, NSR790HugeMessage)
 {
     SET_LOGFORMAT("--all-off --msg-body");
@@ -411,7 +423,7 @@ TEST_F(TestLogging, NSR939Subscribers)
     EXPECT_EQ(BIN("0000000000110101"), (int)l->GetLogTarget());
 
 }
-
+*/
 
 
 // TEST_F(TestLogging, logBinary)
@@ -445,6 +457,8 @@ TEST_F(TestLogging, NSR939Subscribers)
 
 
 
+
+/*
 #if defined NDEBUG && defined _WIN64
 TEST_F( TestLogging, performance )
 {
@@ -500,6 +514,6 @@ TEST_F( TestLogging, performance2 )
     ASSERT_TRUE( average < time);
 }
 #endif
-
+*/
 
 
