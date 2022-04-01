@@ -111,13 +111,21 @@ namespace LOGMASTER
             }
             else
             {
-                throw(std::invalid_argument( ("2_invalid argument " + in).c_str() ));    
+                cout  << "Invalid target: " << in << endl;
+                cout  << "Valid targest commands are" << endl;
+
+                auto targets =   LHashMaps::GetTargetHash();
+                for(auto it = targets->begin(); it != targets->end(); it ++ )
+                {
+                    cout << it->first << endl;
+                }
+
+                throw(std::invalid_argument( ("invalid argument " + in).c_str() ));
             }
         }
-
+ ///static  map < string, eMSGTARGET>		API *	GetTargetHash();
         return e_tmp;
     }
-
 
     eMSGLEVEL 
     LConversion::String2Level( const string & in )
