@@ -1,5 +1,6 @@
 // -*- mode: c++ -*-
 
+
 /*****************************************************************************
 ***          Author: Per Thomas Hille <pth@embc.no>                       ****
 ******************************************************************************/
@@ -39,15 +40,15 @@
 
 namespace LOGMASTER
 {
- 
+
     string  LConfig::fTimeMode = "";
-    
-    
+
+
     LConfig::LConfig() : fHash()
     {
         fHash.InitHash(  );
         ApplyLevel( eMSGLEVEL::LOG_WARNING );
-        
+
         fIsInitialized = true;
     }
 
@@ -57,7 +58,7 @@ namespace LOGMASTER
     {
         return  fLogFilename;
     }
-    
+
 
     /** Get the loglevel for a given sub-system
      *  @param[in] system
@@ -75,13 +76,13 @@ namespace LOGMASTER
         }
     }
 
-    
+
     void
     LConfig::SetLogFormat(const eMSGFORMAT format  )
     {
         fLogFormat = format;
     }
-   
+
 
     /** Sets the log format using a format string
      *  @param format The logging format to set. The string must be either valid binary string
@@ -114,7 +115,7 @@ namespace LOGMASTER
                     }
                     else
                     {
-                        SetLogFormat((eMSGFORMAT)((int)fLogFormat & ~(int)e_tmp)); // Bit will be cleared  (eMSGFORMAT) newVal 
+                        SetLogFormat((eMSGFORMAT)((int)fLogFormat & ~(int)e_tmp)); // Bit will be cleared  (eMSGFORMAT) newVal
                     }
                 }
             }
@@ -130,8 +131,8 @@ namespace LOGMASTER
              if( ((int)(sys) &  (int)( systems.at(i) )) != 0  )
             {
                 sys = (eMSGSYSTEM)( (int)systems.at(i) ^ (int)sys);
-            }         
-        }    
+            }
+        }
     }
 
 
@@ -164,26 +165,26 @@ namespace LOGMASTER
     }
 
 
-    void 
+    void
     LConfig::SetLogLevel(const eMSGSYSTEM sys, const eMSGLEVEL lv  )
     {
         auto h = &(fHash.fLogLevelHash);
         for (auto iterator = h->begin(); iterator != h->end(); iterator++)
         {
             eMSGSYSTEM syst = (eMSGSYSTEM)iterator->first;
-            
+
             if (((int)sys & (int)syst) != 0)
             {
                 iterator->second = lv;
             }
         }
-         
+
         fHash.fLogLevelHash[sys] = lv;
         return void API();
     }
 
-    
-    void 
+
+    void
     LConfig::SetLogFileName(const string &filename )
     {
         if (filename == "")
@@ -197,19 +198,19 @@ namespace LOGMASTER
     }
 
 
-    void 
+    void
     LConfig::ApplyLevel(const eMSGLEVEL l, const bool pad )
     {
         auto hash = &fHash.fLogLevelHash;
-        
+
         for (auto it = hash->begin(); it != hash->end(); it++)
         {
             ApplyLevel(it->first, l, pad);
         }
     }
-    
 
-    void 
+
+    void
     LConfig::ApplyLevel( const eMSGSYSTEM  system, const eMSGLEVEL  level, const bool pad )
     {
         eMSGLEVEL  l_level = level;
@@ -265,17 +266,17 @@ namespace LOGMASTER
         return  fTimeMode;
     }
 
-    string 
+    string
     LConfig::DoxygenDoc(const string filename)
     {
-        FILE *fp; 
+        FILE *fp;
 
 #ifdef _WIN32
         fopen_s(&fp, filename.c_str(), "w");
 #else
         fp = fopen(filename.c_str(), "w");
-#endif   
-        
+#endif
+
         if (fp != 0)
         {
             fprintf(fp, "%s", "/**  \\page \"Logging System\"\n");
@@ -315,6 +316,6 @@ namespace LOGMASTER
         }
         return "not impledmented";
     }
-  
-    
+
+
 }
