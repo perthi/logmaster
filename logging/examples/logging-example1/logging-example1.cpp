@@ -54,7 +54,7 @@ main(int  /*argc*/, const char ** /*argv*/ )
         LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
         SET_LOGLEVEL("--off --all-debug");
         SET_LOGFILENAME("example.log");
-        SET_LOGFORMAT("01111111");  // long timestamp
+        SET_LOGFORMAT("1111111");  // long timestamp
         SET_LOGTARGET("--target-stdout --target-file");
         FORCE_DEBUG("Writing some test messages");
                 
