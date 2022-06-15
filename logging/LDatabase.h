@@ -125,7 +125,7 @@ namespace LOGMASTER
 			static  LDatabase *fgInstance;
             LMessage2Json fMessage2Json;
 
-            long fMaxDbFileSize{0};
+            uint64_t fMaxDbFileSize{0};
 
 
 	};
