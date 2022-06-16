@@ -1,1 +1,1 @@
-../../xml/GXmlStreamWriter.h
+../../xml-parser/xml/GXmlStreamWriter.h

@@ -1,1 +1,1 @@
-submodules/productivity/scripts/host/compile.sh
+productivity/scripts/host/compile.sh

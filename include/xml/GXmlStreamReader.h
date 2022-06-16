@@ -1,1 +1,1 @@
-../../xml/GXmlStreamReader.h
+../../xml-parser/xml/GXmlStreamReader.h

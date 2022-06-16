@@ -1,1 +1,1 @@
-../../xml/GTextXml.h
+../../xml-parser/xml/GTextXml.h

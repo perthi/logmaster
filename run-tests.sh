@@ -1,1 +1,1 @@
-submodules/productivity/scripts/host/run-tests.sh
+productivity/scripts/host/run-tests.sh

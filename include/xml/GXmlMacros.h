@@ -1,1 +1,1 @@
-../../xml/GXmlMacros.h
+../../xml-parser/xml/GXmlMacros.h

@@ -1,1 +1,1 @@
-../../xml/GXmlCommentNode.h
+../../xml-parser/xml/GXmlCommentNode.h

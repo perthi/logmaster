@@ -1,1 +1,1 @@
-../../xml/GXmlEnum2String.h
+../../xml-parser/xml/GXmlEnum2String.h

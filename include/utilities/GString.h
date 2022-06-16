@@ -1,1 +1,1 @@
-../../submodules/productivity/utilities/GString.h
+../../utilities/GString.h

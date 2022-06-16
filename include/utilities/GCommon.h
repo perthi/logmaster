@@ -1,1 +1,1 @@
-../../submodules/productivity/utilities/GCommon.h
+../../utilities/GCommon.h

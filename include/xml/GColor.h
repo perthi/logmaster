@@ -1,1 +1,1 @@
-../../xml/GColor.h
+../../xml-parser/xml/GColor.h

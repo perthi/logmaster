@@ -1,1 +1,1 @@
-../../xml/GXmlAttribute.h
+../../xml-parser/xml/GXmlAttribute.h

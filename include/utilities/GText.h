@@ -1,1 +1,1 @@
-../../submodules/productivity/utilities/GText.h
+../../utilities/GText.h

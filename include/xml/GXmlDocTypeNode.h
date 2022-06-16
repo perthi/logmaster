@@ -1,1 +1,1 @@
-../../xml/GXmlDocTypeNode.h
+../../xml-parser/xml/GXmlDocTypeNode.h

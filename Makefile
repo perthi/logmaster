@@ -56,8 +56,10 @@ export LIBFLAGS:= -shared
 export CONFIG_DIR:=$(PWD)/config
 
 
-INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system
-GTEST_INCLUDES:= -isystem $(PWD)/
+INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system   -isystem $(PWD)/xml/xml/3rd-party
+## GTEST_INCLUDES:= -isystem $(PWD)/
+GTEST_INCLUDES:= -isystem $(PWD)/productivity/
+
 LIBS= -L $(PWD)/build/$(TARGET)/lib  -lm
 
 export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster 
@@ -76,7 +78,7 @@ cmdline-example1:=       cmdline/examples/cmdline-example1/$(TARGET)
 cmdline-unittest:=       cmdline/unit-tests/commit/$(TARGET)
 exception:=              exception/$(TARGET)
 exception-unittest:=     exception/unit-tests/commit/$(TARGET)
-xml:=                    xml/$(TARGET)
+xml:=                    xml-parser/xml/$(TARGET)
 configurator:=           configurator/$(TARGET)
 configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
 logging-configurator:=   configurator/logging-configurator/$(TARGET)

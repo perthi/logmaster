@@ -1,1 +1,1 @@
-../../submodules/productivity/utilities/GStackTrace.h
+../../utilities/GStackTrace.h

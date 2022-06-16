@@ -1,1 +1,1 @@
-../../submodules/productivity/utilities/GLocation.h
+../../utilities/GLocation.h

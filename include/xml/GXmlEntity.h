@@ -1,1 +1,1 @@
-../../xml/GXmlEntity.h
+../../xml-parser/xml/GXmlEntity.h

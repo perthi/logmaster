@@ -1,1 +1,1 @@
-../../xml/GXmlSingleTagNode.h
+../../xml-parser/xml/GXmlSingleTagNode.h
