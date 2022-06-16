@@ -64,7 +64,7 @@ export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster
 export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest-embc -lpthread 
 
 
-gtest-embc:=             submodules/productivity/gtest-embc/$(TARGET)
+gtest-embc:=             productivity/gtest-embc/$(TARGET)
 testlib:=                testlib/$(TARGET)
 utilities:=              utilities/$(TARGET)
 utilities-unittest:=     utilities/unit-tests/commit/$(TARGET)
@@ -82,7 +82,7 @@ configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
 logging-configurator:=   configurator/logging-configurator/$(TARGET)
 helloworld:=             helloworld/$(TARGET)
 db-test:=                database-test/$(TARGET)
-sqlite:=                 submodules/productivity//sqlite/$(TARGET) 
+sqlite:=                 productivity//sqlite/$(TARGET) 
 
 
 unittests:= 	$(utilities-unittest) \
