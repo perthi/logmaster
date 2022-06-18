@@ -20,6 +20,11 @@
 #include "../json/LJson.hpp"
 #include  <utilities/GCommon.h>
 #include  <sstream>
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <limits>
+
 
 namespace LOGMASTER
 {
@@ -57,6 +62,8 @@ namespace LOGMASTER
     {
         SetDatabase( "logmaster.db");
     }
+
+
 
 
     void 
@@ -110,27 +117,21 @@ namespace LOGMASTER
         fMessage2Json.Message2Json(msg, j);
         std::string jsonStr = JsonToString(j);
 
+/** @todo epoch time should be storeD as a FLOAT*/
 #ifndef WIN32
-        snprintf(sql, 1000, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %f, %d, %d,'%s')",
+        snprintf(sql, 1000, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %d, %d, %d,'%s')",
 #else
         snprintf_s(sql, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %f, %d, %d,'%s')",
 #endif
-                   (int)msg->fEpochTime,  msg->fEpochTime, (int)msg->fLevel,  (int)msg->fSystem, 
+                   (int)msg->fEpochTime,  (int)msg->fEpochTime, (int)msg->fLevel,  (int)msg->fSystem, 
                    jsonStr.c_str() );
 
-        std::stringstream buffer;
-        buffer <<  "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES (";
-        buffer << "'" <<  (int)msg->fEpochTime << "'" << msg->fEpochTime << ","  <<  (int)msg->fLevel << "," << (int)msg->fSystem  << "'" << jsonStr << "')":
-        
         rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
-        
-        printf("buffer = %s\n", buffer.str().c_str() );
 
         if (rc != SQLITE_OK)
         {
-
          //   HandleError( GLOCATION, eMSGLEVEL::LOG_ERROR, "AddEntry SQL error: %s", zErrMsg );
-            printf("%s:%dAddEntry (msg to log = %s) SQL error: %s\n", __FILE__, __LINE__,   msg->fMsgBody,  zErrMsg );
+            printf("ERROR %s:%dAddEntry (msg to log = %s) SQL error: %s\n", __FILE__, __LINE__,   msg->fMsgBody,  zErrMsg );
             sqlite3_free(zErrMsg);
         }
     }
