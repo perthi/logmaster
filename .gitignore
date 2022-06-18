@@ -69,3 +69,14 @@ configurator/unit-tests/commit/x86/logging-unit-tests
 exception/unit-tests/commit/x86/logging-unit-tests
 logging/unit-tests/commit/test-data/logmaster-test-rotate.db
 logmaster.db
+gui/alarm/examples/gui-alarm-example1/x86/gui-alarm-example1
+gui/application/main/x86/gui-main
+gui/c-ring/examples/c-ring-example1/x86/c-ring-example1
+gui/common/examples/gui-example1/x86/gui-example1
+gui/fsm/examples/gui-qt-fsm-example1/x86/gui-qt-fsm-example1
+gui/habitat/examples/gui-habitat-example1/x86/gui-habitat-example1
+gui/logger/examples/gui-loggergui-example1/gui-loggergui-example1.cpp
+gui/operations/examples/operations-example1/x86/gui-operations-example1
+gui/sensors/examples/gui-sensors-example1/x86/gui-sensors-example1
+gui/logger/examples/gui-loggergui-example1/x86/gui-loggergui-example1
+

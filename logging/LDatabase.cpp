@@ -18,7 +18,8 @@
 #include  <utilities/GDefinitions.h>
 #include "sqlite/sqlite3.h"
 #include "../json/LJson.hpp"
-#include <utilities/GCommon.h>
+#include  <utilities/GCommon.h>
+#include  <sstream>
 
 namespace LOGMASTER
 {
@@ -117,8 +118,14 @@ namespace LOGMASTER
                    (int)msg->fEpochTime,  msg->fEpochTime, (int)msg->fLevel,  (int)msg->fSystem, 
                    jsonStr.c_str() );
 
+        std::stringstream buffer;
+        buffer <<  "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES (";
+        buffer << "'" <<  (int)msg->fEpochTime << "'" << msg->fEpochTime << ","  <<  (int)msg->fLevel << "," << (int)msg->fSystem  << "'" << jsonStr << "')":
+        
         rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
         
+        printf("buffer = %s\n", buffer.str().c_str() );
+
         if (rc != SQLITE_OK)
         {
 

@@ -9,11 +9,7 @@
 //  \file      gui-qt-loggergui-example1.cpp
 //  \brief     main loop for test for loggerGui and logger
 
-
-
 #include <stdio.h>
-
-
 
 #include <QtWidgets/QApplication>
 #include <QtCore/QResource>
@@ -27,6 +23,14 @@
 #include <gui/common/GUIExecWidget.h>
 #include <exception/GException.h>
 #include <iostream>
+
+
+
+
+
+
+
+
 
 using std::endl;
 using std::cout;
