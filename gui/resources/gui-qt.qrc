@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/ferrotech.png</file>
+        <file>images/kmlogo.png</file>
+        <file>images/ok.png</file>
+        <file>images/folder.png</file>
+        <file>images/norway.png</file>
+        <file>images/uk.png</file>
+        <file>images/poweroff.png</file>
+        <file>images/user.png</file>
+        <file>images/password.png</file>
+        <file>images/quit.png</file>
+        <file>images/info.png</file>
+        <file>images/cancel.png</file>
+        <file>images/down.png</file>
+        <file>images/pcb.png</file>
+        <file>images/signal.png</file>
+        <file>images/circuit.png</file>
+        <file>images/temperature.png</file>
+        <file>images/plus.png</file>
+        <file>images/minus.png</file>
+        <file>images/save.png</file>
+        <file>images/load.png</file>
+        <file>images/up.png</file>
+        <file>images/down_round.png</file>
+        <file>images/checkbox_unchecked.png</file>
+        <file>images/checkbox_checked.png</file>
+      <file>styles/ferrotech.qmm</file>
+    </qresource>
+</RCC>

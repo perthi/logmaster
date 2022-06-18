@@ -56,7 +56,7 @@ export LIBFLAGS:= -shared
 export CONFIG_DIR:=$(PWD)/config
 
 
-INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system   -isystem $(PWD)/xml/xml/3rd-party
+INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system   -isystem $(PWD)/xml/xml/3rd-party -isystem $(QT_INCLUDE)
 ## GTEST_INCLUDES:= -isystem $(PWD)/
 GTEST_INCLUDES:= -isystem $(PWD)/productivity/
 
@@ -86,11 +86,18 @@ helloworld:=             helloworld/$(TARGET)
 db-test:=                database-test/$(TARGET)
 sqlite:=                 productivity//sqlite/$(TARGET) 
 
+api-logmaster:=          api/api-logmaster/$(TARGET) 
+
+gui-example1:=           gui/logger/examples/gui-loggergui-example1/$(TARGET) 
+gui-logger:=             gui/logger/$(TARGET) 
+gui-logmaster:=          gui/logmaster/$(TARGET) 
+gui-common:=             gui/common/$(TARGET) 
+
 
 unittests:= 	$(utilities-unittest) \
-		$(exception-unittest) \
+		        $(exception-unittest) \
                 $(logging-unittest) \
-		$(cmdline-unittest)
+		        $(cmdline-unittest)
 
 
 support-modules:= 	$(utilities) \
@@ -104,14 +111,20 @@ src-lib:= $(support-modules) \
 	$(xml) \
 	$(common) \
     $(exception) \
-	$(sqlite)
+	$(sqlite) \
+    $(gui-logger) \
+	$(gui-logmaster) \
+	$(gui-common) \
+	$(api-logmaster)
+
 
 
 src-exe:=$(helloworld) \
 	$(unittests) \
 	$(logging-example1) \
 	$(cmdline-example1) \
-	$(db-test)
+	$(db-test) \
+    $(gui-example1)
 
 
 

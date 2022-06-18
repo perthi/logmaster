@@ -1,0 +1,1 @@
+gui-sensors.pro
