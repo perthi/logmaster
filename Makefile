@@ -111,11 +111,7 @@ src-lib:= $(support-modules) \
 	$(xml) \
 	$(common) \
     $(exception) \
-	$(sqlite) \
-    $(gui-logger) \
-	$(gui-logmaster) \
-	$(gui-common) \
-	$(api-logmaster)
+	$(sqlite)
 
 
 
@@ -123,8 +119,7 @@ src-exe:=$(helloworld) \
 	$(unittests) \
 	$(logging-example1) \
 	$(cmdline-example1) \
-	$(db-test) \
-    $(gui-example1)
+	$(db-test)
 
 
 
@@ -146,6 +141,11 @@ LIBS+=-L  $(CURDIR)/arm-extras
 all-src:=$(arm-src)
 endif
 
+ifdef GUI
+src-lib:=
+src-exe+=$(gui-example1)
+all-src+=$(gui-logger) $(gui-logmaster) $(gui-common) 
+endif
 
 #default target is x86, we define it here to avoid cheking for the arm compiler if
 #compiling just for x86
