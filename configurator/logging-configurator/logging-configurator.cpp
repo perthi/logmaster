@@ -90,7 +90,7 @@ int main(int  argc, const char **  argv)
 	try
 	{
 		SET_LOGLEVEL("--all-off --all-debug");
-		SET_LOGFORMAT("00000001");
+		SET_LOGFORMAT("1111111");
 
 		g->ScanArguments(argc, argv, arguments );
 
@@ -174,7 +174,7 @@ void generator( vector< std::shared_ptr< LGenerator >  > generators,
 			fclose(fp);	
 
 
-		 	SET_LOGFORMAT("00000001");
+		 	SET_LOGFORMAT("1111111");
 			SET_LOGLEVEL("--all-debug");
 			G_INFO("created %s", gen->GetFilename().c_str() );
 		}
