@@ -129,7 +129,7 @@ x86-src:=$(src-lib) $(src-exe)
 
 ifeq (x86, $(TARGET))
 unittests+= $(configurator-unittest)
-src-lib+= $(configurator) 
+src-lib+= $(configurator)  $(api-logmaster)
 src-exe+= $(xml-validator) $(configurator-example1) $(logging-configurator)
 x86-src:= $(src-lib) $(src-exe)
 all-src:=$(x86-src)
@@ -142,9 +142,10 @@ all-src:=$(arm-src)
 endif
 
 ifdef GUI
-src-lib:=
+src-lib+=$(gui-logger) $(gui-logmaster) $(gui-common)
 src-exe+=$(gui-example1)
-all-src+=$(gui-logger) $(gui-logmaster) $(gui-common) 
+x86-src:= $(src-lib) $(src-exe)
+all-src:=$(x86-src)
 endif
 
 #default target is x86, we define it here to avoid cheking for the arm compiler if
