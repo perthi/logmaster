@@ -90,10 +90,11 @@ sqlite:=                 productivity//sqlite/$(TARGET)
 api-logmaster:=          api/api-logmaster/$(TARGET) 
 
 gui-example1:=           gui/logger/examples/gui-loggergui-example1/$(TARGET) 
+gui-alarm:=              gui/alarm/$(TARGET) 
 gui-logger:=             gui/logger/$(TARGET) 
 gui-logmaster:=          gui/logmaster/$(TARGET) 
 gui-common:=             gui/common/$(TARGET) 
-
+gui-alarm-example1:=              gui/alarm/examples/gui-alarm-example1/$(TARGET) 
 
 unittests:= 	$(utilities-unittest) \
 		        $(exception-unittest) \
@@ -105,8 +106,8 @@ support-modules:= 	$(utilities) \
 			$(logging) \
 			$(cmdline)
 
-gui-lib+=$(gui-logger) $(gui-logmaster) $(gui-common)
-gui-exe+=$(gui-example1)
+gui-lib+=$(gui-logger) $(gui-logmaster) $(gui-common) $(gui-alarm)
+gui-exe+=$(gui-example1)   $(gui-alarm-example1)
 
 src-lib:= $(support-modules) \
 	$(gtest-embc) \

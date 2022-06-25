@@ -37,17 +37,20 @@ class GUIAlarmGui : public QWidget
    //   void OpenLogMasterDialog();
 
    private: // functions
+      GUIAlarmGui(const GUIAlarmGui&);
+     GUIAlarmGui  operator=(const GUIAlarmGui&);
+
       void InitGui();
       void ConnectStuff();
       void RetranslateUi();
       QWidget* InitRight();
 
    private: // member objects
-      QLabel *fPlainTextEditLabel;
-      QPlainTextEdit *fPlainTextEdit;
-      QPushButton* fConfigureButton;
+      QLabel *fPlainTextEditLabel = nullptr;
+      QPlainTextEdit *fPlainTextEdit = nullptr;
+      QPushButton* fConfigureButton = nullptr;
       QWidget* fLogMasterGuiDialog = nullptr;
-      QString fTEXT_messages;
+      QString fTEXT_messages{};
    };
 
 

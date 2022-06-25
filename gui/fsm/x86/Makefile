@@ -1,4 +1,0 @@
-
-
-include ../gui-fsm.mk
-

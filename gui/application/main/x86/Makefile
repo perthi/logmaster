@@ -1,5 +1,0 @@
-
-
-include ../gui-main.mk 
-
-

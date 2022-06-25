@@ -32,7 +32,7 @@
 
 using namespace LOGMASTER;
 
-Q_DECLARE_METATYPE(QRegExp::PatternSyntax);
+Q_DECLARE_METATYPE(QRegExp::PatternSyntax)
 
 GUIAlarmGui::GUIAlarmGui(QWidget *parent)
    :QWidget(parent),
@@ -41,7 +41,7 @@ GUIAlarmGui::GUIAlarmGui(QWidget *parent)
    fConfigureButton(0)
 {
 
-	
+    
    InitGui();
    RetranslateUi();
    ConnectStuff();
@@ -121,29 +121,29 @@ GUIAlarmGui::NewMessages(const MsgSeries &msgs)
        static int cnt = 0;
        cnt ++; 
        i.next();
-	    LMessage msg(i.value());
+        LMessage msg(i.value());
 
-		if (msg.fSystem == eMSGSYSTEM::SYS_ALARM)
-		{
+        if (msg.fSystem == eMSGSYSTEM::SYS_ALARM)
+        {
 
-			//bool skip = true;
-			QMap<eMSGSYSTEM, QCheckBox*>::iterator it;
+            //bool skip = true;
+            QMap<eMSGSYSTEM, QCheckBox*>::iterator it;
 
-			QTextCharFormat tf;
-			tf = fPlainTextEdit->currentCharFormat();
-			tf.setForeground(QBrush(QColor(msg.fRgBColor)));
-			tf.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
-			fPlainTextEdit->setCurrentCharFormat(tf);
+            QTextCharFormat tf;
+            tf = fPlainTextEdit->currentCharFormat();
+            tf.setForeground(QBrush(QColor(msg.fRgBColor)));
+            tf.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+            fPlainTextEdit->setCurrentCharFormat(tf);
 
-			QString str = QString("%1 %2").arg(i.key() % 10000, 4, 10, QLatin1Char('0')).arg(msg.fMsg);
-			str.chop(1); //Remove trailing \n
-			fPlainTextEdit->appendPlainText(str);
+            QString str = QString("%1 %2").arg(i.key() % 10000, 4, 10, QLatin1Char('0')).arg(msg.fMsg);
+            str.chop(1); //Remove trailing \n
+            fPlainTextEdit->appendPlainText(str);
 
-			//Scroll to end
-			QScrollBar* sb = fPlainTextEdit->verticalScrollBar();
-			sb->setValue(sb->maximum());
-		}
-	}
+            //Scroll to end
+            QScrollBar* sb = fPlainTextEdit->verticalScrollBar();
+            sb->setValue(sb->maximum());
+        }
+    }
 }
 
 

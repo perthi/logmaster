@@ -1,12 +1,17 @@
+
 PROGRAM:=gui-alarm-example1
 
-SRCCPP+=../gui-alarm-example1.cpp \
-	../GVersion.cpp
+SRCCPP+=gui-alarm-example1.cpp \
+	GVersion.cpp
 
 export CPPFLAGS:=$(CPPFLAGS_RELAXED)
 
-LIBS+=  -lcmdline  -llogmaster -lutilities \
- -lreadline -lboost_system  -lboost_filesystem -lpthread  -lgui-alarm -lgui-common 
+#include ../../../common.mk
+
+
+INCLUDES+= -isystem $(QT_INCLUDE)   
+LIBS+=  -lcmdline  -llogmaster -lutilities -lexception  \
+ -lreadline  -lpthread  -lgui-alarm -lgui-common -lsqlite-embc -ldl
 
 
 include ../../../../../common.mk
