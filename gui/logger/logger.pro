@@ -1,1 +1,0 @@
-gui-logger.pro
