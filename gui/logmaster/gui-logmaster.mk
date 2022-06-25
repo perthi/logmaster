@@ -11,6 +11,7 @@ SRCCPP:= GUILogMasterGui.cpp \
 
 export CPPFLAGS:=$(CPPFLAGS_RELAXED)
 include ../../../common.mk
-INCLUDES+= -I $(QT_INCLUDE)   
 
+#INCLUDES+= -I $(QT_INCLUDE)   
 
+INCLUDES+= -isystem $(QT_INCLUDE)

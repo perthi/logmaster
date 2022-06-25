@@ -57,7 +57,7 @@ export LIBFLAGS:= -shared
 export CONFIG_DIR:=$(PWD)/config
 
 
-INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system   -isystem $(PWD)/xml/xml/3rd-party -isystem $(QT_INCLUDE)
+INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system   -isystem $(PWD)/xml/xml/3rd-party
 ## GTEST_INCLUDES:= -isystem $(PWD)/
 GTEST_INCLUDES:= -isystem $(PWD)/productivity/
 

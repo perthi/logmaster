@@ -4,7 +4,7 @@
 LIBNAME_A=libgui-common.a
 
 
-SRCCPP:=GUICentralPlaceholder.cpp \
+#SRCCPP:=GUICentralPlaceholder.cpp \
 	GUICommonGui.cpp \
 	GUIPushButton.cpp \
 	GUIInitStyles.cpp \
@@ -19,10 +19,21 @@ SRCCPP:=GUICentralPlaceholder.cpp \
 	GUIGraphicalIndicator.cpp \
 	GUIGraphicalSlider.cpp
 
+SRCCPP:=GUICommonGui.cpp \
+	GUIPushButton.cpp \
+	GUIInitStyles.cpp \
+	GUILoggerBase.cpp \
+	GUICommonGui_moc.cpp  \
+	GUIPushButton_moc.cpp \
+	GUIPainterClass.cpp \
+	GUIPainterClass_moc.cpp
+
+
 
 export CPPFLAGS:=$(CPPFLAGS_RELAXED)
+
 include ../../../common.mk
-INCLUDES+= -I $(QT_INCLUDE)
+INCLUDES+= -isystem $(QT_INCLUDE)
 
 
 
