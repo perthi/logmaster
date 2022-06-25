@@ -15,14 +15,13 @@
 #include <logging/LLogTest.h>
 #include <bitset>
 
-
+#include <logging/LLogApi.h>
+using namespace LOGMASTER;
 
 APILogmaster* APILogmaster::Instance()
 {
     return APILogMasters::Instance()->GetCurrent();
 }
-
-
 
 
 
@@ -59,7 +58,7 @@ APILogmaster::~APILogmaster()
 
 /** @brief      SetLoggingTarget
 *   @details    This Function will Set the Logging target, and then get the target
-�               from the loggingsystem before updating the local variable
+*               from the loggingsystem before updating the local variable
 *   @param[in]  target **/
 void
 APILogmaster::SetLoggingTarget(const  string  &target)
@@ -127,17 +126,12 @@ APILogmaster::GetMessageFormat()
     
     for (auto format : * fHashMap->GetFormatHash())
     {
-        //Skip all off button (all on unchecked works the same)
-        if (format.second == eMSGFORMAT::PREFIX_OFF)
-        {
-            continue;
-        }
         //Special case for ALL_FIELDS_OFF
-        if (format.second == eMSGFORMAT::ALL_FIELDS_OFF)
+       if (format.second == eMSGFORMAT::ALL_FIELDS_OFF)
         {
-            enabled = fAllFieldsMessageFormatEnable;
+            //enabled = fAllFieldsMessageFormatEnable;
         }
-        else
+       else
         {
             // get bitmap from LoFormat(better name GetMsgFormat)
             int targetLogformat = (int)fLogHandle->GetLogFormat(fTarget);
@@ -148,6 +142,7 @@ APILogmaster::GetMessageFormat()
                 fAllFieldsMessageFormatEnable = false;
             }
         }
+
         v.push_back(APIMessageFormat(format.first, (int64_t)format.second, enabled));
     }
     

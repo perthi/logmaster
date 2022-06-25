@@ -242,10 +242,10 @@ GUILoggerGui::RetranslateUi()
    {
       QString _font = "QLabel { font: \"Courier\" 18px; color: white; }";
       fLogLevelLabel->setStyleSheet(_font);
-      COUT << "STYLE IS FERROTECH" << endl;  
+     // COUT << "STYLE IS FERROTECH" << endl;  
    }
    else {
-        COUT << "STYLE IS NOT FERROTECH" << endl;  
+      //  COUT << "STYLE IS NOT FERROTECH" << endl;  
        QString ss = QString("QPlainTextEdit{ background-color:  #000000; }");
        fPlainTextEdit->setStyleSheet(ss);
 
