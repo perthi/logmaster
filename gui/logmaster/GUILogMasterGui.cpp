@@ -13,7 +13,9 @@
 #include <QtCore/QSettings>
 #include "GUILogMasterGui.h"
 
+#include <logging/LLogApi.h>
 
+using namespace LOGMASTER;
 
 GUILogMasterGui::GUILogMasterGui(int target, APILogmaster* KALogmaster, QWidget *parent)
     :QWidget(parent),
@@ -336,6 +338,7 @@ void GUILogMasterGui::MessageFormatChecksClicked(QAbstractButton* ab)
 void 
 GUILogMasterGui::SubsysAndLevelButtonClicked(QWidget* button)
 {
+    COUT << "TP1" << endl;
     // retrieve data from clicked button
     QPushButton* pb = qobject_cast<QPushButton*>(button);
     QPair<int, int> pair = fSysLevControlButtons.value(pb);
@@ -415,13 +418,27 @@ void
 GUILogMasterGui::RefreshSubsysAndLevel()
 {
     QPushButton* pb;
+   // COUT << "size = " << fKALogmaster->GetSubSysAndLevControl().size() << endl;
     
+    auto ctrl = fKALogmaster->GetSubSysAndLevControl(); 
+    
+    for (size_t i = 0; i < ctrl.size(); i++ )
+    {   
+        if(  ctrl.at(i).GetName() == "Xml" )
+        {
+            FORCE_DEBUG("%s\t %i %i %i %i %i", ctrl.at(i).GetName().c_str(), ctrl.at(i +1).GetEnabled(), ctrl.at(i +2).GetEnabled(), ctrl.at(i +3).GetEnabled(),  ctrl.at(i +4).GetEnabled(), ctrl.at(i +5).GetEnabled() ) ;
+        }
+        i+=5;
+        if( (i-5) > ctrl.size() ) break;
+    }    
+
     for (auto sysLev : fKALogmaster->GetSubSysAndLevControl() )
     {   
         pb = fSysLevControlButtonsInv.find(qMakePair(sysLev.GetYSystem(), sysLev.GetXLevel())).value();
         pb->setChecked(sysLev.GetEnabled());
         pb->setText(sysLev.GetName().c_str());
-        ///USER_WARNING("%i %i %i %s", sysLev.GetXLevel(), sysLev.GetYSystem(), sysLev.GetEnabled(), sysLev.GetName().c_str());
+       // FORCE_DEBUG("%i %i %i %s", sysLev.GetXLevel(), sysLev.GetYSystem(), sysLev.GetEnabled(), sysLev.GetName().c_str());
+
     }
     return;
 }
@@ -435,6 +452,7 @@ GUILogMasterGui::RefreshSubsysAndLevel()
 void 
 GUILogMasterGui::StoreSysLevMaps(QPair<int, int> sysLev, QPushButton* btn)
 {
+
     fSysLevControlButtons.insert(btn, sysLev);
     fSysLevControlButtonsInv.insert(sysLev, btn);
 }

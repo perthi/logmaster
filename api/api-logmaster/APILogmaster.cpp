@@ -527,7 +527,6 @@ APILogmaster::SetNumberOfSystems()
     for (auto sys = fSystems.rbegin(); sys != fSystems.rend(); sys++)
     {
         if (sys->first == eMSGSYSTEM::SYS_NONE)     continue;
-//      if (sys->first == eMSGSYSTEM::SYS_DB_ALL)   continue;
     
         // Increment fSystemsCount for every registered systems. (11 systems)  
         fSystemsCount++; 

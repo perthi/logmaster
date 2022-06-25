@@ -244,49 +244,27 @@ namespace LOGMASTER
             return true;
         }
   
-       /// std::shared_ptr<std::map<eMSGTARGET, LMessageFactory  > >  fConfig = nullptr;
-        static int i = 0;
-
         if(target == eMSGTARGET::TARGET_ALL )
         {
-         //   COUT << i<< " TARGET ALL" << endl;
-            i ++;
-          /// auto hash = &it_1->second.GetConfig()->GetHash()->fLogLevelHash;
             for(auto it = fConfig->begin(); it != fConfig->end(); it ++ )
             {
-
-              //  bool all_enabled = true;
-//                if( it->second.IsEnabled() )
-                    auto & hash = it->second.GetConfig()->GetHash()->fLogLevelHash;
-                    auto it_hash = hash.find( system );
-
-                    for ( it_hash = hash.begin(); it_hash != hash.end(); it_hash++ )
+                auto & hash = it->second.GetConfig()->GetHash()->fLogLevelHash;
+                auto it_hash = hash.find( system );
+                    
+               for ( it_hash = hash.begin(); it_hash != hash.end(); it_hash++ )
+               {
+                    if (  ( it_hash->first   & system)   !=  zero_s )  
                     {
-                       // if( it_hash->first != eMSGSYSTEM::SYS_NONE ) continue;
-                       // bool is_enabled = false;
-                        if (  ( it_hash->first   & system)   !=  zero_s )  
+                        if ( (level & it_hash->second) != zero_l )
                         {
-                             if ( (level & it_hash->second) != zero_l )
-                            {
-           //                     COUT << "FALSE  " << i << " first =" << (int)it_hash->first   <<  "  system = " << (int)system << endl;
-                                return true;
-                             //   is_enabled =  true; 
-                            }
-
+                            return true;
                         }
+                    }
+                }
 
-                      //if( is_enabled == false) return false;  
-                    //return true;
-                   }
-
-                   return false;
-                //it->second.
-
+                return false;
             }
         }
-
-            //COUT << "target all" << endl;
-      ///  }
 
         auto it_1 = fConfig->find( target );
         
@@ -476,7 +454,7 @@ namespace LOGMASTER
         std::lock_guard<std::mutex> guard( log_mutex );
         auto m = LConversion::SplitByTarget(level_s);
 
-      //  COUT <<  level_s << endl;   
+        COUT <<  level_s << endl;   
 
         for ( auto it_m = m.begin(); it_m != m.end(); it_m++ )
         {

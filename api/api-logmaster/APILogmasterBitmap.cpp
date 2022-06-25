@@ -30,13 +30,13 @@ APILogmasterBitmap::Set(const eMSGLEVEL level, bool enable)
             case eMSGLEVEL::LOG_FATAL   :   fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_FATAL);
                 break;
             case eMSGLEVEL::LOG_OFF     :   
-                fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_OFF);
+                //fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_OFF);
                 break;  
             case eMSGLEVEL::LOG_ALL     :   
-                fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_ALL);
+                //fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_ALL);
                 break;
             case eMSGLEVEL::LOG_FORCE_DEBUG     :   
-                fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_FORCE_DEBUG);
+                //fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_FORCE_DEBUG);
                 break;    
         }
 

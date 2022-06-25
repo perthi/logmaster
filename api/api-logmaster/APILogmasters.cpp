@@ -42,13 +42,17 @@ APILogMasters::APILogMasters()
         {
             fLogMasterList.push_back(logmaster);
         }
+
+    
     }
     
     if (fLogMasters.find(eMSGTARGET::TARGET_GUI) != fLogMasters.end())
     {
         SetCurrent(eMSGTARGET::TARGET_GUI); 
+        SetCurrent(eMSGTARGET::TARGET_ALL); 
         // Add GUI at beginning of the vector/list.
         fLogMasterList.insert(fLogMasterList.begin(), fLogMasters.at(eMSGTARGET::TARGET_GUI));
+    
     }
     else
     {

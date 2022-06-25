@@ -125,7 +125,7 @@
         }
 
         static QString
-            TEXT__m_headerLabel = tr("Welcome to the Kongsberg Ferrotech Operator GUI"),
+            TEXT__m_headerLabel = tr("Welcome to the Logmaster Operator GUI"),
             TEXT__m_firstContentLabel = tr("You are currently not logged in.\nPlease identify yourself.");
 
     //  fTEXT__m_loginButton_tooltip = tr("Open up the login-panel");

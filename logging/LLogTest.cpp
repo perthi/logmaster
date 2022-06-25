@@ -94,7 +94,26 @@ LLogTest::WriteMessages()
     COM_ERROR_U(     "magna aliqua. Ut enim ad minim veniam, quis nostrud");
     COM_FATAL_U(     "exercitation ullamco laboris nisi ut aliquip ex ea");
 
+
+    XML_DEBUG("This is a XML_DEBUG message");
+    XML_INFO("This  is a XML_INFO  message");
+    XML_WARNING("This is a XML_WARNING message");
+    XML_ERROR("This is a XML_ERROR message with parameters: a = %d, b = %d", a, b);
+    XML_FATAL("Oppps.... a  XML_FATAL message");
+
+    MESSAGE_DEBUG("This is a MESSAGE_DEBUG message");
+    MESSAGE_INFO("This  is a MESSAGE_INFO  message");
+    MESSAGE_WARNING("This is a MESSAGE_WARNING message");
+    MESSAGE_ERROR("This is a MESSAGE_ERROR message with parameters: a = %d, b = %d", a, b);
+    MESSAGE_FATAL("Oppps.... a  MESSAGE_FATAL message");
+
+    DB_DEBUG("This is a DB_DEBUG message");
+    DB_INFO("This  is a DB_INFO  message");
+    DB_WARNING("This is a DB_WARNING message");
+    DB_ERROR("This is a DB_ERROR message with parameters: a = %d, b = %d", a, b);
+    DB_FATAL("Oppps.... a  DB_FATAL message");
     Footer();
+
     cout << endl;
 
 }
