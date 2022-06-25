@@ -17,7 +17,7 @@ public:
     ~GUIPainterClass();
 
 protected:
-    virtual void paintEvent(QPaintEvent *event){};
+    virtual void paintEvent(QPaintEvent * /*event*/){};
 
     void FillRoundedRect(QPainter &painter,
         const QRect &rect,
@@ -33,17 +33,17 @@ signals:
     void signalUpdateSlider(const int &value);
 
 protected:
-    QRect m_canvasRect;
-    QRect m_canvasRectPadded;
-    QRect m_indicatorRect;
+    QRect m_canvasRect{};
+    QRect m_canvasRectPadded{};
+    QRect m_indicatorRect{};
 
-    QColor m_bgColor;
-    QColor m_fgColor;
-    QColor m_activeColor;
+    QColor m_bgColor{};
+    QColor m_fgColor{};
+    QColor m_activeColor{};
 
-    int m_minValue;
-    int m_maxValue;
-    int m_widgetSize;
+    int m_minValue = 0;
+    int m_maxValue = 0;
+    int m_widgetSize = 0;
 };
 
 #endif // GUI_PAINTER_CLASS_H

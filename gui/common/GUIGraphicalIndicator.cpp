@@ -20,7 +20,7 @@ GUIGraphicalIndicator::~GUIGraphicalIndicator()
 }
 
 void
-GUIGraphicalIndicator::paintEvent(QPaintEvent *event)
+GUIGraphicalIndicator::paintEvent(QPaintEvent * /*event*/ )
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);

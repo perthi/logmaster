@@ -24,7 +24,7 @@ GUIGraphicalSlider::~GUIGraphicalSlider()
 }
 
 void
-GUIGraphicalSlider::paintEvent(QPaintEvent *event)
+GUIGraphicalSlider::paintEvent(QPaintEvent * /*event*/)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -149,7 +149,7 @@ GUIGraphicalSlider::mousePressEvent(QMouseEvent *event)
 }
 
 void
-GUIGraphicalSlider::mouseReleaseEvent(QMouseEvent *event)
+GUIGraphicalSlider::mouseReleaseEvent(QMouseEvent * /*event*/ )
 {
     m_sliderActive = false;
     m_negativeButtonActive   = false;

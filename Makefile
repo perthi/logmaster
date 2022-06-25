@@ -44,7 +44,7 @@ export LOGMASTER_HOME=$(PWD)
 export COMMON_FLAGS:= -fPIC  -std=c++17  -g   -DGUI_DIR='"$(LOGMASTER_HOME)"'
 
 ## export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wfatal-errors  -Werror
-export PEDANTIC_FLAGS:=  -ggdb  -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum  -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security
+export PEDANTIC_FLAGS:=  -ggdb  -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum  -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security -Werror
 
 
 export HAS_LOGGING:=""

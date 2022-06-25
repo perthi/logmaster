@@ -30,19 +30,18 @@ private:
         const bool &reversed = false);
 
 private:
-    int m_tmpSize;
-
-    int m_dx;
-    int m_xPos;
-    int m_sliderBarXPos;
-    bool m_sliderActive;
-    bool m_negativeButtonActive;
-    bool m_positiveButtonActive;
-    QRect m_negativeButton;
-    QRect m_positiveButton;
-    QRect m_sliderSpace;
-    QRect m_sliderBackground;
-    QRect m_sliderBar;
+    int m_tmpSize = 0;
+    int m_dx = 0;
+    int m_xPos = 0;
+    int m_sliderBarXPos = 0;
+    bool m_sliderActive = 0;
+    bool m_negativeButtonActive = 0;
+    bool m_positiveButtonActive = 0;
+    QRect m_negativeButton{};
+    QRect m_positiveButton{};
+    QRect m_sliderSpace{};
+    QRect m_sliderBackground{};
+    QRect m_sliderBar{};
 
 };
 

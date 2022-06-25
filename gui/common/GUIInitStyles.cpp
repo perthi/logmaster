@@ -10,8 +10,6 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QtDebug>
 #include <QtWidgets/QApplication>
-
-
 #include <logging/LLogApi.h>
 
 using namespace LOGMASTER;
@@ -35,8 +33,6 @@ GUIInitStyles::Init(QApplication * /*app*/)
     string resource_s = "";
     string style_s = "";
 
-    COUT << "TP0" << endl;
-
     #ifdef _WIN32
         resource_s =  "gui-qt.rcc";
         style_s =  ":/styles/ferrotech.qmm";
@@ -57,10 +53,6 @@ GUIInitStyles::Init(QApplication * /*app*/)
     QResource::registerResource(resource_s.c_str() );
     QFileInfo style(style_s.c_str() );
 
-    //  QResource::registerResource("/home/perthi/nautilus/modules/gui/resources/gui-qt.rcc");
-    //  QFileInfo style("/home/perthi/nautilus/modules/gui/resources/styles/ferrotech.qmm");
-
-
     if (style.exists())
     {
             QFile f(style.filePath());
@@ -77,3 +69,4 @@ GUIInitStyles::Init(QApplication * /*app*/)
     }
 
 }
+

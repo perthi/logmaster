@@ -16,7 +16,7 @@ public:
     void SetPosition(const int &value);
 
 protected:
-    virtual void paintEvent(QPaintEvent *event) override;
+    virtual void paintEvent(QPaintEvent * /*event*/) override;
 
 private:
     int m_indicatorPosition;
