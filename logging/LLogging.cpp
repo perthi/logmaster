@@ -131,6 +131,7 @@ namespace LOGMASTER
         fConfig->emplace(  eMSGTARGET::TARGET_EXCEPTION,   LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_TESTING,     LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_DATABASE,     LMessageFactory() );
+     ///   fConfig->emplace(  eMSGTARGET::TARGET_ALL,     LMessageFactory() );
 
         fDefaultConfig = fConfig;
 
@@ -242,11 +243,56 @@ namespace LOGMASTER
         {
             return true;
         }
+  
+       /// std::shared_ptr<std::map<eMSGTARGET, LMessageFactory  > >  fConfig = nullptr;
+        static int i = 0;
+
+        if(target == eMSGTARGET::TARGET_ALL )
+        {
+         //   COUT << i<< " TARGET ALL" << endl;
+            i ++;
+          /// auto hash = &it_1->second.GetConfig()->GetHash()->fLogLevelHash;
+            for(auto it = fConfig->begin(); it != fConfig->end(); it ++ )
+            {
+
+              //  bool all_enabled = true;
+//                if( it->second.IsEnabled() )
+                    auto & hash = it->second.GetConfig()->GetHash()->fLogLevelHash;
+                    auto it_hash = hash.find( system );
+
+                    for ( it_hash = hash.begin(); it_hash != hash.end(); it_hash++ )
+                    {
+                       // if( it_hash->first != eMSGSYSTEM::SYS_NONE ) continue;
+                       // bool is_enabled = false;
+                        if (  ( it_hash->first   & system)   !=  zero_s )  
+                        {
+                             if ( (level & it_hash->second) != zero_l )
+                            {
+           //                     COUT << "FALSE  " << i << " first =" << (int)it_hash->first   <<  "  system = " << (int)system << endl;
+                                return true;
+                             //   is_enabled =  true; 
+                            }
+
+                        }
+
+                      //if( is_enabled == false) return false;  
+                    //return true;
+                   }
+
+                   return false;
+                //it->second.
+
+            }
+        }
+
+            //COUT << "target all" << endl;
+      ///  }
 
         auto it_1 = fConfig->find( target );
-
+        
         if ( it_1 == fConfig->end() )
         {
+            //COUT << "The end" << endl;
             return false;
         }
         else
@@ -254,13 +300,6 @@ namespace LOGMASTER
             auto hash = &it_1->second.GetConfig()->GetHash()->fLogLevelHash;
             auto it = hash->find( system );
 
-            if ( it != hash->end() )
-            {
-                if ( (it->second & level) != zero_l )
-                {
-                    return true;
-                }
-            }
             for ( it = hash->begin(); it != hash->end(); it++ )
             {
                 if ( (it->first & system) != zero_s )
@@ -289,6 +328,8 @@ namespace LOGMASTER
 #endif
         vector<eMSGTARGET> e_targets;
         vector<string> tokens  =  GTokenizer().Tokenize( target_s, vector<string>{" ", "\n","\t" } );
+
+     //   COUT << "setting target:" << target_s << ( eneable == true ? "TRUE" : "FALSE" ) << endl;
 
         for ( size_t i = 0; i < tokens.size(); i++ )
         {
@@ -435,6 +476,8 @@ namespace LOGMASTER
         std::lock_guard<std::mutex> guard( log_mutex );
         auto m = LConversion::SplitByTarget(level_s);
 
+      //  COUT <<  level_s << endl;   
+
         for ( auto it_m = m.begin(); it_m != m.end(); it_m++ )
         {
             eMSGTARGET target = it_m->first;
@@ -443,6 +486,7 @@ namespace LOGMASTER
             {
                 if ( (it->first & target) != (eMSGTARGET)0 )
                 {
+               //     COUT << "ist->first = "<< (int)it->first <<"setting loglevel for" <<   it_m->second << endl;
                     it->second.GetConfig()->SetLogLevel( it_m->second );
                 }
             }

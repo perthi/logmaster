@@ -242,10 +242,8 @@ GUILoggerGui::RetranslateUi()
    {
       QString _font = "QLabel { font: \"Courier\" 18px; color: white; }";
       fLogLevelLabel->setStyleSheet(_font);
-     // COUT << "STYLE IS FERROTECH" << endl;  
    }
    else {
-      //  COUT << "STYLE IS NOT FERROTECH" << endl;  
        QString ss = QString("QPlainTextEdit{ background-color:  #000000; }");
        fPlainTextEdit->setStyleSheet(ss);
 
@@ -270,16 +268,20 @@ GUILoggerGui::RetranslateUi()
    }
 
    // Adjust to LOG_INFO to get INFO messages from Analyse and User
-   for (int i = fLogLevelCombo->count(); i > 0; i--)
+
+
+    for (int i = fLogLevelCombo->count(); i > 0; i--)
    {
        fLogLevelCombo->setCurrentIndex(i - 1);
        int currentLevel = fLogLevelCombo->currentData().toInt();
-
        if(currentLevel == (int)eMSGLEVEL::LOG_INFO)
        {
            break;
        }
+       
    }
+
+
 }
 
 void

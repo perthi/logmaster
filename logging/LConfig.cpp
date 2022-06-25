@@ -213,6 +213,9 @@ namespace LOGMASTER
     void
     LConfig::ApplyLevel( const eMSGSYSTEM  system, const eMSGLEVEL  level, const bool pad )
     {
+        static int i = 0;
+        i ++;
+        // COUT << i << "Applying level" << endl;
         eMSGLEVEL  l_level = level;
         eMSGSYSTEM l_system = system;
         FilterOut( l_system, {eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EX });
@@ -226,6 +229,8 @@ namespace LOGMASTER
         {
             int n_bits = g_numbers()->CountBits( it->first );
             int n_bits_in = g_numbers()->CountBits( l_system );
+            
+          //  COUT<< i << ": n_bits " << n_bits << "  nbits_in  " << n_bits_in << endl;
 
             if ( n_bits > 1 && n_bits_in == 1 )
             {

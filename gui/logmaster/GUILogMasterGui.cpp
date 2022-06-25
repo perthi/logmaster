@@ -152,7 +152,7 @@ void GUILogMasterGui::RetranslateUi()
     QString currStyle = settings.value("currentStyle").toString();
     if (currStyle != "Ferrotech")
     {
-        COUT << "STYLE IS NOT FERROTECH" << endl;
+      //  COUT << "STYLE IS NOT FERROTECH" << endl;
         QString ss = QString("font: \"Courier\"; background-color:  #000000;");
         fPlainTextEdit->setStyleSheet(ss);
     }
@@ -160,7 +160,7 @@ void GUILogMasterGui::RetranslateUi()
     {
         QString ss = QString("font: \"Courier\"; background-color:  #000000;");
         fPlainTextEdit->setStyleSheet(ss);
-        COUT << "STYLE IS!!  FERROTECH" << endl;
+       // COUT << "STYLE IS!!  FERROTECH" << endl;
     }
     
 }
@@ -261,7 +261,7 @@ QGroupBox* GUILogMasterGui::InitSystemAndLevelControl()
         QString ss = QString(
             "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 %1, stop: 1 %2);"
         ).arg(color.name()).arg(light.name());
-        pb->setObjectName("LogMasterSubsystemButton"); //Use rest of style defined in ferrotech.qmm with #LogMasterSubsystemButton
+        pb->setObjectName("LogMasterSubsystemButton"); //Use rest of style defined in norspace.qmm with #LogMasterSubsystemButton
         pb->setStyleSheet(ss);
         pb->setCheckable(true);
         pb->setChecked(sysLev.GetEnabled());
@@ -330,7 +330,7 @@ void GUILogMasterGui::MessageFormatChecksClicked(QAbstractButton* ab)
 /** @brief      SubsysAndLevelButtonClicked
 *   @details    This Function is a slot that is connected by InitSystemAndLevelControl(). 
                 The QWidget button object is used to identify level, system and enable that is input variables to the API SetSubSysAndLevControl() function.
-                Then the UpdateTextMessagePanel() function is called to show the commands sendt via the API.
+                Then the UpdateTextMessagePanel() function is called to show the commands sent via the API.
                 Then the RefreshSubsysAndLevel() function is called to refresh the System and Level fields.
 *   @param[in]  button**/
 void 
@@ -372,7 +372,7 @@ GUILogMasterGui::ClearMessages()
 
 /** @brief      SubSystemControlClicked
 *   @details    This Function is triggered by an mouse click on the SubsystemCombo box. The selected text is collected from the combo box.
-                Then the command is pushed to the API, next the UpdateTextMessagePanel() function is called to show the commands sendt via the API.
+                Then the command is pushed to the API, next the UpdateTextMessagePanel() function is called to show the commands sent via the API.
                 Then the RefreshSubsysAndLevel() function is called to refresh the System and Level fields.**/
 void 
 GUILogMasterGui::SubSystemControlClicked()
@@ -390,8 +390,8 @@ GUILogMasterGui::SubSystemControlClicked()
 
 /** @brief      UpdateTextMessagePanel
 *   @details    This Function ask the KALogmaster API for any messages sent to the Loggingsystem.
-                The API is populating a vector, and tis function is itterating through and publishing the 
-                commands to the GUI windows for all strings in the vector. In the end the the vector is cleared, making the function redy for new messages**/
+                The API is populating a vector, and tis function is iterating through and publishing the 
+                commands to the GUI windows for all strings in the vector. In the end the the vector is cleared, making the function ready for new messages**/
 void 
 GUILogMasterGui::UpdateTextMessagePanel()
 {

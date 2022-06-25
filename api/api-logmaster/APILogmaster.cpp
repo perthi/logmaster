@@ -143,6 +143,7 @@ APILogmaster::GetMessageFormat()
             }
         }
 
+        
         v.push_back(APIMessageFormat(format.first, (int64_t)format.second, enabled));
     }
     
@@ -170,6 +171,7 @@ APILogmaster::GetSubSysAndLevControl()
         if (sys->first == eMSGSYSTEM::SYS_NONE)     continue;
         
         //Make Select all button if SYS_ALL.
+    
         if (sys->first == eMSGSYSTEM::SYS_ALL)
         {
             enable = isAllSystemAndAllLevelsEnabled();
@@ -329,6 +331,7 @@ bool APILogmaster::isAllSystemAndAllLevelsEnabled()
 }
 
 
+
 /** @brief      SetOutputTarget
 *   @details    This Function will try to adjust the LogTarget On or Off 
 *   @param[in]  target as defined by the Logging system.
@@ -340,13 +343,14 @@ APILogmaster::SetOutputTarget(string target, bool enable)
     {
         LLogging::Instance()->SetLogTarget(target, enable);
 
+
         // Update text vector for GUI text message window, add On/Off text
         string msg = target + (enable == true ? "  On" : "  Off");
         SetTextFieldData(msg);
     }
     catch (std::exception& e)
     {
-        //G_ERROR("Could not set Output target to %s (%s)", target.c_str(), e.what());
+        G_ERROR("Could not set Output target to %s (%s)", target.c_str(), e.what());
     }
     return;
 }
@@ -378,7 +382,7 @@ APILogmaster::SetMessageFormat(string format, bool enable)
     }
     catch (std::exception& e)
     {
-        //G_ERROR("Could not set log target to %s (%s)", cmd.c_str(), e.what());
+        G_ERROR("Could not set log target to %s (%s)", cmd.c_str(), e.what());
     }
     return;
 }
@@ -406,7 +410,7 @@ APILogmaster::SetSubSystem(string system)
     }
     catch (std::exception& e)
     {
-        //G_ERROR("Could not set SetSubSystem to %s (%s)", cmd.c_str(), e.what());
+        G_ERROR("Could not set SetSubSystem to %s (%s)", cmd.c_str(), e.what());
     }
     return;
 }
@@ -446,8 +450,9 @@ APILogmaster::SetSubSysAndLevControl(int x_Lev, int y_Sys, bool enable)
     int bitDesimal = bm.GetBitmap();
 
     // convert integer value to binary format of 24 bit as a string.
-    string bitmap = std::bitset<24>(bitDesimal).to_string();
     
+    //* @todo magic number */
+    string bitmap = std::bitset<24>(bitDesimal).to_string();
     string cmd = GetTargetName() + " " + bitmap;
 
     try
@@ -504,7 +509,10 @@ APILogmaster::IsLevSysEnabled(int x_lev, int y_Sys)
     eMSGSYSTEM selSys;
 
     ConvertXYToLevSys(x_lev, y_Sys, &selLvl, &selSys);
-
+    
+    //COUT << "Checklevel = " << (LLogging::Instance()->CheckLevel(selSys, selLvl, fTarget) == true ? "TRUE" : "FALSE") << endl;
+    
+    
     // Now check wether selected Level and system is enabled in the logging system.
     return LLogging::Instance()->CheckLevel(selSys, selLvl, fTarget);
 }

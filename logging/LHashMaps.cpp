@@ -339,8 +339,6 @@ namespace LOGMASTER
     }
 
 
-
-
     /** @brief initialization of the hash table for the formatting of the messages,  used  on the command line or via the programming API */
     void
     LHashMaps::InitHashMsgFormat()

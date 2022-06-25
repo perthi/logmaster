@@ -20,11 +20,20 @@ APILogMasters::APILogMasters()
     for ( auto it = fHashMap.GetTargetHash()->begin(); it != fHashMap.GetTargetHash()->end(); it ++ )
     {
         // Skip target OFF and ALL
+        
+        /*
         if (it->second == eMSGTARGET::TARGET_OFF || it->second == eMSGTARGET::TARGET_ALL)
         {
             continue;
         }
-    
+        */
+
+
+        if (it->second == eMSGTARGET::TARGET_OFF )
+        {
+            continue;
+        }
+
         APILogmaster* logmaster = new APILogmaster( it->first, it->second);
         
         fLogMasters.emplace( it->second, logmaster);
@@ -46,7 +55,7 @@ APILogMasters::APILogMasters()
         SetCurrent(fLogMasters.begin()->first);
     }
     
-    fLogHandle->SetLogTarget(GetCurrent()->GetTargetName());
+    fLogHandle->SetLogTarget(GetCurrent()->GetTargetName() );
 }
 
 
