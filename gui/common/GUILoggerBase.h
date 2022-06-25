@@ -7,39 +7,37 @@
 #include <QtCore/QObject>
 #include <QtCore/QMutex>
 #include <QtCore/QMultiMap>
-///#include <gui/common/GUILoggerBase.h>
 #include <logging/LMessage.h>
 using namespace LOGMASTER;
 typedef  QMultiMap<int, LMessage> MsgSeries;
-////  static const uint MaxMessagesInMemory3 = 2000;
 
 
 class GUILoggerBase
 {
 
 public:
-//	static GUILoggerBase  * Instance();
-	MsgSeries  API   AllMsgs()   const;
-	void       API   ClearMsgs();
+//  static GUILoggerBase  * Instance();
+    MsgSeries  API   AllMsgs()   const;
+    void       API   ClearMsgs();
 
 public :
-	virtual  void   API newMessage(int cnt, const LMessage& msg) = 0;
-	virtual  void   API newMessages(const MsgSeries& msgs) = 0;
+    virtual  void   API newMessage(int cnt, const LMessage& msg) = 0;
+    virtual  void   API newMessages(const MsgSeries& msgs) = 0;
 
 protected:
-	explicit API  GUILoggerBase() {};
-	API  ~GUILoggerBase() {};
-	GUILoggerBase(const GUILoggerBase& rhs);
-	GUILoggerBase& operator=(const GUILoggerBase& rhs);
-	virtual void timerEvent(QTimerEvent* event) = 0;
-	
-	void API PurgeMessages();
+    explicit API  GUILoggerBase() {};
+    API  ~GUILoggerBase() {};
+    GUILoggerBase(const GUILoggerBase& rhs);
+    GUILoggerBase& operator=(const GUILoggerBase& rhs);
+    virtual void timerEvent(QTimerEvent* event) = 0;
+    
+    void API PurgeMessages();
 
-	mutable QMutex fMutex;
-	MsgSeries fLoggedMessages;
-	MsgSeries fNewMessages;
+    mutable QMutex fMutex{};
+    MsgSeries fLoggedMessages{};
+    MsgSeries fNewMessages{};
 
-	const int fMaxMessagesInMemory = 2000;
+    const int fMaxMessagesInMemory = 2000;
 
 };
 

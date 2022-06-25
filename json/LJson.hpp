@@ -25,6 +25,7 @@ static std::string JsonToString(const nlohmann::basic_json<> &j)
     }
 }
 
+/*
 static std::ostream &operator<<(std::ostream &o, const nlohmann::basic_json<> &j)
 {
     // This implementation will cause compilation failure, it is intended
@@ -34,6 +35,6 @@ static std::ostream &operator<<(std::ostream &o, const nlohmann::basic_json<> &j
     o << JsonToString(j);
     return o;
 }
-
+*/
 
 #endif // LJSON_HPP

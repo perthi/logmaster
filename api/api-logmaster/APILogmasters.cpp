@@ -17,9 +17,6 @@ APILogMasters::APILogMasters()
 {
     fLogHandle = LLogging::Instance();
 
-	
-    //  for (auto target : fHashMap.GetTargetHash())
-
     for ( auto it = fHashMap.GetTargetHash()->begin(); it != fHashMap.GetTargetHash()->end(); it ++ )
     {
         // Skip target OFF and ALL
@@ -27,7 +24,7 @@ APILogMasters::APILogMasters()
         {
             continue;
         }
-	
+    
         APILogmaster* logmaster = new APILogmaster( it->first, it->second);
         
         fLogMasters.emplace( it->second, logmaster);
@@ -43,11 +40,11 @@ APILogMasters::APILogMasters()
         SetCurrent(eMSGTARGET::TARGET_GUI); 
         // Add GUI at beginning of the vector/list.
         fLogMasterList.insert(fLogMasterList.begin(), fLogMasters.at(eMSGTARGET::TARGET_GUI));
-	}
+    }
     else
     {
         SetCurrent(fLogMasters.begin()->first);
-	}
+    }
     
     fLogHandle->SetLogTarget(GetCurrent()->GetTargetName());
 }
@@ -56,9 +53,9 @@ APILogMasters::APILogMasters()
 APILogMasters::~APILogMasters()
 {
     for  (auto logmaster : fLogMasters)
-	{
+    {
             delete logmaster.second;
-	}
+    }
 }
 
 

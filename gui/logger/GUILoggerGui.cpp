@@ -29,7 +29,10 @@
 
 using namespace LOGMASTER;
 
-Q_DECLARE_METATYPE(QRegExp::PatternSyntax);
+Q_DECLARE_METATYPE(QRegExp::PatternSyntax)
+
+
+
 
 GUILoggerGui::GUILoggerGui(QWidget *parent)
    :QWidget(parent),
@@ -118,17 +121,19 @@ GUILoggerGui::InitLeft()
    fRegExpCombo = new QComboBox(this);
 
    int re_index = 0;
-   fRegExpCombo->addItem("RegExp", qVariantFromValue(QRegExp::RegExp));
+   //fRegExpCombo->addItem("RegExp", qVariantFromValue(QRegExp::RegExp));
+   fRegExpCombo->addItem("RegExp", QVariant::fromValue(QRegExp::RegExp));
+   
    fRegExpCombo->setItemData(re_index++, "A rich Perl - like pattern matching syntax.This is the default.", Qt::ToolTipRole);
-   fRegExpCombo->addItem("RegExp2", qVariantFromValue(QRegExp::RegExp2));
+   fRegExpCombo->addItem("RegExp2", QVariant::fromValue(QRegExp::RegExp2));
    fRegExpCombo->setItemData(re_index++, "Like RegExp, but with greedy quantifiers. (Introduced in Qt 4.2.)", Qt::ToolTipRole);
-   fRegExpCombo->addItem("Wildcard", qVariantFromValue(QRegExp::Wildcard));
+   fRegExpCombo->addItem("Wildcard", QVariant::fromValue(QRegExp::Wildcard));
    fRegExpCombo->setItemData(re_index++, "This provides a simple pattern matching syntax similar to that used by shells(command interpreters) for \"file globbing\".See QRegExp wildcard matching.", Qt::ToolTipRole);
-   fRegExpCombo->addItem("WildcardUnix", qVariantFromValue(QRegExp::WildcardUnix));
+   fRegExpCombo->addItem("WildcardUnix", QVariant::fromValue(QRegExp::WildcardUnix));
    fRegExpCombo->setItemData(re_index++, "This is similar to Wildcard but with the behavior of a Unix shell.The wildcard characters can be escaped with the character \"\\\".", Qt::ToolTipRole);
-   fRegExpCombo->addItem("FixedString", qVariantFromValue(QRegExp::FixedString));
+   fRegExpCombo->addItem("FixedString", QVariant::fromValue(QRegExp::FixedString));
    fRegExpCombo->setItemData(re_index++, "The pattern is a fixed string.This is equivalent to using the RegExp pattern on a string in which all metacharacters are escaped using escape().", Qt::ToolTipRole);
-   fRegExpCombo->addItem("W3CXmlSchema11", qVariantFromValue(QRegExp::W3CXmlSchema11));
+   fRegExpCombo->addItem("W3CXmlSchema11", QVariant::fromValue(QRegExp::W3CXmlSchema11));
    fRegExpCombo->setItemData(re_index++, "The pattern is a regular expression as defined by the W3C XML Schema 1.1 specification.", Qt::ToolTipRole);
 
    connect(fRegExpCombo, SIGNAL(currentIndexChanged(int)),
@@ -237,10 +242,13 @@ GUILoggerGui::RetranslateUi()
    {
       QString _font = "QLabel { font: \"Courier\" 18px; color: white; }";
       fLogLevelLabel->setStyleSheet(_font);
+      COUT << "STYLE IS FERROTECH" << endl;  
    }
    else {
+        COUT << "STYLE IS NOT FERROTECH" << endl;  
        QString ss = QString("QPlainTextEdit{ background-color:  #000000; }");
        fPlainTextEdit->setStyleSheet(ss);
+
    }
    fPlainTextEditLabel->setText(fTEXT_messages);
    fLogLevelLabel->setText(fTEXT_logLevel);
@@ -289,7 +297,7 @@ GUILoggerGui::NewMessages(const MsgSeries &msgs)
     while (i.hasNext())
     {
         i.next();
-	    LMessage msg(i.value());
+        LMessage msg(i.value());
 
         if (fPauseButton->isChecked())
         {
@@ -297,11 +305,21 @@ GUILoggerGui::NewMessages(const MsgSeries &msgs)
             continue;
         }
 
-	    //Filter severity:
-	    if (fLogLevelCombo->currentData() < (int)msg.fLevel) {
-	      //Log level too low, skip msg
-	      continue;
-	    }
+        //Filter severity:
+        
+        //fLogLevelCombo->
+        
+        int value = (int)fLogLevelCombo->itemData(  fLogLevelCombo->currentIndex() ).toInt();
+
+//        if (  fLogLevelCombo->itemData(  fLogLevelCombo->currentIndex())  < (int)msg.fLevel) 
+       
+       if (  value  < (int)msg.fLevel) 
+     //   if (fLogLevelCombo->currentData() < (int)msg.fLevel) 
+        {
+         
+          //Log level too low, skip msg
+          continue;
+        }
 
         //Filter subsystem
         bool skip = true;
@@ -365,22 +383,22 @@ GUILoggerGui::ClearLog()
 void
 GUILoggerGui::OpenLogMasterDialog()
 {
-	if(fLogMasterGuiDialog == nullptr)
-	{
-		fLogMasterGuiDialog = new QWidget(nullptr);
-		fLogMasterGuiDialog->setObjectName("GUIWidget");
-		fLogMasterGuiDialog->setWindowFlags(Qt::Window);
-		QVBoxLayout *lay = new QVBoxLayout;
-		lay->setContentsMargins(0, 0, 0, 0);
-		GUILogMasterTab* logMasterGui = new GUILogMasterTab(fLogMasterGuiDialog);
-		lay->addWidget(logMasterGui);
-		fLogMasterGuiDialog->setLayout(lay);
-	}
+    if(fLogMasterGuiDialog == nullptr)
+    {
+        fLogMasterGuiDialog = new QWidget(nullptr);
+        fLogMasterGuiDialog->setObjectName("GUIWidget");
+        fLogMasterGuiDialog->setWindowFlags(Qt::Window);
+        QVBoxLayout *lay = new QVBoxLayout;
+        lay->setContentsMargins(0, 0, 0, 0);
+        GUILogMasterTab* logMasterGui = new GUILogMasterTab(fLogMasterGuiDialog);
+        lay->addWidget(logMasterGui);
+        fLogMasterGuiDialog->setLayout(lay);
+    }
 
-	fLogMasterGuiDialog->show();
-	fLogMasterGuiDialog->setFocus();
-	fLogMasterGuiDialog->activateWindow();
-	fLogMasterGuiDialog->raise();
+    fLogMasterGuiDialog->show();
+    fLogMasterGuiDialog->setFocus();
+    fLogMasterGuiDialog->activateWindow();
+    fLogMasterGuiDialog->raise();
 }
 
 

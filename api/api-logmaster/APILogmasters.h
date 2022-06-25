@@ -33,10 +33,12 @@ public:
     inline std::vector<APILogmaster*> &GetLogMasterList() {return fLogMasterList; }
     
 private:
-    map<eMSGTARGET, APILogmaster*> fLogMasters;
-    eMSGTARGET fCurrentTarget;
+    APILogMasters  operator=(const APILogMasters&);
+    APILogMasters(const APILogMasters&);
+    map<eMSGTARGET, APILogmaster*> fLogMasters{};
+    eMSGTARGET fCurrentTarget = eMSGTARGET::TARGET_GUI;
     LOGMASTER::LLogging *fLogHandle = nullptr;
-    std::vector<APILogmaster*> fLogMasterList;
-    LHashMaps fHashMap;
+    std::vector<APILogmaster*> fLogMasterList = std::vector<APILogmaster*>();
+    LHashMaps fHashMap{};
     
 };

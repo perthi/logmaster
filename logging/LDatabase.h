@@ -39,7 +39,7 @@ struct  sqlite3_stmt;
  *  <td bgcolor="grey" > field</td> <td>id</td>   <td>time</td>  <td>level</td>    <td>category</td>  <td>json</td>
  * </tr>
  * <tr>
- *   <td bgcolor="grey"> type</td>       <td>int64</td>   <td>int64</td>    <td>int</td>  <td>int</td>    <td>text</td>	      
+ *   <td bgcolor="grey"> type</td>       <td>int64</td>   <td>int64</td>    <td>int</td>  <td>int</td>    <td>text</td>       
  * </tr>
  * <tr>
  * <td  bgcolor="grey" > explanation</td>   <td>primary key</td>   <td>Unix epoch time</td>   <td>The log level   debug, error etc..</td>   <td>Sub system</td>  <td>The original message on json format </td>
@@ -68,67 +68,67 @@ struct  sqlite3_stmt;
 
 namespace LOGMASTER
 {
-	class LMessage;
-	class LMessageGenerator;
+    class LMessage;
+    class LMessageGenerator;
 
-	#define ALL_ENTRIES 0
+    #define ALL_ENTRIES 0
 
-	enum class eTIME_SEARCH_OPTION
-	{
-		EXACTLY = 1,
-		INCLUDING_AND_ABOVE = 2,
-		INCLUDING_AND_BELOW = 3,
-	};
+    enum class eTIME_SEARCH_OPTION
+    {
+        EXACTLY = 1,
+        INCLUDING_AND_ABOVE = 2,
+        INCLUDING_AND_BELOW = 3,
+    };
 
 
-	class LDatabase : public GDataBaseIF
-	{
-		public:
-		static LDatabase API * Instance ( const string db_path = "" );
- 			
-			static void SetDatabase(  const string db_path  );
-			static void SetDatabaseDefault(    );
-			LDatabase(  );
-			virtual ~LDatabase() {};
-			virtual bool API CreateTables()  override ;
+    class LDatabase : public GDataBaseIF
+    {
+        public:
+        static LDatabase API * Instance ( const string db_path = "" );
+            
+            static void SetDatabase(  const string db_path  );
+            static void SetDatabaseDefault(    );
+            LDatabase(  );
+            virtual ~LDatabase() {};
+            virtual bool API CreateTables()  override ;
 
-			void API AddLogEntry (  std::shared_ptr<LMessage>  msg  );
-			bool API DeleteEntries();
-			
-			bool API InitSQLQuery(const uint64_t time, const eTIME_SEARCH_OPTION opt, const int max_cnt);
-			bool API InitSQLQuery(const uint64_t time_min, const uint64_t time_max, const int max_cnt);
-			bool API InitSQLQuery(const eMSGLEVEL level, const int max_cnt);
-			bool API InitSQLQuery(const eMSGSYSTEM system, const int max_cnt);
-			bool API InitSQLQuery(const eMSGLEVEL level, const eMSGSYSTEM system, const int max_cnt);
-			bool API InitSQLQuery(const int cnt);
-			bool API InitSQLQuery(const string sql);
-			
-			vector< LLogEntrySQL>  Query( const   string sql );
-			vector< LLogEntrySQL>  Query( const   int max_cnt);			
-			vector< LLogEntrySQL>  Query( const   uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
-			vector< LLogEntrySQL>  Query( const   uint64_t time_min,        const int time_max,  const int max_cnt );
-			vector< LLogEntrySQL>  Query( const   eMSGSYSTEM sys,  const int max_cnt) ;
-			vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const int max_cnt) ;
-			vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
+            void API AddLogEntry (  std::shared_ptr<LMessage>  msg  );
+            bool API DeleteEntries();
+            
+            bool API InitSQLQuery(const uint64_t time, const eTIME_SEARCH_OPTION opt, const int max_cnt);
+            bool API InitSQLQuery(const uint64_t time_min, const uint64_t time_max, const int max_cnt);
+            bool API InitSQLQuery(const eMSGLEVEL level, const int max_cnt);
+            bool API InitSQLQuery(const eMSGSYSTEM system, const int max_cnt);
+            bool API InitSQLQuery(const eMSGLEVEL level, const eMSGSYSTEM system, const int max_cnt);
+            bool API InitSQLQuery(const int cnt);
+            bool API InitSQLQuery(const string sql);
+            
+            vector< LLogEntrySQL>  Query( const   string sql );
+            vector< LLogEntrySQL>  Query( const   int max_cnt);         
+            vector< LLogEntrySQL>  Query( const   uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
+            vector< LLogEntrySQL>  Query( const   uint64_t time_min,        const int time_max,  const int max_cnt );
+            vector< LLogEntrySQL>  Query( const   eMSGSYSTEM sys,  const int max_cnt) ;
+            vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const int max_cnt) ;
+            vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
             bool  ReadEntriesGetEntry(LLogEntrySQL &entry);
             void SetMaxDbFileSize(const uint64_t maxSize);
             string GetDBPath() const;
 
-		private:
-			vector< LLogEntrySQL> FetchAll(   ); 
-			LDatabase( const LDatabase & );
-			LDatabase operator = ( const LDatabase & );
+        private:
+            vector< LLogEntrySQL> FetchAll(   ); 
+            LDatabase( const LDatabase & );
+            LDatabase operator = ( const LDatabase & );
             bool InitQuery( string query, const int limit  );
             bool DeleteOldestEntries(int nEntries = 10);
-		
-			static string  fDBPath;
-			static  LDatabase *fgInstance;
+        
+            static string  fDBPath;
+            static  LDatabase *fgInstance;
             LMessage2Json fMessage2Json;
 
-            uint64_t fMaxDbFileSize{0};
+            long fMaxDbFileSize{0};
 
 
-	};
+    };
 
 } // namespace LOGMASTER
 

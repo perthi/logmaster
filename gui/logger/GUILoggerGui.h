@@ -43,50 +43,53 @@ class GUILoggerGui : public QWidget
       void ClearLog();
       void Pause();
 
-   private: // functions
+   private: 
       void InitGui();
       void ConnectStuff();
       void RetranslateUi();
       QWidget* InitLeft();
       QWidget* InitRight();
 
-   private: // member objects
-      QLabel *fPlainTextEditLabel;
-      QPlainTextEdit *fPlainTextEdit;
+   private:
+      GUILoggerGui operator=(const GUILoggerGui&);
+      GUILoggerGui(const GUILoggerGui&);
+      
+      QLabel *fPlainTextEditLabel = nullptr;
+      QPlainTextEdit *fPlainTextEdit = nullptr;
 
-      QLabel *fLogLevelLabel;
-      QComboBox *fLogLevelCombo;
+      QLabel *fLogLevelLabel = nullptr;
+      QComboBox *fLogLevelCombo = nullptr;
 
-      QLabel *fSubSystemLabel;
-      QMap<eMSGSYSTEM, QCheckBox*> fCheckBoxes;
-      QCheckBox *fChecFSM;
-      QCheckBox *fCheckDriver;
-      QCheckBox *fCheckDatabase;
-      QCheckBox *fCheckQa;
-      QCheckBox *fCheckUser;
-      QCheckBox *fCheckEx;
+      QLabel *fSubSystemLabel = nullptr;
+      QMap<eMSGSYSTEM, QCheckBox*> fCheckBoxes{};
+      QCheckBox *fChecFSM = nullptr;
+      QCheckBox *fCheckDriver = nullptr;
+      QCheckBox *fCheckDatabase = nullptr;
+      QCheckBox *fCheckQa = nullptr;
+      QCheckBox *fCheckUser = nullptr;
+      QCheckBox *fCheckEx = nullptr;
 
-      QLabel* fRegExpLabel;
-      QComboBox *fRegExpCombo;
-      QLineEdit* fRegExpEdit;
-      QRegExp fRegExp;
+      QLabel* fRegExpLabel = nullptr;
+      QComboBox *fRegExpCombo = nullptr;
+      QLineEdit* fRegExpEdit = nullptr;
+      QRegExp fRegExp{};
 
-      QPushButton* fConfigureButton;
-      QPushButton* fClearButton;
-      QPushButton* fRefreshButton;
-      QPushButton* fPauseButton;
+      QPushButton* fConfigureButton = nullptr;
+      QPushButton* fClearButton = nullptr;
+      QPushButton* fRefreshButton = nullptr;
+      QPushButton* fPauseButton = nullptr;
 
       QWidget* fLogMasterGuiDialog = nullptr;
 
-      QString fTEXT_messages;
-      QString fTEXT_logLevel;
-      QString fTEXT_subSystems;
-      QString fTEXT_regExp;
-      QString fTEXT_configure;
-      QString fTEXT_clear;
-      QString fTEXT_refresh;
-      QString fTEXT_pause;
-      QString fTEXT_unpause;
+      QString fTEXT_messages{};
+      QString fTEXT_logLevel{};
+      QString fTEXT_subSystems{};
+      QString fTEXT_regExp{};
+      QString fTEXT_configure{};
+      QString fTEXT_clear{};
+      QString fTEXT_refresh{};
+      QString fTEXT_pause{};
+      QString fTEXT_unpause{};
    };
 
 

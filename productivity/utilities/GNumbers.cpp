@@ -33,8 +33,8 @@
 
 GNumbers * g_numbers()
 {
-	static GNumbers *instance = new GNumbers();
-	return instance;
+    static GNumbers *instance = new GNumbers();
+    return instance;
 }
 
 
@@ -95,19 +95,19 @@ GNumbers::Hex2Dec(const string  str)
 string
 GNumbers::Dec2Hex(const string  str)
 {
-	std::stringstream buffer;
+    std::stringstream buffer;
     if (IsHex(str) == true)
     {
         string message = str + " is not a decimal number, it is a HEX number, but this function converts from dec to hex";
-		GCommon().HandleError ( message, GLOCATION, IsDisabledError());
-		return "";
-	}
-	else
-	{
-		long long int     num = ToInteger<long long int>(str);
-		buffer << std::hex << "0x" << num;
-	}
-	return buffer.str();
+        GCommon().HandleError ( message, GLOCATION, IsDisabledError());
+        return "";
+    }
+    else
+    {
+        long long int     num = ToInteger<long long int>(str);
+        buffer << std::hex << "0x" << num;
+    }
+    return buffer.str();
 }
 
 
@@ -174,7 +174,7 @@ GNumbers::IsDecNumber(const string  num)
 
 /* Wether or not the string "num" is digit in base given by "base". For base 10
 *  The digits shall be 0-9, for base 16 0-F  etc..
-*  @param num  The string represenation of the digit
+*  @param num  The string representation of the digit
 *  @param base the base, or radix of the number "num"
 *  @return  true if the number given by "num" is a valid digit in the base "base", false othervise */
  bool
@@ -202,7 +202,6 @@ GNumbers::IsDigit(const string num, const int base)
     {
         return false;
     }
-//    return iret;
 }
 
 
@@ -375,50 +374,50 @@ GNumbers::IsIntegerVTypeS(string type)
  bool
 GNumbers::IsIntegerTypeS(string t)
 {
-	int cnt = 0;
+    int cnt = 0;
 
-	if (t == string(typeid(short).name()) ||
-		t == string(typeid(int).name()) ||
-		t == string(typeid(long int).name()) ||
-		t == string(typeid(long long int).name()) || IsUnsignedTypeS(t))
-	{
-		cnt++;
+    if (t == string(typeid(short).name()) ||
+        t == string(typeid(int).name()) ||
+        t == string(typeid(long int).name()) ||
+        t == string(typeid(long long int).name()) || IsUnsignedTypeS(t))
+    {
+        cnt++;
 
 
-		return true;
-	}
-	else
-	{
-		cnt++;
+        return true;
+    }
+    else
+    {
+        cnt++;
 
-		return false;
-	}
+        return false;
+    }
 }
 
 
  long long int
 GNumbers::ToHex(const string num)
 {
-	string s = num;
-	g_string()->Trim(s);
-	if (IsHex(s))
-	{
-		return stoull(s, 0, 16);
-	}
-	else
-	{
-		string message = s + " is NOT a valid hex number string, please make sure that the number starts with 0x folowed by valid hex digits(0 - F)";
-		GCommon().HandleError(message, GLOCATION, IsDisabledError() );
-	}
-	return -99999; // Never reached, but just in case
+    string s = num;
+    g_string()->Trim(s);
+    if (IsHex(s))
+    {
+        return stoull(s, 0, 16);
+    }
+    else
+    {
+        string message = s + " is NOT a valid hex number string, please make sure that the number starts with 0x folowed by valid hex digits(0 - F)";
+        GCommon().HandleError(message, GLOCATION, IsDisabledError() );
+    }
+    return -99999; // Never reached, but just in case
 }
 
 
-/* @brief Converts a binary number string to a 64 bits integer. The string is intepretet assuming radix 2 (i.e binary)
+/* @brief Converts a binary number string to a 64 bits integer. The string is interpreted assuming radix 2 (i.e binary)
 *  @param[in] b  The string to convert
 *  @return the corresponding number as a 64 bit int
-*  @exception GException  if the system dependent maximum  number if bits is exceede, or if the string has wrong format. Ths is,
-*  not valid binary string format containg 0'oes nad 1'nes, and/or an optional precedding minus sign. */
+*  @exception GException  if the system dependent maximum  number if bits is exceeded, or if the string has wrong format. Ths is,
+*  not valid binary string format containing 0'oes nad 1'nes, and/or an optional precedding minus sign. */
  int64_t
 GNumbers::ToBinary(const string b)
 {
@@ -435,12 +434,12 @@ GNumbers::ToBinary(const string b)
         #ifdef ARM
         snprintf(message, 512,"Bitstream constains %lld bits, ( bitstring = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
 #endif
-		
+        
 
 
-		//   #else
+        //   #else
 #ifdef _WIN32
-		SPRINTF(message, 512,"Bitstream constains %lld bits, ( bitstring = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
+        SPRINTF(message, 512,"Bitstream constains %lld bits, ( bitstring = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
 #else
 #ifdef ARM
 
@@ -484,11 +483,11 @@ GNumbers::ToBinary(const string b)
 
 
 /**@{
-* Evaluates the the witdt of the binary number "in" repsented on string format in number of bits.
-* For xample "0010101" is 5 bits wide (discarding preceeeding zeroes), "111" is 3 bits wide, etc
-* @param[in] in Must be a binary number, i.e  a string containig only "0" and "1".
+* Evaluates the the width of the binary number "in" repsented on string format in number of bits.
+* For example "0010101" is 5 bits wide (discarding proceeding zeroes), "111" is 3 bits wide, etc
+* @param[in] in Must be a binary number, i.e  a string containing only "0" and "1".
 * @exception std::exception if the string "in" is not a valid binary number
-* @return The widt in number of bits */
+* @return The width in number of bits */
 int64_t
 GNumbers::BitWidth(const char *in)
 {
@@ -503,8 +502,8 @@ GNumbers::BitWidth(const string in)
     if (GNumbers::IsBinary(in) == false)
     {
         string message = in + "%is not a valid binary number: The string must contain only zeroes and ones, and start with a b";
-		GCommon().HandleError(message, GLOCATION, IsDisabledError() );
-		return -1;
+        GCommon().HandleError(message, GLOCATION, IsDisabledError() );
+        return -1;
     }
     else
     {
@@ -529,7 +528,7 @@ GNumbers::IsFloat(string num)
 {
     num = g_string()->Trim(num, { ' ', '\t', '\n' });
 
-	// Exceptions is a pain, so lets remove some common causes.
+    // Exceptions is a pain, so lets remove some common causes.
     if (num == ",")
     {
         return false;
@@ -557,8 +556,11 @@ GNumbers::IsFloat(string num)
     
     try
     {
+        #ifdef __linux__
+        std::stold(num);
+        #else
         auto t = std::stold(num);
-
+        #endif
     }
     catch ( ... )
     {

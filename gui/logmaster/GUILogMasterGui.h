@@ -47,7 +47,7 @@
         void ClearMessages();
 
 
-    private: // functions
+    private: 
         void InitGui();
         void RetranslateUi();
         QGroupBox* InitOutputTarget();
@@ -59,39 +59,40 @@
         void StoreSysLevMaps(QPair<int, int> sysLev, QPushButton* btn);
         void ClearSysLevMaps();
 
+    private:
+        GUILogMasterGui(const GUILogMasterGui&);
+        GUILogMasterGui operator=(const GUILogMasterGui&); 
 
-
-    private: // member objects
-        APILogmaster* fKALogmaster;     // Used to get one instance of KALogmaster
-        APILogMasters* fAPILogMasters;
+        APILogmaster* fKALogmaster = nullptr;     // Used to get one instance of KALogmaster
+        APILogMasters* fAPILogMasters = nullptr;
        
-        QGroupBox* fOutputTargetGb;
-        QGroupBox* fMessageFormatGb;
-        QGroupBox* fLogMasterGb;
+        QGroupBox* fOutputTargetGb = nullptr;
+        QGroupBox* fMessageFormatGb = nullptr;
+        QGroupBox* fLogMasterGb = nullptr;
 
-        QMap<QCheckBox*, int> fMessageFormatChecks;
+        QMap<QCheckBox*, int> fMessageFormatChecks{};
         
-        QSignalMapper* fSubsystemSigActMapper; 
+        QSignalMapper* fSubsystemSigActMapper = nullptr; 
         QMap<QPushButton*, QPair<int, int>> fSysLevControlButtons; // int1 = Y() and int 2 = X
         QMap<QPair<int, int>, QPushButton*> fSysLevControlButtonsInv; // int1 = Y and int 2 = X
         int fTarget = 0;
 
-        QPushButton* fTestMessagesButton;
+        QPushButton* fTestMessagesButton = nullptr;
 
-        QLabel* fCommandToLogmasterLabel;
-        QPlainTextEdit* fPlainTextEdit;
+        QLabel* fCommandToLogmasterLabel = nullptr;
+        QPlainTextEdit* fPlainTextEdit = nullptr;
 
-        QLabel* fSubsystemControlLabel;
-        QComboBox* fSubsystemCombo;
-        QPushButton* fClearMessagesButton;
+        QLabel* fSubsystemControlLabel = nullptr;
+        QComboBox* fSubsystemCombo = nullptr;
+        QPushButton* fClearMessagesButton = nullptr;
 
-        QString fTEXT_outputTarget;
-        QString fTEXT_messageFormat;
-        QString fTEXT_logMaster;
-        QString fTEXT_testMessages;
-        QString fTEXT_commandToLogmaster;
-        QString fTEXT_subsystemControl;
-        QString fTEXT_clearMessages;
+        QString fTEXT_outputTarget{};
+        QString fTEXT_messageFormat{};
+        QString fTEXT_logMaster{};
+        QString fTEXT_testMessages{};
+        QString fTEXT_commandToLogmaster{};
+        QString fTEXT_subsystemControl{};
+        QString fTEXT_clearMessages{};
     };
 
 

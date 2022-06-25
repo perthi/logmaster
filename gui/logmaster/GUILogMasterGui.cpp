@@ -28,8 +28,8 @@ GUILogMasterGui::GUILogMasterGui(int target, APILogmaster* KALogmaster, QWidget 
     fSubsystemCombo(0),
     fClearMessagesButton(0)
 {
-	fTarget = target;
-	fKALogmaster = KALogmaster;
+    fTarget = target;
+    fKALogmaster = KALogmaster;
     InitGui();
     RetranslateUi();
 }
@@ -41,16 +41,16 @@ GUILogMasterGui::~GUILogMasterGui()
 }
 
 
-/** @brief		InitGui
-*	@details	This Function will make a new QHBoxLayout for:	InitOutputTarget()
-																InitMessageFormat()
-																fTestMessagesButton
-																InitSystemAndLevelControl()
-																fCommandToLogmasterLabel
-																fPlainTextEdit
-																fSubsystemCombo
-																fClearMessagesButton
-				One layout will be populated for each Tab/target in the GUILogMasterTab class**/
+/** @brief      InitGui
+*   @details    This Function will make a new QHBoxLayout for:  InitOutputTarget()
+                                                                InitMessageFormat()
+                                                                fTestMessagesButton
+                                                                InitSystemAndLevelControl()
+                                                                fCommandToLogmasterLabel
+                                                                fPlainTextEdit
+                                                                fSubsystemCombo
+                                                                fClearMessagesButton
+                One layout will be populated for each Tab/target in the GUILogMasterTab class**/
 void 
 GUILogMasterGui::InitGui()
 {
@@ -85,11 +85,11 @@ GUILogMasterGui::InitGui()
     //Logmaster Subsystem Control label
     fSubsystemControlLabel = new QLabel(this);
 
-	//Logmaster Subsystem Control ComboBox
+    //Logmaster Subsystem Control ComboBox
     fSubsystemCombo = new QComboBox(this);
-	for (auto tag : fKALogmaster->GetSubSystemsControl())
-	{ 
-	   fSubsystemCombo->addItem(tag.GetName().c_str(), qVariantFromValue( tag.GetValue()));	
+    for (auto tag : fKALogmaster->GetSubSystemsControl())
+    { 
+       fSubsystemCombo->addItem(tag.GetName().c_str(), qVariantFromValue( tag.GetValue())); 
     }
 
     connect(fSubsystemCombo, SIGNAL(currentIndexChanged(int)),
@@ -125,12 +125,12 @@ GUILogMasterGui::InitGui()
 }
 
 
-/** @brief		RetranslateUi
-*	@details	This Function will configure the panel according to the stylesheet for Ferrotech**/
+/** @brief      RetranslateUi
+*   @details    This Function will configure the panel according to the qrc stylesheet**/
 void GUILogMasterGui::RetranslateUi()
 {
     fTEXT_outputTarget = tr("Output Target");
-	fTEXT_messageFormat = tr("Message Format");
+    fTEXT_messageFormat = tr("Message Format");
     fTEXT_logMaster = tr("Logmaster System and Level Control");
     fTEXT_testMessages = tr("&Test Messages");
     fTEXT_commandToLogmaster = tr("Command to Logmaster System messages");
@@ -152,15 +152,21 @@ void GUILogMasterGui::RetranslateUi()
     QString currStyle = settings.value("currentStyle").toString();
     if (currStyle != "Ferrotech")
     {
+        COUT << "STYLE IS NOT FERROTECH" << endl;
         QString ss = QString("font: \"Courier\"; background-color:  #000000;");
         fPlainTextEdit->setStyleSheet(ss);
     }
+    else
+    {
+        COUT << "STYLE IS!!  FERROTECH" << endl;
+    }
+    
 }
 
 
-/** @brief		InitOutputTarget
-*	@details	This Function makes a new QGroupBox and populates One selected Output target for the "Output Target" field.
-				The function returns a pointer to QGroupBox.**/
+/** @brief      InitOutputTarget
+*   @details    This Function makes a new QGroupBox and populates One selected Output target for the "Output Target" field.
+                The function returns a pointer to QGroupBox.**/
 QGroupBox* GUILogMasterGui::InitOutputTarget()
 {
     QGroupBox* outputTargetGb = new QGroupBox(this);
@@ -170,31 +176,31 @@ QGroupBox* GUILogMasterGui::InitOutputTarget()
     QButtonGroup* outputTargetChecks = new QButtonGroup(this);
     outputTargetChecks->setExclusive(false);
 
-	for (auto target : fKALogmaster->GetOutputTargets())
-	{
-		if(fTarget == target.GetValue())
-		{
-			QCheckBox* checkbox = new QCheckBox(this);
-			checkbox->setChecked(target.GetEnabled());
-			checkbox->setText(target.GetName().c_str());
-			outputTargetChecks->addButton(checkbox);
-			outputTargetLay->addWidget(checkbox);
-		}
-	}
+    for (auto target : fKALogmaster->GetOutputTargets())
+    {
+        if(fTarget == target.GetValue())
+        {
+            QCheckBox* checkbox = new QCheckBox(this);
+            checkbox->setChecked(target.GetEnabled());
+            checkbox->setText(target.GetName().c_str());
+            outputTargetChecks->addButton(checkbox);
+            outputTargetLay->addWidget(checkbox);
+        }
+    }
 
-	outputTargetLay->addStretch();
-	outputTargetGb->setLayout(outputTargetLay);
+    outputTargetLay->addStretch();
+    outputTargetGb->setLayout(outputTargetLay);
 
-	connect(outputTargetChecks, SIGNAL(buttonClicked(QAbstractButton *)),
-		this, SLOT(OutputTargetChecksClicked(QAbstractButton *)));
+    connect(outputTargetChecks, SIGNAL(buttonClicked(QAbstractButton *)),
+        this, SLOT(OutputTargetChecksClicked(QAbstractButton *)));
 
     return outputTargetGb;
 }
 
 
-/** @brief		InitMessageFormat
-*	@details	This Function makes a new QGroupBox and populates all message formats recieved from the API, a check box is made for every format.
-				The function returns a pointer to QGroupBox.**/
+/** @brief      InitMessageFormat
+*   @details    This Function makes a new QGroupBox and populates all message formats recieved from the API, a check box is made for every format.
+                The function returns a pointer to QGroupBox.**/
 QGroupBox* GUILogMasterGui::InitMessageFormat()
 {
     QGroupBox* informationLevelGb = new QGroupBox(this);
@@ -203,19 +209,19 @@ QGroupBox* GUILogMasterGui::InitMessageFormat()
     QButtonGroup *informationLevelChecks = new QButtonGroup(this);
     informationLevelChecks->setExclusive(false);
    
-	for(auto format : fKALogmaster->GetMessageFormat() )
-	{           
+    for(auto format : fKALogmaster->GetMessageFormat() )
+    {           
         QCheckBox* checkbox = new QCheckBox(this);
         checkbox->setChecked(format.GetEnabled());
         checkbox->setText(format.GetName().c_str());
         informationLevelChecks->addButton(checkbox);
         informationLevelLay->addWidget(checkbox);
-		fMessageFormatChecks.insert(checkbox, format.GetValue());
+        fMessageFormatChecks.insert(checkbox, format.GetValue());
     }
 
     informationLevelLay->addStretch();
     informationLevelGb->setLayout(informationLevelLay);
-	
+    
     connect(informationLevelChecks, SIGNAL(buttonClicked(QAbstractButton *)),
         this, SLOT(MessageFormatChecksClicked(QAbstractButton *)));
 
@@ -223,138 +229,138 @@ QGroupBox* GUILogMasterGui::InitMessageFormat()
 }
 
 
-/** @brief		InitSystemAndLevelControl
-*	@details	This Function  makes a QGroupBox and populates all the various sub systems and levels from the API.
-				A Slot is connected to the SubsysAndLevelButtonClicked() first before push buttons are populated with position information.
-				Text, X/Y position and color is populated through the API
-				The function returns a pointer to QGroupBox.**/
+/** @brief      InitSystemAndLevelControl
+*   @details    This Function  makes a QGroupBox and populates all the various sub systems and levels from the API.
+                A Slot is connected to the SubsysAndLevelButtonClicked() first before push buttons are populated with position information.
+                Text, X/Y position and color is populated through the API
+                The function returns a pointer to QGroupBox.**/
 QGroupBox* GUILogMasterGui::InitSystemAndLevelControl()
 {
-	QGroupBox* logMasterGb = new QGroupBox(this);
+    QGroupBox* logMasterGb = new QGroupBox(this);
 
-	fSubsystemSigActMapper = new QSignalMapper(this);
-	connect(fSubsystemSigActMapper, SIGNAL(mapped(QWidget*)),
-		this, SLOT(SubsysAndLevelButtonClicked(QWidget*)));
+    fSubsystemSigActMapper = new QSignalMapper(this);
+    connect(fSubsystemSigActMapper, SIGNAL(mapped(QWidget*)),
+        this, SLOT(SubsysAndLevelButtonClicked(QWidget*)));
 
-	QGridLayout* gridLay = new QGridLayout;
-	QPushButton* pb;
+    QGridLayout* gridLay = new QGridLayout;
+    QPushButton* pb;
 
-	for (auto sysLev : fKALogmaster->GetSubSysAndLevControl())
-	{
-		pb = new QPushButton(sysLev.GetName().c_str(), this);
-		// Push data regarding QPushButton and x/y position into memory map
-		StoreSysLevMaps(qMakePair(sysLev.GetYSystem(), sysLev.GetXLevel()), pb);
-	
-		// in QT, a X = a row, and Y = a column
-		gridLay->addWidget(pb, sysLev.GetYSystem(), sysLev.GetXLevel());
+    for (auto sysLev : fKALogmaster->GetSubSysAndLevControl())
+    {
+        pb = new QPushButton(sysLev.GetName().c_str(), this);
+        // Push data regarding QPushButton and x/y position into memory map
+        StoreSysLevMaps(qMakePair(sysLev.GetYSystem(), sysLev.GetXLevel()), pb);
+    
+        // in QT, a X = a row, and Y = a column
+        gridLay->addWidget(pb, sysLev.GetYSystem(), sysLev.GetXLevel());
 
-		QColor color(sysLev.GetColor());
-		QColor light = color.lighter();
-		QString ss = QString(
-			"background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 %1, stop: 1 %2);"
-		).arg(color.name()).arg(light.name());
-		pb->setObjectName("LogMasterSubsystemButton"); //Use rest of style defined in ferrotech.qmm with #LogMasterSubsystemButton
-		pb->setStyleSheet(ss);
-		pb->setCheckable(true);
-		pb->setChecked(sysLev.GetEnabled());
+        QColor color(sysLev.GetColor());
+        QColor light = color.lighter();
+        QString ss = QString(
+            "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 %1, stop: 1 %2);"
+        ).arg(color.name()).arg(light.name());
+        pb->setObjectName("LogMasterSubsystemButton"); //Use rest of style defined in ferrotech.qmm with #LogMasterSubsystemButton
+        pb->setStyleSheet(ss);
+        pb->setCheckable(true);
+        pb->setChecked(sysLev.GetEnabled());
 
-		connect(pb, SIGNAL(clicked()),
-			fSubsystemSigActMapper, SLOT(map()));
+        connect(pb, SIGNAL(clicked()),
+            fSubsystemSigActMapper, SLOT(map()));
 
-		fSubsystemSigActMapper->setMapping(pb, qobject_cast<QWidget*>(pb));
+        fSubsystemSigActMapper->setMapping(pb, qobject_cast<QWidget*>(pb));
 
-	}
-	logMasterGb->setLayout(gridLay);
+    }
+    logMasterGb->setLayout(gridLay);
    
     return logMasterGb;
 }
 
 
-/** @brief		OutputTargetChecksClicked
-*	@details	This Function is a slot that is connected by InitOutputTarget().
-				The QAbstractButton object is casted to a QCheckBox to get enabled, and string command to send to the API.
-				Then the UpdateTextMessagePanel() function is called to show the commands sendt via the API.
-*	@param[in]	ab  */
+/** @brief      OutputTargetChecksClicked
+*   @details    This Function is a slot that is connected by InitOutputTarget().
+                The QAbstractButton object is casted to a QCheckBox to get enabled, and string command to send to the API.
+                Then the UpdateTextMessagePanel() function is called to show the commands sendt via the API.
+*   @param[in]  ab  */
 void GUILogMasterGui::OutputTargetChecksClicked(QAbstractButton* ab)
 {
     QCheckBox* cb = qobject_cast<QCheckBox*>(ab);
     
     bool enable = cb->isChecked();
-	string target = cb->text().toStdString();
-	fKALogmaster->SetOutputTarget(target, enable);
+    string target = cb->text().toStdString();
+    fKALogmaster->SetOutputTarget(target, enable);
 
-	UpdateTextMessagePanel();
+    UpdateTextMessagePanel();
 }
 
 
-/** @brief		MessageFormatChecksClicked
-*	@details	This Function is a slot that is connected by InitMessageFormat().
-				The QAbstractButton object is casted to a QCheckBox to get enabled, and string command to send to the API. 
-				Then the UpdateTextMessagePanel() function is called to show the commands sendt via the API.
-				Then the checkboxes is updated by retrieving data from the API..
-*	@param[in]	ab */
+/** @brief      MessageFormatChecksClicked
+*   @details    This Function is a slot that is connected by InitMessageFormat().
+                The QAbstractButton object is casted to a QCheckBox to get enabled, and string command to send to the API. 
+                Then the UpdateTextMessagePanel() function is called to show the commands sendt via the API.
+                Then the checkboxes is updated by retrieving data from the API..
+*   @param[in]  ab */
 void GUILogMasterGui::MessageFormatChecksClicked(QAbstractButton* ab)
 {
 
-	QCheckBox* cb = qobject_cast<QCheckBox*>(ab);
-	
-	bool enable = cb->isChecked();
-	string format = cb->text().toStdString();
-	fKALogmaster->SetMessageFormat(format, enable);
+    QCheckBox* cb = qobject_cast<QCheckBox*>(ab);
+    
+    bool enable = cb->isChecked();
+    string format = cb->text().toStdString();
+    fKALogmaster->SetMessageFormat(format, enable);
 
-	UpdateTextMessagePanel();
-	
-	
-	// Update Checked buttons according to setting in Logging system
-	for (auto it = fMessageFormatChecks.begin(); it != fMessageFormatChecks.end(); it++)
-	{
-		for (auto format : fKALogmaster->GetMessageFormat())
-		{
-			if (format.GetValue() == it.value())
-			{
-				it.key()->setChecked(format.GetEnabled());
-			}
-		}
-	}
+    UpdateTextMessagePanel();
+    
+    
+    // Update Checked buttons according to setting in Logging system
+    for (auto it = fMessageFormatChecks.begin(); it != fMessageFormatChecks.end(); it++)
+    {
+        for (auto format : fKALogmaster->GetMessageFormat())
+        {
+            if (format.GetValue() == it.value())
+            {
+                it.key()->setChecked(format.GetEnabled());
+            }
+        }
+    }
 }
 
 
-/** @brief		SubsysAndLevelButtonClicked
-*	@details	This Function is a slot that is connected by InitSystemAndLevelControl(). 
-				The QWidget button object is used to identify level, system and enable that is input variables to the API SetSubSysAndLevControl() function.
-				Then the UpdateTextMessagePanel() function is called to show the commands sendt via the API.
-				Then the RefreshSubsysAndLevel() function is called to refresh the System and Level fields.
-*	@param[in]	button**/
+/** @brief      SubsysAndLevelButtonClicked
+*   @details    This Function is a slot that is connected by InitSystemAndLevelControl(). 
+                The QWidget button object is used to identify level, system and enable that is input variables to the API SetSubSysAndLevControl() function.
+                Then the UpdateTextMessagePanel() function is called to show the commands sendt via the API.
+                Then the RefreshSubsysAndLevel() function is called to refresh the System and Level fields.
+*   @param[in]  button**/
 void 
 GUILogMasterGui::SubsysAndLevelButtonClicked(QWidget* button)
 {
-	// retrieve data from clicked button
+    // retrieve data from clicked button
     QPushButton* pb = qobject_cast<QPushButton*>(button);
     QPair<int, int> pair = fSysLevControlButtons.value(pb);
 
-	int y_sys = pair.first;
-	int x_lev = pair.second;
-	bool enable = pb->isChecked();
+    int y_sys = pair.first;
+    int x_lev = pair.second;
+    bool enable = pb->isChecked();
 
-	fKALogmaster->SetSubSysAndLevControl(x_lev, y_sys, enable);
-		
-	UpdateTextMessagePanel();
+    fKALogmaster->SetSubSysAndLevControl(x_lev, y_sys, enable);
+        
+    UpdateTextMessagePanel();
 
-	RefreshSubsysAndLevel();
+    RefreshSubsysAndLevel();
 
 }
 
-/** @brief		TestMessages
-*	@details	This Function will write a set of predefined Test messages**/
+/** @brief      TestMessages
+*   @details    This Function will write a set of predefined Test messages**/
 void 
 GUILogMasterGui::TestMessages()
 {
-	fKALogmaster->WriteTestMessages();
+    fKALogmaster->WriteTestMessages();
 }
 
 
-/** @brief		ClearMessages
-*	@details	This Function will clear all messages in the GUI panel**/
+/** @brief      ClearMessages
+*   @details    This Function will clear all messages in the GUI panel**/
 void 
 GUILogMasterGui::ClearMessages()
 {
@@ -362,82 +368,82 @@ GUILogMasterGui::ClearMessages()
 }
 
 
-/** @brief		SubSystemControlClicked
-*	@details	This Function is triggered by an mouse click on the SubsystemCombo box. The selected text is collected from the combo box.
-				Then the command is pushed to the API, next the UpdateTextMessagePanel() function is called to show the commands sendt via the API.
-				Then the RefreshSubsysAndLevel() function is called to refresh the System and Level fields.**/
+/** @brief      SubSystemControlClicked
+*   @details    This Function is triggered by an mouse click on the SubsystemCombo box. The selected text is collected from the combo box.
+                Then the command is pushed to the API, next the UpdateTextMessagePanel() function is called to show the commands sendt via the API.
+                Then the RefreshSubsysAndLevel() function is called to refresh the System and Level fields.**/
 void 
 GUILogMasterGui::SubSystemControlClicked()
 {
 
-	QString cmd = fSubsystemCombo->currentText(); 
-	
-	fKALogmaster->SetSubSystem(cmd.toStdString());
+    QString cmd = fSubsystemCombo->currentText(); 
+    
+    fKALogmaster->SetSubSystem(cmd.toStdString());
 
-	UpdateTextMessagePanel();
+    UpdateTextMessagePanel();
 
-	RefreshSubsysAndLevel();
+    RefreshSubsysAndLevel();
     
 }
 
-/** @brief		UpdateTextMessagePanel
-*	@details	This Function ask the KALogmaster API for any messages sent to the Loggingsystem.
-				The API is populating a vector, and tis function is itterating through and publishing the 
-				commands to the GUI windows for all strings in the vector. In the end the the vector is cleared, making the function redy for new messages**/
+/** @brief      UpdateTextMessagePanel
+*   @details    This Function ask the KALogmaster API for any messages sent to the Loggingsystem.
+                The API is populating a vector, and tis function is itterating through and publishing the 
+                commands to the GUI windows for all strings in the vector. In the end the the vector is cleared, making the function redy for new messages**/
 void 
 GUILogMasterGui::UpdateTextMessagePanel()
 {
-	std::vector<string> v = fKALogmaster->GetTextFieldData();
-	
-	for (size_t i = 0; i < v.size(); i++)
-	{
-		QString str = QString::fromStdString( v.at(i) );
-		fPlainTextEdit->appendPlainText(str);
-	}
+    std::vector<string> v = fKALogmaster->GetTextFieldData();
+    
+    for (size_t i = 0; i < v.size(); i++)
+    {
+        QString str = QString::fromStdString( v.at(i) );
+        fPlainTextEdit->appendPlainText(str);
+    }
 
-	// Now all data is pushed out, clear the vector
-	fKALogmaster->ClearTextFieldData();
+    // Now all data is pushed out, clear the vector
+    fKALogmaster->ClearTextFieldData();
 }
 
 
-/** @brief		RefreshSubsysAndLevel
-*	@details	This Function will clear the SyslevMaps and then go through all Systems and 
-				Levels from the Logging system API to update the GUI QPushButton's**/
+/** @brief      RefreshSubsysAndLevel
+*   @details    This Function will clear the SyslevMaps and then go through all Systems and 
+                Levels from the Logging system API to update the GUI QPushButton's**/
 void 
 GUILogMasterGui::RefreshSubsysAndLevel()
 {
-	QPushButton* pb;
-	
-	for (auto sysLev : fKALogmaster->GetSubSysAndLevControl() )
-	{	
-		pb = fSysLevControlButtonsInv.find(qMakePair(sysLev.GetYSystem(), sysLev.GetXLevel())).value();
-		pb->setChecked(sysLev.GetEnabled());
-		pb->setText(sysLev.GetName().c_str());
-		///USER_WARNING("%i %i %i %s", sysLev.GetXLevel(), sysLev.GetYSystem(), sysLev.GetEnabled(), sysLev.GetName().c_str());
-	}
-	return;
+    QPushButton* pb;
+    
+    for (auto sysLev : fKALogmaster->GetSubSysAndLevControl() )
+    {   
+        pb = fSysLevControlButtonsInv.find(qMakePair(sysLev.GetYSystem(), sysLev.GetXLevel())).value();
+        pb->setChecked(sysLev.GetEnabled());
+        pb->setText(sysLev.GetName().c_str());
+        ///USER_WARNING("%i %i %i %s", sysLev.GetXLevel(), sysLev.GetYSystem(), sysLev.GetEnabled(), sysLev.GetName().c_str());
+    }
+    return;
 }
 
 
-/** @brief		StoreSysLevMaps
-*	@details	This Function will store System and Level buttons x/y positions and the QPushButton 
-				int two Maps, one inverted related to the other
-*	@param[in]	sysLev int1 = y(row-system) position of the button, int2 = x(column-level) position of the button
-*	@param[in]	btn a pointer to the actual QPushButton object.**/
+/** @brief      StoreSysLevMaps
+*   @details    This Function will store System and Level buttons x/y positions and the QPushButton 
+                int two Maps, one inverted related to the other
+*   @param[in]  sysLev int1 = y(row-system) position of the button, int2 = x(column-level) position of the button
+*   @param[in]  btn a pointer to the actual QPushButton object.**/
 void 
 GUILogMasterGui::StoreSysLevMaps(QPair<int, int> sysLev, QPushButton* btn)
 {
-	fSysLevControlButtons.insert(btn, sysLev);
-	fSysLevControlButtonsInv.insert(sysLev, btn);
+    fSysLevControlButtons.insert(btn, sysLev);
+    fSysLevControlButtonsInv.insert(sysLev, btn);
 }
 
 
-/** @brief		ClearSysLevMaps
-*	@details	This Function will clear both the fSysLevControlButtons Map and the 
-				fSysLevControlButtonsInv Map**/
+/** @brief      ClearSysLevMaps
+*   @details    This Function will clear both the fSysLevControlButtons Map and the 
+                fSysLevControlButtonsInv Map**/
 void 
 GUILogMasterGui::ClearSysLevMaps()
 {
-	fSysLevControlButtons.clear();
-	fSysLevControlButtonsInv.clear();
+    fSysLevControlButtons.clear();
+    fSysLevControlButtonsInv.clear();
 }

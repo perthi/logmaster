@@ -15,7 +15,6 @@
 
 
 #include <common/FDefinitions.h>
-//#include <api/api-logmaster/APILogmasters.h>
 #include "GUILogMasterGui.h"
 
 
@@ -43,11 +42,15 @@
         void RetranslateUi();
         void LoadTabs();
 
-    private: // member objects
-        QTabWidget * fTab;
-        QMap<int, APILogmaster *> fLogMasterTarget; // first value is index for tab, starting at 0  second value is pointer to correct object
-        APILogMasters* fAPILogMasters;
-    };
+    private:
+
+        GUILogMasterTab(const GUILogMasterTab&);
+        GUILogMasterTab operator=(const GUILogMasterTab&);
+        
+        QTabWidget * fTab = nullptr;
+        QMap<int, APILogmaster *> fLogMasterTarget{}; // first value is index for tab, starting at 0  second value is pointer to correct object
+        APILogMasters* fAPILogMasters = nullptr;
+        };
 
 
 #endif

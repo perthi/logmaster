@@ -23,6 +23,9 @@ APILogmaster* APILogmaster::Instance()
 }
 
 
+
+
+
 APILogmaster::APILogmaster(string targetName, eMSGTARGET target)
 {
     //fHashMap = new LHashMaps( eMSGLEVEL::LOG_WARNING );
@@ -61,7 +64,7 @@ APILogmaster::~APILogmaster()
 void
 APILogmaster::SetLoggingTarget(const  string  &target)
 {
-// #OLP m� fjernes n�r tabbene er p� plass
+    ///@todo OLP must be removed when the tabs is in place
     fLogHandle->SetLogTarget(target);
     fTarget = fLogHandle->GetLogTarget();
 }
@@ -69,7 +72,7 @@ APILogmaster::SetLoggingTarget(const  string  &target)
 
 /** @brief      GetSubSystemsControl
 *   @details    This Function will return a vector with object APISubSystemsControl that
-*               contain Logmaster Sybsystem Control text and Hex value definition (int)
+*               contain Logmaster subsystem Control text and Hex value definition (int)
 *   @return     vector<APISubSystemsControl>  */
 std::vector<APISubSystemsControl>
 APILogmaster::GetSubSystemsControl()
@@ -124,7 +127,7 @@ APILogmaster::GetMessageFormat()
     
     for (auto format : * fHashMap->GetFormatHash())
     {
-        //Skip all off button (all on uncheck works the same)
+        //Skip all off button (all on unchecked works the same)
         if (format.second == eMSGFORMAT::PREFIX_OFF)
         {
             continue;
@@ -170,7 +173,6 @@ APILogmaster::GetSubSysAndLevControl()
     {
         //Skip none system
         if (sys->first == eMSGSYSTEM::SYS_NONE)     continue;
-//      if (sys->first == eMSGSYSTEM::SYS_DB_ALL)   continue;
         
         //Make Select all button if SYS_ALL.
         if (sys->first == eMSGSYSTEM::SYS_ALL)
