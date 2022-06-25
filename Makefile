@@ -43,8 +43,8 @@ export VERSIONINFO_EXE=$(BUILDDIR)/x86/bin/version-info
 export COMMON_FLAGS:= -fPIC  -std=c++17  -g
 
 ## export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wfatal-errors  -Werror
-export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security  
-## export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum  -Wignored-qualifiers -Wno-format-security  
+export PEDANTIC_FLAGS:=    -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum  -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security
+
 
 export HAS_LOGGING:=""
 export LOGMASTER_HOME=$(PWD)
@@ -104,6 +104,8 @@ support-modules:= 	$(utilities) \
 			$(logging) \
 			$(cmdline)
 
+gui-lib+=$(gui-logger) $(gui-logmaster) $(gui-common)
+gui-exe+=$(gui-example1)
 
 src-lib:= $(support-modules) \
 	$(gtest-embc) \
@@ -142,8 +144,8 @@ all-src:=$(arm-src)
 endif
 
 ifdef GUI
-src-lib+=$(gui-logger) $(gui-logmaster) $(gui-common)
-src-exe+=$(gui-example1)
+src-lib+=$(gui-lib)
+src-exe+=$(gui-exe)
 x86-src:= $(src-lib) $(src-exe)
 all-src:=$(x86-src)
 endif
@@ -202,6 +204,17 @@ x86:    $(INSTALLDIRS)
 
 arm:    $(INSTALLDIRS)
 	@$(MAKE) TARGET=arm
+
+
+
+.PHONY : rcc
+rcc:
+	rcc   gui/resources/gui-qt.qrc  >  gui/resources/gui-qt.rcc
+#	rcc   gui/sensors-qml/qml-example1.qrc > gui/sensors-qml/qrc_main.cpp
+
+.PHONY : moc
+moc: rcc
+	./generate-moch.sh  $(gui-lib) $(gui-exe)
 
 
 .PHONY: clean
