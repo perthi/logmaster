@@ -14,7 +14,7 @@
 #include <QtWidgets/QPushButton>
 
 #include <utilities/GDefinitions.h>
-	
+    
 
    class GUICentralPlaceholder : public QWidget
    {
@@ -36,16 +36,19 @@
       void RetranslateUi();
 
    private: // member objects
-      QLabel *fLogo;
-      QLabel *fHeaderLabel;
-      QLabel *fFirstContentLabel;
+      GUICentralPlaceholder(const GUICentralPlaceholder&);
+      GUICentralPlaceholder operator=(const GUICentralPlaceholder&);
+
+      QLabel *fLogo = nullptr;
+      QLabel *fHeaderLabel = nullptr;
+      QLabel *fFirstContentLabel = nullptr;
  //     QPushButton *fLoginButton;
-      QPushButton *fInfoButton;
-      QPushButton *fExitButton;
+      QPushButton *fInfoButton = nullptr;
+      QPushButton *fExitButton = nullptr;
 
   //    QString fTEXT__m_loginButton_tooltip;
-      QString fTEXT__m_infoButton_tooltip;
-      QString fTEXT__m_exitButton_tooltip;
+      QString fTEXT__m_infoButton_tooltip{};
+      QString fTEXT__m_exitButton_tooltip{};
    };
 
 

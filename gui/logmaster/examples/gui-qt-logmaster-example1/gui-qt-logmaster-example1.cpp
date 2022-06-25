@@ -13,7 +13,6 @@
 #include <QtCore/QtDebug>
 #include <QtCore/QFileInfo>
 
-
 #include <gui/logmaster/GUILogMasterTab.h>
 #include <gui/common/GUIExecWidget.h>
 #include  <gui/common/GUIInitStyles.h>

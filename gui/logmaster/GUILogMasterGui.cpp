@@ -89,7 +89,7 @@ GUILogMasterGui::InitGui()
     fSubsystemCombo = new QComboBox(this);
     for (auto tag : fKALogmaster->GetSubSystemsControl())
     { 
-       fSubsystemCombo->addItem(tag.GetName().c_str(), qVariantFromValue( tag.GetValue())); 
+       fSubsystemCombo->addItem(tag.GetName().c_str(), QVariant::fromValue( tag.GetValue()) ); 
     }
 
     connect(fSubsystemCombo, SIGNAL(currentIndexChanged(int)),
@@ -199,7 +199,7 @@ QGroupBox* GUILogMasterGui::InitOutputTarget()
 
 
 /** @brief      InitMessageFormat
-*   @details    This Function makes a new QGroupBox and populates all message formats recieved from the API, a check box is made for every format.
+*   @details    This Function makes a new QGroupBox and populates all message formats received from the API, a check box is made for every format.
                 The function returns a pointer to QGroupBox.**/
 QGroupBox* GUILogMasterGui::InitMessageFormat()
 {
@@ -279,7 +279,7 @@ QGroupBox* GUILogMasterGui::InitSystemAndLevelControl()
 /** @brief      OutputTargetChecksClicked
 *   @details    This Function is a slot that is connected by InitOutputTarget().
                 The QAbstractButton object is casted to a QCheckBox to get enabled, and string command to send to the API.
-                Then the UpdateTextMessagePanel() function is called to show the commands sendt via the API.
+                Then the UpdateTextMessagePanel() function is called to show the commands sent via the API.
 *   @param[in]  ab  */
 void GUILogMasterGui::OutputTargetChecksClicked(QAbstractButton* ab)
 {
@@ -296,7 +296,7 @@ void GUILogMasterGui::OutputTargetChecksClicked(QAbstractButton* ab)
 /** @brief      MessageFormatChecksClicked
 *   @details    This Function is a slot that is connected by InitMessageFormat().
                 The QAbstractButton object is casted to a QCheckBox to get enabled, and string command to send to the API. 
-                Then the UpdateTextMessagePanel() function is called to show the commands sendt via the API.
+                Then the UpdateTextMessagePanel() function is called to show the commands sent via the API.
                 Then the checkboxes is updated by retrieving data from the API..
 *   @param[in]  ab */
 void GUILogMasterGui::MessageFormatChecksClicked(QAbstractButton* ab)
@@ -314,11 +314,11 @@ void GUILogMasterGui::MessageFormatChecksClicked(QAbstractButton* ab)
     // Update Checked buttons according to setting in Logging system
     for (auto it = fMessageFormatChecks.begin(); it != fMessageFormatChecks.end(); it++)
     {
-        for (auto format : fKALogmaster->GetMessageFormat())
+        for (auto f : fKALogmaster->GetMessageFormat())
         {
-            if (format.GetValue() == it.value())
+            if (f.GetValue() == it.value())
             {
-                it.key()->setChecked(format.GetEnabled());
+                it.key()->setChecked(f.GetEnabled());
             }
         }
     }

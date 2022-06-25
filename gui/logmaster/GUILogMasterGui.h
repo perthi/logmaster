@@ -73,8 +73,8 @@
         QMap<QCheckBox*, int> fMessageFormatChecks{};
         
         QSignalMapper* fSubsystemSigActMapper = nullptr; 
-        QMap<QPushButton*, QPair<int, int>> fSysLevControlButtons; // int1 = Y() and int 2 = X
-        QMap<QPair<int, int>, QPushButton*> fSysLevControlButtonsInv; // int1 = Y and int 2 = X
+        QMap<QPushButton*, QPair<int, int>> fSysLevControlButtons{}; // int1 = Y() and int 2 = X
+        QMap<QPair<int, int>, QPushButton*> fSysLevControlButtonsInv{}; // int1 = Y and int 2 = X
         int fTarget = 0;
 
         QPushButton* fTestMessagesButton = nullptr;
