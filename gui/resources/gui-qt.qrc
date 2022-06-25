@@ -1,13 +1,18 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/ferrotech.png</file>
         <file>images/kmlogo.png</file>
+        <file>images/instrumentsettings.png</file>
+        <file>images/epcjigsetup.png</file>
+        <file>images/epc_ovp_off.png</file>
+        <file>images/epc_ovp_on.png</file>
+        <file>images/epc_pulse.png</file>
         <file>images/ok.png</file>
         <file>images/folder.png</file>
         <file>images/norway.png</file>
         <file>images/uk.png</file>
         <file>images/poweroff.png</file>
         <file>images/user.png</file>
+        <file>images/km_large.jpg</file>
         <file>images/password.png</file>
         <file>images/quit.png</file>
         <file>images/info.png</file>
@@ -25,6 +30,6 @@
         <file>images/down_round.png</file>
         <file>images/checkbox_unchecked.png</file>
         <file>images/checkbox_checked.png</file>
-      <file>styles/ferrotech.qmm</file>
+      <file>styles/norspace.qmm</file>
     </qresource>
 </RCC>
