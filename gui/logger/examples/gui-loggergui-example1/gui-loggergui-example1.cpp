@@ -31,9 +31,6 @@ using std::cerr;
 
 
 
-
-
-
 #include  <gui/common/GUIInitStyles.h>
 
 int main(int argc, char* argv[])

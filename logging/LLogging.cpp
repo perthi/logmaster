@@ -131,7 +131,7 @@ namespace LOGMASTER
         fConfig->emplace(  eMSGTARGET::TARGET_EXCEPTION,   LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_TESTING,     LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_DATABASE,     LMessageFactory() );
-     ///   fConfig->emplace(  eMSGTARGET::TARGET_ALL,     LMessageFactory() );
+   //     fConfig->emplace(  eMSGTARGET::TARGET_ALL,     LMessageFactory() );
 
         fDefaultConfig = fConfig;
 
@@ -145,7 +145,6 @@ namespace LOGMASTER
         {
             fMessages->emplace( it->first, new LMessage() );
         }
-
     }
 
 
@@ -208,10 +207,6 @@ namespace LOGMASTER
                     if(cl == true)
                     {
                         QueMessage(tmp_msg, it->second.GetConfig(), it->first);
-
-                        //   LPublisher::Instance()->PublishMessage( tmp_msg, it->second.GetConfig(), it->first );
-
-                        // LPublisher::PublishMessage( tmp_msg, it->second.GetConfig(), target );
                         auto it_msg = fMessages->find(it->first);
                         if(it_msg != fMessages->end())
                         {
@@ -306,8 +301,6 @@ namespace LOGMASTER
 #endif
         vector<eMSGTARGET> e_targets;
         vector<string> tokens  =  GTokenizer().Tokenize( target_s, vector<string>{" ", "\n","\t" } );
-
-     //   COUT << "setting target:" << target_s << ( eneable == true ? "TRUE" : "FALSE" ) << endl;
 
         for ( size_t i = 0; i < tokens.size(); i++ )
         {
@@ -454,7 +447,7 @@ namespace LOGMASTER
         std::lock_guard<std::mutex> guard( log_mutex );
         auto m = LConversion::SplitByTarget(level_s);
 
-        COUT <<  level_s << endl;   
+    //    COUT <<  level_s << endl;   
 
         for ( auto it_m = m.begin(); it_m != m.end(); it_m++ )
         {

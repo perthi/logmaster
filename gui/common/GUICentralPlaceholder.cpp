@@ -19,7 +19,7 @@
 
 
     /**  @class     GUICentralPlaceholder
-      *  @brief     Widget class to hold the central position when user isnt logged in */
+      *  @brief     Widget class to hold the central position when user is not logged in */
 
 
     GUICentralPlaceholder::GUICentralPlaceholder( QWidget *parent )
