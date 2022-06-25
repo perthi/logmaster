@@ -19,15 +19,13 @@ LIBNAME_A=libgui-common.a
 	GUIGraphicalIndicator.cpp \
 	GUIGraphicalSlider.cpp
 
+
 SRCCPP:=GUICommonGui.cpp \
 	GUIPushButton.cpp \
 	GUIInitStyles.cpp \
 	GUILoggerBase.cpp \
 	GUICommonGui_moc.cpp  \
-	GUIPushButton_moc.cpp \
-	GUIPainterClass.cpp \
-	GUIPainterClass_moc.cpp
-
+	GUIPushButton_moc.cpp 
 
 
 export CPPFLAGS:=$(CPPFLAGS_RELAXED)
