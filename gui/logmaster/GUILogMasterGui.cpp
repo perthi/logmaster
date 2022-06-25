@@ -158,6 +158,8 @@ void GUILogMasterGui::RetranslateUi()
     }
     else
     {
+        QString ss = QString("font: \"Courier\"; background-color:  #000000;");
+        fPlainTextEdit->setStyleSheet(ss);
         COUT << "STYLE IS!!  FERROTECH" << endl;
     }
     

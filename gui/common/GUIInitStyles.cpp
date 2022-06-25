@@ -36,12 +36,14 @@ GUIInitStyles::Init(QApplication * /*app*/)
     #ifdef _WIN32
         resource_s =  "gui-qt.rcc";
         style_s =  ":/styles/ferrotech.qmm";
+
     #else
 //        string home = getenv("LOGMASTER_HOME");
         #ifdef GUI_DIR
         string home = GUI_DIR;
         resource_s = home + "/gui/resources/gui-qt.rcc";
-        style_s = home + "/gui/resources/styles/ferrotech.qmm";
+        ///style_s = home + "/gui/resources/styles/ferrotech.qmm";
+        style_s = home + "/gui/resources/styles/norspace.qmm";
         #else
         G_ERROR("GUI dir is not set, cannot load styles");
         string home = "";

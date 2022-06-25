@@ -1,0 +1,790 @@
+/*************************************************************************/
+/*                                                                       */
+/*    Style configuration file for Norspace KNS-TS                       */
+/*                                                                       */
+/*    This file defines colors, fonts etc for the KNS-TS application     */
+/*                                                                       */
+/*    Authors: Stian Broen, Kjetil Spangelid (Broentech Solutions AS)    */
+/*                                                                       */
+/*    Copyright: Kongsberg Norspace AS                                   */
+/*                                                                       */
+/*************************************************************************/
+
+/**************************/
+/*    Global Settings     */
+/**************************/
+
+/* Main window  */
+QMainWindow {
+	background-color: #242424;
+	color: #E3E3E3;
+	font: bold 12px;
+}
+
+
+/* Dialog windows (configures almost all dialogs except the main window) */
+QDialog {
+	background-color: #242424;
+	border-color: red;
+	color: #E3E3E3;
+	font: bold 12px;
+}
+
+
+/* Used for FSM, Logging and Rx Tuning windows*/
+QWidget#KGUIWidget {
+	background-color: #242424;
+	border-color: red;
+	color: #E3E3E3;
+	font: bold 12px;
+}
+
+
+
+/* GUI grouping elements with title (FSM module, DUT module, Logging module etc) */
+QGroupBox {
+	background-color: #242424;
+	border: 2px solid gray;
+	border-radius: 3px;
+	margin-top: 10px; /* leave space at the top for the title */
+}
+
+/* Title box of group boxes */
+QGroupBox::title {
+	subcontrol-origin: margin;
+	subcontrol-position: top center; /* position at the top center */
+	padding: 1px 20px;
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 white, stop: 1 lightgray);
+										
+	border: 2px solid gray;
+	border-radius: 5px;
+	font-size: 12px;
+}
+
+
+/*  Text labels */
+QLabel {
+	background-color: #242424;
+	color: #E3E3E3;
+	font: bold 12px;
+}
+
+
+/* Buttons */
+QPushButton {
+	border: transparent;
+	border-radius: 6px;
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 #ffff44, stop:1 #545444);
+    min-height: 30px;
+    min-width: 50px;
+}
+
+QToolButton {
+	border: transparent;
+	border-radius: 6px;
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 #ffff44, stop:1 #545444);
+    min-height: 30px;
+    min-width: 50px;
+}
+
+/* Buttons when mouse is hovering over */
+QPushButton:hover {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 yellow, stop:1 red);
+}
+
+QToolButton:hover {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 yellow, stop:1 red);
+}
+
+
+/* Tooltip labels. (Shown when mouse is hovering over certain GUI elements) */
+QToolTip {
+	border: transparent;
+	padding: 5px;
+	border-radius: 3px;
+	opacity: 200;
+}
+
+
+/* One line text input fields / password fields */
+QLineEdit {
+	font-size: 16px;
+	min-width: 28ex;
+	min-height: 8px;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	background-color: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
+                                        stop:0 white, stop:1 #545454);
+}
+
+
+QSpinBox {
+	font-size: 16px;
+	min-width: 28ex;
+	min-height: 8px;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	background-color: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
+                                        stop:0 white, stop:1 #545454);
+}
+
+
+/* Comboboxes (dropdown menus) */
+QComboBox {
+	background-color: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
+                                        stop:0 white, stop:1 #646464);
+	font-size: 14px;
+	min-width: 18px;
+	min-height: 8px;
+	border: 1px solid transparent;
+	border-radius: 6px;
+}
+
+/* Drop down button on comboboxes */
+QComboBox::drop-down {
+	min-height: 8px;
+	min-width: 8px;
+	border: 1px solid transparent;
+	border-radius: 2px;
+}
+
+/* Down arrow icon on comboboxes */
+QComboBox::down-arrow {
+	border: transparent;
+	border-radius: 6px;
+	min-height: 10px;
+	min-width: 10px;
+	image: url(:/images/down.png);
+	subcontrol-origin: padding;
+	subcontrol-position: center;
+	top: 0 px;
+}
+
+
+/* Text output windows (Logging text window, text output window in logmaster etc) */
+QPlainTextEdit {
+	color: white; /* Default text color */
+	background-color: #000000;
+}
+
+
+/* Menu bar (Top right: File, Settings...) */
+QMenuBar {
+	border: transparent;
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 lightgray, stop:1 darkgray);
+	color: #242424;
+	font: bold 12px;
+}
+
+QMenuBar::item {
+	color: #242424;
+	font: bold 12px;
+	spacing: 8px; /* spacing between menu bar items */
+	padding: 4px 4px 4px 4px;
+	background: transparent;
+	border-radius: 4px;
+}
+
+QMenuBar::item:selected { /* when selected using mouse or keyboard */
+	color: #242424;
+	font: bold 12px;
+	background: #a8a8a8;
+}
+
+QMenuBar::item:pressed {
+	color: red;
+	font: bold 12px;
+	background: #888888;
+}
+
+
+/* Menu options (Top right menu and FSM right click etc) */
+QMenu {
+	background-color: #242424;
+	margin: 2px; /* some spacing around the menu */
+	color: #242424;
+	font: bold 12px;
+}
+
+QMenu::item {
+	background-color: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
+                                        stop:0 white, stop:1 darkgray);
+	padding: 2px 25px 2px 20px;
+	border: 1px solid transparent; /* reserve space for selection border */
+	color: #242424;
+	font: bold 12px;
+}
+
+QMenu::item:selected {
+	border-color: red;
+	background-color: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
+                                        stop:0 white, stop:1 #FF9696);
+	padding: 2px 25px 2px 20px;
+	border: 1px solid transparent; /* reserve space for selection border */
+	color: #242424;
+	font: bold 12px;
+}
+
+
+/* Toolbar with icons (left side) */
+QToolBar {
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 lightgray, stop: 1 #242424);
+}
+
+
+/* Status bar (lower left in main window + some other widgets) */
+QStatusBar {
+	color: #E3E3E3;
+	font: bold 12px;
+}
+
+
+/*     Checkboxes     */
+QCheckBox {
+      spacing: 5px;
+	  font: 12px;
+	  color: black;
+          background-color: white;
+         
+}
+
+
+
+QCheckBox::indicator {
+      width: 13px;
+      height: 13px;
+}
+
+
+/*
+QCheckBox::indicator {
+      width: 26px;
+      height: 26px;
+}
+*/
+
+
+/*
+QCheckBox::indicator:unchecked {
+      image: url(:/images/checkbox_unchecked.png);
+	  background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 white, stop:1 #242424);
+}
+
+QCheckBox::indicator:checked {
+    image: url(:/images/checkbox_checked.png);
+  background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                      stop:0 white, stop:1 #242424);
+}
+*/
+
+
+
+/*    End Checkboxes    */
+
+
+/* Tab Widget (Widget containing all DUT tabs, i.e. the page selectors with DUT names) */
+QTabWidget::pane {
+	border-top: 3px solid #C2C7CB;
+}
+
+QTabWidget::tab-bar {
+	left: 5px; /* move to the right by 5px */
+}
+
+/* DUT Tabs (The contents of each tab) */
+QTabBar::tab {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                  stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
+                                  stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
+	border: 2px solid #C4C4C3;
+	border-bottom-color: #C2C7CB; /* same as the pane color */
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	min-width: 14ex;
+	padding: 4px;
+	font: 12px;
+}
+
+QTabBar::tab:selected, QTabBar::tab:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                  stop: 0 #fafafa, stop: 0.4 #f4f4f4,
+                                  stop: 0.5 #e7e7e7, stop: 1.0 #fafafa);
+	font: 12px;
+}
+
+QTabBar::tab:selected {
+    border-color: #9B9B9B;
+    border-bottom-color: #C2C7CB; /* same as pane color */
+	font: bold 12px;
+}
+
+QTabBar::tab:!selected {
+    margin-top: 2px; /* make non-selected tabs look smaller */
+}
+
+/* make use of negative margins for overlapping tabs */
+QTabBar::tab:selected {
+    /* expand/overlap to the left and right by 4px */
+    margin-left: -4px;
+    margin-right: -4px;
+}
+
+QTabBar::tab:first:selected {
+    margin-left: 0; /* the first selected tab has nothing to overlap with on the left */
+}
+
+QTabBar::tab:last:selected {
+    margin-right: 0; /* the last selected tab has nothing to overlap with on the right */
+}
+
+QTabBar::tab:only-one {
+    margin: 0; /* if there is only one tab, we don't want overlapping margins */
+}
+
+
+
+/*  Horizontal splitters (draggable lines between GUI elements) */
+QSplitter::handle:horizontal {
+	width: 2px;
+}
+
+/*  Vertical splitters (draggable lines between GUI elements) */
+QSplitter::handle:vertical {
+	height: 2px;
+}
+
+/*  List widgets (Language and style settings etc) */
+QListWidget {
+	background-color: #696969;
+	color: #E3E3E3;
+	font: bold 12px;
+}
+
+QListWidget::Item {
+    background-color: #696969;
+	color: #E3E3E3;
+	font: bold 12px;
+}
+
+QListWidget::item::selected {
+	/*
+	border: 1px solid red;
+    background-color: #696969;
+	*/
+	color: #E3E3E3;
+	font: bold 12px;
+	
+	border-color: red;
+	background-color: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
+                                        stop:0 #696969, stop:1 #FF9696);
+	border: 1px solid transparent; /* reserve space for selection border */
+}
+
+/* Tool buttons / Buttons with icons (Green check/ Red cross etc, Used in Language and style settings, Login window) */
+QToolButton {
+	background: transparent;
+}
+
+QToolButton::pressed {
+	border: 1px solid;
+	border-color: red;
+}
+
+/* Table widgets (DUT Selection table, DUT test table etc) */
+QTableView {
+	selection-background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                  stop: 0 white, stop: 1 darkgray);
+								  
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                  stop: 0 #296E85, stop: 1 white);
+								  
+	color: #242424;
+	font: 10px;
+}
+
+/* Headers in table widgets (Horizontal and vertical, Test Suite names, Test Types etc) */
+QHeaderView {
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                  stop: 0 #296E85, stop: 1 white);
+}
+
+/* Header sections in tables */
+QHeaderView::section {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 #616161, stop: 0.5 #505050,
+                                        stop: 0.6 #434343, stop:1 #656565);
+	color: white;
+    padding-left: 10px;
+	padding-right: 10px;
+    border: 1px solid #6c6c6c;
+	font: bold 12px;
+}
+
+/* Sort indicator of table widget headers*/
+QHeaderView::down-arrow {
+	image: url(down_round.png);
+}
+
+/* Sort indicator of table widget headers*/
+QHeaderView::up-arrow {
+	image: url(up.png);
+}
+
+/* Scroll areas (used in Test Case widget) */
+QScrollArea {
+    background: transparent;
+    border: transparent;
+}
+
+/* Date edit (Delayed Start widget in DUT Test) */
+/* Normal days */
+QCalendarWidget QAbstractItemView::enabled {
+    background-color: lightgray;
+}
+
+/* Top bar */
+QCalendarWidget QWidget#qt_calendar_navigationbar {
+    background-color: gray;
+}
+
+/* DockWidgets (containing FSM module and logging module) */
+QDockWidget > QDialog {
+    border: 3px solid lightgray;
+}
+
+/**************************/
+/*      Welcome screen    */
+/**************************/
+
+/*  Welcome text  */
+QLabel#CentralPlaceHolderHeader {
+	color: white;
+	font: bold 26px;
+}
+
+/* Info text */
+QLabel#CentralPlaceHolderFirstContent {
+	color: yellow;
+	font: bold 18px;
+}
+
+
+/**************************/
+/*     Login window       */
+/**************************/
+
+/* Password input field */
+QLineEdit#LoginDialog {
+	font-size: 14px;
+}
+
+/* Login window text labels */
+QLabel#LoginDialog {
+	font: bold 16px;
+}
+
+/* Login window comboboxes (dropdown menus) */
+QComboBox#LoginDialog {
+	min-width: 190px;
+}
+
+/**************************/
+/*      DUT Placeholder   */
+/**************************/
+
+/* Welcome text / DUT-Module */
+QLabel#DutPlaceHolderHeader {
+	color: white;
+	font: bold 26px;
+}
+
+/* Info text */
+QLabel#DutPlaceHolderFirstContent {
+	color: yellow;
+	font: bold 18px;
+}
+
+
+/**************************/
+/*  DUT Selection window  */
+/**************************/
+
+/* DUT Select buttons */
+QPushButton#DUTSelect {
+    min-height: 40px;
+    min-width: 40px;
+}
+
+/* DUT Select text labels */
+QLabel#DUTSelect {
+	color: white;
+	font: bold 10px;
+}
+
+/* DUT Select table header items */
+QHeaderView::section#DUTSelect {
+	color: white;
+    padding-left: 10px;
+	padding-right: 10px;
+    border: 1px solid #6c6c6c;
+	font: bold 11px;
+}
+
+/* DUT Select table items */
+QTableWidget#DUTSelect {
+	font: bold 9px;
+}
+
+/* Comboboxes (dropdown menus) */
+QComboBox#DUTSelect {
+	font-size: 10px;
+    min-height: 14px;
+}
+
+/**************************/
+/*      DUT Test tab      */
+/**************************/
+
+/* Labels over DUT Tab matrix */
+QLabel#DutTab {
+	color: white;
+	font: bold 13px;
+}
+
+/* Header sections in test matrix */
+QHeaderView::section#DutTabTable {
+	font: 12px;
+}
+
+/* DUT Tab cells with text/edit text */
+QLineEdit#DutTabCell {
+    font-size: 12px;
+    min-height: 20px;
+    border-radius: 0px;
+}
+
+/* DUT Tab cells with comboboxes (dropdown menus) */
+QComboBox#DutTabCell {
+    font-size: 12px;
+    min-height: 20px;
+    border-radius: 0px;
+}
+
+/**************************/
+/*    Logging window      */
+/**************************/
+
+/* Buttons (Init, Close, Reset etc) */
+QPushButton#LoggingWindow {
+    min-height: 30px;
+    min-width: 60px;
+}
+
+/* Regular expression text box */
+QLineEdit#LoggingWindow {
+	font-size: 12px;
+	min-width: 28ex;
+	min-height: 6ex;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	background-color: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
+                                        stop:0 white, stop:1 #545454);
+}
+
+/**************************/
+/* Logmaster Config Panel */
+/**************************/
+
+QPushButton#LogMasterSubsystemButton {
+	font-size: 12px bold;
+	border: 2px solid darkgray;
+	border-radius: 6px;
+	min-width: 60px;
+	min-height: 30px;
+}
+
+QPushButton::checked#LogMasterSubsystemButton {
+	border: 2px solid;
+	border-radius: 6px;
+	border-color: black;
+}
+
+QPushButton:hover#LogMasterSubsystemButton {
+	border: 2px solid;
+	border-radius: 6px;
+	border-color: orange;
+}
+
+
+/**************************/
+/*   Instrument Panel     */
+/**************************/
+
+/* Buttons (Init, Close, Reset etc) */
+QLabel#InstrumentPanel {
+    font: bold 10px;
+}
+
+/**************************/
+/*   Instrument Dialogs   */
+/**************************/
+
+/* Buttons (Init, Close, Reset etc) */
+QPushButton#InstrumentDialog {
+    min-height: 30px;
+    min-width: 60px;
+}
+
+/**************************/
+/*        RX Panel        */
+/**************************/
+
+/* Buttons (Set, Read etc) */
+QPushButton#RxWidget {
+    min-height: 30px;
+    min-width: 60px;
+}
+
+/* Power Buttons (Off) */
+QToolButton#RxWidget {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 #ff0f44, stop:1 #643434);
+}
+
+/* Power Buttons (On) */
+QToolButton:checked#RxWidget {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 #0fff44, stop:1 #545444);
+}
+
+/* Comboboxes (Dropdown menus)  */
+QComboBox#RxWidget {
+	min-height: 20px;
+	min-width: 160px;
+}
+
+/**************************/
+/*  EPC Jig Power Panel   */
+/**************************/
+
+
+/* Power Buttons (Off) */
+QToolButton#MainPowerButton {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 #ff0f44, stop:1 #643434);
+}
+
+/* Power Buttons (On) */
+QToolButton:checked#MainPowerButton {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 #0fff44, stop:1 #545444);
+}
+
+QToolButton#MainPowerButton {
+	border: transparent;
+	border-radius: 6px;
+    min-height: 30px;
+    min-width: 70px;
+}
+
+
+QToolButton#EPCJigReadAdjust {
+	border: transparent;
+	border-radius: 6px;
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 #ffff44, stop:1 #545444);
+    min-height: 30px;
+    min-width: 50px;
+}
+
+QToolButton:hover#EPCJigReadAdjust {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 yellow, stop:1 red);
+}
+
+QLineEdit#EPCJigLineEdit {
+	font-size: 16px;
+	min-width: 20ex;
+	min-height: 8px;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	background-color: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
+                                        stop:0 white, stop:1 #81d6d6);
+}
+
+/* Delay Spin box */
+QSpinBox#EPCJigSpinBox {
+	font-size: 16px;
+	min-width: 20ex;
+	min-height: 8px;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	background-color: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
+                                        stop:0 white, stop:1 #81d6d6);
+}
+
+/* Double Spin box */
+QDoubleSpinBox#EPCJigDoubleSpinBox {
+	font-size: 16px;
+	min-width: 20ex;
+	min-height: 8px;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	background-color: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
+                                        stop:0 white, stop:1 #81d6d6);
+}
+
+
+
+/* Comboboxes (dropdown menus) */
+QComboBox#EPCJigComboBox {
+	background-color: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5,
+                                        stop:0 white, stop:1 #81d6d6);
+	font-size: 16px;
+	min-width: 70px;
+	min-height: 8px;
+	border: 1px solid transparent;
+	border-radius: 6px;
+}
+
+/* Check box  EPC Jig*/
+
+QCheckBox#EPCCheckBox {
+      spacing: 5px;
+	  font: 12px;
+	  color: white;
+	  margin-left:50%; 
+	  margin-right:50%;
+}
+
+QCheckBox::indicator#EPCCheckBox {
+      width: 25px;
+      height: 25px;
+}
+
+QCheckBox::indicator:unchecked#EPCCheckBox {
+      image: url(:/images/checkbox_unchecked.png);
+	  background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                        stop:0 white, stop:1 #81d6d6);
+}
+
+QCheckBox::indicator:checked#EPCCheckBox {
+    image: url(:/images/checkbox_checked.png);
+  background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                      stop:0 white, stop:1 #a93db4);
+}
+
+
+/*    End Checkboxes EPC Jig    */
+
+
+
+
