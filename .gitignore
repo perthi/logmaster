@@ -19,7 +19,7 @@ version-info/x86/version-info
 *.vcxproj.filters
 *.vcxproj.user
 *.swp
-# **/GVersion.cpp
+**/GVersion.cpp
 *.json
 ../bin**
 **/SvnData.h

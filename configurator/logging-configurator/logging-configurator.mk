@@ -2,7 +2,8 @@
 
 PROGRAM:=logging-configurator
 
-SRCCPP+=logging-configurator.cpp 
+SRCCPP+=logging-configurator.cpp \
+         GVersion.cpp
 
 
 

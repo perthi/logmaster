@@ -66,7 +66,7 @@ LIBS= -L $(PWD)/build/$(TARGET)/lib  -lm
 export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster 
 export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest-embc -lpthread 
 
-
+version-info:=           productivity/utilities/version-info/$(TARGET)
 gtest-embc:=             productivity/gtest-embc/$(TARGET)
 testlib:=                testlib/$(TARGET)
 utilities:=              utilities/$(TARGET)
@@ -125,7 +125,8 @@ src-exe:=$(helloworld) \
 	$(unittests) \
 	$(logging-example1) \
 	$(cmdline-example1) \
-	$(db-test)
+	$(db-test) \
+        $(version-info)
 
 
 
@@ -200,6 +201,7 @@ check-compiler:
 $(INSTALLDIRS):
 	mkdir -p $@
 
+$(src-exe): $(version-info)
 
 x86:    $(INSTALLDIRS)
 	$(MAKE) TARGET=x86
@@ -254,7 +256,7 @@ distclean: clean clean-logs
 	@find -name *.so.*  |  egrep  -v  3rd-party  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |  egrep -v   '^\./arm-lib-dep/' |  xargs rm -f
 	@find -name *.a     |  egrep  -v  3rd-party  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |   xargs rm -f
 	@find -name *~ -exec rm {} \;
-#	@find -name GVersion.cpp | xargs rm -f;
+	@find -name GVersion.cpp | xargs rm -f;
 	@find -name tmp.cpp | xargs rm -f;
 
 .PHONY: doc
