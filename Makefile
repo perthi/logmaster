@@ -227,14 +227,21 @@ clean:  clean-x86
 	@find -name *.o -exec rm {} \;
 	@rm -rf `find -name "SvnInfo*" | grep -v .svn`
 
+#.PHONY: clean-exe
+#clean-exe:#
+#	@for d in $(src-exe); \
+#	do \
+#	    $(MAKE)  --directory=$$d/x86  --no-print-directory clean-exe TARGET=x86; \
+	done
+#	@rm -f build/x86/bin/*
+
 .PHONY: clean-exe
 clean-exe:
 	@for d in $(src-exe); \
 	do \
-	    $(MAKE)  --directory=$$d/x86  --no-print-directory clean-exe TARGET=x86; \
+	    $(MAKE)  --directory=$$d/x86  clean-exe TARGET=x86; \
 	done
 #	@rm -f build/x86/bin/*
-
 
 
 .PHONY: clean-x86

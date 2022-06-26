@@ -1,3 +1,0 @@
-
-include ../api-sensors.mk
-

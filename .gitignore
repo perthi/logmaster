@@ -80,3 +80,5 @@ gui/operations/examples/operations-example1/x86/gui-operations-example1
 gui/sensors/examples/gui-sensors-example1/x86/gui-sensors-example1
 gui/logger/examples/gui-loggergui-example1/x86/gui-loggergui-example1
 gui/logmaster/examples/gui-qt-logmaster-example1//gui-qt-logmaster-example1
+gui/logmaster/examples/gui-qt-logmaster-example1/x86/gui-loggergui-example1
+gui/logmaster/examples/gui-qt-logmaster-example1/x86/gui-qt-logmaster-example1
