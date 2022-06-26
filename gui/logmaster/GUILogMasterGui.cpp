@@ -383,6 +383,10 @@ GUILogMasterGui::SubSystemControlClicked()
 
     QString cmd = fSubsystemCombo->currentText(); 
     
+    string s =  cmd.toStdString();
+
+    FORCE_DEBUG("cmd = %s", s.c_str() );
+
     fKALogmaster->SetSubSystem(cmd.toStdString());
 
     UpdateTextMessagePanel();

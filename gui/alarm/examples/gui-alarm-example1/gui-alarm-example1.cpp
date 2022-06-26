@@ -31,11 +31,6 @@ using std::endl;
 using std::cout;
 using std::cerr;
 
-//#include  <gui/common/GUIInitStyles.h>
-
-//#include <logging/LLogApi.h>
-//#include <logging/LLogTest.h>
-
 using namespace LOGMASTER;
 
 #include <thread>
@@ -63,12 +58,10 @@ void start_gui( int argc, char **argv)
 
         GUIInitStyles::Instance()->Init(&app);
         app.setApplicationName("AlarmGuiTest");
-        app.setOrganizationName("Kongsberg Ferrotech");
+        app.setOrganizationName("Embedded Cosnulting");
 
         SET_LOGLEVEL("--all");
         SET_LOGTARGET("1111");
-    //  LLogging::Instance()->Log(eMSGLEVEL::LOG_DEBUG, eMSGSYSTEM::SYS_FSM, GLOCATION, "hello world !!!!----------------------------------");
-    //  LLogTest::WriteMessages();
         GUIAlarmGui widget;
         ExecWidget(qobject_cast<QWidget*>(&widget));
     }
