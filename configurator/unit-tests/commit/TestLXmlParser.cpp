@@ -26,25 +26,28 @@ using std::vector;
 using namespace LOGMASTER;
 
 
-
 TestLXmlParser::TestLXmlParser()
 {
 #ifdef _WIN32
-	xml = string(g_system()->GetHomeDir()) + "\\..\\config\\logging.xml";
-	xsd = string(g_system()->GetHomeDir()) + "\\..\\config\\logging.xsd";
+    xml = string(g_system()->GetHomeDir()) + "\\..\\config\\logging.xml";
+    xsd = string(g_system()->GetHomeDir()) + "\\..\\config\\logging.xsd";
 #else
-	xml = string(CONFIG_DIR) + "/logging.xml";
-	xsd = string(CONFIG_DIR) + "/logging.xsd";
+    xml = string(CONFIG_DIR) + "/logging.xml";
+    xsd = string(CONFIG_DIR) + "/logging.xsd";
 #endif // _WIN32
 }
 
 
 
+/** @todo moc to xml library */
  TEST_F( TestLXmlParser, check_file )
  {
-     GXmlValidator v;
-     EXPECT_TRUE( v.IsValid(xml, xsd ) );
+   GXmlValidator v;
+    v.IsValid(xml, xsd );
+    EXPECT_TRUE( v.IsValid(xml, xsd ) );
+    EXPECT_TRUE(true);
  }
+
 
 
  TEST_F( TestLXmlParser, parse_loglevels )
@@ -75,4 +78,5 @@ TestLXmlParser::TestLXmlParser()
     EXPECT_TRUE  ( p.HasElement("MESSAGE", subsystems  ) );
     EXPECT_FALSE ( p.HasElement("BLAHHH",    subsystems  ) );
  }
+
 

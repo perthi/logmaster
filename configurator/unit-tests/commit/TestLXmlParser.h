@@ -3,16 +3,17 @@
 #define TESTLXMLPARSER_H
 
 #include <testlib/TestBase.h>
-
+#include <xml/GXmlValidator.h>
 
 class  TestLXmlParser : public TestBase
 {
-	public:
-	  TestLXmlParser();
+    public:
+      TestLXmlParser();
 
     protected:
-		string xml = "";
-		string xsd = "";
+        string xml = "";
+        string xsd = ""; 
+        GXmlValidator v{};
 };
 
 

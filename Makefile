@@ -98,9 +98,10 @@ gui-common:=             gui/common/$(TARGET)
 gui-alarm-example1:=              gui/alarm/examples/gui-alarm-example1/$(TARGET) 
 
 unittests:= 	$(utilities-unittest) \
-		        $(exception-unittest) \
+		$(exception-unittest) \
                 $(logging-unittest) \
-		        $(cmdline-unittest)
+		$(cmdline-unittest) \
+		$(configurator-unittest) 
 
 
 support-modules:= 	$(utilities) \
@@ -131,13 +132,15 @@ src-exe:=$(helloworld) \
 arm-src:=$(src-lib) $(src-exe)
 x86-src:=$(src-lib) $(src-exe)
 
+all-clean:= $(src-lib)  $(x86-src) $(configurator-unittest) $(configurator)  $(api-logmaster)  $(xml-validator) $(configurator-example1) $(logging-configurator)  $(gui-lib)  $(gui-exe)
 
 ifeq (x86, $(TARGET))
-unittests+= $(configurator-unittest)
+#unittests+= $(configurator-unittest)
 src-lib+= $(configurator)  $(api-logmaster)
 src-exe+= $(xml-validator) $(configurator-example1) $(logging-configurator)
 x86-src:= $(src-lib) $(src-exe)
 all-src:=$(x86-src)
+all-clean:=$(all-src)
 endif
 
 
@@ -178,13 +181,9 @@ endif
 export
 
 
+
 .PHONY: all $(all-src)
 all: $(all-src)
-
-
-all-clean:=$(x86-src)
-unittest-common =  $(testlib)  $(support-modules)  $(gtest-embc)
-
 
 $(src-exe) : $(src-lib)
 
@@ -203,52 +202,42 @@ $(INSTALLDIRS):
 
 
 x86:    $(INSTALLDIRS)
-	@$(MAKE) TARGET=x86
+	$(MAKE) TARGET=x86
 
 arm:    $(INSTALLDIRS)
 	@$(MAKE) TARGET=arm
 
 
-
 .PHONY : rcc
 rcc:
 	rcc   gui/resources/gui-qt.qrc  >  gui/resources/gui-qt.rcc
-#	rcc   gui/sensors-qml/qml-example1.qrc > gui/sensors-qml/qrc_main.cpp
+
 
 .PHONY : moc
 moc: rcc
 	./generate-moch.sh  $(gui-lib) $(gui-exe)
 
 
-.PHONY: clean
-clean:  clean-x86
+.PHONY: clean 
+clean:  clean-x86 clean-arm
 	@find -name *.d -exec rm {} \;
 	@find -name *.gdb -exec rm {} \;
 	@find -name *.o -exec rm {} \;
-	@rm -rf `find -name "SvnInfo*" | grep -v .svn`
-
-#.PHONY: clean-exe
-#clean-exe:#
-#	@for d in $(src-exe); \
-#	do \
-#	    $(MAKE)  --directory=$$d/x86  --no-print-directory clean-exe TARGET=x86; \
-	done
-#	@rm -f build/x86/bin/*
-
-.PHONY: clean-exe
-clean-exe:
-	@for d in $(src-exe); \
-	do \
-	    $(MAKE)  --directory=$$d/x86  clean-exe TARGET=x86; \
-	done
-#	@rm -f build/x86/bin/*
 
 
 .PHONY: clean-x86
 clean-x86:
-	@for d in $(x86-src); \
+	@for d in $(all-clean); \
 	do \
 	    $(MAKE)  --directory=$$d/x86  --no-print-directory clean TARGET=x86; \
+	done
+	@rm -rf build/x86
+
+.PHONY: clean-arm
+clean-arm:
+	@for d in $(all-clean); \
+	do \
+	    $(MAKE)  --directory=$$d/x86  --no-print-directory clean TARGET=arm; \
 	done
 	@rm -rf build/x86
 
@@ -258,7 +247,7 @@ clean-logs:
 
 
 .PHONY: distclean
-distclean: clean
+distclean: clean clean-logs
 	@-$(RM) -r build
 	@-$(RM) `find -name "SvnInfo*" | grep -v .svn`
 	@find -name *.so    |  egrep  -v  3rd-party  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |  egrep -v   '^\./arm-lib-dep/' |  xargs rm -f
