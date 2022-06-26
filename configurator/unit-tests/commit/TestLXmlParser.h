@@ -13,7 +13,6 @@ class  TestLXmlParser : public TestBase
     protected:
         string xml = "";
         string xsd = ""; 
-        GXmlValidator v{};
 };
 
 
