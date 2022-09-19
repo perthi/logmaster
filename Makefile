@@ -2,13 +2,6 @@
 
 
 
-
-
-
-
-
-
-
 ########################################
 ## AUTHOR: Per Thomas Hille pth@embc.no
 ## COPYRIGHT: Embedded Consulting A/S
