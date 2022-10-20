@@ -90,7 +90,7 @@ endif
 
 
 
-$(PROGRAM):: $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC)
+$(PROGRAM): $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC)
 	$(CCLOCAL) $(CPPFLAGS) -o  $(PROGRAM) $(OBJS) $(OBJSCPP) $(LIBS) 
 	$(MAKE) install 
 
@@ -123,10 +123,11 @@ endef
 
 VPATH=../
 
-GVersion.cpp :
+#GVersion.cpp :
+#	$(call generate-version-info )
+
+../GVersion.cpp :
 	$(call generate-version-info )
-
-
 
 %.o: %.c  %.h 
 	$(CC) $(CFLAGS) -c -o $(@F) $< $(INCLUDES)
@@ -134,6 +135,7 @@ GVersion.cpp :
 
 %.o:  	%.cpp  %.h
 	$(CCLOCAL) $(CPPFLAGS) -c -o $(@F) $< $(INCLUDES) 
+
 
 .PHONY: clean-exe
 clean-exe:
