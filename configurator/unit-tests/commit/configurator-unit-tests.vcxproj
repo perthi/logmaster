@@ -106,7 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>CONFIG_DIR="\"$(SolutionDir)\config\"";_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(include);$(gtest-include);$(SolutionDir)\submodules\xml-parser</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(include);$(gtest-include);$(SolutionDir)\xml-parser</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

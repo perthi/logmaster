@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(include);$(SolutionDir)\ExternalLibraries\logmaster;$(SolutionDir)\ExternalLibraries\logmaster\submodules\productivity</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(include);$(SolutionDir)\ExternalLibraries\logmaster;$(SolutionDir)\ExternalLibraries\logmaster\productivity</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

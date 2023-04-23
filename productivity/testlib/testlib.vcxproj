@@ -130,7 +130,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories> $(SolutionDir)\submodules\productivity-1-0-2\;$(SolutionDir)\submodules\productivity-1-0-2\gtest\include;$(include);$(gtest-include)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories> $(SolutionDir)\productivity\;$(SolutionDir)\productivity\gtest\include;$(include);$(gtest-include)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>

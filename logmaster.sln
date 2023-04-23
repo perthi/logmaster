@@ -71,13 +71,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "applications", "application
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libraries", "libraries", "{520B23CD-C9D6-4D2D-A3D8-D813F8C987E5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xml", "submodules\xml-parser\xml\xml.vcxproj", "{6A271C05-6E79-46F1-90D6-70A71FDB3EF9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xml", "xml-parser\xml\xml.vcxproj", "{6A271C05-6E79-46F1-90D6-70A71FDB3EF9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "utilities", "submodules\productivity\utilities\utilities.vcxproj", "{6F7DDC0E-541A-4A52-90B7-8A4FC10B6C5B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "utilities", "productivity\utilities\utilities.vcxproj", "{6F7DDC0E-541A-4A52-90B7-8A4FC10B6C5B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest-md", "submodules\productivity\gtest\msvc\2010\gtest-md.vcxproj", "{C8F6C172-56F2-4E76-B5FA-C3B423B31BE8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest-md", "productivity\gtest\msvc\2010\gtest-md.vcxproj", "{C8F6C172-56F2-4E76-B5FA-C3B423B31BE8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testlib", "submodules\productivity\testlib\testlib.vcxproj", "{FEC5D9F8-3F83-47F6-93BF-4B1DB9A0E30B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testlib", "productivity\testlib\testlib.vcxproj", "{FEC5D9F8-3F83-47F6-93BF-4B1DB9A0E30B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "database-test", "database-test\database-test.vcxproj", "{70A7AE0B-D376-42C3-A498-3CEB3C64EB5F}"
 	ProjectSection(ProjectDependencies) = postProject
