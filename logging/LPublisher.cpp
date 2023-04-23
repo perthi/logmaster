@@ -172,14 +172,18 @@ namespace LOGMASTER
             std::swap(  fMessageQeueTmp , fMessageQeue  );
        }
 
+        
         static std::mutex mtx;
-        std::lock_guard<std::mutex> guard3( mtx ); 
-
-        while (  fMessageQeueTmp.size() > 0  )
+        
         {
-            auto m =   fMessageQeueTmp.front();
-            fMessageQeueTmp.pop();
-            PublishMessage( m->fMessage ,  m->fConfig, m->fTarget );
+            std::lock_guard<std::mutex> guard3(mtx);
+
+            while (fMessageQeueTmp.size() > 0)
+            {
+                auto m = fMessageQeueTmp.front();
+                fMessageQeueTmp.pop();
+                PublishMessage(m->fMessage, m->fConfig, m->fTarget);
+            }
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(50) ); 

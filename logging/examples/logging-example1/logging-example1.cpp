@@ -41,6 +41,8 @@
 using std::cout;
 using std::endl;
 using namespace LOGMASTER;
+#include  <thread>
+#include  <chrono>
 
 
 #include <map>
@@ -49,6 +51,12 @@ using namespace LOGMASTER;
 int
 main(int  /*argc*/, const char ** /*argv*/ )
 {
+   // LLogging::Instance()->SetLogLevel("--off --all-debug");
+    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+    LLogging::Instance()->SetLogLevel("--off --all-debug");
+ //   std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
+  
     try
     {
         LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
@@ -131,6 +139,7 @@ main(int  /*argc*/, const char ** /*argv*/ )
     {
         cout << "unknown exception caught" << endl;
     }
+   
     return 0;
 
 }
