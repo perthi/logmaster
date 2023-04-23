@@ -100,7 +100,7 @@
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>copy  $(SolutionDir)\xml-parser\xml\3rd-party\libxml\lib\x64\*  $(bindir)</Command>
+      <Command>copy  $(SolutionDir)\xml-parser\xml\3rd-party\libxml\lib\x86\*  $(bindir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -140,7 +140,7 @@
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>copy  $(SolutionDir)\xml-parser\xml\3rd-party\libxml\lib\x64\*  $(bindir)</Command>
+      <Command>copy  $(SolutionDir)\xml-parser\xml\3rd-party\libxml\lib\x86\*  $(bindir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
