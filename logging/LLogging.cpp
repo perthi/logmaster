@@ -129,7 +129,7 @@ namespace LOGMASTER
         fConfig->emplace(  eMSGTARGET::TARGET_SUBSCRIBERS, LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_GUI,         LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_EXCEPTION,   LMessageFactory() );
-        fConfig->emplace(  eMSGTARGET::TARGET_TESTING,     LMessageFactory() );
+    //    fConfig->emplace(  eMSGTARGET::TARGET_TESTING,     LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_DATABASE,     LMessageFactory() );
    //     fConfig->emplace(  eMSGTARGET::TARGET_ALL,     LMessageFactory() );
 
@@ -579,7 +579,8 @@ namespace LOGMASTER
         for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
         {
 
-            if ( it->first != eMSGTARGET::TARGET_EXCEPTION  && it->first != eMSGTARGET::TARGET_TESTING )
+         //   if ( it->first != eMSGTARGET::TARGET_EXCEPTION  && it->first != eMSGTARGET::TARGET_TESTING )
+                if (it->first != eMSGTARGET::TARGET_EXCEPTION )
             {
                 it->second.Disable();
             }

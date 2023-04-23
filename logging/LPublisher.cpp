@@ -231,30 +231,6 @@ namespace LOGMASTER
          return;
      }
 
-     if (msg->fFormat == eMSGFORMAT::ALL_FIELDS_OFF)
-     {
-       //  PublishToConsole(msg);
-         //return;
-     }
-
-     bool force_debug = ((int)msg->fLevel & (int)eMSGLEVEL::LOG_FORCE_DEBUG) != 0 ? true : false;
-
-     if (force_debug == true)
-     {
-         if ((int)target & (int)eMSGTARGET::TARGET_TESTING)
-         {
-             /*
-             PublishToConsole(msg);
-             PublishToFile(cfg->fLogFilename.c_str(), msg);
-             PublishToSubscribers(msg);
-             PublishToDatabase(msg);
-             PublishToGuiSubscribers(msg);
-            */
-         }
-     }
-   //  else
-     {
-         //   Publish(msg,  cfg, target );
          if (((int)target & (int)eMSGTARGET::TARGET_FILE))
          {
              PublishToFile(cfg->fLogFilename.c_str(), msg);
@@ -275,15 +251,11 @@ namespace LOGMASTER
              PublishToGuiSubscribers(msg);
          }
 
-        // if ( ( (int)target & (int)eMSGTARGET::TARGET_STDOUT)  &&  (  (int)target & (int)eMSGTARGET::TARGET_STDOUT)  || (force_debug == true))
-        //   if ( ((int)target & (int)eMSGTARGET::TARGET_STDOUT) ||  (force_debug == true) )
         
         if ( ( (int)target & (int)eMSGTARGET::TARGET_STDOUT) ) 
         {
-            /// CERR << "TARGET = STDOUT(" << (int)target << ") " << endl;
              PublishToConsole(msg);
         }
-     }
     }
 
 
@@ -292,9 +264,9 @@ namespace LOGMASTER
     {
         static  std::mutex m;
         std::lock_guard<std::mutex> guard( m );
-      //  COUT << "WRITING TO DATABASE" << endl;
         LDatabase::Instance()->AddLogEntry(msg);
     }
+
 
     /**  Publish messages via the publisher/subscriber interface. The function iterates thrugh an
      *   array of registered subscribers (if any), and  calls each callback function with the message, 

@@ -115,9 +115,9 @@ TEST_F(TestLogging, set_logtarget_g_logapplication)
 {
     ///auto l = LLogging::Instance();
     g->ScanArguments("-logtarget --target-off --target-subscriber -logformat 0000001");
-    EXPECT_EQ((int)(eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS), (int)l->GetLogTarget());
+    EXPECT_EQ((int)(eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS), (int)l->GetLogTarget());
     g->ScanArguments("-logtarget --target-off -logformat 0000001");
-    EXPECT_EQ((int)(eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION), (int)l->GetLogTarget());
+    EXPECT_EQ((int)(eMSGTARGET::TARGET_EXCEPTION), (int)l->GetLogTarget());
 }
 
 
@@ -125,45 +125,45 @@ TEST_F(TestLogging, set_logtarget_g_logapplication)
 TEST_F( TestLogging, set_logtarget )
 {
         SET_LOGTARGET("--target-off --target-subscriber");
-        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS);
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS);
         SET_LOGTARGET("--target-off --target-subscriber --target-stdout ");
-        EXPECT_EQ(l->GetLogTarget(), (eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_STDOUT));
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS | eMSGTARGET::TARGET_STDOUT);
         SET_LOGTARGET("--target-subscriber --target-stdout --target-off");
-        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_OFF);
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_OFF);
         SET_LOGTARGET("--target-all");
 //        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_ALL);
-        EXPECT_EQ(  (int)l->GetLogTarget(),  (int)0x7f );
+        EXPECT_EQ(  (int)l->GetLogTarget(),  (int)0x3f );
         SET_LOGTARGET("--target-all --target-off");
-        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_OFF);
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_OFF);
         SET_LOGTARGET("--target-off --target-all");
-        EXPECT_EQ( (int)l->GetLogTarget(), (int)0x7f  );
+        EXPECT_EQ( (int)l->GetLogTarget(), (int)0x3f  );
         SET_LOGTARGET("--target-off --target-file");
-        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_FILE);
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_FILE);
         SET_LOGTARGET("0000 --target-file");
-        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_FILE);
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_FILE);
         SET_LOGTARGET("0000 --target-gui");
-        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_GUI);
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_GUI);
         SET_LOGTARGET("0000 --target-stdout");
-        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_STDOUT);
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_STDOUT);
         SET_LOGTARGET("0000 --target-subscriber");
-        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS);
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS);
         SET_LOGTARGET("0000 0001");
-        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_FILE);
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_FILE);
         SET_LOGTARGET("0000 1000");
-        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_GUI);
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_GUI);
         SET_LOGTARGET("0000 0010");
-        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_STDOUT);
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_STDOUT);
         SET_LOGTARGET("0000  0100");
-        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS);
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS);
         SET_LOGTARGET("0000  0110");
-        EXPECT_EQ(l->GetLogTarget(), (eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_STDOUT | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS));
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_STDOUT | eMSGTARGET::TARGET_SUBSCRIBERS);
         SET_LOGTARGET("0000  --target-all");
-        EXPECT_EQ( (int)l->GetLogTarget(), (int) 0x7f );
+        EXPECT_EQ( (int)l->GetLogTarget(), (int) 0x3f );
         SET_LOGTARGET("0000");
         SET_LOGTARGET("0000 1001");
-        EXPECT_EQ(l->GetLogTarget(), (eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_GUI | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_FILE));
+        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_GUI | eMSGTARGET::TARGET_FILE);
         SET_LOGTARGET("0000 1000 0100 0010 0001");
-        EXPECT_EQ(  (int)l->GetLogTarget(), (int)0x3f );
+        EXPECT_EQ(  (int)l->GetLogTarget(), (int)0x1f );
 }
 
 
@@ -392,35 +392,35 @@ TEST_F(TestLogging, NSR724ForceDebug)
 TEST_F(TestLogging, NSR939Subscribers)
 {
     SET_LOGTARGET("--target-off");
-    EXPECT_EQ(BIN("0000000000110000"), (int)l->GetLogTarget());
+    EXPECT_EQ(BIN("0000000000010000"), (int)l->GetLogTarget());
     SET_LOGTARGET("--target-subscriber --target-file");
-    EXPECT_EQ(BIN("0000000000110101"), (int)l->GetLogTarget());
+    EXPECT_EQ(BIN("0000000000010101"), (int)l->GetLogTarget());
     SET_LOGTARGET("--target-off");
-    EXPECT_EQ(BIN("0000000000110000"), (int)l->GetLogTarget());
+    EXPECT_EQ(BIN("0000000000010000"), (int)l->GetLogTarget());
     SET_LOGTARGET("--target-file");
-    EXPECT_EQ(BIN("0000000000110001"), (int)l->GetLogTarget());
+    EXPECT_EQ(BIN("0000000000010001"), (int)l->GetLogTarget());
     SET_LOGTARGET("--target-subscriber");
-    EXPECT_EQ(BIN("0000000000110101"), (int)l->GetLogTarget());
+    EXPECT_EQ(BIN("0000000000010101"), (int)l->GetLogTarget());
     SET_LOGTARGET("--target-stdout");
-    EXPECT_EQ(BIN("0000000000110111"), (int)l->GetLogTarget());
+    EXPECT_EQ(BIN("0000000000010111"), (int)l->GetLogTarget());
  
     SET_LOGTARGET("--target-off --target-subscriber --target-file");
-    EXPECT_EQ(BIN("0000000000110101"), (int)l->GetLogTarget());
+    EXPECT_EQ(BIN("0000000000010101"), (int)l->GetLogTarget());
 
     SET_LOGTARGET("--target-all");
-    EXPECT_EQ(BIN("0000000001111111"), (int)l->GetLogTarget());
+    EXPECT_EQ(BIN("0000000000111111"), (int)l->GetLogTarget());
     
     SET_LOGTARGET("--target-off");
-    EXPECT_EQ(BIN("0000000000110000"), (int)l->GetLogTarget());
+    EXPECT_EQ(BIN("0000000000010000"), (int)l->GetLogTarget());
  
     SET_LOGTARGET("0011");
-    EXPECT_EQ(BIN("0000000000110011"), (int)l->GetLogTarget());
+    EXPECT_EQ(BIN("0000000000010011"), (int)l->GetLogTarget());
  
     SET_LOGTARGET("0111");
-    EXPECT_EQ(BIN("0000000000110111"), (int)l->GetLogTarget());
+    EXPECT_EQ(BIN("0000000000010111"), (int)l->GetLogTarget());
  
     SET_LOGTARGET("--target-off 0101");
-    EXPECT_EQ(BIN("0000000000110101"), (int)l->GetLogTarget());
+    EXPECT_EQ(BIN("0000000000010101"), (int)l->GetLogTarget());
 
 }
 
