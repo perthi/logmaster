@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>HAS_LOGGING;SQLITE_ENABLE_JSON1;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(include);$(ProjectDir)\..\submodules\productivity;$(ProjectDir)..\ ;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(include);$(ProjectDir)\..\productivity;$(ProjectDir)..\ ;</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
