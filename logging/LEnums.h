@@ -63,8 +63,8 @@ enum  ePUBLISH_MODE
         TARGET_SUBSCRIBERS      =   0x04,    // 00000100     Send messages to all message subscribers
         TARGET_GUI              =   0x08,    // 00001000     Send messages to the GUI
         TARGET_EXCEPTION        =   0x10,    // 00010000     The exception system, always ON, not configurable
-        TARGET_TESTING          =   0x20,    // 00100000     Dedicated targe t for debugging
-        TARGET_DATABASE         =   0x40,    // 01000000     Dedicated targe t for debugging
+        TARGET_TESTING          =   0x20,    // 00100000     Dedicated targe for debugging
+        TARGET_DATABASE         =   0x40,    // 01000000     Dedicated targe t for database
         TARGET_ALL              =   0xff     // 01111111     Write log messages to all availabel log targets.
     };
 
