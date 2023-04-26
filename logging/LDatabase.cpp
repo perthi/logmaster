@@ -320,11 +320,13 @@ namespace LOGMASTER
           sql_query += LimitString(limit);  
         }
 
-        int rc = sqlite3_prepare(fDataBase, sql_query.c_str(), sql_query.length(), &fStmt, nullptr);    
+        
+        const char **test = 0;
+        int rc = sqlite3_prepare(fDataBase, sql_query.c_str(), (int)sql_query.length(), &fStmt, nullptr);    
 
         if (rc != SQLITE_OK)
         {
-            HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION, "SQL error: %s", sqlite3_errmsg(fDataBase) );   
+            HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION, "SQL error: %s", sqlite3_errmsg(fDataBase));   
             return false;
         }
         else
