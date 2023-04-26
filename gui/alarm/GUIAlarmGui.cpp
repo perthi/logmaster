@@ -17,7 +17,7 @@
 #include <QtWidgets/QSplitter>
 #include <QtWidgets/QButtonGroup>
 #include <QtCore/QDateTime>
-#include <QtCore/QRegExp>
+#include <QtCore5Compat/QRegExp>
 #include <QtCore/QMetaType>
 #include <QtWidgets/QScrollBar>
 #include <QtWidgets/QMessageBox>
