@@ -10,6 +10,7 @@
 GUIPushButton::GUIPushButton(const QString &text, QWidget *parent)
    :QPushButton(text, parent)
 {
+
 }
 
 void GUIPushButton::mouseReleaseEvent(QMouseEvent* e)
