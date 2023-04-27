@@ -103,8 +103,8 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>logging-dll.lib;gui-common-dll.lib;$(qt-libs-debug)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(kf-bindir);$(qt-libdir64)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>logging.lib;gui-common-dll.lib;$(qt-libs-debug)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir);$(qt-libdir64)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>..\generate_moc.bat</Command>
@@ -122,8 +122,8 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>logging-dll.lib;gui-common-dll.lib;$(qt-libs-debug)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(kf-bindir);$(qt-libdir32)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>logging.lib;gui-common-dll.lib;$(qt-libs-debug)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir);$(qt-libdir32)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>..\generate_moc.bat</Command>
@@ -145,8 +145,8 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>logging-dll.lib;gui-common-dll.lib;$(qt-libs-release)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(kf-bindir);$(qt-libdir32)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>logging.lib;gui-common-dll.lib;$(qt-libs-release)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir);$(qt-libdir32)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>..\generate_moc.bat</Command>
@@ -168,8 +168,8 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>logging-dll.lib;gui-common-dll.lib;$(qt-libs-release)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(kf-bindir);$(qt-libdir64)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>logging.lib;gui-common-dll.lib;$(qt-libs-release)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir);$(qt-libdir64)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>..\generate_moc.bat</Command>

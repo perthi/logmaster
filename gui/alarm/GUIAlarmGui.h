@@ -32,7 +32,9 @@ class GUIAlarmGui : public QWidget
    signals:
 
    private slots :
-      void NewMessages(const MsgSeries &msgs);
+    // void NewMessages(MsgSeries *msgs);
+      void NewMessages( const QMap<int, LMessage>  &msgs);
+    // void NewMessages(const MsgSeries& msgs);
       void GetAllMessages();
    //   void OpenLogMasterDialog();
 

@@ -9,15 +9,15 @@
 #include <QtCore/QMultiMap>
 #include <logging/LMessage.h>
 using namespace LOGMASTER;
-typedef  QMultiMap<int, LMessage> MsgSeries;
-
+// typedef  QMultiMap<int, LMessage> MsgSeries;
+typedef  QMap<int, LMessage> MsgSeries;
 
 class GUILoggerBase
 {
 
 public:
 //  static GUILoggerBase  * Instance();
-    MsgSeries  API   AllMsgs()   const;
+    MsgSeries  API   AllMsgs();
     void       API   ClearMsgs();
 
 public :
@@ -34,8 +34,15 @@ protected:
     void API PurgeMessages();
 
     mutable QMutex fMutex{};
-    MsgSeries fLoggedMessages{};
-    MsgSeries fNewMessages{};
+  
+    // MsgSeries fLoggedMessages{};
+    // MsgSeries fNewMessages{};
+    
+  //  QMultiMap<int, LMessage> fLoggedMessages;
+  //  QMultiMap<int, LMessage> fNewMessages;
+
+    QMap<int, LMessage> fLoggedMessages;
+    QMap<int, LMessage> fNewMessages;
 
     const int fMaxMessagesInMemory = 2000;
 

@@ -19,7 +19,16 @@ GUILoggerBase::PurgeMessages()
 		return;
 	}
 	emit newMessages(fNewMessages);
-	fLoggedMessages += fNewMessages;
+	
+	// fLoggedMessages  += fNewMessages;
+	// fLoggedMessages.insert(fLoggedMessages.end(), );
+
+	//auto it = fNewMessages.begin();
+	for (auto it = fNewMessages.begin();  it != fNewMessages.end(); it++)
+	{
+		fLoggedMessages.insert(it.key(), it.value());
+	}
+
 	fNewMessages.clear();
 	while (fLoggedMessages.count() > fMaxMessagesInMemory)
 	{
@@ -39,9 +48,13 @@ GUILoggerBase::newMessage(int cnt, const LMessage& msg)
 
 
 MsgSeries
-GUILoggerBase::AllMsgs() const
+GUILoggerBase::AllMsgs()
 {
-	return(fLoggedMessages + fNewMessages);
+	for (auto it = fNewMessages.begin(); it != fNewMessages.end(); it++)
+	{
+		fLoggedMessages.insert(it.key(), it.value());
+	}
+	return(fLoggedMessages);
 }
 
 

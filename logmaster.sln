@@ -98,6 +98,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gui-alarm-dll", "gui\alarm\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gui", "gui", "{467822F6-AD68-4520-AAAE-6225CB65ABD3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gui-common-dll", "gui\common\common.vcxproj", "{5AE76ECA-77F1-4D94-AB3B-CA570099A9A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -242,6 +244,14 @@ Global
 		{59104300-215D-4D30-9700-AC9561F38407}.Release|x64.Build.0 = Release|x64
 		{59104300-215D-4D30-9700-AC9561F38407}.Release|x86.ActiveCfg = Release|Win32
 		{59104300-215D-4D30-9700-AC9561F38407}.Release|x86.Build.0 = Release|Win32
+		{5AE76ECA-77F1-4D94-AB3B-CA570099A9A5}.Debug|x64.ActiveCfg = Debug|x64
+		{5AE76ECA-77F1-4D94-AB3B-CA570099A9A5}.Debug|x64.Build.0 = Debug|x64
+		{5AE76ECA-77F1-4D94-AB3B-CA570099A9A5}.Debug|x86.ActiveCfg = Debug|Win32
+		{5AE76ECA-77F1-4D94-AB3B-CA570099A9A5}.Debug|x86.Build.0 = Debug|Win32
+		{5AE76ECA-77F1-4D94-AB3B-CA570099A9A5}.Release|x64.ActiveCfg = Release|x64
+		{5AE76ECA-77F1-4D94-AB3B-CA570099A9A5}.Release|x64.Build.0 = Release|x64
+		{5AE76ECA-77F1-4D94-AB3B-CA570099A9A5}.Release|x86.ActiveCfg = Release|Win32
+		{5AE76ECA-77F1-4D94-AB3B-CA570099A9A5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -264,6 +274,7 @@ Global
 		{70A7AE0B-D376-42C3-A498-3CEB3C64EB5F} = {A79A634D-E860-4F70-B4DB-CF14511BDF82}
 		{9100FB92-2660-4F0B-AFA2-46EF5AF8C80A} = {A79A634D-E860-4F70-B4DB-CF14511BDF82}
 		{59104300-215D-4D30-9700-AC9561F38407} = {467822F6-AD68-4520-AAAE-6225CB65ABD3}
+		{5AE76ECA-77F1-4D94-AB3B-CA570099A9A5} = {467822F6-AD68-4520-AAAE-6225CB65ABD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {173A0C14-D804-423B-880A-EB381F0DCE00}

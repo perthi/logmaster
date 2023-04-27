@@ -99,8 +99,8 @@ public:
     LMessage & operator = ( const LMessage & );
 
     private:
-   //   LMessage( const LMessage & );
-     /// LMessage operator = ( const LMessage & );
+     // LMessage( const LMessage & );
+     // LMessage operator = ( const LMessage & );
 };
 
 #ifdef __cplusplus

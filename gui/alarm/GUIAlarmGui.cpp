@@ -112,10 +112,13 @@ GUIAlarmGui::ConnectStuff()
 }
 
 
+//QMultiMap<int, LMessage>;
+
 void 
-GUIAlarmGui::NewMessages(const MsgSeries &msgs)
+// GUIAlarmGui::NewMessages( MsgSeries *msgs)
+GUIAlarmGui::NewMessages( const QMap<int, LMessage> &msgs)
 {
-    QMapIterator<int, LMessage> i(msgs);
+    QMapIterator<int,   LMessage> i( msgs);
     while (i.hasNext())
     {
        static int cnt = 0;
