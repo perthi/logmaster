@@ -1,1 +1,1 @@
-#include  "GUILogger_moc.h"
+#include "GUILogger_moc.h" 

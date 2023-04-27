@@ -22,6 +22,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QLineEdit>
+#include <QtCore5compat/QRegExp>
 #include "GUILogger.h"
 
 class GUILoggerGui : public QWidget

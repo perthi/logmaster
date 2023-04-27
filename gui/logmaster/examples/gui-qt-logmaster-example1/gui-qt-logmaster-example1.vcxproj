@@ -43,26 +43,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -73,45 +73,51 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\shared-properties\common.props" />
+    <Import Project="..\..\..\..\properties\logging.props" />
+    <Import Project="..\..\..\..\properties\gui.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\shared-properties\common.props" />
+    <Import Project="..\..\..\..\properties\logging.props" />
+    <Import Project="..\..\..\..\properties\gui.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\shared-properties\common.props" />
+    <Import Project="..\..\..\..\properties\logging.props" />
+    <Import Project="..\..\..\..\properties\gui.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\shared-properties\common.props" />
+    <Import Project="..\..\..\..\properties\logging.props" />
+    <Import Project="..\..\..\..\properties\gui.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(kf-outdir)</OutDir>
+    <OutDir>$(bindir)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(kf-outdir)</OutDir>
+    <OutDir>$(bindir)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(kf-outdir)</OutDir>
+    <OutDir>$(bindir)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(kf-outdir)</OutDir>
+    <OutDir>$(bindir)</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;GUIQTDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(kf-include);$(qt-include32)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(include);$(qt-includes)</AdditionalIncludeDirectories>
+      <AdditionalOptions> /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>logging-dll.lib;gui-logmaster-dll.lib;shell32.lib;api-logmaster-dll.lib;gui-common-dll.lib;$(qt-libs-debug)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(kf-bindir);$(qt-libdir32)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>utilities.lib;gui-logmaster-dll.lib;shell32.lib;api-logmaster-dll.lib;gui-common-dll.lib;Qt6Core.lib;Qt6Widgets.lib;Qt6Gui.lib;Qt6Core5compat.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir);$(qt-libdir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent />
     <PreBuildEvent>
@@ -123,13 +129,15 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(kf-include);$(qt-include64)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(include);$(qt-includes)</AdditionalIncludeDirectories>
+      <AdditionalOptions> /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>logging-dll.lib;gui-logmaster-dll.lib;shell32.lib;api-logmaster-dll.lib;gui-common-dll.lib;$(qt-libs-debug)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(kf-bindir);$(qt-libdir64)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>utilities.lib;gui-logmaster-dll.lib;shell32.lib;api-logmaster-dll.lib;gui-common-dll.lib;Qt6Core.lib;Qt6Widgets.lib;Qt6Gui.lib;Qt6Core5compat.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir);$(qt-libdir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>..\..\..\generate_moc.bat</Command>
@@ -142,15 +150,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(kf-include);$(qt-include32)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(include);$(qt-includes)</AdditionalIncludeDirectories>
+      <AdditionalOptions> /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>logging-dll.lib;gui-logmaster-dll.lib;shell32.lib;api-logmaster-dll.lib;gui-common-dll.lib;$(qt-libs-release)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(kf-bindir);$(qt-libdir32)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>utilities.lib;gui-logmaster-dll.lib;shell32.lib;api-logmaster-dll.lib;gui-common-dll.lib;Qt6Core.lib;Qt6Widgets.lib;Qt6Gui.lib;Qt6Core5compat.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir);$(qt-libdir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>..\..\..\generate_moc.bat</Command>
@@ -163,15 +173,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(kf-include);$(qt-include64)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(include);$(qt-includes)</AdditionalIncludeDirectories>
+      <AdditionalOptions> /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>logging-dll.lib;gui-logmaster-dll.lib;shell32.lib;api-logmaster-dll.lib;gui-common-dll.lib;$(qt-libs-release)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(kf-bindir);$(qt-libdir64)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>utilities.lib;gui-logmaster-dll.lib;shell32.lib;api-logmaster-dll.lib;gui-common-dll.lib;Qt6Core.lib;Qt6Widgets.lib;Qt6Gui.lib;Qt6Core5compat.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir);$(qt-libdir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>..\..\..\generate_moc.bat</Command>

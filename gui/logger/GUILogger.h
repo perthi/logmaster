@@ -23,14 +23,14 @@
 
 using namespace LOGMASTER;
 
-   typedef  QMultiMap<int, LMessage> MsgSeries;
+   typedef  QMap<int, LMessage> MsgSeries;
 
    class GUILogger : public QObject, public GUILoggerBase
    {
       Q_OBJECT
 
    public:
-      static GUILogger* GetInstance();
+      static API GUILogger*  GetInstance();
       ~GUILogger();
       
    public slots:

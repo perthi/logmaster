@@ -38,8 +38,15 @@ GUILogger::timerEvent(QTimerEvent *)
 	{
 		return;
 	}
+	
 	emit newMessages(fNewMessages);
-	fLoggedMessages += fNewMessages;
+	//fLoggedMessages += fNewMessages;
+	
+	for (auto it = fNewMessages.begin(); it != fNewMessages.end(); it++)
+	{
+		fLoggedMessages.insert(it.key(), it.value() );
+	}
+	
 	fNewMessages.clear();
 	while (fLoggedMessages.count() > fMaxMessagesInMemory)
 	{

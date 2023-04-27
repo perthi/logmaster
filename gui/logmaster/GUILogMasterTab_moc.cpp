@@ -1,1 +1,1 @@
-#include  "GUILogMasterTab_moc.h"
+#include "GUILogMasterTab_moc.h" 

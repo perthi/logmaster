@@ -1,1 +1,1 @@
-#include  "GUILogMasterGui_moc.h"
+#include "GUILogMasterGui_moc.h" 
