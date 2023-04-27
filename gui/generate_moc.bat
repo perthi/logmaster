@@ -13,7 +13,7 @@ for /F "tokens=*" %%A in (files.txt) do (
 	  echo(%%A|findstr /r /c:"moc" >nul && (
 	   		echo file = %%A  no moch generated	
 	   		) || (
-	   		moc --no-warnings %%A > tmp_moc.h 		
+	   		..\moc --no-warnings %%A > tmp_moc.h 		
 	   		fc %%~nA_moc.h tmp_moc.h > nul
 	   		if  errorlevel 0 (
 	   			echo generating moc files:  %%~nA_moc.h  and %%~nA_moc.cpp

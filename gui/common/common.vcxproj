@@ -104,8 +104,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(kf-bindir);$(qt-libdir32);</AdditionalLibraryDirectories>
-      <AdditionalDependencies>logging-dll.lib;$(qt-libs-debug)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir);$(qt-libdir);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>shell32.lib;logging.lib;exception.lib;utilities.lib;cmdline.lib;Qt6Core.lib;Qt6Widgets.lib;Qt6Gui.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>..\generate_moc.bat</Command>
@@ -125,8 +125,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(kf-bindir);$(qt-libdir64);</AdditionalLibraryDirectories>
-      <AdditionalDependencies>logging-dll.lib;$(qt-libs-debug)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir);$(qt-libdir);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>shell32.lib;logging.lib;exception.lib;utilities.lib;cmdline.lib;Qt6Core.lib;Qt6Widgets.lib;Qt6Gui.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>..\generate_moc.bat</Command>
@@ -150,8 +150,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(kf-bindir);$(qt-libdir32);</AdditionalLibraryDirectories>
-      <AdditionalDependencies>logging-dll.lib;$(qt-libs-release)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir);$(qt-libdir);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>shell32.lib;logging.lib;exception.lib;utilities.lib;cmdline.lib;Qt6Core.lib;Qt6Widgets.lib;Qt6Gui.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>..\generate_moc.bat</Command>
@@ -175,8 +175,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(kf-bindir);$(qt-libdir64);</AdditionalLibraryDirectories>
-      <AdditionalDependencies>logging-dll.lib;$(qt-libs-release)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir);$(qt-libdir);</AdditionalLibraryDirectories>
+      <AdditionalDependencies>shell32.lib;logging.lib;exception.lib;utilities.lib;cmdline.lib;Qt6Core.lib;Qt6Widgets.lib;Qt6Gui.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>..\generate_moc.bat</Command>
@@ -193,11 +193,21 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GUICommonGui.cpp" />
+    <ClCompile Include="GUICommonGui.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GUICommonGui_moc.cpp" />
     <ClCompile Include="GUIInitStyles.cpp" />
     <ClCompile Include="GUILoggerBase.cpp" />
-    <ClCompile Include="GUIPushButton.cpp" />
+    <ClCompile Include="GUIPushButton.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GUIPushButton_moc.cpp" />
   </ItemGroup>
   <ItemGroup>

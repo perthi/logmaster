@@ -3,16 +3,23 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
     <qt-includes>C:\Qt\6.5.0\Src\qtbase\include\</qt-includes>
+    <qt-libdir>C:\Qt\6.5.0\msvc2019_64\lib</qt-libdir>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup>
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
+    <PreBuildEvent>
+      <Command> ../generate_moc.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="qt-includes">
       <Value>$(qt-includes)</Value>
+    </BuildMacro>
+    <BuildMacro Include="qt-libdir">
+      <Value>$(qt-libdir)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>
