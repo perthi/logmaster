@@ -34,8 +34,10 @@ GUIInitStyles::Init(QApplication * /*app*/)
     string style_s = "";
 
     #ifdef _WIN32
-        resource_s =  "gui-qt.rcc";
-        style_s =  ":/styles/ferrotech.qmm";
+       // resource_s =  "gui-qt.rcc";
+       // style_s =  ":/styles/ferrotech.qmm";
+        resource_s = "C:\\work\\logmaster\\gui\\resources\\gui-qt.rcc";
+        style_s = "C:\\work\\logmaster\\gui\\resources\\styles\\ferrotech.qmm";
 
     #else
 //        string home = getenv("LOGMASTER_HOME");
@@ -55,18 +57,31 @@ GUIInitStyles::Init(QApplication * /*app*/)
     QResource::registerResource(resource_s.c_str() );
     QFileInfo style(style_s.c_str() );
 
+    COUT << "Style = " << style_s << endl;;
+
     if (style.exists())
     {
-            QFile f(style.filePath());
-            if (f.open(QIODevice::ReadOnly | QIODevice::Text))
+        COUT << "TP0" << endl;
+        QFile f(style.filePath());
+            
+        if (f.open(QIODevice::ReadOnly | QIODevice::Text))
             {
+            COUT << "TP1" << endl;
                 QString styleContent = f.readAll();
+                COUT << "TP2" << endl;
                 qApp->setStyleSheet(styleContent);
-                G_DEBUG("Setting style :/styles/ferrotech.qmm");
-            }
+                COUT << "TP3" << endl;
+               // G_DEBUG("Setting style :/styles/ferrotech.qmm");
+                COUT << "TP4" << endl;
+        }
+        else
+        {
+            COUT << "TP5" << endl;
+        }
     }
     else
     {
+            COUT << "Style = " << style_s << "DOES NOT EXIST"  << endl;;
             G_ERROR("Could not find stylesheet %s !",  resource_s.c_str()  );
     }
 

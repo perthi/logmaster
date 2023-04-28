@@ -104,7 +104,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(bindir);$(qt-libdir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>logging.lib;utilities.lib;exception.lib;api-logmaster-dll.lib;Qt6Core.lib;Qt6Widgets.lib;Qt6Gui.lib</AdditionalDependencies>
+      <AdditionalDependencies>logging.lib;utilities.lib;exception.lib;api-logmaster-dll.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib</AdditionalDependencies>
       <AdditionalOptions> /Zc:__cplusplus
  %(AdditionalOptions)</AdditionalOptions>
     </Link>
@@ -126,7 +126,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(bindir);$(qt-libdir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>logging.lib;utilities.lib;exception.lib;api-logmaster-dll.lib;Qt6Core.lib;Qt6Widgets.lib;Qt6Gui.lib</AdditionalDependencies>
+      <AdditionalDependencies>logging.lib;utilities.lib;exception.lib;api-logmaster-dll.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib</AdditionalDependencies>
       <AdditionalOptions> /Zc:__cplusplus
  %(AdditionalOptions)</AdditionalOptions>
     </Link>

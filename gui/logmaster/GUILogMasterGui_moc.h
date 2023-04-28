@@ -44,7 +44,6 @@ static constexpr auto qt_meta_stringdata_CLASSGUILogMasterGuiENDCLASS = QtMocHel
     "QAbstractButton*",
     "MessageFormatChecksClicked",
     "SubsysAndLevelButtonClicked",
-    "QWidget*",
     "button",
     "SubSystemControlClicked",
     "TestMessages",
@@ -52,18 +51,17 @@ static constexpr auto qt_meta_stringdata_CLASSGUILogMasterGuiENDCLASS = QtMocHel
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSGUILogMasterGuiENDCLASS_t {
-    uint offsetsAndSizes[22];
+    uint offsetsAndSizes[20];
     char stringdata0[16];
     char stringdata1[26];
     char stringdata2[1];
     char stringdata3[17];
     char stringdata4[27];
     char stringdata5[28];
-    char stringdata6[9];
-    char stringdata7[7];
-    char stringdata8[24];
-    char stringdata9[13];
-    char stringdata10[14];
+    char stringdata6[7];
+    char stringdata7[24];
+    char stringdata8[13];
+    char stringdata9[14];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSGUILogMasterGuiENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -75,11 +73,10 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSGUILogMasterGuiENDCLASS_t qt_me
         QT_MOC_LITERAL(43, 16),  // "QAbstractButton*"
         QT_MOC_LITERAL(60, 26),  // "MessageFormatChecksClicked"
         QT_MOC_LITERAL(87, 27),  // "SubsysAndLevelButtonClicked"
-        QT_MOC_LITERAL(115, 8),  // "QWidget*"
-        QT_MOC_LITERAL(124, 6),  // "button"
-        QT_MOC_LITERAL(131, 23),  // "SubSystemControlClicked"
-        QT_MOC_LITERAL(155, 12),  // "TestMessages"
-        QT_MOC_LITERAL(168, 13)   // "ClearMessages"
+        QT_MOC_LITERAL(115, 6),  // "button"
+        QT_MOC_LITERAL(122, 23),  // "SubSystemControlClicked"
+        QT_MOC_LITERAL(146, 12),  // "TestMessages"
+        QT_MOC_LITERAL(159, 13)   // "ClearMessages"
     },
     "GUILogMasterGui",
     "OutputTargetChecksClicked",
@@ -87,7 +84,6 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSGUILogMasterGuiENDCLASS_t qt_me
     "QAbstractButton*",
     "MessageFormatChecksClicked",
     "SubsysAndLevelButtonClicked",
-    "QWidget*",
     "button",
     "SubSystemControlClicked",
     "TestMessages",
@@ -114,14 +110,14 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGUILogMasterGuiENDCLASS[] = {
        1,    1,   50,    2, 0x08,    1 /* Private */,
        4,    1,   53,    2, 0x08,    3 /* Private */,
        5,    1,   56,    2, 0x08,    5 /* Private */,
-       8,    0,   59,    2, 0x08,    7 /* Private */,
-       9,    0,   60,    2, 0x08,    8 /* Private */,
-      10,    0,   61,    2, 0x08,    9 /* Private */,
+       7,    0,   59,    2, 0x08,    7 /* Private */,
+       8,    0,   60,    2, 0x08,    8 /* Private */,
+       9,    0,   61,    2, 0x08,    9 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
     QMetaType::Void, 0x80000000 | 3,    2,
-    QMetaType::Void, 0x80000000 | 6,    7,
+    QMetaType::Void, QMetaType::QObjectStar,    6,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -146,7 +142,7 @@ Q_CONSTINIT const QMetaObject GUILogMasterGui::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<QAbstractButton *, std::false_type>,
         // method 'SubsysAndLevelButtonClicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<QWidget *, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QObject *, std::false_type>,
         // method 'SubSystemControlClicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'TestMessages'
@@ -166,7 +162,7 @@ void GUILogMasterGui::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         switch (_id) {
         case 0: _t->OutputTargetChecksClicked((*reinterpret_cast< std::add_pointer_t<QAbstractButton*>>(_a[1]))); break;
         case 1: _t->MessageFormatChecksClicked((*reinterpret_cast< std::add_pointer_t<QAbstractButton*>>(_a[1]))); break;
-        case 2: _t->SubsysAndLevelButtonClicked((*reinterpret_cast< std::add_pointer_t<QWidget*>>(_a[1]))); break;
+        case 2: _t->SubsysAndLevelButtonClicked((*reinterpret_cast< std::add_pointer_t<QObject*>>(_a[1]))); break;
         case 3: _t->SubSystemControlClicked(); break;
         case 4: _t->TestMessages(); break;
         case 5: _t->ClearMessages(); break;

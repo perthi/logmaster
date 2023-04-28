@@ -37,7 +37,6 @@ GUILoggerBase::PurgeMessages()
 }
 
 
-
 void
 GUILoggerBase::newMessage(int cnt, const LMessage& msg)
 {

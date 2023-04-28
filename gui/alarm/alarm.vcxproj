@@ -103,7 +103,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>gui-common-dll.lib;logging.lib;Qt6Core.lib;Qt6Widgets.lib;Qt6Gui.lib</AdditionalDependencies>
+      <AdditionalDependencies>gui-common-dll.lib;logging.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(bindir);$(qt-libdir);</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
@@ -122,7 +122,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>gui-common-dll.lib;logging.lib;Qt6Core.lib;Qt6Widgets.lib;Qt6Gui.lib</AdditionalDependencies>
+      <AdditionalDependencies>gui-common-dll.lib;logging.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(bindir);$(qt-libdir);</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>

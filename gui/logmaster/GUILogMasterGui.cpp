@@ -241,10 +241,21 @@ QGroupBox* GUILogMasterGui::InitMessageFormat()
 QGroupBox* GUILogMasterGui::InitSystemAndLevelControl()
 {
     QGroupBox* logMasterGb = new QGroupBox(this);
-
+    
+    //void mappedObject(QObject*);
+    
     fSubsystemSigActMapper = new QSignalMapper(this);
-    connect(fSubsystemSigActMapper, SIGNAL(mapped(QWidget*)),
-        this, SLOT(SubsysAndLevelButtonClicked(QWidget*)));
+    
+   // connect(fSubsystemSigActMapper, SIGNAL(mapped(QWidget*)),
+   //     this, SLOT(SubsysAndLevelButtonClicked(QWidget*)));
+                                          
+  //  connect(fSubsystemSigActMapper, SIGNAL(mappedObject(QObject*)),
+  //      this, SLOT(SubsysAndLevelButtonClicked(QWidget*)));
+
+    connect(fSubsystemSigActMapper, SIGNAL(mappedObject(QObject*)),
+        this, SLOT(SubsysAndLevelButtonClicked(QObject*)));
+
+
 
     QGridLayout* gridLay = new QGridLayout;
     QPushButton* pb;
@@ -336,9 +347,9 @@ void GUILogMasterGui::MessageFormatChecksClicked(QAbstractButton* ab)
                 Then the RefreshSubsysAndLevel() function is called to refresh the System and Level fields.
 *   @param[in]  button**/
 void 
-GUILogMasterGui::SubsysAndLevelButtonClicked(QWidget* button)
+//GUILogMasterGui::SubsysAndLevelButtonClicked(QWidget* button)
+GUILogMasterGui::SubsysAndLevelButtonClicked(QObject* button)
 {
-    COUT << "TP1" << endl;
     // retrieve data from clicked button
     QPushButton* pb = qobject_cast<QPushButton*>(button);
     QPair<int, int> pair = fSysLevControlButtons.value(pb);

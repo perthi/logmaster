@@ -41,7 +41,8 @@
     private slots :
         void OutputTargetChecksClicked(QAbstractButton*);
         void MessageFormatChecksClicked(QAbstractButton*);
-        void SubsysAndLevelButtonClicked(QWidget* button);
+       // void SubsysAndLevelButtonClicked(QWidget* button);
+        void SubsysAndLevelButtonClicked(QObject* button);
         void SubSystemControlClicked();
         void TestMessages();
         void ClearMessages();
