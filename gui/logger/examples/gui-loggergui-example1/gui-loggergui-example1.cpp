@@ -44,8 +44,10 @@ int main(int argc, char* argv[])
         app.setApplicationName("loggerGuiTest");
         app.setOrganizationName("Embedded Consulting");
         ///SET_LOGTARGET("1111");
-        GUILoggerGui widget;
-        ExecWidget(qobject_cast<QWidget*>(&widget));
+        GUILoggerGui *widget = new GUILoggerGui();
+      //  MakeQApp();
+        //ExecWidget(qobject_cast<QWidget*>(widget));
+        ExecWidget(widget);
     }
     catch (GException & e)
     {

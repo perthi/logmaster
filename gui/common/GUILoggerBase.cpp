@@ -49,11 +49,22 @@ GUILoggerBase::newMessage(int cnt, const LMessage& msg)
 MsgSeries
 GUILoggerBase::AllMsgs()
 {
-	for (auto it = fNewMessages.begin(); it != fNewMessages.end(); it++)
+	COUT << "New messages size = " << fNewMessages.size() << endl;
+	COUT << "Logged messages size = " << fLoggedMessages.size() << endl;
+
+	// fNewMessages.begin();
+	// fLoggedMessages.begin();
+
+	if (fNewMessages.size() > 0)
 	{
-		fLoggedMessages.insert(it.key(), it.value());
+		for (auto it = fNewMessages.begin(); it != fNewMessages.end(); it++)
+		{
+			fLoggedMessages.insert(it.key(), it.value());
+		}
 	}
-	return(fLoggedMessages);
+	
+
+	return fLoggedMessages;
 }
 
 

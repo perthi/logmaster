@@ -4,7 +4,7 @@
 * For more information please contact pth@embc.no
 ******************************************************/
 
-///  \file     gui-qt-logmaster-example1.cpp
+///  \file      gui-qt-logmaster-example1.cpp
 ///  \brief     main loop for test for logmaster test application
 
 
@@ -20,14 +20,9 @@
 
 int main(int argc, char *argv[])
 {
-	COUT << "HELLO WORLD1 !!!" << endl;
 	QApplication app(argc, argv);
-	COUT << "HELLO WORLD2 !!!" << endl;
 // GUIInitStyles::Instance()->Init(&app, "logmasterGUITest", "Embedded Consulting");
 	GUIInitStyles::Instance()->Init(&app);
-	COUT << "HELLO WORLD3 !!!" << endl;
 	GUILogMasterTab widget;
-	COUT << "HELLO WORLD4 !!!" << endl;
 	ExecWidget(qobject_cast<QWidget*>(&widget));
-	COUT << "HELLO WORLD5 !!!" << endl;
 }

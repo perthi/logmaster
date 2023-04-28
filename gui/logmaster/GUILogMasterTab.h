@@ -28,7 +28,8 @@
         Q_OBJECT
 
     public:
-        explicit API GUILogMasterTab(QWidget *parent = 0);
+       // explicit API GUILogMasterTab(QWidget *parent = 0);
+        API GUILogMasterTab(QWidget* parent = 0);
         API ~GUILogMasterTab();
 
     //signals:

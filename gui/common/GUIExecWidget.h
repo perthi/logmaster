@@ -14,6 +14,9 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QHBoxLayout>
 
+#include <chrono>
+#include <thread>
+
 #ifndef _EXEC_WIDGET_H_
 #define _EXEC_WIDGET_H_
 
@@ -47,11 +50,12 @@
     */
 	static void ExecWidget(QWidget* widget)
 	{
+        //MakeQApp();
         QMainWindow* mainWindow = new QMainWindow;
         mainWindow->setCentralWidget(widget);
         mainWindow->show();
-		qApp->exec();
-	}
+        qApp->exec();
+    }
 
     /*  @brief Make the QApplication object if it does not exist.
     *

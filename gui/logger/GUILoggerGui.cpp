@@ -56,10 +56,17 @@ GUILoggerGui::GUILoggerGui(QWidget *parent)
    fPauseButton(0)
 {
    InitGui();
+   
    RetranslateUi();
+   
+   
    ConnectStuff();
+
+   
    GetAllMessages();
-}
+   
+
+   }
 
 
 GUILoggerGui::~GUILoggerGui()
@@ -295,6 +302,7 @@ GUILoggerGui::ConnectStuff()
 void 
 GUILoggerGui::NewMessages(const MsgSeries &msgs)
 {
+    return;
     QMapIterator<int, LMessage> i(msgs);
     while (i.hasNext())
     {

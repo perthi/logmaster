@@ -254,6 +254,8 @@ GSystem::GetProcessID()
 string
 GSystem::exec(const char* cmd)
 {
+
+    //cout << "executing" << endl;
 #ifdef _WIN32
     std::shared_ptr<FILE> pipe(_popen(cmd, "r"), _pclose);
 #else
