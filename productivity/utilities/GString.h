@@ -33,7 +33,7 @@ using std::vector;
 #define __STDC_WANT_LIB_EXT1__ 1
 class GString;
 
- GString   * g_string();
+ GString   API *  g_string();
 
 
 /** @brief various string manipulation functions */
@@ -42,9 +42,9 @@ class GString
  friend  GString   * g_string();  
 
  public:
-     char     *ReplaceBadChar(char *inputstring, const char delimeter = '_', const char *suspicious = 0);
-     string    ReplaceBadChar(string &inputstring, const char delimeter = '_', const char *suspicious = 0);
-     string    Replace(const string original, const string toreplace, const string replacement);
+     char     API *  ReplaceBadChar(char *inputstring, const char delimeter = '_', const char *suspicious = 0);
+     string    API ReplaceBadChar(string &inputstring, const char delimeter = '_', const char *suspicious = 0);
+     string    API Replace(const string original, const string toreplace, const string replacement);
      
      string    ToPascalCase( const string  in ) const;
      string    ToUpperCase(  const string  in ) const;  
@@ -59,17 +59,17 @@ class GString
      int          CountOccurrences(const string input, const char c, const bool ignore_case);
      bool         Contains(const vector<string> &str, const string &substring, const bool ignore_case = true, long long int *pos = 0);
      bool         Contains(const string &str, const string &substring, const bool ignore_case = true, long long int *pos = 0);
-     bool         BeginsWith(const string &str, const string &substring, const bool ignore_case = true);
-     bool         BeginsWith(const vector<string> * const arr, const string token, const bool ignore_case = true);
+     bool         API BeginsWith(const string &str, const string &substring, const bool ignore_case = true);
+     bool         API BeginsWith(const vector<string> * const arr, const string token, const bool ignore_case = true);
      bool         EndsWith(const string &str, const string &substring, const bool ignore_case = true);
 
      bool         CompareNoCase(string lhs, string rhs) { return (ToUpper(lhs) == ToUpper(rhs)); }
-     string       &Ltrim(string &s, const char c = ' ');
-     string       &Rtrim(string &s, const char c = ' ');
-     string       &Trim(string &s, const char c = ' ');
-     string       &Trim(string &s, const vector<char> tokens);
-     vector<string> Trim(vector<string> &s, const char c = ' ');
-     vector<string> Trim(vector<string> &s, const vector<char> tokens);
+     string       API & Ltrim(string &s, const char c = ' ');
+     string       API & Rtrim(string &s, const char c = ' ');
+     string       API & Trim(string &s, const char c = ' ');
+     string       API & Trim(string &s, const vector<char> tokens);
+     vector<string> API Trim(vector<string> &s, const char c = ' ');
+     vector<string> API Trim(vector<string> &s, const vector<char> tokens);
      string       &Utf8ToAnsi(string &s);
      char         *Utf8ToAnsi(char *s);
      bool          IsAnsi(string &s);

@@ -7,6 +7,9 @@
 #include <type_traits>
 #include <utility>
 
+#include <utilities/GDefinitions.h>
+
+
 namespace GFormatting
 {
 #ifndef _WIN32
@@ -83,7 +86,7 @@ namespace GFormatting
 #endif
     };
     static bool checkStringsWithNoArgs = false;
-    extern std::pair<bool, std::string> doCheckFormat(const char *filename, int lineno, const char *function,
+    extern API std::pair<bool, std::string> doCheckFormat(const char *filename, int lineno, const char *function,
                                                       const char *fmt, const Arg *args, const size_t numArgs);
     template<typename... Args>
     static std::pair<bool, std::string> // success/failure, reason

@@ -37,7 +37,7 @@ using std::map;
 class GTime 
 {
 public:
-    GTime();
+    API GTime();
 	API GTime(int year, int month, int dayInMonth, int hour24 = 0, int minute = 0, int second = 0, int us = 0);
     ~GTime() {};
     
@@ -53,7 +53,7 @@ public:
     string			API   GetTime_ISO8601( bool use_microseconds = true );
     time_t			API   DateString2Time(const string date, const string format, std::tm *t = 0, int64_t *us = 0);
     string		    TimeStampShort(struct std::tm *tout = 0, struct std::tm *tin = 0, int64_t *us = 0);
-    static  void            SetExternalTimeSource(  std::function<double()>  funct ); 
+    static  void       API     SetExternalTimeSource(  std::function<double()>  funct ); 
 
 
 #ifdef _WIN32

@@ -188,7 +188,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
     return true;
 }
 
-std::pair<bool, std::string> // Success/failure, reason
+std::pair<bool, std::string>  API // Success/failure, reason
 doCheckFormat(const char *filename, int lineno, const char *function, const char *fmt, const Arg *args, const size_t numArgs)
 {
     std::string reason;
