@@ -49,7 +49,7 @@ using std::set;
 class GUtilities;
 
 
-GUtilities * g_utilities();
+GUtilities API * g_utilities();
 
 
 /** @brief Collection of various utility functions that does not fit into any other category  */

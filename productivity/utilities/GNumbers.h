@@ -71,20 +71,20 @@ public:
 	
     template<typename T>   bool     IsBinary(T num);
 	
-    bool            API        IsDecNumber(const string num);
-    bool            API        IsDigit(const char *num, const int base = 10) { return IsDigit(string(num), base); };
-    bool            API        IsDigit(const string num, const int base = 10);
+    bool            API            IsDecNumber(const string num);
+    bool            API            IsDigit(const char *num, const int base = 10) { return IsDigit(string(num), base); };
+    bool            API            IsDigit(const string num, const int base = 10);
     template<typename T>   bool    IsDigit(T num, const int base = 10);
     template<typename T>   bool    IsFloat(T num);
     bool          API              IsFloat(const char *num);
-    bool          API             IsFloat(const string num);
-    bool           API         IsHex(const string num);
+    bool          API              IsFloat(const string num);
+    bool           API             IsHex(const string num);
     template<typename T>   bool    IsHex(const T num);
-    bool           API         IsHex(const char *num) { return IsHex(string(num)); };
-    bool           API         IsInteger(const string num);
+    bool           API             IsHex(const char *num) { return IsHex(string(num)); };
+    bool           API             IsInteger(const string num);
     template<typename T>   bool    IsInteger(T num);
-    bool           API         IsNumber(const string num);
-    bool          API          IsNumber(const double num);
+    bool           API             IsNumber(const string num);
+    bool          API              IsNumber(const double num);
     
     
     template<typename T>  bool IsIntegerVType(T) { return IsIntegerVTypeS(typeid(T).name() );  }
@@ -99,8 +99,8 @@ public:
     template<typename T>  bool IsFundamentalType(T) { return  IsFundamentalTypeS( typeid(T).name() ); }
      bool             IsFundamentalTypeS(string type);
 
-    template<typename T>  bool IsUnsignedType(T) { return  IsUnsignedTypeS(typeid(T).name()); }
-     bool             IsUnsignedTypeS(string type);
+    template<typename T>  bool API IsUnsignedType(T) { return  IsUnsignedTypeS(typeid(T).name()); }
+     bool             API IsUnsignedTypeS(string type);
     
     template<typename T>  bool IsIntegerType(T) { return  IsIntegerTypeS(typeid(T).name() );}
       
@@ -140,8 +140,8 @@ public:
 private:
     GNumbers() : fIsDisabledError(false) {};
     ~GNumbers() {};
-    template<typename T>   void    CheckUnsigned(const string num);
-    template<typename T>   void    CheckUnsigned(const vector<string> num);
+    template<typename T>   void    API CheckUnsigned(const string num);
+    template<typename T>   void    API CheckUnsigned(const vector<string> num);
 	bool fIsDisabledError = false;
 };
 

@@ -43,8 +43,8 @@ namespace LOGMASTER
 class  GDataBaseIF
 {
     public:
-    GDataBaseIF();
-    virtual ~GDataBaseIF();
+    API GDataBaseIF();
+    virtual API ~GDataBaseIF();
     virtual bool   CreateTables() = 0;
     void     API   CloseDatabase();
     bool     API   OpenDatabase( const char *db_path );

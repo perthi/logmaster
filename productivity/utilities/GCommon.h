@@ -27,6 +27,7 @@ class GLocation;
 #define DISABLE_EXCEPTION true
 #define THROW_EXCEPTION  false
 
+#include <utilities/GDefinitions.h>
 
 /** @brief Some common global defines and functions */
 class GCommon
@@ -37,9 +38,9 @@ class GCommon
 public:
 	GCommon() {};
 	~GCommon() {};
-	void  HandleError(const string message, const GLocation l, const bool disable_error = false );
-	void  DisableOutput()  {  fDisableOuput = true; };
-	void  EnableOutput()   {  fDisableOuput = false; };
+	void  API HandleError(const string message, const GLocation l, const bool disable_error = false );
+	void  API DisableOutput()  {  fDisableOuput = true; };
+	void  API EnableOutput()   {  fDisableOuput = false; };
 
 private:
 	bool fDisableOuput = false;
