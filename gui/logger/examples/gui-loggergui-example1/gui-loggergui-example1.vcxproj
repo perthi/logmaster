@@ -131,7 +131,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>exception.lib;logging.lib;api-logmaster-dll.lib;gui-logger-dll.lib; gui-logmaster-dll.lib;gui-common-dll.lib;shell32.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib;Qt6Core5compatd.lib</AdditionalDependencies>
+      <AdditionalDependencies>logging.lib;api-logmaster-dll.lib;gui-logger-dll.lib; gui-logmaster-dll.lib;gui-common-dll.lib;shell32.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib;Qt6Core5compatd.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(bindir);$(qt-libdir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>

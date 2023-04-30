@@ -82,7 +82,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>shell32.lib;logging.lib;cmdline.lib;utilities.lib;exception.lib</AdditionalDependencies>
+      <AdditionalDependencies>shell32.lib;logging.lib;cmdline.lib;utilities.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command />
