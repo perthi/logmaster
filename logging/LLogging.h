@@ -112,12 +112,12 @@ namespace LOGMASTER
         void                    API     SetFormatCheckAll( const bool val );   
         void                    API     DisableFormatCheck() { fFormatCheck  = false;};  
         void                    API     EnableFormatCheck() {  fFormatCheck  = true;};  
-
+        logmap                  API     GetLogMap() { return fMessages;};
     private:
-        LLogging();
-        LLogging(LLogging&);
+        API LLogging();
+        API LLogging(LLogging&);
 
-        void QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg,
+        void API QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg,
         const eMSGTARGET target);
 
         void    Init();
@@ -130,7 +130,7 @@ namespace LOGMASTER
         vector< void(*)( std::shared_ptr<LMessage> ) > fGuiSubscribers;
         std::shared_ptr<std::map<eMSGTARGET, LMessageFactory  > >  fConfig = nullptr;
         std::shared_ptr<std::map<eMSGTARGET, LMessageFactory > >   fDefaultConfig = nullptr;
-        std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > > fMessages = nullptr;
+        logmap fMessages = nullptr;
         std::stack<   std::shared_ptr<  std::map<eMSGTARGET, LMessageFactory   >  >     >  fConfigurationStack;
         std::recursive_mutex fLoggingMutex{};
         bool fFormatCheckAll = true; //!< Wether or not to perform format check on all messages 

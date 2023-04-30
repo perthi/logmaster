@@ -48,7 +48,7 @@ namespace LOGMASTER
 
 #ifdef __cplusplus
 public:
-    LMessage() : fRgBColor(0), fWColor(0), fAColor(), fLevel(eMSGLEVEL::LOG_WARNING), fSystem(eMSGSYSTEM::SYS_ALL), fTarget(eMSGTARGET::TARGET_ALL), fFormat(eMSGFORMAT::PREFIX_ALL)
+    API LMessage() : fRgBColor(0), fWColor(0), fAColor(), fLevel(eMSGLEVEL::LOG_WARNING), fSystem(eMSGSYSTEM::SYS_ALL), fTarget(eMSGTARGET::TARGET_ALL), fFormat(eMSGFORMAT::PREFIX_ALL)
     {
         ClearContent();
     };
@@ -95,8 +95,8 @@ public:
         fEpochTime = -1;
     }
 #endif
-    LMessage( const LMessage & );
-    LMessage & operator = ( const LMessage & );
+    API LMessage( const LMessage & );
+    API LMessage & operator = ( const LMessage & );
 
     private:
      // LMessage( const LMessage & );

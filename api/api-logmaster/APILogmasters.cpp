@@ -15,6 +15,7 @@
 
 APILogMasters::APILogMasters()
 {
+
     fLogHandle = LLogging::Instance();
 
     for ( auto it = fHashMap.GetTargetHash()->begin(); it != fHashMap.GetTargetHash()->end(); it ++ )

@@ -29,6 +29,12 @@
 
 
 #include "GException.h"
+
+std::shared_ptr< std::map<eMSGTARGET, std::shared_ptr <LMessage> >  > GException::fgMessageMap = nullptr;
+bool  GException::fIsEnabledStackTrace = false;
+bool  GException::fIsEnabledException = true;
+
+
 #include <utilities/GStackTrace.h>
 #include <utilities/GRegexp.h>
 #include <utilities/GString.h>
@@ -45,19 +51,27 @@ using std::string;
 
 using namespace LOGMASTER;
 
-std::shared_ptr< std::map<eMSGTARGET, std::shared_ptr <LMessage> >  > GException::fgMessageMap = nullptr;
-//std::shared_ptr<LMessage>   GException::fgMessage = nullptr;
+// EXCEPTION_CLASS_CPP(GException)
+// #define EXCEPTION(...)                     throw_exception( GException(                 __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
 
+//EXCEPTION_CLASS_CPP(GException)
 
-bool  GException::fIsEnabledStackTrace = false;
-bool  GException::fIsEnabledException = true;
+string GException::LogTrace()
+{
+    string msg = string(" (") + ExtractClassname(typeid(*this).name()) + string(")") + (fIsEnabledStackTrace == true ? +"\n" + string("******* Stack Trace START *******") + "\n" + GStackTrace::str() + "\n" + string("******* Stack Trace END *******") + "\n" : "");
+    return msg;
+}
 
+void 
+GException::SetLogMap()
+{
+    fgMessageMap = LLogging::Instance()->GetLogMap();
+}
 
 
 std::shared_ptr<LMessage>
 GException::GetMessageL()
 {  
-    // what();
     return fgMessage;
 }
 

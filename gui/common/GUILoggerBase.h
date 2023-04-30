@@ -12,6 +12,14 @@ using namespace LOGMASTER;
 // typedef  QMultiMap<int, LMessage> MsgSeries;
 typedef  QMap<int, LMessage> MsgSeries;
 
+
+#include<vector>
+using std::vector;
+#include <memory>
+
+
+
+
 class GUILoggerBase
 {
 

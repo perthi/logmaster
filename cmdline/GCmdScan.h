@@ -112,7 +112,7 @@ inline void
 GCmdScan::SetParameterVal_t(std::shared_ptr<GArgument> a, GArgumentParsed v) const
 {
     std::shared_ptr<GCommandLineArgument<T>> ab = std::dynamic_pointer_cast<GCommandLineArgument<T>>(a);
-    G_ASSERT_EXCEPTION(ab != nullptr, "ZERO POINTER");
+    //G_ASSERT_EXCEPTION(ab != nullptr, "ZERO POINTER");
 
     if (ab != nullptr)
     {
@@ -155,7 +155,7 @@ inline void
 GCmdScan::SetParametersF(  std::shared_ptr<GArgument>  a, GArgumentParsed v) const
 {
     std::shared_ptr<  GCommandLineArgument < T >   > ab = dynamic_pointer_cast<  GCommandLineArgument < T >   >(a);
-    G_ASSERT_EXCEPTION(ab != nullptr, "ZERO pointer");
+    //G_ASSERT_EXCEPTION(ab != nullptr, "ZERO pointer");
 
     if (ab != nullptr )
     {
@@ -186,7 +186,7 @@ GCmdScan::SetParametersF<string>(  std::shared_ptr<GArgument>  a, GArgumentParse
 {
     std::shared_ptr<   GCommandLineArgument < string>  > ab = std::dynamic_pointer_cast<  GCommandLineArgument < string>   >(a);
 
-    G_ASSERT_EXCEPTION( ab != nullptr,  "ZERO pointer " );
+    //G_ASSERT_EXCEPTION( ab != nullptr,  "ZERO pointer " );
 
     if (ab != 0)
     {
@@ -204,7 +204,7 @@ GCmdScan::SetParametersF<bool>( std::shared_ptr<GArgument>  a, GArgumentParsed v
 {
     std::shared_ptr<   GCommandLineArgument < bool>  > ab = std::dynamic_pointer_cast<  GCommandLineArgument < bool>   >(a);
 
-    G_ASSERT_EXCEPTION( ab != nullptr,  "ZERO pointer " );
+    //G_ASSERT_EXCEPTION( ab != nullptr,  "ZERO pointer " );
 
     if (ab != 0)
     {
@@ -234,7 +234,7 @@ GCmdScan::SetParametersV( std::shared_ptr<GArgument>  a, vector<string> vs) cons
     // GCommandLineArgument < vector<T> >  *ab = dynamic_cast<GCommandLineArgument < vector<T> > *>(a);
     std::shared_ptr<     GCommandLineArgument < vector<T> >   > ab = std::dynamic_pointer_cast< GCommandLineArgument < vector<T> >  >(a);
 
-    G_ASSERT_EXCEPTION( ab != nullptr,  "ZERO pointer " );
+    //G_ASSERT_EXCEPTION( ab != nullptr,  "ZERO pointer " );
     
     if (ab != 0)
     {
@@ -258,7 +258,7 @@ GCmdScan::SetParametersVI( std::shared_ptr<GArgument>  a, vector<string> vs) con
     
     std::shared_ptr<    GCommandLineArgument < U >    > ab = std::dynamic_pointer_cast<    GCommandLineArgument < U >   >(a);
 
-    G_ASSERT_EXCEPTION( ab != nullptr,  "ZERO pointer " );
+    //G_ASSERT_EXCEPTION( ab != nullptr,  "ZERO pointer " );
 
     if (ab != 0)
     {
@@ -268,7 +268,7 @@ GCmdScan::SetParametersVI( std::shared_ptr<GArgument>  a, vector<string> vs) con
     }
     else
     {
-        EXCEPTION("cast failed (attemted to cast a to %s", typeid(U).name() );
+        //EXCEPTION("cast failed (attemted to cast a to %s", typeid(U).name() );
     }
 }
 
@@ -281,7 +281,7 @@ GCmdScan::SetParametersV< vector < string > >( std::shared_ptr<GArgument>  a, ve
     ///GCommandLineArgument < vector < string  > >  *avs = dynamic_cast<GCommandLineArgument < vector<string >  > *>(a);
     std::shared_ptr<    GCommandLineArgument < vector < string  > >     > avs = std::dynamic_pointer_cast<    GCommandLineArgument < vector < string  > >   >(a);
 
-    G_ASSERT_EXCEPTION( avs != nullptr,  "ZERO pointer " );
+    //G_ASSERT_EXCEPTION( avs != nullptr,  "ZERO pointer " );
     
     if (avs != 0)
     {
@@ -312,7 +312,7 @@ GCmdScan::ScanArguments(const int argc, const char **argv, deque<  std::shared_p
         {
             if (fDoIgnoreStrayArguments == false)
             {
-                INVALID_ARGUMENT_EXCEPTION("Stray argument \"%s\"", argv[1]);
+                //INVALID_ARGUMENT_EXCEPTION("Stray argument \"%s\"", argv[1]);
             }
             else
             {
@@ -405,11 +405,11 @@ GCmdScan::Verify(  std::shared_ptr<GArgument> a, GArgumentParsed v) const
         {
             if (v.GetSubCommands().size() != 0 || v.GetArguments().size() != 0)
             {
-                INVALID_ARGUMENT_EXCEPTION("GArguments of type void does not take any subcommands or parameters,%s(%s), You have given these GArgument (%s) and these subcommands (%s)",
-                    v.GetCommand().c_str(),
-                    type.c_str(),
-                    g_string()->ToString(v.GetArguments()).c_str(),
-                    g_string()->ToString(v.GetSubCommands()).c_str());
+                //INVALID_ARGUMENT_EXCEPTION("GArguments of type void does not take any subcommands or parameters,%s(%s), You have given these GArgument (%s) and these subcommands (%s)",
+                //    v.GetCommand().c_str(),
+                //    type.c_str(),
+                //    g_string()->ToString(v.GetArguments()).c_str(),
+                //    g_string()->ToString(v.GetSubCommands()).c_str());
             }
             else
             {
@@ -435,7 +435,7 @@ GCmdScan::Verify(  std::shared_ptr<GArgument> a, GArgumentParsed v) const
             {
                 if (v.GetSubCommands().size() != 0 || v.GetArguments().size() != 0)
                 {
-                    INVALID_ARGUMENT_EXCEPTION("boolean types takes no GArguments or parameters unless the verification function is not set: %s(%s) takes only one GArguments", v.GetCommand().c_str(), type.c_str());
+                    //INVALID_ARGUMENT_EXCEPTION("boolean types takes no GArguments or parameters unless the verification function is not set: %s(%s) takes only one GArguments", v.GetCommand().c_str(), type.c_str());
                 }
                 else
                 {
@@ -452,7 +452,7 @@ GCmdScan::Verify(  std::shared_ptr<GArgument> a, GArgumentParsed v) const
                 string n_sub = g_string()->ToString((v.GetSubCommands().size()));
                 string n_args = g_string()->ToString((v.GetArguments().size()));
                 string args = "Subcommands:" + g_utilities()->Vec2String(v.GetSubCommands()) + "(" + n_sub + ")\t" + "argumenst: " + g_utilities()->Vec2String(v.GetArguments()) + "(" + n_args + ")";
-                INVALID_ARGUMENT_EXCEPTION("Argumenst of fundamental types takes exactly one parameter, an no sub GArguments: %s(%s) taks only on GArguments: You hve given the following argumenswt and subcommands: %s", v.GetCommand().c_str(), type.c_str(), args.c_str());
+                //INVALID_ARGUMENT_EXCEPTION("Argumenst of fundamental types takes exactly one parameter, an no sub GArguments: %s(%s) taks only on GArguments: You hve given the following argumenswt and subcommands: %s", v.GetCommand().c_str(), type.c_str(), args.c_str());
             }
             else
             {
@@ -552,11 +552,11 @@ GCmdScan::CheckMandatory(const vector<GArgumentParsed> v, const deque <  std::sh
 
     for (uint16_t i = 0; i < args->size(); i++)
     {
-        G_ASSERT_EXCEPTION(args->at(i) != 0, "args[%d] is a ZERO pointer", i);
+        //G_ASSERT_EXCEPTION(args->at(i) != 0, "args[%d] is a ZERO pointer", i);
 
         if ((args->at(i)->IsMandatory() == true) && (HasArgument(tokens, args->at(i)->GetCommand()) == false))
         {
-            MISSING_ARGUMENT_EXCEPTION("GArgument %s is mandatory, but not present", args->at(i)->GetCommand().c_str());
+            //MISSING_ARGUMENT_EXCEPTION("GArgument %s is mandatory, but not present", args->at(i)->GetCommand().c_str());
         }
     }
 
@@ -624,7 +624,7 @@ GCmdScan::CheckValid(const vector<GArgumentParsed> v, const deque < std::shared_
         for (uint16_t j = 0; j < args->size(); j++)
         {
             
-            G_ASSERT_EXCEPTION(args->at(j) != 0, "args[%d] is a ZERO pointer", j);
+            //G_ASSERT_EXCEPTION(args->at(j) != 0, "args[%d] is a ZERO pointer", j);
 
             if (args->at(j)->GetCommand() == v[i].GetCommand())
             {
@@ -647,7 +647,7 @@ GCmdScan::CheckValid(const vector<GArgumentParsed> v, const deque < std::shared_
             
             if (fDoIgnoreStrayArguments == false)
             {
-                INVALID_ARGUMENT_EXCEPTION("%s", msg.c_str());
+                //INVALID_ARGUMENT_EXCEPTION("%s", msg.c_str());
             }
             else
             {
@@ -667,14 +667,14 @@ GCmdScan::CheckDuplicates( deque < std::shared_ptr<GArgument> > *args) const
     {
         for (uint16_t j = i + 1; j < args->size(); j++)
         {
-            G_ASSERT_EXCEPTION(args->at(i) != 0, "args[%d] is a ZERO pointer", i);
-            G_ASSERT_EXCEPTION(args->at(j) != 0, "args[%d] is a ZERO pointer", j);
+            //G_ASSERT_EXCEPTION(args->at(i) != 0, "args[%d] is a ZERO pointer", i);
+            //G_ASSERT_EXCEPTION(args->at(j) != 0, "args[%d] is a ZERO pointer", j);
             string tmpi = string(args->at(i)->GetCommand());
             string tmpj = string(args->at(j)->GetCommand());
 
             if (tmpi == tmpj)
             {
-                INVALID_ARGUMENT_EXCEPTION("Duplicated command line GArgument: %s", tmpi.c_str());
+               // INVALID_ARGUMENT_EXCEPTION("Duplicated command line GArgument: %s", tmpi.c_str());
             }
         }
     }

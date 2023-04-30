@@ -56,15 +56,10 @@ GUILoggerGui::GUILoggerGui(QWidget *parent)
    fPauseButton(0)
 {
    InitGui();
-   
    RetranslateUi();
-   
-   
    ConnectStuff();
-
    
    GetAllMessages();
-   
 
    }
 
@@ -116,7 +111,7 @@ GUILoggerGui::InitLeft()
 
        QCheckBox* checkbox = new QCheckBox(this);
        checkbox->setChecked(true);
-       checkbox->setText(it->second.c_str());
+       checkbox->setText( ( it->second).c_str() );
        checkbox->setProperty("value", (int32_t)it->first);
        checks->addButton(checkbox);
        checksLay->addWidget(checkbox);
@@ -302,7 +297,8 @@ GUILoggerGui::ConnectStuff()
 void 
 GUILoggerGui::NewMessages(const MsgSeries &msgs)
 {
-    return;
+    COUT << "Message received,msg.size =  " <<  msgs.size() << endl;
+    //return;
     QMapIterator<int, LMessage> i(msgs);
     while (i.hasNext())
     {
@@ -316,17 +312,9 @@ GUILoggerGui::NewMessages(const MsgSeries &msgs)
         }
 
         //Filter severity:
-        
-        //fLogLevelCombo->
-        
         int value = (int)fLogLevelCombo->itemData(  fLogLevelCombo->currentIndex() ).toInt();
-
-//        if (  fLogLevelCombo->itemData(  fLogLevelCombo->currentIndex())  < (int)msg.fLevel) 
-       
        if (  value  < (int)msg.fLevel) 
-     //   if (fLogLevelCombo->currentData() < (int)msg.fLevel) 
         {
-         
           //Log level too low, skip msg
           continue;
         }
@@ -338,10 +326,14 @@ GUILoggerGui::NewMessages(const MsgSeries &msgs)
         {
             if ( (int)msg.fSystem & (int)it.key() )
             {
+
                 if (it.value()->checkState() == Qt::Checked)
                     skip = false;
             }
         }
+
+        COUT << "SKIP = " << (skip == true ? "TRUE" : "FALSE") << endl;
+
         if (skip) {
             //Subsystem does not match, skip msg
             continue;
@@ -395,6 +387,8 @@ GUILoggerGui::OpenLogMasterDialog()
 {
     if(fLogMasterGuiDialog == nullptr)
     {
+       
+
         fLogMasterGuiDialog = new QWidget(nullptr);
         fLogMasterGuiDialog->setObjectName("GUIWidget");
         fLogMasterGuiDialog->setWindowFlags(Qt::Window);

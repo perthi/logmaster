@@ -10,12 +10,15 @@
 
 #include "GUILogMasterTab.h"
 
+//vector< void(*)(std::shared_ptr<LMessage>) > fSubscribers;
+//vector< void(*)(std::shared_ptr<LMessage>) > fGuiSubscribers;
 
 GUILogMasterTab::GUILogMasterTab(QWidget *parent)
     :QWidget(parent),
     fTab(0)
     
 {
+
     fAPILogMasters = APILogMasters::Instance();
     InitGui();
     RetranslateUi();

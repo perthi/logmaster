@@ -57,31 +57,31 @@ GUIInitStyles::Init(QApplication * /*app*/)
     QResource::registerResource(resource_s.c_str() );
     QFileInfo style(style_s.c_str() );
 
-    COUT << "Style = " << style_s << endl;;
+   // COUT << "Style = " << style_s << endl;;
 
     if (style.exists())
     {
-        COUT << "TP0" << endl;
+    //    COUT << "TP0" << endl;
         QFile f(style.filePath());
             
         if (f.open(QIODevice::ReadOnly | QIODevice::Text))
             {
-            COUT << "TP1" << endl;
+       //     COUT << "TP1" << endl;
                 QString styleContent = f.readAll();
-                COUT << "TP2" << endl;
+     //           COUT << "TP2" << endl;
                 qApp->setStyleSheet(styleContent);
-                COUT << "TP3" << endl;
+       //         COUT << "TP3" << endl;
                // G_DEBUG("Setting style :/styles/ferrotech.qmm");
-                COUT << "TP4" << endl;
+        //        COUT << "TP4" << endl;
         }
         else
         {
-            COUT << "TP5" << endl;
+           // COUT << "TP5" << endl;
         }
     }
     else
     {
-            COUT << "Style = " << style_s << "DOES NOT EXIST"  << endl;;
+          //  COUT << "Style = " << style_s << "DOES NOT EXIST"  << endl;;
             G_ERROR("Could not find stylesheet %s !",  resource_s.c_str()  );
     }
 

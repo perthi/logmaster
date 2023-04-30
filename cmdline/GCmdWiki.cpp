@@ -53,7 +53,7 @@ void
 GCmdWiki::GenerateWiki(  deque< std::shared_ptr<GArgument> > args,  const string  filename  )
 {
     G_INFO("arguments size = %d", args.size() );
-    G_ASSERT_EXCEPTION(filename != "", "Filename cannot be empty" );
+    //G_ASSERT_EXCEPTION(filename != "", "Filename cannot be empty" );
     std::stringstream buffer;
     G_INFO("arguments size = %d", args.size() );
     

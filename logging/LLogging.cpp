@@ -172,7 +172,7 @@ namespace LOGMASTER
         fConfig = fDefaultConfig;
         do
         {
-            auto c = fConfigurationStack.top();
+            //auto c = fConfigurationStack.top();
             fConfigurationStack.pop();
         } while ( fConfigurationStack.size() > 0 );
     }

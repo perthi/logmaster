@@ -40,6 +40,7 @@ GUILoggerBase::PurgeMessages()
 void
 GUILoggerBase::newMessage(int cnt, const LMessage& msg)
 {
+	COUT << "New message" << endl;
 	QMutexLocker locker(&fMutex);
 	LMessage newmsg = msg;
 	fNewMessages.insert(cnt, newmsg);

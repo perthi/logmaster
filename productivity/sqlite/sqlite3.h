@@ -37,10 +37,16 @@
 /*
 ** Make sure we can call this stuff from C++.
 */
-#ifdef __cplusplus
+//#ifdef __cplusplus
 extern "C" {
-#endif
+//#endif
 
+#ifdef _WIN32
+#define SQLITE_CDECL __declspec(dllexport)
+#define SQLITE_API __declspec(dllexport)
+#else
+#define API
+#endif
 
 /*
 ** Provide the ability to override linkage features of the interface.
@@ -403,7 +409,7 @@ typedef int (*sqlite3_callback)(void*,int,char**, char**);
 **      the 2nd parameter of sqlite3_exec() while sqlite3_exec() is running.
 ** </ul>
 */
-SQLITE_API int sqlite3_exec(
+SQLITE_API int __cdecl sqlite3_exec(
   sqlite3*,                                  /* An open database */
   const char *sql,                           /* SQL to be evaluated */
   int (*callback)(void*,int,char**,char**),  /* Callback function */

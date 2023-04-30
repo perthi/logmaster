@@ -9,8 +9,8 @@
 ///  @brief     Class to handle registering subscriber to logging system and keep a buffer of messages
 
 
-#ifndef _LOGGER_H_
-#define _LOGGER_H_
+#ifndef _GUILOGGER_H_
+#define _GUILOGGER_H_
 
 #include <QtCore/QObject>
 #include <QtCore/QMutex>
@@ -20,6 +20,7 @@
 
 
 #include <gui/common/GUILoggerBase.h>
+
 
 using namespace LOGMASTER;
 

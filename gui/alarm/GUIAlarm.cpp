@@ -5,6 +5,7 @@
 #include <QtCore/QMutexLocker>
 #include <QtCore/QDateTime>
 #include <logging/LLogging.h>
+#include <logging/LPublisher.h>
 #include "GUIAlarm.h"
 
 using namespace LOGMASTER;

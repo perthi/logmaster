@@ -103,7 +103,11 @@ namespace LOGMASTER
                 int rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
                 if (rc != SQLITE_OK)
                 {
+#ifdef HAS_LOGGING
                     HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+#else
+                    HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", zErrMsg);
+#endif
 
                     sqlite3_free(zErrMsg);
                 }
@@ -311,7 +315,12 @@ namespace LOGMASTER
     {
         if( fDataBase == nullptr )
         {
+#ifdef HAS_LOGGING
             HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "fDataBase  = NULLPTR !!!! " );   
+#else
+            HandleError(GLOCATION, DISABLE_EXCEPTION, "fDataBase  = NULLPTR !!!! ");
+#endif
+
             return false;
         }
 
@@ -326,7 +335,12 @@ namespace LOGMASTER
 
         if (rc != SQLITE_OK)
         {
+#ifdef HAS_LOGGING
             HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION, "SQL error: %s", sqlite3_errmsg(fDataBase));   
+#else
+            HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", sqlite3_errmsg(fDataBase));
+#endif
+
             return false;
         }
         else
@@ -345,7 +359,13 @@ namespace LOGMASTER
         rc = sqlite3_exec(fDataBase, sql, NULL, 0, &zErrMsg);
         if (rc != SQLITE_OK)
         {
+#ifdef HAS_LOGGING
             HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION, "Could not delete old entries: SQL error: %s", sqlite3_errmsg(fDataBase) );
+#else
+            HandleError(GLOCATION, DISABLE_EXCEPTION, "Could not delete old entries: SQL error: %s", sqlite3_errmsg(fDataBase));
+
+#endif
+            
             return false;
         }
         else
@@ -406,7 +426,12 @@ namespace LOGMASTER
     {
         if( fStmt == nullptr )
         {
+#ifdef HAS_LOGGING
             HandleError( GLOCATION, eMSGLEVEL::LOG_FATAL, DISABLE_EXCEPTION,  "NO SQL QUERY INITIALIZED" );   
+#else
+            HandleError(GLOCATION, DISABLE_EXCEPTION, "NO SQL QUERY INITIALIZED");
+#endif 
+            //HandleError(const GLocation  l, const bool  throw_ex, const char* fmt, const Args... args)
             return false;    
         }
 
@@ -473,8 +498,11 @@ namespace LOGMASTER
 
         if (rc != SQLITE_OK)
         {
-                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
-
+#ifdef HAS_LOGGING
+            HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+#else
+            HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", zErrMsg);
+#endif
             sqlite3_free(zErrMsg);
         }
     }
@@ -502,7 +530,11 @@ namespace LOGMASTER
             int rc = sqlite3_exec(fDataBase, LoggingSQL, NULL, 0, &zErrMsg);
             if (rc != SQLITE_OK)
             {
+#ifdef HAS_LOGGING
                 HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+#else
+                HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", zErrMsg);
+#endif
                 sqlite3_free(zErrMsg);
                 return false;
             }
@@ -514,7 +546,12 @@ namespace LOGMASTER
             rc = sqlite3_exec(fDataBase, TriggerControlSQL, NULL, 0, &zErrMsg);
             if (rc != SQLITE_OK)
             {
+#ifdef HAS_LOGGING
                 HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+#else
+                HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", zErrMsg);
+#endif
+
                 sqlite3_free(zErrMsg);
                 return false;
             }
@@ -527,7 +564,13 @@ namespace LOGMASTER
             rc = sqlite3_exec(fDataBase, RingBufferTriggerSQL, NULL, 0, &zErrMsg);
             if (rc != SQLITE_OK)
             {
+
+#ifdef HAS_LOGGING
                 HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+#else
+                HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", zErrMsg);
+#endif
+
                 sqlite3_free(zErrMsg);
                 return false;
             }
@@ -537,7 +580,12 @@ namespace LOGMASTER
             rc = sqlite3_exec(fDataBase, UniqueIdxSQL, NULL, 0, &zErrMsg);
             if (rc != SQLITE_OK)
             {
+#ifdef HAS_LOGGING
                 HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+#else
+                HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", zErrMsg);
+#endif
+
                 sqlite3_free(zErrMsg);
                 return false;
             }

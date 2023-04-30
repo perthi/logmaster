@@ -30,11 +30,15 @@ using std::cout;
 using std::cerr;
 
 
-
 #include  <gui/common/GUIInitStyles.h>
+
+//vector< void(*)(std::shared_ptr<LMessage>) > fSubscribers;
+//vector< void(*)(std::shared_ptr<LMessage>) > fGuiSubscribers;
 
 int main(int argc, char* argv[])
 {
+    LLogging::Instance();
+
     try
     {
         QApplication app(argc, argv);
@@ -43,7 +47,7 @@ int main(int argc, char* argv[])
 
         app.setApplicationName("loggerGuiTest");
         app.setOrganizationName("Embedded Consulting");
-        ///SET_LOGTARGET("1111");
+        SET_LOGTARGET("1111");
         GUILoggerGui *widget = new GUILoggerGui();
       //  MakeQApp();
         //ExecWidget(qobject_cast<QWidget*>(widget));

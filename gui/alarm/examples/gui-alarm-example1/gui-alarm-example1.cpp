@@ -62,8 +62,8 @@ void start_gui( int argc, char **argv)
 
         SET_LOGLEVEL("--all");
         SET_LOGTARGET("1111");
-        GUIAlarmGui widget;
-        ExecWidget(qobject_cast<QWidget*>(&widget));
+        GUIAlarmGui *widget = new GUIAlarmGui();
+        ExecWidget(qobject_cast<QWidget*>(widget));
     }
     catch (GException& e)
     {

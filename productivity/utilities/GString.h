@@ -46,36 +46,36 @@ class GString
      string    API ReplaceBadChar(string &inputstring, const char delimeter = '_', const char *suspicious = 0);
      string    API Replace(const string original, const string toreplace, const string replacement);
      
-     string    ToPascalCase( const string  in ) const;
-     string    ToUpperCase(  const string  in ) const;  
-     string    ToLowerCase(  const string  in ) const;
+     string    API ToPascalCase( const string  in ) const;
+     string    API ToUpperCase(  const string  in ) const;  
+     string    API ToLowerCase(  const string  in ) const;
 
      template <typename T>
-     string    ToString(const vector<T> in, const string sep = "\n");
+     string    API ToString(const vector<T> in, const string sep = "\n");
      
      template <typename T>
-     string    ToString(const T in, const int w = -1, const char pad = '0');
+     string    API ToString(const T in, const int w = -1, const char pad = '0');
      
-     int          CountOccurrences(const string input, const char c, const bool ignore_case);
-     bool         Contains(const vector<string> &str, const string &substring, const bool ignore_case = true, long long int *pos = 0);
-     bool         Contains(const string &str, const string &substring, const bool ignore_case = true, long long int *pos = 0);
+     int         API  CountOccurrences(const string input, const char c, const bool ignore_case);
+     bool         API Contains(const vector<string> &str, const string &substring, const bool ignore_case = true, long long int *pos = 0);
+     bool         API Contains(const string &str, const string &substring, const bool ignore_case = true, long long int *pos = 0);
      bool         API BeginsWith(const string &str, const string &substring, const bool ignore_case = true);
      bool         API BeginsWith(const vector<string> * const arr, const string token, const bool ignore_case = true);
-     bool         EndsWith(const string &str, const string &substring, const bool ignore_case = true);
+     bool         API EndsWith(const string &str, const string &substring, const bool ignore_case = true);
 
-     bool         CompareNoCase(string lhs, string rhs) { return (ToUpper(lhs) == ToUpper(rhs)); }
+     bool         API CompareNoCase(string lhs, string rhs) { return (ToUpper(lhs) == ToUpper(rhs)); }
      string       API & Ltrim(string &s, const char c = ' ');
      string       API & Rtrim(string &s, const char c = ' ');
      string       API & Trim(string &s, const char c = ' ');
      string       API & Trim(string &s, const vector<char> tokens);
      vector<string> API Trim(vector<string> &s, const char c = ' ');
      vector<string> API Trim(vector<string> &s, const vector<char> tokens);
-     string       &Utf8ToAnsi(string &s);
-     char         *Utf8ToAnsi(char *s);
-     bool          IsAnsi(string &s);
-     std::string   AnsiToUtf8(const std::string &ansiStr);
-     string       &ToLower(string &s);
-     string       &ToUpper(string &s);
+     string       API &Utf8ToAnsi(string &s);
+     char         API *Utf8ToAnsi(char *s);
+     bool         API  IsAnsi(string &s);
+     std::string   API AnsiToUtf8(const std::string &ansiStr);
+     string       API &ToLower(string &s);
+     string       API &ToUpper(string &s);
      bool API      IsMatch(const string pattern, const string val, bool require_exact_match = false);
 
  private:

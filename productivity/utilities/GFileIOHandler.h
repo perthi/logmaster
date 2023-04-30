@@ -34,7 +34,7 @@ using std::string;
 class GFileIOHandler;
 class TestGFileIOHandler_CheckFileNSR305_Test;
 
-GFileIOHandler* g_file();
+GFileIOHandler API *  g_file();
 
 
 /** @brief Utility class for basic file IO operations such as creating, reading, and deleting files*/

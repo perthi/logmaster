@@ -13,6 +13,7 @@
 /*** Copyright Per Thomas Hille pth@embc.no ***/
 
 
+/*
 EXCEPTION_CLASS_H	(GFsmException)
 EXCEPTION_CLASS_CPP	(GFsmException)
 EXCEPTION_CLASS_H	(GMessageException)
@@ -42,6 +43,6 @@ EXCEPTION_CLASS_CPP	(GDatabaseException)
 #define XML_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GXmlException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_XML),	__VA_ARGS__ ) )
 #define DATABASE_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GDatabaseException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_DATABASE),	__VA_ARGS__ ) )
 #define DB_ASSERT_EXCEPTION(expr,  ...)		 if(!(expr)) throw_exception( GDatabaseException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_DATABASE),	__VA_ARGS__ ) )
-
+*/
 
 

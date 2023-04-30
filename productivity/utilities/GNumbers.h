@@ -69,73 +69,73 @@ public:
     bool     API               IsBinary(const char *num)                      { return IsBinary(string(num)); };
     bool     API               IsBinary(string num);
 	
-    template<typename T>   bool     IsBinary(T num);
+    template<typename T>   bool   API  IsBinary(T num);
 	
     bool            API            IsDecNumber(const string num);
     bool            API            IsDigit(const char *num, const int base = 10) { return IsDigit(string(num), base); };
     bool            API            IsDigit(const string num, const int base = 10);
-    template<typename T>   bool    IsDigit(T num, const int base = 10);
-    template<typename T>   bool    IsFloat(T num);
+    template<typename T>   bool  API   IsDigit(T num, const int base = 10);
+    template<typename T>   bool  API  IsFloat(T num);
     bool          API              IsFloat(const char *num);
     bool          API              IsFloat(const string num);
     bool           API             IsHex(const string num);
-    template<typename T>   bool    IsHex(const T num);
+    template<typename T>   bool  API  IsHex(const T num);
     bool           API             IsHex(const char *num) { return IsHex(string(num)); };
     bool           API             IsInteger(const string num);
-    template<typename T>   bool    IsInteger(T num);
+    template<typename T>   bool  API  IsInteger(T num);
     bool           API             IsNumber(const string num);
     bool          API              IsNumber(const double num);
     
     
-    template<typename T>  bool IsIntegerVType(T) { return IsIntegerVTypeS(typeid(T).name() );  }
-    bool               IsIntegerVTypeS(string type);
+    template<typename T>  bool API IsIntegerVType(T) { return IsIntegerVTypeS(typeid(T).name() );  }
+    bool           API     IsIntegerVTypeS(string type);
     
-    template<typename T>  bool IsFundamentalVType(T) { return  IsFundamentalVTypeS(typeid(T).name() ); }
-    bool                      IsFundamentalVTypeS(string type);
+    template<typename T>  bool API IsFundamentalVType(T) { return  IsFundamentalVTypeS(typeid(T).name() ); }
+    bool                      API IsFundamentalVTypeS(string type);
     
-    template<typename T> bool IsFloatVType(T) { return  IsFloatVTypeS(typeid(T).name() );}
-     bool                      IsFloatVTypeS(string type);
+    template<typename T> bool API IsFloatVType(T) { return  IsFloatVTypeS(typeid(T).name() );}
+     bool                     API  IsFloatVTypeS(string type);
 
-    template<typename T>  bool IsFundamentalType(T) { return  IsFundamentalTypeS( typeid(T).name() ); }
-     bool             IsFundamentalTypeS(string type);
+    template<typename T>  bool API IsFundamentalType(T) { return  IsFundamentalTypeS( typeid(T).name() ); }
+     bool             API IsFundamentalTypeS(string type);
 
     template<typename T>  bool API IsUnsignedType(T) { return  IsUnsignedTypeS(typeid(T).name()); }
      bool             API IsUnsignedTypeS(string type);
     
-    template<typename T>  bool IsIntegerType(T) { return  IsIntegerTypeS(typeid(T).name() );}
+    template<typename T>  bool API IsIntegerType(T) { return  IsIntegerTypeS(typeid(T).name() );}
       
-      bool             IsIntegerTypeS(string type);
+      bool             API IsIntegerTypeS(string type);
 
-    template<typename T>  bool IsFloatType (T) { return IsFloatTypeS(typeid(T).name() ) ; }
-     bool             IsFloatTypeS(string type);
+    template<typename T>  bool API IsFloatType (T) { return IsFloatTypeS(typeid(T).name() ) ; }
+     bool             API IsFloatTypeS(string type);
 
 
     template<typename T>   int64_t     API  BitWidth(const T in);
-    template<typename T>   int64_t       PadOnes(const T in);
+    template<typename T>   int64_t      API  PadOnes(const T in);
     
     int64_t             API        BitWidth(const char *in);
     int64_t             API        BitWidth(const string in);
     int64_t		        API      ToBinary(const string num);
     
-    template<typename T = long double>     vector<T> ToFloat(const vector<string> num);
-    template<typename T = long double>    T          ToFloat(const string num);
+    template<typename T = long double>     vector<T> API ToFloat(const vector<string> num);
+    template<typename T = long double>    T          API ToFloat(const string num);
     long long int                API            ToHex(const string num);
-    template<typename T = long long int>  T          ToInteger(const string num);
-    template<typename T>    vector<T>                ToInteger(const vector<string> num);
+    template<typename T = long long int>  T      API    ToInteger(const string num);
+    template<typename T>    vector<T>            API    ToInteger(const vector<string> num);
     
     template< typename  T >  typename std::enable_if<std::is_integral<T>::value, T>::type
-    ToNumber(const string num)
+    API ToNumber(const string num)
     {
         return ToInteger<T>(num);
     }
     
     template< typename  T >  typename std::enable_if< std::is_floating_point <T>::value, T>::type
-          ToNumber(const string num)
+       API    ToNumber(const string num)
     {
         return ToFloat<T>(num);
     }
     template <typename T> 
-    int CountBits(const T in);
+    int API CountBits(const T in);
     
 private:
     GNumbers() : fIsDisabledError(false) {};

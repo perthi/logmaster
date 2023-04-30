@@ -45,9 +45,9 @@ using std::string;
 class  GException
 {
 public:
-  API inline GException(){};
+  API  GException(){};
   template<typename... Args>
-  API inline GException(const string file, const string function, const int line, const eMSGSYSTEM system,
+  API  GException(const string file, const string function, const int line, const eMSGSYSTEM system,
                         const char *fmt, const Args ... args);
 
     virtual API inline  ~GException()
@@ -64,14 +64,19 @@ public:
     static bool API IsEnabledStackTrace();
     static void API EnableStackTrace();
     static void API DisableStackTrace();
+    string API LogTrace();
+    void API SetLogMap();
+    
+
     const char  API * what() const;
     static string API ExtractClassname(const char *in);
 
-protected:
-    static std::shared_ptr< std::map<eMSGTARGET, std::shared_ptr<LMessage > > > fgMessageMap;
+//protected:
+    static  std::shared_ptr< std::map<eMSGTARGET, std::shared_ptr<LMessage > > > fgMessageMap;
     
     mutable std::shared_ptr<LOGMASTER::LMessage>  fgMessage = nullptr;
     
+public:
     static bool fIsEnabledStackTrace; /* !< If set to true then a stack trace is included in the log message for the exception. This can be usefull for debugging. Default is FALSE*/
     static bool fIsEnabledException;  /* !< If set to FALSE then a fatal error message is written instead of throwing an exception */
 
@@ -89,16 +94,19 @@ protected:
 
 
 
-#define EXCEPTION_CLASS_CPP(classname) template<typename... Args> inline classname::classname (const string file, \
+#define EXCEPTION_CLASS_CPP(classname) template<typename... Args>  classname::classname (const string file, \
 					      const string function,	\
 					      const int line, \
 					      const eMSGSYSTEM system,  \
                                               const char * fmt, const Args ... args)\
     { \
-    string msg = string(" (") + ExtractClassname(typeid(*this).name()) + string(")") + (fIsEnabledStackTrace == true ?  + "\n" + string("******* Stack Trace START *******") + "\n" + GStackTrace::str() + "\n" + string("******* Stack Trace END *******") + "\n" : "");  \
-    fgMessageMap = LLogging::Instance()->LogVarArgs(eMSGLEVEL::LOG_FATAL, system, file.c_str(), line, function.c_str(), true, msg, fmt, args...); \
+    string msg = GException::LogTrace(); \
+    LLogging::Instance()->LogVarArgs(eMSGLEVEL::LOG_FATAL, system, file.c_str(), line, function.c_str(), true, msg, fmt, args...); \
+    SetLogMap();\
     what(); \
 }
+
+
 
 
 template<typename T>
@@ -117,8 +125,8 @@ void throw_exception(const T &e)
 }
 
 /** Common macro defintions of Exception classes */
-EXCEPTION_CLASS_CPP(GException)
 
+EXCEPTION_CLASS_CPP(GException)
 EXCEPTION_CLASS_H(   GFileNotFoundException )
 EXCEPTION_CLASS_CPP( GFileNotFoundException )
 EXCEPTION_CLASS_H(   GInvalidArgumentException)
@@ -130,7 +138,9 @@ EXCEPTION_CLASS_CPP(GRangeException)
 EXCEPTION_CLASS_H	(GAlarmException)
 EXCEPTION_CLASS_CPP	(GAlarmException)
 
+
 #define EXCEPTION(...)                     throw_exception( GException(                 __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
+
 #define RANGE_EXCEPTION(...)               throw_exception( GRangeException(            __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
 #define FILE_NOT_FOUND_EXCEPTION(...)      throw_exception( GFileNotFoundException(     __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
 #define INVALID_ARGUMENT_EXCEPTION(...)    throw_exception( GInvalidArgumentException(  __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
@@ -138,9 +148,9 @@ EXCEPTION_CLASS_CPP	(GAlarmException)
 #define G_ASSERT_EXCEPTION(expr, ...)          if(!(expr)) throw_exception( GException(          __FILE__,  __func__, __LINE__ ,    eMSGSYSTEM::SYS_EX , __VA_ARGS__ ) )
 #define ALARM_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GAlarmException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_ALARM ),	__VA_ARGS__ ) )
 
+
 /** Including auto generated macros */
 #include "GExceptionMacros.h"
-
 
 
 #define  CATCH_EXCEPTION_DB \

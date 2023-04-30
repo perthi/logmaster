@@ -89,7 +89,7 @@ GUILogMasterGui::InitGui()
 
     //Logmaster Subsystem Control ComboBox
     fSubsystemCombo = new QComboBox(this);
-    for (auto tag : fKALogmaster->GetSubSystemsControl())
+    for (auto &tag : fKALogmaster->GetSubSystemsControl())
     { 
        fSubsystemCombo->addItem(tag.GetName().c_str(), QVariant::fromValue( tag.GetValue()) ); 
     }
@@ -180,7 +180,7 @@ QGroupBox* GUILogMasterGui::InitOutputTarget()
     QButtonGroup* outputTargetChecks = new QButtonGroup(this);
     outputTargetChecks->setExclusive(false);
 
-    for (auto target : fKALogmaster->GetOutputTargets())
+    for (auto &target : fKALogmaster->GetOutputTargets())
     {
         if(fTarget == target.GetValue())
         {
@@ -213,7 +213,7 @@ QGroupBox* GUILogMasterGui::InitMessageFormat()
     QButtonGroup *informationLevelChecks = new QButtonGroup(this);
     informationLevelChecks->setExclusive(false);
    
-    for(auto format : fKALogmaster->GetMessageFormat() )
+    for(auto &format : fKALogmaster->GetMessageFormat() )
     {           
         QCheckBox* checkbox = new QCheckBox(this);
         checkbox->setChecked(format.GetEnabled());
@@ -260,7 +260,7 @@ QGroupBox* GUILogMasterGui::InitSystemAndLevelControl()
     QGridLayout* gridLay = new QGridLayout;
     QPushButton* pb;
 
-    for (auto sysLev : fKALogmaster->GetSubSysAndLevControl())
+    for (auto &sysLev : fKALogmaster->GetSubSysAndLevControl())
     {
         pb = new QPushButton(sysLev.GetName().c_str(), this);
         // Push data regarding QPushButton and x/y position into memory map
@@ -329,7 +329,7 @@ void GUILogMasterGui::MessageFormatChecksClicked(QAbstractButton* ab)
     // Update Checked buttons according to setting in Logging system
     for (auto it = fMessageFormatChecks.begin(); it != fMessageFormatChecks.end(); it++)
     {
-        for (auto f : fKALogmaster->GetMessageFormat())
+        for (auto &f : fKALogmaster->GetMessageFormat())
         {
             if (f.GetValue() == it.value())
             {
@@ -447,7 +447,7 @@ GUILogMasterGui::RefreshSubsysAndLevel()
         if( (i-5) > ctrl.size() ) break;
     }    
 
-    for (auto sysLev : fKALogmaster->GetSubSysAndLevControl() )
+    for (auto &sysLev : fKALogmaster->GetSubSysAndLevControl() )
     {   
         pb = fSysLevControlButtonsInv.find(qMakePair(sysLev.GetYSystem(), sysLev.GetXLevel())).value();
         pb->setChecked(sysLev.GetEnabled());

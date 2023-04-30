@@ -20,6 +20,13 @@ using std::pair;
 using std::map;
 using namespace LOGMASTER;
 
+#include <vector>
+using std::vector;
+#include <memory>
+
+//vector< void(*)(std::shared_ptr<LMessage>) > fSubscribers;
+//vector< void(*)(std::shared_ptr<LMessage>) > fGuiSubscribers;
+
 
 /** @brief      APILogmasterData
 *   @details    Common class used by APILogmasterSubSysControl, APILogmasterOutputTargets, APIMessageFormat and APISubSystemsAndLevelControl**/

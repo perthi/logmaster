@@ -8,6 +8,7 @@
 #include <QtCore/QMutexLocker>
 #include <QtCore/QDateTime>
 #include <logging/LLogging.h>
+#include <logging/LPublisher.h>
 
 #include "GUILogger.h"
 
@@ -17,6 +18,7 @@ using namespace LOGMASTER;
 void  logger_callback(const std::shared_ptr<LMessage>  m)
 {
 	static int cnt = 0;
+	COUT << "GOT NEW MESSAGE, cnt = " << cnt << endl;
 	GUILogger::GetInstance()->newMessage(cnt, *m);
 	cnt++;
 }
@@ -27,18 +29,26 @@ GUILogger::GUILogger()
 {
 	qRegisterMetaType<MsgSeries>("MsgSeries");
 	this->startTimer(1000);
+	COUT << "Registring subscirber" << endl;
+
 	LLogging::Instance()->RegisterGuiSubscriber(  logger_callback );
+
+	//	LLogging::Instance()->GetGuiSubscribers();
+//	LPublisher::Instance()->SetLogInstance(LLogging::Instance());
+	COUT << "Address = 0x" << std::hex << LLogging::Instance();
 }
 
 void 
 GUILogger::timerEvent(QTimerEvent *)
 {
+//	COUT << "TP0" << endl;
     QMutexLocker locker(&fMutex);
 	if (fNewMessages.size() == 0)
 	{
 		return;
 	}
 	
+//	COUT << "TP1" << endl;
 	emit newMessages(fNewMessages);
 	//fLoggedMessages += fNewMessages;
 	
