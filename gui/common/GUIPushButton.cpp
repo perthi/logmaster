@@ -15,6 +15,7 @@ GUIPushButton::GUIPushButton(const QString &text, QWidget *parent)
 
 void GUIPushButton::mouseReleaseEvent(QMouseEvent* e)
 {
+    COUT << "TP1" << endl;
 	if(e->button() == Qt::RightButton){
 		emit rightClicked();
 	}
@@ -25,5 +26,6 @@ void GUIPushButton::mouseReleaseEvent(QMouseEvent* e)
 
 void GUIPushButton::mouseDoubleClickEvent(QMouseEvent*)
 {
+    COUT << "TP1" << endl;
     emit doubleClicked();
 }

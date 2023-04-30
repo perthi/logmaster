@@ -180,6 +180,7 @@ namespace LOGMASTER
 
             while (fMessageQeueTmp.size() > 0)
             {
+
                 auto m = fMessageQeueTmp.front();
                 fMessageQeueTmp.pop();
                 PublishMessage(m->fMessage, m->fConfig, m->fTarget);
@@ -238,7 +239,7 @@ namespace LOGMASTER
 
          if ((int)target & (int)eMSGTARGET::TARGET_DATABASE)
          {
-             PublishToDatabase(msg);
+            // PublishToDatabase(msg);
          }
 
          if (((int)target & (int)eMSGTARGET::TARGET_SUBSCRIBERS))
@@ -248,6 +249,7 @@ namespace LOGMASTER
 
          if (((int)target & (int)eMSGTARGET::TARGET_GUI))
          {
+             COUT << "Publishing to GUI subscribers" << endl;
              PublishToGuiSubscribers(msg);
          }
 
@@ -293,6 +295,9 @@ namespace LOGMASTER
         static  std::mutex m;
         std::lock_guard<std::mutex> guard( m );
         auto subscribers = LLogging::Instance()->GetGuiSubscribers();
+
+        COUT << "Subscribers size = " << subscribers.size() << "\t addr = " << std::hex << &subscribers << endl;;
+
         for (uint16_t i = 0; i < subscribers.size(); i++)
         {
             void(*Subscriberfunct)( std::shared_ptr<LMessage> ) = subscribers.at(i);

@@ -97,12 +97,13 @@
 
 GUINoWheelComboBox::GUINoWheelComboBox(QWidget *parent) : QComboBox(parent)
 {
-
+    COUT << "TP0" << endl;
 }
 
 
 void 
 GUINoWheelComboBox::wheelEvent(QWheelEvent *e)
 {
+    COUT << "TP0" << endl;
    e->ignore();
 }

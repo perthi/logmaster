@@ -31,8 +31,12 @@ using namespace LOGMASTER;
       Q_OBJECT
 
    public:
-      static API GUILogger*  GetInstance();
-      ~GUILogger();
+	  // GUILogger();
+	  // ~GUILogger();
+
+	   static API GUILogger*  Instance();
+    
+	 // ~GUILogger();
       
    public slots:
 	  virtual void newMessage(int cnt, const LMessage &msg) override;
@@ -41,7 +45,8 @@ using namespace LOGMASTER;
 	  virtual void newMessages(const MsgSeries &msgs) override;
 
    private: // functions
-	   explicit GUILogger();
+	     GUILogger();
+	     ~GUILogger();
 	   GUILogger(const GUILogger &rhs);
 	   GUILogger& operator=(const GUILogger &rhs);
 	   void timerEvent(QTimerEvent *event);

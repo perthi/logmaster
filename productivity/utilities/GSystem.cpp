@@ -293,17 +293,27 @@ GSystem::GetCommandLineAll()
 #endif
 
 
+// using convert_t = std::codecvt_utf8<wchar_t>;
+// std::wstring_convert<convert_t, wchar_t> strconverter;
+
 /** @return all the command line arguments, except the firs one (which is the name of the executable), as a single string*/
 #ifdef _WIN32
 string
 GSystem::GetCommandLineArguments()
 {
-    string ret;
+    string ret = "";
+    string ret2 = "";
 
 #ifdef _WIN32
+#include "Windows.h"
     int argc;
-    //  string ret;
-    std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+
+
+  //  std::wstring ws;
+    //  ws = MultiByteToWideChar(CP_UTF8, 0, s.c_str());
+   // MultiByteToWideChar(CP_UTF8, 0, s.c_str(), (int)s.size(), &ws[0], (int)ws.size());
+
+   // std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
 
     LPWSTR cmdline = GetCommandLineW();
     LPWSTR* argv = ::CommandLineToArgvW(cmdline, &argc);
@@ -311,7 +321,9 @@ GSystem::GetCommandLineArguments()
     for (int n = 1; n < argc; n++)
     {
         ret += n > 1 ? " \"" : "\"";
-        ret += converter.to_bytes(argv[n]);
+        WideCharToMultiByte(CP_UTF8, 0, argv[n], (int)wcslen(argv[n]), &ret2[0], (int)ret2.size(), 0, 0);
+        ret += ret2;
+    //    ret += converter.to_bytes(argv[n]);
         ret += "\"";
     }
 

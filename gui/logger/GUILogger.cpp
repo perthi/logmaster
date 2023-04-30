@@ -14,12 +14,15 @@
 
 using namespace LOGMASTER;
 
+//std::shared_ptr
+auto instance = GUILogger::Instance();
 
 void  logger_callback(const std::shared_ptr<LMessage>  m)
 {
 	static int cnt = 0;
 	COUT << "GOT NEW MESSAGE, cnt = " << cnt << endl;
-	GUILogger::GetInstance()->newMessage(cnt, *m);
+//	GUILogger::Instance()->newMessage(cnt, *m);
+	instance->newMessage(cnt, *m);
 	cnt++;
 }
 
@@ -32,7 +35,8 @@ GUILogger::GUILogger()
 	COUT << "Registring subscirber" << endl;
 
 	LLogging::Instance()->RegisterGuiSubscriber(  logger_callback );
-
+	auto subscribers = LLogging::Instance()->GetGuiSubscribers();
+	COUT << "Subscribers size = " << subscribers.size() << "\t addr = " << std::hex << &subscribers << endl;;
 	//	LLogging::Instance()->GetGuiSubscribers();
 //	LPublisher::Instance()->SetLogInstance(LLogging::Instance());
 	COUT << "Address = 0x" << std::hex << LLogging::Instance();
@@ -72,7 +76,7 @@ GUILogger::~GUILogger()
 
 
 GUILogger* 
-GUILogger::GetInstance()
+GUILogger::Instance()
 {
 	static GUILogger* instance = new  GUILogger();
 	return instance;
@@ -82,6 +86,7 @@ GUILogger::GetInstance()
 void 
 GUILogger::newMessage(int cnt, const LMessage &msg)
 {
+	COUT << "TP0" << endl;
 	GUILoggerBase::newMessage(cnt, msg);
 }
 

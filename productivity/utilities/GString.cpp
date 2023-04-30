@@ -27,8 +27,19 @@
 ******************************************************************************/
 
 #include "GString.h"
-
+#include <cwctype>
+#include <clocale>
 #include <algorithm>
+
+#include "Windows.h"
+
+
+
+#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING 1
+#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS	 1
+
+
+
 
 GString  * g_string()
 {
@@ -258,13 +269,21 @@ string& GString::ToLower(string& s)
         std::locale loc("");
 
         std::wstring ws;
-        std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-        ws = converter.from_bytes(str);
+      //  ws = MultiByteToWideChar(CP_UTF8, 0, s.c_str());
+        MultiByteToWideChar(CP_UTF8, 0, s.c_str(), (int)s.size(), &ws[0], (int)ws.size());
+      //  std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+      //  ws = converter.from_bytes(str);
+     
+
         for (unsigned int n = 0; n < ws.size(); n++)
         {
             ws[n] = std::tolower(ws[n], loc);
         }
-        str = converter.to_bytes(ws);
+
+        str.resize(ws.size() * 4);
+
+        WideCharToMultiByte( CP_UTF8, 0, ws.c_str(), (int)ws.size(), &str[0], (int)str.size(), 0, 0);
+       // str = converter.to_bytes(ws);
     }
     else
     {
@@ -297,13 +316,19 @@ string& GString::ToUpper(string& s)
         std::locale loc("");
 
         std::wstring ws;
-        std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-        ws = converter.from_bytes(str);
+        //std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+
+        MultiByteToWideChar(CP_UTF8, 0, s.c_str(), (int)s.size(), &ws[0], (int)ws.size());
+
+     //   ws = converter.from_bytes(str);
         for (unsigned int n = 0; n < ws.size(); n++)
         {
             ws[n] = std::toupper(ws[n], loc);
         }
-        str = converter.to_bytes(ws);
+       
+
+        WideCharToMultiByte(CP_UTF8, 0, ws.c_str(), (int)ws.size(), &str[0], (int)str.size(), 0, 0);
+        //str = converter.to_bytes(ws);
     }
     else
     {

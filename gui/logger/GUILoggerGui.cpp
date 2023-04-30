@@ -55,10 +55,10 @@ GUILoggerGui::GUILoggerGui(QWidget *parent)
    fRefreshButton(0),
    fPauseButton(0)
 {
+    COUT << "Calling constructor !!!!!!!! " << endl;
    InitGui();
    RetranslateUi();
    ConnectStuff();
-   
    GetAllMessages();
 
    }
@@ -258,7 +258,6 @@ GUILoggerGui::RetranslateUi()
    fClearButton->setText(fTEXT_clear);
    fRefreshButton->setText(fTEXT_refresh);
    fPauseButton->setText(fTEXT_pause);
-
    fLogLevelCombo->clear();
 
    auto hash = LHashMaps::Instance()->GetLevel2StringHash();
@@ -271,7 +270,6 @@ GUILoggerGui::RetranslateUi()
 
    // Adjust to LOG_INFO to get INFO messages from Analyse and User
 
-
     for (int i = fLogLevelCombo->count(); i > 0; i--)
    {
        fLogLevelCombo->setCurrentIndex(i - 1);
@@ -282,14 +280,14 @@ GUILoggerGui::RetranslateUi()
        }
        
    }
-
-
 }
+
 
 void
 GUILoggerGui::ConnectStuff()
 {
-    connect(GUILogger::GetInstance(), SIGNAL(newMessages(const MsgSeries &)),
+    COUT << "TP0" << endl;
+    connect(GUILogger::Instance(), SIGNAL(newMessages(const MsgSeries &)),
         this, SLOT(NewMessages(const MsgSeries &)));
 }
 
@@ -297,7 +295,7 @@ GUILoggerGui::ConnectStuff()
 void 
 GUILoggerGui::NewMessages(const MsgSeries &msgs)
 {
-    COUT << "Message received,msg.size =  " <<  msgs.size() << endl;
+    COUT << "Message received,msg.size = " << std::dec <<  msgs.size() << endl;
     //return;
     QMapIterator<int, LMessage> i(msgs);
     while (i.hasNext())
@@ -378,17 +376,16 @@ GUILoggerGui::RegExpSyntaxUpdated()
 void
 GUILoggerGui::ClearLog()
 {
-    GUILogger::GetInstance()->ClearMsgs();
+    GUILogger::Instance()->ClearMsgs();
     fPlainTextEdit->clear();
 }
 
 void
 GUILoggerGui::OpenLogMasterDialog()
 {
+    COUT << "TP0" << endl;
     if(fLogMasterGuiDialog == nullptr)
     {
-       
-
         fLogMasterGuiDialog = new QWidget(nullptr);
         fLogMasterGuiDialog->setObjectName("GUIWidget");
         fLogMasterGuiDialog->setWindowFlags(Qt::Window);
@@ -410,8 +407,9 @@ GUILoggerGui::OpenLogMasterDialog()
 void
 GUILoggerGui::GetAllMessages()
 {
+    COUT << "TP0" << endl;
     fPlainTextEdit->clear();
-    NewMessages(GUILogger::GetInstance()->AllMsgs());
+    NewMessages(GUILogger::Instance()->AllMsgs());
 }
 
 void
