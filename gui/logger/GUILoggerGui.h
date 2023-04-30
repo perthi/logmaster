@@ -25,12 +25,15 @@
 #include <QtCore5compat/QRegExp>
 #include "GUILogger.h"
 
+
+class GUILogger;
+
 class GUILoggerGui : public QWidget
    {
       Q_OBJECT
 
    public:
-      explicit API GUILoggerGui(QWidget *parent = 0);
+      explicit API GUILoggerGui(GUILogger *logger,  QWidget *parent = 0);
       API ~GUILoggerGui();
       API void StartTimer();
 
@@ -56,6 +59,8 @@ class GUILoggerGui : public QWidget
       GUILoggerGui operator=(const GUILoggerGui&);
       GUILoggerGui(const GUILoggerGui&);
       
+      GUILogger *fLogger = nullptr;
+
       QLabel *fPlainTextEditLabel = nullptr;
       QPlainTextEdit *fPlainTextEdit = nullptr;
 

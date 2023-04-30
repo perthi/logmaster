@@ -43,12 +43,13 @@ int main(int argc, char* argv[])
     {
         QApplication *app = new QApplication(argc, argv);
 
-        GUIInitStyles::Instance()->Init(app);
+        GUIInitStyles::Init(app);
 
         app->setApplicationName("loggerGuiTest");
         app->setOrganizationName("Embedded Consulting");
         SET_LOGTARGET("1111");
-        GUILoggerGui *widget = new GUILoggerGui();
+        GUILogger* logger = new GUILogger();
+        GUILoggerGui *widget = new GUILoggerGui(logger);
       //  MakeQApp();
         //ExecWidget(qobject_cast<QWidget*>(widget));
        
@@ -58,7 +59,7 @@ int main(int argc, char* argv[])
         QMainWindow* mainWindow = new QMainWindow;
         mainWindow->setCentralWidget(widget);
         mainWindow->show();
-        widget->StartTimer();
+       widget->StartTimer();
         qApp->exec();
        // widget->startTimer();
     }

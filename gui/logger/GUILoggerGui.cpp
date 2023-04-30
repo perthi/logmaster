@@ -33,8 +33,9 @@ Q_DECLARE_METATYPE(QRegExp::PatternSyntax)
 
 
 
-GUILoggerGui::GUILoggerGui(QWidget *parent)
+GUILoggerGui::GUILoggerGui(GUILogger* logger, QWidget *parent)
    :QWidget(parent),
+   fLogger(logger),
    fPlainTextEditLabel(0),
    fPlainTextEdit(0),
    fLogLevelLabel(0),
@@ -285,7 +286,7 @@ GUILoggerGui::RetranslateUi()
 void 
 GUILoggerGui::StartTimer()
 {
-   GUILogger::Instance()->StartTimer();
+   fLogger->StartTimer();
 }
 
 
@@ -293,7 +294,7 @@ void
 GUILoggerGui::ConnectStuff()
 {
     COUT << "TP0" << endl;
-    connect(GUILogger::Instance(), SIGNAL(newMessages(const MsgSeries &)),
+    connect(fLogger, SIGNAL(newMessages(const MsgSeries &)),
         this, SLOT(NewMessages(const MsgSeries &)));
 }
 
@@ -382,7 +383,7 @@ GUILoggerGui::RegExpSyntaxUpdated()
 void
 GUILoggerGui::ClearLog()
 {
-    GUILogger::Instance()->ClearMsgs();
+    fLogger->ClearMsgs();
     fPlainTextEdit->clear();
 }
 
@@ -415,7 +416,7 @@ GUILoggerGui::GetAllMessages()
 {
     COUT << "TP0" << endl;
     fPlainTextEdit->clear();
-    NewMessages(GUILogger::Instance()->AllMsgs());
+    NewMessages(fLogger->AllMsgs());
 }
 
 void

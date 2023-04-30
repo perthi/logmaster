@@ -37,7 +37,9 @@ using namespace LOGMASTER;
       Q_OBJECT
 
    public:
-	   static API GUILogger*  Instance();
+	   explicit API GUILogger(QWidget* parent = 0);
+	   ~GUILogger();
+	   //static API GUILogger*  Instance();
 	   void StartTimer();
 
    public slots:
@@ -48,8 +50,7 @@ using namespace LOGMASTER;
 	  virtual void newMessages(const MsgSeries &msgs) override;
 
    private: // functions
-	   explicit GUILogger(QWidget* parent = 0);
-	     ~GUILogger();
+	 
 	   GUILogger(const GUILogger &rhs);
 	   GUILogger& operator=(const GUILogger &rhs);
 //	   QThread workerThread;

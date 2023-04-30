@@ -19,6 +19,7 @@ using namespace LOGMASTER;
 using std::string;
 
 
+/*
 GUIInitStyles *
 GUIInitStyles::Instance()
 {
@@ -26,6 +27,7 @@ GUIInitStyles::Instance()
     return   instance;
 
 }
+*/
 
 void
 GUIInitStyles::Init(QApplication * /*app*/)

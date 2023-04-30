@@ -17,7 +17,8 @@
 
 
 using namespace LOGMASTER;
-auto gui_instance = GUILogger::Instance();
+
+GUILogger *gui_instance =  new GUILogger(0);
 
 void  logger_callback(const std::shared_ptr<LMessage>  m)
 {
@@ -71,7 +72,7 @@ GUILogger::timerEvent(QTimerEvent *)
 //GUILogger::timerEvent( )
 {
 	COUT << "TP0, new nessages size = " << fNewMessages.size()  << endl;
-    QMutexLocker locker(&fMutex);
+   // QMutexLocker locker(&fMutex);
 	if (fNewMessages.size() == 0)
 	{
 		return;
@@ -100,13 +101,14 @@ GUILogger::~GUILogger()
 }
 
 
+/*
 GUILogger* 
 GUILogger::Instance()
 {
 	static GUILogger* instance = new  GUILogger();
 	return instance;
 }
-
+*/
 
 void 
 GUILogger::newMessage(int cnt, const LMessage &msg)
