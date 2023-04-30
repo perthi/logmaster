@@ -126,7 +126,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(bindir);$(qt-libdir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>logging.lib;utilities.lib;exception.lib;gui-logmaster-dll.lib;gui-common-dll.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib;Qt6Core5compatd.lib</AdditionalDependencies>
+      <AdditionalDependencies>logging.lib;utilities.lib;gui-logmaster-dll.lib;gui-common-dll.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib;Qt6Core5compatd.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>..\generate_moc.bat</Command>
