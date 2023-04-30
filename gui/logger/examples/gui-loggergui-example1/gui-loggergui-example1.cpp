@@ -18,8 +18,10 @@
 
 #include <logging/LLogging.h>
 #include <logging/LLogTest.h>
+
 #include <gui/logger/GUILoggerGui.h>
 #include <gui/logger/GUILogger.h>
+
 #include <gui/common/GUIExecWidget.h>
 #include <exception/GException.h>
 #include <iostream>
@@ -32,26 +34,33 @@ using std::cerr;
 
 #include  <gui/common/GUIInitStyles.h>
 
-//vector< void(*)(std::shared_ptr<LMessage>) > fSubscribers;
-//vector< void(*)(std::shared_ptr<LMessage>) > fGuiSubscribers;
-
 int main(int argc, char* argv[])
 {
+   // MakeQApp();
     LLogging::Instance();
 
     try
     {
-        QApplication app(argc, argv);
+        QApplication *app = new QApplication(argc, argv);
 
-        GUIInitStyles::Instance()->Init(&app);
+        GUIInitStyles::Instance()->Init(app);
 
-        app.setApplicationName("loggerGuiTest");
-        app.setOrganizationName("Embedded Consulting");
+        app->setApplicationName("loggerGuiTest");
+        app->setOrganizationName("Embedded Consulting");
         SET_LOGTARGET("1111");
         GUILoggerGui *widget = new GUILoggerGui();
       //  MakeQApp();
         //ExecWidget(qobject_cast<QWidget*>(widget));
-        ExecWidget(widget);
+       
+        //ExecWidget(widget);
+
+       
+        QMainWindow* mainWindow = new QMainWindow;
+        mainWindow->setCentralWidget(widget);
+        mainWindow->show();
+        widget->StartTimer();
+        qApp->exec();
+       // widget->startTimer();
     }
     catch (GException & e)
     {
@@ -66,5 +75,4 @@ int main(int argc, char* argv[])
         cerr << "Unknown exception caught" << endl;
     }
 }
-
 

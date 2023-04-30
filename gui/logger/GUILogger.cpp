@@ -7,52 +7,77 @@
 
 #include <QtCore/QMutexLocker>
 #include <QtCore/QDateTime>
+#include <QtCore/QTimer>
+
+
 #include <logging/LLogging.h>
 #include <logging/LPublisher.h>
 
 #include "GUILogger.h"
 
-using namespace LOGMASTER;
 
-//std::shared_ptr
-auto instance = GUILogger::Instance();
+using namespace LOGMASTER;
+auto gui_instance = GUILogger::Instance();
 
 void  logger_callback(const std::shared_ptr<LMessage>  m)
 {
 	static int cnt = 0;
 	COUT << "GOT NEW MESSAGE, cnt = " << cnt << endl;
 //	GUILogger::Instance()->newMessage(cnt, *m);
-	instance->newMessage(cnt, *m);
+	gui_instance->newMessage(cnt, *m);
 	cnt++;
 }
 
 
-GUILogger::GUILogger()
-	:QObject(0)
+GUILogger::GUILogger(QWidget* )
+	//:QObject(0)
 {
 	qRegisterMetaType<MsgSeries>("MsgSeries");
-	this->startTimer(1000);
+	//this->startTimer(1000);
+	// InitTimer();
+	
 	COUT << "Registring subscirber" << endl;
-
 	LLogging::Instance()->RegisterGuiSubscriber(  logger_callback );
 	auto subscribers = LLogging::Instance()->GetGuiSubscribers();
 	COUT << "Subscribers size = " << subscribers.size() << "\t addr = " << std::hex << &subscribers << endl;;
-	//	LLogging::Instance()->GetGuiSubscribers();
-//	LPublisher::Instance()->SetLogInstance(LLogging::Instance());
 	COUT << "Address = 0x" << std::hex << LLogging::Instance();
 }
 
+
+void 
+GUILogger::StartTimer()
+{
+	this->startTimer(1000);
+}
+
+
+/*
+void 
+GUILogger::InitTimer()
+{
+	this->moveToThread(&workerThread);
+
+	auto timer = new QTimer();
+	connect(timer, SIGNAL(timeout()), this, SLOT(timerEvent()));
+	workerThread.start();
+	timer->setInterval(1000);
+	timer->start();
+}
+*/
+
+
 void 
 GUILogger::timerEvent(QTimerEvent *)
+//GUILogger::timerEvent( )
 {
-//	COUT << "TP0" << endl;
+	COUT << "TP0, new nessages size = " << fNewMessages.size()  << endl;
     QMutexLocker locker(&fMutex);
 	if (fNewMessages.size() == 0)
 	{
 		return;
 	}
 	
-//	COUT << "TP1" << endl;
+	COUT << "TP1" << endl;
 	emit newMessages(fNewMessages);
 	//fLoggedMessages += fNewMessages;
 	

@@ -505,7 +505,7 @@ namespace LOGMASTER
     LLogging::ClearSubscribers()
     {
       ///  std::lock_guard<std::mutex> guard( log_mutex );
-        fSubscribers.clear();
+        fSubscribers.clear(); /// TODO, should be erased, nor cleared
     }
 
     vector<void( *)( std::shared_ptr<LMessage>  )> 
@@ -527,7 +527,7 @@ namespace LOGMASTER
     LLogging::ClearGuiSubscribers()
     {
       //  std::lock_guard<std::mutex> guard( log_mutex );
-        fGuiSubscribers.clear();
+        fGuiSubscribers.clear();  /// TODO, should be erased, nor cleared
     }
 
 

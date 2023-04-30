@@ -31,11 +31,11 @@ public :
     virtual  void   API newMessages(const MsgSeries& msgs) = 0;
 
 protected:
-    API  GUILoggerBase() {};
+    API  explicit GUILoggerBase() {};
     virtual API  ~GUILoggerBase() {};
     GUILoggerBase(const GUILoggerBase& rhs);
     GUILoggerBase& operator=(const GUILoggerBase& rhs);
-    virtual void timerEvent(QTimerEvent* event) = 0;
+    //virtual void timerEvent(QTimerEvent* event) = 0;
     
     void API PurgeMessages();
     mutable QMutex fMutex{};

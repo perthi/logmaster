@@ -20,9 +20,11 @@
 
 int main(int argc, char *argv[])
 {
-	QApplication app(argc, argv);
+	//MakeQApp();
+	QApplication *app = new QApplication(argc, argv);
 // GUIInitStyles::Instance()->Init(&app, "logmasterGUITest", "Embedded Consulting");
-	GUIInitStyles::Instance()->Init(&app);
+	GUIInitStyles::Instance()->Init(app);
 	GUILogMasterTab widget;
-	ExecWidget(qobject_cast<QWidget*>(&widget));
+	//ExecWidget(qobject_cast<QWidget*>(&widget));
+	ExecWidget(&widget);
 }

@@ -33,7 +33,6 @@ Q_DECLARE_METATYPE(QRegExp::PatternSyntax)
 
 
 
-
 GUILoggerGui::GUILoggerGui(QWidget *parent)
    :QWidget(parent),
    fPlainTextEditLabel(0),
@@ -280,6 +279,13 @@ GUILoggerGui::RetranslateUi()
        }
        
    }
+}
+
+
+void 
+GUILoggerGui::StartTimer()
+{
+   GUILogger::Instance()->StartTimer();
 }
 
 

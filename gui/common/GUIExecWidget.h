@@ -50,14 +50,14 @@
     */
 	static void ExecWidget(QWidget* widget)
 	{
-        //MakeQApp();
+       // MakeQApp();
         QMainWindow* mainWindow = new QMainWindow;
         mainWindow->setCentralWidget(widget);
         mainWindow->show();
         qApp->exec();
     }
 
-    /*  @brief Make the QApplication object if it does not exist.
+    /*  @brief Make the QAp<plication object if it does not exist.
     *
     *   This function will make a a new QApplication object if it does not exist. This is neccesary for to call atleast 
     *   once before any Qt objects are created and before the ExecWidget function is used. This function can be called 

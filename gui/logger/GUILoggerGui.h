@@ -32,6 +32,7 @@ class GUILoggerGui : public QWidget
    public:
       explicit API GUILoggerGui(QWidget *parent = 0);
       API ~GUILoggerGui();
+      API void StartTimer();
 
    signals:
 
