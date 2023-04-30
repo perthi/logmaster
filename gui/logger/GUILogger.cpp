@@ -52,26 +52,12 @@ GUILogger::StartTimer()
 }
 
 
-/*
-void 
-GUILogger::InitTimer()
-{
-	this->moveToThread(&workerThread);
-
-	auto timer = new QTimer();
-	connect(timer, SIGNAL(timeout()), this, SLOT(timerEvent()));
-	workerThread.start();
-	timer->setInterval(1000);
-	timer->start();
-}
-*/
-
 
 void 
 GUILogger::timerEvent(QTimerEvent *)
 //GUILogger::timerEvent( )
 {
-	COUT << "TP0, new nessages size = " << fNewMessages.size()  << endl;
+	FORCE_DEBUG("TP0, new nessages size = %d", fNewMessages.size());
    // QMutexLocker locker(&fMutex);
 	if (fNewMessages.size() == 0)
 	{

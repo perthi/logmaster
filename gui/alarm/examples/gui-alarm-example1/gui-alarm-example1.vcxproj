@@ -91,7 +91,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(bindir);$(qt-libdir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>logging.lib;exception.lib;utilities.lib;gui-alarm-dll.lib;gui-logger-dll.lib;shell32.lib;gui-common-dll.lib;;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib;Qt6Core5compatd.lib</AdditionalDependencies>
+      <AdditionalDependencies>logging.lib;utilities.lib;gui-alarm-dll.lib;gui-logger-dll.lib;shell32.lib;gui-common-dll.lib;;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib;Qt6Core5compatd.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>..\..\..\generate_moc.bat</Command>

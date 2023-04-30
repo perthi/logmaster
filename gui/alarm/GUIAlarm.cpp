@@ -10,12 +10,7 @@
 
 using namespace LOGMASTER;
 
-void alarm_subscriber(const std::shared_ptr<LMessage>  m)
-{
-    static int cnt = 0;
-    GUIAlarm::Instance()->newMessage(cnt, *m);
-    cnt++;
-}
+
 
 
 GUIAlarm::GUIAlarm()
@@ -23,16 +18,18 @@ GUIAlarm::GUIAlarm()
 {
     qRegisterMetaType<MsgSeries>("MsgSeries");
     this->startTimer(1000);
-    LLogging::Instance()->RegisterGuiSubscriber(alarm_subscriber);
+   // LLogging::Instance()->RegisterGuiSubscriber(alarm_subscriber);
 }
 
 
+/*
 GUIAlarm*
 GUIAlarm::Instance()
 {
     static GUIAlarm *instance = new GUIAlarm();
     return  instance;
 }
+*/
 
 void
 GUIAlarm::timerEvent(QTimerEvent*)

@@ -6,6 +6,7 @@ using std::cout;
 using std::endl;
 
 
+
 #include  <QtWidgets/QApplication>
 #include  <QtWidgets/qwidget.h>
 
@@ -13,25 +14,29 @@ using std::endl;
 #include  <QtCore/QFileInfo>
 #include  <QtCore/QtDebug>
 
+
+/*
 #include  <gui/alarm/GUIAlarmGui.h>
+//#include  <gui/alarm/GUIAlarm.h>
 #include  <gui/logger/GUILoggerGui.h>
 #include  <gui/logger/GUILogger.h>
 #include  <gui/common/GUIExecWidget.h>
 #include  <gui/common/GUIInitStyles.h>
+*/
+
 
 #include  <logging/LLogging.h>
-
-
 #include  <logging/LLogTest.h>
-
 #include  <exception/GException.h>
+
+
 #include  <iostream>
 
 using std::endl;
 using std::cout;
 using std::cerr;
 
-using namespace LOGMASTER;
+//using namespace LOGMASTER;
 
 #include <thread>
 #include <chrono>
@@ -39,8 +44,21 @@ using namespace LOGMASTER;
 void start_gui( int argc, char** argv );
 void messages();
 
+/*
+GUIAlarm* alarm = new GUIAlarm();
+
+void alarm_subscriber(const std::shared_ptr<LMessage>  m)
+{
+    static int cnt = 0;
+    alarm->newMessage(cnt, *m);
+    cnt++;
+}
+*/
+
+
 int main( int argc, char **argv )
 {
+  //  LLogging::Instance()->RegisterGuiSubscriber(alarm_subscriber);
     std::thread th1(start_gui, argc, argv);
     std::thread th2(messages);
 
@@ -52,17 +70,20 @@ int main( int argc, char **argv )
 
 void start_gui( int argc, char **argv)
 {
+    /*
     try
     {
+       
         QApplication app(argc, argv);
 
-        GUIInitStyles::Instance()->Init(&app);
+        GUIInitStyles::Init(&app);
         app.setApplicationName("AlarmGuiTest");
         app.setOrganizationName("Embedded Cosnulting");
 
         SET_LOGLEVEL("--all");
         SET_LOGTARGET("1111");
-        GUIAlarmGui *widget = new GUIAlarmGui();
+        GUIAlarm* alarm = new GUIAlarm();
+        GUIAlarmGui *widget = new GUIAlarmGui(alarm);
         ExecWidget(qobject_cast<QWidget*>(widget));
     }
     catch (GException& e)
@@ -77,15 +98,18 @@ void start_gui( int argc, char **argv)
     {
         cerr << "Unknown exception caught" << endl;
     }
+    */
 
 }
 
 
 void messages()
 {
+    /*
     while (true)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         LLogTest::WriteMessages();
     }
+    */
 }

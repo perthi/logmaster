@@ -21,11 +21,20 @@
 #include <QtCore/QMetaType>
 #include <QtWidgets/QScrollBar>
 #include <QtWidgets/QMessageBox>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QPlainTextEdit>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QLineEdit>
+
 
 #include <logging/LLogging.h>
 //#include <logging/LHashMaps.h>
 
 #include "GUIAlarmGui.h"
+#include "GUIAlarm.h"
 
 #include  <gui/common/GUIInitStyles.h>
 
@@ -34,8 +43,10 @@ using namespace LOGMASTER;
 
 Q_DECLARE_METATYPE(QRegExp::PatternSyntax)
 
-GUIAlarmGui::GUIAlarmGui(QWidget *parent)
-   :QWidget(parent),
+GUIAlarmGui::GUIAlarmGui(GUIAlarm *alarm, QWidget *parent)
+   :
+    fAlarm(alarm),
+    QWidget(parent),
    fPlainTextEditLabel(0),
    fPlainTextEdit(0),
    fConfigureButton(0)
@@ -107,7 +118,7 @@ GUIAlarmGui::RetranslateUi()
 void
 GUIAlarmGui::ConnectStuff()
 {
-    connect(GUIAlarm::Instance(), SIGNAL(newMessages(const MsgSeries &)),
+    connect( fAlarm, SIGNAL(newMessages(const MsgSeries &)),
         this, SLOT(NewMessages(const MsgSeries &)));
 }
 
@@ -118,6 +129,8 @@ void
 // GUIAlarmGui::NewMessages( MsgSeries *msgs)
 GUIAlarmGui::NewMessages( const QMap<int, LMessage> &msgs)
 {
+    COUT << "msg.size() = " << msgs.size() << endl;
+
     QMapIterator<int,   LMessage> i( msgs);
     while (i.hasNext())
     {
@@ -154,6 +167,6 @@ void
 GUIAlarmGui::GetAllMessages()
 {
     fPlainTextEdit->clear();
-    NewMessages(GUIAlarm::Instance()->AllMsgs());
+    NewMessages(fAlarm->AllMsgs());
 }
 

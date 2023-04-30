@@ -13,7 +13,7 @@ using namespace LOGMASTER;
 void 
 GUILoggerBase::PurgeMessages()
 {
-	QMutexLocker locker(&fMutex);
+	//QMutexLocker locker(&fMutex);
 	if (fNewMessages.size() == 0)
 	{
 		return;

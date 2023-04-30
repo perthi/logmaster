@@ -121,9 +121,9 @@ LLogTest::WriteMessages()
   //  ALARM_DEBUG("This is a ALARAM_DEBUG message");
   //  ALARM_INFO("This  is a ALARAM_INFO  message");
     ALARM_WARNING("This is a ALARAM_WARNING message");
-  
-    // ALARM_ERROR("This is a ALARAM_ERROR message with parameters: a = %d, b = %d", a, b);
-    // ALARM_FATAL("Oppps.... a  ALARAM_FATAL message");
+ 
+     ALARM_ERROR("This is a ALARAM_ERROR message with parameters: a = %d, b = %d", a, b);
+     ALARM_FATAL("Oppps.... a  ALARAM_FATAL message");
     
     
     Footer();
