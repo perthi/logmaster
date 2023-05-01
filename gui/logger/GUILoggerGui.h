@@ -34,6 +34,8 @@ class GUILoggerGui : public QWidget
       API ~GUILoggerGui();
       API void StartTimer();
 
+      API static void AddMessage(int cnt, LMessage msg);
+
    signals:
 
    private slots :
@@ -47,7 +49,7 @@ class GUILoggerGui : public QWidget
 
    private: 
       void InitGui();
-      void ConnectStuff();
+     // void ConnectStuff();
       void RetranslateUi();
       QWidget* InitLeft();
       QWidget* InitRight();
@@ -59,6 +61,9 @@ class GUILoggerGui : public QWidget
       GUILoggerGui operator=(const GUILoggerGui&);
       GUILoggerGui(const GUILoggerGui&);
       
+      static MsgSeries logged_messages;
+      static MsgSeries new_messages;
+
       GUILogger *fLogger = nullptr;
 
       QLabel *fPlainTextEditLabel = nullptr;

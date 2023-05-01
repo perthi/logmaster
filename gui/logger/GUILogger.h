@@ -13,10 +13,10 @@
 #define _GUILOGGER_H_
 
 #include <QtCore/QObject>
-#include <QtCore/QMutex>
-#include <QtCore/QMultiMap>
-#include <QtCore/QThread>
-#include <QtWidgets/QMainWindow>
+//#include <QtCore/QMutex>
+//#include <QtCore/QMultiMap>
+//#include <QtCore/QThread>
+//#include <QtWidgets/QMainWindow>
 
 
 #include <logging/LMessage.h>
@@ -24,42 +24,24 @@
 #include <logging/LLogging.h>
 #include <logging/LPublisher.h>
 
-class   QTimer;
+//class   QTimer;
 
 using namespace LOGMASTER;
 
 
-// typedef  QMap<int, LMessage> MsgSeries;
-
  class GUILogger : public QObject, public GUILoggerBase
-//class GUILogger : public GUILoggerBase, public QMainWindow
    {
-      Q_OBJECT
+  //    Q_OBJECT
 
    public:
 	   explicit API GUILogger(QWidget* parent = 0);
-	   ~GUILogger();
-	   //static API GUILogger*  Instance();
-	   void StartTimer();
-
-   public slots:
-	  virtual void newMessage(int cnt, const LMessage &msg) override;
-	//  void timerEvent(QTimerEvent* event);
-
-   signals:
-	  virtual void newMessages(const MsgSeries &msgs) override;
+	   ~GUILogger() = default;
+	   virtual void newMessage(int cnt, const LMessage &msg) override;
 
    private: // functions
 	 
 	   GUILogger(const GUILogger &rhs);
 	   GUILogger& operator=(const GUILogger &rhs);
-//	   QThread workerThread;
-	 //  void  logger_callback(const std::shared_ptr<LMessage>  m);
-	   
-	   virtual void timerEvent(QTimerEvent *event) override;
-
-	 //  QTimer* timer;
-
    };
 
 

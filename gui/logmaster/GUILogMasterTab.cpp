@@ -6,22 +6,15 @@
 ******************************************************/
 
 #include "GUILogMasterTab.h"
-
 #include <QtWidgets/QHBoxLayout>
 #include <QtCore/QSettings>
 
-
-
-
-//vector< void(*)(std::shared_ptr<LMessage>) > fSubscribers;
-//vector< void(*)(std::shared_ptr<LMessage>) > fGuiSubscribers;
 
 GUILogMasterTab::GUILogMasterTab(QWidget *parent)
     :QWidget(parent),
     fTab(0)
     
 {
-    COUT << "TP0" << endl;
     fAPILogMasters = APILogMasters::Instance();
     InitGui();
     RetranslateUi();
@@ -40,7 +33,6 @@ GUILogMasterTab::~GUILogMasterTab()
                 and in the end make a new QVBoxLayout and create the Widget**/
 void GUILogMasterTab::InitGui()
 {
-    COUT << "TP0" << endl;
     fTab = new QTabWidget(this);
     fTab->setStyleSheet("QTabBar::tab {min-width: 30ex; }");
 
@@ -57,7 +49,6 @@ void GUILogMasterTab::InitGui()
 *   @details    This Function will configure the panel according to the stylesheet**/
 void GUILogMasterTab::RetranslateUi()
 {
-    COUT << "TP0" << endl;
     QSettings settings;
     settings.beginGroup("StyleSettings");
 
@@ -76,7 +67,6 @@ void GUILogMasterTab::RetranslateUi()
 void
 GUILogMasterTab::CurrentTabChanged(int id)
 {
-    COUT << "TP0" << endl;
     fAPILogMasters->SetCurrent(fLogMasterTarget.find(id).value()->GetTargetInt());
 }
 
@@ -88,7 +78,6 @@ GUILogMasterTab::CurrentTabChanged(int id)
 void
 GUILogMasterTab::LoadTabs()
 {
-    COUT << "TP0" << endl;
     int index = 0;
         
     for (auto target : fAPILogMasters->GetLogMasterList())

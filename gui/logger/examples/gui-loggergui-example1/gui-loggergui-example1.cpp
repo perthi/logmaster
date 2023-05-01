@@ -30,6 +30,7 @@ int main(int argc, char* argv[])
 {
     //GUILoggerBase();
     LLogging::Instance();
+    SET_LOGLEVEL("--all-debug");
 
   //  QMap<int, LMessage> fLoggedMessages2;
   //  QMap<int, LMessage> fNewMessages2;

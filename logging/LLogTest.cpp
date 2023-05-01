@@ -77,13 +77,13 @@ LLogTest::WriteMessages()
     USER_FATAL("Oppps.... a  USER_FATAL message");
     */
 
-    /*
+    
     FSM_DEBUG("This is a FSM_DEBUG message");
     FSM_INFO("This  is a FSM_INFO  message");
     FSM_WARNING("This is a FSM_WARNING message");
     FSM_ERROR("This is a FSM_ERROR message with parameters: a = %d, b = %d", a, b);
     FSM_FATAL("Oppps.... a  FSM_FATAL message");
-    */
+    
 
     /*
     FSM_DEBUG_U("This is a FSM_DEBUG and USER message");

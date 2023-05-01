@@ -353,7 +353,6 @@ void
 //GUILogMasterGui::SubsysAndLevelButtonClicked(QWidget* button)
 GUILogMasterGui::SubsysAndLevelButtonClicked(QObject* button)
 {
-    COUT << "TP0" << endl;
     // retrieve data from clicked button
     QPushButton* pb = qobject_cast<QPushButton*>(button);
     QPair<int, int> pair = fSysLevControlButtons.value(pb);
@@ -375,7 +374,6 @@ GUILogMasterGui::SubsysAndLevelButtonClicked(QObject* button)
 void 
 GUILogMasterGui::TestMessages()
 {
-    COUT << "TP0" << endl;
     fKALogmaster->WriteTestMessages();
 }
 
@@ -385,7 +383,7 @@ GUILogMasterGui::TestMessages()
 void 
 GUILogMasterGui::ClearMessages()
 {
-    COUT << "TP0" << endl;
+ //   COUT << "TP0" << endl;
     fPlainTextEdit->clear();
 }
 
@@ -397,10 +395,10 @@ GUILogMasterGui::ClearMessages()
 void 
 GUILogMasterGui::SubSystemControlClicked()
 {
-    COUT << "TP0" << endl;
+  //  COUT << "TP0" << endl;
     QString cmd = fSubsystemCombo->currentText(); 
     string s =  cmd.toStdString();
-    FORCE_DEBUG("cmd = %s", s.c_str() );
+  //  FORCE_DEBUG("cmd = %s", s.c_str() );
     fKALogmaster->SetSubSystem(cmd.toStdString());
     UpdateTextMessagePanel();
     RefreshSubsysAndLevel();
@@ -414,7 +412,7 @@ GUILogMasterGui::SubSystemControlClicked()
 void 
 GUILogMasterGui::UpdateTextMessagePanel()
 {
-    COUT << "TP0" << endl;
+    //COUT << "TP0" << endl;
     std::vector<string> v = fKALogmaster->GetTextFieldData();
     
     for (size_t i = 0; i < v.size(); i++)

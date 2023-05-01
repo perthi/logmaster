@@ -99,6 +99,8 @@ public:
     API LMessage & operator = ( const LMessage & );
 
     private:
+        LMessage(LMessage&& other);
+        LMessage& operator=(LMessage&& rhs);
      // LMessage( const LMessage & );
      // LMessage operator = ( const LMessage & );
 };
@@ -107,3 +109,4 @@ public:
 }
 
 #endif
+

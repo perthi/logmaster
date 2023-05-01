@@ -91,7 +91,12 @@ GUILoggerBase::GetLoggedMessages()
 MsgSeries 
 GUILoggerBase::GetNewMessages() 
 { 
-//	QMutexLocker locker(&fMutex);
+	for (auto m : fNewMessages2)
+	{
+		COUT << "RGBMAP = 0X" << std::hex << m.second.fRgBColor << endl;
+	}
+	
+	//	QMutexLocker locker(&fMutex);
 	//COUT << "size = " << fNewMessages2.size() << endl;
 	return fNewMessages2; 
 };
@@ -120,9 +125,20 @@ GUILoggerBase::newMessage(int cnt, const LMessage& msg)
 	
 	
 	LMessage newmsg = msg;
+
+//	COUT << "RGB COLOR =  0X" << std::hex << msg.fRgBColor << endl;
+//	COUT << "RGB COLOR =  0X" << std::hex << newmsg.fRgBColor << endl;
+
 	fNewMessages2.emplace(cnt, newmsg);
+	
+	for (auto m : fNewMessages2)
+	{
+		// COUT << "RGB MAP = 0x" << std::hex << m.second.fRgBColor << endl;
+	}
+
+	
 	fMap.emplace(cnt, newmsg);
-	COUT << "New messages size = " << std::dec << fNewMessages2.size() << "  addr = "<< std::hex << &fNewMessages2 << endl;
+//	COUT << "New messages size = " << std::dec << fNewMessages2.size() << "  addr = "<< std::hex << &fNewMessages2 << endl;
 	
 }
 
