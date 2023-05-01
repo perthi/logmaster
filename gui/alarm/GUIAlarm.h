@@ -2,10 +2,7 @@
 #pragma once
 
 #include <utilities/GDefinitions.h>
-#include <QtWidgets/QWidget>
 #include <QtCore/QObject>
-#include <QtCore/QMutex>
-#include <QtCore/QMultiMap>
 #include <gui/common/GUILoggerBase.h>
 #include <logging/LMessage.h>
 
@@ -17,21 +14,25 @@ class GUIAlarm : public QObject, public GUILoggerBase
 
 public:
 	//static GUIAlarm* Instance();
-	explicit API GUIAlarm();
+	explicit API  GUIAlarm();
 	API ~GUIAlarm() {};
 
+
+	
 public slots:
-	virtual  void newMessage(int cnt, const LMessage& msg) override;
+	virtual  void __declspec(dllexport) newMessage(int cnt, const LMessage& msg) override;
 
 signals:
-	virtual void newMessages(const MsgSeries& msgs) override;
+	virtual void __declspec(dllexport) newMessages(const MsgSeries& msgs) override;
+
 
 private: // functions
 	
 	GUIAlarm(const GUIAlarm& rhs);
-	GUIAlarm& operator=(const GUIAlarm& rhs);
-	void timerEvent(QTimerEvent* event);
+    GUIAlarm& operator=(const GUIAlarm& rhs);
+	void API timerEvent(QTimerEvent* event);
 };
+
 
 
 

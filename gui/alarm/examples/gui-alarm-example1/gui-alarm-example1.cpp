@@ -8,22 +8,23 @@ using std::endl;
 
 
 #include  <QtWidgets/QApplication>
-#include  <QtWidgets/qwidget.h>
+//#include  <QtWidgets/qwidget.h>
 
-#include  <QtCore/QResource>
-#include  <QtCore/QFileInfo>
-#include  <QtCore/QtDebug>
+//#include  <QtCore/QResource>
+//#include  <QtCore/QFileInfo>
+//#include  <QtCore/QtDebug>
 
 
-/*
-#include  <gui/alarm/GUIAlarmGui.h>
-//#include  <gui/alarm/GUIAlarm.h>
-#include  <gui/logger/GUILoggerGui.h>
-#include  <gui/logger/GUILogger.h>
+
+
+
+//#include  <gui/logger/GUILoggerGui.h>
+//#include  <gui/logger/GUILogger.h>
 #include  <gui/common/GUIExecWidget.h>
 #include  <gui/common/GUIInitStyles.h>
-*/
 
+#include  <gui/alarm/GUIAlarm.h>
+#include  <gui/alarm/GUIAlarmGui.h>
 
 #include  <logging/LLogging.h>
 #include  <logging/LLogTest.h>

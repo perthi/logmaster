@@ -10,13 +10,14 @@
 
 #pragma once
 
-#include <common/FDefinitions.h>
+//#include <common/FDefinitions.h>
 
 #include <QtCore/QString>
+#include <QtCore/QMap>
+#include <QtWidgets/QWidget>
+#include <logging/LMessage.h>
 
-
-
-
+using namespace LOGMASTER;
 //#include <gui/alarm/GUIAlarm.h>
 
 class GUIAlarm;
