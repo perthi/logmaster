@@ -129,7 +129,7 @@ void
 // GUIAlarmGui::NewMessages( MsgSeries *msgs)
 GUIAlarmGui::NewMessages( const QMap<int, LMessage> &msgs)
 {
-    COUT << "msg.size() = " << msgs.size() << endl;
+    COUT << "msg.size() = !!!!!!!!!!!!!!!!!! " << msgs.size() << endl;
 
     QMapIterator<int,   LMessage> i( msgs);
     while (i.hasNext())

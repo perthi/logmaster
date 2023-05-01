@@ -31,12 +31,8 @@ void  logger_callback(const std::shared_ptr<LMessage>  m)
 
 
 GUILogger::GUILogger(QWidget* )
-	//:QObject(0)
 {
 	qRegisterMetaType<MsgSeries>("MsgSeries");
-	//this->startTimer(1000);
-	// InitTimer();
-	
 	COUT << "Registring subscirber" << endl;
 	LLogging::Instance()->RegisterGuiSubscriber(  logger_callback );
 	auto subscribers = LLogging::Instance()->GetGuiSubscribers();
@@ -57,27 +53,33 @@ void
 GUILogger::timerEvent(QTimerEvent *)
 //GUILogger::timerEvent( )
 {
-	FORCE_DEBUG("TP0, new nessages size = %d", fNewMessages.size());
-   // QMutexLocker locker(&fMutex);
-	if (fNewMessages.size() == 0)
+	MsgSeries * logged_messages = GetLoggedMessages();
+	MsgSeries * new_messages  = GetNewMessages();
+
+
+	FORCE_DEBUG("TP0, new nessages size = %d", new_messages->size());
+   
+	// QMutexLocker locker(&fMutex);
+	if (new_messages->size() == 0)
 	{
 		return;
 	}
 	
 	COUT << "TP1" << endl;
-	emit newMessages(fNewMessages);
+	emit newMessages(*new_messages);
 	//fLoggedMessages += fNewMessages;
 	
-	for (auto it = fNewMessages.begin(); it != fNewMessages.end(); it++)
+	for (auto it = new_messages->begin(); it != new_messages->end(); it++)
 	{
-		fLoggedMessages.insert(it.key(), it.value() );
+		logged_messages->insert(it.key(), it.value() );
 	}
 	
-	fNewMessages.clear();
-	while (fLoggedMessages.count() > fMaxMessagesInMemory)
+	new_messages->clear();
+	while (logged_messages->count() > fMaxMessagesInMemory)
 	{
-		fLoggedMessages.erase(fLoggedMessages.begin());
+		logged_messages->erase(logged_messages->begin());
 	}
+	
 }
 
 GUILogger::~GUILogger()
@@ -86,15 +88,6 @@ GUILogger::~GUILogger()
 	//fInstance = 0;
 }
 
-
-/*
-GUILogger* 
-GUILogger::Instance()
-{
-	static GUILogger* instance = new  GUILogger();
-	return instance;
-}
-*/
 
 void 
 GUILogger::newMessage(int cnt, const LMessage &msg)

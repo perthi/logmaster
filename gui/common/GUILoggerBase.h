@@ -16,23 +16,33 @@ class GUILoggerBase
 {
 
 public:
-    MsgSeries    API   AllMsgs();
-    void        API    ClearMsgs();
+    MsgSeries    API  AllMsgs();
+    void         API  ClearMsgs();
 
 public :
-    virtual  void    API  newMessage(int cnt, const LMessage& msg) = 0;
-    virtual  void    API  newMessages(const MsgSeries& msgs) = 0;
+    virtual  void  API  newMessage(int cnt, const LMessage& msg) = 0;
+    virtual  void  API  newMessages(const MsgSeries& msgs) = 0;
+
+    MsgSeries API * GetLoggedMessages();
+    MsgSeries API * GetNewMessages();
 
 protected:
-    explicit  API  GUILoggerBase() {};
-    virtual  API   ~GUILoggerBase() {};
+    explicit API  GUILoggerBase() {};
+    virtual  API ~GUILoggerBase() {};
     GUILoggerBase(const GUILoggerBase& rhs);
     GUILoggerBase& operator=(const GUILoggerBase& rhs);
-    void  API  PurgeMessages();
+    void     API  PurgeMessages();
 
     mutable QMutex fMutex{};
-    QMap<int, LMessage> fLoggedMessages;
-    QMap<int, LMessage> fNewMessages;
+
+
+
+
+ //  QMap<int, LMessage> fLoggedMessages;
+ //   QMap<int, LMessage> fNewMessages;
+    
+    static QMap<int, LMessage> fLoggedMessages2;
+    static QMap<int, LMessage> fNewMessages2;
     const int fMaxMessagesInMemory = 2000;
 };
 

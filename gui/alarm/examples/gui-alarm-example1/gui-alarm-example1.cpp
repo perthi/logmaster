@@ -1,35 +1,22 @@
 
 
-#include <iostream>
+#include  <gui/alarm/GUIAlarmGui.h>
+#include  <gui/alarm/GUIAlarm.h>
+#include  <gui/alarm/GUIAlarm_moc.h>
+#include  <gui/common/GUIExecWidget.h>
+#include  <gui/common/GUIInitStyles.h>
+#include  <logging/LLogging.h>
+#include  <logging/LLogTest.h>
 
-using std::cout;
-using std::endl;
+using namespace LOGMASTER;
 
-
+#include  <exception/GException.h>
 
 #include  <QtWidgets/QApplication>
 //#include  <QtWidgets/qwidget.h>
-
 //#include  <QtCore/QResource>
 //#include  <QtCore/QFileInfo>
 //#include  <QtCore/QtDebug>
-
-
-
-
-
-//#include  <gui/logger/GUILoggerGui.h>
-//#include  <gui/logger/GUILogger.h>
-#include  <gui/common/GUIExecWidget.h>
-#include  <gui/common/GUIInitStyles.h>
-
-#include  <gui/alarm/GUIAlarm.h>
-#include  <gui/alarm/GUIAlarmGui.h>
-
-#include  <logging/LLogging.h>
-#include  <logging/LLogTest.h>
-#include  <exception/GException.h>
-
 
 #include  <iostream>
 
@@ -37,15 +24,13 @@ using std::endl;
 using std::cout;
 using std::cerr;
 
-//using namespace LOGMASTER;
-
 #include <thread>
 #include <chrono>
 
 void start_gui( int argc, char** argv );
 void messages();
 
-/*
+
 GUIAlarm* alarm = new GUIAlarm();
 
 void alarm_subscriber(const std::shared_ptr<LMessage>  m)
@@ -54,12 +39,12 @@ void alarm_subscriber(const std::shared_ptr<LMessage>  m)
     alarm->newMessage(cnt, *m);
     cnt++;
 }
-*/
+
 
 
 int main( int argc, char **argv )
 {
-  //  LLogging::Instance()->RegisterGuiSubscriber(alarm_subscriber);
+    LLogging::Instance()->RegisterGuiSubscriber(alarm_subscriber);
     std::thread th1(start_gui, argc, argv);
     std::thread th2(messages);
 
@@ -71,7 +56,6 @@ int main( int argc, char **argv )
 
 void start_gui( int argc, char **argv)
 {
-    /*
     try
     {
        
@@ -99,18 +83,15 @@ void start_gui( int argc, char **argv)
     {
         cerr << "Unknown exception caught" << endl;
     }
-    */
 
 }
 
 
 void messages()
 {
-    /*
     while (true)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         LLogTest::WriteMessages();
     }
-    */
 }
