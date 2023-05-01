@@ -29,7 +29,7 @@ class   QTimer;
 using namespace LOGMASTER;
 
 
- typedef  QMap<int, LMessage> MsgSeries;
+// typedef  QMap<int, LMessage> MsgSeries;
 
  class GUILogger : public QObject, public GUILoggerBase
 //class GUILogger : public GUILoggerBase, public QMainWindow
@@ -54,6 +54,8 @@ using namespace LOGMASTER;
 	   GUILogger(const GUILogger &rhs);
 	   GUILogger& operator=(const GUILogger &rhs);
 //	   QThread workerThread;
+	 //  void  logger_callback(const std::shared_ptr<LMessage>  m);
+	   
 	   virtual void timerEvent(QTimerEvent *event) override;
 
 	 //  QTimer* timer;

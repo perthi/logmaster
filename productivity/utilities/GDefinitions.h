@@ -70,7 +70,9 @@ using std::string;
 #define EXCECUTION_ERROR -33
 #define ARG_MAX 4096
 
-#define COUT  cout << __FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":"
+// #define COUT  cout << __FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":"
+#define COUT  cout <<  std::dec << __FUNCTION__ <<":[" << __LINE__  << "]"
+#define COUT_HEX  cout <<  std::hex << __FUNCTION__ <<":[" << __LINE__  << "]"
 
 #if defined(__unix__)
 #define CERR   cerr << "\033[7;1;34m" <<__FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":" 

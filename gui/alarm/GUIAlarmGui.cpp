@@ -125,6 +125,9 @@ GUIAlarmGui::NewMessages( const QMap<int, LMessage> &msgs)
             QMap<eMSGSYSTEM, QCheckBox*>::iterator it;
             QTextCharFormat tf;
             tf = fPlainTextEdit->currentCharFormat();
+            
+            COUT << "RGB COlor = 0x" << std::hex << msg.fRgBColor << endl;
+            
             tf.setForeground(QBrush(QColor(msg.fRgBColor)));
             tf.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
             fPlainTextEdit->setCurrentCharFormat(tf);

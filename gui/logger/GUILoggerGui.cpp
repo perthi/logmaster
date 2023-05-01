@@ -286,29 +286,58 @@ GUILoggerGui::RetranslateUi()
 void 
 GUILoggerGui::StartTimer()
 {
-   fLogger->StartTimer();
+   COUT << "STARTING LOGGER TIMER !!!!" << endl;
+  // fLogger->StartTimer();
+   fLogger->startTimer(1000);
+
 }
 
 
 void
 GUILoggerGui::ConnectStuff()
 {
-    COUT << "TP0" << endl;
+  //  COUT << "TP0" << endl;
     connect(fLogger, SIGNAL(newMessages(const MsgSeries &)),
         this, SLOT(NewMessages(const MsgSeries &)));
 }
 
 
 void 
+GUILoggerGui::timerEvent(QTimerEvent* event)
+{
+   // COUT << "EVENT !!!!" << endl;
+    MsgSeries logged_messages = GUILoggerBase::GetLoggedMessages();
+    MsgSeries new_messages = GUILoggerBase::GetNewMessages();
+    auto map_l = GUILoggerBase::GetMap();
+    cout << std::dec;
+   // COUT << "TP0, new nessages size = " << std::dec << new_messages.size() << endl;;
+   // COUT << "TP0, MAP size = " << std::dec << map_l.size() << endl;;
+   // COUT << "TP0, logged nessages size = " << std::dec << logged_messages.size() << endl;;
+    NewMessages(new_messages);
+}
+
+void 
 GUILoggerGui::NewMessages(const MsgSeries &msgs)
 {
     COUT << "Message received,msg.size = " << std::dec <<  msgs.size() << endl;
     //return;
-    QMapIterator<int, LMessage> i(msgs);
-    while (i.hasNext())
+   // MsgSeries logged_messages =  GUILoggerBase::GetLoggedMessages();
+   // MsgSeries new_messages = GUILoggerBase::GetNewMessages();
+   // auto map_l =  GUILoggerBase::GetMap();
+   // cout << std::dec;
+   // COUT << "TP0, new nessages size = " << std::dec << new_messages.size() << endl;;
+   // COUT << "TP0, MAP size = " << std::dec << map_l.size() << endl;;
+    
+    
+  //  QMapIterator<int, LMessage> i(msgs);
+    for( auto it = msgs.begin(); it != msgs.end(); it ++)
+
+   // while (i.hasNext())
     {
-        i.next();
-        LMessage msg(i.value());
+        //i.next();
+        LMessage msg(it->second);
+
+    //    COUT << "TP0" << endl;
 
         if (fPauseButton->isChecked())
         {
@@ -317,28 +346,42 @@ GUILoggerGui::NewMessages(const MsgSeries &msgs)
         }
 
         //Filter severity:
+     //   COUT << "TP1" << endl;
+        
         int value = (int)fLogLevelCombo->itemData(  fLogLevelCombo->currentIndex() ).toInt();
+
+
+/*
        if (  value  < (int)msg.fLevel) 
         {
           //Log level too low, skip msg
           continue;
         }
+        */
+
+     //  COUT << "TP2" << endl;
 
         //Filter subsystem
         bool skip = true;
-        QMap<eMSGSYSTEM, QCheckBox*>::iterator it;
-        for (it = fCheckBoxes.begin(); it != fCheckBoxes.end(); it++) 
+        
+      //  COUT << "TP3" << endl;
+       
+        QMap<eMSGSYSTEM, QCheckBox*>::iterator it2;
+        
+        COUT << "TP4" << endl;
+        for (it2 = fCheckBoxes.begin(); it2 != fCheckBoxes.end(); it2++) 
         {
-            if ( (int)msg.fSystem & (int)it.key() )
+            if ( (int)msg.fSystem & (int)it2.key() )
             {
 
-                if (it.value()->checkState() == Qt::Checked)
+                if (it2.value()->checkState() == Qt::Checked)
                     skip = false;
             }
         }
 
         COUT << "SKIP = " << (skip == true ? "TRUE" : "FALSE") << endl;
 
+        /*
         if (skip) {
             //Subsystem does not match, skip msg
             continue;
@@ -349,15 +392,22 @@ GUILoggerGui::NewMessages(const MsgSeries &msgs)
             //Reg exp does not match, skip msg
             continue;
         }
+        */
 
         //Set color:
         QTextCharFormat tf;
         tf = fPlainTextEdit->currentCharFormat();
+
+        COUT << "RGB COlor = 0x" << std::hex << msg.fRgBColor << endl;
+
         tf.setForeground(QBrush(QColor(msg.fRgBColor)));
         tf.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
         fPlainTextEdit->setCurrentCharFormat(tf);
 
-        QString str = QString("%1 %2").arg(i.key()%10000, 4,10, QLatin1Char('0')).arg(msg.fMsg);
+       // QString str = QString("%1 %2").arg(i.key()%10000, 4,10, QLatin1Char('0')).arg(msg.fMsg);
+        
+        QString str = QString("%1 %2").arg(it->first % 10000, 4, 10, QLatin1Char('0')).arg(msg.fMsg);
+
         str.chop(1); //Remove trailing \n
         fPlainTextEdit->appendPlainText(str);
 
@@ -365,7 +415,10 @@ GUILoggerGui::NewMessages(const MsgSeries &msgs)
         QScrollBar* sb = fPlainTextEdit->verticalScrollBar();
         sb->setValue(sb->maximum());
     }
+    
 }
+
+
 
 
 void
@@ -390,7 +443,7 @@ GUILoggerGui::ClearLog()
 void
 GUILoggerGui::OpenLogMasterDialog()
 {
-    COUT << "TP0" << endl;
+ //   COUT << "TP0" << endl;
     if(fLogMasterGuiDialog == nullptr)
     {
         fLogMasterGuiDialog = new QWidget(nullptr);
@@ -414,7 +467,7 @@ GUILoggerGui::OpenLogMasterDialog()
 void
 GUILoggerGui::GetAllMessages()
 {
-    COUT << "TP0" << endl;
+   // COUT << "TP0" << endl;
     fPlainTextEdit->clear();
     NewMessages(fLogger->AllMsgs());
 }

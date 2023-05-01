@@ -2,8 +2,11 @@
 
 #include "GUILoggerBase.h"
 
-QMap<int, LMessage>  GUILoggerBase::fLoggedMessages2 = QMap<int, LMessage>();
-QMap<int, LMessage>  GUILoggerBase::fNewMessages2;
+std::map<int, LMessage>  GUILoggerBase::fLoggedMessages2;
+std::map<int, LMessage>  GUILoggerBase::fNewMessages2;
+
+
+std::map<int, LMessage>   GUILoggerBase::fMap;
 
 #include <utilities/GDefinitions.h>
 
@@ -14,11 +17,30 @@ QMap<int, LMessage>  GUILoggerBase::fNewMessages2;
 using namespace LOGMASTER;
 
 
+/*
+void 
+GUILoggerBase::SetLoggedMessage(MsgSeries msg)
+{
+
+	fLoggedMessages2 = msg;
+
+
+}
+
+
+void 
+GUILoggerBase::SetNewMessage(MsgSeries msg)
+{
+	fNewMessages2 = msg;
+}
+*/
+
+
 
 void 
 GUILoggerBase::PurgeMessages()
 {
-	COUT << "Purging messages, size =  " << std::dec << fNewMessages2.size()  << "  addr = " << std::hex << &fNewMessages2 << endl;
+//	COUT << "Purging messages, size =  " << std::dec << fNewMessages2.size()  << "  addr = " << std::hex << &fNewMessages2 << endl;
 	
 	QMutexLocker locker(&fMutex);
 	if (fNewMessages2.size() == 0)
@@ -51,20 +73,55 @@ GUILoggerBase::PurgeMessages()
 	
 }
 
-MsgSeries *
-GUILoggerBase::GetLoggedMessages() { return &fLoggedMessages2; };
+std::map< int, LMessage> API   
+GUILoggerBase::GetMap()
+{
+	return fMap;
+}
 
-MsgSeries *
-GUILoggerBase::GetNewMessages() { return &fNewMessages2; };
+MsgSeries 
+GUILoggerBase::GetLoggedMessages() 
+{ 
+	//QMutexLocker locker(&fMutex);
+	//COUT << "size = " << fLoggedMessages2.size() << endl;
+	return fLoggedMessages2; 
+};
+
+
+MsgSeries 
+GUILoggerBase::GetNewMessages() 
+{ 
+//	QMutexLocker locker(&fMutex);
+	//COUT << "size = " << fNewMessages2.size() << endl;
+	return fNewMessages2; 
+};
+
+
+GUILoggerBase::GUILoggerBase()
+{
+	// fLoggedMessages2 = QMap<int, LMessage>();
+	// fNewMessages2 = QMap<int, LMessage>();;
+
+}
+
+void   
+GUILoggerBase::newMessages(const MsgSeries& msgs)
+{
+	COUT << "TP0" << endl;
+}
+
 
 void
 GUILoggerBase::newMessage(int cnt, const LMessage& msg)
 {
-	
-	COUT << "New message: cnt =  "<< std::dec << cnt  << endl;
 	QMutexLocker locker(&fMutex);
+
+//	COUT << "New message: cnt =  "<< std::dec << cnt  << endl;
+	
+	
 	LMessage newmsg = msg;
-	fNewMessages2.insert(cnt, newmsg);
+	fNewMessages2.emplace(cnt, newmsg);
+	fMap.emplace(cnt, newmsg);
 	COUT << "New messages size = " << std::dec << fNewMessages2.size() << "  addr = "<< std::hex << &fNewMessages2 << endl;
 	
 }
@@ -73,8 +130,8 @@ GUILoggerBase::newMessage(int cnt, const LMessage& msg)
 MsgSeries
 GUILoggerBase::AllMsgs()
 {
-	COUT << "New messages size = " << fNewMessages2.size() << endl;
-	COUT << "Logged messages size = " << fLoggedMessages2.size() << endl;
+	// COUT << "New messages size = " << fNewMessages2.size() << endl;
+	// COUT << "Logged messages size = " << fLoggedMessages2.size() << endl;
 
 	// fNewMessages.begin();
 	// fLoggedMessages.begin();
@@ -83,7 +140,7 @@ GUILoggerBase::AllMsgs()
 	{
 		for (auto it = fNewMessages2.begin(); it != fNewMessages2.end(); it++)
 		{
-			fLoggedMessages2.insert(it.key(), it.value());
+			fLoggedMessages2.emplace(it->first, it->second);
 		}
 	}
 	
@@ -96,7 +153,7 @@ GUILoggerBase::AllMsgs()
 void
 GUILoggerBase::ClearMsgs()
 {
-	COUT << "TP0" << endl;
+	//COUT << "TP0" << endl;
 	QMutexLocker locker(&fMutex);
 //	fLoggedMessages.clear();
 }

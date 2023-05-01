@@ -289,7 +289,7 @@ namespace LOGMASTER
         std::lock_guard<std::mutex> guard( m );
         auto subscribers = LLogging::Instance()->GetGuiSubscribers();
 
-      //  COUT << "Subscribers size = " << subscribers.size() << "\t addr = " << std::hex << &subscribers << endl;;
+        COUT << "Subscribers size = " << subscribers.size() << "\t addr = " << std::hex << &subscribers << endl;;
 
         for (uint16_t i = 0; i < subscribers.size(); i++)
         {

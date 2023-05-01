@@ -8,7 +8,6 @@
 ******************************************************/
 
 #include <logging/LLogging.h>
-#include <common/FDefinitions.h>
 #include <logging/LEnums.h>
 #include <logging/LHashMaps.h>
 
@@ -24,8 +23,6 @@ using namespace LOGMASTER;
 using std::vector;
 #include <memory>
 
-//vector< void(*)(std::shared_ptr<LMessage>) > fSubscribers;
-//vector< void(*)(std::shared_ptr<LMessage>) > fGuiSubscribers;
 
 
 /** @brief      APILogmasterData

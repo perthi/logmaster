@@ -17,7 +17,7 @@
 int main(int argc, char *argv[])
 {
 	QApplication *app = new QApplication(argc, argv);
-	GUIInitStyles::Init(app);
+	GUIInitStyles().Init(app);
 	GUILogMasterTab widget;
 	ExecWidget(&widget);
 }

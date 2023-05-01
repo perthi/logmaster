@@ -8,8 +8,6 @@
 ******************************************************/
 
 #include <logging/LLogging.h>
-#include <common/FDefinitions.h>
-
 
 using namespace LOGMASTER;
 

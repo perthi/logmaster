@@ -36,7 +36,7 @@ int main( int argc, char **argv )
     SET_LOGLEVEL("--all-debug");
     std::thread th2(generate_messages);
 
-    GUIInitStyles::Init(app);
+    GUIInitStyles().Init(app);
     app->setApplicationName("AlarmGuiTest");
     app->setOrganizationName("Embedded Cosnulting");
     ExecWidget(new GUIAlarmGui());

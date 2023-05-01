@@ -69,18 +69,23 @@ LLogTest::WriteMessages()
 
 
     
+    /*
     USER_DEBUG("This is a USER_DEBUG message");
     USER_INFO("This  is a USER_INFO  message");
     USER_WARNING("This is a USER_WARNING message");
     USER_ERROR("This is a USER_ERROR message with parameters: a = %d, b = %d", a, b);
     USER_FATAL("Oppps.... a  USER_FATAL message");
+    */
 
+    /*
     FSM_DEBUG("This is a FSM_DEBUG message");
     FSM_INFO("This  is a FSM_INFO  message");
     FSM_WARNING("This is a FSM_WARNING message");
     FSM_ERROR("This is a FSM_ERROR message with parameters: a = %d, b = %d", a, b);
     FSM_FATAL("Oppps.... a  FSM_FATAL message");
-    
+    */
+
+    /*
     FSM_DEBUG_U("This is a FSM_DEBUG and USER message");
     FSM_INFO_U("This  is a FSM_INFO and USER message");
     FSM_WARNING_U("This is a FSM_WARNING and USER message");
@@ -116,7 +121,7 @@ LLogTest::WriteMessages()
     DB_WARNING("This is a DB_WARNING message");
     DB_ERROR("This is a DB_ERROR message with parameters: a = %d, b = %d", a, b);
     DB_FATAL("Oppps.... a  DB_FATAL message");
-    
+    */
 
    // ALARM_DEBUG("This is a ALARAM_DEBUG message");
    // ALARM_INFO("This  is a ALARAM_INFO  message");

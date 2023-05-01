@@ -9,7 +9,6 @@
 
 #include <logging/LLogging.h>
 #include <logging/LHashMaps.h>
-#include <common/FDefinitions.h>
 #include <logging/LEnums.h>
 #include "APILogmaster.h"
 #include <map>

@@ -28,17 +28,40 @@ using std::cerr;
 
 int main(int argc, char* argv[])
 {
+    //GUILoggerBase();
     LLogging::Instance();
+
+  //  QMap<int, LMessage> fLoggedMessages2;
+  //  QMap<int, LMessage> fNewMessages2;
+
+  //  COUT << "fLoggedMessages2.size() = " << fLoggedMessages2.size()  << endl;
+  //  COUT << "fNewMessages2.size() = " << fNewMessages2.size() << endl;
+
+   // GUILoggerBase().SetLoggedMessage(fLoggedMessages2);
+   // GUILoggerBase().SetNewMessage(fNewMessages2);
 
     try
     {
         QApplication *app = new QApplication(argc, argv);
-        GUIInitStyles::Init(app);
+        GUIInitStyles().Init(app);
         app->setApplicationName("loggerGuiTest");
         app->setOrganizationName("Embedded Consulting");
         SET_LOGTARGET("1111");
-        GUILoggerGui *widget = new GUILoggerGui(new GUILogger());
-        ExecWidget(widget);
+
+        auto logger = new GUILogger();
+        GUILoggerGui *widget = new GUILoggerGui(logger);
+        
+        QMainWindow* mainWindow = new QMainWindow;
+        mainWindow->setCentralWidget(widget);
+        mainWindow->show();
+        //widget->startTimer(1000);
+        widget->startTimer(900);
+        logger->startTimer(600);
+
+        qApp->exec();
+        
+       // ExecWidget(widget);
+    
     }
     catch (GException & e)
     {

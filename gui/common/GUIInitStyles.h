@@ -13,9 +13,9 @@ class QApplication;
 class GUIInitStyles
 {
 public:
-	static void API Init(QApplication *app);
+	void API Init(QApplication *app);
 
-private:
+//private:
 	GUIInitStyles() {};
 };
 

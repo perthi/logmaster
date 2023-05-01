@@ -24,14 +24,6 @@
   <ItemGroup>
     <ClInclude Include="resource.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="gui-qt-logmaster-example1.rc">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ResourceCompile>
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{27DDD63B-CD66-4039-A109-25DD661775F3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

@@ -12,13 +12,9 @@
 #ifndef _LOGMASTER_GUI_H_
 #define _LOGMASTER_GUI_H_
 
-#include <common/FDefinitions.h>
 #include <api/api-logmaster/APILogmaster.h>
 #include <api/api-logmaster/APILogmasters.h>
-
-
-#include  <QtWidgets/QWidget>
-
+#include <QtWidgets/QWidget>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QPushButton>

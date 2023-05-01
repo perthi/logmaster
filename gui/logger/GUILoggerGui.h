@@ -12,9 +12,6 @@
 #ifndef _LOGGET_GUI_H_
 #define _LOGGET_GUI_H_
 
-
-#include <common/FDefinitions.h>
-
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QPlainTextEdit>
@@ -54,6 +51,9 @@ class GUILoggerGui : public QWidget
       void RetranslateUi();
       QWidget* InitLeft();
       QWidget* InitRight();
+
+   protected:
+       virtual void API timerEvent(QTimerEvent* event) override;
 
    private:
       GUILoggerGui operator=(const GUILoggerGui&);

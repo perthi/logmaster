@@ -57,6 +57,7 @@
         if (start_timer == true)
         {
             widget->startTimer(milliseconds);
+
         }
         
         qApp->exec();
