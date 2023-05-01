@@ -5,10 +5,13 @@
 * For more information please contact pth@embc.no
 ******************************************************/
 
+#include "GUILogMasterTab.h"
+
 #include <QtWidgets/QHBoxLayout>
 #include <QtCore/QSettings>
 
-#include "GUILogMasterTab.h"
+
+
 
 //vector< void(*)(std::shared_ptr<LMessage>) > fSubscribers;
 //vector< void(*)(std::shared_ptr<LMessage>) > fGuiSubscribers;

@@ -9,6 +9,8 @@
 using namespace LOGMASTER;
 
 
+
+
 /*
 class GUIAlarm : public QObject, public GUILoggerBase
 {

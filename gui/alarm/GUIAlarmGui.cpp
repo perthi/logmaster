@@ -6,63 +6,32 @@
 ******************************************************/
 
 
-#include <QtCore/QDebug>
+#include "GUIAlarmGui.h"
 
 #include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QHBoxLayout>
-// #include <QtWidgets/QGridLayout>
-#include <QtWidgets/QGroupBox>
-#include <QtCore/QTimer>
 #include <QtCore/QSettings>
 #include <QtWidgets/QSplitter>
-#include <QtWidgets/QButtonGroup>
-#include <QtCore/QDateTime>
-#include <QtCore5Compat/QRegExp>
-#include <QtCore/QMetaType>
 #include <QtWidgets/QScrollBar>
-#include <QtWidgets/QMessageBox>
-#include <QtWidgets/QWidget>
-#include <QtWidgets/QComboBox>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QLineEdit>
 
-
-#include <logging/LLogging.h>
-//#include <logging/LHashMaps.h>
-
-#include "GUIAlarmGui.h"
-#include "GUIAlarm.h"
-
-#include  <gui/common/GUIInitStyles.h>
-
-
-using namespace LOGMASTER;
 
 QMap<int, LMessage>    GUIAlarmGui::fLoggedMessages;
 QMap<int, LMessage>    GUIAlarmGui::fNewMessages;
 
-
-Q_DECLARE_METATYPE(QRegExp::PatternSyntax)
-
-//GUIAlarmGui::GUIAlarmGui(GUIAlarm *alarm, QWidget *parent)
 GUIAlarmGui::GUIAlarmGui(QWidget* parent)
    :
-  //  fAlarm(alarm),
-    QWidget(parent),
+   QWidget(parent),
    fPlainTextEditLabel(0),
-   fPlainTextEdit(0),
-   fConfigureButton(0)
+   fPlainTextEdit(0)
 {
-
-    
    InitGui();
    RetranslateUi();
-   ConnectStuff();
-   GetAllMessages();
+   // GetAllMessages();
 }
+
+
 
 
 GUIAlarmGui::~GUIAlarmGui()
@@ -75,7 +44,6 @@ void
 GUIAlarmGui::StartTimer()
 {
     this->startTimer(500);
-  //  fAlarm->startTimer(1000);
 }
 
 
@@ -98,7 +66,7 @@ QWidget*
 GUIAlarmGui::InitRight()
 {
    fPlainTextEditLabel = new QLabel(this);
-   QHBoxLayout *llay = new QHBoxLayout;
+   QHBoxLayout *llay = new QHBoxLayout();
    llay->addWidget( fPlainTextEditLabel);
    llay->addStretch();
    fPlainTextEdit = new QPlainTextEdit(this);
@@ -106,7 +74,7 @@ GUIAlarmGui::InitRight()
    fPlainTextEdit->setWordWrapMode(QTextOption::NoWrap);
    fPlainTextEdit->setMaximumBlockCount(2000);
 
-   QVBoxLayout *lay = new QVBoxLayout;
+   QVBoxLayout *lay = new QVBoxLayout();
    lay->addLayout(llay);
    lay->addWidget( fPlainTextEdit );
    QWidget *w = new QWidget(this);
@@ -119,48 +87,31 @@ GUIAlarmGui::InitRight()
 void 
 GUIAlarmGui::RetranslateUi()
 {
-   fTEXT_messages = tr("Alarms");
+   QString TEXT_messages = tr("Alarms");
       
    QSettings settings;
    settings.beginGroup("StyleSettings");
    QString currStyle = settings.value("currentStyle").toString();
-   fPlainTextEditLabel->setText(fTEXT_messages);
- //  auto hash = LHashMaps::GetLevel2StringHash();
-}
-
-void
-GUIAlarmGui::ConnectStuff()
-{
-   // connect( fAlarm, SIGNAL(newMessages(const MsgSeries )),
-    //    this, SLOT(NewMessages(const this->MsgSeries &)));
+   fPlainTextEditLabel->setText(TEXT_messages);
 }
 
 
 void  
 GUIAlarmGui::timerEvent(QTimerEvent* event)
 {
-   // fNewMessages2.insert(cnt, newmsg);
-
-    COUT << "ALARM !!!!!!!!!!!!!!!!!!!!  ALARM" << endl;
-    NewMessages2(fNewMessages);
+    NewMessages(fNewMessages);
 }
-
-//QMultiMap<int, LMessage>;
 
 
 void  
 GUIAlarmGui::NewMessage(int cnt, const LMessage& msg)
 {
-    COUT << "NEW MEASSAGE RECEIVED" << endl;
     fNewMessages.insert(cnt, msg);
 }
 
 void 
-// GUIAlarmGui::NewMessages( MsgSeries *msgs)
-GUIAlarmGui::NewMessages2( const QMap<int, LMessage> &msgs)
+GUIAlarmGui::NewMessages( const QMap<int, LMessage> &msgs)
 {
-    COUT << "msg.size() = !!!!!!!!!!!!!!!!!! " << msgs.size() << endl;
-
     QMapIterator<int,   LMessage> i( msgs);
     while (i.hasNext())
     {
@@ -171,10 +122,7 @@ GUIAlarmGui::NewMessages2( const QMap<int, LMessage> &msgs)
 
         if (msg.fSystem == eMSGSYSTEM::SYS_ALARM)
         {
-
-            //bool skip = true;
             QMap<eMSGSYSTEM, QCheckBox*>::iterator it;
-
             QTextCharFormat tf;
             tf = fPlainTextEdit->currentCharFormat();
             tf.setForeground(QBrush(QColor(msg.fRgBColor)));
@@ -193,12 +141,12 @@ GUIAlarmGui::NewMessages2( const QMap<int, LMessage> &msgs)
 }
 
 
-
+/*
 void
 GUIAlarmGui::GetAllMessages()
 {
     fPlainTextEdit->clear();
-//    NewMessages(fAlarm->AllMsgs());
 }
+*/
 
 

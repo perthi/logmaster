@@ -6,12 +6,14 @@
 * For more information please contact pth@embc.no
 ******************************************************/
 
+#include "GUILogMasterGui.h"
+
 #include <bitset>
 #include <QtCore/QDebug>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QButtonGroup>
 #include <QtCore/QSettings>
-#include "GUILogMasterGui.h"
+
 
 #include <logging/LLogApi.h>
 
