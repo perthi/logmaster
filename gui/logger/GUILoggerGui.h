@@ -12,6 +12,9 @@
 #ifndef _LOGGET_GUI_H_
 #define _LOGGET_GUI_H_
 
+#include "GUILogger.h"
+#include <gui/common/GUIDefenitions.h>
+
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QPlainTextEdit>
@@ -20,7 +23,6 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QLineEdit>
 #include <QtCore5compat/QRegExp>
-#include "GUILogger.h"
 
 
 class GUILogger;
@@ -40,7 +42,7 @@ class GUILoggerGui : public QWidget
 
    private slots :
       void NewMessages(const MsgSeries &msgs);
-      void GetAllMessages();
+   //   void GetAllMessages();
       void RegExpUpdated();
       void RegExpSyntaxUpdated();
       void OpenLogMasterDialog();

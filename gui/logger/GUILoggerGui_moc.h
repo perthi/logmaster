@@ -43,7 +43,6 @@ static constexpr auto qt_meta_stringdata_CLASSGUILoggerGuiENDCLASS = QtMocHelper
     "",
     "MsgSeries",
     "msgs",
-    "GetAllMessages",
     "RegExpUpdated",
     "RegExpSyntaxUpdated",
     "OpenLogMasterDialog",
@@ -52,18 +51,17 @@ static constexpr auto qt_meta_stringdata_CLASSGUILoggerGuiENDCLASS = QtMocHelper
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSGUILoggerGuiENDCLASS_t {
-    uint offsetsAndSizes[22];
+    uint offsetsAndSizes[20];
     char stringdata0[13];
     char stringdata1[12];
     char stringdata2[1];
     char stringdata3[10];
     char stringdata4[5];
-    char stringdata5[15];
-    char stringdata6[14];
+    char stringdata5[14];
+    char stringdata6[20];
     char stringdata7[20];
-    char stringdata8[20];
-    char stringdata9[9];
-    char stringdata10[6];
+    char stringdata8[9];
+    char stringdata9[6];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSGUILoggerGuiENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -74,19 +72,17 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSGUILoggerGuiENDCLASS_t qt_meta_
         QT_MOC_LITERAL(25, 0),  // ""
         QT_MOC_LITERAL(26, 9),  // "MsgSeries"
         QT_MOC_LITERAL(36, 4),  // "msgs"
-        QT_MOC_LITERAL(41, 14),  // "GetAllMessages"
-        QT_MOC_LITERAL(56, 13),  // "RegExpUpdated"
-        QT_MOC_LITERAL(70, 19),  // "RegExpSyntaxUpdated"
-        QT_MOC_LITERAL(90, 19),  // "OpenLogMasterDialog"
-        QT_MOC_LITERAL(110, 8),  // "ClearLog"
-        QT_MOC_LITERAL(119, 5)   // "Pause"
+        QT_MOC_LITERAL(41, 13),  // "RegExpUpdated"
+        QT_MOC_LITERAL(55, 19),  // "RegExpSyntaxUpdated"
+        QT_MOC_LITERAL(75, 19),  // "OpenLogMasterDialog"
+        QT_MOC_LITERAL(95, 8),  // "ClearLog"
+        QT_MOC_LITERAL(104, 5)   // "Pause"
     },
     "GUILoggerGui",
     "NewMessages",
     "",
     "MsgSeries",
     "msgs",
-    "GetAllMessages",
     "RegExpUpdated",
     "RegExpSyntaxUpdated",
     "OpenLogMasterDialog",
@@ -103,7 +99,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGUILoggerGuiENDCLASS[] = {
       11,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -111,17 +107,15 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGUILoggerGuiENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   56,    2, 0x08,    1 /* Private */,
-       5,    0,   59,    2, 0x08,    3 /* Private */,
-       6,    0,   60,    2, 0x08,    4 /* Private */,
-       7,    0,   61,    2, 0x08,    5 /* Private */,
-       8,    0,   62,    2, 0x08,    6 /* Private */,
-       9,    0,   63,    2, 0x08,    7 /* Private */,
-      10,    0,   64,    2, 0x08,    8 /* Private */,
+       1,    1,   50,    2, 0x08,    1 /* Private */,
+       5,    0,   53,    2, 0x08,    3 /* Private */,
+       6,    0,   54,    2, 0x08,    4 /* Private */,
+       7,    0,   55,    2, 0x08,    5 /* Private */,
+       8,    0,   56,    2, 0x08,    6 /* Private */,
+       9,    0,   57,    2, 0x08,    7 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
-    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -143,8 +137,6 @@ Q_CONSTINIT const QMetaObject GUILoggerGui::staticMetaObject = { {
         // method 'NewMessages'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const MsgSeries &, std::false_type>,
-        // method 'GetAllMessages'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'RegExpUpdated'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'RegExpSyntaxUpdated'
@@ -167,12 +159,11 @@ void GUILoggerGui::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         (void)_t;
         switch (_id) {
         case 0: _t->NewMessages((*reinterpret_cast< std::add_pointer_t<MsgSeries>>(_a[1]))); break;
-        case 1: _t->GetAllMessages(); break;
-        case 2: _t->RegExpUpdated(); break;
-        case 3: _t->RegExpSyntaxUpdated(); break;
-        case 4: _t->OpenLogMasterDialog(); break;
-        case 5: _t->ClearLog(); break;
-        case 6: _t->Pause(); break;
+        case 1: _t->RegExpUpdated(); break;
+        case 2: _t->RegExpSyntaxUpdated(); break;
+        case 3: _t->OpenLogMasterDialog(); break;
+        case 4: _t->ClearLog(); break;
+        case 5: _t->Pause(); break;
         default: ;
         }
     }
@@ -197,13 +188,13 @@ int GUILoggerGui::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 6)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 7;
+        _id -= 6;
     }
     return _id;
 }

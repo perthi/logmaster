@@ -383,7 +383,6 @@ GUILogMasterGui::TestMessages()
 void 
 GUILogMasterGui::ClearMessages()
 {
- //   COUT << "TP0" << endl;
     fPlainTextEdit->clear();
 }
 
@@ -395,7 +394,6 @@ GUILogMasterGui::ClearMessages()
 void 
 GUILogMasterGui::SubSystemControlClicked()
 {
-  //  COUT << "TP0" << endl;
     QString cmd = fSubsystemCombo->currentText(); 
     string s =  cmd.toStdString();
   //  FORCE_DEBUG("cmd = %s", s.c_str() );

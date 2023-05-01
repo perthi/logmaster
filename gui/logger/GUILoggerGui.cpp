@@ -5,6 +5,14 @@
 * For more information please contact pth@embc.no
 ******************************************************/
 
+#include "GUILoggerGui.h"
+
+#include <gui/logmaster/GUILogMasterTab.h>
+#include <logging/LLogging.h>
+#include <logging/LHashMaps.h>
+
+
+using namespace LOGMASTER;
 
 #include <QtCore/QDebug>
 
@@ -22,14 +30,9 @@
 #include <QtWidgets/QScrollBar>
 #include <QtWidgets/QMessageBox>
 
-#include <logging/LLogging.h>
-#include <logging/LHashMaps.h>
-#include "GUILoggerGui.h"
-#include <gui/logmaster/GUILogMasterTab.h>
-
-using namespace LOGMASTER;
 
 Q_DECLARE_METATYPE(QRegExp::PatternSyntax)
+
 
 MsgSeries  GUILoggerGui::logged_messages;
 MsgSeries  GUILoggerGui::new_messages;
@@ -60,7 +63,7 @@ GUILoggerGui::GUILoggerGui(GUILogger* logger, QWidget* parent)
 	InitGui();
 	RetranslateUi();
 	//ConnectStuff();
-	GetAllMessages();
+//	GetAllMessages();
 
 }
 
@@ -169,8 +172,9 @@ GUILoggerGui::InitLeft()
 
 	fRefreshButton = new QPushButton(this);
 	fRefreshButton->setFixedSize(65, 25);
-	connect(fRefreshButton, SIGNAL(clicked()),
-		this, SLOT(GetAllMessages()));
+	
+	//connect(fRefreshButton, SIGNAL(clicked()),
+	//	this, SLOT(GetAllMessages()));
 
 	fPauseButton = new QPushButton(this);
 	fPauseButton->setFixedSize(65, 25);
@@ -404,7 +408,7 @@ GUILoggerGui::RegExpSyntaxUpdated()
 void
 GUILoggerGui::ClearLog()
 {
-	fLogger->ClearMsgs();
+	//fLogger->ClearMsgs();
 	fPlainTextEdit->clear();
 }
 
@@ -432,6 +436,7 @@ GUILoggerGui::OpenLogMasterDialog()
 
 
 
+/*
 void
 GUILoggerGui::GetAllMessages()
 {
@@ -439,6 +444,7 @@ GUILoggerGui::GetAllMessages()
 	fPlainTextEdit->clear();
 	NewMessages(fLogger->AllMsgs());
 }
+*/
 
 void
 GUILoggerGui::Pause()

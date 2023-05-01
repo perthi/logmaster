@@ -183,6 +183,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GUIDefenitions.h" />
     <ClInclude Include="GUIExecWidget.h" />
     <ClInclude Include="GUIInitStyles.h" />
     <ClInclude Include="GUILoggerBase.h" />

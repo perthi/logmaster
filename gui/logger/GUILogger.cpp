@@ -31,7 +31,6 @@ void  logger_callback(const std::shared_ptr<LMessage>  m)
 }
 
 
-
 GUILogger::GUILogger(QWidget* )
 {
 	qRegisterMetaType<MsgSeries>("MsgSeries");

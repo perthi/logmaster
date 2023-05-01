@@ -36,7 +36,7 @@ using namespace LOGMASTER;
    public:
 	   explicit API GUILogger(QWidget* parent = 0);
 	   ~GUILogger() = default;
-	   virtual void newMessage(int cnt, const LMessage &msg) override;
+	   virtual void newMessage(int cnt, const LMessage &msg);
 
    private: // functions
 	 
