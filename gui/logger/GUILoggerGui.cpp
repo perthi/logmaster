@@ -295,14 +295,16 @@ GUILoggerGui::RetranslateUi()
 }
 
 
+/*
 void
 GUILoggerGui::StartTimer()
 {
 	COUT << "STARTING LOGGER TIMER !!!!" << endl;
 	// fLogger->StartTimer();
-	fLogger->startTimer(1000);
+	//fLogger->startTimer(1000);
 
 }
+*/
 
 
 void

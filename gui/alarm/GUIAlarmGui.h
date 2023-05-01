@@ -10,18 +10,14 @@
 
 #pragma once
 
-#include <QtCore/QMap>
+#include <gui/common/GUIDefenitions.h>
 #include <QtWidgets/QWidget>
 #include <logging/LMessage.h>
 
 using namespace LOGMASTER;
 
-#include <memory>
-
 class QLabel;
 class QPlainTextEdit;
-class QPushButton;
-class QWidget;
 
 class GUIAlarmGui : public QWidget
    {
@@ -32,7 +28,7 @@ class GUIAlarmGui : public QWidget
 
    public:
       void  API  NewMessage(int cnt, const LMessage& msg);
-      void       NewMessages( const QMap<int, LMessage>  &msgs);
+      void       NewMessages( MsgSeries  &msgs);
 
    private: 
       GUIAlarmGui(const GUIAlarmGui&);
@@ -40,11 +36,10 @@ class GUIAlarmGui : public QWidget
       void  InitGui();
       void  RetranslateUi();
       QWidget*  InitRight();
-
-   private:
       void   timerEvent(QTimerEvent* event);
-      static QMap<int, LMessage> fLoggedMessages;
-      static QMap<int, LMessage> fNewMessages;
+
+      static MsgSeries fLoggedMessages;
+      static MsgSeries fNewMessages;
       QLabel *fPlainTextEditLabel = nullptr;
       QPlainTextEdit *fPlainTextEdit = nullptr;
    };

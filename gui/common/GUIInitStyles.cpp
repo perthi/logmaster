@@ -27,7 +27,8 @@ GUIInitStyles::Init(QApplication* /*app*/)
 #ifdef _WIN32
 	/// TODO should be read from a XML file, not hard coded
 	resource_s = "C:\\work\\logmaster\\gui\\resources\\gui-qt.rcc"; 
-	style_s = "C:\\work\\logmaster\\gui\\resources\\styles\\ferrotech.qmm";
+	//style_s = "C:\\work\\logmaster\\gui\\resources\\styles\\ferrotech.qmm";
+	style_s = "C:\\work\\logmaster\\gui\\resources\\styles\\norspace.qmm";
 
 #else
 	//        string home = getenv("LOGMASTER_HOME");
@@ -55,10 +56,6 @@ GUIInitStyles::Init(QApplication* /*app*/)
 		{
 			QString styleContent = f.readAll();
 			qApp->setStyleSheet(styleContent);
-		}
-		else
-		{
-			// COUT << "TP5" << endl;
 		}
 	}
 	else

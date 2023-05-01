@@ -154,9 +154,9 @@ void GUILogMasterGui::RetranslateUi()
     QSettings settings;
     settings.beginGroup("StyleSettings");
     QString currStyle = settings.value("currentStyle").toString();
+
     if (currStyle != "Ferrotech")
     {
-      //  COUT << "STYLE IS NOT FERROTECH" << endl;
         QString ss = QString("font: \"Courier\"; background-color:  #000000;");
         fPlainTextEdit->setStyleSheet(ss);
     }
@@ -164,7 +164,6 @@ void GUILogMasterGui::RetranslateUi()
     {
         QString ss = QString("font: \"Courier\"; background-color:  #000000;");
         fPlainTextEdit->setStyleSheet(ss);
-       // COUT << "STYLE IS!!  FERROTECH" << endl;
     }
     
 }
@@ -300,7 +299,6 @@ QGroupBox* GUILogMasterGui::InitSystemAndLevelControl()
 *   @param[in]  ab  */
 void GUILogMasterGui::OutputTargetChecksClicked(QAbstractButton* ab)
 {
-    COUT << "TP0" << endl;
     QCheckBox* cb = qobject_cast<QCheckBox*>(ab);
     
     bool enable = cb->isChecked();
@@ -319,9 +317,7 @@ void GUILogMasterGui::OutputTargetChecksClicked(QAbstractButton* ab)
 *   @param[in]  ab */
 void GUILogMasterGui::MessageFormatChecksClicked(QAbstractButton* ab)
 {
-    COUT << "TP0" << endl;
     QCheckBox* cb = qobject_cast<QCheckBox*>(ab);
-    
     bool enable = cb->isChecked();
     string format = cb->text().toStdString();
     fKALogmaster->SetMessageFormat(format, enable);
@@ -410,7 +406,6 @@ GUILogMasterGui::SubSystemControlClicked()
 void 
 GUILogMasterGui::UpdateTextMessagePanel()
 {
-    //COUT << "TP0" << endl;
     std::vector<string> v = fKALogmaster->GetTextFieldData();
     
     for (size_t i = 0; i < v.size(); i++)

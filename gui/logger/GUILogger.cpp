@@ -5,22 +5,15 @@
 * For more information please contact pth@embc.no
 ******************************************************/
 
-//#include <QtCore/QMutexLocker>
-//#include <QtCore/QDateTime>
-//#include <QtCore/QTimer>
-
-
+#include <gui/common/GUIDefenitions.h>
 #include <logging/LLogging.h>
 #include <logging/LPublisher.h>
-
 #include "GUILogger.h"
 #include "GUILoggerGui.h"
 
-
 using namespace LOGMASTER;
 
-
-GUILogger *gui_instance =  new GUILogger(0);
+GUILogger *gui_instance =  new GUILogger(); /// CRAP PTH
 
 
 void  logger_callback(const std::shared_ptr<LMessage>  m)
@@ -31,9 +24,8 @@ void  logger_callback(const std::shared_ptr<LMessage>  m)
 }
 
 
-GUILogger::GUILogger(QWidget* )
+GUILogger::GUILogger()
 {
-	qRegisterMetaType<MsgSeries>("MsgSeries");
 	LLogging::Instance()->RegisterGuiSubscriber( logger_callback );
 	auto subscribers = LLogging::Instance()->GetGuiSubscribers();
 }

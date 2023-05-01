@@ -34,8 +34,7 @@ class GUILoggerGui : public QWidget
    public:
       explicit API GUILoggerGui(GUILogger *logger,  QWidget *parent = 0);
       API ~GUILoggerGui();
-      API void StartTimer();
-
+    //  API void StartTimer();
       API static void AddMessage(int cnt, LMessage msg);
 
    signals:

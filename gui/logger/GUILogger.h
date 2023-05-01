@@ -12,34 +12,18 @@
 #ifndef _GUILOGGER_H_
 #define _GUILOGGER_H_
 
-#include <QtCore/QObject>
-//#include <QtCore/QMutex>
-//#include <QtCore/QMultiMap>
-//#include <QtCore/QThread>
-//#include <QtWidgets/QMainWindow>
-
-
 #include <logging/LMessage.h>
-#include <gui/common/GUILoggerBase.h>
-#include <logging/LLogging.h>
-#include <logging/LPublisher.h>
-
-//class   QTimer;
 
 using namespace LOGMASTER;
 
-
- class GUILogger : public QObject, public GUILoggerBase
+ class GUILogger 
    {
-  //    Q_OBJECT
-
    public:
-	   explicit API GUILogger(QWidget* parent = 0);
+	   explicit API GUILogger();
 	   ~GUILogger() = default;
 	   virtual void newMessage(int cnt, const LMessage &msg);
 
    private: // functions
-	 
 	   GUILogger(const GUILogger &rhs);
 	   GUILogger& operator=(const GUILogger &rhs);
    };

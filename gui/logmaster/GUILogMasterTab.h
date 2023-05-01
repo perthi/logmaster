@@ -13,45 +13,39 @@
 #ifndef _LOGMASTER_TAB_H_
 #define _LOGMASTER_TAB_H_
 
-
-// #include <common/FDefinitions.h>
 #include "GUILogMasterGui.h"
-
-
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QTabWidget>
 
+class GUILogMasterTab : public QWidget
+{
+	Q_OBJECT
 
-//using namespace LOGMASTER;
-    class GUILogMasterTab : public QWidget
-    {
-        Q_OBJECT
+public:
+	// explicit API GUILogMasterTab(QWidget *parent = 0);
+	API GUILogMasterTab(QWidget* parent = 0);
+	API ~GUILogMasterTab();
 
-    public:
-       // explicit API GUILogMasterTab(QWidget *parent = 0);
-        API GUILogMasterTab(QWidget* parent = 0);
-        API ~GUILogMasterTab();
+	//signals:
 
-    //signals:
-
-    private slots :
-        void CurrentTabChanged(int id);
+private slots:
+	void CurrentTabChanged(int id);
 
 
-    private: // functions
-        void InitGui();
-        void RetranslateUi();
-        void LoadTabs();
+private: // functions
+	void InitGui();
+	void RetranslateUi();
+	void LoadTabs();
 
-    private:
+private:
 
-        GUILogMasterTab(const GUILogMasterTab&);
-        GUILogMasterTab operator=(const GUILogMasterTab&);
-        
-        QTabWidget * fTab = nullptr;
-        QMap<int, APILogmaster *> fLogMasterTarget{}; // first value is index for tab, starting at 0  second value is pointer to correct object
-        APILogMasters* fAPILogMasters = nullptr;
-        };
+	GUILogMasterTab(const GUILogMasterTab&);
+	GUILogMasterTab operator=(const GUILogMasterTab&);
+
+	QTabWidget* fTab = nullptr;
+	QMap<int, APILogmaster*> fLogMasterTarget{}; // first value is index for tab, starting at 0  second value is pointer to correct object
+	APILogMasters* fAPILogMasters = nullptr;
+};
 
 
 #endif

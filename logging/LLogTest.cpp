@@ -47,35 +47,33 @@ LLogTest::WriteMessages()
     int a = 40;
     int b = 2;
 
-    /*
+   
     G_DEBUG("This is a system wide general DEBUG message written if any of the sub systems are enabled");
     G_INFO("This is a system wide general INFO message written if any of the sub systems are enabled");
     G_WARNING("This is a system wide general(non system specific) WARNING message ");
     G_ERROR("This a system wide general ERROR message with parameters: a = %d, b = %d", a, b);
     G_FATAL("Oppps.... a system wide general (non system specific) fatal nessage");
-    */
+    
 
-    // ALL_DEBUG("This is a ALL_DEBUG message (applied if any of the subsystems are on)");
-    // ALL_INFO("This is a system wide  ALL_INFO message (applied if any of the subsystems are on)");
-    // ALL_WARNING("This is a system wide ALL_WARNING message (applied if any of the subsystems are on)");
-    // ALL_ERROR("This a This is a system wide ALL_ERROR message (applied if any of the subsystems are on) with parameters: a = %d, b = %d", a, b);
-    // ALL_FATAL("Oppps.... a system wide ALL_FATAL message");
+     ALL_DEBUG("This is a ALL_DEBUG message (applied if any of the subsystems are on)");
+     ALL_INFO("This is a system wide  ALL_INFO message (applied if any of the subsystems are on)");
+     ALL_WARNING("This is a system wide ALL_WARNING message (applied if any of the subsystems are on)");
+     ALL_ERROR("This a This is a system wide ALL_ERROR message (applied if any of the subsystems are on) with parameters: a = %d, b = %d", a, b);
+     ALL_FATAL("Oppps.... a system wide ALL_FATAL message");
 
-    //   EX_DEBUG("This is a EX_DEBUG message");
+   //   EX_DEBUG("This is a EX_DEBUG message");
     //  EX_INFO("This  is a EX_INFO  message");
     //    EX_WARNING("This is a EX_WARNING message");
     // EX_ERROR("This is a EX_ERROR message with parameters: a = %d, b = %d", a, b);
     // EX_FATAL("Oppps.... a  EX_FATAL message");
 
 
-    
-    /*
     USER_DEBUG("This is a USER_DEBUG message");
     USER_INFO("This  is a USER_INFO  message");
     USER_WARNING("This is a USER_WARNING message");
     USER_ERROR("This is a USER_ERROR message with parameters: a = %d, b = %d", a, b);
     USER_FATAL("Oppps.... a  USER_FATAL message");
-    */
+   
 
     
     FSM_DEBUG("This is a FSM_DEBUG message");
@@ -85,7 +83,7 @@ LLogTest::WriteMessages()
     FSM_FATAL("Oppps.... a  FSM_FATAL message");
     
 
-    /*
+    
     FSM_DEBUG_U("This is a FSM_DEBUG and USER message");
     FSM_INFO_U("This  is a FSM_INFO and USER message");
     FSM_WARNING_U("This is a FSM_WARNING and USER message");
@@ -121,7 +119,7 @@ LLogTest::WriteMessages()
     DB_WARNING("This is a DB_WARNING message");
     DB_ERROR("This is a DB_ERROR message with parameters: a = %d, b = %d", a, b);
     DB_FATAL("Oppps.... a  DB_FATAL message");
-    */
+    
 
    // ALARM_DEBUG("This is a ALARAM_DEBUG message");
    // ALARM_INFO("This  is a ALARAM_INFO  message");

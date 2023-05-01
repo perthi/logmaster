@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
         mainWindow->show();
         //widget->startTimer(1000);
         widget->startTimer(900);
-        logger->startTimer(600);
+     //   logger->startTimer(600);
 
         qApp->exec();
         
