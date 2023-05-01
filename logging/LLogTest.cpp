@@ -43,7 +43,7 @@ namespace LOGMASTER
 void 
 LLogTest::WriteMessages()
 {
-    Header();
+  //  Header();
     int a = 40;
     int b = 2;
 
@@ -68,7 +68,7 @@ LLogTest::WriteMessages()
     // EX_FATAL("Oppps.... a  EX_FATAL message");
 
 
-    /*
+    
     USER_DEBUG("This is a USER_DEBUG message");
     USER_INFO("This  is a USER_INFO  message");
     USER_WARNING("This is a USER_WARNING message");
@@ -116,17 +116,17 @@ LLogTest::WriteMessages()
     DB_WARNING("This is a DB_WARNING message");
     DB_ERROR("This is a DB_ERROR message with parameters: a = %d, b = %d", a, b);
     DB_FATAL("Oppps.... a  DB_FATAL message");
-    */
+    
 
-  //  ALARM_DEBUG("This is a ALARAM_DEBUG message");
-  //  ALARM_INFO("This  is a ALARAM_INFO  message");
+   // ALARM_DEBUG("This is a ALARAM_DEBUG message");
+   // ALARM_INFO("This  is a ALARAM_INFO  message");
     ALARM_WARNING("This is a ALARAM_WARNING message");
  
      ALARM_ERROR("This is a ALARAM_ERROR message with parameters: a = %d, b = %d", a, b);
      ALARM_FATAL("Oppps.... a  ALARAM_FATAL message");
     
     
-    Footer();
+  //  Footer();
 
     cout << endl;
 

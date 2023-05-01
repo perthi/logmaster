@@ -36,7 +36,8 @@ GUIAlarmGui::GUIAlarmGui(QWidget* parent)
 
 GUIAlarmGui::~GUIAlarmGui()
 {
-
+    delete fPlainTextEditLabel;
+    delete fPlainTextEdit;
 }
 
 
@@ -88,7 +89,6 @@ void
 GUIAlarmGui::RetranslateUi()
 {
    QString TEXT_messages = tr("Alarms");
-      
    QSettings settings;
    settings.beginGroup("StyleSettings");
    QString currStyle = settings.value("currentStyle").toString();
@@ -139,14 +139,4 @@ GUIAlarmGui::NewMessages( const QMap<int, LMessage> &msgs)
         }
     }
 }
-
-
-/*
-void
-GUIAlarmGui::GetAllMessages()
-{
-    fPlainTextEdit->clear();
-}
-*/
-
 

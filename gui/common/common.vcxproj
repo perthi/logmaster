@@ -183,32 +183,14 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GUICommonGui.h" />
-    <ClInclude Include="GUICommonGui_moc.h" />
     <ClInclude Include="GUIExecWidget.h" />
     <ClInclude Include="GUIInitStyles.h" />
     <ClInclude Include="GUILoggerBase.h" />
-    <ClInclude Include="GUIPushButton.h" />
-    <ClInclude Include="GUIPushButton_moc.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GUICommonGui.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GUICommonGui_moc.cpp" />
     <ClCompile Include="GUIInitStyles.cpp" />
     <ClCompile Include="GUILoggerBase.cpp" />
-    <ClCompile Include="GUIPushButton.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GUIPushButton_moc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="gui-common-dll.rc">

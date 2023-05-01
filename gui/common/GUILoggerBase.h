@@ -34,13 +34,6 @@ protected:
     void     API  PurgeMessages();
 
     mutable QMutex fMutex{};
-
-
-
-
- //  QMap<int, LMessage> fLoggedMessages;
- //   QMap<int, LMessage> fNewMessages;
-    
     static QMap<int, LMessage> fLoggedMessages2;
     static QMap<int, LMessage> fNewMessages2;
     

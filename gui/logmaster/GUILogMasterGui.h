@@ -28,6 +28,9 @@
 #include <QtWidgets/QComboBox>
 #include <QtCore/QSignalMapper>
 
+
+
+
     class GUILogMasterGui : public QWidget
     {
         Q_OBJECT

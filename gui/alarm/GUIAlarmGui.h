@@ -16,6 +16,8 @@
 
 using namespace LOGMASTER;
 
+#include <memory>
+
 class QLabel;
 class QPlainTextEdit;
 class QPushButton;

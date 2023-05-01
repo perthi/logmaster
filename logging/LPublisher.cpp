@@ -26,11 +26,7 @@
 ******************************************************************************
 ******************************************************************************/
 
-
-
-
 #include "LPublisher.h"
-
 #include "LConfig.h"
 #include "LLogging.h"
 #include "LColorMap.h"
@@ -52,9 +48,7 @@
 #include "../json/LJson.hpp"
 
 
-
 using namespace LOGMASTER;
-
 
 #include <chrono>
 
@@ -249,7 +243,6 @@ namespace LOGMASTER
 
          if (((int)target & (int)eMSGTARGET::TARGET_GUI))
          {
-             COUT << "Publishing to GUI subscribers" << endl;
              PublishToGuiSubscribers(msg);
          }
 
@@ -296,7 +289,7 @@ namespace LOGMASTER
         std::lock_guard<std::mutex> guard( m );
         auto subscribers = LLogging::Instance()->GetGuiSubscribers();
 
-        COUT << "Subscribers size = " << subscribers.size() << "\t addr = " << std::hex << &subscribers << endl;;
+      //  COUT << "Subscribers size = " << subscribers.size() << "\t addr = " << std::hex << &subscribers << endl;;
 
         for (uint16_t i = 0; i < subscribers.size(); i++)
         {

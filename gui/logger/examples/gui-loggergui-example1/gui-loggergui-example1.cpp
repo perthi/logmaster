@@ -9,59 +9,36 @@
 //  \file      gui-qt-loggergui-example1.cpp
 //  \brief     main loop for test for loggerGui and logger
 
-#include <stdio.h>
+
+#include  <gui/common/GUIInitStyles.h>
 
 #include <QtWidgets/QApplication>
-#include <QtCore/QResource>
-#include <QtCore/QFileInfo>
-#include <QtCore/QtDebug>
-
-#include <logging/LLogging.h>
-#include <logging/LLogTest.h>
-
 #include <gui/logger/GUILoggerGui.h>
 #include <gui/logger/GUILogger.h>
-
 #include <gui/common/GUIExecWidget.h>
 #include <exception/GException.h>
-#include <iostream>
 
+#include <iostream>
 
 using std::endl;
 using std::cout;
 using std::cerr;
 
 
-#include  <gui/common/GUIInitStyles.h>
 
 int main(int argc, char* argv[])
 {
-   // MakeQApp();
     LLogging::Instance();
 
     try
     {
         QApplication *app = new QApplication(argc, argv);
-
         GUIInitStyles::Init(app);
-
         app->setApplicationName("loggerGuiTest");
         app->setOrganizationName("Embedded Consulting");
         SET_LOGTARGET("1111");
-        GUILogger* logger = new GUILogger();
-        GUILoggerGui *widget = new GUILoggerGui(logger);
-      //  MakeQApp();
-        //ExecWidget(qobject_cast<QWidget*>(widget));
-       
-        //ExecWidget(widget);
-
-       
-        QMainWindow* mainWindow = new QMainWindow;
-        mainWindow->setCentralWidget(widget);
-        mainWindow->show();
-       widget->StartTimer();
-        qApp->exec();
-       // widget->startTimer();
+        GUILoggerGui *widget = new GUILoggerGui(new GUILogger());
+        ExecWidget(widget);
     }
     catch (GException & e)
     {
