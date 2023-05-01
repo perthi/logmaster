@@ -39,36 +39,52 @@ namespace {
 struct qt_meta_stringdata_CLASSGUIAlarmGuiENDCLASS_t {};
 static constexpr auto qt_meta_stringdata_CLASSGUIAlarmGuiENDCLASS = QtMocHelpers::stringData(
     "GUIAlarmGui",
-    "NewMessages",
+    "NewMessage",
     "",
+    "cnt",
+    "LMessage",
+    "msg",
+    "NewMessages2",
     "QMap<int,LMessage>",
     "msgs",
     "GetAllMessages"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSGUIAlarmGuiENDCLASS_t {
-    uint offsetsAndSizes[12];
+    uint offsetsAndSizes[20];
     char stringdata0[12];
-    char stringdata1[12];
+    char stringdata1[11];
     char stringdata2[1];
-    char stringdata3[19];
-    char stringdata4[5];
-    char stringdata5[15];
+    char stringdata3[4];
+    char stringdata4[9];
+    char stringdata5[4];
+    char stringdata6[13];
+    char stringdata7[19];
+    char stringdata8[5];
+    char stringdata9[15];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSGUIAlarmGuiENDCLASS_t::offsetsAndSizes) + ofs), len 
 Q_CONSTINIT static const qt_meta_stringdata_CLASSGUIAlarmGuiENDCLASS_t qt_meta_stringdata_CLASSGUIAlarmGuiENDCLASS = {
     {
         QT_MOC_LITERAL(0, 11),  // "GUIAlarmGui"
-        QT_MOC_LITERAL(12, 11),  // "NewMessages"
-        QT_MOC_LITERAL(24, 0),  // ""
-        QT_MOC_LITERAL(25, 18),  // "QMap<int,LMessage>"
-        QT_MOC_LITERAL(44, 4),  // "msgs"
-        QT_MOC_LITERAL(49, 14)   // "GetAllMessages"
+        QT_MOC_LITERAL(12, 10),  // "NewMessage"
+        QT_MOC_LITERAL(23, 0),  // ""
+        QT_MOC_LITERAL(24, 3),  // "cnt"
+        QT_MOC_LITERAL(28, 8),  // "LMessage"
+        QT_MOC_LITERAL(37, 3),  // "msg"
+        QT_MOC_LITERAL(41, 12),  // "NewMessages2"
+        QT_MOC_LITERAL(54, 18),  // "QMap<int,LMessage>"
+        QT_MOC_LITERAL(73, 4),  // "msgs"
+        QT_MOC_LITERAL(78, 14)   // "GetAllMessages"
     },
     "GUIAlarmGui",
-    "NewMessages",
+    "NewMessage",
     "",
+    "cnt",
+    "LMessage",
+    "msg",
+    "NewMessages2",
     "QMap<int,LMessage>",
     "msgs",
     "GetAllMessages"
@@ -83,7 +99,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGUIAlarmGuiENDCLASS[] = {
       11,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -91,11 +107,13 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSGUIAlarmGuiENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   26,    2, 0x08,    1 /* Private */,
-       5,    0,   29,    2, 0x08,    3 /* Private */,
+       1,    2,   32,    2, 0x0a,    1 /* Public */,
+       6,    1,   37,    2, 0x0a,    4 /* Public */,
+       9,    0,   40,    2, 0x0a,    6 /* Public */,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void, QMetaType::Int, 0x80000000 | 4,    3,    5,
+    QMetaType::Void, 0x80000000 | 7,    8,
     QMetaType::Void,
 
        0        // eod
@@ -110,7 +128,11 @@ Q_CONSTINIT const QMetaObject GUIAlarmGui::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSGUIAlarmGuiENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<GUIAlarmGui, std::true_type>,
-        // method 'NewMessages'
+        // method 'NewMessage'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const LMessage &, std::false_type>,
+        // method 'NewMessages2'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QMap<int,LMessage> &, std::false_type>,
         // method 'GetAllMessages'
@@ -126,8 +148,9 @@ void GUIAlarmGui::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         auto *_t = static_cast<GUIAlarmGui *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->NewMessages((*reinterpret_cast< std::add_pointer_t<QMap<int,LMessage>>>(_a[1]))); break;
-        case 1: _t->GetAllMessages(); break;
+        case 0: _t->NewMessage((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<LMessage>>(_a[2]))); break;
+        case 1: _t->NewMessages2((*reinterpret_cast< std::add_pointer_t<QMap<int,LMessage>>>(_a[1]))); break;
+        case 2: _t->GetAllMessages(); break;
         default: ;
         }
     }
@@ -152,13 +175,13 @@ int GUIAlarmGui::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }

@@ -43,6 +43,7 @@ protected:
     
     static QMap<int, LMessage> fLoggedMessages2;
     static QMap<int, LMessage> fNewMessages2;
+    
     const int fMaxMessagesInMemory = 2000;
 };
 

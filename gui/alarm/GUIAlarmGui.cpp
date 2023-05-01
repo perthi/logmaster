@@ -41,11 +41,16 @@
 
 using namespace LOGMASTER;
 
+QMap<int, LMessage>    GUIAlarmGui::fLoggedMessages;
+QMap<int, LMessage>    GUIAlarmGui::fNewMessages;
+
+
 Q_DECLARE_METATYPE(QRegExp::PatternSyntax)
 
-GUIAlarmGui::GUIAlarmGui(GUIAlarm *alarm, QWidget *parent)
+//GUIAlarmGui::GUIAlarmGui(GUIAlarm *alarm, QWidget *parent)
+GUIAlarmGui::GUIAlarmGui(QWidget* parent)
    :
-    fAlarm(alarm),
+  //  fAlarm(alarm),
     QWidget(parent),
    fPlainTextEditLabel(0),
    fPlainTextEdit(0),
@@ -63,6 +68,14 @@ GUIAlarmGui::GUIAlarmGui(GUIAlarm *alarm, QWidget *parent)
 GUIAlarmGui::~GUIAlarmGui()
 {
 
+}
+
+
+void
+GUIAlarmGui::StartTimer()
+{
+    this->startTimer(500);
+  //  fAlarm->startTimer(1000);
 }
 
 
@@ -118,16 +131,33 @@ GUIAlarmGui::RetranslateUi()
 void
 GUIAlarmGui::ConnectStuff()
 {
-    connect( fAlarm, SIGNAL(newMessages(const MsgSeries &)),
-        this, SLOT(NewMessages(const MsgSeries &)));
+   // connect( fAlarm, SIGNAL(newMessages(const MsgSeries )),
+    //    this, SLOT(NewMessages(const this->MsgSeries &)));
 }
 
 
+void  
+GUIAlarmGui::timerEvent(QTimerEvent* event)
+{
+   // fNewMessages2.insert(cnt, newmsg);
+
+    COUT << "ALARM !!!!!!!!!!!!!!!!!!!!  ALARM" << endl;
+    NewMessages2(fNewMessages);
+}
+
 //QMultiMap<int, LMessage>;
+
+
+void  
+GUIAlarmGui::NewMessage(int cnt, const LMessage& msg)
+{
+    COUT << "NEW MEASSAGE RECEIVED" << endl;
+    fNewMessages.insert(cnt, msg);
+}
 
 void 
 // GUIAlarmGui::NewMessages( MsgSeries *msgs)
-GUIAlarmGui::NewMessages( const QMap<int, LMessage> &msgs)
+GUIAlarmGui::NewMessages2( const QMap<int, LMessage> &msgs)
 {
     COUT << "msg.size() = !!!!!!!!!!!!!!!!!! " << msgs.size() << endl;
 
@@ -163,10 +193,12 @@ GUIAlarmGui::NewMessages( const QMap<int, LMessage> &msgs)
 }
 
 
+
 void
 GUIAlarmGui::GetAllMessages()
 {
     fPlainTextEdit->clear();
-    NewMessages(fAlarm->AllMsgs());
+//    NewMessages(fAlarm->AllMsgs());
 }
+
 

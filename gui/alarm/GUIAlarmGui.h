@@ -20,7 +20,7 @@
 using namespace LOGMASTER;
 //#include <gui/alarm/GUIAlarm.h>
 
-class GUIAlarm;
+//class GUIAlarm;
 class QLabel;
 class QPlainTextEdit;
 class QPushButton;
@@ -32,16 +32,22 @@ class GUIAlarmGui : public QWidget
       Q_OBJECT
 
    public:
-      explicit API GUIAlarmGui(GUIAlarm *alarm, QWidget *parent = 0);
+     // explicit API GUIAlarmGui(GUIAlarm *alarm, QWidget *parent = 0);
+      explicit API GUIAlarmGui(QWidget* parent = 0);
+
       API ~GUIAlarmGui();
+      void API StartTimer();
 
    signals:
 
-   private slots :
+   public slots :
     // void NewMessages(MsgSeries *msgs);
-      void NewMessages( const QMap<int, LMessage>  &msgs);
+       virtual  void   __declspec(dllexport) NewMessage(int cnt, const LMessage& msg);
+
+  // signals:
+      void   __declspec(dllexport)  NewMessages2( const QMap<int, LMessage>  &msgs);
     // void NewMessages(const MsgSeries& msgs);
-      void GetAllMessages();
+      void   __declspec(dllexport) GetAllMessages();
    //   void OpenLogMasterDialog();
 
    private: // functions
@@ -54,7 +60,11 @@ class GUIAlarmGui : public QWidget
       QWidget*  InitRight();
 
    private: // member objects
-      GUIAlarm* fAlarm = nullptr;
+      void API timerEvent(QTimerEvent* event);
+
+      static QMap<int, LMessage> fLoggedMessages;
+      static QMap<int, LMessage> fNewMessages;
+    //  GUIAlarm* fAlarm = nullptr;
       QLabel *fPlainTextEditLabel = nullptr;
       QPlainTextEdit *fPlainTextEdit = nullptr;
       QPushButton* fConfigureButton = nullptr;

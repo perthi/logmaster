@@ -20,27 +20,34 @@ GUILoggerBase::PurgeMessages()
 {
 	COUT << "Purging messages, size =  " << std::dec << fNewMessages2.size()  << "  addr = " << std::hex << &fNewMessages2 << endl;
 	
-	//QMutexLocker locker(&fMutex);
+	QMutexLocker locker(&fMutex);
 	if (fNewMessages2.size() == 0)
 	{
 		return;
 	}
+	
+	
 	emit newMessages(fNewMessages2);
 	
 	// fLoggedMessages  += fNewMessages;
 	// fLoggedMessages.insert(fLoggedMessages.end(), );
 
 	//auto it = fNewMessages.begin();
+
+	/*
 	for (auto it = fNewMessages2.begin();  it != fNewMessages2.end(); it++)
 	{
 		fLoggedMessages2.insert(it.key(), it.value());
 	}
+	*/
 
+	/*
 	fNewMessages2.clear();
 	while (fLoggedMessages2.count() > fMaxMessagesInMemory)
 	{
 		fLoggedMessages2.erase(fLoggedMessages2.begin());
 	}
+	*/
 	
 }
 

@@ -460,7 +460,7 @@ APILogmaster::SetSubSysAndLevControl(int x_Lev, int y_Sys, bool enable)
         LLogging::Instance()->SetLogLevel((cmd));
         SetTextFieldData(cmd);
     }
-    catch (std::exception& e)
+    catch (std::exception& /*e*/)
     {
         //G_ERROR("Could not SetSubSysAndLevControl to %s (%s)", cmd.c_str(), e.what());
     }

@@ -19,16 +19,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GUIAlarm.cpp" />
+    <ClCompile Include="GUIAlarm.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GUIAlarmGui.cpp" />
     <ClCompile Include="GUIAlarmGui_moc.cpp" />
-    <ClCompile Include="GUIAlarm_moc.cpp" />
+    <ClCompile Include="GUIAlarm_moc.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GUIAlarm.h" />
+    <ClInclude Include="GUIAlarm.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="GUIAlarmGui.h" />
     <ClInclude Include="GUIAlarmGui_moc.h" />
-    <ClInclude Include="GUIAlarm_moc.h" />
+    <ClInclude Include="GUIAlarm_moc.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
