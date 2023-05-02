@@ -153,7 +153,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\exception\GException.cpp" />
     <ClCompile Include="LColorMap.cpp" />
     <ClCompile Include="LConfig.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>

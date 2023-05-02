@@ -118,7 +118,6 @@ void throw_exception(const T &e)
     }
     else
     {
-        //    COUT << "writing message" << endl;
         EX_FATAL("Fatal condition that would have resultetd in an exception, but exceptions was switched off !!");
         EX_FATAL("%s", e.what());
     }

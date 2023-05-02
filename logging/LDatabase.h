@@ -110,7 +110,7 @@ namespace LOGMASTER
             vector< LLogEntrySQL>  Query( const   eMSGSYSTEM sys,  const int max_cnt) ;
             vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const int max_cnt) ;
             vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
-            bool  ReadEntriesGetEntry(LLogEntrySQL &entry);
+            bool  API ReadEntriesGetEntry(LLogEntrySQL &entry);
             void SetMaxDbFileSize(const uint64_t maxSize);
             string GetDBPath() const;
 

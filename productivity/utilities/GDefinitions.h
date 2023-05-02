@@ -71,6 +71,8 @@ using std::string;
 #define ARG_MAX 4096
 
 // #define COUT  cout << __FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":"
+
+#undef COUT
 #define COUT  cout <<  std::dec << __FUNCTION__ << ":[" << __LINE__  << "]"
 #define COUT_HEX  cout <<  std::dec << __FUNCTION__ << ":[" << __LINE__  << "]" << std::hex
 
@@ -78,12 +80,15 @@ using std::string;
 #define CERR   cerr << "\033[7;1;34m" <<__FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":" 
 #define ENDL   "\033[0m" << endl;
 
+//#endif
 #else
 #define CERR  cerr << __FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":"
 #define ENDL endl
 #endif
 
 #define SHOW(a) COUT << #a << ": " << (a) << std::endl
+
+
 
 #if _WIN64
 typedef   wchar_t DBCHAR;

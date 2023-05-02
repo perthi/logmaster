@@ -233,7 +233,7 @@ namespace LOGMASTER
 
          if ((int)target & (int)eMSGTARGET::TARGET_DATABASE)
          {
-            // PublishToDatabase(msg);
+            PublishToDatabase(msg);
          }
 
          if (((int)target & (int)eMSGTARGET::TARGET_SUBSCRIBERS))
@@ -288,8 +288,6 @@ namespace LOGMASTER
         static  std::mutex m;
         std::lock_guard<std::mutex> guard( m );
         auto subscribers = LLogging::Instance()->GetGuiSubscribers();
-
-     //   COUT << "Subscribers size = " << subscribers.size() << "\t addr = " << std::hex << &subscribers << endl;;
 
         for (uint16_t i = 0; i < subscribers.size(); i++)
         {

@@ -130,7 +130,6 @@ GException::DisableStackTrace()
 }
 /**@}*/
 
-//std::shared_ptr<LOGMASTER::LMessage> API  GetMessageL();
 
 const char *
 GException::what() const

@@ -87,8 +87,6 @@ namespace LOGMASTER
     void
     LDatabase::AddLogEntry( std::shared_ptr<LMessage>  msg  )
     {
-       // HandleError( GLOCATION, eMSGLEVEL::LOG_ERROR, "this is a test" ) ;
-
         if(fMaxDbFileSize)
         {
             FILE *p_file = NULL;
@@ -511,7 +509,6 @@ namespace LOGMASTER
     {
         return fDBPath;
     }
-//}
     
 
     bool 

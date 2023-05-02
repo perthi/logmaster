@@ -59,7 +59,9 @@ using std::string;
 #define EXCECUTION_ERROR -33
 ///#define ARG_MAX 4096
 
+#ifndef COUT
 #define COUT  cout << __FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":"
+#endif
 
 #if defined(__unix__)
 #define CERR   cerr << "\033[7;1;34m" <<__FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":" 
@@ -70,7 +72,7 @@ using std::string;
 #endif
 
 #define SHOW(a) COUT << #a << ": " << (a) << std::endl
-
+#
 
 #if _WIN64
 typedef   wchar_t DBCHAR;
