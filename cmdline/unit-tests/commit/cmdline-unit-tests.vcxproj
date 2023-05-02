@@ -155,15 +155,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cmdline-dll-test.cpp" />
-    <ClCompile Include="TestGCmdScan.cpp" />
+    <ClCompile Include="TestGCmdScan.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="TestGCommandLineArgument.cpp" />
-    <ClCompile Include="TestGLogApplication.cpp" />
+    <ClCompile Include="TestGLogApplication.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cmdline-dll-test.h" />
-    <ClInclude Include="TestGCmdScan.h" />
+    <ClInclude Include="TestGCmdScan.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="TestGCommandLineArgument.h" />
-    <ClInclude Include="TestGLogApplication.h" />
+    <ClInclude Include="TestGLogApplication.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

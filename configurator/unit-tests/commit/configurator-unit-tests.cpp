@@ -10,6 +10,6 @@
 
 #include <testlib/TestBase.h>
 
-
+// #include <cmdline/GLogApplication.h>
 
 MAIN_UNITTEST()

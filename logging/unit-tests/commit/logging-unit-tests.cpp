@@ -11,6 +11,7 @@
 #include <gtest-embc/gtest.h>
 #endif
 
+#include <testlib/TestBase.h>
 
 
 MAIN_UNITTEST();

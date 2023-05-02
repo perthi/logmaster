@@ -138,41 +138,5 @@ typedef  unsigned char    DBCHAR;
                                                                         \
         } \
     }
- // Temp fix for ESCORE-1327, argc has been hardcoded to 1
-#ifdef HAS_LOGGING
-#include <cmdline/GLogApplication.h>
-#define MAIN_UNITTEST() \
-int argc_ = 0; \
-char** argv_ = nullptr; \
-int  main(int argc, char** argv) \
-{ \
- 	argc_ = argc; \
-    argv_ = argv; \
-        new GLogApplication( 1, (const char **)argv); \
-\
-	/* The method is initializes the Google framework and must be called before RUN_ALL_TESTS */ \
-	::testing::InitGoogleTest(&argc, argv); \
-\
-        /* RUN_ALL_TESTS automatically detects and runs all the tests defined using the TEST macro.*/\
-/* It's must be called only once in the code because multiple calls lead to conflicts and, */ \
-/*therefore, are not supported. */ \
-	return  RUN_ALL_TESTS(); \
-} 
-
-#else
-#define MAIN_UNITTEST() \
-int  main(int argc, char** argv) \
-{ \
-\
-	/* The method is initializes the Google framework and must be called before RUN_ALL_TESTS */ \
-	::testing::InitGoogleTest(&argc, argv); \
-\
-        /* RUN_ALL_TESTS automatically detects and runs all the tests defined using the TEST macro.*/\
-/* It's must be called only once in the code because multiple calls lead to conflicts and, */ \
-/*therefore, are not supported. */ \
-	return  RUN_ALL_TESTS(); \
-}
-
-#endif
 
 

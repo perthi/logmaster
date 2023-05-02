@@ -29,6 +29,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logging-configurator", "con
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "configurator", "configurator\configurator.vcxproj", "{9A3C6794-6AE5-476E-B121-21111EEF645A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{056929FF-F5CE-44F6-97A1-9F2493E7A9CB} = {056929FF-F5CE-44F6-97A1-9F2493E7A9CB}
+		{26B32CDF-4053-4C0E-8EC5-88A5F6D2AB0C} = {26B32CDF-4053-4C0E-8EC5-88A5F6D2AB0C}
+		{6F7DDC0E-541A-4A52-90B7-8A4FC10B6C5B} = {6F7DDC0E-541A-4A52-90B7-8A4FC10B6C5B}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logging-example1", "logging\examples\logging-example1\logging-example1.vcxproj", "{EDC16F52-1260-4CB7-AA5C-12F346674DCA}"
 	ProjectSection(ProjectDependencies) = postProject

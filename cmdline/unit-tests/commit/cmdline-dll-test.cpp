@@ -8,5 +8,6 @@
 #endif
 #include  <cmdline/GLogApplication.h>
 
+#include <testlib/TestBase.h>
 
 MAIN_UNITTEST()

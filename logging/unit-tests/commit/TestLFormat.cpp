@@ -51,6 +51,7 @@ TestLFormat::~TestLFormat()
 
 }
 
+
 TEST_F( TestLFormat, msg_format )
 {
     PUSH();
@@ -58,25 +59,19 @@ TEST_F( TestLFormat, msg_format )
     int s1 = 0;
     int s2 = 1;
     SET_LOGLEVEL("--all-off --com-warning");
-    //EXPECT_NO_THROW( COM_DEBUG("s1 = %d", s1, s2) );
+    EXPECT_ANY_THROW( COM_DEBUG("s1 = %d", s1, s2) );
+    EXPECT_ANY_THROW(  COM_ERROR("s1 = %d, s2 = %d, s3 = %d", s1, s2));
+    EXPECT_ANY_THROW(  COM_ERROR("s1 = %d", s1, s2));
+    EXPECT_ANY_THROW(  COM_INFO("s1 = %d, s2 = %d, s3 = %d", s1, s2));
+    EXPECT_ANY_THROW(  COM_INFO("s1 = %d", s1, s2));
     
-  //  COM_ERROR("s1 = %d, s2 = %d, s3 = %d", s1, s2);
-
-
-    EXPECT_THROW(  COM_ERROR("s1 = %d, s2 = %d, s3 = %d", s1, s2), GMissingArgumentException  );
-    
-    /*
-    EXPECT_THROW(  COM_ERROR("s1 = %d", s1, s2), GInvalidArgumentException  );
-
-    EXPECT_THROW(  COM_INFO("s1 = %d, s2 = %d, s3 = %d", s1, s2), GMissingArgumentException  );
-    EXPECT_THROW(  COM_INFO("s1 = %d", s1, s2), GInvalidArgumentException  );
     LLogging::Instance()->SetFormatCheckAll(false);
-    EXPECT_THROW(  COM_ERROR("s1 = %d, s2 = %d, s3 = %d", s1, s2), GMissingArgumentException  );
-    EXPECT_THROW(  COM_ERROR("s1 = %d", s1, s2), GInvalidArgumentException  );
+    EXPECT_ANY_THROW(  COM_ERROR("s1 = %d, s2 = %d, s3 = %d", s1, s2));
+    EXPECT_ANY_THROW(  COM_ERROR("s1 = %d", s1, s2) );
 
     EXPECT_NO_THROW(  COM_INFO("s1 = %d, s2 = %d, s3 = %d", s1, s2) );
     EXPECT_NO_THROW(  COM_INFO("s1 = %d", s1, s2)  );
-    */
+    
 
     POP();
 

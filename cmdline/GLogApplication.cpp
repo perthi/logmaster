@@ -287,12 +287,15 @@ GLogApplication::ScanArguments(const string cmdline, deque <  std::shared_ptr<GA
     const size_t argc = tokens.size() + 1;
     const char* argv[MAX_ARGS] = {0};
 
-    //G_ASSERT_EXCEPTION( tokens.size() <= MAX_ARGS, "maximum (%d) number of arguments exceeded, got %d arguments", MAX_ARGS,  tokens.size() );
+    G_ASSERT_EXCEPTION( tokens.size() <= MAX_ARGS, "maximum (%d) number of arguments exceeded, got %d arguments", MAX_ARGS,  tokens.size() );
 
     for ( size_t i = 0; i < tokens.size(); i++)
     {    
         argv[i + 1] = tokens[i].c_str();
     }
+
+
+
     ScanArguments((int)argc, argv, args);
 }
  
@@ -300,7 +303,11 @@ GLogApplication::ScanArguments(const string cmdline, deque <  std::shared_ptr<GA
 void 
 GLogApplication::ScanArguments(const int argc, const char ** argv, deque < std::shared_ptr<GArgument> > args)
 {
+
+
     g_cmdscan()->ScanArguments(argc, argv, &args);
+
+
 }        
 
 

@@ -11,8 +11,6 @@ for /F "tokens=*" %%A in (files.txt) do (
  	>nul findstr "Q_OBJECT" %%A && (
 	  echo "Q_OBJECT" was found in %%A !!!!!!!!!!!!!!!!!!!!!!!! > nul
 	  echo(%%A|findstr /r /c:"moc" >nul && (
-	   		echo file = %%A  no moch generated	
-	   		) || (
 	   		..\moc --no-warnings %%A > tmp_moc.h 		
 	   		fc %%~nA_moc.h tmp_moc.h > nul
 	   		if  errorlevel 0 (
@@ -39,6 +37,6 @@ for /F "tokens=*" %%A in (files.txt) do (
  
  
 del files.txt
-del tmp_moc.h
+
 
 exit 0

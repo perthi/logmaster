@@ -67,24 +67,19 @@ TestLogging::~TestLogging()
 void 
 TestLogging::SetUpTestCase()
 {
-///    FORCE_DEBUG("setting up testcases");
-}
 
+}
 
 
 void 
 TestLogging::SetUp() 
 {
-     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
-
-    
+    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
     GCmdScan::Instance()->SetIgnoreStrayArgument(false);
     g = new GLogApplication();
-
     g->InitLogArgs();
     TestBase::SetUp();
     SET_LOGTARGET( "0000 --target-file" );
-
     fOldBuf = cout.rdbuf();
     cout.rdbuf( fStrCout.rdbuf() );
     fStrCout.str( "" );
@@ -109,11 +104,8 @@ TestLogging::Subscriber(const   std::shared_ptr<LOGMASTER::LMessage>  msg  )
 
 
 
-
-
 TEST_F(TestLogging, set_logtarget_g_logapplication)
 {
-    ///auto l = LLogging::Instance();
     g->ScanArguments("-logtarget --target-off --target-subscriber -logformat 0000001");
     EXPECT_EQ((int)(eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS), (int)l->GetLogTarget());
     g->ScanArguments("-logtarget --target-off -logformat 0000001");
@@ -168,8 +160,6 @@ TEST_F( TestLogging, set_logtarget )
 
 
 
-
-
 TEST_F(TestLogging, level_to_string )
 {
     EXPECT_EQ( "Error",       LEnum2String::ToString( eMSGLEVEL::LOG_ERROR ));
@@ -177,9 +167,6 @@ TEST_F(TestLogging, level_to_string )
     EXPECT_EQ( "Fatal|Error", LEnum2String::ToString(eMSGLEVEL::LOG_ERROR | eMSGLEVEL::LOG_FATAL));
 }
     
-
-
-
 
 TEST_F(TestLogging, stdoutIO)
 {
