@@ -36,14 +36,20 @@ public:
 
 int main()
 {
-   double test = 1.2345;
-   printf("test = %f\n", test);
-   LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+	try
+	{
+		LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+		COM_ERROR("s1 = %d, s2 = %d, s3 = %d", 10, 11);
+	}
+	catch (std::exception& e)
+	{
+		cout << e.what() << endl;
+	}
+
+  
    
    //LLogging::Instance()->RegisterGuiSubscriber(logger_callback);
-   LLogging::Instance()->RegisterGuiSubscriber(TEST_CALLBACK::logger_callback);
-
-
-   FORCE_DEBUG("Hello world");
+  // LLogging::Instance()->RegisterGuiSubscriber(TEST_CALLBACK::logger_callback);
+  // FORCE_DEBUG("Hello world");
 }
 

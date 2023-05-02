@@ -27,6 +27,7 @@
 ******************************************************************************/
 
 
+
 #include "GCommon.h"
 #include "GDefinitions.h"
 #include "GLocation.h"
@@ -43,12 +44,8 @@ using std::endl;
 using std::cerr;
 
 
-
-
-
-
 #ifdef HAS_LOGGING
-#include <exception/GException.h>
+#include <logging/GException.h>
 void
 GCommon::HandleError(const string message, const GLocation  l,   const bool   disable_exception  )
 {
@@ -63,6 +60,7 @@ GCommon::HandleError(const string message, const GLocation  l,   const bool   di
     }
 }
 #else
+
 
 void
 GCommon::HandleError(const string message, const GLocation l, const bool   disable_exception  )

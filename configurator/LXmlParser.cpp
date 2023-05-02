@@ -12,7 +12,7 @@
 #include <logging/LLogApi.h>
 using namespace LOGMASTER;
 
-#include <exception/GException.h>
+#include <logging/GException.h>
 #include <xml/GXmlClassFactory.h>
 #include <xml/GXmlStreamReader.h>
 #include <xml/GXmlValidator.h>

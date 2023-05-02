@@ -26,7 +26,7 @@ using std::cout;
 #include <logging/LLogTest.h>
 #include <logging/LLogEntrySQL.h>
 
-#include <exception/GException.h>
+#include <logging/GException.h>
 #include <exception>
 
 using namespace LOGMASTER;

@@ -10,9 +10,10 @@ using namespace LOGMASTER;
 #include  <configurator/LXmlEntitySubSystem.h> 
 #include  <utilities/GUtilities.h>
 #include  <utilities/GString.h>
-#include  <exception/GException.h>
+#include  <logging/GException.h>
 
 #include <sstream>
+#include <algorithm>
 #include <algorithm>
 
 

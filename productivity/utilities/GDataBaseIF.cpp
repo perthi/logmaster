@@ -18,7 +18,7 @@
 #include  <logging/LMessageGenerator.h>
 #include  <logging/LPublisher.h>
 #include  <logging/LEnums.h>
-#include <exception/GException.h>
+#include  <logging/GException.h>
 using namespace LOGMASTER;
 #else
 #include <stdio.h>

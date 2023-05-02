@@ -27,7 +27,6 @@ using std::string;
 using std::map;
 
 
-
 class GTimeFormat;
 
 //GTimeFormat * g_time_format();

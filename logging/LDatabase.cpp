@@ -14,7 +14,7 @@
 #include  "LEnums.h"
 #include  "LLogEntrySQL.h"
 
-#include  <exception/GException.h>
+#include  "GException.h"
 #include  <utilities/GDefinitions.h>
 #include "sqlite/sqlite3.h"
 #include "../json/LJson.hpp"

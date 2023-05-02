@@ -16,7 +16,7 @@
 #include <gui/logger/GUILoggerGui.h>
 #include <gui/logger/GUILogger.h>
 #include <gui/common/GUIExecWidget.h>
-#include <exception/GException.h>
+#include <logging/GException.h>
 
 #include <iostream>
 

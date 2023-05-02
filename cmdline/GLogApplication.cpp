@@ -43,7 +43,7 @@ using namespace GCONSTANTS;
 #include  <cmdline/GCommandLineArgument.h>
 #include  <cmdline/GCmdScan.h>
 
-#include <exception/GException.h>
+#include <logging/GException.h>
 
 #include <logging/LLogApi.h>
 

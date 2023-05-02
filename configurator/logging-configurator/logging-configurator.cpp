@@ -32,7 +32,7 @@
 #include <configurator/LConfigurator.h>
 #include <configurator/LXmlParser.h>
 #include <xml/GXmlValidator.h>
-#include <exception/GException.h>
+#include <logging/GException.h>
 #include <logging/LLogApi.h>
 #include <configurator/LXmlEntityLogLevel.h>
 #include <configurator/LXmlEntitySubSystem.h>

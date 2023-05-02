@@ -82,13 +82,13 @@ namespace LOGMASTER
          };    
 
          void     DispatchMessages();       
-         void     PublishMessage(     std::shared_ptr<LMessage> m, const std::shared_ptr<LConfig>,  const eMSGTARGET target  );
-         void     PublishToSubscribers(   std::shared_ptr<LMessage> msg);
-         void     PublishToGuiSubscribers( std::shared_ptr<LMessage>  msg);
-         void     PublishToConsole(     std::shared_ptr<LMessage> msg);
-         void     PublishToFile(     const char * filename,     std::shared_ptr<LMessage> msg );
-         void     PublishToFileJson( const char * filename,  std::shared_ptr<LMessage> msg    );
-         void     PublishToDatabase( std::shared_ptr<LMessage>  msg); 
+         void     API PublishMessage(     std::shared_ptr<LMessage> m, const std::shared_ptr<LConfig>,  const eMSGTARGET target  );
+         void     API PublishToSubscribers(   std::shared_ptr<LMessage> msg);
+         void     API PublishToGuiSubscribers( std::shared_ptr<LMessage>  msg);
+         void     API PublishToConsole(     std::shared_ptr<LMessage> msg);
+         void     API PublishToFile(     const char * filename,     std::shared_ptr<LMessage> msg );
+         void     API PublishToFileJson( const char * filename,  std::shared_ptr<LMessage> msg    );
+         void     API PublishToDatabase( std::shared_ptr<LMessage>  msg); 
 
          std::queue<  std::shared_ptr<Message> >  fMessageQeue      =  std::queue<  std::shared_ptr<Message> >();        
         std::queue<  std::shared_ptr<Message> >   fMessageQeueTmp   =  std::queue<  std::shared_ptr<Message> >();        

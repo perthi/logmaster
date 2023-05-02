@@ -30,7 +30,7 @@
 #include "TestSubscriber.h"
 #include <logging/LMessage.h>
 #include <logging/LPublisher.h>
-#include <exception/GException.h>
+#include <logging/GException.h>
 
 //std::shared_ptr<LMessage>   TestSubscriber::fMsg1 = nullptr;
 //std::shared_ptr<LMessage>   TestSubscriber::fMsg2 = nullptr;

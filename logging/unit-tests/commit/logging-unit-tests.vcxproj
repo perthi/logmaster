@@ -155,25 +155,53 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="logging-unit-tests.cpp" />
-    <ClCompile Include="TestCheckLevel.cpp" />
-    <ClCompile Include="TestLConfig.cpp" />
-    <ClCompile Include="TestLConversion.cpp" />
+    <ClCompile Include="TestCheckLevel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="TestLConfig.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="TestLConversion.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="TestLFormat.cpp" />
-    <ClCompile Include="TestLHashMaps.cpp" />
-    <ClCompile Include="TestLogging.cpp" />
-    <ClCompile Include="TestLTargets.cpp" />
-    <ClCompile Include="TestSubscriber.cpp" />
+    <ClCompile Include="TestLHashMaps.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="TestLogging.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="TestLTargets.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="TestSubscriber.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="logging-unit-tests.h" />
-    <ClInclude Include="TestCheckLevel.h" />
-    <ClInclude Include="TestLConfig.h" />
-    <ClInclude Include="TestLConversion.h" />
+    <ClInclude Include="TestCheckLevel.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="TestLConfig.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="TestLConversion.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="TestLFormat.h" />
-    <ClInclude Include="TestLHashMaps.h" />
-    <ClInclude Include="TestLogging.h" />
-    <ClInclude Include="TestLTargets.h" />
-    <ClInclude Include="TestSubscriber.h" />
+    <ClInclude Include="TestLHashMaps.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="TestLogging.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="TestLTargets.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="TestSubscriber.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

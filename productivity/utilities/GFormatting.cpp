@@ -5,7 +5,7 @@
 
 
 #ifdef HAS_LOGGING
-#include "exception/GException.h"
+#include <logging/GException.h>
 #else
 class GInvalidArgumentException;
 class GMissingArgumentException;

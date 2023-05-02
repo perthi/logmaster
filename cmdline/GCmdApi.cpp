@@ -28,7 +28,7 @@
 
 
 #include "GCmdApi.h"
-#include <exception/GException.h>
+#include <logging/GException.h>
 
 
 GCmdApi::GCmdApi()

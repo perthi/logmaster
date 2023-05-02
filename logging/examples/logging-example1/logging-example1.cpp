@@ -35,7 +35,7 @@
 #include  <logging/LConfig.h>
 #include  <logging/LPublisher.h>
 #include  <cmdline/GLogApplication.h>
-#include  <exception/GException.h>
+#include  <logging/GException.h>
 
 
 using std::cout;

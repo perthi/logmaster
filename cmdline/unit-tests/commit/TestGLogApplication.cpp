@@ -2,7 +2,7 @@
 
 #include "TestGLogApplication.h"
 #include <utilities/GFileIOHandler.h>
-#include <exception/GException.h>
+#include <logging/GException.h>
 #include <cmdline/GCommandLineArgument.h>
 #include <cmdline/GArgumentDefinitions.h>
 

@@ -34,12 +34,14 @@
 #define SQLITE3_H
 #include <stdarg.h>     /* Needed for the definition of va_list */
 
+#define SQLITE_API __declspec(dllexport)
+
 /*
 ** Make sure we can call this stuff from C++.
 */
-//#ifdef __cplusplus
+#ifdef __cplusplus
 extern "C" {
-//#endif
+#endif
 
 #ifdef _WIN32
 #define SQLITE_CDECL __declspec(dllexport)

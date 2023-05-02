@@ -39,7 +39,7 @@
 #include <utilities/GString.h>
 #include <utilities/GFileIOHandler.h>
 #include <utilities/GSystem.h>
-#include <exception/GException.h>
+#include <logging/GException.h>
 #include <cmdline/GCmdScan.h>
 
 #include <cmdline/GLogApplication.h>
