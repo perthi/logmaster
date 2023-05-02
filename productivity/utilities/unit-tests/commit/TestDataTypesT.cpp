@@ -38,7 +38,7 @@
 */
 struct Time_t : public Val_t <double >
 {
-    Time_t (double n = 0) : Val_t<double>::Val_t(n, 0, 20, "Seconds", "s", "The time in seconds") {};
+    Time_t (double n = 0) : Val_t<double>::Val_t(n, 0, 20,  "Seconds", "s", "The time in seconds") {};
     
     virtual   Time_t & operator = (const Val_t rhs)
     {

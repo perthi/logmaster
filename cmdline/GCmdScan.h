@@ -315,12 +315,10 @@ GCmdScan::ScanArguments(const int argc, const char **argv, deque<  std::shared_p
 
     vector<GArgumentParsed> v = SplitCommands(argc, argv);
     auto ret = CheckValid(v, args);
-    
     CheckMandatory(v, args);
 
     for (uint16_t i = 0; i < args->size(); i++)
     {
-
         for (uint16_t j = 0; j < v.size(); j++)
         {
             if (args->at(i)->GetCommand() == v[j].GetCommand())
@@ -410,22 +408,31 @@ GCmdScan::Verify(  std::shared_ptr<GArgument> a, GArgumentParsed v) const
         /*********************************************/
         if (type == typeid(bool).name())
         {
-            if (v.GetSubCommands().size() == 1)
+            string arg = v.GetArguments().size()   > 0 ?  v.GetArguments()[0] : "";
+            string sub = v.GetSubCommands().size() > 0 ? v.GetSubCommands()[0] : "";
+
+            if ((v.GetArguments().size() == 1)  !=    (v.GetSubCommands().size() == 1)   )
             {
-                if (v.GetSubCommands()[0] == "--true")
+                if (sub == "--true" || arg == "1")
                 {
                     return true;
                 }
-                if (v.GetSubCommands()[0] == "--false")
+                else if (sub == "--false" || arg == "0")
                 {
                     return false;
                 }
+                else
+                {
+                    INVALID_ARGUMENT_EXCEPTION("Invalid subcommand or argument: %s%s",  sub.c_str(), arg.c_str() );
+
+                }
+                
             }
             else
             {
-                if (v.GetSubCommands().size() != 0 || v.GetArguments().size() != 0)
+                if ( ( v.GetSubCommands().size() != 0)  != ( v.GetArguments().size() != 0) )
                 {
-                    INVALID_ARGUMENT_EXCEPTION("boolean types takes no GArguments or parameters unless the verification function is not set: %s(%s) takes only one GArguments", v.GetCommand().c_str(), type.c_str());
+                    INVALID_ARGUMENT_EXCEPTION("boolean types takes either no arguments (defaults to true) or --true/false. Alternatively the verification function is not set: %s(%s) takes only one arguement", v.GetCommand().c_str(), type.c_str());
                 }
                 else
                 {
@@ -606,7 +613,7 @@ GCmdScan::HasArgument(const vector<string> tokens, const string command) const
 bool
 GCmdScan::CheckValid(const vector<GArgumentParsed> v, const deque < std::shared_ptr<GArgument> > *args) const
 {
-    /** @todo check if args is nullptr */
+
     bool iret = false;
     for (uint16_t i = 0; i < v.size(); i++)
     {
@@ -615,7 +622,6 @@ GCmdScan::CheckValid(const vector<GArgumentParsed> v, const deque < std::shared_
         for (uint16_t j = 0; j < args->size(); j++)
         {
             G_ASSERT_EXCEPTION(args->at(j) != 0, "args[%d] is a ZERO pointer", j);
-
             if (args->at(j)->GetCommand() == v[i].GetCommand())
             {
                 iret = true;

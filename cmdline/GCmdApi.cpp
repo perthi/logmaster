@@ -76,13 +76,13 @@ GCmdApi::bool2( const string cmnd, const string /*args_s*/, const vector<string>
             }
             else
             {
-                //EXCEPTION("Invalid subcommand, the only valid subcommand to \"%s\" is --true or --false", cmnd.c_str());
+                EXCEPTION("Invalid subcommand, the only valid subcommand to \"%s\" is --true or --false", cmnd.c_str());
             }
     }
     else
         if (subs.size() > 1)
         {
-            //EXCEPTION("Too many subcommands to  \"%s\", this command takes either no subcommand or exactly ONE subcommand which must be either\"--true\" or \"--false\"", cmnd.c_str());
+            EXCEPTION("Too many subcommands to  \"%s\", this command takes either no subcommand or exactly ONE subcommand which must be either\"--true\" or \"--false\"", cmnd.c_str());
         }
 
     return true;

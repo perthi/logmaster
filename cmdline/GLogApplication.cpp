@@ -220,11 +220,6 @@ GLogApplication::SetCallBackFunction(const string cmd,  std::function<bool( cons
 void  
 GLogApplication::Purge()
 {
-    // for (size_t i = 0; i < fArgs.size(); i++)
-    // {
-    //  delete fArgs.at(i);
-    // }
-
     fArgs.erase(fArgs.begin(), fArgs.end() );
 
 }
@@ -233,23 +228,17 @@ GLogApplication::Purge()
 void
 GLogApplication::InitLogArgs()
 {
-  //  if(is_initialized == false )
-    {
-        fHelp = std::make_shared < GCommandLineArgument < void > >("-help", "-help", "prints help menu", nullptr, fgkOPTIONAL  );
-        fLog = std::make_shared < GCommandLineArgument < vector< string > > >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::Instance()->LogLevelDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
-        fTarget = std::make_shared < GCommandLineArgument < vector< string > > >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::Instance()->LogTargetDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
-        fFormat = std::make_shared < GCommandLineArgument < vector< string > > >("-logformat", "-logformat\t\t[subcommands]", LDoc::Instance()->LogFormatDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
-        fColor = std::make_shared<GCommandLineArgument < bool > >("-logcolor", "-logcolor\t\t--true/--false", "Wether or not to use colors when writing log messages to the console", LPublisher::Instance()->GetEnableColor(), fgkOPTIONAL, GCmdApi::bool2);
-        
-        AddArgument(fHelp);
-        AddArgument(fLog);
-        AddArgument(fTarget);
-        AddArgument(fFormat);
-        AddArgument(fColor);
-   //     is_initialized = true;
-    }
-    
+    fHelp = std::make_shared < GCommandLineArgument < void > >("-help", "-help", "prints help menu", nullptr, fgkOPTIONAL);
+	fLog = std::make_shared < GCommandLineArgument < vector< string > > >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::Instance()->LogLevelDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
+	fTarget = std::make_shared < GCommandLineArgument < vector< string > > >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::Instance()->LogTargetDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
+	fFormat = std::make_shared < GCommandLineArgument < vector< string > > >("-logformat", "-logformat\t\t[subcommands]", LDoc::Instance()->LogFormatDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
+	fColor = std::make_shared<GCommandLineArgument < bool > >("-logcolor", "-logcolor\t\t--true/--false", "Wether or not to use colors when writing log messages to the console", LPublisher::Instance()->GetEnableColor(), fgkOPTIONAL, GCmdApi::bool2);
 
+	AddArgument(fHelp, true);
+	AddArgument(fLog, true);
+	AddArgument(fTarget, true);
+	AddArgument(fFormat, true);
+	AddArgument(fColor, true);
 }
 
 
@@ -303,11 +292,7 @@ GLogApplication::ScanArguments(const string cmdline, deque <  std::shared_ptr<GA
 void 
 GLogApplication::ScanArguments(const int argc, const char ** argv, deque < std::shared_ptr<GArgument> > args)
 {
-
-
     g_cmdscan()->ScanArguments(argc, argv, &args);
-
-
 }        
 
 
@@ -317,18 +302,25 @@ void GLogApplication::ScanArguments(const int argc, const char ** argv)
 }
 
 
-void GLogApplication::AddArgument( std::shared_ptr<GArgument>  arg)
+void GLogApplication::AddArgument( std::shared_ptr<GArgument>  arg, bool ignore_duplicates)
 {
     if (arg != 0)
     {
         if( HasCommand( arg->GetCommand() ) == false)
         {
+           // CERR << "argument DUESNT exists" << endl;
             fArgs.push_back(arg);
         }
         else
         {
-            G_ERROR( "argument %s allready exists",  arg->GetCommand().c_str() );
-          //  delete arg;   
+            if (ignore_duplicates == true)
+            {
+                G_WARNING("Cannot add arguemnt %s that allready exis (bool ignore_duplicates)", arg->GetCommand().c_str() );
+            }
+            else
+            {
+                INVALID_ARGUMENT_EXCEPTION("argument %s allready exists", arg->GetCommand().c_str());
+            }
         }
     }
 }

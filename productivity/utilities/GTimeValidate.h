@@ -35,8 +35,8 @@ using std::map;
 class GTimeValidate 
 {
 public:
-    GTimeValidate();
-    ~GTimeValidate() {};
+    API GTimeValidate();
+    API ~GTimeValidate() {};
   
     bool            API   IsGregorianLeapYear(int iYear);
     

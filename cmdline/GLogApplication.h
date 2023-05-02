@@ -70,7 +70,7 @@ public:
                                                 std::function< bool( const string cmd,  const string args_s,
                                                                      const vector<string> sub, const	vector<string> par ) > funct ) ;
 
-    void		API		AddArgument( std::shared_ptr<GArgument>  arg);
+    void		API		AddArgument( std::shared_ptr<GArgument>  arg, bool ignore_duplicates = false);
     void		API		AddArguments(deque< std::shared_ptr<GArgument> >  args);
     void		API		AddArgumentFront( std::shared_ptr<GArgument>  arg);
     void		API		AddArgumentsFront(deque< std::shared_ptr<GArgument> >  args);

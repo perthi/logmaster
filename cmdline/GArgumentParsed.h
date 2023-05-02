@@ -22,7 +22,7 @@ using std::vector;
 using std::string;
 
 
-/** @brief Helper class for the commanline system. Holds the argument after parsing. The commandline argumen is parsed according to 
+/** @brief Helper class for the commandline system. Holds the argument after parsing. The commandline argumen is parsed according to 
  *  tokens beginning with "-". Subcommands are identified with the "--" and parameters is assumed to be
  *  anything that doesn start with "-" or "--" 
  * 

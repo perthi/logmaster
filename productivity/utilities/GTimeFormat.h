@@ -40,14 +40,14 @@ class GTimeFormat
  
     
 public:
-    GTimeFormat();
-    virtual ~GTimeFormat() {};
+    API GTimeFormat();
+    virtual API ~GTimeFormat() {};
 
     vector<string>       API &  GetFormatSpecifiersV();
     map<string, string>  API &  GetValidFormat();
     vector<string>       API &  GetValidDays();  
     vector<string>       API &  GetValidMonths();
-    string  str() ;
+    string  API str() ;
 
 
 private:

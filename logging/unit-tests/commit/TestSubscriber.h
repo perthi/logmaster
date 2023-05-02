@@ -14,7 +14,6 @@
 
 #include <memory>
 
-
 class TestSubscriber : public TestLogging
 {
 

@@ -19,19 +19,19 @@
 class GCrc 
 {   
 public:
-	GCrc(const int32_t jpoly =DFAULT_POLY_INDEX, const bool fill=true);
+	API GCrc(const int32_t jpoly =DFAULT_POLY_INDEX, const bool fill=true);
 	#if defined( __unix__ )  || defined (_WIN32 )
-	uint16_t     Crc(const string &bufptr);
-	void         AddCrc16( string &in );
-	bool 		 CheckCrc( string &in );
+	uint16_t  API    Crc(const string &bufptr);
+	void      API   AddCrc16( string &in );
+	bool 	  API	 CheckCrc( string &in );
 	#endif
 
-	uint16_t     Crc(const uint8_t *in, const size_t len );
-	void         AddCrc16(  uint8_t * in, const size_t input_size, size_t *output_size );
-	bool 		 CheckCrc(  const uint8_t *in, const size_t total_size  );
+	uint16_t  API   Crc(const uint8_t *in, const size_t len );
+	void      API    AddCrc16(  uint8_t * in, const size_t input_size, size_t *output_size );
+	bool 	  API	 CheckCrc(  const uint8_t *in, const size_t total_size  );
 
-	uint8_t      LoByte( const uint16_t x ); 
-    uint8_t      HiByte( const uint16_t x );
+	uint8_t   API   LoByte( const uint16_t x ); 
+    uint8_t   API   HiByte( const uint16_t x );
 
 private:
 	//uint16_t     Concat(const string &bufptr);

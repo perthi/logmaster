@@ -118,7 +118,7 @@ TestGCommandLineArgument::ValidateFunct(const string /*cmnd*/, const string /*ar
 }
 
 
-/*
+
 TEST_F(TestGCommandLineArgument, simpleArgs)
 {
 	g->ScanArguments("-myint 10");
@@ -183,7 +183,7 @@ TEST_F(TestGCommandLineArgument, excpetions)
 
 
 	//The following 3 test cases should also throw an exeption, while actually they dont
-	//See bug report  NSR-168 
+	//See bug report  NSR-168
 	EXPECT_ANY_THROW(g->ScanArguments("-myint 42 -mydouble 3.14159265358979323846   -mystring  \"hello world\"  gibberish"));
 	EXPECT_ANY_THROW(g->ScanArguments("-myint 42 -mydouble 3.14159265358979323846    gibberish"));
 	EXPECT_ANY_THROW(g->ScanArguments("-myint 42 -mydouble 3.14159265358979323846  --gibberish"));
@@ -203,27 +203,31 @@ TEST_F(TestGCommandLineArgument, vectorStringArgs)
 		EXPECT_EQ(vs[2], "gamma");
 	}
 }
-*/
+
 
 
 TEST_F(TestGCommandLineArgument, boolArgs)
 {
-	//Testing for bug NSR-168
-	g->ScanArguments("-mybool");
+	EXPECT_NO_THROW(g->ScanArguments("-mybool"));
 	EXPECT_EQ(b, true);
-	// Testing for bug NSR-168 and NSR-169
+	EXPECT_NO_THROW(g->ScanArguments("-mybool --false"));
+	EXPECT_EQ(b, false);
+	EXPECT_NO_THROW(g->ScanArguments("-mybool --true"));
+	EXPECT_EQ(b, true);
+	EXPECT_NO_THROW(g->ScanArguments("-mybool 0"));
+	EXPECT_EQ(b, false);
+	EXPECT_NO_THROW(g->ScanArguments("-mybool 1"));
+	EXPECT_EQ(b, true);
 
-//	EXPECT_NO_THROW(g->ScanArguments("-mybool --true"));
-
-
-
-	EXPECT_ANY_THROW( g->ScanArguments("-mybool --false --gibberish") );
-//	EXPECT_ANY_THROW(g->ScanArguments("-mybool -alpha beta gamma"));
+	EXPECT_THROW(g->ScanArguments("-mybool --gibberish"), GInvalidArgumentException);
+	EXPECT_THROW(g->ScanArguments("-mybool -gibberish"), GInvalidArgumentException);
+	EXPECT_THROW(g->ScanArguments("-mybool gibberish"), GInvalidArgumentException);
+	EXPECT_THROW(g->ScanArguments("-mybool --false --blahh"), GInvalidArgumentException);
+	EXPECT_THROW(g->ScanArguments("-mybool -alpha beta gamma"), GInvalidArgumentException);
 
 	//* Now we try with a validation function. We use a default validation function for 
    // * boolean argumenst which takes --true and --false as subcommands 
-	
-	/*
+
 	barg->SetValidationFunction(GCmdApi::bool2);
 	g->ScanArguments("-mybool");
 	EXPECT_EQ(b, true);
@@ -231,46 +235,27 @@ TEST_F(TestGCommandLineArgument, boolArgs)
 	EXPECT_EQ(b, true);
 	g->ScanArguments("-mybool --false");
 	EXPECT_EQ(b, false);
-	EXPECT_ANY_THROW(g->ScanArguments("-mybool --true gibberish"));
+	
+    EXPECT_ANY_THROW(g->ScanArguments("-mybool --true gibberish"));
 	EXPECT_ANY_THROW(g->ScanArguments("-mybool --false --gibberish"));
 	EXPECT_ANY_THROW(g->ScanArguments("-mybool -alpha beta gamm"));
-	*/
+
 }
 
 
-/*
 TEST_F(TestGCommandLineArgument, mandatoryArgs)
 {
-	try
-	{
-
-		// Adding a mandatory argument to the argument list
-		std::shared_ptr<GCommandLineArgument <double> > mdarg = std::make_shared < GCommandLineArgument <double> >("-mandatory", "-mandatory [value]", "This is the documentation", &d, fgkMANDATORY, nullptr);
-		g->AddArgument(mdarg);
-		///-myint is  valid  argument, but since -mandatory is missing, we shall still get an exception 
-		EXPECT_ANY_THROW(g->ScanArguments("-myint 20"));
-
-		g->RemoveArgument("-myint 30");
-		// fArgs.pop_back(); // now we remove mandatory argument that was last added, then it should work
-		g->ScanArguments("-myint 30");
-		EXPECT_EQ(i, 30);
-	}
-	catch (GException& e)
-	{
-		CERR << e.what() << ENDL;
-	}
-	catch (const std::exception& e)
-	{
-		CERR << e.what() << ENDL;
-	}
-	catch (...)
-	{
-		CERR << "UNKNOWN exception caught" << ENDL;
-	}
-
+	std::shared_ptr<GCommandLineArgument <double> > mdarg = std::make_shared < GCommandLineArgument <double> >("-mandatory", "-mandatory [value]", "This is the documentation", &d, fgkMANDATORY, nullptr);
+	g->AddArgument(mdarg);
+	///-myint is  valid  argument, but since -mandatory is missing, we shall still get an exception
+	EXPECT_ANY_THROW(g->ScanArguments("-myint 20"));
+	EXPECT_NO_THROW(g->ScanArguments("-myint 42 -mandatory 1.234"));
+	//g->ScanArguments("-myint 30");
+	EXPECT_EQ(i, 42);
+	g->RemoveArgument("-mandatory");
+	EXPECT_ANY_THROW(g->ScanArguments("-myint 42 -mandatory 1.234"));
+	EXPECT_NO_THROW(g->ScanArguments("-myint 42"));
 }
-
-
 
 
 TEST_F(TestGCommandLineArgument, validationFunction)
@@ -465,13 +450,11 @@ TEST_F(TestGCommandLineArgument, unsignedInt)
 }
 
 
+
+
 TEST_F(TestGCommandLineArgument,  duplicatesNSR247)
 {
-     g->AddArgument( farg );
-     g->AddArgument( farg );
-
-//     ////fArgs.push_back(farg); // Duplicate comman that was allready added in the Setup method
-     EXPECT_ANY_THROW ( g->ScanArguments("") );
+	EXPECT_ANY_THROW(g->AddArgument(farg) );
 }
 
 
@@ -538,6 +521,4 @@ TEST_F(TestGCommandLineArgument, stringscanBugNSR808)
 
 	EXPECT_EQ(test, "lorem ipsum");
 }
-
-*/
 

@@ -122,8 +122,11 @@ TEST_F( TestLogging, set_logtarget )
         EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_SUBSCRIBERS | eMSGTARGET::TARGET_STDOUT);
         SET_LOGTARGET("--target-subscriber --target-stdout --target-off");
         EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_OFF);
+        
         SET_LOGTARGET("--target-all");
-//        EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_TESTING | eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_ALL);
+        EXPECT_EQ((int)l->GetLogTarget(), (int)0x3f);
+
+        
         EXPECT_EQ(  (int)l->GetLogTarget(),  (int)0x3f );
         SET_LOGTARGET("--target-all --target-off");
         EXPECT_EQ(l->GetLogTarget(), eMSGTARGET::TARGET_EXCEPTION | eMSGTARGET::TARGET_OFF);

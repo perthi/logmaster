@@ -52,7 +52,7 @@ GTokenizer::TokenizeCommandline(const string line,  int *argc, const char **argv
     
     *argc = (int)(n + 1);
 
-     for ( size_t i = 0; i < n +1; i++)
+     for ( size_t i = 0; i < n; i++)
      {    
           argv[i + 1] = tokens[i].c_str();
      }

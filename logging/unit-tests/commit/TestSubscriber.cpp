@@ -74,6 +74,7 @@ TestSubscriber::Subscriber2(   std::shared_ptr<LMessage> msg  )
 
 
 
+
 TEST_F(TestSubscriber, LogFilter)
 {
     SET_LOGTARGET("--target-subscriber");
@@ -166,9 +167,19 @@ TEST_F(TestSubscriber, setTargetFileTest)
 
 
 
+
 TEST_F(TestSubscriber, cmdLine  )
 {  
-    g->InitLogArgs();
+    try
+    {
+        g->InitLogArgs();
+    }
+    catch (GException &e)
+    {
+        CERR << e.what() << endl;
+        throw(e);
+    }
+
     LPublisher::Instance()->DisableColor();
     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 
