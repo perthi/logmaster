@@ -277,14 +277,6 @@ namespace LOGMASTER
     LHashMaps::IsSubCmdHash( const string &subcmd )
     {
         InitHash();
-        
-        // CERR << "size = " << fSubCmdHash.size() << endl;
-        
-        // for( auto h: fSubCmdHash )
-        // {
-        //     CERR << "hash = " <<  h.first << endl;
-        // }
-
         return fSubCmdHash.count( subcmd ) > 0 ? true : false;
     }
 
@@ -300,41 +292,49 @@ namespace LOGMASTER
 #else
         fp =  fopen(filename.c_str(), "w");
 #endif
-
-        fprintf(fp, "%s", "/**  \\page \"Logging System\"\n");
-        fprintf(fp, "%s", "* \\section command_line_options Command line options for the logging system\n");
-        fprintf(fp, "%s", "* Command | Parameters | Default | Explanation \n");
-        fprintf(fp, "%s", "* --------- | ---------- | --------- | --------- \n");
-
-        auto t = &fTargetHash;
-        auto f = &fFormatHash;
-        auto s = &fSubCmdHash;
-
-        fprintf(fp, "%s", "* -target |");
-        for (auto it = t->begin(); it != t->end(); it++)
+        if (fp == 0)
         {
-            fprintf(fp, "%s\\n", it->first.c_str());
+            CERR << "Could not open file:" << filename << "   for writing" << endl;
+            return "";
         }
-
-        fprintf(fp, "%s", " | --file | Where to write the log messages\n");
-        fprintf(fp, "%s", "* -format |");
-
-        for (auto it = f->begin(); it != f->end(); it++)
+        else
         {
-            fprintf(fp, "%s\\n", it->first.c_str());
+            fprintf(fp, "%s", "/**  \\page \"Logging System\"\n");
+            fprintf(fp, "%s", "* \\section command_line_options Command line options for the logging system\n");
+            fprintf(fp, "%s", "* Command | Parameters | Default | Explanation \n");
+            fprintf(fp, "%s", "* --------- | ---------- | --------- | --------- \n");
+
+            auto t = &fTargetHash;
+            auto f = &fFormatHash;
+            auto s = &fSubCmdHash;
+
+            fprintf(fp, "%s", "* -target |");
+            for (auto it = t->begin(); it != t->end(); it++)
+            {
+                fprintf(fp, "%s\\n", it->first.c_str());
+            }
+
+            fprintf(fp, "%s", " | --file | Where to write the log messages\n");
+            fprintf(fp, "%s", "* -format |");
+
+            for (auto it = f->begin(); it != f->end(); it++)
+            {
+                fprintf(fp, "%s\\n", it->first.c_str());
+            }
+
+            fprintf(fp, "%s", " |  1111111 | Options controlling the format of the log messages\n");
+
+            fprintf(fp, "%s", "* -loglevel |");
+            for (auto it = s->begin(); it != s->end(); it++)
+            {
+                fprintf(fp, " %s\\n", it->first.c_str());
+            }
+
+            fprintf(fp, "%s", " |  --all-error | Which subsystem / loglevel to log information from\n");
+            fprintf(fp, "%s", "*/");
+            fclose(fp);
         }
-
-        fprintf(fp, "%s", " |  1111111 | Options controlling the format of the log messages\n");
-
-        fprintf(fp, "%s", "* -loglevel |");
-        for (auto it = s->begin(); it != s->end(); it++)
-        {
-            fprintf(fp, " %s\\n", it->first.c_str());
-        }
-
-        fprintf(fp, "%s", " |  --all-error | Which subsystem / loglevel to log information from\n");
-        fprintf(fp, "%s", "*/");
-        fclose(fp);
+        /// TODO return string containing doc
         return string();
     }
 

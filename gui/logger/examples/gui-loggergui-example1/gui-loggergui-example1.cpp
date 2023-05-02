@@ -28,18 +28,8 @@ using std::cerr;
 
 int main(int argc, char* argv[])
 {
-    //GUILoggerBase();
     LLogging::Instance();
     SET_LOGLEVEL("--all-debug");
-
-  //  QMap<int, LMessage> fLoggedMessages2;
-  //  QMap<int, LMessage> fNewMessages2;
-
-  //  COUT << "fLoggedMessages2.size() = " << fLoggedMessages2.size()  << endl;
-  //  COUT << "fNewMessages2.size() = " << fNewMessages2.size() << endl;
-
-   // GUILoggerBase().SetLoggedMessage(fLoggedMessages2);
-   // GUILoggerBase().SetNewMessage(fNewMessages2);
 
     try
     {
@@ -55,13 +45,8 @@ int main(int argc, char* argv[])
         QMainWindow* mainWindow = new QMainWindow;
         mainWindow->setCentralWidget(widget);
         mainWindow->show();
-        //widget->startTimer(1000);
         widget->startTimer(900);
-     //   logger->startTimer(600);
-
         qApp->exec();
-        
-       // ExecWidget(widget);
     
     }
     catch (GException & e)

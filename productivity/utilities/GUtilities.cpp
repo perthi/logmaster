@@ -210,6 +210,7 @@ GUtilities::AutoClause( string addendum, FILE *fp)
 
 }  
 
+
 string              
 GUtilities::TrueOrFalse( const bool val ) const
 {
