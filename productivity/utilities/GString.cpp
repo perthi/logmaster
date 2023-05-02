@@ -261,26 +261,21 @@ vector<string> GString::Trim(vector<string>& s, const vector<char> tokens)
 string& GString::ToLower(string& s)
 {
     static string str;
-
     str = s;
     // IF UTF-8, convert to wide char and do to lower on wide char
     if (!IsAnsi(str))
     {
         std::locale loc("");
-
         std::wstring ws;
-      //  ws = MultiByteToWideChar(CP_UTF8, 0, s.c_str());
+        ws.resize(6);
         MultiByteToWideChar(CP_UTF8, 0, s.c_str(), (int)s.size(), &ws[0], (int)ws.size());
-      //  std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-      //  ws = converter.from_bytes(str);
-     
 
         for (unsigned int n = 0; n < ws.size(); n++)
         {
             ws[n] = std::tolower(ws[n], loc);
         }
 
-        str.resize(ws.size() * 4);
+        str.resize(ws.size()*2);
 
         WideCharToMultiByte( CP_UTF8, 0, ws.c_str(), (int)ws.size(), &str[0], (int)str.size(), 0, 0);
        // str = converter.to_bytes(ws);
@@ -297,7 +292,8 @@ string& GString::ToLower(string& s)
         str = tmp;
         delete[] tmp;
     }
-    return(str);
+
+    return(Trim(str, { ' ','\0' }) );
 }
 
 
@@ -308,25 +304,22 @@ string& GString::ToLower(string& s)
 string& GString::ToUpper(string& s)
 {
     static string str;
-
     str = s;
     // IF UTF-8, convert to wide char and do to lower on wide char
     if (!IsAnsi(str))
     {
         std::locale loc("");
-
         std::wstring ws;
+        ws.resize(s.size()*4);
         //std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
 
         MultiByteToWideChar(CP_UTF8, 0, s.c_str(), (int)s.size(), &ws[0], (int)ws.size());
-
      //   ws = converter.from_bytes(str);
         for (unsigned int n = 0; n < ws.size(); n++)
         {
             ws[n] = std::toupper(ws[n], loc);
         }
        
-
         WideCharToMultiByte(CP_UTF8, 0, ws.c_str(), (int)ws.size(), &str[0], (int)str.size(), 0, 0);
         //str = converter.to_bytes(ws);
     }
@@ -342,6 +335,7 @@ string& GString::ToUpper(string& s)
         str = tmp;
         delete[] tmp;
     }
+
     return(str);
 }
 

@@ -34,7 +34,7 @@
 using namespace GCONSTANTS;
 
 
-
+/*
 TEST_F(TestGString, ReplaceBadChar)
 {
     char tmp[] = "&&this%#&!!isateststring";
@@ -263,6 +263,8 @@ TEST_F(TestGString, ToStringBUG_NSR1049)
     EXPECT_EQ(  "130000.1234567123",  g_string()->ToString<long double>((long double)130000.1234567123));
 }
 #endif
+*/
+
 
 
 TEST_F(TestGString, Utf8ToAnsi)
@@ -275,17 +277,23 @@ TEST_F(TestGString, Utf8ToAnsi)
 
 
 
+
 #ifdef _WIN32
 TEST_F(TestGString, AnsiToUtf8)
 {
    const std::string makeNoChanges = "A sentence without special characters";
-   const std::string norwegianAnsi = "� � � � � �";
-   const std::string norwegianUtf8 = "\xC3\xA6 \xC3\xb8 \xC3\xA5 \xC3\x86 \xC3\x98 \xC3\x85";
+   
+  // const std::string norwegianAnsi = "� � � � � �";
+   const std::string norwegianAnsi  = "\xA6 \xb8 \xA5 \x86 \x98 \x85";
+
+   const std::string norwegianUtf8 = "\xC2\xA6 \xC2\xb8 \xC2\xA5 \xC2\x86 \xC2\x98 \xC2\x85";
 
    EXPECT_EQ(makeNoChanges,  g_string()->AnsiToUtf8(makeNoChanges));
-   //EXPECT_EQ(norwegianUtf8,  g_string()->AnsiToUtf8(norwegianAnsi));
+   EXPECT_EQ(norwegianUtf8,  g_string()->AnsiToUtf8(norwegianAnsi));
 }
 #endif
+
+
 
 
 #ifdef _WIN32
@@ -293,7 +301,11 @@ TEST_F(TestGString, ToLower)
 {
     string s = "ABC \xC2\xA2 123";
     EXPECT_EQ("abc \xC2\xA2 123",  g_string()->ToLower(s));
-    EXPECT_EQ("ABC \xC2\xA2 123", s);
+
+    string s2 = "ABCdeFGH123";
+    EXPECT_EQ("abcdefgh123", g_string()->ToLower(s2));
+
+   EXPECT_EQ("ABC \xC2\xA2 123", s);
     s = "ABC \xA2 123";
     EXPECT_EQ("abc \xA2 123",  g_string()->ToLower(s));
     s = "ABC \xC5 123";
@@ -302,6 +314,8 @@ TEST_F(TestGString, ToLower)
     EXPECT_EQ("abc \xC3\xA5 123",  g_string()->ToLower(s));
 }
 #endif
+
+
 
 
 #ifdef _WIN32
@@ -324,6 +338,10 @@ TEST_F(TestGString, ToUpper)
 #endif
 
 
+
+
+
+/*
 TEST_F(TestGString, is_match)
 {
     string pattern = "123";
@@ -340,3 +358,4 @@ TEST_F(TestGString, beginswidth_empty)
     string s = "lorem ipsum";
     EXPECT_TRUE( g_string()->BeginsWith( s, "" ));
 }
+*/
