@@ -2,20 +2,21 @@
 
 dir /b  *.h > files.txt
 
-
-:: del *moc.h
-:: del *moc.cpp
+del *moc.h > nul
+del *moc.cpp > nul
 
 
 for /F "tokens=*" %%A in (files.txt) do (
  	>nul findstr "Q_OBJECT" %%A && (
-	  echo "Q_OBJECT" was found in %%A !!!!!!!!!!!!!!!!!!!!!!!! > nul
+	  echo "Q_OBJECT" was found in %%A  > nul
 	  echo(%%A|findstr /r /c:"moc" >nul && (
-	   		..\moc --no-warnings %%A > tmp_moc.h 		
-	   		fc %%~nA_moc.h tmp_moc.h > nul
+	   		echo file = %%A  no moch generated >  nul	
+	   		) || (
+	   		..\moc  %%A > tmp_moc.h	   		
+	   		
 	   		if  errorlevel 0 (
-	   			echo generating moc files:  %%~nA_moc.h  and %%~nA_moc.cpp
-	   			copy tmp_moc.h %%~nA_moc.h
+	   			echo generating QT moc files:  %%~nA_moc.h  and %%~nA_moc.cpp
+	   			copy tmp_moc.h %%~nA_moc.h > nul
 	   			echo #include "%%~nA_moc.h" > %%~nA_moc.cpp
 	   		) else (
 	   			echo "ERROR CREATING MOC FILES !!!!"
@@ -26,17 +27,4 @@ for /F "tokens=*" %%A in (files.txt) do (
 	)	
  )
 
-
-
-
-
-
-
-
-
- 
- 
-del files.txt
-
-
-exit 0
+del tmp_moc.h > nul

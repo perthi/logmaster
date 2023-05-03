@@ -14,6 +14,7 @@
 
 /* @class GCommon  Helper class for the other utilities classes */
 
+#include  "GDefinitions.h"
 
 #include <string>
 using std::string;
@@ -22,11 +23,10 @@ using std::string;
 class  GCommonXML;
 struct GLocationXml;
 
-GCommonXML * g_common_xml();
+GCommonXML API * g_common_xml();
 
 #define DISABLE_EXCEPTION true
 #define THROW_EXCEPTION  false
-
 
 /** @brief Some common global defines and functions */
 class GCommonXML
@@ -35,14 +35,9 @@ class GCommonXML
 	friend    GCommonXML * g_common_xml();
 
 public:
-GCommonXML() {};
-	~GCommonXML() {};
-	void  HandleError(const string message, const GLocationXml l, const bool disable_error );
-
-private:
+    API GCommonXML() {};
+	API ~GCommonXML() {};
+	void  API HandleError(const string message, const GLocationXml l, const bool disable_error );
 
 };
-
-
-
 

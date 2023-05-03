@@ -92,10 +92,10 @@ GSemaphore::HandleSemaphoreError( const int ret, const double time ) const
  * @param[in]  s  The semaphore to wait for
  * @param[in]  timetowait_sec The time in seconds to wait for the semaphore
  * @return the return value of sem_trywait.*/
+#ifndef _WIN32
 int 
 GSemaphore::TimedWait(sem_t *s, const double timetowait_sec)
 {
-#ifndef _WIN32
     static timespec ts;
     double current_time = GTime().GetEpochTime();
     double wait_until = current_time + timetowait_sec;
@@ -114,17 +114,24 @@ GSemaphore::TimedWait(sem_t *s, const double timetowait_sec)
         return ret;
     }
 
-    return 0;
-#else
-    return 0;
-#endif
+    return 0; /// TODO return value
 }
 
+#else
+int
+GSemaphore::TimedWait(const double timetowait_sec)
+{
+    GCommon().HandleError(GText("Not yet implemeted for Windows").str(), GLOCATION, DISABLE_EXCEPTION);
+    return -1;
+}
+#endif
 
+
+#ifndef _WIN32
 int 
 GSemaphore::Wait(sem_t *s)
 {
-#ifndef _WIN32
+
   int ret = sem_wait(s);
     if( ret != 0 )
     {
@@ -133,20 +140,25 @@ GSemaphore::Wait(sem_t *s)
     }
 
     return ret;
-#else
-    return 0;
-#endif
 }
+#else
+int
+GSemaphore::Wait( )
+{
+    GCommon().HandleError(GText("Not yet implemeted for Windows").str(), GLOCATION, DISABLE_EXCEPTION);
+    return -1;
+}
+#endif
 
 
+#ifndef _WIN32
 int 
 GSemaphore::Post( sem_t *s)
 {
-#ifndef _WIN32
+
     int val = 0;
     sem_getvalue(s, &val);
 
-  //  int ret = sem_wait(fSem  );
     if(val != 0)
     {
         GCommon().HandleError(  GText("Expected semaphore to be ZERO before call to POST, sem value = %d,  ignoring call", val).str(), GLOCATION, DISABLE_EXCEPTION) ;
@@ -156,7 +168,5 @@ GSemaphore::Post( sem_t *s)
     {
         return sem_post(s);
     }
-#else
-    return 0;
-#endif
 }
+#endif

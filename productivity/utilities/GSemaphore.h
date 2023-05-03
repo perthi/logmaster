@@ -28,10 +28,6 @@
 #endif
 
 #include <fcntl.h> /* O_CREAT, O_EXEC          */
-
-
-
-
 #include <utilities/GDefinitions.h>
 
 class GSemaphore;
@@ -45,9 +41,16 @@ class  GSemaphore
 public:
     static GSemaphore API * Instance();
     void HandleSemaphoreError( const int ret, const double time = 0 ) const;
+#ifndef _WIN32
     int Wait(sem_t *s);
     int TimedWait(sem_t *s,  const double timetowait_sec = 1 );
     int Post(sem_t *s); 
+#else
+    int Wait();
+    int TimedWait(const double timetowait_sec = 1);
+    int Post();
+#endif
+
 private:    
     GSemaphore();
     virtual ~GSemaphore();

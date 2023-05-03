@@ -48,24 +48,24 @@ public:
     API virtual ~GXmlParser();
 
     template<typename T>
-	inline T String2Enum(const string hash, std::map<string, T>*);
+	inline T API String2Enum(const string hash, std::map<string, T>*);
 
 protected:
 	template<typename T>
-	inline T  GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader,  const string tagname, GLocationXml l ,const bool read_node  = true );
+	inline T   API GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader,  const string tagname, GLocationXml l ,const bool read_node  = true );
 
 	template<typename T >
-	inline T     GetTagValueOrNothing( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname, GLocationXml l, bool *has_value ,const bool read_node = true );
+	inline T   API GetTagValueOrNothing( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname, GLocationXml l, bool *has_value ,const bool read_node = true );
 	
 	template < typename T>    
-	inline string Hash2String( const map< string, T>   *m, const int ncols = 8, const string sep = "");
+	inline string API Hash2String( const map< string, T>   *m, const int ncols = 8, const string sep = "");
 
-	void   AssertTagOpenGroup(std::shared_ptr<GXmlStreamReader> xmlReader, const string, GLocationXml l, const bool read_node = true );
-	void   AssertTagCloseGroup(std::shared_ptr<GXmlStreamReader> xmlReader, const string, GLocationXml l,  const bool read_node = true  );
-	void   AssertTag(std::shared_ptr<GXmlStreamReader> xmlReader, const string, GLocationXml l, eXML_NODETYPE node_type, const bool read_node = true  );
-	void   PrinttAttributes( const GXmlNode * const node , GLocationXml l );
-	bool   HasAttributes(  const GXmlNode * const node ) const;
-	string ToString( const eXML_NODETYPE type);
+	void   API AssertTagOpenGroup(std::shared_ptr<GXmlStreamReader> xmlReader, const string, GLocationXml l, const bool read_node = true );
+	void   API AssertTagCloseGroup(std::shared_ptr<GXmlStreamReader> xmlReader, const string, GLocationXml l,  const bool read_node = true  );
+	void   API AssertTag(std::shared_ptr<GXmlStreamReader> xmlReader, const string, GLocationXml l, eXML_NODETYPE node_type, const bool read_node = true  );
+	void   API PrinttAttributes( const GXmlNode * const node , GLocationXml l );
+	bool   API HasAttributes(  const GXmlNode * const node ) const;
+	string API ToString( const eXML_NODETYPE type);
 };
 
 

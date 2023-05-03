@@ -39,7 +39,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -117,13 +117,16 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)xml\3rd-party\libxml\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\3rd-party\libxml\lib\x64</AdditionalLibraryDirectories>
       <AdditionalDependencies>libxml2.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
       </Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>copy  $(ProjectDir)\3rd-party\libxml\lib\x64\*  $(bindir)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

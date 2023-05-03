@@ -27,7 +27,7 @@
 ******************************************************************************/
 
 #include  "GCommonXML.h"
-#include  "GDefinitions.h"
+
 
 
 #ifdef HAS_LOGGING
@@ -46,14 +46,11 @@ using std::endl;
 using std::cerr;
 
 
-
 GCommonXML * g_common_xml()
 {
 	static GCommonXML *instance = new GCommonXML();
 	return instance;
 }
-
-
 
 
 #ifdef HAS_LOGGING

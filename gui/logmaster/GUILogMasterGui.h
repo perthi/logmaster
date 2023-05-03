@@ -27,6 +27,8 @@
 
 
 
+
+
     class GUILogMasterGui : public QWidget
     {
         Q_OBJECT
