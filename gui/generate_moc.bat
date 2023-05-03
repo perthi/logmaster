@@ -27,4 +27,5 @@ for /F "tokens=*" %%A in (files.txt) do (
 	)	
  )
 
+del files.txt > nul
 del tmp_moc.h > nul
