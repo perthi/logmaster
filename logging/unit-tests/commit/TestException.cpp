@@ -27,6 +27,7 @@ TestException::~TestException()
 void 
 TestException::SetUp()
 {
+	LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
     TestBase::SetUp();
 }
 
@@ -43,60 +44,54 @@ TEST_F( TestException, simple)
 
 
 
+ /// Here we check that the expected mesaage is written to the logfile by the logging system 
+ TEST_F(TestException, fileIO)
+ {
+     string f1 = g_random()->Name("exception_fileio_test", ".txt");
+     string f2 = g_random()->Name("exception_fileio_test", ".txt");
 
+     SET_LOGFILENAME(f1);
+     SET_LOGTARGET("0000 --target-file");
+     SET_LOGFORMAT("1000001");
 
-// /// Here we check that the expected mesaage is written to the logfile by the logging system 
-// TEST_F(TestException, fileIO)
-// {
-//     string f1 = g_random()->Name("exception_fileio_test", ".txt");
-//     string f2 = g_random()->Name("exception_fileio_test", ".txt");
+     EXPECT_ANY_THROW(EXCEPTION("a simple exception"));
+	 EXPECT_EQ(g_file()->ReadFirstLine(f1),  "<Fatal:Exeption>         \ta simple exception (class GException)");
+     SET_LOGFILENAME(f2);
 
-//     SET_LOGFILENAME(f1);
-//     SET_LOGTARGET("0000 --target-file");
-//     SET_LOGFORMAT("01000001");
+     string f = "dontexist.txt";
+     EXPECT_THROW(FILE_NOT_FOUND_EXCEPTION("Cannot find file: %s", f.c_str()), GFileNotFoundException);
+     EXPECT_EQ( g_file()->ReadFirstLine(f2), "<Fatal:Exeption>         \tCannot find file: dontexist.txt (class GFileNotFoundException)");
 
-//     EXPECT_ANY_THROW(EXCEPTION("a simple exception"));
-//     EXPECT_EQ(g_file()->ReadFirstLine(f1),  "<Error:Exeption>         \ta simple exception (class GException)");
-    
-//     SET_LOGFILENAME(f2);
+     g_file()->Delete(f1);
+     g_file()->Delete(f2);
 
-//     string f = "dontexist.txt";
-//     EXPECT_THROW(FILE_NOT_FOUND_EXCEPTION("Cannot find file: %s", f.c_str()), GFileNotFoundException);
-//     EXPECT_EQ( g_file()->ReadFirstLine(f2), "<Error:Exeption>         \tCannot find file: dontexist.txt (class GFileNotFoundException)");
-    
-//     g_file()->Delete(f1);
-//     g_file()->Delete(f2);
-//  }
+     g_file()->Delete(f1 + ".json");
+     g_file()->Delete(f2 + ".json");
+  }
  
 
+ TEST_F(TestException, NSR248)
+ {
+     SET_LOGFORMAT("0000001");
 
-
-
-// TEST_F(TestException, NSR248)
-// {
-//     SET_LOGFORMAT("00000001");
-// //	SET_LOGLEVEL("--debug");
-// //	SET_LOGTARGET("--target-exception");
-
-//     try
-//     {
-//         throw(GText("A Simple GText with a parameter = %d", 42));
-//     }
-//     catch(GText &e)
-//     {
-//         EXPECT_EQ(true,  g_string()->BeginsWith(e.what(), "A Simple GText with a parameter = 42", false ));
-//     }
-//     try
-//     {
-//         EXCEPTION("A Simple Text with another parameter = %d", 69);
-//     }
-//     catch (GException &e)
-//     {
-//        EXPECT_EQ(true,  g_string()->Contains(e.what(), "Simple Text with another parameter = 69 (class GException)", false));
-//        EXPECT_STREQ( "\tA Simple Text with another parameter = 69 (class GException)\n", e.what() );
-//     }     
-// }
-
+     try
+     {
+         throw(GText("A Simple GText with a parameter = %d", 42));
+     }
+     catch(GText &e)
+     {
+         EXPECT_EQ(true,  g_string()->BeginsWith(e.what(), "A Simple GText with a parameter = 42", false ));
+     }
+     try
+     {
+         EXCEPTION("A Simple Text with another parameter = %d", 69);
+     }
+     catch (GException &e)
+     {
+        EXPECT_EQ(true,  g_string()->Contains(e.what(), "Simple Text with another parameter = 69 (class GException)", false));
+        EXPECT_STREQ( "\tA Simple Text with another parameter = 69 (class GException)\n", e.what() );
+     }     
+ }
 
 
 TEST_F(TestException, assert_macro)
@@ -110,28 +105,26 @@ TEST_F(TestException, assert_macro)
 
 
 
-
-// TEST_F(TestException, buffer_overwrite_NSR1737)
-// {
-// 	PUSH();
-// 	SET_LOGFORMAT("00000001");
-// 	SET_LOGTARGET("0000 --target-file");
+ TEST_F(TestException, buffer_overwrite_NSR1737)
+ {
+ 	PUSH();
+ 	SET_LOGFORMAT("0000001");
+ 	SET_LOGTARGET("0000 --target-file");
 	
-// 	 char *msg = 0;
+ 	 char *msg = 0;
 
-// 	try
-// 	{
-// 		EXCEPTION("lorem ipsum");
-// 	}
-// 	catch(GException &e)
-// 	{
-// 		msg = G_ERROR( "The exception message is:%s",  e.what( ) )->at(eMSGTARGET::TARGET_EXCEPTION)->fMsgBody;
-// 	}
+ 	try
+ 	{
+ 		EXCEPTION("lorem ipsum");
+ 	}
+ 	catch(GException &e)
+ 	{
+ 		msg = G_ERROR( "The exception message is:%s",  e.what( ) )->at(eMSGTARGET::TARGET_EXCEPTION)->fMsgBody;
+ 	}
 			
-// 	EXPECT_STREQ("The exception message is:\tlorem ipsum (class GException)\n", msg );
-// 	POP();
-// }
-
+ 	EXPECT_STREQ("The exception message is:\tlorem ipsum (class GException)\n", msg );
+ 	POP();
+ }
 
 
 
@@ -169,31 +162,30 @@ TEST_F(TestException, disable_execptionNSR1769)
 }
 
 
-
-// TEST_F(TestException, missing_messageNSR2366)
-// {
-// 	GException::EnableException();
-// 	int number = 42;
-// 	SET_LOGFORMAT("00000001");
+ TEST_F(TestException, missing_messageNSR2366)
+ {
+ 	GException::EnableException();
+ 	int number = 42;
+ 	SET_LOGFORMAT("0000001");
 	
-// 	try
-// 	{
-// 		EXCEPTION("lorem ipsum, the number is %d", number );
-// 	}
-// 	catch (GException &e)
-// 	{
-// 		EXPECT_STREQ( "\tlorem ipsum, the number is 42 (class GException)\n", e.what() );
-// 	}
+ 	try
+ 	{
+ 		EXCEPTION("lorem ipsum, the number is %d", number );
+ 	}
+ 	catch (GException &e)
+ 	{
+ 		EXPECT_STREQ( "\tlorem ipsum, the number is 42 (class GException)\n", e.what() );
+ 	}
 
-// 	SET_LOGLEVEL("--all-off");
+ 	SET_LOGLEVEL("--all-off");
 
-// 	try
-// 	{
-// 		EXCEPTION("lorem ipsum, the number is %d",  number );
-// 	}
-// 	catch (GException &e)
-// 	{
-// 		EXPECT_STREQ("\tlorem ipsum, the number is 42 (class GException)\n", e.what());
-// 	}
-// }
+ 	try
+ 	{
+ 		EXCEPTION("lorem ipsum, the number is %d",  number );
+ 	}
+ 	catch (GException &e)
+ 	{
+ 		EXPECT_STREQ("\tlorem ipsum, the number is 42 (class GException)\n", e.what());
+ 	}
+ }
 
