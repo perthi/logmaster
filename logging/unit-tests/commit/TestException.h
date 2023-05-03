@@ -1,5 +1,4 @@
 #pragma once
-//#include "TestLogging.h"
 
 #include <testlib/TestBase.h>
 
@@ -13,8 +12,8 @@ class TestException : public TestBase
    // public TestLogging
 {
 public:
-    TestException();
-    virtual ~TestException();
+    //TestException();
+    //virtual ~TestException();
     virtual void SetUp();
 };
 

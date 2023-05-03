@@ -225,14 +225,29 @@ doCheckFormat(const char *filename, int lineno, const char *function, const char
 
 
     #endif
-    catch(std::exception &e)
+
+  /// @todo simplify with lamda functions
+  catch (std::invalid_argument& e)
+  {
+      std::stringstream str;
+      str << "Error when checking format: " << fmt << ": " << e.what();
+      reason = str.str();
+      throw(e);
+      formatOk = false;
+  }
+  
+  catch(std::exception &e)
     {
         std::stringstream str;
         str << "Error when checking format: " << fmt << ": " << e.what();
         reason = str.str();
         throw(e);
+       // throw(std::invalid_argument(str.str().c_str()));
         formatOk = false;
     }
+    
+  
+
     catch(...)
     {
         std::stringstream str;

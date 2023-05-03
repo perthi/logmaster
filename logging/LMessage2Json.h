@@ -20,10 +20,10 @@ namespace LOGMASTER
 	class  LMessage2Json
 	{
 		public:
-			LMessage2Json();
-			virtual ~LMessage2Json();
-			void Message2Json(   std::shared_ptr<LMessage>  msg, nlohmann::json  &j  );
-			void SetJsonUser( const nlohmann::json j );
+			API LMessage2Json();
+			virtual API ~LMessage2Json();
+			void API Message2Json(   std::shared_ptr<LMessage>  msg, nlohmann::json  &j  );
+			void API SetJsonUser( const nlohmann::json j );
 
 		private:
 			nlohmann::json fJsonUser; //!< Optional user addition to the json log message

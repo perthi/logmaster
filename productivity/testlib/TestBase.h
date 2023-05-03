@@ -110,7 +110,6 @@ class TestBase : public testing::Test
 
 public:
 	API inline TestBase();
-	API virtual inline ~TestBase();
 	API string FileIOTest(const string fname = "");
 
 protected:
@@ -125,6 +124,7 @@ private:
 	inline void operator=(TestBase &);
 };
 
+
 inline TestBase::TestBase()
 {
 	SET_LOGTARGET("--target-off --target-file");
@@ -133,10 +133,6 @@ inline TestBase::TestBase()
         Init();
 }
 
-inline TestBase::~TestBase()
-{
-	//l->Pop();
-}
 
 inline void
 TestBase::Init()

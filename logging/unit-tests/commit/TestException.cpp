@@ -11,7 +11,7 @@
 //#include <logging/LMessageGenerator.h>
 
 
-
+/*
 TestException::TestException() : TestBase()
 {
 
@@ -22,6 +22,7 @@ TestException::~TestException()
 {
 
 }
+*/
 
 
 void 
