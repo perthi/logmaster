@@ -13,6 +13,14 @@
 *** General Public License(LGPL) V3 or later.See.cpp file for details     ***
 *****************************************************************************/
 
+#define WINDOWS_IGNORE_PACKING_MISMATCH
+
+#ifdef _WIN32
+#include <Windows.h>
+#endif // 
+
+#include <utilities/GColor.h>
+
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -26,7 +34,6 @@ using std::string;
 
 
 #ifdef _WIN64f
-
 #define __CALL__  _fastcall 
 #else
 #ifdef _WIN32
@@ -72,6 +79,7 @@ using std::string;
 
 // #define COUT  cout << __FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":"
 
+
 #undef COUT
 #define COUT  cout <<  std::dec << __FUNCTION__ << ":[" << __LINE__  << "]"
 #define COUT_HEX  cout <<  std::dec << __FUNCTION__ << ":[" << __LINE__  << "]" << std::hex
@@ -79,16 +87,31 @@ using std::string;
 #if defined(__unix__)
 #define CERR   cerr << "\033[7;1;34m" <<__FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":" 
 #define ENDL   "\033[0m" << endl;
-
-//#endif
-#else
-#define CERR  cerr << __FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":"
-#define ENDL endl
 #endif
 
+#ifdef _WIN32
+#define CERR \
+{\
+static HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); \
+SetConsoleTextAttribute(hConsole, T_CYAN); \
+}\
+    cerr   << std::dec <<__FUNCTION__ << ":"  << __LINE__ << ":" 
+#define ENDL endl;\
+{\
+    static HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); \
+    SetConsoleTextAttribute(hConsole, CONSOLE_DEFAULT);\
+}
+
+#define CERR_HEX \
+{\
+ static HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);\
+SetConsoleTextAttribute(hConsole, T_CYAN); \
+}\
+cerr   << std::dec <<__FUNCTION__ << ":"  << __LINE__ << ":" << std::hex 
+#endif
+
+
 #define SHOW(a) COUT << #a << ": " << (a) << std::endl
-
-
 
 #if _WIN64
 typedef   wchar_t DBCHAR;
@@ -138,5 +161,4 @@ typedef  unsigned char    DBCHAR;
                                                                         \
         } \
     }
-
 

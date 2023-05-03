@@ -79,7 +79,7 @@ GDataBaseIF::SQLType2String(const int sql_type) const
         break;
     }
 
-    return "blahh";
+    return "Unknown sql_type:" + sql_type;
 
 }
 
@@ -94,7 +94,8 @@ GDataBaseIF::OpenDatabase(const char *db_path)
     #ifdef HAS_LOGGING
           HandleError(GLOCATION, eMSGLEVEL::LOG_DEBUG, DISABLE_EXCEPTION, "opening database \"%s\"",    db_path  );
     #else
-        HandleError(GLOCATION, DISABLE_EXCEPTION, "opening database \"%s\"",    db_path  );
+    /// @todo The HandleError function should be called something else since it handes regular messages also
+        HandleError(GLOCATION, DISABLE_EXCEPTION, "opening database \"%s\"\n",    db_path  );
     #endif 
 
     int rc;

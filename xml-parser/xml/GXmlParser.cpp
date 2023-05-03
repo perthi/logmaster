@@ -120,11 +120,11 @@ GXmlParser::PrinttAttributes( const GXmlNode * const node,  GLocationXml l)
 
 
 	#else
-	COUT << l.str() << ":" << GTextXml(   "tag = %s, type = %s, attributes.size() = %d", name.c_str(),  ToString(type).c_str() , a.size()  ).str()  << endl;	
+	//COUT << l.str() << ":" << GTextXml(   "tag = %s, type = %s, attributes.size() = %d", name.c_str(),  ToString(type).c_str() , a.size()  ).str()  << endl;	
 	
 	for(size_t i =0; i < a.size(); i++ )
 	{
-		COUT << l.str() << ":" << GTextXml(   "Attribute[%d]: name = %s, value = %s", i, a.at(i).GetName().c_str(), a.at(i).GetValue().c_str()    ).str()  << endl;	
+		//COUT << l.str() << ":" << GTextXml(   "Attribute[%d]: name = %s, value = %s", i, a.at(i).GetName().c_str(), a.at(i).GetValue().c_str()    ).str()  << endl;	
 	}
 
 	#endif

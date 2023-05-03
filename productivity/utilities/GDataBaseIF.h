@@ -54,6 +54,8 @@ class  GDataBaseIF
 
     bool API DeleteEntries( const string tablename );
 
+    string  API SQLType2String(const int sql_type) const;
+
     protected:
                 template<typename... Args>
                 #ifdef HAS_LOGGING
@@ -62,7 +64,7 @@ class  GDataBaseIF
                 void API HandleError(const GLocation l, const bool throw_ex, const char *fmt, const Args... args);
         #endif
         
-        string  API SQLType2String( const int sql_type  ) const;    
+       
         string  API LimitString( const int cnt );
         sqlite3       *fDataBase  =  nullptr; 
         sqlite3_stmt  *fStmt     =   nullptr;  // SQLite statmement 

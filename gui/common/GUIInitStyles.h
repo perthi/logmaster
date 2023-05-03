@@ -6,6 +6,7 @@
 * For more information please contact pth@embc.no
 ******************************************************/
 
+#define GUI
 #include <utilities/GDefinitions.h>
 
 class QApplication;

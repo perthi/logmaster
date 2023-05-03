@@ -86,9 +86,9 @@ namespace LOGMASTER
         public:
         static LDatabase API * Instance ( const string db_path = "" );
             
-            static void SetDatabase(  const string db_path  );
-            static void SetDatabaseDefault(    );
-            LDatabase(  );
+            static void API SetDatabase(  const string db_path  );
+            static void API SetDatabaseDefault(    );
+            API LDatabase(  );
             virtual ~LDatabase() {};
             virtual bool API CreateTables()  override ;
 
@@ -103,16 +103,16 @@ namespace LOGMASTER
             bool API InitSQLQuery(const int cnt);
             bool API InitSQLQuery(const string sql);
             
-            vector< LLogEntrySQL>  Query( const   string sql );
-            vector< LLogEntrySQL>  Query( const   int max_cnt);         
-            vector< LLogEntrySQL>  Query( const   uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
-            vector< LLogEntrySQL>  Query( const   uint64_t time_min,        const int time_max,  const int max_cnt );
-            vector< LLogEntrySQL>  Query( const   eMSGSYSTEM sys,  const int max_cnt) ;
-            vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const int max_cnt) ;
-            vector< LLogEntrySQL>  Query( const   eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
+            vector< LLogEntrySQL>  API Query( const   string sql );
+            vector< LLogEntrySQL>  API Query( const   int max_cnt);         
+            vector< LLogEntrySQL>  API Query( const   uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
+            vector< LLogEntrySQL>  API Query( const   uint64_t time_min,        const int time_max,  const int max_cnt );
+            vector< LLogEntrySQL>  API Query( const   eMSGSYSTEM sys,  const int max_cnt) ;
+            vector< LLogEntrySQL>  API Query( const   eMSGLEVEL lvl,  const int max_cnt) ;
+            vector< LLogEntrySQL>  API Query( const   eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
             bool  API ReadEntriesGetEntry(LLogEntrySQL &entry);
-            void SetMaxDbFileSize(const uint64_t maxSize);
-            string GetDBPath() const;
+            void  API SetMaxDbFileSize(const uint64_t maxSize);
+            string API GetDBPath() const;
 
         private:
             vector< LLogEntrySQL> FetchAll(   ); 

@@ -129,7 +129,8 @@
       <AdditionalDependencies>shell32.lib;logging.lib;cmdline.lib;utilities.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>..\generate_moc.bat</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -159,15 +159,15 @@ GXmlValidatorImpl::IsValid( string xml ,  string xsd )
 		return false;
 	}
 	#endif
-	catch( std::exception &e)
+	catch( std::exception & e)
 	{
 		//g_common_xml()->HandleError(  GTextXml( "%s", e.what() ).str() , GLOCATION_SRC, DISABLE_EXCEPTION  );
 		throw(e);
 		return false;
 	}
-	catch(std::string &e)
+	catch(std::string & /*e*/ )
 	{
-		CERR << e << endl;
+		//CERR << e << endl;
 	}
 	catch (...)
 	{

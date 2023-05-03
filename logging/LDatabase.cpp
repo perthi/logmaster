@@ -14,6 +14,7 @@
 #include  "LEnums.h"
 #include  "LLogEntrySQL.h"
 
+
 #include  "GException.h"
 #include  <utilities/GDefinitions.h>
 #include "sqlite/sqlite3.h"
@@ -24,7 +25,8 @@
 #include <iomanip>
 #include <cmath>
 #include <limits>
-
+#include <stdio.h>
+#include <string.h>
 
 namespace LOGMASTER
 {
@@ -123,7 +125,7 @@ namespace LOGMASTER
 #ifndef WIN32
         snprintf(sql, 1000, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %d, %d, %d,'%s')",
 #else
-        snprintf_s(sql, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %f, %d, %d,'%s')",
+       sprintf_s(sql, 1000, "INSERT INTO t_logging (time_int, time_float, level, category, json ) VALUES ('%d', %d, %d, %d,'%s')",
 #endif
                    (int)msg->fEpochTime,  (int)msg->fEpochTime, (int)msg->fLevel,  (int)msg->fSystem, 
                    jsonStr.c_str() );

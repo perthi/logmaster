@@ -60,13 +60,13 @@ TEST_F(TestGXmlClassFactory, CreateStreamWriter)
 	xmlWriter->WriteEndTag();
 	delete xmlWriter;
 	}
-	catch(std::exception &e)
+	catch(std::exception & /*e*/)
 	{
-		CERR << e.what() << endl;
+		//CERR << e.what() << endl;
 	}
 	catch(...)
 	{
-		CERR << "UNKNOWN exception caught" << endl;
+		//CERR << "UNKNOWN exception caught" << endl;
 	}
 
 }

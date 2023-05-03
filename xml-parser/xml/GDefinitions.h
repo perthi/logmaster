@@ -59,6 +59,8 @@ using std::string;
 #define EXCECUTION_ERROR -33
 ///#define ARG_MAX 4096
 
+
+/*
 #ifndef COUT
 #define COUT  cout << __FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":"
 #endif
@@ -72,14 +74,14 @@ using std::string;
 #endif
 
 #define SHOW(a) COUT << #a << ": " << (a) << std::endl
-#
+
 
 #if _WIN64
 typedef   wchar_t DBCHAR;
 #else
 typedef  unsigned char    DBCHAR;
 #endif
-
+*/
 
 
 #ifdef HAS_LOGGING

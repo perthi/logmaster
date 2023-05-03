@@ -6,15 +6,15 @@
  * Contributors are mentioned in the code where appropriate.              *
  * Please report bugs to pth@embc.no                                      *
  **************************************************************************/
+
 #include "TestLDatabase.h"
 
 
 #include <logging/LDatabase.h>
 #include <logging/LLogApi.h>
 #include <logging/LLogEntrySQL.h>
-
 #include <utilities/GRandom.h>
-#include <logging/LEnums.h>
+//#include <logging/LEnums.h>
 
 #include <memory>
 
@@ -25,27 +25,29 @@ using namespace LOGMASTER;
 
 
 LDatabase *  TestLDatabase::fgDatabase = nullptr;
+string    TestLDatabase::fgDatabaseBasePath = "";
 
 
-TestLDatabase::TestLDatabase()
-{
+#ifndef LOGMASTER_HOME
+constexpr char LOGMASTER_HOME[] = "ERROR_NOT_SET";
+#endif
 
-}
 
-
-TestLDatabase::~TestLDatabase()
-{
-
-}
+#define STRINGLIFY(x) #x
+#define EXPAND(x) STRINGLIFY(x)
 
 
 void 
 TestLDatabase::SetUpTestCase()
 {
-    string path = string(LOGMASTER_HOME) + string("/logging/unit-tests/commit/test-data/logmaster-test.db");
-   // LDatabase::Instance();
-    fgDatabase =  LDatabase::Instance( path );
+    string s = EXPAND(LOGMASTER_HOME);
+    s.erase(0, 1);
+    s.erase(s.size() - 2);
 
+    fgDatabaseBasePath = s + "\\test-data";
+    s = fgDatabaseBasePath + "\\logmaster-test.db";
+    CERR << "s = " << s << ENDL;
+    fgDatabase =  LDatabase::Instance( s );
 }
 
 
@@ -73,13 +75,15 @@ TestLDatabase::TearDown()
 }
 
 
+
+
 TEST_F( TestLDatabase , all_entries )
 {
     auto db = fgDatabase;
     auto entries = db->Query( ALL_ENTRIES );
     size_t entries_max = entries.size();
     EXPECT_EQ(entries_max , 3285 );
-    
+
     entries = db->Query(100 );
     EXPECT_EQ(entries.size() ,100 );
 
@@ -104,9 +108,10 @@ TEST_F( TestLDatabase , all_entries )
 
 TEST_F( TestLDatabase , specific_system )
 {
-    auto db = fgDatabase;
-    vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
+     auto db = fgDatabase;
+     vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
 
+    
     for( auto s: sys_v )
     {
         auto entries = db->Query ( s, ALL_ENTRIES );
@@ -118,6 +123,7 @@ TEST_F( TestLDatabase , specific_system )
         }
 
     }
+    
 }
 
 
@@ -248,11 +254,15 @@ TEST_F( TestLDatabase , time )
 
 }
 
+
+
 TEST_F( TestLDatabase , logrotation)
 {
-
     auto oldPath = fgDatabase->GetDBPath();
-    string rotatePath = string(LOGMASTER_HOME) + string("/logging/unit-tests/commit/test-data/logmaster-test-rotate.db");
+
+    string rotatePath = fgDatabaseBasePath += "\\logmaster-test-rotate.db";
+   // string rotatePath = string(LOGMASTER_HOME) + string("/logging/unit-tests/commit/test-data/logmaster-test-rotate.db");
+    
     fgDatabase =  LDatabase::Instance(rotatePath);
     fgDatabase->SetMaxDbFileSize(1);
     auto db = fgDatabase;
@@ -269,5 +279,5 @@ TEST_F( TestLDatabase , logrotation)
     EXPECT_EQ(nEntries, db->Query(ALL_ENTRIES).size());
     db->SetMaxDbFileSize(0);
     db = LDatabase::Instance(oldPath);
-
 }
+

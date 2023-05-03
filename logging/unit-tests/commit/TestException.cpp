@@ -1,8 +1,7 @@
 
 
-
 #include "TestException.h"
-#include <exception/GException.h>
+#include <logging/GException.h>
 
 #include <testlib/TestBase.h>
 #include <utilities/GText.h>

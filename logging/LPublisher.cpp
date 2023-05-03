@@ -397,7 +397,7 @@ namespace LOGMASTER
         }
         else
         {
-            cerr << __FILE__ << ":" << __LINE__ <<  fTime.TimeStamp() << ": Error opening Logfile: " << fname_tmp_c  << ENDL;
+            CERR <<  fTime.TimeStamp() << ": Error opening Logfile: " << fname_tmp_c  << ENDL;
             CERR << "This message could not be logged:\t" << jsonStr << ENDL;
         }
     }

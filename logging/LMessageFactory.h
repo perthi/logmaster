@@ -68,7 +68,7 @@ namespace LOGMASTER
         {
             if(fConfig == nullptr)
             {
-                CERR << "fConfig is a zero pointer !!!" << ENDL;
+               // CERR << "fConfig is a zero pointer !!!" << ENDL;
                 std::shared_ptr<LMessage> m = std::make_shared<LMessage>();
                 return m;
             }

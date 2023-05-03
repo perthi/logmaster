@@ -20,17 +20,15 @@ namespace LOGMASTER
 class  TestLDatabase : public TestBase
 {
 	public:
-		TestLDatabase();
-		virtual ~TestLDatabase();
 		static void SetUpTestCase();
 		static void TearDownTestCase();
-		
 		virtual void SetUp() override;
 		virtual void TearDown() override;
 
 	protected:	
 		static  LDatabase * fgDatabase;
-                static  LDatabase * fgRotateDatabase;
+        static  LDatabase * fgRotateDatabase;
+		static  string fgDatabaseBasePath;
 };
 
 #endif

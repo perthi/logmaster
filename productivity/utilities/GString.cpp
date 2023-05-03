@@ -607,7 +607,8 @@ GString::Replace(const string original, const string substring, const string rep
 string
 GString::ReplaceBadChar(string& inputstring, const char delimeter, const char* suspicious)
 {
-    static char tmp[1023];
+
+    static char tmp[1023]; // TODO allocate approriate buffer
     SPRINTF_S(tmp, inputstring);
     ReplaceBadChar(tmp, delimeter, suspicious);
     inputstring = tmp;
@@ -619,6 +620,9 @@ GString::ReplaceBadChar(string& inputstring, const char delimeter, const char* s
 char*
 GString::ReplaceBadChar(char* inputstring, const char delimeter, const char* suspicious)
 {
+
+
+    /// @todo handle the case where the inpout string contains one or more zeroes
     static char souspiciouscharacters[1023];
     if (suspicious == 0)
     {
