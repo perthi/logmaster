@@ -152,7 +152,7 @@ inline void GCommandLineArgument<T>::SetParameter(T * par)
 {
     if (par ==  nullptr )
     {
-        //G_ERROR("Parameter \"par\" is a ZERO pointer");
+        G_ERROR("Parameter \"par\" is a ZERO pointer");
     }
     else
     {
@@ -170,8 +170,8 @@ inline void GCommandLineArgument<T>::SetParameter(T * par)
                 }
                 else
                 {
-         //        /  fprintf_s(fp, "Argument to parameter %s is a ZERO pointer (this might not be an error), no parameter(s) added", fCmd->c_str());
-                //   G_INFO("Argument to parameter %s is a ZERO pointer (this might not be an error), no parameter(s) added", fCmd->c_str());
+                   // fprintf_s(fp, "Argument to parameter %s is a ZERO pointer (this might not be an error), no parameter(s) added", fCmd->c_str());
+                    G_INFO("Argument to parameter %s is a ZERO pointer (this might not be an error), no parameter(s) added", fCmd.c_str());
                 }
             }
         }

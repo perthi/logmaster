@@ -99,6 +99,35 @@ GSystem::getenv(const string  var  )
 
 
 
+#ifdef _WIN32
+/// @todo Move to GSystem
+string
+GSystem::Errno2String(const  errno_t code, const string fname, const string  opt)
+{
+    static const size_t sz = 2048;
+    char errmsg[sz];
+    strerror_s(errmsg, sz, code);
+    return string(errmsg);
+}
+#else
+string
+GFileIOHandler::Errno2String(const  error_t code, const string fname, const string  opt)
+{
+    char* errmsg = strerror(code);;
+    if (errmsg != nullptr)
+    {
+        return string(errmsg);
+    }
+    else
+    {
+        return "<no strerror message( fopen(fp, " + fname + "," + opt + ") >";
+    }
+
+}
+#endif
+
+
+
 /** mkdir =   Make Directory (that is a folder in Windows terms), Unix/bash style
 *   @param    dirname The directory to create
 *   @return   true if the directory exists, or if it doesn't allready exists, but was
@@ -123,7 +152,7 @@ GSystem::mkdir(const string dirname, const bool print_error)
     }
     else
     {
-        string errmsg = g_file()->Errno2String(errno, dirname, "");
+        string errmsg = Errno2String(errno, dirname, "");
        if( print_error == true)
        {
             GCommon().HandleError(  GText(  "The directory \"%s\" could not be created (%s),.. please check that you have write + exec permissions to the directory", \
@@ -153,12 +182,16 @@ GSystem::mkdir(const string dirname, GLocation l, const int  opt, bool overwrite
 GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
 #endif // !_WIN32
 {
+    char err[1024];
+
 #ifdef _WIN32
     int status = ::_mkdir(dirname.c_str() );
 #else
      int status = ::mkdir(dirname.c_str(),  opt );
 #endif // _WIN32
     
+    strerror_s(err, 1024, errno);
+
     switch (status)
     {
     /// abort if any of the below non recoverable errors are encountered
@@ -170,10 +203,10 @@ GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
     case ENOSPC:       // No space left on device
     case ENOTDIR:      // Path is not (or cannot be) a directory
     case EROFS:        // The parent directory is read only
-        GCommon().HandleError(GText("non recoverabele erro encountered creating directory %s ( errno %d; %s )",
+          GCommon().HandleError(GText("non recoverabele erro encountered creating directory %s ( errno %d; %s )",
                                          dirname.c_str(),
                                          errno,
-                                         strerror(errno))
+                                         err )
                                        .str(),
                                    l);
         return false;
@@ -188,7 +221,7 @@ GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
             GCommon().HandleError(GText("directory %s allready exists and you are not allowed to overwrite it ( errno %d; %s)",
                                              dirname.c_str(),
                                              errno,
-                                             strerror(errno))
+                                             err )
                                            .str(),
                                        l);
             return false;
@@ -246,7 +279,6 @@ GSystem::GetProcessID()
 
 
 
-
 /** Executes a system command.
 *   @param cmd The command to execute
 *   @return  The output of the command, i.e what would have been written on the command line if the
@@ -262,11 +294,11 @@ GSystem::exec(const char* cmd)
     std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
 #endif
 
-    if (!pipe) 
+    if (!pipe)
     {
         return "ERROR";
     }
-  
+
     char buffer[256];
     std::string result = "";
 
@@ -280,6 +312,8 @@ GSystem::exec(const char* cmd)
 
     return result;
 }
+
+
 
 
 
@@ -307,12 +341,9 @@ GSystem::GetCommandLineArguments()
 #ifdef _WIN32
 #include "Windows.h"
     int argc;
-
-
   //  std::wstring ws;
     //  ws = MultiByteToWideChar(CP_UTF8, 0, s.c_str());
    // MultiByteToWideChar(CP_UTF8, 0, s.c_str(), (int)s.size(), &ws[0], (int)ws.size());
-
    // std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
 
     LPWSTR cmdline = GetCommandLineW();

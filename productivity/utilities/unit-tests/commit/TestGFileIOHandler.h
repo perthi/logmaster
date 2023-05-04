@@ -20,11 +20,7 @@
 class TestGFileIOHandler : public TestBase
 {
 public:
-    TestGFileIOHandler() {};
-    virtual ~TestGFileIOHandler() {};
     static void SetUpTestCase();
     static void TearDownTestCase();
-
-
 };
 

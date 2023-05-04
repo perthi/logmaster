@@ -27,12 +27,15 @@
 ******************************************************************************
 ******************************************************************************/
 
+#pragma once
+
 #include "GText.h"
 #include <cstdarg>
 
 #define GTEXT_MAX_SIZE 4096
 
 
+/// @todo Check format using GFormatting
 GText::GText(const char * fmt, ...) : fText("")
 {
     va_list ap;

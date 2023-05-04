@@ -29,6 +29,9 @@
 
 #include "GNumbers.h"
 
+#ifndef GNUMBERSXXX_CPP
+#define GNUMBERSXXX_CPP
+
 
 
 GNumbers * g_numbers()
@@ -572,4 +575,4 @@ GNumbers::IsFloat(string num)
 }
 
 
-
+#endif

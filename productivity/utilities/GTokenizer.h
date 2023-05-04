@@ -45,7 +45,7 @@ using std::vector;
 
 class GTokenizer;
 
-GTokenizer * g_tokenizer();
+GTokenizer API * g_tokenizer();
 
 
 class  TestGTokenizer_Tokenize_Test; 
@@ -56,8 +56,8 @@ class GTokenizer
     friend TestGTokenizer_Tokenize_Test;  /* Make all functions accessible for google test **/
     friend  GTokenizer * g_tokenizer();
 public: 
-    GTokenizer() {};
-    virtual ~GTokenizer() {};
+    API GTokenizer() {};
+    virtual API ~GTokenizer() {};
      void              API   StripPath(const string fin, string &dir, string &fout, const bool keep_trailing_slash = KEEP_TRAILING_SEPARATOR );  
      vector<string>    API   Tokenize(const string source,  const string sep = "\t",   const bool keep_empty = DISCARD_EMPTY,  const bool keep_sep = DISCAR_SEPARATOR );
      vector<string>    API   Tokenize(const string source,  const vector<string> sep,  const bool keep_empty = DISCARD_EMPTY,  const bool keep_sep = DISCAR_SEPARATOR );

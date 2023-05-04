@@ -110,7 +110,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>logging.lib;utilities.lib;cmdline.lib;exception.lib;shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>logging.lib;utilities.lib;cmdline.lib;shell32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

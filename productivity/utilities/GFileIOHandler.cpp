@@ -38,7 +38,7 @@
 #include <sys/stat.h>
 #include <stdio.h>
 
-#include <mutex>
+
 
 #ifdef _WIN32
 #include <Shlwapi.h>
@@ -127,7 +127,7 @@ bool GFileIOHandler::Delete(const string fname)
 
         if (ret != 0)
         {
-            string errmsg = Errno2String(errno, fname, "r");
+            string errmsg = g_system()->Errno2String(errno, fname, "r");
             GCommon().HandleError(GText("could not remove file: \"%s\"", errmsg.c_str()).str(), GLOCATION, true);
             return false;
         }
@@ -340,32 +340,6 @@ GFileIOHandler::DoExists(const string fname, const char* opt)
 }
 
 
-#ifdef _WIN32
-string
-GFileIOHandler::Errno2String(const  errno_t code, const string fname, const string  opt)
-{
-    static const size_t sz = 2048;
-    char errmsg[sz];
-    strerror_s(errmsg, sz, code);
-    return string(errmsg);
-}
-#else
-string
-GFileIOHandler::Errno2String(const  error_t code, const string fname, const string  opt)
-{
-    char* errmsg = strerror(code);;
-    if (errmsg != nullptr)
-    {
-        return string(errmsg);
-    }
-    else
-    {
-        return "<no strerror message( fopen(fp, " + fname + "," + opt + ") >";
-    }
-
-}
-#endif
-
 
 
 FILE*
@@ -383,9 +357,9 @@ GFileIOHandler::OpenFile(const string fname, const string opt, const GLocation l
     {
         if(print_error == true )
         {
-        string errmsg = Errno2String(errno, fname, opt);
+        string errmsg = g_system()->Errno2String(errno, fname, opt);
         GCommon().HandleError(GText("fopen(%s, %c) failed: %s",
-            fname.c_str(), opt[0], errmsg.c_str()).str(), l, DISABLE_EXCEPTION);
+            fname.c_str(), opt.c_str(), errmsg.c_str()).str(), l, DISABLE_EXCEPTION);
         }
     }
 
@@ -401,12 +375,18 @@ GFileIOHandler::OpenFile(const string fname, const string opt, const GLocation l
  *   @return true: If 1) the file does not exists and can be successfully opened with the w or w+ option. 2) the file exists and can be successfully
  *   opened with the a, a+, r, r+ options */
 bool
-GFileIOHandler::CheckFile(const string fname, const char* opt)
+GFileIOHandler::CheckFile(const string fname, const string opt)
 {
-    string tmp = string(opt);
-    if (!(tmp == "w" || tmp == "w+" || tmp == "a" || tmp == "a+" || tmp == "r" || tmp == "r+"))
+    //string tmp = string(opt);
+
+    if (opt.size() > 2)
     {
-        GCommon().HandleError(GText("Invalid option %c", opt[0]).str(), GLOCATION, DISABLE_EXCEPTION);
+        GCommon().HandleError(GText("Too many otion flags (%d), expected at most 2. opt = %s", opt.c_str() ).str(), GLOCATION, DISABLE_EXCEPTION);
+    }
+
+    if (!(opt == "w" || opt == "w+" || opt == "a" || opt == "a+" || opt == "r" || opt == "r+"))
+    {
+        GCommon().HandleError(GText("Invalid option %s", opt.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
         return false;
     }
     else
@@ -416,17 +396,17 @@ GFileIOHandler::CheckFile(const string fname, const char* opt)
         if (fp != nullptr)
         {
             //     bool ret = false;
-            if (tmp == "w" || tmp == "w+")
+            if (opt == "w" || opt == "w+")
             {
-                GCommon().HandleError(GText("The file %s exists, opening it with the %c option will discard existing content",
-                    fname.c_str(), opt[0]).str(), GLOCATION, DISABLE_EXCEPTION);
+                GCommon().HandleError(GText("The file %s exists, opening it with the %s option will discard existing content",
+                    fname.c_str(), opt.c_str() ).str(), GLOCATION, DISABLE_EXCEPTION);
                 fclose(fp);
                 return  false;
             }
-            else if (tmp == "a" || tmp == "a+" || tmp == "r" || tmp == "r+")
+            else if (opt == "a" || opt == "a+" || opt == "r" || opt == "r+")
             {
                 fclose(fp);
-                fp = OpenFile(fname, tmp, GLOCATION);
+                fp = OpenFile(fname, opt, GLOCATION);
 
                 if (fp == nullptr)
                 {
@@ -444,6 +424,7 @@ GFileIOHandler::CheckFile(const string fname, const char* opt)
         }
         else
         {
+            GCommon().HandleError(GText("Opening file: %s  opt =  %s", fname.c_str(), opt.c_str() ).str(), GLOCATION, DISABLE_EXCEPTION);
             fp = OpenFile(fname, opt, GLOCATION);
             if (fp == nullptr)
             {
@@ -486,45 +467,7 @@ GFileIOHandler::SetAttribute(const string fname, unsigned long attr)
 
 
 
-/** Read the content of a file into a vector
-*  @param fname  The file to read
-*  @param[in,out] status: whether or not the file was successfully read. ZERO = OK, ONE = NOT_OK
-*  @return A vector of data, with on element for each line in the file */
-vector<string>
-GFileIOHandler::ReadAll(const string fname, bool* status)
-{
-    static std::mutex tmp_mutex;
-    std::lock_guard<std::mutex> guard(tmp_mutex);
-    static int cnt = 0;
-    cnt++;
 
-    vector<string> ret;
-    std::ifstream fin;
-    string line;
-
-    bool l_status = true;
-
-    fin.open(fname);
-    if (!fin.good())
-    {
-        l_status = false;
-    }
-    else
-    {
-        while (!fin.eof())
-        {
-            getline(fin, line);
-            ret.push_back(line);
-        }
-    }
-
-    if (status != nullptr)
-    {
-        *status = l_status;
-    }
-
-    return  ret;
-}
 
 string
 GFileIOHandler::ReadFirstLine(const string fname)

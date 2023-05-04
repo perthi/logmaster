@@ -44,6 +44,22 @@ using std::endl;
 using std::cerr;
 
 
+bool  GCommon::fDisableOuput = false;
+
+void  API  
+GCommon::DisableOutput()
+{ 
+    fDisableOuput = true; 
+};
+
+
+void  API  
+GCommon::EnableOutput()
+{ 
+    fDisableOuput = false; 
+};
+
+
 #ifdef HAS_LOGGING
 #include <logging/GException.h>
 void

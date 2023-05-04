@@ -39,7 +39,7 @@ class GTime
 public:
     API GTime();
 	API GTime(int year, int month, int dayInMonth, int hour24 = 0, int minute = 0, int second = 0, int us = 0);
-    ~GTime() {};
+    API ~GTime() {};
     
 
 
@@ -52,7 +52,7 @@ public:
     double          API   GetEpochTime( time_t * sec = nullptr, int64_t * us = nullptr );
     string			API   GetTime_ISO8601( bool use_microseconds = true );
     time_t			API   DateString2Time(const string date, const string format, std::tm *t = 0, int64_t *us = 0);
-    string		    TimeStampShort(struct std::tm *tout = 0, struct std::tm *tin = 0, int64_t *us = 0);
+    string		    API   TimeStampShort(struct std::tm *tout = 0, struct std::tm *tin = 0, int64_t *us = 0);
     static  void       API     SetExternalTimeSource(  std::function<double()>  funct ); 
 
 
@@ -60,7 +60,7 @@ public:
 	static GTime API Now();
 #endif
 
-	int64_t GetBaseUsTime() { return(fTimeVal); }
+	int64_t API GetBaseUsTime() { return(fTimeVal); }
   
     bool operator!=(GTime& o) { return(fTimeVal != o.fTimeVal); }
     bool operator==(GTime& o) { return(fTimeVal == o.fTimeVal); }
@@ -72,7 +72,7 @@ public:
     GTimeSpan operator-(GTime& o) { return(GTimeSpan(fTimeVal - o.fTimeVal)); }
 
 private:
-    bool  ValidateV2(  std::function<bool(  const int ) > funct, const string &s, const vector<string> * const arr = nullptr );
+    bool  API  ValidateV2(  std::function<bool(  const int ) > funct, const string &s, const vector<string> * const arr = nullptr );
     int64_t fTimeVal;
     GTimeFormat  fTimeFormat;
     GTimeValidate fTimeValidate; 

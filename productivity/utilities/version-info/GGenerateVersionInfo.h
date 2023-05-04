@@ -17,11 +17,11 @@
 #include   <utilities/GSystem.h>
 #include   <utilities/GFileIOHandler.h>
 #include   <utilities/GTime.h>
+//#include   <utilities/GTime.cpp>
+
 #include   <utilities/GString.h>
-
-#include  <logging/LLogApi.h>
-
-using namespace LOGMASTER;
+//#include  <logging/LLogApi.h>
+//using namespace LOGMASTER;
 
 #include   <cctype>
 #include   <string>

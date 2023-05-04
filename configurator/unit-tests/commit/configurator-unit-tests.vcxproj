@@ -111,7 +111,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>xml.lib;libxml2.lib;configurator.lib;exception.lib;logging.lib;utilities.lib;cmdline.lib;shell32.lib;gtestd.lib</AdditionalDependencies>
+      <AdditionalDependencies>xml.lib;libxml2.lib;configurator.lib;logging.lib;utilities.lib;cmdline.lib;shell32.lib;gtestd.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

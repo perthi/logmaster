@@ -34,17 +34,27 @@ using std::endl;
 #include <utilities/GUtilities.h>
 
 #include <utilities/GTokenizer.h>
+#include <utilities/GTokenizer.cpp>
+
 #include <utilities/GString.h>
+#include <utilities/GString.cpp>
 #include <utilities/GRegexp.h>
 #include <utilities/GSystem.h>
+#include <utilities/GSystem.cpp>
 #include <utilities/GTime.h>
+#include <utilities/GTime.cpp>
+
+#include <utilities/GText.cpp>
+
 #include <utilities/GNumbers.h>
+#include <utilities/GNumbers.cpp>
+
 #include <logging/LLogApi.h>
-#include <cmdline/GLogApplication.h>
-#include <exception/GException.h>
-#include <utilities/GFileIOHandler.h>
-#include <utilities/GText.h>
-#include <utilities/GString.h>
+//#include <cmdline/GLogApplication.h>
+#include <logging/GException.h>
+//#include <utilities/GFileIOHandler.h>
+// #include <utilities/GText.h>
+//#include <utilities/GString.h>
 
 #include <string>
 #include <vector>
@@ -107,11 +117,6 @@ int main( int argc, const char **argv )
 #else
     struct tm *a_time = localtime(&the_time);
 #endif
-
-
-
-
-
 
     string year = g_string()->ToString<int>(a_time->tm_year + 1900);
     string rc_filename = "unknown_resource_file.rc";
@@ -221,10 +226,6 @@ int main( int argc, const char **argv )
 
 
 
-
-
-
-/*
 void
 generate_rc_file(string outdir, const string rc_filename, const string company, const string desc, const string filename, const string copyright, const string prod_name)
 {
@@ -336,7 +337,7 @@ generate_rc_file(string outdir, const string rc_filename, const string company, 
     fprintf(fp, "/////#endif //not APSTUDIO_INVOKED\n\n");
     fclose(fp);
 }
-*/
+
 
 
 
@@ -408,15 +409,16 @@ print_tags()
 void autoClause(FILE *fp)
 {
     fprintf(fp, "\n\n/***** Auto generated file: DO NOT EDIT !!!!!! *****/\n");
-  //  struct std::tm timeinfo;
+    struct std::tm timeinfo;
     
- //   std::time_t now = std::time(NULL); 
- //   localtime_s(&timeinfo, &now);
- //   char tmp[1024];
-  //  string tmp =  GTime::TimeStamp( "%a %d %B-%Y %H:%M:%S");   
-//    std::strftime(tmp, 1024 - 1, "[%a %d %B-%Y %H:%M:%S]", &timeinfo);
-  //  fprintf(fp, "/*** Generated at: %s  ***/\n\n", tmp.c_str()  );
-
+    std::time_t now = std::time(NULL); 
+    localtime_s(&timeinfo, &now);
+    
+    char tmp2[512] = {0};
+    string tmp =   GTime().TimeStamp("%a %d %B-%Y %H:%M:%S");
+    snprintf(tmp2, 512, tmp.c_str() );
+    std::strftime(tmp2, 1024 - 1, "[%a %d %B-%Y %H:%M:%S]", &timeinfo);
+    fprintf(fp, "/*** Generated at: %s  ***/\n\n", tmp.c_str()  );
 }
 
 
@@ -564,5 +566,3 @@ helpMenu()
     cout << "7)\t--info\tPrint out the SVN info as returned by the \"svn info\" command" << endl;
     cout << "8)\t--help\tPrints out this help menu" << endl;
 }
-
-

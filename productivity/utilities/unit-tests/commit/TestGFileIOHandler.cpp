@@ -60,6 +60,8 @@ TestGFileIOHandler::TearDownTestCase()
 * - That we can open an existing file for reading */
 TEST_F(TestGFileIOHandler, CheckFileNSR305)
 {
+    GCommon().DisableOutput();
+
     GFileIOHandler *f = g_file();
     
     string rand_fname1 = g_random()->Name("testfile", ".txt");
@@ -67,10 +69,15 @@ TEST_F(TestGFileIOHandler, CheckFileNSR305)
     ASSERT_NE(rand_fname1, rand_fname2 );
 
     // For a non existing file we expect the return value to be true if we try to create it for writing, and false othervise 
+    
+    
      EXPECT_EQ(true,  f->CheckFile(rand_fname1, "w"));
      EXPECT_EQ(true,  f->CheckFile(rand_fname1, "w+"));
      EXPECT_EQ(true,  f->CheckFile(rand_fname1, "a"));
      EXPECT_EQ(true,  f->CheckFile(rand_fname1, "a+"));
+    
+
+     
      EXPECT_EQ(false, f->CheckFile(rand_fname1, "r"));
      EXPECT_EQ(false, f->CheckFile(rand_fname1, "r+"));
 
@@ -105,6 +112,7 @@ TEST_F(TestGFileIOHandler, CheckFileNSR305)
         EXPECT_EQ(false, f->CheckFile("doesntmatter.txt", invalidoptions[i].c_str()));
     }
     #endif
+    
 
 }
 
@@ -212,4 +220,3 @@ TEST_F(TestGFileIOHandler, GetExtention)
     EXPECT_EQ(exeExt, "");
 #endif
 }
-

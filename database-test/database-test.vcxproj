@@ -95,7 +95,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>logging.lib;exception.lib;utilities.lib;cmdline.lib;shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>logging.lib;utilities.lib;cmdline.lib;shell32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

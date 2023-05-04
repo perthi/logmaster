@@ -19,7 +19,7 @@
 using std::string;
 
 
-class GCommon;
+// class GCommon;
 class GLocation;
 
 //GCommon * g_common();
@@ -36,14 +36,14 @@ class GCommon
 
 
 public:
-	GCommon() {};
-	~GCommon() {};
-	void  API HandleError(const string message, const GLocation l, const bool disable_error = false );
-	void  API DisableOutput()  {  fDisableOuput = true; };
-	void  API EnableOutput()   {  fDisableOuput = false; };
+	API GCommon() {};
+	API ~GCommon() {};
+	void  API  HandleError(const string message, const GLocation l, const bool disable_error = false );
+	void  API  DisableOutput();
+	void  API  EnableOutput();
 
 private:
-	bool fDisableOuput = false;
+	static bool fDisableOuput;
 	// GCommon() {};
 	// ~GCommon() {};
 

@@ -23,6 +23,8 @@
 using std::vector;
 using std::string;
 
+#include <mutex>
+#include <fstream>
 
 #ifdef _WIN32
 #define PATH_MAXLENGTH  _MAX_PATH
@@ -47,7 +49,7 @@ public:
 
     //    static GFileIOHandler API * Instance();
     string           API  ReadConfigFile(int argc, const char** argv, const string path);
-    bool             API  CheckFile(const string fname, const char* opt = "r");    // checking if file exists
+    bool             API  CheckFile(const string fname, const string opt = "r");    // checking if file exists
     bool             API  DoExists(const string fname, const char* opt = "r");    // checking if file exists
     bool             API  CheckFileEx(const string fname, const char* opt = "r");    // checking if file exists
     bool             API  Append(const string fname, const char* fmt, ...);
@@ -66,11 +68,7 @@ public:
     void             API  CreateDirIfNeeded(const std::string& filename);
     FILE             API* OpenFile(const string fname, const string opt, const GLocation loc, const bool print_error = true );
 
-#ifdef _WIN32
-    string           API  Errno2String(const  errno_t code, const string fname, const string  opt);
-#else
-    string           API  Errno2String(const  error_t code, const string fname, const string  opt);
-#endif
+
 
 #ifdef _WIN32
     void         SetAttribute(const string fname, unsigned long attr);
@@ -84,6 +82,44 @@ private:
 };
 
 
+/** Read the content of a file into a vector
+*  @param fname  The file to read
+*  @param[in,out] status: whether or not the file was successfully read. ZERO = OK, ONE = NOT_OK
+*  @return A vector of data, with on element for each line in the file */
+vector<string>
+GFileIOHandler::ReadAll(const string fname, bool* status)
+{
+    static std::mutex tmp_mutex;
+    std::lock_guard<std::mutex> guard(tmp_mutex);
+    static int cnt = 0;
+    cnt++;
 
+    vector<string> ret;
+    std::ifstream fin;
+    string line;
+
+    bool l_status = true;
+
+    fin.open(fname);
+    if (!fin.good())
+    {
+        l_status = false;
+    }
+    else
+    {
+        while (!fin.eof())
+        {
+            getline(fin, line);
+            ret.push_back(line);
+        }
+    }
+
+    if (status != nullptr)
+    {
+        *status = l_status;
+    }
+
+    return  ret;
+}
 
 

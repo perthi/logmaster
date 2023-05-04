@@ -114,7 +114,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libxml2.lib;xml.lib;logging.lib;exception.lib;utilities.lib;configurator.lib;cmdline.lib;shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>libxml2.lib;xml.lib;logging.lib;utilities.lib;configurator.lib;cmdline.lib;shell32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
