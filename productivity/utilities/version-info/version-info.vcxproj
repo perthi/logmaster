@@ -178,8 +178,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sqlite\sqlite3.c" />
-    <ClCompile Include="GGenerateRCFile.cpp" />
-    <ClCompile Include="GGenerateVersionInfo.cpp" />
     <ClCompile Include="GMenu.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -187,13 +185,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="version-info.cpp" />
+    <ClCompile Include="VGenerateRCFile.cpp" />
+    <ClCompile Include="VGenerateVersionInfo.cpp" />
+    <ClCompile Include="VScanArguments.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sqlite\sqlite3.h" />
     <ClInclude Include="..\..\sqlite\sqlite3ext.h" />
     <ClInclude Include="external_includes.h" />
-    <ClInclude Include="GGenerateRCFile.h" />
-    <ClInclude Include="GGenerateVersionInfo.h" />
     <ClInclude Include="GMenu.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -203,6 +202,10 @@
     <ClInclude Include="GVersion.h" />
     <ClInclude Include="version-info.h" />
     <ClInclude Include="Version.h" />
+    <ClInclude Include="VGenerateRCFile.h" />
+    <ClInclude Include="VGenerateVersionInfo.h" />
+    <ClInclude Include="VParameters.h" />
+    <ClInclude Include="VScanArguments.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="unknown_resource_file.rc" />

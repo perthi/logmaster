@@ -12,7 +12,7 @@
 
 #define G_STANDALONE
 
-#include   "GGenerateVersionInfo.h"
+#include   "VGenerateVersionInfo.h"
 #include   <utilities/GTokenizer.h>
 #include   <utilities/GSystem.h>
 #include   <utilities/GFileIOHandler.h>
@@ -41,7 +41,7 @@ using std::string;
  *  possible to ask the application about relevant version information such as the git tag
  *  compilation options that was used to generated the code etc.
  *  Typically this information via the -version commandline tag.  */
-class  GGenerateVersionInfo
+class  VGenerateVersionInfo
 {
 public:
     static inline string GitInfo();
@@ -59,7 +59,7 @@ private:
 
 
 string
-GGenerateVersionInfo::GitInfo()
+VGenerateVersionInfo::GitInfo()
 {
 #ifdef _WIN32
     return "git info is not avilable for Windows yet";
@@ -76,7 +76,7 @@ GGenerateVersionInfo::GitInfo()
 
 
 string
-GGenerateVersionInfo::Branch()
+VGenerateVersionInfo::Branch()
 {
     string tmp;
 #ifdef _WIN32
@@ -104,7 +104,7 @@ GGenerateVersionInfo::Branch()
 
 
 string
-GGenerateVersionInfo::Version()
+VGenerateVersionInfo::Version()
 {
 	string tmp = g_system()->exec("git describe --tags");
 	g_string()->Trim(tmp, '\n');
@@ -113,7 +113,7 @@ GGenerateVersionInfo::Version()
 
 
 string
-GGenerateVersionInfo::CompileInfo(const string fname)
+VGenerateVersionInfo::CompileInfo(const string fname)
 {
 #ifndef  _WIN32
     return ReadCompileInfo(1, fname);
@@ -124,7 +124,7 @@ GGenerateVersionInfo::CompileInfo(const string fname)
 
 
 string
-GGenerateVersionInfo::LinkInfo(const string fname)
+VGenerateVersionInfo::LinkInfo(const string fname)
 {
 	#ifndef  _WIN32
     return ReadCompileInfo(0, fname);
@@ -136,7 +136,7 @@ GGenerateVersionInfo::LinkInfo(const string fname)
 
 
 string
-GGenerateVersionInfo::ReadCompileInfo(const unsigned int idx, const string fname)
+VGenerateVersionInfo::ReadCompileInfo(const unsigned int idx, const string fname)
 {   
     vector<string> cont = g_file()->ReadAll(fname.c_str());
 
@@ -160,7 +160,7 @@ GGenerateVersionInfo::ReadCompileInfo(const unsigned int idx, const string fname
 
 
 void
-GGenerateVersionInfo::GenerateClass(const string class_name, const string exename, const string info_file, const string target_directory)
+VGenerateVersionInfo::GenerateClass(const string class_name, const string exename, const string info_file, const string target_directory)
 {
     string filename_cpp;
     string filename_h;

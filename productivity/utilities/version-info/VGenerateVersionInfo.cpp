@@ -24,7 +24,7 @@
 ******************************************************************************/
 
 
-#include "GGenerateVersionInfo.h"
+#include "VGenerateVersionInfo.h"
 
 
 /// #define G_STANDALONE

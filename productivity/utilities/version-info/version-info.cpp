@@ -24,8 +24,8 @@
 ******************************************************************************/
 
 
-#include "GGenerateRCFile.h"
-#include "GGenerateVersionInfo.h"
+#include "VGenerateRCFile.h"
+#include "VGenerateVersionInfo.h"
 #include "external_includes.h"
 
 #include <iostream>
@@ -41,13 +41,8 @@ using std::endl;
 #include <Windows.h>
 #endif
 
-
-
-
-
 //#define G GGenerateVersionInfo
 #define G_STANDALONE
-
 
 using std::stringstream;
 using std::string;
@@ -75,10 +70,6 @@ vector<string> g_valid_tags;
 int main( int argc, const char **argv )
 {
 
-
-    string configuration;
-    string platform;
-
     time_t  the_time = time(NULL);
 
 #ifdef _WIN32
@@ -87,6 +78,9 @@ int main( int argc, const char **argv )
 #else
     struct tm* a_time = localtime(&the_time);
 #endif
+
+    string configuration;
+    string platform;
 
     string year = g_string()->ToString<int>(a_time->tm_year + 1900);
     string rc_filename = "unknown_resource_file.rc";
@@ -100,9 +94,12 @@ int main( int argc, const char **argv )
     string compileinfo = "not_set";
 
 
+
+
     deque< std::shared_ptr<GArgument>  > arguments;
 
-    arguments.push_back(std::make_shared <GCommandLineArgument<string> >("-mydouble", "-mydouble [value]", "sets the second value", &rc_filename, fgkOPTIONAL));
+    arguments.push_back(std::make_shared <GCommandLineArgument<string> >("--rc_filename", "--rc_filename [value]", "Sets the filen of the generated RC file", &rc_filename, fgkMANDATORY));
+
 
 
 #ifdef _WIN64
@@ -153,8 +150,8 @@ int main( int argc, const char **argv )
         int rev = -1;
 //        int lc_rev = -1;
         string repo_name = "unknown_repo_name";
-        string version =  GGenerateVersionInfo::Version();
-		string branch =  GGenerateVersionInfo::Branch();
+        string version =  VGenerateVersionInfo::Version();
+		string branch =  VGenerateVersionInfo::Branch();
 
         if ( g_string()->Contains(path, "@"))
         {
@@ -203,9 +200,9 @@ int main( int argc, const char **argv )
             string outdir;
             #ifdef _WIN32
             generateVersionFile("include", "Version.h", rev, version, branch, configuration, platform, outdir);
-            GGenerateRCFile::Generate(outdir, rc_filename, company, description, dllname, copyright, productname);
+            VGenerateRCFile::Generate(outdir, rc_filename, company, description, dllname, copyright, productname);
             #endif
-            GGenerateVersionInfo::GenerateClass("GVersion", exename, compileflags_file, ".");
+            VGenerateVersionInfo::GenerateClass("GVersion", exename, compileflags_file, ".");
 		}
     }
 

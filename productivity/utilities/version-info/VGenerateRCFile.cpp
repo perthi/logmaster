@@ -25,14 +25,14 @@
 ******************************************************************************
 ******************************************************************************/
 
-#include "GGenerateRCFile.h"
+#include "VGenerateRCFile.h"
 
 
 #include <utilities/GDefinitions.h>
 
 
 void
-GGenerateRCFile::Generate(string outdir, const string rc_filename, const string company, const string desc, const string dllname, const string copyright, const string prod_name)
+VGenerateRCFile::Generate(string outdir, const string rc_filename, const string company, const string desc, const string dllname, const string copyright, const string prod_name)
 {
     FILE* fp = 0;
 
