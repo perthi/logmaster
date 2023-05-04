@@ -13,6 +13,8 @@
 *** General Public License(LGPL) V3 or later.See.cpp file for details     ***
 *****************************************************************************/
 
+#pragma once
+
 #include "GArgument.h"
 
 #include <utilities/GDataTypes.h>
@@ -95,12 +97,6 @@ private:
 template<class T>
 inline GCommandLineArgument<T>::~GCommandLineArgument()
 {
-    /*
-    if (!std::is_fundamental<T>::value )
-    {
-        delete fParameter;
-    }
-    */
 }
 
 
@@ -129,8 +125,7 @@ void GCommandLineArgument<T>::SetTypeId()
     }
     else
     {
-        // fTypeIdBase = "Val_t"; 
-        // fTypeIdBase = "xxxxuknown Val_t basetypexxxx";
+        fTypeIdBase = "uknown Val_t basetype";
     }
 }
 

@@ -138,11 +138,9 @@ int main(const int argc, const char** argv )
     arguments.push_back(a4);
     arguments.push_back(a5);
 
-    //(GLogApplication(argc, argv, &arguments);
-
     GLogApplication *g = new GLogApplication();
     g->ScanArguments(argc, argv, arguments );
-   // cout << "test1 = "<< test1  << endl;
+    cout << "test1 = "<< test1  << endl;
 
     return 0;
 }

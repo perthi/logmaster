@@ -63,8 +63,6 @@ public:
  
     API  GLogApplication(	const int argc, const char** argv,  arg_deque  *additional_arguments = nullptr, bool do_init = DO_INIT);
     API  GLogApplication(	const GFileName_t &t, arg_deque *additional_arguments = nullptr);
-
-
     void		API     Purge();
     void		API		SetCallBackFunction(	const string cmd,
                                                 std::function< bool( const string cmd,  const string args_s,

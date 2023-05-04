@@ -34,7 +34,6 @@ namespace LOGMASTER
 {
     LMessage::LMessage( const LMessage & o)
     {
-    
        strcpy( this->fMsgType,  o.fMsgType  );
        strcpy( this->fTimeStamp,  o.fTimeStamp  );
        strcpy( this->fPath,  o.fPath  );
@@ -42,6 +41,8 @@ namespace LOGMASTER
        strcpy( this->fFunction,  o.fFunction );
        strcpy( this-> fMsgBody,  o.fMsgBody );
        strcpy( this->fMsg ,  o.fMsg  );
+
+
        this->fRgBColor  =  o.fRgBColor;
        this->fWColor = o.fWColor;
        this->fAColor = o.fAColor;
@@ -53,6 +54,8 @@ namespace LOGMASTER
        this->fEpochTime  = o.fEpochTime;
     
     }
+
+
 
 
     LMessage &

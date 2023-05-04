@@ -11,10 +11,17 @@
 /**@brief Generate resource description file for compilation with visual studio under Windows.
  * @details This information ends up in the description filed under the detailed section when
  * right clikcing a dll.*/
+
+#include <string>
+
+using std::string;
+
+
 class GGenerateRCFile
 {
 public:
-    GGenerateRCFile();
-    ~GGenerateRCFile();
+    static void Generate(string outdir, const string rc_filename, const string company, const string desc, const string dllname, const string copyright, const string prod_name);
+
+
 };
 

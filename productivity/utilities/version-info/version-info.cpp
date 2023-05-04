@@ -24,37 +24,14 @@
 ******************************************************************************/
 
 
+#include "GGenerateRCFile.h"
+#include "GGenerateVersionInfo.h"
+#include "external_includes.h"
+
 #include <iostream>
 
 using std::cout;
 using std::endl;
-
-
-
-#include <utilities/GUtilities.h>
-
-#include <utilities/GTokenizer.h>
-#include <utilities/GTokenizer.cpp>
-
-#include <utilities/GString.h>
-#include <utilities/GString.cpp>
-#include <utilities/GRegexp.h>
-#include <utilities/GSystem.h>
-#include <utilities/GSystem.cpp>
-#include <utilities/GTime.h>
-#include <utilities/GTime.cpp>
-
-#include <utilities/GText.cpp>
-
-#include <utilities/GNumbers.h>
-#include <utilities/GNumbers.cpp>
-
-#include <logging/LLogApi.h>
-//#include <cmdline/GLogApplication.h>
-#include <logging/GException.h>
-//#include <utilities/GFileIOHandler.h>
-// #include <utilities/GText.h>
-//#include <utilities/GString.h>
 
 #include <string>
 #include <vector>
@@ -64,7 +41,10 @@ using std::endl;
 #include <Windows.h>
 #endif
 
-#include "GGenerateVersionInfo.h"
+
+
+
+
 //#define G GGenerateVersionInfo
 #define G_STANDALONE
 
@@ -79,8 +59,8 @@ string  generateVersionString(const vector<int> num);
   //                      const string branch, vector<string> svn_tokens, string &outdir);
 void generateVersionFile(const string directory, const string fname, const int rev, const string version, const string branch, const string                                     configuration, const string platform, string &outdir);
 
-void generate_rc_file(  string directory, const string rc_filename, const string company, const string desc, const string filename, const string                             copyright, const string prod_name);
-void autoClause(FILE *fp);
+// void generate_rc_file(  string directory, const string rc_filename, const string company, const string desc, const string filename, const string                             copyright, const string prod_name);
+// void autoClause(FILE *fp);
 void helpMenu();
 bool hasArgument(int argc, const char **args, const string argument);
 void scanParameter(int argc, const char **args, string name, string &par);
@@ -94,8 +74,36 @@ vector<string> g_valid_tags;
 
 int main( int argc, const char **argv )
 {
+
+
     string configuration;
     string platform;
+
+    time_t  the_time = time(NULL);
+
+#ifdef _WIN32
+#pragma warning(suppress: 4996) 
+    struct tm* a_time = localtime(&the_time);
+#else
+    struct tm* a_time = localtime(&the_time);
+#endif
+
+    string year = g_string()->ToString<int>(a_time->tm_year + 1900);
+    string rc_filename = "unknown_resource_file.rc";
+    string compileflags_file = "unknown_compileflags_file";
+    string company = "Embedded Consulting, " + year;
+    string dllname = "unknown_dll";
+    string exename = "unknowne_exefile";
+    string productname = "unknown_product";
+    string description = "no_description";
+    string copyright = "unknown_copyright";
+    string compileinfo = "not_set";
+
+
+    deque< std::shared_ptr<GArgument>  > arguments;
+
+    arguments.push_back(std::make_shared <GCommandLineArgument<string> >("-mydouble", "-mydouble [value]", "sets the second value", &rc_filename, fgkOPTIONAL));
+
 
 #ifdef _WIN64
     platform = "x64 (64 bit)";
@@ -109,29 +117,11 @@ int main( int argc, const char **argv )
     configuration = "Release";
 #endif
 
-    time_t  the_time = time(NULL);
-
-#ifdef _WIN32
-#pragma warning(suppress: 4996) 
-    struct tm *a_time = localtime(&the_time);
-#else
-    struct tm *a_time = localtime(&the_time);
-#endif
-
-    string year = g_string()->ToString<int>(a_time->tm_year + 1900);
-    string rc_filename = "unknown_resource_file.rc";
-    string compileflags_file = "unknown_compileflags_file";
-    string company = "Flekkefjord Elektro, " + year;
-    string dllname = "unknown_dll";
-    string exename = "unknowne_exefile";
-    string productname = "unknown_product";
-    string description = "no_description";
-    string copyright = "unknown_copyright";
-    string compileinfo = "not_set";
 
     try
     {
         scanParameter( argc, argv,  "-rc_filename", rc_filename);
+        scanParameter( argc, argv,  "-dllname", dllname);
         scanParameter( argc, argv,  "-productname", productname);
         scanParameter( argc, argv,  "-description", description);
         scanParameter( argc, argv,  "-copyright", copyright);
@@ -177,6 +167,14 @@ int main( int argc, const char **argv )
 
         bool generate_files = true;
 
+/*
+        if (hasArgument(argc, argv, "-dllname"))
+        {
+            cout << repo_name << endl;
+            generate_files = false;
+        }
+  */
+
         if (hasArgument( argc, argv, "-repo-name"))
         {
             cout << repo_name << endl;
@@ -205,7 +203,7 @@ int main( int argc, const char **argv )
             string outdir;
             #ifdef _WIN32
             generateVersionFile("include", "Version.h", rev, version, branch, configuration, platform, outdir);
-			generate_rc_file(outdir, rc_filename, company, description, dllname, copyright, productname);
+            GGenerateRCFile::Generate(outdir, rc_filename, company, description, dllname, copyright, productname);
             #endif
             GGenerateVersionInfo::GenerateClass("GVersion", exename, compileflags_file, ".");
 		}
@@ -223,121 +221,6 @@ int main( int argc, const char **argv )
 
     return 0;
 }
-
-
-
-void
-generate_rc_file(string outdir, const string rc_filename, const string company, const string desc, const string filename, const string copyright, const string prod_name)
-{
-    FILE *fp = 0;
-    
-    #ifdef _WIN32
-    fopen_s(&fp, rc_filename.c_str(), "w"); /// @todo check on return value 
-    #else
-    fp = fopen(rc_filename.c_str(), "w");
-    #endif
-
-    if (fp == 0)
-    {
-        throw(std::runtime_error ( "could not open file" + rc_filename ) );
-    }
-
-    fprintf(fp, "\n\n//DO NOT EDIT !!. KNS_TS auto generated resource file. Any changes will be overwritten during next compilation\n\n");
-
-    if (outdir == "")
-    {
-        fprintf(fp, "#include \"resource.h\"\n");
-        fprintf(fp, "#include \"Version.h\"\n");
-    }
-    else
-    {
-        fprintf(fp, "#include <%s\\resource.h>\n", outdir.c_str());
-        fprintf(fp, "#include <%s\\Version.h>\n", outdir.c_str());
-    }
-
-    fprintf(fp, "#define  APSTUDIO_READONLY_SYMBOLS\n");
-    fprintf(fp, "#include \"winres.h\"\n");
-    fprintf(fp, "#undef APSTUDIO_READONLY_SYMBOLS\n");
-    fprintf(fp, "\n\n");
-    fprintf(fp, "#ifdef APSTUDIO_INVOKED\n");
-
-    fprintf(fp, "1 TEXTINCLUDE\n");
-    fprintf(fp, "BEGIN\n");
-    fprintf(fp, "\t\"resource.h\\0\"\n");
-    fprintf(fp, "END\n\n");
-
-    fprintf(fp, "2 TEXTINCLUDE\n");
-    fprintf(fp, "BEGIN\n");
-    fprintf(fp, "\t\"#include \"\"winres.h\"\"\\r\\n\"\n");
-    fprintf(fp, "END\n\n");
-
-    fprintf(fp, "3 TEXTINCLUDE\n");
-    fprintf(fp, "BEGIN\n");
-    fprintf(fp, "\t\"\\r\\n  \\0\"");
-    fprintf(fp, "END\n\n");
-    fprintf(fp, "#endif\t//APSTUDIO_INVOKED\n\n");
-
-    fprintf(fp, "VS_VERSION_INFO VERSIONINFO\n\n");
-    fprintf(fp, "#ifdef   GIT_FILEVERSION\n");
-    fprintf(fp, "FILEVERSION  GIT_FILEVERSION\n");
-    fprintf(fp, "#else\n");
-    fprintf(fp, "FILEVERSION 999, 999, 999, 999\n");
-    fprintf(fp, "#endif\n\n");
-
-    fprintf(fp, "#ifdef GIT_PRODUCTVERSION\n");
-    fprintf(fp, "PRODUCTVERSION GIT_PRODUCTVERSION\n");
-
-    fprintf(fp, "#else\n");
-    fprintf(fp, "PRODUCTVERSION 7, 8, 9, 10\n");
-    fprintf(fp, "#endif\n\n");
-
-    fprintf(fp, "FILEFLAGSMASK 0x3fL\n");
-
-    fprintf(fp, "#ifdef _DEBUG\n");
-    fprintf(fp, "FILEFLAGS 0x1L\n");
-
-    fprintf(fp, "#else\n");
-
-    fprintf(fp, "FILEFLAGS 0x0L\n");
-    fprintf(fp, "#endif\n\n");
-
-    fprintf(fp, "FILEOS 0x40004L\n");
-    fprintf(fp, "FILETYPE 0x2L\n");
-
-    fprintf(fp, "FILESUBTYPE 0x0L\n");
-
-    /////////
-    fprintf(fp, "BEGIN\n");
-    fprintf(fp, "\tBLOCK \"StringFileInfo\"\n");
-    fprintf(fp, "\tBEGIN\n");
-    fprintf(fp, "\t\tBLOCK \"040904b0\"\n");
-    fprintf(fp, "\t\tBEGIN\n");
-    fprintf(fp, "\t\t\tVALUE \"CompanyName\", \"%s\"\n", company.c_str());
-    fprintf(fp, "\t\t\tVALUE \"FileDescription\", \"%s\"\n", desc.c_str());
-    fprintf(fp, "\t\t\tVALUE \"InternalName\", \"%s\"\n", filename.c_str());
-    fprintf(fp, "\t\t\tVALUE \"LegalCopyright\", \"%s\"\n", copyright.c_str());
-    fprintf(fp, "\t\t\tVALUE \"OriginalFilename\", \"%s\"\n", filename.c_str());
-    fprintf(fp, "\t\t\tVALUE \"ProductName\", \"%s\"\n", prod_name.c_str());
-    fprintf(fp, "#ifdef GIT_PRODUCTVERSION_STRING\n");
-    fprintf(fp, "\t\t\tVALUE  \"ProductVersion\", GIT_PRODUCTVERSION_STRING\n");
-    fprintf(fp, "#else\n");
-    fprintf(fp, "\t\t\tVALUE \"ProductVersion\", \" - 1. - 1. - 1\"\n");
-    fprintf(fp, "#endif\n");
-    fprintf(fp, "\t\tEND\n");
-    fprintf(fp, "\tEND\n");
-
-    fprintf(fp, "BLOCK \"VarFileInfo\"\n");
-    fprintf(fp, "BEGIN\n");
-    fprintf(fp, "VALUE \"Translation\", 0x409, 1200\n");
-
-    fprintf(fp, "END\n");
-    fprintf(fp, "END\n\n\n");
-    fprintf(fp, "////#endif  // // Norwegian, Bokm�l (Norway) resources\n\n");
-    fprintf(fp, "/////#ifndef APSTUDIO_INVOKED\n\n");
-    fprintf(fp, "/////#endif //not APSTUDIO_INVOKED\n\n");
-    fclose(fp);
-}
-
 
 
 
@@ -400,25 +283,6 @@ print_tags()
     {
         cout << g_valid_tags[i] << endl;
     }
-}
-
-
-
-
-
-void autoClause(FILE *fp)
-{
-    fprintf(fp, "\n\n/***** Auto generated file: DO NOT EDIT !!!!!! *****/\n");
-    struct std::tm timeinfo;
-    
-    std::time_t now = std::time(NULL); 
-    localtime_s(&timeinfo, &now);
-    
-    char tmp2[512] = {0};
-    string tmp =   GTime().TimeStamp("%a %d %B-%Y %H:%M:%S");
-    snprintf(tmp2, 512, tmp.c_str() );
-    std::strftime(tmp2, 1024 - 1, "[%a %d %B-%Y %H:%M:%S]", &timeinfo);
-    fprintf(fp, "/*** Generated at: %s  ***/\n\n", tmp.c_str()  );
 }
 
 
@@ -519,7 +383,7 @@ generateVersionFile(const string directory, const string fname, const int rev, c
     }
 
     fprintf(fp_h, "#pragma once\n\n");
-    autoClause(fp_h);
+    g_utilities()->AutoClause("", fp_h);
     fprintf(fp_h, "#define GIT_PRODUCTVERSION %s\n", generateVersionString(version_numbers).c_str()    );
 
     if (branch != "tags")
@@ -549,12 +413,10 @@ printTokens(vector<string>& tokens)
 }
 
 
-
-
 void
 helpMenu()
 {
-    cout << "Usage:  svninfo.exe [filepath]  option" << endl;
+    cout << "Usage:  verion-info.exe [filepath]  option" << endl;
     cout << "NB ! A file path must be specified before any of the switches, Use \".\" (dot) to refere to the current directory" << endl;
     cout << "**** Command line switches *****" << endl;
     cout << "1)\t--generate-files  Generate the files/classes  SvnData.h and Version.h containing SVN information to be used by other applications (this i done as default if no parameters are given)" << endl;

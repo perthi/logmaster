@@ -69,7 +69,7 @@ public:
     bool operator<(GTime& o) { return(fTimeVal < o.fTimeVal); }
     bool operator<=(GTime& o) { return(fTimeVal <= o.fTimeVal); }
     
-    GTimeSpan operator-(GTime& o) { return(GTimeSpan(fTimeVal - o.fTimeVal)); }
+    GTimeSpan API operator-(GTime& o) { return(GTimeSpan(fTimeVal - o.fTimeVal)); }
 
 private:
     bool  API  ValidateV2(  std::function<bool(  const int ) > funct, const string &s, const vector<string> * const arr = nullptr );

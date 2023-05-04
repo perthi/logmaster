@@ -54,9 +54,11 @@ public:
   string API GetHelpText(const bool subcommands) const;
   void   API SetHelpText(const string help) { fHelpText = help; };
 
-  virtual API string str(const bool subcommands = false) const;
-  bool Verify();
+  string API str(const bool subcommands = false) const;
+  bool API Verify();
+  
   void API AddSubCommand(const string cmd);
+  
   void API SetCommand(const string cmd) { fCmd = cmd; };
   void API SetSubCommands(const vector<string> sub) { fSubCmds = sub; };
   string API GetCommand() const { return fCmd; };

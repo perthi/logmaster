@@ -27,7 +27,7 @@
 ******************************************************************************/
 
 
-
+#pragma once
 
 #include "GArgument.h"
 #include <utilities/GUtilities.h>

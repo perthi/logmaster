@@ -28,6 +28,8 @@
 #include <stdio.h>
 #include <string.h>
 
+//#define _CRT_SECURE_NO_WARNINGS
+
 namespace LOGMASTER
 {
     LDatabase *LDatabase::fgInstance = nullptr;
@@ -92,7 +94,10 @@ namespace LOGMASTER
         if(fMaxDbFileSize)
         {
             FILE *p_file = NULL;
-            p_file = fopen(fDBPath.c_str(),"rb");
+            //p_file = fopen(fDBPath.c_str(),"rb");
+
+            /// @todo intepret errno value on failure
+            fopen_s(&p_file, fDBPath.c_str(), "rb");
             fseek(p_file,0,SEEK_END);
             auto fileSize = ftell(p_file);
             fclose(p_file);

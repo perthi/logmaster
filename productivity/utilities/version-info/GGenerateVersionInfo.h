@@ -17,11 +17,7 @@
 #include   <utilities/GSystem.h>
 #include   <utilities/GFileIOHandler.h>
 #include   <utilities/GTime.h>
-//#include   <utilities/GTime.cpp>
-
 #include   <utilities/GString.h>
-//#include  <logging/LLogApi.h>
-//using namespace LOGMASTER;
 
 #include   <cctype>
 #include   <string>
@@ -34,8 +30,7 @@ using std::endl;
 using std::string;
 
 
-
-#include <utilities/GDefinitions.h>
+//#include <utilities/GDefinitions.h>
 #include <string>
 
 using std::string;
@@ -49,34 +44,18 @@ using std::string;
 class  GGenerateVersionInfo
 {
 public:
-    virtual inline ~GGenerateVersionInfo();
     static inline string GitInfo();
     static inline string Branch();
     static inline string Version();
     static inline string CompileInfo(const string info_file);
     static inline string LinkInfo( const string info_file );
-    static string OriginalFilename();
+   // static string OriginalFilename();
     static inline void GenerateClass( const string classname, const string exename, const string info_file, const string target_directory );
 
 private:
-    inline GGenerateVersionInfo();
     static inline string ReadCompileInfo( const unsigned int idx, const string fname);
 };
 
-
-
-
-
-GGenerateVersionInfo::GGenerateVersionInfo()
-{
-
-}
-
-
-GGenerateVersionInfo::~GGenerateVersionInfo()
-{
-
-}
 
 
 string
@@ -127,18 +106,10 @@ GGenerateVersionInfo::Branch()
 string
 GGenerateVersionInfo::Version()
 {
-#ifndef _WIN32
-    string tmp = g_system()->exec("git describe --tags");
-#else
-	  string tmp = g_system()->exec("git describe --tags");
-	//string tmp  = "git describe --tags takes forever on windows, ignored !!";
-#endif
-
+	string tmp = g_system()->exec("git describe --tags");
 	g_string()->Trim(tmp, '\n');
 	return tmp;
 }
-
-
 
 
 string
@@ -150,6 +121,7 @@ GGenerateVersionInfo::CompileInfo(const string fname)
 	return "not implemented for windows";
 #endif
 }
+
 
 string
 GGenerateVersionInfo::LinkInfo(const string fname)
@@ -163,12 +135,9 @@ GGenerateVersionInfo::LinkInfo(const string fname)
 
 
 
-
-
 string
 GGenerateVersionInfo::ReadCompileInfo(const unsigned int idx, const string fname)
 {   
-//    CERR << "reading file = " << fname << endl;
     vector<string> cont = g_file()->ReadAll(fname.c_str());
 
     string ret;
@@ -179,10 +148,9 @@ GGenerateVersionInfo::ReadCompileInfo(const unsigned int idx, const string fname
     }
     else
     {
-
-      //  printf("FATAL Error reading compil info from file: %s", fname.c_str());
+      //printf("FATAL Error reading compil info from file: %s", fname.c_str());
         //   G_FATAL("Error reading compil info from file: %s", fname.c_str() );
-        //  COUT << "Error reading compil info from file : " << fname << endl;
+        CERR << "Error reading compil info from file : " << fname << ENDL;
     }
 
     return ret;
@@ -208,9 +176,7 @@ GGenerateVersionInfo::GenerateClass(const string class_name, const string exenam
         filename_h = target_directory + "/" + class_name + ".h";
     }
 
-
     string str = class_name;
-    // string guard =std::transform( str.begin(), str.end(), str.begin(), ::toupper);
     std::transform(str.begin(), str.end(), str.begin(),
         [](unsigned char c) -> unsigned char { return std::toupper(c); });
 
@@ -223,13 +189,12 @@ GGenerateVersionInfo::GenerateClass(const string class_name, const string exenam
 
     if (fp == 0)
     {
+        CERR << "Could not open file: %s" << filename_cpp << ENDL;
 
 #ifndef _WIN32
         G_FATAL("Could not open file: %s", filename_cpp.c_str());
 #endif
-
 		//      printf("Could not open file: %s", filename_cpp.c_str());
-
     }
     else
     {
