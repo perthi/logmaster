@@ -187,10 +187,17 @@ GCmdScan::SetParametersF<string>(  std::shared_ptr<GArgument>  a, GArgumentParse
     std::shared_ptr<   GCommandLineArgument < string>  > ab = std::dynamic_pointer_cast<  GCommandLineArgument < string>   >(a);
     G_ASSERT_EXCEPTION( ab != nullptr,  "ZERO pointer " );
 
-    if (ab != 0)
+    if (ab != nullptr)
     {
         {
-            ab->SetParameter( &v.GetArguments()[0] );
+            if (v.GetArguments().size() == 0)
+            {
+                INVALID_ARGUMENT_EXCEPTION("Missing argument to %s", a->fCmd.c_str() );
+            }
+            else
+            {
+                ab->SetParameter(&v.GetArguments()[0]);
+            }
         }
     }
 }
@@ -335,7 +342,10 @@ GCmdScan::ScanArguments(const int argc, const char **argv, deque<  std::shared_p
 
                 //#endif
                 if (type == typeid(bool).name()) { SetParametersF  <bool>( args->at(i), v[j]) ; }
+
+
                 if (type == typeid(string).name()) { SetParametersF  <string>( args->at(i), v[j] ); }
+
                 if (type == typeid(float).name()) { SetParametersF  <float>(args->at(i), v[j]); }
                 if (type == typeid(double).name()) { SetParametersF  <double>(args->at(i), v[j]); }
                 if (type == typeid(long double).name()) { SetParametersF  <long double>(args->at(i), v[j]); }
@@ -440,16 +450,17 @@ GCmdScan::Verify(  std::shared_ptr<GArgument> a, GArgumentParsed v) const
                 }
             }
         }
+
         /**********************************************/
 
         else if (g_numbers()->IsFundamentalTypeS(type) || type == typeid(string).name())
         {
-            if (v.GetSubCommands().size() != 0 || v.GetArguments().size() != 1)
+            if (v.GetSubCommands().size() != 0 || v.GetArguments().size() != 1 || v.GetArguments().size() == 0)
             {
                 string n_sub = g_string()->ToString((v.GetSubCommands().size()));
                 string n_args = g_string()->ToString((v.GetArguments().size()));
                 string args = "Subcommands:" + g_utilities()->Vec2String(v.GetSubCommands()) + "(" + n_sub + ")\t" + "argumenst: " + g_utilities()->Vec2String(v.GetArguments()) + "(" + n_args + ")";
-                INVALID_ARGUMENT_EXCEPTION("Argumenst of fundamental types takes exactly one parameter, an no sub GArguments: %s(%s) taks only on GArguments: You hve given the following argumenswt and subcommands: %s", v.GetCommand().c_str(), type.c_str(), args.c_str());
+                INVALID_ARGUMENT_EXCEPTION("Argumenst of fundamental types takes exactly one parameter, and no sub GArguments: %s(%s) taks only on GArguments: You have given the following argumenswt and subcommands: %s", v.GetCommand().c_str(), type.c_str(), args.c_str());
             }
             else
             {

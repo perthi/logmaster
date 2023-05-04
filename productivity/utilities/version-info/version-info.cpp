@@ -26,6 +26,8 @@
 
 #include "VGenerateRCFile.h"
 #include "VGenerateVersionInfo.h"
+#include "VScanArguments.h"
+
 #include "external_includes.h"
 
 #include <iostream>
@@ -57,12 +59,12 @@ void generateVersionFile(const string directory, const string fname, const int r
 // void generate_rc_file(  string directory, const string rc_filename, const string company, const string desc, const string filename, const string                             copyright, const string prod_name);
 // void autoClause(FILE *fp);
 void helpMenu();
-bool hasArgument(int argc, const char **args, const string argument);
+//bool hasArgument(int argc, const char **args, const string argument);
 void scanParameter(int argc, const char **args, string name, string &par);
-bool is_valid_tag(const string tag);
-bool is_valid_argument(int argc, const char **argv, string &invalid_arg);
-void print_tags();
-vector<string> g_valid_tags;
+//bool is_valid_tag(const string tag);
+//bool is_valid_argument(int argc, const char **argv, string &invalid_arg);
+//void print_tags();
+//vector<string> g_valid_tags;
 
 //bool GCmdScan::fDoIgnoreStrayArguments = false;
 
@@ -83,22 +85,21 @@ int main( int argc, const char **argv )
     string platform;
 
     string year = g_string()->ToString<int>(a_time->tm_year + 1900);
-    string rc_filename = "unknown_resource_file.rc";
-    string compileflags_file = "unknown_compileflags_file";
-    string company = "Embedded Consulting, " + year;
-    string dllname = "unknown_dll";
-    string exename = "unknowne_exefile";
-    string productname = "unknown_product";
-    string description = "no_description";
-    string copyright = "unknown_copyright";
+
+//    string rc_filename = "unknown_resource_file.rc";
+ //   string compileflags_file = "unknown_compileflags_file";
+ //   string company = "Embedded Consulting, " + year;
+  //  string dllname = "unknown_dll";
+  //  string exename = "unknowne_exefile";
+  //  string productname = "unknown_product";
+  //  string description = "no_description";
+  //  string copyright = "unknown_copyright";
+    
     string compileinfo = "not_set";
 
+//    deque< std::shared_ptr<GArgument>  > arguments;
 
-
-
-    deque< std::shared_ptr<GArgument>  > arguments;
-
-    arguments.push_back(std::make_shared <GCommandLineArgument<string> >("--rc_filename", "--rc_filename [value]", "Sets the filen of the generated RC file", &rc_filename, fgkMANDATORY));
+   //arguments.push_back(std::make_shared <GCommandLineArgument<string> >("--rc_filename", "--rc_filename [value]", "Sets the filen of the generated RC file", &rc_filename, fgkMANDATORY));
 
 
 
@@ -115,6 +116,7 @@ int main( int argc, const char **argv )
 #endif
 
 
+    /*
     try
     {
         scanParameter( argc, argv,  "-rc_filename", rc_filename);
@@ -131,9 +133,10 @@ int main( int argc, const char **argv )
         cerr << e.what() << endl;
         exit(-1);
     }
+    */
 
-    g_valid_tags = vector<string>{ "-rc_filename", "-company", "-dllname" , "-productname", "-description", "-copyright",  "-info", "-help", "-repo-name", "-branch", "-version",  "-rev", "-lc-rev",  "-generate-files", "-compileflags_file", "-exename", "-compileinfo" };
-    string invalid;
+  //  g_valid_tags = vector<string>{ "-rc_filename", "-company", "-dllname" , "-productname", "-description", "-copyright",  "-info", "-help", "-repo-name", "-branch", "-version",  "-rev", "-lc-rev",  "-generate-files", "-compileflags_file", "-exename", "-compileinfo" };
+  //  string invalid;
 
     try
     {
@@ -157,10 +160,13 @@ int main( int argc, const char **argv )
         {
             path += "@";
         }
+        
+       /*
         if (hasArgument(argc, argv, "-help"))
         {
             helpMenu();
         }
+        */
 
         bool generate_files = true;
 
@@ -171,40 +177,21 @@ int main( int argc, const char **argv )
             generate_files = false;
         }
   */
+        VScanArguments scanner;
+        VParameters p = scanner.Scan(argc, argv);
 
-        if (hasArgument( argc, argv, "-repo-name"))
-        {
-            cout << repo_name << endl;
-            generate_files = false;
-        }
-        if (hasArgument( argc, argv, "-branch"))
-        {
-            cout << branch << endl;
-            generate_files = false;
-        }
 
-        if (hasArgument( argc, argv, "-version"))
-        {
-            cout << version << endl;
-            generate_files = false;
-        }
 
-		if (hasArgument( argc, argv, "-rev"))
-        {
-            cout << rev;
-            generate_files = false;
-        }
-
-        if (hasArgument( argc, argv, "-generate-files") || generate_files == true)
-        {
+  //      if (hasArgument( argc, argv, "-generate-files") || generate_files == true)
+  //      {
             string outdir;
-            #ifdef _WIN32
+#ifdef _WIN32
             generateVersionFile("include", "Version.h", rev, version, branch, configuration, platform, outdir);
-            VGenerateRCFile::Generate(outdir, rc_filename, company, description, dllname, copyright, productname);
-            #endif
-            VGenerateVersionInfo::GenerateClass("GVersion", exename, compileflags_file, ".");
+            VGenerateRCFile::Generate(outdir, p.fRCilename, p.fCompany, p.fDescription, p.fDllname, p.fCopyright, p.fProductname);
+#endif
+            VGenerateVersionInfo::GenerateClass("GVersion", p.fExename,  p.fCompileflags_file, ".");
 		}
-    }
+//    }
 
     catch (std::exception &e)
     {
@@ -242,6 +229,7 @@ scanParameter(int argc, const char **argv, string name, string & par)
 }
 
 
+/*
 bool
 is_valid_tag(const string tag)
 {
@@ -254,8 +242,10 @@ is_valid_tag(const string tag)
     }
     return false;
 }
+*/
 
 
+/*
 bool
 is_valid_argument(int argc, const char ** argv, string &invalid)
 {
@@ -271,8 +261,9 @@ is_valid_argument(int argc, const char ** argv, string &invalid)
     }
     return bret;
 }
+*/
 
-
+/*
 void
 print_tags()
 {
@@ -281,9 +272,10 @@ print_tags()
         cout << g_valid_tags[i] << endl;
     }
 }
+*/
 
 
-
+/*
 bool
 hasArgument(int argc, const char **argv, const string argument)
 {
@@ -296,7 +288,7 @@ hasArgument(int argc, const char **argv, const string argument)
     }
     return false;
 }
-
+*/
 
 
 string
@@ -400,6 +392,7 @@ generateVersionFile(const string directory, const string fname, const int rev, c
 
 
 
+/*
 void
 printTokens(vector<string>& tokens)
 {
@@ -408,6 +401,7 @@ printTokens(vector<string>& tokens)
         CERR << "tokens[" << i << "]  =  " << tokens[i] << endl;
     }
 }
+*/
 
 
 void

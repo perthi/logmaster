@@ -2,22 +2,36 @@
 
 #include "VParameters.h"
 
-#define FORCE_OPTIONAL false;
+#include <memory>
+#include <deque>
+
+
+class GArgument;
 
 class VScanArguments
 {
 public:
-	VParameters Scan(const string &cmdline, bool force_optional = false );
-	VParameters Scan(int argc, const char** argv, bool force_optional = false);
+	VScanArguments();
+	VParameters & Scan(const string &cmdline);
+	VParameters & Scan(int argc, const char** argv);
 
 	void EnableForceOptional(string ar = "") { fForceOptional = true; };
 
 private:
+	VParameters fParameters;
+
+	std::deque< std::shared_ptr<GArgument> > fArguments;
+
+	void  InitArguements();
+	void  ApllyFlag(bool is_optional);
+	bool  CheckParameters( const VParameters p) const;
+
 	bool fForceOptional = false;
+	
 
 };
 
-
+//deque< std::shared_ptr<GArgument>  > arguments;
 
 /*
 time_t  the_time = time(NULL);
