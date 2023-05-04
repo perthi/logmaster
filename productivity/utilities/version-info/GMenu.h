@@ -13,12 +13,10 @@
 *** General Public License(LGPL) V3 or later.See.cpp file for details     ***
 *****************************************************************************/
 
-#include <string>
 
-using std::string;
 
-#include <version-info/GGenerateVersionInfo.h>
-#include <version-info/GVersion.h>
+#include "VGenerateVersionInfo.h"
+#include "GVersion.h"
 #include <utilities/GDefinitions.h>
 #include <utilities/GUtilities.h>
 
@@ -28,7 +26,11 @@ using std::string;
 #include <cmdline/GLogApplication.h>
 #include <cmdline/GCmdScan.h>
 
+#include <string>
+using std::string;
+
 #define G GVersion
+
 
 #include <memory>
 

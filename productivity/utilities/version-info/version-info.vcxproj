@@ -82,6 +82,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -149,7 +150,7 @@
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command />
+      <Command>$(BinDir)\version-info -rcname  $(TargetName).rc -dll  $(TargetName).dll -copyright "Embedded Consulting"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -173,7 +174,7 @@
       <AdditionalLibraryDirectories>$(ucw-bindir);$(boost-libdir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command />
+      <Command>$(BinDir)\version-info</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -181,13 +182,16 @@
     <ClCompile Include="GMenu.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GVersion.cpp" />
     <ClCompile Include="version-info.cpp" />
     <ClCompile Include="VGenerateRCFile.cpp" />
     <ClCompile Include="VGenerateVersionInfo.cpp" />
+    <ClCompile Include="VHelpers.cpp" />
     <ClCompile Include="VScanArguments.cpp" />
+    <ClCompile Include="VVersionHeader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sqlite\sqlite3.h" />
@@ -196,7 +200,7 @@
     <ClInclude Include="GMenu.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="GVersion.h" />
@@ -204,11 +208,13 @@
     <ClInclude Include="Version.h" />
     <ClInclude Include="VGenerateRCFile.h" />
     <ClInclude Include="VGenerateVersionInfo.h" />
+    <ClInclude Include="VHelpers.h" />
     <ClInclude Include="VParameters.h" />
     <ClInclude Include="VScanArguments.h" />
+    <ClInclude Include="VVersionHeader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="unknown_resource_file.rc" />
+    <ResourceCompile Include="version-info.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

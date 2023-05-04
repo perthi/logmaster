@@ -204,7 +204,7 @@ GUtilities::AutoClause( string addendum, FILE *fp)
 
     if( fp != nullptr )
     {
-        fprintf( fp, "%s", tmp2.c_str()  );
+        fprintf( fp, "%s", buffer.str().c_str()  );
     }
 
     return buffer.str();

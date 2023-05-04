@@ -30,8 +30,3 @@
 
 #include "GMenu.h"
 
-/*Menu::GMenu()
-{
-
-}
-*/

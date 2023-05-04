@@ -18,6 +18,7 @@
 #include   <utilities/GFileIOHandler.h>
 #include   <utilities/GTime.h>
 #include   <utilities/GString.h>
+#include   <logging/LLogApi.h>
 
 #include   <cctype>
 #include   <string>
@@ -29,8 +30,6 @@ using std::endl;
 
 using std::string;
 
-
-//#include <utilities/GDefinitions.h>
 #include <string>
 
 using std::string;
@@ -49,8 +48,7 @@ public:
     static inline string Version();
     static inline string CompileInfo(const string info_file);
     static inline string LinkInfo( const string info_file );
-   // static string OriginalFilename();
-    static inline void GenerateClass( const string classname, const string exename, const string info_file, const string target_directory );
+    static inline void   GenerateClass( const string classname, const string exename, const string info_file, const string target_directory );
 
 private:
     static inline string ReadCompileInfo( const unsigned int idx, const string fname);
@@ -66,11 +64,7 @@ VGenerateVersionInfo::GitInfo()
 #else
     auto tmp =  g_system()->exec("git-info");
     auto tmp2 =  g_string()->Replace(tmp, "\"", " "); 
-//    COUT << "!!!!!!! tmp2 =\n" << tmp2 << endl;
     return tmp2;
-
-    ///return g_string()->Replace(tmp, "\"", "") + "blahhhhhh";
-    //return tmp ;
 #endif
 }
 
@@ -81,11 +75,8 @@ VGenerateVersionInfo::Branch()
     string tmp;
 #ifdef _WIN32
     tmp = g_system()->exec("git branch |  \"C:\\Program Files\\Git\\usr\\bin\\grep.exe\" \"*\" ");
-//	tmp = "not implemented on windows";
 #else
     tmp = g_system()->exec("git branch | grep \"*\"");
-
-    //COUT << "branch !!!!!! = "  << tmp << std::endl;
 #endif
 
     vector<string> tokens = g_tokenizer()->Tokenize(tmp, " ");
@@ -93,7 +84,6 @@ VGenerateVersionInfo::Branch()
     if (tokens.size() == 2)
     {
         g_string()->Trim(tokens[1], '\n');
-        //COUT << "branch !!!!!! = "  << tokens[1] << std::endl;
         return tokens[1];
     }
     else
@@ -139,7 +129,6 @@ string
 VGenerateVersionInfo::ReadCompileInfo(const unsigned int idx, const string fname)
 {   
     vector<string> cont = g_file()->ReadAll(fname.c_str());
-
     string ret;
 
     if (cont.size() > idx)
@@ -148,15 +137,11 @@ VGenerateVersionInfo::ReadCompileInfo(const unsigned int idx, const string fname
     }
     else
     {
-      //printf("FATAL Error reading compil info from file: %s", fname.c_str());
-        //   G_FATAL("Error reading compil info from file: %s", fname.c_str() );
-        CERR << "Error reading compil info from file : " << fname << ENDL;
+        CERR << "Error reading compile info from file : " << fname << ENDL;
     }
 
     return ret;
-
 }
-
 
 
 void
@@ -189,12 +174,7 @@ VGenerateVersionInfo::GenerateClass(const string class_name, const string exenam
 
     if (fp == 0)
     {
-        CERR << "Could not open file: %s" << filename_cpp << ENDL;
-
-#ifndef _WIN32
         G_FATAL("Could not open file: %s", filename_cpp.c_str());
-#endif
-		//      printf("Could not open file: %s", filename_cpp.c_str());
     }
     else
     {
@@ -209,7 +189,7 @@ VGenerateVersionInfo::GenerateClass(const string class_name, const string exenam
         fprintf(fp, "const string %s::fGitTag = \"%s\";\n", class_name.c_str(), Version().c_str());
         fprintf(fp, "const string %s::fCompileFlags = \"%s\";\n", class_name.c_str(), CompileInfo(info_file).c_str());
         fprintf(fp, "const string %s::fLinkFlags = \"%s\";\n", class_name.c_str(), LinkInfo(info_file).c_str());
-        fprintf(fp, "string %s::fOriginalExeName = \"%s\";\n", class_name.c_str(), exename.c_str());
+        fprintf(fp, "const string %s::fOriginalExeName = \"%s\";\n", class_name.c_str(), exename.c_str());
 
 
 #ifdef _WIN32

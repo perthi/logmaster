@@ -97,6 +97,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>logging.lib;utilities.lib;cmdline.lib;shell32.lib</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>$(BinDir)\version-info -rcname  $(TargetName).rc -dll  $(TargetName).dll -copyright "Embedded Consulting"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -150,6 +153,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helloworld.h" />
+    <ClInclude Include="Resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="helloworld.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

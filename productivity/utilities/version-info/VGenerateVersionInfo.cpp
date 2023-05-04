@@ -26,5 +26,3 @@
 
 #include "VGenerateVersionInfo.h"
 
-
-/// #define G_STANDALONE

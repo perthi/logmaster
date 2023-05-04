@@ -36,10 +36,12 @@ VGenerateRCFile::Generate(string outdir, const string rc_filename, const string 
 {
     FILE* fp = 0;
 
+    /*
     CERR << "RC filename = " << rc_filename << "\t out dir = " << rc_filename << "\tcompany: " << company << ENDL;
     CERR << "filename:" << dllname << ENDL;
     CERR << "desc: " << desc << ENDL;
     CERR << "Copyright:" << copyright << ENDL;
+    */
 
 #ifdef _WIN32
     fopen_s(&fp, rc_filename.c_str(), "w"); /// @todo check on return value 
