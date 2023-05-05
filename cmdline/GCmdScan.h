@@ -384,7 +384,7 @@ GCmdScan::Verify(  std::shared_ptr<GArgument> a, GArgumentParsed v) const
 {
     if (a->ValidateCommands != 0)
     {
-        string args_s = g_utilities()->Vec2String( v.GetSubCommands()) + " " +   g_utilities()->Vec2String( v.GetArguments())  ;
+        string args_s = g_string()->Vec2String( v.GetSubCommands()) + " " +   g_string()->Vec2String( v.GetArguments())  ;
          bool test = a->ValidateCommands(v.GetCommand(), args_s, v.GetSubCommands(), v.GetArguments());
         return test;
     }
@@ -459,7 +459,7 @@ GCmdScan::Verify(  std::shared_ptr<GArgument> a, GArgumentParsed v) const
             {
                 string n_sub = g_string()->ToString((v.GetSubCommands().size()));
                 string n_args = g_string()->ToString((v.GetArguments().size()));
-                string args = "Subcommands:" + g_utilities()->Vec2String(v.GetSubCommands()) + "(" + n_sub + ")\t" + "argumenst: " + g_utilities()->Vec2String(v.GetArguments()) + "(" + n_args + ")";
+                string args = "Subcommands:" + g_string()->Vec2String(v.GetSubCommands()) + "(" + n_sub + ")\t" + "argumenst: " + g_string()->Vec2String(v.GetArguments()) + "(" + n_args + ")";
                 INVALID_ARGUMENT_EXCEPTION("Argumenst of fundamental types takes exactly one parameter, and no sub GArguments: %s(%s) taks only on GArguments: You have given the following argumenswt and subcommands: %s", v.GetCommand().c_str(), type.c_str(), args.c_str());
             }
             else
