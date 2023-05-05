@@ -68,7 +68,7 @@ namespace VHELPERS
 			}
 		}
 
-		return g_utilities()->Vec2String(version_numbers, ",");
+		return g_string()->Vec2String(version_numbers, ",");
 	}
 
 
