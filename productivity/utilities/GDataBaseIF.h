@@ -59,7 +59,7 @@ class  GDataBaseIF
     protected:
                 template<typename... Args>
                 #ifdef HAS_LOGGING
-                void API HandleError( const GLocation l,   eMSGLEVEL lvl,  const bool throw_ex,   const char * fmt, const Args... args);
+                void API HandleError( const GLocation l,   eLOGLEVEL lvl,  const bool throw_ex,   const char * fmt, const Args... args);
                 #else
                 void API HandleError(const GLocation l, const bool throw_ex, const char *fmt, const Args... args);
         #endif
@@ -79,7 +79,7 @@ class  GDataBaseIF
 template<typename... Args>
 void
 #ifdef HAS_LOGGING
-GDataBaseIF::HandleError(const GLocation  l, eMSGLEVEL  lvl,  const bool  throw_ex, const char *  fmt, const Args... args)
+GDataBaseIF::HandleError(const GLocation  l, eLOGLEVEL  lvl,  const bool  throw_ex, const char *  fmt, const Args... args)
 #else
 GDataBaseIF::HandleError(const GLocation  l,  const bool  throw_ex, const char *  fmt,  const Args... args)
 #endif

@@ -53,7 +53,7 @@ void
 GXmlParser::AssertTag(std::shared_ptr<GXmlStreamReader> xmlReader, const string tag, GLocationXml l, eXML_NODETYPE node_type,  const bool read_node  )
 
 {
-///	LLogging::Instance()->Log(  eMSGLEVEL::LOG_INFO, eMSGSYSTEM::SYS_XML, l,   "tag = %s, node type = %s", tag.c_str(),   *node_type  );
+///	LLogging::Instance()->Log(  eLOGLEVEL::LOG_INFO, eMSGSYSTEM::SYS_XML, l,   "tag = %s, node type = %s", tag.c_str(),   *node_type  );
 	
 	GXmlNode *node  = xmlReader->GetCurrentNode();
 
@@ -109,12 +109,12 @@ GXmlParser::PrinttAttributes( const GXmlNode * const node,  GLocationXml l)
 	
 	#ifdef HAS_LOGGING
 	GLocation ll =  GLocation( l.fFileName, l.fLineNo , l.fFunctName );
-	LLogging::Instance()->Log(  eMSGLEVEL::LOG_INFO, eMSGSYSTEM::SYS_XML, ll,  
+	LLogging::Instance()->Log(  eLOGLEVEL::LOG_INFO, eMSGSYSTEM::SYS_XML, ll,  
 	"tag = %s, type = %s, attributes.size() = %d", name.c_str(),  ToString(type).c_str() , a.size() );
 
 	for(size_t i =0; i < a.size(); i++ )
 	{
-		LLogging::Instance()->Log(  eMSGLEVEL::LOG_INFO, eMSGSYSTEM::SYS_XML, ll, 
+		LLogging::Instance()->Log(  eLOGLEVEL::LOG_INFO, eMSGSYSTEM::SYS_XML, ll, 
 		"Attribute[%d]: name = %s, value = %s", i, a.at(i).GetName().c_str(), a.at(i).GetValue().c_str()  );
 	}
 

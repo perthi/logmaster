@@ -27,7 +27,7 @@ APILogmaster* APILogmaster::Instance()
 
 APILogmaster::APILogmaster(string targetName, eMSGTARGET target)
 {
-    //fHashMap = new LHashMaps( eMSGLEVEL::LOG_WARNING );
+    //fHashMap = new LHashMaps( eLOGLEVEL::LOG_WARNING );
     fHashMap = new LHashMaps( );
 
     fLogHandle = LLogging::Instance();
@@ -175,8 +175,8 @@ APILogmaster::GetSubSysAndLevControl()
         if (sys->first == eMSGSYSTEM::SYS_ALL)
         {
             enable = isAllSystemAndAllLevelsEnabled();
-            v.push_back(APISubSysAndLevControl("Select All", x_lev, y_sys, (LColorMap::Instance()->GetRGB(eMSGLEVEL::LOG_ALL)), enable));
-            fSybSysLevelXYTrack.emplace(std::make_pair(x_lev, y_sys), std::make_pair(eMSGLEVEL::LOG_ALL, sys->first));
+            v.push_back(APISubSysAndLevControl("Select All", x_lev, y_sys, (LColorMap::Instance()->GetRGB(eLOGLEVEL::LOG_ALL)), enable));
+            fSybSysLevelXYTrack.emplace(std::make_pair(x_lev, y_sys), std::make_pair(eLOGLEVEL::LOG_ALL, sys->first));
         }
 
         // Reset x_lev for every restart of system increment.
@@ -185,26 +185,26 @@ APILogmaster::GetSubSysAndLevControl()
         // Stet through all Logging Levels, except for LOG_OFF and LOG_FORCE_DEBUG
         for (auto lvl = fLevels.rbegin(); lvl != fLevels.rend(); lvl++)
         {
-            if (lvl->first == eMSGLEVEL::LOG_OFF)           continue;
-            if (lvl->first == eMSGLEVEL::LOG_FORCE_DEBUG)   continue;
+            if (lvl->first == eLOGLEVEL::LOG_OFF)           continue;
+            if (lvl->first == eLOGLEVEL::LOG_FORCE_DEBUG)   continue;
 
             // Add data to XY vs Sys/Lev map
             fSybSysLevelXYTrack.emplace(std::make_pair(x_lev, y_sys), std::make_pair(lvl->first, sys->first));
 
             // Use level name for button
-            if (sys->first == eMSGSYSTEM::SYS_ALL && lvl->first != eMSGLEVEL::LOG_ALL) 
+            if (sys->first == eMSGSYSTEM::SYS_ALL && lvl->first != eLOGLEVEL::LOG_ALL) 
             {       
                 enable = isLevelEnabledForAllSystems(lvl->first);
                 v.push_back(APISubSysAndLevControl(lvl->second, x_lev, y_sys, (LColorMap::Instance()->GetRGB(lvl->first)), enable));
             }
             // Use system name for button
-            if (sys->first != eMSGSYSTEM::SYS_ALL && lvl->first == eMSGLEVEL::LOG_ALL) 
+            if (sys->first != eMSGSYSTEM::SYS_ALL && lvl->first == eLOGLEVEL::LOG_ALL) 
             {
                 enable = isSystemEnabledForAllLevels(sys->first);
                 v.push_back(APISubSysAndLevControl(sys->second, x_lev, y_sys, (LColorMap::Instance()->GetRGB(lvl->first)), enable));
             }
             // Use On/Off name for all other buttons
-            if (sys->first != eMSGSYSTEM::SYS_ALL && lvl->first != eMSGLEVEL::LOG_ALL) 
+            if (sys->first != eMSGSYSTEM::SYS_ALL && lvl->first != eLOGLEVEL::LOG_ALL) 
             {
                 enable = IsLevSysEnabled(x_lev, y_sys);
                 v.push_back(APISubSysAndLevControl(enable ? "On" : "Off", x_lev, y_sys, (LColorMap::Instance()->GetRGB(lvl->first)), enable));
@@ -245,7 +245,7 @@ APILogmaster::GetOutputTargetEnabled(int target)
 *   @details    This Function will return true if selected level is enabled for all systems
 *   @param[in]  level The log level
 *   @return     true or false (bool)**/
-bool APILogmaster::isLevelEnabledForAllSystems(eMSGLEVEL level)
+bool APILogmaster::isLevelEnabledForAllSystems(eLOGLEVEL level)
 {
     int cnt = 0;
 
@@ -257,9 +257,9 @@ bool APILogmaster::isLevelEnabledForAllSystems(eMSGLEVEL level)
 
         for (auto lvl = fLevels.rbegin(); lvl != fLevels.rend(); lvl++)
         {
-            if (lvl->first == eMSGLEVEL::LOG_OFF)           continue;
-            if (lvl->first == eMSGLEVEL::LOG_FORCE_DEBUG)   continue;
-            if (lvl->first == eMSGLEVEL::LOG_ALL)           continue;
+            if (lvl->first == eLOGLEVEL::LOG_OFF)           continue;
+            if (lvl->first == eLOGLEVEL::LOG_FORCE_DEBUG)   continue;
+            if (lvl->first == eLOGLEVEL::LOG_ALL)           continue;
                         
             bool enabled  = LLogging::Instance()->CheckLevel(sys->first, lvl->first, fTarget);
             if ((lvl->first == level) && (enabled))
@@ -288,9 +288,9 @@ bool APILogmaster::isSystemEnabledForAllLevels(eMSGSYSTEM system)
     
     for (auto lvl = fLevels.rbegin(); lvl != fLevels.rend(); lvl++)
     {
-        if (lvl->first == eMSGLEVEL::LOG_OFF)           continue;
-        if (lvl->first == eMSGLEVEL::LOG_FORCE_DEBUG)   continue;
-        if (lvl->first == eMSGLEVEL::LOG_ALL)           continue;
+        if (lvl->first == eLOGLEVEL::LOG_OFF)           continue;
+        if (lvl->first == eLOGLEVEL::LOG_FORCE_DEBUG)   continue;
+        if (lvl->first == eLOGLEVEL::LOG_ALL)           continue;
 
         for (auto sys = fSystems.rbegin(); sys != fSystems.rend(); sys++)
         {
@@ -317,11 +317,11 @@ bool APILogmaster::isSystemEnabledForAllLevels(eMSGSYSTEM system)
 *   @return     true or false (bool)**/
 bool APILogmaster::isAllSystemAndAllLevelsEnabled()
 {
-    int cnt = (int)isLevelEnabledForAllSystems(eMSGLEVEL::LOG_FATAL);
-    cnt += (int)isLevelEnabledForAllSystems(eMSGLEVEL::LOG_ERROR);
-    cnt += (int)isLevelEnabledForAllSystems(eMSGLEVEL::LOG_WARNING);
-    cnt += (int)isLevelEnabledForAllSystems(eMSGLEVEL::LOG_DEBUG);
-    cnt += (int)isLevelEnabledForAllSystems(eMSGLEVEL::LOG_INFO);
+    int cnt = (int)isLevelEnabledForAllSystems(eLOGLEVEL::LOG_FATAL);
+    cnt += (int)isLevelEnabledForAllSystems(eLOGLEVEL::LOG_ERROR);
+    cnt += (int)isLevelEnabledForAllSystems(eLOGLEVEL::LOG_WARNING);
+    cnt += (int)isLevelEnabledForAllSystems(eLOGLEVEL::LOG_DEBUG);
+    cnt += (int)isLevelEnabledForAllSystems(eLOGLEVEL::LOG_INFO);
 
     if (cnt == GetNumberOfLevels())
     {
@@ -424,14 +424,14 @@ APILogmaster::SetSubSystem(string system)
 void
 APILogmaster::SetSubSysAndLevControl(int x_Lev, int y_Sys, bool enable)
 {
-    eMSGLEVEL lvl, levelActual;
+    eLOGLEVEL lvl, levelActual;
     eMSGSYSTEM sys;
     
     ConvertXYToLevSys(x_Lev, y_Sys, &lvl, &sys);
     
     levelActual = LLogging::Instance()->GetLogLevel(sys, fTarget);
     
-    if (lvl == eMSGLEVEL::LOG_ALL)
+    if (lvl == eLOGLEVEL::LOG_ALL)
     {
         if (enable)
         {
@@ -439,7 +439,7 @@ APILogmaster::SetSubSysAndLevControl(int x_Lev, int y_Sys, bool enable)
         }
         else
         {
-            levelActual = eMSGLEVEL::LOG_OFF;
+            levelActual = eLOGLEVEL::LOG_OFF;
         }
     }
 
@@ -479,12 +479,12 @@ APILogmaster::WriteTestMessages()
 
 
 /** @brief      ConvertXYToLevSys
-*   @details    This Function will convert x_Lev and y_Sys  coordinates to eMSGLEVEL and eMSGSYSTEM using the fSybSysLevelXYTrack map
+*   @details    This Function will convert x_Lev and y_Sys  coordinates to eLOGLEVEL and eMSGSYSTEM using the fSybSysLevelXYTrack map
 *   @param[in]  x_Lev - x position in the GUI matrix, also defined as level
 *   @param[in]  y_Sys - y position in the GUI matrix, also defined as system
 *   @param[out] lvl - will return a pointer to message level 
 *   @param[out] sys - will return a pointer to message system**/
-void APILogmaster::ConvertXYToLevSys(int x_Lev, int y_Sys, eMSGLEVEL *lvl, eMSGSYSTEM *sys)
+void APILogmaster::ConvertXYToLevSys(int x_Lev, int y_Sys, eLOGLEVEL *lvl, eMSGSYSTEM *sys)
 {
     for (auto map : fSybSysLevelXYTrack)
     {
@@ -505,7 +505,7 @@ void APILogmaster::ConvertXYToLevSys(int x_Lev, int y_Sys, eMSGLEVEL *lvl, eMSGS
 bool
 APILogmaster::IsLevSysEnabled(int x_lev, int y_Sys)
 {
-    eMSGLEVEL selLvl;
+    eLOGLEVEL selLvl;
     eMSGSYSTEM selSys;
 
     ConvertXYToLevSys(x_lev, y_Sys, &selLvl, &selSys);
@@ -542,9 +542,9 @@ APILogmaster::SetNumberOfLevels()
     // Step through all Logging Levels, except for LOG_OFF, LOG_FORCE_DEBUG and LOG_ALL
     for (auto lvl = fLevels.rbegin(); lvl != fLevels.rend(); lvl++)
     {
-        if (lvl->first == eMSGLEVEL::LOG_OFF)           continue;
-        if (lvl->first == eMSGLEVEL::LOG_FORCE_DEBUG)   continue;
-        if (lvl->first == eMSGLEVEL::LOG_ALL)           continue;
+        if (lvl->first == eLOGLEVEL::LOG_OFF)           continue;
+        if (lvl->first == eLOGLEVEL::LOG_FORCE_DEBUG)   continue;
+        if (lvl->first == eLOGLEVEL::LOG_ALL)           continue;
 
         // Increment fLevelsCount for every registered levels. (5 Levels)
         fLevelsCount++;

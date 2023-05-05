@@ -114,7 +114,7 @@ namespace LOGMASTER
                 if (rc != SQLITE_OK)
                 {
 #ifdef HAS_LOGGING
-                    HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+                    HandleError(GLOCATION, eLOGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
 #else
                     HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", zErrMsg);
 #endif
@@ -144,7 +144,7 @@ namespace LOGMASTER
 
         if (rc != SQLITE_OK)
         {
-         //   HandleError( GLOCATION, eMSGLEVEL::LOG_ERROR, "AddEntry SQL error: %s", zErrMsg );
+         //   HandleError( GLOCATION, eLOGLEVEL::LOG_ERROR, "AddEntry SQL error: %s", zErrMsg );
             printf("ERROR %s:%dAddEntry (msg to log = %s) SQL error: %s\n", __FILE__, __LINE__,   msg->fMsgBody,  zErrMsg );
             sqlite3_free(zErrMsg);
         }
@@ -242,7 +242,7 @@ namespace LOGMASTER
     }
 
     vector<  LLogEntrySQL >  
-    LDatabase::Query( const  eMSGLEVEL lvl,  const int max_cnt  )  
+    LDatabase::Query( const  eLOGLEVEL lvl,  const int max_cnt  )  
     {
         InitSQLQuery(lvl, max_cnt);
         return FetchAll();
@@ -251,7 +251,7 @@ namespace LOGMASTER
 
     /** Function 6 in group 2. Details. */    
     vector< LLogEntrySQL >  
-    LDatabase::Query( const  eMSGLEVEL lvl,  const  eMSGSYSTEM sys, const int max_cnt  )
+    LDatabase::Query( const  eLOGLEVEL lvl,  const  eMSGSYSTEM sys, const int max_cnt  )
     {
         InitSQLQuery(lvl, sys, max_cnt);
         return FetchAll();
@@ -276,7 +276,7 @@ namespace LOGMASTER
     @return true if a valid SQL search string could be generated, false othervise */
  /**@{ */
     bool  
-    LDatabase::InitSQLQuery( const eMSGLEVEL level,  const int max_cnt )
+    LDatabase::InitSQLQuery( const eLOGLEVEL level,  const int max_cnt )
     {
         std::stringstream buffer;
         buffer <<  "SELECT * FROM t_logging WHERE level = " << (int)level << " ORDER BY id DESC";
@@ -295,7 +295,7 @@ namespace LOGMASTER
 
 
     bool  
-    LDatabase::InitSQLQuery(  const eMSGLEVEL level,  const eMSGSYSTEM  system, const int max_cnt )
+    LDatabase::InitSQLQuery(  const eLOGLEVEL level,  const eMSGSYSTEM  system, const int max_cnt )
     {
         std::stringstream buffer;
         buffer <<  "SELECT * FROM t_logging WHERE category = " << (int)system << " AND level = " <<  (int)level << " ORDER BY id DESC";
@@ -326,7 +326,7 @@ namespace LOGMASTER
         if( fDataBase == nullptr )
         {
 #ifdef HAS_LOGGING
-            HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "fDataBase  = NULLPTR !!!! " );   
+            HandleError(GLOCATION, eLOGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "fDataBase  = NULLPTR !!!! " );   
 #else
             HandleError(GLOCATION, DISABLE_EXCEPTION, "fDataBase  = NULLPTR !!!! ");
 #endif
@@ -346,7 +346,7 @@ namespace LOGMASTER
         if (rc != SQLITE_OK)
         {
 #ifdef HAS_LOGGING
-            HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION, "SQL error: %s", sqlite3_errmsg(fDataBase));   
+            HandleError(GLOCATION, eLOGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION, "SQL error: %s", sqlite3_errmsg(fDataBase));   
 #else
             HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", sqlite3_errmsg(fDataBase));
 #endif
@@ -370,7 +370,7 @@ namespace LOGMASTER
         if (rc != SQLITE_OK)
         {
 #ifdef HAS_LOGGING
-            HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION, "Could not delete old entries: SQL error: %s", sqlite3_errmsg(fDataBase) );
+            HandleError(GLOCATION, eLOGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION, "Could not delete old entries: SQL error: %s", sqlite3_errmsg(fDataBase) );
 #else
             HandleError(GLOCATION, DISABLE_EXCEPTION, "Could not delete old entries: SQL error: %s", sqlite3_errmsg(fDataBase));
 
@@ -437,7 +437,7 @@ namespace LOGMASTER
         if( fStmt == nullptr )
         {
 #ifdef HAS_LOGGING
-            HandleError( GLOCATION, eMSGLEVEL::LOG_FATAL, DISABLE_EXCEPTION,  "NO SQL QUERY INITIALIZED" );   
+            HandleError( GLOCATION, eLOGLEVEL::LOG_FATAL, DISABLE_EXCEPTION,  "NO SQL QUERY INITIALIZED" );   
 #else
             HandleError(GLOCATION, DISABLE_EXCEPTION, "NO SQL QUERY INITIALIZED");
 #endif 
@@ -509,7 +509,7 @@ namespace LOGMASTER
         if (rc != SQLITE_OK)
         {
 #ifdef HAS_LOGGING
-            HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+            HandleError(GLOCATION, eLOGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
 #else
             HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", zErrMsg);
 #endif
@@ -540,7 +540,7 @@ namespace LOGMASTER
             if (rc != SQLITE_OK)
             {
 #ifdef HAS_LOGGING
-                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+                HandleError(GLOCATION, eLOGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
 #else
                 HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", zErrMsg);
 #endif
@@ -556,7 +556,7 @@ namespace LOGMASTER
             if (rc != SQLITE_OK)
             {
 #ifdef HAS_LOGGING
-                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+                HandleError(GLOCATION, eLOGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
 #else
                 HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", zErrMsg);
 #endif
@@ -575,7 +575,7 @@ namespace LOGMASTER
             {
 
 #ifdef HAS_LOGGING
-                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+                HandleError(GLOCATION, eLOGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
 #else
                 HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", zErrMsg);
 #endif
@@ -590,7 +590,7 @@ namespace LOGMASTER
             if (rc != SQLITE_OK)
             {
 #ifdef HAS_LOGGING
-                HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
+                HandleError(GLOCATION, eLOGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION,  "SQL error: %s",  zErrMsg  );
 #else
                 HandleError(GLOCATION, DISABLE_EXCEPTION, "SQL error: %s", zErrMsg);
 #endif

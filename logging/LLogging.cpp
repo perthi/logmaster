@@ -179,7 +179,7 @@ namespace LOGMASTER
 
   
   logmap 
-  LLogging::LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char *filename,
+  LLogging::LogVarArgsUnsafe(const eLOGLEVEL level, const eMSGSYSTEM system, const char *filename,
                                       const int lineno, const char *funct, const bool force_generate, string addendum,
                                       const char *fmt, va_list ap)
     {
@@ -228,13 +228,13 @@ namespace LOGMASTER
      *  @param target  Which target (file, stdout, etc..) to check level for
      *   @return true if the message should be generated for this level, false othervise */
     bool
-    LLogging::CheckLevel( const eMSGSYSTEM system, const eMSGLEVEL level, const eMSGTARGET target )
+    LLogging::CheckLevel( const eMSGSYSTEM system, const eLOGLEVEL level, const eMSGTARGET target )
     {
 
-        static eMSGLEVEL zero_l = (eMSGLEVEL)0;
+        static eLOGLEVEL zero_l = (eLOGLEVEL)0;
         static eMSGSYSTEM zero_s = (eMSGSYSTEM)0;
 
-        if ( level == eMSGLEVEL::LOG_FORCE_DEBUG )
+        if ( level == eLOGLEVEL::LOG_FORCE_DEBUG )
         {
             return true;
         }
@@ -403,7 +403,7 @@ namespace LOGMASTER
     }
 
 
-    eMSGLEVEL
+    eLOGLEVEL
     LLogging::GetLogLevel( const eMSGSYSTEM system, const eMSGTARGET target ) const
     {
         auto it = fConfig->find( target );
@@ -413,7 +413,7 @@ namespace LOGMASTER
             return it->second.GetConfig()->GetLogLevel( system );
         }
 
-        return eMSGLEVEL::LOG_OFF;
+        return eLOGLEVEL::LOG_OFF;
     }
 
 

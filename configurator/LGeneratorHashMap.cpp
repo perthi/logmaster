@@ -57,7 +57,7 @@ LGeneratorHashMap::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  l
     lines.push_back( "{" );
     
     lines.push_back("LHashMapsBase::LHashMapsBase( ) : fLogLevelHash() {}");
-   // lines.push_back("LHashMapsBase::LHashMapsBase( const eMSGLEVEL  level) : fLogLevelHash(), fDefaultLevel( level ) {}");
+   // lines.push_back("LHashMapsBase::LHashMapsBase( const eLOGLEVEL  level) : fLogLevelHash(), fDefaultLevel( level ) {}");
     lines.push_back("LHashMapsBase::~LHashMapsBase(){ }");
 
     lines.push_back("\n\n");
@@ -81,7 +81,7 @@ LGeneratorHashMap::GenerateInitHashLogTags(   vector< std::shared_ptr<LXmlEntity
 {
     lines.push_back("\n\n");
     lines.push_back("   void");
-    lines.push_back("   LHashMapsBase::InitHashLogTags(  map<string, std::tuple<eMSGSYSTEM, eMSGLEVEL>>  *SubCmdHash   )");
+    lines.push_back("   LHashMapsBase::InitHashLogTags(  map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash   )");
     lines.push_back("   {");
 
     for (auto sys : systems)
@@ -96,15 +96,15 @@ LGeneratorHashMap::GenerateInitHashLogTags(   vector< std::shared_ptr<LXmlEntity
         for (auto tag : tags)
         {
         
-            lines.push_back( g_utilities()->TabAlign("\tSubCmdHash->emplace(\"" + tag + "-off\"" + ",", 5)  +  "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + ","	+ "  eMSGLEVEL::LOG_OFF));");
+            lines.push_back( g_utilities()->TabAlign("\tSubCmdHash->emplace(\"" + tag + "-off\"" + ",", 5)  +  "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + ","	+ "  eLOGLEVEL::LOG_OFF));");
 
             for (auto lvl : levels)
             {
                 string tmptag = tag + "-" + g_string()->ToLower(lvl->fName);  
-               lines.push_back(  g_utilities()->TabAlign( "\tSubCmdHash->emplace(\"" + tmptag + "\"" + ",", 5) +  "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + ","	+ "  eMSGLEVEL::LOG_"+ lvl->fName  +"));");   
+               lines.push_back(  g_utilities()->TabAlign( "\tSubCmdHash->emplace(\"" + tmptag + "\"" + ",", 5) +  "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + ","	+ "  eLOGLEVEL::LOG_"+ lvl->fName  +"));");   
             }
 
-            lines.push_back(  g_utilities()->TabAlign("\tSubCmdHash->emplace(\"" + tag + "-all\"" + ",", 5) +  "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + ","	+ "  eMSGLEVEL::LOG_ALL));");
+            lines.push_back(  g_utilities()->TabAlign("\tSubCmdHash->emplace(\"" + tag + "-all\"" + ",", 5) +  "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + ","	+ "  eLOGLEVEL::LOG_ALL));");
         }
         lines.push_back("\n");
     }
@@ -118,20 +118,20 @@ LGeneratorHashMap::GenerateInitHashLevel2String (  vector< std::shared_ptr<LXmlE
 {
     lines.push_back("\n\n");
     lines.push_back("   void" );
-    lines.push_back("   LHashMapsBase::InitHashLevel2String(  map<eMSGLEVEL, string> *Level2StringHash  )");
+    lines.push_back("   LHashMapsBase::InitHashLevel2String(  map<eLOGLEVEL, string> *Level2StringHash  )");
     lines.push_back("   {");
 
-    lines.push_back("\tLevel2StringHash->emplace(eMSGLEVEL::LOG_OFF, \"OFF\");");
-    lines.push_back("\tLevel2StringHash->emplace(eMSGLEVEL::LOG_FORCE_DEBUG, \"Force_Debug\");");
+    lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_OFF, \"OFF\");");
+    lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_FORCE_DEBUG, \"Force_Debug\");");
 
     for( auto lvl: levels )
     {
         std::stringstream buffer; 
-        buffer << "\tLevel2StringHash->emplace(eMSGLEVEL::" << "LOG_" << lvl->fName << ",\t" << "\"" << g_string()->ToPascalCase(  lvl->fName ) << "\"" ");";
+        buffer << "\tLevel2StringHash->emplace(eLOGLEVEL::" << "LOG_" << lvl->fName << ",\t" << "\"" << g_string()->ToPascalCase(  lvl->fName ) << "\"" ");";
         lines.push_back(  buffer.str()  );
     }
 
-    lines.push_back("\tLevel2StringHash->emplace(eMSGLEVEL::LOG_ALL, \"ALL loglevels\");");
+    lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_ALL, \"ALL loglevels\");");
     lines.push_back("   }");
 }
 
@@ -178,24 +178,24 @@ LGeneratorHashMap::GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntityS
     lines.push_back("   LHashMapsBase::InitHashLogLevel( )");
     lines.push_back("   {");
     lines.push_back("\tfLogLevelHash.clear();");
-    lines.push_back("//\teMSGLEVEL level = (eMSGLEVEL)(PAD((int)l));");
+    lines.push_back("//\teLOGLEVEL level = (eLOGLEVEL)(PAD((int)l));");
 
-    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_EX,")  +    "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_ERROR)  );");
-    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,") +   "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );");
-    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM,") +  "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );");
+    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_EX,")  +    "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_ERROR)  );");
+    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,") +   "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );");
+    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM,") +  "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );");
 
     for (auto sys : systems)
     {
         std::stringstream buffer;
         buffer << "\t" + g_utilities()->TabAlign("fLogLevelHash.emplace(" + fSystemEnumName + "::" + "SYS_" + sys->fName + ", ");
-        buffer << "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_" + sys->fDefault + ") );";
+        buffer << "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_" + sys->fDefault + ") );";
         lines.push_back(buffer.str());
         //FORCE_DEBUG("name = %s", buffer.str().c_str() );
     }
 
 
-    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL,") +   "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );");
-    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,") +      "(eMSGLEVEL)PAD( (int)eMSGLEVEL::LOG_WARNING ) );");
+    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL,") +   "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );");
+    lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,") +      "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );");
 
     lines.push_back("   }");
 

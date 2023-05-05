@@ -145,7 +145,7 @@ TEST_F( TestLTargets, configure_level_specific_target )
     vector<eMSGTARGET> e_t = LHashMaps::Instance()->GetTargetEnums();
     
     g->ScanArguments( "-loglevel --all-debug");
-    EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING),  (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
+    EXPECT_EQ(PAD(eLOGLEVEL::LOG_WARNING),  (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
 
     g->ScanArguments( "-loglevel --all-warning");
     g_utilities()->FilterOut( e_s, { eMSGSYSTEM::SYS_ALL, eMSGSYSTEM::SYS_NONE, eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EX } );
@@ -156,7 +156,7 @@ TEST_F( TestLTargets, configure_level_specific_target )
     {
         for ( size_t t = 0; t < e_t.size(); t++ )
         {
-            EXPECT_EQ( PAD( eMSGLEVEL::LOG_WARNING ), (int64_t)l->GetLogLevel( e_s[s],  e_t[t] ) );
+            EXPECT_EQ( PAD( eLOGLEVEL::LOG_WARNING ), (int64_t)l->GetLogLevel( e_s[s],  e_t[t] ) );
         }
     }
 
@@ -166,7 +166,7 @@ TEST_F( TestLTargets, configure_level_specific_target )
     {
         for ( size_t t = 0; t < e_t.size(); t++ )
         {
-            EXPECT_EQ( PAD( eMSGLEVEL::LOG_DEBUG ), (int64_t)l->GetLogLevel( e_s[s],  e_t[t] )   );
+            EXPECT_EQ( PAD( eLOGLEVEL::LOG_DEBUG ), (int64_t)l->GetLogLevel( e_s[s],  e_t[t] )   );
         }
     }    
 
@@ -180,14 +180,14 @@ TEST_F( TestLTargets, configure_level_specific_target )
     {
         for ( size_t t = 0; t < e_t.size(); t++ )
         {
-            EXPECT_EQ( PAD( eMSGLEVEL::LOG_ERROR ), (int64_t)l->GetLogLevel( e_s[s],  e_t[t] ) );
+            EXPECT_EQ( PAD( eLOGLEVEL::LOG_ERROR ), (int64_t)l->GetLogLevel( e_s[s],  e_t[t] ) );
         }
     }
     
-    EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
-    EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
-    EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
-    EXPECT_EQ(PAD(eMSGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
+    EXPECT_EQ(PAD(eLOGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
+    EXPECT_EQ(PAD(eLOGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
+    EXPECT_EQ(PAD(eLOGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
+    EXPECT_EQ(PAD(eLOGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
     
 
    FORCE_DEBUG("END1");

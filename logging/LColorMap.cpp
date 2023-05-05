@@ -53,7 +53,7 @@ LColorMap* LColorMap::Instance()
 *   @return the RGB color code if a color code exists for this loglevel 
 *   othervise the default color which is CYAN*/
 int
-LColorMap::GetRGB( const eMSGLEVEL l)
+LColorMap::GetRGB( const eLOGLEVEL l)
 {
     if (fMap.find(l) != fMap.end())
     {
@@ -74,7 +74,7 @@ LColorMap::GetRGB( const eMSGLEVEL l)
 *   @return the CC color code if a color code exists for this loglevel 
 *   othervise the default color which is T_CYAN*/
 int
-LColorMap::GetCColor( const eMSGLEVEL l)
+LColorMap::GetCColor( const eLOGLEVEL l)
 {
     if (fMap.find(l) != fMap.end())
     {
@@ -89,7 +89,7 @@ LColorMap::GetCColor( const eMSGLEVEL l)
 }
 
 int
-LColorMap::GetAnsiColor(eMSGLEVEL l)
+LColorMap::GetAnsiColor(eLOGLEVEL l)
 {
     if (fMap.find(l) != fMap.end())
     {
@@ -106,13 +106,13 @@ LColorMap::GetAnsiColor(eMSGLEVEL l)
 void
 LColorMap::Init()
 {
-      fMap.emplace(eMSGLEVEL::LOG_FORCE_DEBUG, std::make_tuple(string("FORCE_DEBUG"), C_ORANGE, T_ORANGE, A_ORANGE));
-      fMap.emplace(eMSGLEVEL::LOG_DEBUG, std::make_tuple(string("DEBUG"), C_CYAN, T_CYAN, A_CYAN));
-      fMap.emplace(eMSGLEVEL::LOG_INFO, std::make_tuple(string("INFO"), C_GREEN, T_GREEN, A_GREEN));
-      fMap.emplace(eMSGLEVEL::LOG_WARNING, std::make_tuple(string("WARNING"), C_YELLOW, T_YELLOW, A_YELLOW));
-      fMap.emplace(eMSGLEVEL::LOG_ERROR, std::make_tuple(string("ERROR"), C_RED, T_RED, A_RED));
-      fMap.emplace(eMSGLEVEL::LOG_FATAL, std::make_tuple(string("FATAL"), C_PURPLE, T_PURPLE, A_PURPLE));
-      fMap.emplace(eMSGLEVEL::LOG_ALL, std::make_tuple(string("ALL"), C_DARK_GREEN, T_DARK_GREEN, A_DARK_GREEN));
+      fMap.emplace(eLOGLEVEL::LOG_FORCE_DEBUG, std::make_tuple(string("FORCE_DEBUG"), C_ORANGE, T_ORANGE, A_ORANGE));
+      fMap.emplace(eLOGLEVEL::LOG_DEBUG, std::make_tuple(string("DEBUG"), C_CYAN, T_CYAN, A_CYAN));
+      fMap.emplace(eLOGLEVEL::LOG_INFO, std::make_tuple(string("INFO"), C_GREEN, T_GREEN, A_GREEN));
+      fMap.emplace(eLOGLEVEL::LOG_WARNING, std::make_tuple(string("WARNING"), C_YELLOW, T_YELLOW, A_YELLOW));
+      fMap.emplace(eLOGLEVEL::LOG_ERROR, std::make_tuple(string("ERROR"), C_RED, T_RED, A_RED));
+      fMap.emplace(eLOGLEVEL::LOG_FATAL, std::make_tuple(string("FATAL"), C_PURPLE, T_PURPLE, A_PURPLE));
+      fMap.emplace(eLOGLEVEL::LOG_ALL, std::make_tuple(string("ALL"), C_DARK_GREEN, T_DARK_GREEN, A_DARK_GREEN));
  }
 
 

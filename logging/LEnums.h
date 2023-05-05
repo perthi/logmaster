@@ -100,9 +100,9 @@ enum  ePUBLISH_MODE
         return (eMSGSYSTEM)((int)lhs | (int)rhs);
     }
 
-    inline eMSGLEVEL operator | ( const eMSGLEVEL &lhs, const eMSGLEVEL &rhs )
+    inline eLOGLEVEL operator | ( const eLOGLEVEL &lhs, const eLOGLEVEL &rhs )
     {
-        return (eMSGLEVEL)((int)lhs | (int)rhs);
+        return (eLOGLEVEL)((int)lhs | (int)rhs);
     }
 
     inline eMSGFORMAT operator | ( const eMSGFORMAT &lhs, const eMSGFORMAT &rhs )
@@ -120,9 +120,9 @@ enum  ePUBLISH_MODE
         return (eMSGSYSTEM)((int)lhs & (int)rhs);
     }
 
-    inline eMSGLEVEL operator & ( const eMSGLEVEL &lhs, const eMSGLEVEL &rhs )
+    inline eLOGLEVEL operator & ( const eLOGLEVEL &lhs, const eLOGLEVEL &rhs )
     {
-        return (eMSGLEVEL)((int)lhs & (int)rhs);
+        return (eLOGLEVEL)((int)lhs & (int)rhs);
     }
 
     inline eMSGFORMAT operator & ( const eMSGFORMAT &lhs, const eMSGFORMAT &rhs )

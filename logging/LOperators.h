@@ -9,9 +9,9 @@ inline eMSGSYSTEM operator | ( const eMSGSYSTEM &lhs, const eMSGSYSTEM &rhs )
 		return (eMSGSYSTEM)((int)lhs | (int)rhs);
 	}
 
-	inline eMSGLEVEL operator | ( const eMSGLEVEL &lhs, const eMSGLEVEL &rhs )
+	inline eLOGLEVEL operator | ( const eLOGLEVEL &lhs, const eLOGLEVEL &rhs )
 	{
-		return (eMSGLEVEL)((int)lhs | (int)rhs);
+		return (eLOGLEVEL)((int)lhs | (int)rhs);
 	}
 
 	inline eMSGFORMAT operator | ( const eMSGFORMAT &lhs, const eMSGFORMAT &rhs )
@@ -29,9 +29,9 @@ inline eMSGSYSTEM operator | ( const eMSGSYSTEM &lhs, const eMSGSYSTEM &rhs )
 		return (eMSGSYSTEM)((int)lhs & (int)rhs);
 	}
 
-	inline eMSGLEVEL operator & ( const eMSGLEVEL &lhs, const eMSGLEVEL &rhs )
+	inline eLOGLEVEL operator & ( const eLOGLEVEL &lhs, const eLOGLEVEL &rhs )
 	{
-		return (eMSGLEVEL)((int)lhs & (int)rhs);
+		return (eLOGLEVEL)((int)lhs & (int)rhs);
 	}
 
 	inline eMSGFORMAT operator & ( const eMSGFORMAT &lhs, const eMSGFORMAT &rhs )

@@ -32,16 +32,16 @@ namespace LOGMASTER
    {
    public:
       static LColorMap API *Instance();
-      std::map<eMSGLEVEL, std::tuple<string, int, int, int>> const API *GetMap() { return &fMap; }
-      int API GetRGB(const eMSGLEVEL l);
-      int API GetCColor(const eMSGLEVEL l);
-      int API GetAnsiColor(const eMSGLEVEL l);
+      std::map<eLOGLEVEL, std::tuple<string, int, int, int>> const API *GetMap() { return &fMap; }
+      int API GetRGB(const eLOGLEVEL l);
+      int API GetCColor(const eLOGLEVEL l);
+      int API GetAnsiColor(const eLOGLEVEL l);
 
    private:
       LColorMap();
       ~LColorMap(){};
       void API Init();
-      std::map<eMSGLEVEL, std::tuple<string, int, int, int>> fMap;
+      std::map<eLOGLEVEL, std::tuple<string, int, int, int>> fMap;
    };
 
 } // namespace LOGMASTER

@@ -13,30 +13,30 @@
 *   @param[in]  level - level to adjust on or off
 *   @param[in]  enable - enable or disable selected level */
 void 
-APILogmasterBitmap::Set(const eMSGLEVEL level, bool enable)
+APILogmasterBitmap::Set(const eLOGLEVEL level, bool enable)
 {
     if (enable)
     {
         switch (level)
         {
-            case eMSGLEVEL::LOG_DEBUG   :   fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_DEBUG | eMSGLEVEL::LOG_INFO | eMSGLEVEL::LOG_WARNING | eMSGLEVEL::LOG_ERROR | eMSGLEVEL::LOG_FATAL);
+            case eLOGLEVEL::LOG_DEBUG   :   fBitMap |= Level2Bitmap(eLOGLEVEL::LOG_DEBUG | eLOGLEVEL::LOG_INFO | eLOGLEVEL::LOG_WARNING | eLOGLEVEL::LOG_ERROR | eLOGLEVEL::LOG_FATAL);
                 break;
-            case eMSGLEVEL::LOG_INFO    :   fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_INFO | eMSGLEVEL::LOG_WARNING | eMSGLEVEL::LOG_ERROR | eMSGLEVEL::LOG_FATAL);
+            case eLOGLEVEL::LOG_INFO    :   fBitMap |= Level2Bitmap(eLOGLEVEL::LOG_INFO | eLOGLEVEL::LOG_WARNING | eLOGLEVEL::LOG_ERROR | eLOGLEVEL::LOG_FATAL);
                 break;
-            case eMSGLEVEL::LOG_WARNING :   fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_WARNING | eMSGLEVEL::LOG_ERROR | eMSGLEVEL::LOG_FATAL);
+            case eLOGLEVEL::LOG_WARNING :   fBitMap |= Level2Bitmap(eLOGLEVEL::LOG_WARNING | eLOGLEVEL::LOG_ERROR | eLOGLEVEL::LOG_FATAL);
                 break;
-            case eMSGLEVEL::LOG_ERROR   :   fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_ERROR | eMSGLEVEL::LOG_FATAL);
+            case eLOGLEVEL::LOG_ERROR   :   fBitMap |= Level2Bitmap(eLOGLEVEL::LOG_ERROR | eLOGLEVEL::LOG_FATAL);
                 break;
-            case eMSGLEVEL::LOG_FATAL   :   fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_FATAL);
+            case eLOGLEVEL::LOG_FATAL   :   fBitMap |= Level2Bitmap(eLOGLEVEL::LOG_FATAL);
                 break;
-            case eMSGLEVEL::LOG_OFF     :   
-                //fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_OFF);
+            case eLOGLEVEL::LOG_OFF     :   
+                //fBitMap |= Level2Bitmap(eLOGLEVEL::LOG_OFF);
                 break;  
-            case eMSGLEVEL::LOG_ALL     :   
-                //fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_ALL);
+            case eLOGLEVEL::LOG_ALL     :   
+                //fBitMap |= Level2Bitmap(eLOGLEVEL::LOG_ALL);
                 break;
-            case eMSGLEVEL::LOG_FORCE_DEBUG     :   
-                //fBitMap |= Level2Bitmap(eMSGLEVEL::LOG_FORCE_DEBUG);
+            case eLOGLEVEL::LOG_FORCE_DEBUG     :   
+                //fBitMap |= Level2Bitmap(eLOGLEVEL::LOG_FORCE_DEBUG);
                 break;    
         }
 

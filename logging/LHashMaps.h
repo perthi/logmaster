@@ -34,30 +34,30 @@ namespace LOGMASTER
 
 	public:
             API    LHashMaps(  );
-          //  API    LHashMaps(const eMSGLEVEL level  );
+          //  API    LHashMaps(const eLOGLEVEL level  );
             API    ~LHashMaps();
             static  LHashMaps API* Instance();
             
             static void		API		InitHash();
-          //  void			API		InitHash( const eMSGLEVEL level );
+          //  void			API		InitHash( const eLOGLEVEL level );
             static void		API		InitHashMsgFormat();
             static void		API		InitHashLogTags();
             static void		API		InitHashLogTargets();
-         ////  void			API		InitHashLogLevel(const eMSGLEVEL level, map<eMSGSYSTEM, eMSGLEVEL> *hash );
+         ////  void			API		InitHashLogLevel(const eLOGLEVEL level, map<eMSGSYSTEM, eLOGLEVEL> *hash );
             
             static	string							API DoxygenDoc(const string filename);
-            static	map < string, std::tuple<  eMSGSYSTEM, eMSGLEVEL > >  API * GetSubCmdHash();
+            static	map < string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > >  API * GetSubCmdHash();
             static  map < string, eMSGTARGET>		API *	GetTargetHash();
             static  map < string, eMSGFORMAT>		API	*	GetFormatHash();
             static	map <eMSGSYSTEM, string >		API *	GetSystem2StringHash();
-            static	map <eMSGLEVEL, string  >		API	*	GetLevel2StringHash();
+            static	map <eLOGLEVEL, string  >		API	*	GetLevel2StringHash();
 
             static  eMSGTARGET              API		GetTarget( const string  &hash);
             static  eMSGFORMAT              API		GetFormat( const string  &hash );
             static	vector<eMSGTARGET>		API  	GetTargetEnums();
             static	vector<eMSGFORMAT>		API  	GetFormatEnums();
             static  vector<eMSGSYSTEM>		API  	GetSystemEnums();
-            static  vector<eMSGLEVEL>		API  	GetLevelEnums();
+            static  vector<eLOGLEVEL>		API  	GetLevelEnums();
             static	vector<string>			API		GetLogLevelTags();
             static	vector<string>			API		GetLogTargetTags();
             static	vector<string>			API		GetLogFormatTags();

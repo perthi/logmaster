@@ -33,9 +33,9 @@ enum  eMSGSYSTEM
 
 /*Enum controlling the log level*/
 #ifdef __cplusplus
-enum class  eMSGLEVEL
+enum class  eLOGLEVEL
 #else
-enum eMSGLEVEL
+enum eLOGLEVEL
 #endif
 {
     LOG_OFF         =  0x00,    //  00000000   No sub system

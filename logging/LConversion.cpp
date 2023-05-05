@@ -127,7 +127,7 @@ namespace LOGMASTER
         return e_tmp;
     }
 
-    eMSGLEVEL 
+    eLOGLEVEL 
     LConversion::String2Level( const string & in )
     {
 
@@ -144,7 +144,7 @@ namespace LOGMASTER
             throw(std::invalid_argument( ("3_invalid argument " + in).c_str() ));    
         }
 
-        return eMSGLEVEL::LOG_OFF;
+        return eLOGLEVEL::LOG_OFF;
     }
 
 
@@ -188,19 +188,19 @@ namespace LOGMASTER
     }
 
 
-    eMSGLEVEL
+    eLOGLEVEL
     LConversion::BinaryString2Level( const string & in )
     {
         CheckWidth( in, BINARY_TOTAL_FIELD_WIDTH );
-        return String2Enum<eMSGLEVEL>( in, 16, 8 );
+        return String2Enum<eLOGLEVEL>( in, 16, 8 );
     }
 
 
-    eMSGLEVEL
+    eLOGLEVEL
     LConversion::HexString2Level( const string & in )
     {
         CheckWidth( in, HEX_WIDTH); 
-        return String2Enum<eMSGLEVEL>( in, 16, 8  );
+        return String2Enum<eLOGLEVEL>( in, 16, 8  );
     }
 
 
@@ -267,7 +267,7 @@ namespace LOGMASTER
     }
 
 
-    eMSGLEVEL
+    eLOGLEVEL
     LConversion::Hash2Level( const string & in )
     {
         auto hash = LHashMaps::GetSubCmdHash();
@@ -280,7 +280,7 @@ namespace LOGMASTER
         }
         else
         {
-            return eMSGLEVEL::LOG_OFF;
+            return eLOGLEVEL::LOG_OFF;
             
         }
     }

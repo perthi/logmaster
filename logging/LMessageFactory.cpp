@@ -115,7 +115,7 @@ namespace LOGMASTER
 
     void LMessageFactory::Disable() { fIsEnabled = false; }
 
-    std::shared_ptr<LMessage> LMessageFactory::GenerateMessageUnsafe(const eMSGSYSTEM s, const eMSGLEVEL l,
+    std::shared_ptr<LMessage> LMessageFactory::GenerateMessageUnsafe(const eMSGSYSTEM s, const eLOGLEVEL l,
                                                                      const char *file, const int line,
                                                                      const char *func, const std::string addendum,
                                                                      const char *fmt, va_list ap)

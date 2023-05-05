@@ -117,13 +117,13 @@ private:
     APILogmaster operator=(const  APILogmaster &);
     APILogmaster  (const  APILogmaster &);
     
-    void        ConvertXYToLevSys(int x_lev, int y_Sys, eMSGLEVEL *lvl, eMSGSYSTEM *sys);
+    void        ConvertXYToLevSys(int x_lev, int y_Sys, eLOGLEVEL *lvl, eMSGSYSTEM *sys);
     bool        IsLevSysEnabled(int x_lev, int y_Sys);
     void        SetNumberOfSystems();
     void        SetNumberOfLevels();
     inline int  GetNumberOfSystems() { return fSystemsCount; }
     inline int  GetNumberOfLevels() { return fLevelsCount; }
-    bool        isLevelEnabledForAllSystems(eMSGLEVEL level);
+    bool        isLevelEnabledForAllSystems(eLOGLEVEL level);
     bool        isSystemEnabledForAllLevels(eMSGSYSTEM system);
     bool        isAllSystemAndAllLevelsEnabled();
 
@@ -134,11 +134,11 @@ private:
     string fTargetName = "--target-gui";
     std::vector<string> fText =std::vector<string>();
     bool fAllFieldsMessageFormatEnable = false; // Keep track of Message Format --all-off for correct togling of GUI check box.
-    std::map < std::pair<int, int>, std::pair<eMSGLEVEL, eMSGSYSTEM> > fSybSysLevelXYTrack =   std::map < std::pair<int, int>, std::pair<eMSGLEVEL, eMSGSYSTEM> > (); // Keep track of X/Y position in GUI and mapping towards level and system 
+    std::map < std::pair<int, int>, std::pair<eLOGLEVEL, eMSGSYSTEM> > fSybSysLevelXYTrack =   std::map < std::pair<int, int>, std::pair<eLOGLEVEL, eMSGSYSTEM> > (); // Keep track of X/Y position in GUI and mapping towards level and system 
     int fSystemsCount = 0;
     int fLevelsCount = 0;
 
-    map<eMSGLEVEL, string> fLevels =   map<eMSGLEVEL, string>(); 
+    map<eLOGLEVEL, string> fLevels =   map<eLOGLEVEL, string>(); 
     map<eMSGSYSTEM, string> fSystems =  map<eMSGSYSTEM, string>();
 
     LHashMaps* fHashMap = nullptr;

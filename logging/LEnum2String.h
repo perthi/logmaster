@@ -23,15 +23,15 @@ namespace LOGMASTER
 	public:
 		LEnum2String();
 		virtual ~LEnum2String();
-		static inline string API ToString(const eMSGLEVEL level);
+		static inline string API ToString(const eLOGLEVEL level);
 		static inline string API ToString(const eMSGSYSTEM sys);
 		static inline string API ToString(const eMSGTARGET target);
-		static inline string API ToString(const eMSGSYSTEM sys, const eMSGLEVEL level);
+		static inline string API ToString(const eMSGSYSTEM sys, const eLOGLEVEL level);
 	};
 
 
 	string
-	LEnum2String::ToString(const eMSGSYSTEM system, const eMSGLEVEL level)
+	LEnum2String::ToString(const eMSGSYSTEM system, const eLOGLEVEL level)
 	{
 		string tmp = ToString(level);
 		string tmp2 = ToString(system);
@@ -39,7 +39,7 @@ namespace LOGMASTER
 	}
 
 	string
-	LEnum2String::ToString(const eMSGLEVEL level)
+	LEnum2String::ToString(const eLOGLEVEL level)
 	{
 		auto hash = LHashMaps::GetLevel2StringHash();
 		auto it1 = hash->find(level);
@@ -56,7 +56,7 @@ namespace LOGMASTER
 			for (size_t i = 0; i < hash->size(); i++)
 			{
 				int mask = 1 << i;
-				eMSGLEVEL l_tmp = (eMSGLEVEL)mask & level;
+				eLOGLEVEL l_tmp = (eLOGLEVEL)mask & level;
 
 				if ((int)l_tmp != 0)
 				{

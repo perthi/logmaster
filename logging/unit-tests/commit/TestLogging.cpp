@@ -165,9 +165,9 @@ TEST_F( TestLogging, set_logtarget )
 
 TEST_F(TestLogging, level_to_string )
 {
-    EXPECT_EQ( "Error",       LEnum2String::ToString( eMSGLEVEL::LOG_ERROR ));
-    EXPECT_EQ( "Fatal",       LEnum2String::ToString(eMSGLEVEL::LOG_FATAL));
-    EXPECT_EQ( "Fatal|Error", LEnum2String::ToString(eMSGLEVEL::LOG_ERROR | eMSGLEVEL::LOG_FATAL));
+    EXPECT_EQ( "Error",       LEnum2String::ToString( eLOGLEVEL::LOG_ERROR ));
+    EXPECT_EQ( "Fatal",       LEnum2String::ToString(eLOGLEVEL::LOG_FATAL));
+    EXPECT_EQ( "Fatal|Error", LEnum2String::ToString(eLOGLEVEL::LOG_ERROR | eLOGLEVEL::LOG_FATAL));
 }
     
 

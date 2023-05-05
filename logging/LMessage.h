@@ -48,7 +48,7 @@ namespace LOGMASTER
 
 #ifdef __cplusplus
 public:
-    API LMessage() : fRgBColor(0), fWColor(0), fAColor(), fLevel(eMSGLEVEL::LOG_WARNING), fSystem(eMSGSYSTEM::SYS_ALL), fTarget(eMSGTARGET::TARGET_ALL), fFormat(eMSGFORMAT::PREFIX_ALL)
+    API LMessage() : fRgBColor(0), fWColor(0), fAColor(), fLevel(eLOGLEVEL::LOG_WARNING), fSystem(eMSGSYSTEM::SYS_ALL), fTarget(eMSGTARGET::TARGET_ALL), fFormat(eMSGFORMAT::PREFIX_ALL)
     {
         ClearContent();
     };
@@ -73,7 +73,7 @@ public:
     char fMsgBody[MAX_MSG_SIZE] = "No MESSAGE YET"; //!< The actual message
     //        char  fMsg[MAX_G_SIZE];			//!< The complete message including time stamp etc..
     char fMsg[MAX_MSG_TOTAL_SIZE] = {}; //!< The complete message including time stamp etc..
-    eMSGLEVEL fLevel = eMSGLEVEL(-1);              //!< The severity level of this message
+    eLOGLEVEL fLevel = eLOGLEVEL(-1);              //!< The severity level of this message
     eMSGSYSTEM fSystem = eMSGSYSTEM(-1) ;            //!< The subsystem this message applies to
     eMSGTARGET fTarget = eMSGTARGET(-1);            //!< The intended log target(s), (This varialble can be safely ignored by obsever functions)
     eMSGFORMAT fFormat = eMSGFORMAT(-1) ;            //!< The format of the log message, i.e which files should be dislayed (This varialble can be safely ignored by obsever functions)

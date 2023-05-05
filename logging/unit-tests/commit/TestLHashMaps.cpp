@@ -294,14 +294,14 @@ TEST_F(TestLHashMaps, contains_format_enums)
 TEST_F(TestLHashMaps, contains_levle_enums)
 {
     EXPECT_TRUE(true);
-    vector<eMSGLEVEL>  levels = LHashMaps::Instance()->GetLevelEnums();
-    EXPECT_TRUE(g_utilities()->Contains(levels, eMSGLEVEL::LOG_OFF));
-    EXPECT_TRUE(g_utilities()->Contains(levels, eMSGLEVEL::LOG_FORCE_DEBUG));
-    EXPECT_TRUE(g_utilities()->Contains(levels, eMSGLEVEL::LOG_DEBUG));
-    EXPECT_TRUE(g_utilities()->Contains(levels, eMSGLEVEL::LOG_INFO));
-    EXPECT_TRUE(g_utilities()->Contains(levels, eMSGLEVEL::LOG_WARNING));
-    EXPECT_TRUE(g_utilities()->Contains(levels, eMSGLEVEL::LOG_ERROR));
-    EXPECT_TRUE(g_utilities()->Contains(levels, eMSGLEVEL::LOG_FATAL));
-    EXPECT_TRUE(g_utilities()->Contains(levels, eMSGLEVEL::LOG_ALL));
+    vector<eLOGLEVEL>  levels = LHashMaps::Instance()->GetLevelEnums();
+    EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_OFF));
+    EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_FORCE_DEBUG));
+    EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_DEBUG));
+    EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_INFO));
+    EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_WARNING));
+    EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_ERROR));
+    EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_FATAL));
+    EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_ALL));
     
 }

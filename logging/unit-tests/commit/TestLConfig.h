@@ -25,7 +25,7 @@ public:
 protected:
 	vector<eMSGTARGET>   t_v  =  vector<eMSGTARGET>();
 	vector<eMSGSYSTEM>   s_v  =  vector<eMSGSYSTEM>();
-	vector<eMSGLEVEL>    l_v =   vector<eMSGLEVEL>();
+	vector<eLOGLEVEL>    l_v =   vector<eLOGLEVEL>();
 	LConfig *fConfig = nullptr;
 };
 

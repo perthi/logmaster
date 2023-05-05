@@ -47,7 +47,7 @@ namespace LOGMASTER
     LConfig::LConfig() : fHash()
     {
         fHash.InitHash(  );
-        ApplyLevel( eMSGLEVEL::LOG_WARNING );
+        ApplyLevel( eLOGLEVEL::LOG_WARNING );
 
         fIsInitialized = true;
     }
@@ -63,7 +63,7 @@ namespace LOGMASTER
     /** Get the loglevel for a given sub-system
      *  @param[in] system
      *  @return The current log level for the given system*/
-    eMSGLEVEL
+    eLOGLEVEL
     LConfig::GetLogLevel(const eMSGSYSTEM system) const
     {
         if (fHash.fLogLevelHash.find(system) != fHash.fLogLevelHash.end())
@@ -72,7 +72,7 @@ namespace LOGMASTER
         }
         else
         {
-            return (eMSGLEVEL)-1;
+            return (eLOGLEVEL)-1;
         }
     }
 
@@ -144,7 +144,7 @@ namespace LOGMASTER
         for ( size_t i = 0; i < tokens.size(); i++ )
         {
             eMSGSYSTEM        e_system = LConversion::String2System( tokens[i] );
-            eMSGLEVEL        e_level = LConversion::String2Level( tokens[i] );
+            eLOGLEVEL        e_level = LConversion::String2Level( tokens[i] );
 
             /// We dont let anybody modify the alarm or the exception sub-system, if the user attempt it we just
             /// masks   of that bit and silently ignore it
@@ -166,7 +166,7 @@ namespace LOGMASTER
 
 
     void
-    LConfig::SetLogLevel(const eMSGSYSTEM sys, const eMSGLEVEL lv  )
+    LConfig::SetLogLevel(const eMSGSYSTEM sys, const eLOGLEVEL lv  )
     {
         auto h = &(fHash.fLogLevelHash);
         for (auto iterator = h->begin(); iterator != h->end(); iterator++)
@@ -199,7 +199,7 @@ namespace LOGMASTER
 
 
     void
-    LConfig::ApplyLevel(const eMSGLEVEL l, const bool pad )
+    LConfig::ApplyLevel(const eLOGLEVEL l, const bool pad )
     {
         auto hash = &fHash.fLogLevelHash;
 
@@ -211,18 +211,18 @@ namespace LOGMASTER
 
 
     void
-    LConfig::ApplyLevel( const eMSGSYSTEM  system, const eMSGLEVEL  level, const bool pad )
+    LConfig::ApplyLevel( const eMSGSYSTEM  system, const eLOGLEVEL  level, const bool pad )
     {
         static int i = 0;
         i ++;
         // COUT << i << "Applying level" << endl;
-        eMSGLEVEL  l_level = level;
+        eLOGLEVEL  l_level = level;
         eMSGSYSTEM l_system = system;
         FilterOut( l_system, {eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EX });
 
         if (pad == true)
         {
-            l_level = (eMSGLEVEL)(PAD((uint64_t)l_level) );
+            l_level = (eLOGLEVEL)(PAD((uint64_t)l_level) );
         }
 
         for ( auto it = fHash.fLogLevelHash.begin(); it != fHash.fLogLevelHash.end(); it++ )

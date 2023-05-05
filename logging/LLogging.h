@@ -67,21 +67,21 @@ namespace LOGMASTER
         void API        SetPublishingMode( const ePUBLISH_MODE mode );
 
         template<typename... Args>
-        logmap API Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt,
+        logmap API Log(const eLOGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt,
             const Args ... args);
         
         
         template<typename... Args>
-        logmap API LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename,
+        logmap API LogVarArgs(const eLOGLEVEL level, const eMSGSYSTEM system, const char* filename,
             const int linenumber, const char* functionname, const char* fmt, const Args ... args);
 
         template<typename... Args>
-        logmap    API     LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
+        logmap    API     LogVarArgs(const eLOGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
             const char* functionname,
             const bool force_generate, string addendum, const char* fmt, const Args ... args);
 
             
-        logmap    API     LogVarArgsUnsafe(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
+        logmap    API     LogVarArgsUnsafe(const eLOGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
             const char* functionname,
             const bool force_generate, string addendum, const char* fmt, va_list ap);
 
@@ -93,7 +93,7 @@ namespace LOGMASTER
         eMSGTARGET               API       GetLogTarget()  const;
         eMSGFORMAT               API       GetLogFormat(const eMSGTARGET target) const;
         std::shared_ptr<LConfig> API       GetConfig(const eMSGTARGET target);
-        eMSGLEVEL                API       GetLogLevel(const eMSGSYSTEM system, const eMSGTARGET  target) const;
+        eLOGLEVEL                API       GetLogLevel(const eMSGSYSTEM system, const eMSGTARGET  target) const;
         string                   API       GetLogFileName(const eMSGTARGET  target = eMSGTARGET::TARGET_FILE) const;
         std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > >  GetLastMessages() { return  fMessages; };
 
@@ -107,7 +107,7 @@ namespace LOGMASTER
         void                    API     Reset();
         int                     API     Push();
         int                     API     Pop();
-        bool                    API     CheckLevel(const eMSGSYSTEM system, const eMSGLEVEL level, const eMSGTARGET target);
+        bool                    API     CheckLevel(const eMSGSYSTEM system, const eLOGLEVEL level, const eMSGTARGET target);
         void                    API     Flush();
         void                    API     SetFormatCheckAll( const bool val );   
         void                    API     DisableFormatCheck() { fFormatCheck  = false;};  
@@ -147,7 +147,7 @@ namespace LOGMASTER
      *   @param  args  Variable argument list
      *   @return  The generated log messages */
     template<typename... Args>
-    logmap LLogging::Log(const eMSGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt,
+    logmap LLogging::Log(const eLOGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt,
         const Args ... args)
     {
         return LogVarArgs(level, sys, l.fFileName.c_str(),  l.fLineNo, l.fFunctName.c_str(), false, string(""), fmt, args...);
@@ -174,7 +174,7 @@ namespace LOGMASTER
      *   @param  args  The list of arguments */
     template<typename... Args>
     logmap
-        LLogging::LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
+        LLogging::LogVarArgs(const eLOGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
             const char* functionname,
             const bool force_generate, string addendum, const char* fmt, const Args ... args)
     {
@@ -264,7 +264,7 @@ namespace LOGMASTER
 
 
     template<typename... Args>
-    logmap LLogging::LogVarArgs(const eMSGLEVEL level, const eMSGSYSTEM system, const char* filename,
+    logmap LLogging::LogVarArgs(const eLOGLEVEL level, const eMSGSYSTEM system, const char* filename,
         const int linenumber, const char* functionname, const char* fmt, const Args ... args)
     {
         return LogVarArgs(level, system, filename, linenumber, functionname, bool(false), (const char*)"", fmt, args...);

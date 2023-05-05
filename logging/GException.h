@@ -101,7 +101,7 @@ public:
                                               const char * fmt, const Args ... args)\
     { \
     string msg = GException::LogTrace(); \
-    LLogging::Instance()->LogVarArgs(eMSGLEVEL::LOG_FATAL, system, file.c_str(), line, function.c_str(), true, msg, fmt, args...); \
+    LLogging::Instance()->LogVarArgs(eLOGLEVEL::LOG_FATAL, system, file.c_str(), line, function.c_str(), true, msg, fmt, args...); \
     SetLogMap();\
     what(); \
 }

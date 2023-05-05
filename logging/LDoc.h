@@ -43,7 +43,7 @@ namespace LOGMASTER
         string      API  LogFormatDoc();
         void        API  PrintLogLevels(bool toconsole = false);
         string      Help();
-        string      UsageError(const string cmnd, const string sub, map <string, std::tuple<  eMSGSYSTEM, eMSGLEVEL > > m);
+        string      UsageError(const string cmnd, const string sub, map <string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > > m);
         
  //   private:
         LDoc() {};  // never used

@@ -140,7 +140,7 @@ TEST_F( TestLDatabase , specific_system_multiple )
 TEST_F( TestLDatabase , specific_level )
 {
     auto db = fgDatabase;
-    vector <eMSGLEVEL> level_v  = { eMSGLEVEL::LOG_DEBUG,   eMSGLEVEL::LOG_INFO,  eMSGLEVEL::LOG_WARNING,  eMSGLEVEL::LOG_ERROR,  eMSGLEVEL::LOG_FATAL}; 
+    vector <eLOGLEVEL> level_v  = { eLOGLEVEL::LOG_DEBUG,   eLOGLEVEL::LOG_INFO,  eLOGLEVEL::LOG_WARNING,  eLOGLEVEL::LOG_ERROR,  eLOGLEVEL::LOG_FATAL}; 
 
     for( auto lvl : level_v )
     {
@@ -159,7 +159,7 @@ TEST_F( TestLDatabase , specific_level_sys )
 {
     auto db = fgDatabase;
    
-    vector <eMSGLEVEL> level_v  = { eMSGLEVEL::LOG_DEBUG,   eMSGLEVEL::LOG_INFO,  eMSGLEVEL::LOG_WARNING,  eMSGLEVEL::LOG_ERROR,  eMSGLEVEL::LOG_FATAL}; 
+    vector <eLOGLEVEL> level_v  = { eLOGLEVEL::LOG_DEBUG,   eLOGLEVEL::LOG_INFO,  eLOGLEVEL::LOG_WARNING,  eLOGLEVEL::LOG_ERROR,  eLOGLEVEL::LOG_FATAL}; 
     vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
 
     for( auto lvl: level_v )
@@ -183,7 +183,7 @@ TEST_F( TestLDatabase , specific_level_sys_multiple )
 {
     auto db = fgDatabase;
 
-    vector <eMSGLEVEL> level_v  = { eMSGLEVEL::LOG_DEBUG,   eMSGLEVEL::LOG_INFO,  eMSGLEVEL::LOG_WARNING,  eMSGLEVEL::LOG_ERROR,  eMSGLEVEL::LOG_FATAL}; 
+    vector <eLOGLEVEL> level_v  = { eLOGLEVEL::LOG_DEBUG,   eLOGLEVEL::LOG_INFO,  eLOGLEVEL::LOG_WARNING,  eLOGLEVEL::LOG_ERROR,  eLOGLEVEL::LOG_FATAL}; 
     vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
     for (auto lvl : level_v)
     {

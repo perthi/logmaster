@@ -45,9 +45,9 @@ LGeneratorEnum::GenerateLevels( vector< std::shared_ptr<LXmlEntityLogLevel > >  
     
     lines.push_back("/*Enum controlling the log level*/");
     lines.push_back("#ifdef __cplusplus");
-    lines.push_back("enum class  eMSGLEVEL");
+    lines.push_back("enum class  eLOGLEVEL");
     lines.push_back("#else");
-    lines.push_back("enum eMSGLEVEL");
+    lines.push_back("enum eLOGLEVEL");
     lines.push_back("#endif");
     lines.push_back("{");
  

@@ -286,7 +286,7 @@ GUILoggerGui::RetranslateUi()
 	{
 		fLogLevelCombo->setCurrentIndex(i - 1);
 		int currentLevel = fLogLevelCombo->currentData().toInt();
-		if (currentLevel == (int)eMSGLEVEL::LOG_INFO)
+		if (currentLevel == (int)eLOGLEVEL::LOG_INFO)
 		{
 			break;
 		}

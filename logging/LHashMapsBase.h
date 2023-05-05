@@ -26,8 +26,8 @@ namespace LOGMASTER
 {
     namespace
     {
-        map<eMSGLEVEL, string> fLevel2StringHash;
-        map<string, std::tuple<eMSGSYSTEM, eMSGLEVEL>> fSubCmdHash;
+        map<eLOGLEVEL, string> fLevel2StringHash;
+        map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>> fSubCmdHash;
         map<string, eMSGTARGET> fTargetHash;
         map<string, eMSGFORMAT> fFormatHash;
         map<eMSGSYSTEM, string> fSystem2StringHash;
@@ -37,16 +37,16 @@ namespace LOGMASTER
 	{
     protected:
         API LHashMapsBase();
-     //   API LHashMapsBase( const eMSGLEVEL  level );
+     //   API LHashMapsBase( const eLOGLEVEL  level );
         API ~LHashMapsBase();
         
-        static void API InitHashLogTags(        map<string, std::tuple<eMSGSYSTEM, eMSGLEVEL>>  *SubCmdHash );
+        static void API InitHashLogTags(        map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash );
         static void API InitHashSystem2String(  map<eMSGSYSTEM, string>  *System2StringHash );
-        static void API InitHashLevel2String(   map<eMSGLEVEL, string> *Level2StringHash  );
+        static void API InitHashLevel2String(   map<eLOGLEVEL, string> *Level2StringHash  );
         
         void API InitHashLogLevel(  );
-        map<eMSGSYSTEM, eMSGLEVEL> fLogLevelHash;
-     //   eMSGLEVEL fDefaultLevel;
+        map<eMSGSYSTEM, eLOGLEVEL> fLogLevelHash;
+     //   eLOGLEVEL fDefaultLevel;
         bool fIsInitialized = false;
 
      

@@ -41,7 +41,7 @@ namespace LOGMASTER
  
     
     string
-    LDoc::UsageError(const string cmnd, const string sub, map <string, std::tuple<  eMSGSYSTEM, eMSGLEVEL > >  m)
+    LDoc::UsageError(const string cmnd, const string sub, map <string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > >  m)
     {
         std::stringstream buffer;
         buffer << "Invalid/bad combination command/subcommand: " << sub << " To " << cmnd << ".\nValid subcommands are:" << 

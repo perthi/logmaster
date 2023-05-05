@@ -59,12 +59,12 @@ public:
     LMessageGenerator();
 
     template<typename... Args>
-    std::shared_ptr<LMessage> API GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const eMSGSYSTEM s,
+    std::shared_ptr<LMessage> API GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const eMSGSYSTEM s,
                                               const char *fname, int line, const char *func, const char *fmt,
                                               const Args ... args);
 
     template<typename... Args>
-    std::shared_ptr<LMessage> API GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const eMSGSYSTEM s,
+    std::shared_ptr<LMessage> API GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const eMSGSYSTEM s,
                                               const char *fname, int line, const char *func, string addendum,
                                               const char *fmt, const Args ... args);
     
@@ -93,7 +93,7 @@ namespace
 *  @param fmt[in] */
 template<typename... Args>
 std::shared_ptr<LMessage> 
-LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const eMSGSYSTEM s,
+LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const eMSGSYSTEM s,
                                                          const char *fname, int line, const char *func, string addendum,
                                                          const char *fmt, const Args ... args)
 {
@@ -171,7 +171,7 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const
 
     char formatted_message[MAX_MSG_SIZE] = {0};
 
-    if(((int)eMSGFORMAT::MESSAGE_BODY & (int)format) || l == eMSGLEVEL::LOG_FORCE_DEBUG)
+    if(((int)eMSGFORMAT::MESSAGE_BODY & (int)format) || l == eLOGLEVEL::LOG_FORCE_DEBUG)
     {
         if(fmt != 0)
         {
@@ -221,7 +221,7 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const
 
 template<typename... Args>
 std::shared_ptr<LMessage> 
-LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eMSGLEVEL l, const eMSGSYSTEM s,
+LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const eMSGSYSTEM s,
                                                          const char *fname, int line, const char *func, const char *fmt,
                                                          const Args ... args)
 {

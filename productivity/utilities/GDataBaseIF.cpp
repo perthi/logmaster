@@ -92,7 +92,7 @@ bool
 GDataBaseIF::OpenDatabase(const char *db_path)
 {
     #ifdef HAS_LOGGING
-          HandleError(GLOCATION, eMSGLEVEL::LOG_DEBUG, DISABLE_EXCEPTION, "opening database \"%s\"",    db_path  );
+          HandleError(GLOCATION, eLOGLEVEL::LOG_DEBUG, DISABLE_EXCEPTION, "opening database \"%s\"",    db_path  );
     #else
     /// @todo The HandleError function should be called something else since it handes regular messages also
         HandleError(GLOCATION, DISABLE_EXCEPTION, "opening database \"%s\"\n",    db_path  );
@@ -104,7 +104,7 @@ GDataBaseIF::OpenDatabase(const char *db_path)
     if (rc)
     {
         #ifdef HAS_LOGGING
-            HandleError(GLOCATION, eMSGLEVEL::LOG_FATAL,  THROW_EXCEPTION, "Failed to open database \"%s\"",    db_path  );
+            HandleError(GLOCATION, eLOGLEVEL::LOG_FATAL,  THROW_EXCEPTION, "Failed to open database \"%s\"",    db_path  );
         #else
             HandleError(GLOCATION,  THROW_EXCEPTION,  "Failed to open database \"%s\"",   db_path  );
         #endif
@@ -124,7 +124,7 @@ GDataBaseIF::CloseDatabase()
     while (sqlite3_close(fDataBase) == SQLITE_BUSY)
     {
 #ifdef HAS_LOGGING
-        HandleError(GLOCATION, eMSGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION, "database is busy, cnt =  %d", cnt);
+        HandleError(GLOCATION, eLOGLEVEL::LOG_ERROR,  DISABLE_EXCEPTION, "database is busy, cnt =  %d", cnt);
 #else
         HandleError(GLOCATION,  DISABLE_EXCEPTION, "database is busy, cnt =  %d", cnt);
 #endif
@@ -135,7 +135,7 @@ GDataBaseIF::CloseDatabase()
         if (cnt == 10)
         {
 #ifdef HAS_LOGGING
-            HandleError( GLOCATION, eMSGLEVEL::LOG_FATAL, DISABLE_EXCEPTION, "failed to close database after %d attempts, bailing out !!!", cnt);
+            HandleError( GLOCATION, eLOGLEVEL::LOG_FATAL, DISABLE_EXCEPTION, "failed to close database after %d attempts, bailing out !!!", cnt);
 #else
             HandleError( GLOCATION, DISABLE_EXCEPTION, "failed to close database after %d attempts, bailing out !!!", cnt);
 #endif
@@ -158,7 +158,7 @@ GDataBaseIF::ReadText(sqlite3_stmt *stmt, const int idx, const string colname, c
         else
         {
 #ifdef HAS_LOGGING
-            HandleError(l, eMSGLEVEL::LOG_ERROR, THROW_EXCEPTION, "Incorrect Type (%d = %s) for \"%s\", expected SQLITE_TEXT", sql_type, SQLType2String(sql_type).c_str(), colname.c_str());
+            HandleError(l, eLOGLEVEL::LOG_ERROR, THROW_EXCEPTION, "Incorrect Type (%d = %s) for \"%s\", expected SQLITE_TEXT", sql_type, SQLType2String(sql_type).c_str(), colname.c_str());
 #else
             HandleError(l, THROW_EXCEPTION, "Incorrect Type (%d = %s) for \"%s\", expected SQLITE_TEXT", sql_type, SQLType2String(sql_type).c_str(), colname.c_str());
 #endif // HAS_LOGGING
@@ -184,7 +184,7 @@ GDataBaseIF::ReadFloat(sqlite3_stmt *stmt, const int idx, const string colname, 
         else
         {
 #ifdef HAS_LOGGING
-            HandleError(l, eMSGLEVEL::LOG_ERROR, THROW_EXCEPTION, "Incorrect Type  (%d = %s) \"%s\", expcted SQLITE_FLOAT", sql_type, SQLType2String(sql_type).c_str(), colname.c_str());
+            HandleError(l, eLOGLEVEL::LOG_ERROR, THROW_EXCEPTION, "Incorrect Type  (%d = %s) \"%s\", expcted SQLITE_FLOAT", sql_type, SQLType2String(sql_type).c_str(), colname.c_str());
 
 #else
             HandleError(l, THROW_EXCEPTION, "Incorrect Type  (%d = %s) \"%s\", expcted SQLITE_FLOAT", sql_type, SQLType2String(sql_type).c_str(), colname.c_str());
@@ -210,7 +210,7 @@ int GDataBaseIF::ReadInteger(sqlite3_stmt *stmt, const int idx, const string col
         else
         {
 #ifdef HAS_LOGGING
-            HandleError(l, eMSGLEVEL::LOG_ERROR, THROW_EXCEPTION, "Incorrect Type  (%d = %s) \"%s\", expected SQL_INTEGER", sql_type, SQLType2String(sql_type).c_str(), colname.c_str());
+            HandleError(l, eLOGLEVEL::LOG_ERROR, THROW_EXCEPTION, "Incorrect Type  (%d = %s) \"%s\", expected SQL_INTEGER", sql_type, SQLType2String(sql_type).c_str(), colname.c_str());
 
 #else
             HandleError(l, THROW_EXCEPTION, "Incorrect Type  (%d = %s) \"%s\", expected SQL_INTEGER", sql_type, SQLType2String(sql_type).c_str(), colname.c_str());

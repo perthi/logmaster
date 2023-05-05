@@ -48,7 +48,7 @@ namespace LOGMASTER
         string API DoxygenDoc(const string filename) ;
         string          API     GetFilename();
         eMSGFORMAT      API     GetLogFormat()  const  { return fLogFormat; };
-        eMSGLEVEL       API     GetLogLevel(const eMSGSYSTEM system) const;
+        eLOGLEVEL       API     GetLogLevel(const eMSGSYSTEM system) const;
         LHashMaps       API *   GetHash();
         static string   API     GetTimeMode();
         
@@ -61,9 +61,9 @@ namespace LOGMASTER
 
     private:
         void            API     SetLogFormat(const eMSGFORMAT);
-        void            API     SetLogLevel( const eMSGSYSTEM  sys, const eMSGLEVEL level );
-        void            API     ApplyLevel( const eMSGLEVEL l, const bool pad = true );
-        void            API     ApplyLevel(const eMSGSYSTEM s, const eMSGLEVEL l, const bool pad = true);
+        void            API     SetLogLevel( const eMSGSYSTEM  sys, const eLOGLEVEL level );
+        void            API     ApplyLevel( const eLOGLEVEL l, const bool pad = true );
+        void            API     ApplyLevel(const eMSGSYSTEM s, const eLOGLEVEL l, const bool pad = true);
         bool fIsInitialized  = false;
         eMSGFORMAT             fLogFormat = eMSGFORMAT::PREFIX_ALL; // 11111111 i.e all fields enabled
         string                 fLogFilename = "mylogfile.log";

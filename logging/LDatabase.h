@@ -97,9 +97,9 @@ namespace LOGMASTER
             
             bool API InitSQLQuery(const uint64_t time, const eTIME_SEARCH_OPTION opt, const int max_cnt);
             bool API InitSQLQuery(const uint64_t time_min, const uint64_t time_max, const int max_cnt);
-            bool API InitSQLQuery(const eMSGLEVEL level, const int max_cnt);
+            bool API InitSQLQuery(const eLOGLEVEL level, const int max_cnt);
             bool API InitSQLQuery(const eMSGSYSTEM system, const int max_cnt);
-            bool API InitSQLQuery(const eMSGLEVEL level, const eMSGSYSTEM system, const int max_cnt);
+            bool API InitSQLQuery(const eLOGLEVEL level, const eMSGSYSTEM system, const int max_cnt);
             bool API InitSQLQuery(const int cnt);
             bool API InitSQLQuery(const string sql);
             
@@ -108,8 +108,8 @@ namespace LOGMASTER
             vector< LLogEntrySQL>  API Query( const   uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
             vector< LLogEntrySQL>  API Query( const   uint64_t time_min,        const int time_max,  const int max_cnt );
             vector< LLogEntrySQL>  API Query( const   eMSGSYSTEM sys,  const int max_cnt) ;
-            vector< LLogEntrySQL>  API Query( const   eMSGLEVEL lvl,  const int max_cnt) ;
-            vector< LLogEntrySQL>  API Query( const   eMSGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
+            vector< LLogEntrySQL>  API Query( const   eLOGLEVEL lvl,  const int max_cnt) ;
+            vector< LLogEntrySQL>  API Query( const   eLOGLEVEL lvl,  const  eMSGSYSTEM sys,  const int max_cnt) ;
             bool  API ReadEntriesGetEntry(LLogEntrySQL &entry);
             void  API SetMaxDbFileSize(const uint64_t maxSize);
             string API GetDBPath() const;

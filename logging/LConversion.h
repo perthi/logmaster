@@ -46,7 +46,7 @@ namespace LOGMASTER
 
 
     /** Helper class that converts from strings to the
-    *  corresponding internal representation eMSGFORMAT, eMSGTARGET, eMSGLEVEL, eMSGSYSTEM enumerators
+    *  corresponding internal representation eMSGFORMAT, eMSGTARGET, eLOGLEVEL, eMSGSYSTEM enumerators
     *  This class is used by the logging system when converting string values
     *  apllied either from the code or form the command line to configure
     *  the logging systems.*/
@@ -71,7 +71,7 @@ namespace LOGMASTER
         
         static eMSGFORMAT API String2Format(   const  string  &in );
         static eMSGTARGET API String2Target(   const  string  &in );
-        static eMSGLEVEL  API String2Level(    const  string  &in );
+        static eLOGLEVEL  API String2Level(    const  string  &in );
         static eMSGSYSTEM API String2System(   const  string  &in );
 
 #ifdef _WIN32
@@ -85,17 +85,17 @@ namespace LOGMASTER
         ~LConversion() {};
 
         static eMSGSYSTEM API Hash2System(  const  string  &in );
-        static eMSGLEVEL  API Hash2Level(   const  string  &in );
+        static eLOGLEVEL  API Hash2Level(   const  string  &in );
         static eMSGTARGET API Hash2Target(  const  string  &in );
         static eMSGFORMAT API Hash2Format(  const  string  &in );
 
         static eMSGSYSTEM API BinaryString2System(  const  string  &in );
-        static eMSGLEVEL  API BinaryString2Level(   const  string  &in );
+        static eLOGLEVEL  API BinaryString2Level(   const  string  &in );
         static eMSGTARGET API BinaryString2Target(  const  string  &in );
         static eMSGFORMAT API BinaryString2Format(  const  string  &in );
 
         static eMSGSYSTEM API HexString2System(  const  string  &in );
-        static eMSGLEVEL  API HexString2Level(   const  string  &in );
+        static eLOGLEVEL  API HexString2Level(   const  string  &in );
         static eMSGTARGET API HexString2Target( const string &in );
         static eMSGFORMAT API HexString2Format( const string &in );
 
@@ -107,7 +107,7 @@ namespace LOGMASTER
     };
 
 
-    /** Converts a string to an enum which can be either  eMSGSYSTEM, eMSGLEVEL, eMSGTARGET or eMSGFORMAT   
+    /** Converts a string to an enum which can be either  eMSGSYSTEM, eLOGLEVEL, eMSGTARGET or eMSGFORMAT   
      * @tparam T  The enum type to convert to
      * @param[in] in The string to convert. The string must be either on hex or binary format
      * @param[in] pos he position of the bits. For instance if pos = 8 then the least significant 8 bit after conversion

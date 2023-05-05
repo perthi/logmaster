@@ -12,26 +12,26 @@
 using namespace LOGMASTER;
 
 
-// This class is needed to handle eMSGLEVEL/eMSGSYSTEM bitmaps
+// This class is needed to handle eLOGLEVEL/eMSGSYSTEM bitmaps
 class APILogmasterBitmap
 {
 public:
-	APILogmasterBitmap(const eMSGLEVEL level, const eMSGSYSTEM system) { fBitMap = Level2Bitmap(level) | System2Bitmap(system); }
-	APILogmasterBitmap(const eMSGSYSTEM system, const eMSGLEVEL level) { fBitMap = Level2Bitmap(level) | System2Bitmap(system); }
+	APILogmasterBitmap(const eLOGLEVEL level, const eMSGSYSTEM system) { fBitMap = Level2Bitmap(level) | System2Bitmap(system); }
+	APILogmasterBitmap(const eMSGSYSTEM system, const eLOGLEVEL level) { fBitMap = Level2Bitmap(level) | System2Bitmap(system); }
 	APILogmasterBitmap(int bitmap) { fBitMap = bitmap; }
 	APILogmasterBitmap(const APILogmasterBitmap& rhs) { fBitMap = rhs.fBitMap; }
 	int GetBitmap() { return(fBitMap); }
-	eMSGLEVEL GetLevel() { return(Bitmap2Level(fBitMap)); }
+	eLOGLEVEL GetLevel() { return(Bitmap2Level(fBitMap)); }
 	eMSGSYSTEM GetSystem() { return(Bitmap2System(fBitMap)); }
-	bool operator==(const eMSGLEVEL level) { return((Level2Bitmap(level) & fBitMap) != 0); }
+	bool operator==(const eLOGLEVEL level) { return((Level2Bitmap(level) & fBitMap) != 0); }
 	bool operator==(const eMSGSYSTEM system) { return((System2Bitmap(system) & fBitMap) != 0); }
 	
-	API void Set(const eMSGLEVEL level, bool enable);
+	API void Set(const eLOGLEVEL level, bool enable);
 
 	// These 4 functions handles all conversion
-	static int Level2Bitmap(const eMSGLEVEL level) { return(((int)level << (int)eLEVELSHIFT) & (int)eLEVELMASK); }
+	static int Level2Bitmap(const eLOGLEVEL level) { return(((int)level << (int)eLEVELSHIFT) & (int)eLEVELMASK); }
 	static int System2Bitmap(const eMSGSYSTEM system) { return(((int)system << (int)eSYSTEMSHIFT) & (int)eSYSTEMMASK); }
-	static eMSGLEVEL Bitmap2Level(const int bitmap) { return((eMSGLEVEL)(((int)bitmap & (int)eLEVELMASK) >> eLEVELSHIFT)); }
+	static eLOGLEVEL Bitmap2Level(const int bitmap) { return((eLOGLEVEL)(((int)bitmap & (int)eLEVELMASK) >> eLEVELSHIFT)); }
 	static eMSGSYSTEM Bitmap2System(const int bitmap) { return((eMSGSYSTEM)(((int)bitmap & (int)eSYSTEMMASK) >> eSYSTEMSHIFT)); }
 private:
 	enum LogmasterBitmapConstants
