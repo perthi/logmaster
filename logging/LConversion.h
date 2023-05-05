@@ -108,9 +108,9 @@ namespace LOGMASTER
 
 
     /** Converts a string to an enum which can be either  eMSGSYSTEM, eMSGLEVEL, eMSGTARGET or eMSGFORMAT   
-     * @tparam T  The enum typte to convert to
+     * @tparam T  The enum type to convert to
      * @param[in] in The string to convert. The string must be either on hex or binary format
-     * @param[in] pos he position of the bits. For instrance if pos = 8 then the least significant 8 bit after conversion
+     * @param[in] pos he position of the bits. For instance if pos = 8 then the least significant 8 bit after conversion
      * will be discarded, and the bit filed shifted 8 places to the right.
      * @param[in] width The number of bits of the number is a bit field */
     template<typename T>
@@ -124,7 +124,7 @@ namespace LOGMASTER
 
         if ( g_numbers()->IsBinary( in ) )
         {
-            tmp = g_numbers()->ToBinary( in );
+            tmp = g_numbers()->BinaryStringToNumber( in );
         }
         else if ( g_numbers()->IsHex( in ) )
         {
@@ -134,7 +134,7 @@ namespace LOGMASTER
         {
             std::stringstream buffer;
 
-            buffer << "The function takes eiter a binary number containg zero and ones or a hex number staring with 0x" << in << " is neither";
+            buffer << "The function takes either a binary number containing zero and ones or a hex number staring with 0x" << in << " is neither";
             #ifdef _WIN32
             throw(std::exception( buffer.str().c_str() ));
             #else

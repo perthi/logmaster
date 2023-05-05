@@ -115,7 +115,7 @@ public:
     
     int64_t             API        BitWidth(const char *in);
     int64_t             API        BitWidth(const string in);
-    int64_t		        API     BinaryStringToNumber(const string num);
+    int64_t		        API       BinaryStringToNumber(const string num);
     
     template<typename T = long double>     vector<T> API ToFloat(const vector<string> num);
     template<typename T = long double>    T          API ToFloat(const string num);
