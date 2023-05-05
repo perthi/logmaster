@@ -41,7 +41,7 @@ using std::vector;
 #define BASE_10 10
 #define BASE_16 16
 
-#define  BIN(in)  g_numbers()->ToBinary(in)
+#define  BIN(in)  g_numbers()->BinaryStringToNumber(in)
 #define  PAD(in)  g_numbers()->PadOnes(in)
 
 
@@ -115,7 +115,7 @@ public:
     
     int64_t             API        BitWidth(const char *in);
     int64_t             API        BitWidth(const string in);
-    int64_t		        API      ToBinary(const string num);
+    int64_t		        API     BinaryStringToNumber(const string num);
     
     template<typename T = long double>     vector<T> API ToFloat(const vector<string> num);
     template<typename T = long double>    T          API ToFloat(const string num);
