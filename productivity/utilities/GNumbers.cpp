@@ -422,7 +422,7 @@ GNumbers::ToHex(const string num)
 *  @exception GException  if the system dependent maximum  number if bits is exceeded, or if the string has wrong format. Ths is,
 *  not valid binary string format containing 0'oes nad 1'nes, and/or an optional precedding minus sign. */
  int64_t
-GNumbers::ToBinary(const string b)
+GNumbers::BinaryStringToNumber(const string b)
 {
     string s = b;
     g_string()->Trim(s);
