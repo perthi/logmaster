@@ -117,24 +117,24 @@ TEST_F(TestGNumbers, IsBinary)
 
 TEST_F(TestGNumbers, ToBinary)
 {
-    EXPECT_EQ(457893, g_numbers()->ToBinary("1101111110010100101"));
-    EXPECT_EQ(0, g_numbers()->ToBinary("0"));
-    EXPECT_EQ(1, g_numbers()->ToBinary("1"));
-    EXPECT_EQ(15, g_numbers()->ToBinary("1111"));
-    EXPECT_EQ(6, g_numbers()->ToBinary("110"));
-    EXPECT_EQ(15, g_numbers()->ToBinary("  1111"));
-    EXPECT_EQ(6, g_numbers()->ToBinary("110  "));
-    EXPECT_EQ(6, g_numbers()->ToBinary("   110     "));
-    EXPECT_EQ(123456, g_numbers()->ToBinary("11110001001000000") );
+    EXPECT_EQ(457893, g_numbers()->BinaryStringToNumber("1101111110010100101"));
+    EXPECT_EQ(0, g_numbers()->BinaryStringToNumber("0"));
+    EXPECT_EQ(1, g_numbers()->BinaryStringToNumber("1"));
+    EXPECT_EQ(15, g_numbers()->BinaryStringToNumber ("1111"));
+    EXPECT_EQ(6, g_numbers()->BinaryStringToNumber("110"));
+    EXPECT_EQ(15, g_numbers()->BinaryStringToNumber("  1111"));
+    EXPECT_EQ(6, g_numbers()->BinaryStringToNumber("110  "));
+    EXPECT_EQ(6, g_numbers()->BinaryStringToNumber("   110     "));
+    EXPECT_EQ(123456, g_numbers()->BinaryStringToNumber("11110001001000000") );
     
     #ifdef _WIN32
-    EXPECT_EQ(9223372036854775807, g_numbers()->ToBinary("  111111111111111111111111111111111111111111111111111111111111111"));
-    EXPECT_EQ(-9223372036854775807, g_numbers()->ToBinary("-111111111111111111111111111111111111111111111111111111111111111"));
+    EXPECT_EQ(9223372036854775807, g_numbers()->BinaryStringToNumber("  111111111111111111111111111111111111111111111111111111111111111"));
+    EXPECT_EQ(-9223372036854775807, g_numbers()->BinaryStringToNumber("-111111111111111111111111111111111111111111111111111111111111111"));
     #endif
 
-    EXPECT_EQ(-7, g_numbers()->ToBinary("-111"));
-    EXPECT_EQ(-6, g_numbers()->ToBinary("-110"));
-    EXPECT_ANY_THROW(g_numbers()->ToBinary("12345"));
+    EXPECT_EQ(-7, g_numbers()->BinaryStringToNumber("-111"));
+    EXPECT_EQ(-6, g_numbers()->BinaryStringToNumber("-110"));
+    EXPECT_ANY_THROW(g_numbers()->BinaryStringToNumber("12345"));
 }
 
 
