@@ -17,13 +17,20 @@ VScanArguments::VScanArguments()
 void
 VScanArguments::InitArguements()
 {
-	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-rcname", "-rcname [value]", "sets the name of the RC file (Windows)", &fParameters.fRCilename, fgkMANDATORY));
-	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-dll", "-dll [value]", "sets the name of the DLL (Windows)", &fParameters.fDllname, fgkMANDATORY ));
-	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-product", "-product [value]", "The product name", &fParameters.fProductname, fgkOPTIONAL));
+
+#ifdef _WIN32
+	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-rcname", "-rcname [value]", "sets the name of the RC file (Windows)", &fParameters.fRCFilename, fgkMANDATORY));
+#endif
+	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-appname", "-appname [value]", "sets the name of the exe/binary file", &fParameters.fAppName, fgkMANDATORY ));
+	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-producname", "-product [value]", "The product name", &fParameters.fProductname, fgkOPTIONAL));
 	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-desc", "-desc [value]", "The name of the product", &fParameters.fDescription, fgkOPTIONAL));
-	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-copyright", "-desc [value]", "Copyright notice", &fParameters.fCopyright, fgkOPTIONAL));
+//	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-copyright", "-desc [value]", "Copyright notice", &fParameters.fCopyright, fgkOPTIONAL));
+	
+#ifdef  __linux__ 
 	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-flagfile", "-flagfile [value]", "File containing flags use during compilation", &fParameters.fCompileflags_file, fgkOPTIONAL));
-	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-exename", "-exename [value]", "name of the executable", &fParameters.fExename, fgkOPTIONAL));
+#endif
+
+	//	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-exename", "-exename [value]", "name of the executable", &fParameters.fExename, fgkOPTIONAL));
 
 }
 
@@ -45,13 +52,11 @@ bool
 VScanArguments::CheckParameters(const VParameters p) const
 {
 #ifdef _WIN32
-	if (p.fDllname != "")
+	if (p.fAppName != "")
 	{
-		G_ASSERT_ARGUMENT_EXCEPTION(g_string()->EndsWith(p.fDllname, ".dll"), "Invalid DLL name %s. Must end with .dll");
-	}
-	if (p.fExename != "")
-	{
-		G_ASSERT_ARGUMENT_EXCEPTION(g_string()->EndsWith(p.fExename, ".exe"), "Invalid exe name %s. Must end with .exe");
+		G_ASSERT_ARGUMENT_EXCEPTION(g_string()->EndsWith(p.fAppName, vector<string>{ ".dll", ".exe"}), "Invalid DLL/exe name %s. Must end with either .dll or .exe", p.fAppName.c_str() );
+		G_ASSERT_ARGUMENT_EXCEPTION(g_string()->EndsWith(p.fRCFilename,".rc" ), "Invalid RC filename name %s. Must end with .rc", p.fRCFilename.c_str());
+		return false; /// Just in case exeptiona are disabled
 	}
 #endif
 	return true;

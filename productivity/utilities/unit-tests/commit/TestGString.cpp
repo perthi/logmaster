@@ -34,7 +34,6 @@
 using namespace GCONSTANTS;
 
 
-/*
 TEST_F(TestGString, ReplaceBadChar)
 {
     char tmp[] = "&&this%#&!!isateststring";
@@ -128,9 +127,7 @@ TEST_F(TestGString, TrimVector)
 TEST_F(TestGString, TrimVector_multiple_tokens)
 {
     string test = "a,b,c, \td, e\n\n   , \tf  , g,h  \n,   \t i    \n \t ";
-
     vector<string>  tokens = GTokenizer().Tokenize(test, ",");
-
 
     EXPECT_EQ(tokens.size(), 9);
 
@@ -263,7 +260,6 @@ TEST_F(TestGString, ToStringBUG_NSR1049)
     EXPECT_EQ(  "130000.1234567123",  g_string()->ToString<long double>((long double)130000.1234567123));
 }
 #endif
-*/
 
 
 
@@ -276,24 +272,16 @@ TEST_F(TestGString, Utf8ToAnsi)
 }
 
 
-
-
 #ifdef _WIN32
 TEST_F(TestGString, AnsiToUtf8)
 {
    const std::string makeNoChanges = "A sentence without special characters";
-   
-  // const std::string norwegianAnsi = "� � � � � �";
    const std::string norwegianAnsi  = "\xA6 \xb8 \xA5 \x86 \x98 \x85";
-
    const std::string norwegianUtf8 = "\xC2\xA6 \xC2\xb8 \xC2\xA5 \xC2\x86 \xC2\x98 \xC2\x85";
-
    EXPECT_EQ(makeNoChanges,  g_string()->AnsiToUtf8(makeNoChanges));
    EXPECT_EQ(norwegianUtf8,  g_string()->AnsiToUtf8(norwegianAnsi));
 }
 #endif
-
-
 
 
 #ifdef _WIN32
@@ -339,9 +327,6 @@ TEST_F(TestGString, ToUpper)
 
 
 
-
-
-/*
 TEST_F(TestGString, is_match)
 {
     string pattern = "123";
@@ -358,4 +343,15 @@ TEST_F(TestGString, beginswidth_empty)
     string s = "lorem ipsum";
     EXPECT_TRUE( g_string()->BeginsWith( s, "" ));
 }
-*/
+
+
+
+TEST_F(TestGString, end_with)
+{
+    string s = "myapp.exe";
+    EXPECT_TRUE(  g_string()->EndsWith(s, ".exe") );
+    EXPECT_TRUE(g_string()->EndsWith(s, ""));
+    EXPECT_TRUE(g_string()->EndsWith(s,  vector<string>{ ".exe", ".dll"}));
+    EXPECT_TRUE(g_string()->EndsWith(s, vector<string>{ ".blahhh", ".dll", "exe"}));
+    EXPECT_FALSE(g_string()->EndsWith(s, vector<string>{ ".foo", ".bar"}));
+}

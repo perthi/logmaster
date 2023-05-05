@@ -12,6 +12,11 @@
 using namespace LOGMASTER;
 
 
+
+
+
+
+
 void  logger_callback(const std::shared_ptr<LMessage>  m)
 {
 	static int cnt = 0;

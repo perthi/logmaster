@@ -130,8 +130,27 @@ bool GString::BeginsWith(const vector<string> *const arr, const string token, co
     return false;
 }
 
- bool GString::EndsWith(const string& str, const string& substring, const bool ignore_case)
+
+bool  
+GString::EndsWith(const string& str, const vector <string>   substring, const bool ignore_case)
 {
+    for (const auto& s : substring)
+    {
+        if (GString::EndsWith(str, s, ignore_case))
+        {
+            return true;
+        }
+
+    }
+
+    return false;
+}
+
+
+ bool 
+ GString::EndsWith(const string& str, const string& substring, const bool ignore_case)
+{
+     if (substring == "") return true;
     long long int pos = 0;
     long long int expected_pos = (long long int)str.size() - (long long int)substring.size();
     if ((expected_pos >= 0) && Contains(str, substring, ignore_case, &pos) == true && (pos == expected_pos))
@@ -540,8 +559,14 @@ GString::Contains(const vector<string>& str, const string& substring, const bool
 bool
 GString::Contains(const string& str, const string& substring, const bool  ignore_case, long long int* pos)
 {
+    if (substring == "")
+    {   
+        return true;
+    }
+
     string l_str = str;
     string l_substr = substring;
+
 
 
     if (ignore_case == true)

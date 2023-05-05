@@ -110,7 +110,7 @@ public:
 
 
 template<typename T>
-void throw_exception(const T &e)
+bool throw_exception(const T &e)
 {
     if (GException::IsEnabledException() == true)
     {
@@ -120,7 +120,10 @@ void throw_exception(const T &e)
     {
         EX_FATAL("Fatal condition that would have resultetd in an exception, but exceptions was switched off !!");
         EX_FATAL("%s", e.what());
+        return false;
     }
+
+    return true;
 }
 
 /** Common macro defintions of Exception classes */

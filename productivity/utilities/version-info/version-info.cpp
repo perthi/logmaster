@@ -54,9 +54,9 @@ int main(int argc, const char** argv)
 
 #ifdef _WIN32
 		VVersionHeader::GenerateFile(version, branch, configuration);
-		VGenerateRCFile::Generate("", p.fRCilename, p.fCompany, p.fDescription, p.fDllname, p.fCopyright, p.fProductname);
+		VGenerateRCFile::Generate("", p.fRCFilename, p.fCompany, p.fDescription, p.fAppName, p.fCopyright, p.fProductname);
 #endif
-		VGenerateVersionInfo::GenerateClass("GVersion", p.fExename, p.fCompileflags_file, ".");
+		VGenerateVersionInfo::GenerateClass("GVersion", p.fAppName, p.fCompileflags_file, ".");
 	}
 
 	catch (std::exception& e)

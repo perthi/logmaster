@@ -150,7 +150,7 @@
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>$(BinDir)\version-info -rcname  $(TargetName).rc -dll  $(TargetName).dll -copyright "Embedded Consulting"</Command>
+      <Command>$(BinDir)\version-info -rcname  $(TargetName).rc -appname  $(TargetFileName) </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -185,7 +185,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GVersion.cpp" />
+    <ClCompile Include="GVersion.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="version-info.cpp" />
     <ClCompile Include="VGenerateRCFile.cpp" />
     <ClCompile Include="VGenerateVersionInfo.cpp" />
@@ -203,7 +205,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="GVersion.h" />
+    <ClInclude Include="GVersion.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="version-info.h" />
     <ClInclude Include="Version.h" />
     <ClInclude Include="VGenerateRCFile.h" />

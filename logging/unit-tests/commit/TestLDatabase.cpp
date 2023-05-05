@@ -75,8 +75,6 @@ TestLDatabase::TearDown()
 }
 
 
-
-
 TEST_F( TestLDatabase , all_entries )
 {
     auto db = fgDatabase;
@@ -98,19 +96,14 @@ TEST_F( TestLDatabase , all_entries )
 
         entries =   db->Query( n );   
         EXPECT_EQ(entries.size() , n  );
-
     }
-
 }
-
-
 
 
 TEST_F( TestLDatabase , specific_system )
 {
      auto db = fgDatabase;
      vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
-
     
     for( auto s: sys_v )
     {
@@ -123,10 +116,7 @@ TEST_F( TestLDatabase , specific_system )
         }
 
     }
-    
 }
-
-
 
 
 TEST_F( TestLDatabase , specific_system_multiple )
@@ -143,10 +133,8 @@ TEST_F( TestLDatabase , specific_system_multiple )
         {
             EXPECT_EQ ( (int)e.fCategory, (int) ( s | eMSGSYSTEM::SYS_USER)  );     
         }
-
     }
 }
-
 
 
 TEST_F( TestLDatabase , specific_level )
@@ -163,10 +151,8 @@ TEST_F( TestLDatabase , specific_level )
         {
            EXPECT_EQ ( (int)e.fLevel, (int)lvl  );     
         }
-
     }
 }
-
 
 
 TEST_F( TestLDatabase , specific_level_sys )
@@ -188,13 +174,9 @@ TEST_F( TestLDatabase , specific_level_sys )
               EXPECT_EQ ( (int)e.fLevel, (int)lvl  );     
               EXPECT_EQ ( (int)e.fCategory, (int)s  );   
             }
-
         }
-
     }
 }
-
-
 
 
 TEST_F( TestLDatabase , specific_level_sys_multiple )
@@ -220,7 +202,6 @@ TEST_F( TestLDatabase , specific_level_sys_multiple )
         }
     }
 }
-
 
 
 
@@ -270,6 +251,7 @@ TEST_F( TestLDatabase , logrotation)
 
     std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr< LMessage > > > test = LLogging::Instance()->GetLastMessages();
     auto msg =  ( (*test)[eMSGTARGET::TARGET_STDOUT] );
+   
     db->AddLogEntry(msg);
     db->AddLogEntry(msg);
     db->AddLogEntry(msg);

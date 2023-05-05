@@ -98,7 +98,7 @@
       <AdditionalDependencies>logging.lib;utilities.lib;cmdline.lib;shell32.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>$(BinDir)\version-info -rcname  $(TargetName).rc -dll  $(TargetName).dll -copyright "Embedded Consulting"</Command>
+      <Command>$(BinDir)\version-info -rcname  $(TargeName).rc -appname  $(TargetFileName)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GVersion.cpp" />
     <ClCompile Include="helloworld.cpp" />
   </ItemGroup>
   <ItemGroup>

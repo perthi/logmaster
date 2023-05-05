@@ -94,10 +94,15 @@ namespace LOGMASTER
         if(fMaxDbFileSize)
         {
             FILE *p_file = NULL;
-            //p_file = fopen(fDBPath.c_str(),"rb");
+            p_file = fopen(fDBPath.c_str(),"rb");
 
             /// @todo intepret errno value on failure
-            fopen_s(&p_file, fDBPath.c_str(), "rb");
+          //  fopen_s(&p_file, fDBPath.c_str(), "rb");
+            if (p_file == nullptr)
+            {
+                std::exception(("Could not open database:"+ fDBPath).c_str() );
+            }
+            
             fseek(p_file,0,SEEK_END);
             auto fileSize = ftell(p_file);
             fclose(p_file);

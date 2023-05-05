@@ -61,7 +61,9 @@ class GString
      bool         API Contains(const string &str, const string &substring, const bool ignore_case = true, long long int *pos = 0);
      bool         API BeginsWith(const string &str, const string &substring, const bool ignore_case = true);
      bool         API BeginsWith(const vector<string> * const arr, const string token, const bool ignore_case = true);
+     
      bool         API EndsWith(const string &str, const string &substring, const bool ignore_case = true);
+     bool         API EndsWith(const string& str, const vector <string>   substrings, const bool ignore_case = true);
 
      bool         API CompareNoCase(string lhs, string rhs) { return (ToUpper(lhs) == ToUpper(rhs)); }
      string       API & Ltrim(string &s, const char c = ' ');

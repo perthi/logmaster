@@ -4,34 +4,23 @@
 
 using std::string;
 
+/** @brief Helper struct to hold parameters either parsed from the command line
+*  or set in the code. This struct is passed to the functions generating cpp/h source files
+* which is again used to embedd application information into the code or in the details
+* section of a DLL (Windows only) */
 struct VParameters
 {
-	string fConfiguration = "";
-	string fPlatform = "";
+	string fConfiguration = "";//!< Debug vsRelease
+	string fPlatform = ""; //!< 64 vs 32 bit
 	string fYear = "";
-	string fRCilename = "";
-	string fCompileflags_file = "";
-	string fCompany = "";
-	string fDllname = "";
-	string fExename = "";
+	string fRCFilename = ""; //! (Windows only): Name of the file containing resource information that will be embedded int eh details secgion of the <DLL/exe file
+	string fCompileflags_file = ""; //!< Name of file containing information about what compilation flags was used during code generation
+	string fCompileinfo = "";  //!< Compilation info read from fCompileinfo
+	string fCompany = ""; //!< Organization name
+	string fAppName = ""; //!< Original name of the binary file
 	string fProductname = "";
 	string fDescription = "";
-	string fCopyright = "";
-	string fCompileinfo = "";
-
-	/*
-	string fConfiguration = "unkwown_config";
-	string fPlatform = "unknown_platform";
-	string fYear = "unknown_year";
-	string fRCilename = "unknown_resource_file.rc";
-	string fCompileflags_file = "unknown_compileflags_file";
-	string fCompany = "Embedded Consulting";
-	string fDllname = "unknown_dll";
-	string fExename = "unknowne_exefile";
-	string fProductname = "unknown_product";
-	string fDescription = "no_description";
-	string fCopyright = "unknown_copyright";
-	string fCompileinfo = "not_set";
-	*/
+	string fCopyright = "Embedded Consulting";
+	
 	};
 

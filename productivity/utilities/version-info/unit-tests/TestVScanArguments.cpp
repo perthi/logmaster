@@ -40,11 +40,10 @@ TEST_F(TestVScanArguments, empty)
 		EXPECT_EQ(scanned.fConfiguration, "");
 		EXPECT_EQ(scanned.fCopyright, "");
 		EXPECT_EQ(scanned.fDescription, "");
-		EXPECT_EQ(scanned.fDllname, "");
-		EXPECT_EQ(scanned.fExename, "");
+		EXPECT_EQ(scanned.fAppName, "");
 		EXPECT_EQ(scanned.fPlatform, "");
 		EXPECT_EQ(scanned.fProductname, "");
-		EXPECT_EQ(scanned.fRCilename, "");
+		EXPECT_EQ(scanned.fRCFilename, "");
 	}
 	catch (GException& e)
 	{
@@ -67,14 +66,14 @@ TEST_F(TestVScanArguments, scan)
 	auto s = VScanArguments();
 	s.EnableForceOptional();
 
-	EXPECT_EQ(s.Scan( "-rcname myrcfile.rc").fRCilename, "myrcfile.rc");
-	EXPECT_EQ(s.Scan("-dll  mydll.dll").fDllname, "mydll.dll");
+	EXPECT_EQ(s.Scan( "-rcname myrcfile.rc").fRCFilename, "myrcfile.rc");
+	EXPECT_EQ(s.Scan("-appname  mydll.dll").fAppName, "mydll.dll");
 	EXPECT_EQ(s.Scan("-product myproduct").fProductname, "myproduct");
 
 	EXPECT_EQ(s.Scan("-desc  mydescription").fDescription, "mydescription");
-	EXPECT_EQ(s.Scan("-copyright COPY").fCopyright, "COPY");
+//	EXPECT_EQ(s.Scan("-copyright COPY").fCopyright, "COPY");
 	EXPECT_EQ(s.Scan("-flagfile flagfile.txt").fCompileflags_file, "flagfile.txt");
-	EXPECT_EQ(s.Scan("-exename foo.exe").fExename, "foo.exe");
+	EXPECT_EQ(s.Scan("-exename foo.exe").fAppName, "foo.exe");
 }
 
 
@@ -83,12 +82,11 @@ TEST_F(TestVScanArguments, missing_mandatory)
 	auto s = VScanArguments();
 	/// Legal parameters, but one oer more mandatry arguments missing
 	EXPECT_ANY_THROW(s.Scan("-rcname myrcfile.rc"));
-	EXPECT_ANY_THROW(s.Scan("-dll  mydll.dll"));
 	EXPECT_ANY_THROW(s.Scan("-product myproduyt"));
 	EXPECT_ANY_THROW(s.Scan("-desc  mydescription"));
-	EXPECT_ANY_THROW(s.Scan("-copyright COPY"));
+//	EXPECT_ANY_THROW(s.Scan("-copyright COPY"));
 	EXPECT_ANY_THROW(s.Scan("-flagfile flagfile.txt"));
-	EXPECT_ANY_THROW(s.Scan("-exename foo.exe"));
+	EXPECT_ANY_THROW(s.Scan("-appname foo.exe"));
 }
 
 
@@ -109,18 +107,16 @@ TEST_F(TestVScanArguments, inorrect_nargs)
 	s.EnableForceOptional();
 	EXPECT_ANY_THROW(s.Scan("-rcname myrcfile.rc  myrcfile2.rc"));
 	EXPECT_ANY_THROW(s.Scan("-rcname"));
-	EXPECT_ANY_THROW(s.Scan("-dll  mydll.dll   mydll2.dll"));
-	EXPECT_ANY_THROW(s.Scan("-dll "));
+	EXPECT_ANY_THROW(s.Scan("-appname  mydll.dll   mydll2.dll"));
+	EXPECT_ANY_THROW(s.Scan("-appname "));
 	EXPECT_ANY_THROW(s.Scan("-product  product1 product2"));
 	EXPECT_ANY_THROW(s.Scan("-product"));
 	EXPECT_ANY_THROW(s.Scan("-desc  mydescription1 loremipsum"));
 	EXPECT_ANY_THROW(s.Scan("-desc"));
-	EXPECT_ANY_THROW(s.Scan("-copyright COPY1 COPY2"));
-	EXPECT_ANY_THROW(s.Scan("-copyright"));
+//	EXPECT_ANY_THROW(s.Scan("-copyright COPY1 COPY2"));
+//	EXPECT_ANY_THROW(s.Scan("-copyright"));
 	EXPECT_ANY_THROW(s.Scan("-flagfile flagfile1.txt flagfile2.txt "));
 	EXPECT_ANY_THROW(s.Scan("-flagfile"));
-	EXPECT_ANY_THROW(s.Scan("-exename foo1.exe foo2.exe"));
-	EXPECT_ANY_THROW(s.Scan("-exename"));
 }
 
 

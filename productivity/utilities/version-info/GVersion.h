@@ -35,13 +35,13 @@ class  GVersion
         static inline string GetOriginaExeName() { return fOriginalExeName; };
         static inline string GetCompileFlags() { return fCompileFlags; };
         static inline string GetLinkFlags() {return fLinkFlags; };
-        static inline void  SetExeName( const string name) { fOriginalExeName  = name; };
+      //  static inline void  SetExeName( const string name) { fOriginalExeName  = name; };
 
     private:
         static const string fGitBranch;       //!< The GIT branch that this exe was generated from
         static const string fGitTag;          //!< The GIT tag of this exe file. If its not a tags, it shows the nearest tag (see GIT documentation )
         static const string fGitInfo;         //!< The output of the command "git-info"  at the time this exe was compiled    
-        static  string fOriginalExeName;      //!< The original file name of this exe file
+        static const string fOriginalExeName;      //!< The original file name of this exe file
         static const string fCompileFlags;    //!< The compile flags that was used when compiling this exe
         static const string fLinkFlags;       //!< The link flags that was used when compiling this exe
 

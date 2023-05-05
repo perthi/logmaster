@@ -275,9 +275,6 @@ TEST_F(TestGTokenizer, tokenize_commandline)
 
 TEST_F(TestGTokenizer, tokenize_commandline2)
 {
-    //string cmdline = "./application -arg1 -arg2 -arg2 -arg4 -arg5";
-   
-
     string cmdline = "-arg1 -arg2 -arg3 -arg4 -arg5";
     const char *argv[10];
     int argc;
