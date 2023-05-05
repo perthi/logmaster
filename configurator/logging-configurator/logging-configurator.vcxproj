@@ -118,7 +118,7 @@
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>copy  $(SolutionDir)\xml-parser\xml\3rd-party\libxml\lib\x64\*  $(bindir)</Command>
+      <Command>$(version-exe)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -170,6 +170,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="logging-configurator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="logging-configurator.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

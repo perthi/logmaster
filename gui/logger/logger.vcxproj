@@ -129,7 +129,7 @@
       <AdditionalDependencies>logging.lib;utilities.lib;gui-logmaster-dll.lib;gui-common-dll.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib;Qt6Core5compatd.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>..\generate_moc.bat</Command>
+      <Command>..\generate_moc.bat &amp;&amp; $(version-dll)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -191,6 +191,9 @@
     <ClCompile Include="GUILogger.cpp" />
     <ClCompile Include="GUILoggerGui.cpp" />
     <ClCompile Include="GUILoggerGui_moc.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="gui-logger-dll.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

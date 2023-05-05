@@ -98,7 +98,7 @@
       <AdditionalDependencies>logging.lib;utilities.lib;cmdline.lib;shell32.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>$(BinDir)\version-info -rcname  $(TargeName).rc -appname  $(TargetFileName)</Command>
+      <Command>$(version-exe)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

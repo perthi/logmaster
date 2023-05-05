@@ -24,6 +24,9 @@
   <ItemGroup>
     <ClInclude Include="resource.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="gui-logmaster-example1.rc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{27DDD63B-CD66-4039-A109-25DD661775F3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -132,8 +135,7 @@
       <AdditionalLibraryDirectories>$(bindir);$(qt-libdir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>$(version-exe)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

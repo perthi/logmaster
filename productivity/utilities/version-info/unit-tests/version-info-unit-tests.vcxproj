@@ -26,6 +26,9 @@
     <ClInclude Include="version-info-unit-tests.h" />
     <ClInclude Include="TestVScanArguments.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="version-info-unit-tests.rc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -123,6 +126,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>utilities.lib;logging.lib;shell32.lib;gtestd.lib</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>$(version-exe)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

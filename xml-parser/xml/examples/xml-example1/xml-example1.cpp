@@ -30,8 +30,8 @@ using std::vector;
 
 int main()
 {
-
 	/*
+
 //	SET_LOGLEVEL("--all-info");
 	SET_LOGFORMAT("10001111");
 	KFXMLParserHMI* p = new KFXMLParserHMI();

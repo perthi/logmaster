@@ -110,6 +110,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;utilities.lib</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>$(version-exe)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -150,6 +153,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cmdline-example1.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="cmdline-example1.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

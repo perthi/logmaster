@@ -110,6 +110,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>$(version-dll)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -170,6 +173,9 @@
     <ClInclude Include="LXmlEntityLogLevel.h" />
     <ClInclude Include="LXmlEntitySubSystem.h" />
     <ClInclude Include="LXmlParser.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="configurator.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

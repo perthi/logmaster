@@ -114,6 +114,9 @@
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
       <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;utilities.lib;gtestd.lib</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>$(version-exe) </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -172,6 +175,9 @@
     <ClInclude Include="TestGLogApplication.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="cmdline-unit-tests.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

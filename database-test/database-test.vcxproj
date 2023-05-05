@@ -97,6 +97,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>logging.lib;utilities.lib;cmdline.lib;shell32.lib</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>$(version-exe)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

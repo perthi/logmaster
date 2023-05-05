@@ -4,6 +4,9 @@
   <PropertyGroup Label="UserMacros">
     <include>$(SolutionDir);$(SolutionDir)\productivity;$(SolutionDir)\productivity\gtest\include;</include>
     <bindir>$(SolutionDir)bin\$(PlatformTarget)_$(Configuration)\</bindir>
+    <version>$(BinDir)\version-info -rcname  $(TargetName).rc -appname  $(TargetFileName)</version>
+    <version-exe>$(BinDir)\version-info -rcname  $(TargetName).rc -appname  $(TargetName).exe</version-exe>
+    <version-dll>$(BinDir)\version-info -rcname  $(TargetName).rc -appname  $(TargetName).dll</version-dll>
   </PropertyGroup>
   <PropertyGroup>
     <OutDir>$(bindir)</OutDir>
@@ -15,6 +18,10 @@
     <Link>
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="include">
@@ -22,6 +29,15 @@
     </BuildMacro>
     <BuildMacro Include="bindir">
       <Value>$(bindir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="version">
+      <Value>$(version)</Value>
+    </BuildMacro>
+    <BuildMacro Include="version-exe">
+      <Value>$(version-exe)</Value>
+    </BuildMacro>
+    <BuildMacro Include="version-dll">
+      <Value>$(version-dll)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>

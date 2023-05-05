@@ -58,12 +58,12 @@ VGenerateRCFile::Generate(string outdir, const string rc_filename, const string 
 
     if (outdir == "")
     {
-        fprintf(fp, "#include \"resource.h\"\n");
+     //   fprintf(fp, "#include \"resource.h\"\n");
         fprintf(fp, "#include \"Version.h\"\n");
     }
     else
     {
-        fprintf(fp, "#include <%s\\resource.h>\n", outdir.c_str());
+     //   fprintf(fp, "#include <%s\\resource.h>\n", outdir.c_str());
         fprintf(fp, "#include <%s\\Version.h>\n", outdir.c_str());
     }
 

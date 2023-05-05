@@ -11,6 +11,8 @@
 #include "GUILogger.h"
 #include "GUILoggerGui.h"
 
+
+
 using namespace LOGMASTER;
 
 GUILogger *gui_instance =  new GUILogger(); /// CRAP PTH
