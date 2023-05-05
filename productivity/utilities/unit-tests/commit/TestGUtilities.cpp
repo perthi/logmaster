@@ -152,22 +152,22 @@ TEST_F(TestGUtilities, vec2stringNSR2117)
 	string abc = "Loremabcipsumabcdolorabcsitabcamet,abcconsecteturabcadipiscingabcelit.abcNullamabcfacilisisabclaoreetabcnisi,";
 	vector<string> splitted = {"Lorem", "ipsum", "dolor", "sit", "amet,", "consectetur", "adipiscing", "elit.", "Nullam", "facilisis", "laoreet", "nisi,"};
 
-	EXPECT_EQ(original, g_utilities()->Vec2String(splitted, " ") );
-	EXPECT_EQ(tab_separated, g_utilities()->Vec2String(splitted, "\t")  );
-	EXPECT_EQ(newline_separated, g_utilities()->Vec2String(splitted, "\n"));
-	EXPECT_EQ(abc, g_utilities()->Vec2String(splitted, "abc"));
+	EXPECT_EQ(original, g_string()->Vec2String(splitted, " ") );
+	EXPECT_EQ(tab_separated, g_string()->Vec2String(splitted, "\t")  );
+	EXPECT_EQ(newline_separated, g_string()->Vec2String(splitted, "\n"));
+	EXPECT_EQ(abc, g_string()->Vec2String(splitted, "abc"));
 
 	// check that we can conert back to the original string using the tokenizer
 	vector<string> tokens = GTokenizer().Tokenize(tab_separated, "\t");
-	string res = g_utilities()->Vec2String(tokens, " ");
+	string res = g_string()->Vec2String(tokens, " ");
 	EXPECT_EQ(original, res);
 
 	tokens = GTokenizer().Tokenize(newline_separated, "\n");
-	res = g_utilities()->Vec2String(tokens, " ");
+	res = g_string()->Vec2String(tokens, " ");
 	EXPECT_EQ(original, res);
 
 	tokens = GTokenizer().Tokenize(abc, "abc" );
-	res = g_utilities()->Vec2String(tokens, " ");
+	res = g_string()->Vec2String(tokens, " ");
 	EXPECT_EQ(original, res);
 
 }
