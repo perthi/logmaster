@@ -31,6 +31,8 @@
 
 #include "GArgument.h"
 #include <utilities/GUtilities.h>
+#include <utilities/GString.h>
+
 #include <string>
 using std::string;
 #include <vector>
@@ -167,5 +169,5 @@ GArgument::SetNTabs( const int n )
 string        
 GArgument::GetSubCommandsS()
 {
-    return g_utilities()->Vec2String(fSubCmds, " " );
+    return g_string()->Vec2String(fSubCmds, " " );
 }
