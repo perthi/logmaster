@@ -36,7 +36,7 @@
 #include  <logging/LPublisher.h>
 #include  <cmdline/GLogApplication.h>
 #include  <logging/GException.h>
-
+#include <utilities/version-info/GMenu.h>
 
 using std::cout;
 using std::endl;
@@ -49,8 +49,10 @@ using namespace LOGMASTER;
 
 
 int
-main(int  /*argc*/, const char ** /*argv*/ )
+main(int  argc, const char ** argv)
 {
+    GMenu::Instance()->ScanArguments(argc, argv);
+
    // LLogging::Instance()->SetLogLevel("--off --all-debug");
     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
     LLogging::Instance()->SetLogLevel("--off --all-debug");

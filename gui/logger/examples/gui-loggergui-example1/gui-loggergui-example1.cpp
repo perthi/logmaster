@@ -18,6 +18,9 @@
 #include <gui/common/GUIExecWidget.h>
 #include <logging/GException.h>
 
+
+#include <utilities/version-info/GMenu.h>
+
 #include <iostream>
 
 using std::endl;
@@ -28,6 +31,9 @@ using std::cerr;
 
 int main(int argc, char* argv[])
 {
+
+   GMenu::Instance()->ScanArguments(argc, (const char **)argv);
+
     LLogging::Instance();
     SET_LOGLEVEL("--all-debug");
 

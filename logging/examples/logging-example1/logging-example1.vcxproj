@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GVersion.cpp" />
     <ClCompile Include="logging-example1.cpp" />
   </ItemGroup>
   <ItemGroup>

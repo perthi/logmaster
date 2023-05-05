@@ -8,11 +8,9 @@
 
 #include <logging/LLogApi.h>
 #include <logging/LPublisher.h>
+#include <utilities/version-info/GMenu.h>
 
 using namespace LOGMASTER;
-
-
-
 
 
 
@@ -38,8 +36,10 @@ public:
 
 };
 
-int main()
+int main(int argc, const char **argv)
 {
+	GMenu::Instance()->ScanArguments(argc, argv);
+
 	try
 	{
 		LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);

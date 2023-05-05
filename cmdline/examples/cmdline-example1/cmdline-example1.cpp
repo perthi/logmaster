@@ -44,6 +44,9 @@
 #include <utilities/GConstants.h>
 #include <logging/GException.h>
 
+#include <utilities/version-info/GMenu.h>
+
+
 using namespace GCONSTANTS;
 using namespace LOGMASTER;
 
@@ -84,63 +87,84 @@ callback_test2(const string cmd, const string, const vector<string> subs, const 
 
 int main(const int argc, const char** argv )
 { 
+    GMenu::Instance()->ScanArguments(argc, argv);
     cerr << "The hostname is: " << g_system()->GetHostName() << endl;
 
-    SET_LOGFORMAT("11111111");
-    SET_LOGTARGET("1111");
-   // SET_LOGLEVEL("1111111111111111");
-  //  G_ERROR("This is a error message, the answeer to the univers is  %d", 42);
-    
-    int test1 = 0;
-    int test2 = 0;
-    double test3 = 0;
-    string test4 = "";
-    vector<string> test5 = vector<string>();
+    try
+    {
 
-    deque< std::shared_ptr<GArgument>  > arguments;
+        SET_LOGFORMAT("1111111");
+        SET_LOGTARGET("1111");
+        // SET_LOGLEVEL("1111111111111111");
+       //  G_ERROR("This is a error message, the answeer to the univers is  %d", 42);
+
+        int test1 = 0;
+        int test2 = 0;
+        double test3 = 0;
+        string test4 = "";
+        vector<string> test5 = vector<string>();
+
+        deque< std::shared_ptr<GArgument>  > arguments;
 
 
-    std::shared_ptr<GArgument> a1  =  std::make_shared <GCommandLineArgument< int> >("-myint1", 
-                                                    "-myint1 [value]",
-                                                    "sets the value of  myint1",
-                                                     &test1, fgkOPTIONAL,  callback_test1 );
-    
+        std::shared_ptr<GArgument> a1 = std::make_shared <GCommandLineArgument< int> >("-myint1",
+            "-myint1 [value]",
+            "sets the value of  myint1",
+            &test1, fgkOPTIONAL, callback_test1);
 
-/// Simlified version, no callback function, the argumen is assumed to be optional
-    std::shared_ptr<GArgument> a2  =  std::make_shared <GCommandLineArgument< int> >("-mydouble", 
-                                                    "-mydouble [value]",
-                                                    "sets the second value",
-                                                     &test2);
-    
-    
-    std::shared_ptr<GArgument> a3  =  std::make_shared <GCommandLineArgument< double> >("-mydouble", 
-                                                    "-mydouble [value]",
-                                                    "sets the value of mydouble",
-                                                     &test3, fgkOPTIONAL,  callback_test2 );
-    
 
-    std::shared_ptr<GArgument> a4  =  std::make_shared <GCommandLineArgument< string> >("-mystring", 
-                                                    "-myval1 [value]",
-                                                    "sets the second value",
-                                                     &test4, fgkMANDATORY,  callback_test2 );
-    
+        /// Simlified version, no callback function, the argumen is assumed to be optional
+        std::shared_ptr<GArgument> a2 = std::make_shared <GCommandLineArgument< int> >("-mydouble",
+            "-mydouble [value]",
+            "sets the second value",
+            &test2);
 
-    
-    std::shared_ptr<GArgument> a5  =  std::make_shared <GCommandLineArgument< vector<string> > >("-mystring", 
-                                                    "-myval1 [value]",
-                                                    "sets the second value",
-                                                     &test5, fgkMANDATORY,  callback_test2 );
+        /*
+        std::shared_ptr<GArgument> a3  =  std::make_shared <GCommandLineArgument< double> >("-mydouble",
+                                                        "-mydouble [value]",
+                                                        "sets the value of mydouble",
+                                                         &test3, fgkOPTIONAL,  callback_test2 );
 
-    
-    arguments.push_back(a1);
-    arguments.push_back(a2);
-    arguments.push_back(a3);
-    arguments.push_back(a4);
-    arguments.push_back(a5);
 
-    GLogApplication *g = new GLogApplication();
-    g->ScanArguments(argc, argv, arguments );
-    cout << "test1 = "<< test1  << endl;
+
+        std::shared_ptr<GArgument> a4  =  std::make_shared <GCommandLineArgument< string> >("-mystring",
+                                                        "-myval1 [value]",
+                                                        "sets the second value",
+                                                         &test4, fgkMANDATORY,  callback_test2 );
+        */
+
+
+
+        std::shared_ptr<GArgument> a5 = std::make_shared <GCommandLineArgument< vector<string> > >("-mystring",
+            "-myval1 [value]",
+            "sets the second value",
+            &test5, fgkMANDATORY, callback_test2);
+
+
+        arguments.push_back(a1);
+        arguments.push_back(a2);
+        //  arguments.push_back(a3);
+       //   arguments.push_back(a4);
+        arguments.push_back(a5);
+
+        GLogApplication* g = new GLogApplication();
+        g->ScanArguments(argc, argv, arguments);
+        cout << "test1 = " << test1 << endl;
+
+    }
+    catch (GException& e)
+    {
+        CERR << e.what() << ENDL;
+    }
+    catch (std::exception & e)
+    {
+        CERR << e.what() << ENDL;
+    }
+    catch (...)
+    {
+        CERR << "Unknown exception caught" << ENDL;
+    }
+
 
     return 0;
 }

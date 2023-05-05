@@ -12,6 +12,7 @@
 #include <xml/GXmlStreamWriter.h>
 #include <xml/GXmlStreamReader.h>
 #include <xml/GXmlValidator.h>
+#include <utilities/version-info/GMenu.h>
 //#include <iostream>
 
 //#include  <xml/GXmlDataTypes.h>
@@ -28,8 +29,10 @@ using std::vector;
 
 
 
-int main()
+int main(int argc, const char **argv)
 {
+	GMenu::Instance()->ScanArguments(argc, argv);
+
 	/*
 
 //	SET_LOGLEVEL("--all-info");

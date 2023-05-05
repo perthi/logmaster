@@ -44,6 +44,9 @@
 #include <cmdline/GLogApplication.h>
 #include <utilities/GUtilities.h>
 
+#include <utilities/version-info/GMenu.h>
+
+
 #include <chrono>
 #include <thread>
 
@@ -66,6 +69,8 @@ void generator(  vector< std::shared_ptr< LGenerator >  > generators,
 
 int main(int  argc, const char **  argv)
 {
+	GMenu::Instance()->ScanArguments(argc, argv);
+
 	string xml = "";
 	string xsd = "";
 

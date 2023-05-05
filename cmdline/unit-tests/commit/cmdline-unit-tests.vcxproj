@@ -158,6 +158,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cmdline-dll-test.cpp" />
+    <ClCompile Include="GVersion.cpp" />
     <ClCompile Include="TestGCmdScan.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>

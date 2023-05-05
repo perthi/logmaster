@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cmdline-example1.cpp" />
+    <ClCompile Include="GVersion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cmdline-example1.h" />

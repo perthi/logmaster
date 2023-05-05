@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="database-test.cpp" />
+    <ClCompile Include="GVersion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="database-test.h" />

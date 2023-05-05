@@ -7,16 +7,19 @@
 
 
 
+#include <utilities/GDefinitions.h>
 #ifdef _WIN32
 #include <gtest/gtest.h>
 #else
 #include <gtest-embc/gtest.h>
 #endif
 
+#ifdef HAS_LOGGING
+#include  <cmdline/GLogApplication.h>
+#endif
 
-int  main(int argc, char** argv) 
-{ 
-	::testing::InitGoogleTest(&argc, argv); 
-	return  RUN_ALL_TESTS(); 
-}
+#include <testlib/TestBase.h>
 
+//#define G_STANDALONE
+
+MAIN_UNITTEST()

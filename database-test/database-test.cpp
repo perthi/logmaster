@@ -36,10 +36,10 @@ using namespace LOGMASTER;
 #include <time.h>
 
 
+#include <utilities/version-info/GMenu.h>
 
 
-
-int main ()
+int main (int argc, const char **argv)
 {
    LConfig::SetTimeMode("Cloud");
     double t = GTime().GetEpochTime();
@@ -51,10 +51,13 @@ int main ()
     FORCE_DEBUG("Year = %d",   info->tm_year + 1900 );
     FORCE_DEBUG("Hour = %d",  info->tm_hour );
 
+ //   LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 
    try
    {
-      SET_LOGTARGET("--target-off --target-db --target-file --target-stdout");
+       GMenu::Instance()->ScanArguments(argc, argv);
+       
+       SET_LOGTARGET("--target-off --target-db --target-file --target-stdout");
       SET_LOGLEVEL("--all-info");
       
       for(int i= 0; i < 10; i++ )
@@ -93,10 +96,9 @@ int main ()
        FORCE_DEBUG("Unknown exception caught !!");
    }
 
+
+
     LDatabase::Instance()->CloseDatabase();
     return 0;
 }
 
-
-
-///std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > >  Ge

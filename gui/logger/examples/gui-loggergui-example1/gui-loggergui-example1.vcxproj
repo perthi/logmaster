@@ -24,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gui-loggergui-example1.cpp" />
+    <ClCompile Include="GVersion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="gui-logger-example1.rc" />
@@ -134,7 +135,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>logging.lib;api-logmaster-dll.lib;gui-logger-dll.lib; gui-logmaster-dll.lib;gui-common-dll.lib;shell32.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib;Qt6Core5compatd.lib</AdditionalDependencies>
+      <AdditionalDependencies>utilities.lib;cmdline.lib;logging.lib;api-logmaster-dll.lib;gui-logger-dll.lib; gui-logmaster-dll.lib;gui-common-dll.lib;shell32.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib;Qt6Core5compatd.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(bindir);$(qt-libdir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>

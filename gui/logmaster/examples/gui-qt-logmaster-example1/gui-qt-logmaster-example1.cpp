@@ -13,9 +13,12 @@
 #include  <gui/common/GUIInitStyles.h>
 #include  <QtWidgets/QApplication>
 
+#include <utilities/version-info/GMenu.h>
 
 int main(int argc, char *argv[])
 {
+	GMenu::Instance()->ScanArguments(argc, (const char **)argv);
+
 	QApplication *app = new QApplication(argc, argv);
 	GUIInitStyles().Init(app);
 	GUILogMasterTab widget;

@@ -100,7 +100,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>utilities.lib;logging.lib;shell32.lib;gtestd.lib</AdditionalDependencies>
+      <AdditionalDependencies>cmdline.lib;utilities.lib;logging.lib;shell32.lib;gtestd.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>$(version-exe)</Command>
@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GVersion.cpp" />
     <ClCompile Include="TestDataTypesT.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>

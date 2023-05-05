@@ -117,7 +117,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies />
+      <AdditionalDependencies>cmdline.lib;logging.lib;utilities.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>$(version-exe)</Command>
@@ -166,6 +166,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GVersion.cpp" />
     <ClCompile Include="xml-example1.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gui-qt-logmaster-example1.cpp" />
+    <ClCompile Include="GVersion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -131,7 +132,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>logging.lib;utilities.lib;gui-logger-dll.lib;gui-logmaster-dll.lib;gui-common-dll.lib;shell32.lib;api-logmaster-dll.lib;gui-common-dll.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib;Qt6Core5compatd.lib</AdditionalDependencies>
+      <AdditionalDependencies>cmdline.lib;logging.lib;utilities.lib;gui-logger-dll.lib;gui-logmaster-dll.lib;gui-common-dll.lib;shell32.lib;api-logmaster-dll.lib;gui-common-dll.lib;Qt6Cored.lib;Qt6Widgetsd.lib;Qt6Guid.lib;Qt6Core5compatd.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(bindir);$(qt-libdir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>

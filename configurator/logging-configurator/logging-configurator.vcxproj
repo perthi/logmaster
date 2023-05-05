@@ -166,6 +166,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GVersion.cpp" />
     <ClCompile Include="logging-configurator.cpp" />
   </ItemGroup>
   <ItemGroup>

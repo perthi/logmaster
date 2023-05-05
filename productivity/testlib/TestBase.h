@@ -24,6 +24,8 @@ extern char **argv_;
 using namespace LOGMASTER;
 #endif
 
+#include <utilities/version-info/GMenu.h>
+
 #include <string>
 using std::string;
 
@@ -42,7 +44,8 @@ int argc_ = 0; \
 char** argv_ = nullptr; \
 int  main(int argc, char** argv) \
 { \
- 	argc_ = argc; \
+GMenu::Instance()->ScanArguments(argc, (const char** )argv);\
+argc_ = argc; \
     argv_ = argv; \
         new GLogApplication( 1, (const char **)argv); \
 \

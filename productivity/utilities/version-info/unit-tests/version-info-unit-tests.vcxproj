@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GVersion.cpp" />
     <ClCompile Include="version-info-unit-tests.cpp" />
     <ClCompile Include="TestVScanArguments.cpp" />
   </ItemGroup>
