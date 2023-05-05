@@ -69,8 +69,8 @@ bool  callback_test( const string  cmd, const vector<string>  sub, const vector<
 {
     FORCE_DEBUG("callback function invoked");
     FORCE_DEBUG("cmd = %s", cmd.c_str() );
-    FORCE_DEBUG("parameters = %s",   g_utilities()->Vec2String(par).c_str() );
-    FORCE_DEBUG("subcommands = %s",  g_utilities()->Vec2String(sub).c_str() );
+    FORCE_DEBUG("parameters = %s",   g_string()->Vec2String(par).c_str() );
+    FORCE_DEBUG("subcommands = %s",  g_string()->Vec2String(sub).c_str() );
     return true;
 }
 
