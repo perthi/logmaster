@@ -68,6 +68,8 @@ TEST_F(TestGString, Replace2)
     EXPECT_EQ("(.*)ipsum(.*)", modified);
 }
 
+
+
 TEST_F(TestGString, Trim)
 {
     string tmp = "abcd     ";
@@ -196,14 +198,14 @@ TEST_F(TestGString, ToString)
     EXPECT_EQ("000123",  g_string()->ToString(123, 6 ));
     EXPECT_EQ("12345678",  g_string()->ToString(12345678, 4));
     vector<int> tmp{ 1,2,3,4,5,6 };
-    EXPECT_EQ("123456",  g_string()->ToString(tmp, string("")));
-    EXPECT_EQ("1\n2\n3\n4\n5\n6",  g_string()->ToString(tmp));
+    EXPECT_EQ("123456",  g_string()->Vec2String(tmp, string("")));
+    EXPECT_EQ("1\n2\n3\n4\n5\n6",  g_string()->Vec2String(tmp));
     vector<double> d{ 1.2,2.3777 ,3.4};
-    EXPECT_EQ("1.2\n2.3777\n3.4",  g_string()->ToString(d));
+    EXPECT_EQ("1.2\n2.3777\n3.4",  g_string()->Vec2String(d));
     vector<string> s = {"ole", "dole", "doff"};
-    EXPECT_EQ("ole dole doff",  g_string()->ToString(s, string(" ") ));
+    EXPECT_EQ("ole dole doff",  g_string()->Vec2String(s, string(" ") ));
     vector<char> c = { 'a', 'b', 'c', 'd', 'e',  'f',  'g',  'h' };
-    EXPECT_EQ("abcdefgh",  g_string()->ToString(c, string("")));
+    EXPECT_EQ("abcdefgh",  g_string()->Vec2String(c, string("")));
 }
 #endif
 
