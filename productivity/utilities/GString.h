@@ -51,7 +51,7 @@ class GString
      string    API ToLowerCase(  const string  in ) const;
 
      template <typename T>
-     string    API ToString(const vector<T> in, const string sep = "\n");
+     string    API Vec2String(const vector<T> in, const string sep = "\n");
      
      template <typename T>
      string    API ToString(const T in, const int w = -1, const char pad = '0');
@@ -90,7 +90,7 @@ class GString
 
 template<typename T>
 string
-GString::ToString(const vector<T> in, const string sep)
+GString::Vec2String(const vector<T> in, const string sep)
 {
     std::stringstream buffer;
     buffer.str("");
