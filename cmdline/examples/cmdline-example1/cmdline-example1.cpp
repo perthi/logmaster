@@ -82,13 +82,15 @@ callback_test2(const string cmd, const string, const vector<string> subs, const 
     return true;
 }
 
-
+bool
+bug(const string, const string args_s, const vector<string> sub, const vector<string> par);
 
 
 int main(const int argc, const char** argv )
 { 
-    GMenu::Instance()->ScanArguments(argc, argv);
+   // GMenu::Instance()->ScanArguments(argc, argv);
     cerr << "The hostname is: " << g_system()->GetHostName() << endl;
+    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 
     try
     {
@@ -136,9 +138,16 @@ int main(const int argc, const char** argv )
 
 
         std::shared_ptr<GArgument> a5 = std::make_shared <GCommandLineArgument< vector<string> > >("-mystring",
-            "-myval1 [value]",
+            "-myval [value]",
             "sets the second value",
-            &test5, fgkMANDATORY, callback_test2);
+            &test5, fgkOPTIONAL, callback_test2);
+
+
+
+        std::shared_ptr<GArgument> a6 = std::make_shared <GCommandLineArgument<void> >("-test",
+            "-test [value]",
+            "TEST",
+            &test5, fgkOPTIONAL, bug);
 
 
         arguments.push_back(a1);
@@ -146,9 +155,14 @@ int main(const int argc, const char** argv )
         //  arguments.push_back(a3);
        //   arguments.push_back(a4);
         arguments.push_back(a5);
+        arguments.push_back(a6);
 
         GLogApplication* g = new GLogApplication();
+        
+        
         g->ScanArguments(argc, argv, arguments);
+      //  g->ScanArguments("-test", arguments);
+
         cout << "test1 = " << test1 << endl;
 
     }
@@ -170,3 +184,32 @@ int main(const int argc, const char** argv )
 }
 
 
+
+
+bool
+bug(const string, const string args_s, const vector<string> sub, const vector<string> par)
+{
+
+    FORCE_DEBUG("BLAHHHH");
+    FORCE_DEBUG("Inside callback !!!!!!!, sub.size() = %d, par.size() = %d");
+    G_ASSERT_EXCEPTION(sub.size() == 1, "Unexpected subcommand size\t%d, expected size =1 ", sub.size());
+    G_ASSERT_EXCEPTION(par.size() == 0, "Unexpected parameter size\t%d, expected size =1 ", par.size());
+
+    if (sub.size() == 1)
+    {
+        G_ASSERT_EXCEPTION((sub[0] == "--motor" || sub[0] == "--rgb"), "Invalid parameter %s, must be either --motor or --rgb");
+
+        if (sub[0] == "--motor")
+        {
+            //bootloader->SetDeviceType(eMCU_DEVICETYPE::BOOTLOADER_MOTOR);
+        }
+
+        if (sub[0] == "--rgb")
+        {
+            //bootloader->SetDeviceType(eMCU_DEVICETYPE::BOOTLOADER_RGB);
+        }
+
+    }
+
+    return false;
+}
