@@ -37,7 +37,7 @@ using std::string;
 
 class GCmdScan;
 
-GCmdScan  inline  API* g_cmdscan();
+GCmdScan   API* g_cmdscan();
 
 /** @brief scanning of command line arguments */
 class  GCmdScan

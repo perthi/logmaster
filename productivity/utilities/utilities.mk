@@ -38,3 +38,4 @@ SRCCPP+=GCommon.cpp \
 
 
 include ../../common.mk
+LIBS+=   -lcmdline

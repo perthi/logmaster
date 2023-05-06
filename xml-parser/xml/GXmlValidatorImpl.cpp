@@ -20,6 +20,8 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#undef HAS_LOGGING
+
 #ifdef HAS_LOGGING
 #include <exception/GException.h>
 #endif

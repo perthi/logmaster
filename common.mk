@@ -104,7 +104,7 @@ $(PROGRAM):: $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC)
 
 define generate-version-info
 	@if [ "$(PROGRAM)" !=  "version-info" ]; then \
-		$(VERSIONINFO_EXE) -appname  $(PROGRAM) -flagfile blahhh $(CURDIR)/../..//.compileinfo-$(TARGET)/$(PROGRAM)_flags.txt $(CURDIR); \
+		$(VERSIONINFO_EXE) -appname  $(PROGRAM) -flagfile $(CURDIR)/../..//.compileinfo-$(TARGET)/$(PROGRAM)_flags.txt $(CURDIR); \
 		mv GVersion.cpp  tmp.cpp; \
 		old=../GVersion.cpp; \
 		new=tmp.cpp; \
