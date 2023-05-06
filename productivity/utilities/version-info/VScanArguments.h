@@ -17,7 +17,7 @@ public:
 	VParameters & Scan(const string &cmdline);
 	VParameters & Scan(int argc, const char** argv);
 	void EnableForceOptional() { fForceOptional = true; };
-	static bool FlagFileCallBack (const string cmnd, const string args_s, const vector<string> sub, const vector<string> par);
+	bool FlagFileCallBack (const string cmnd, const string args_s, const vector<string> sub, const vector<string> par);
 
 private:
 	static  VParameters fParameters;

@@ -8,12 +8,14 @@
 #include  <logging/GException.h>
 #include  <utilities/GString.h>
 
+#include <functional>
 
 VParameters  VScanArguments::fParameters = VParameters();
 
 
 VScanArguments::VScanArguments()
 {
+
 	InitArguments();
 }
 
@@ -31,9 +33,26 @@ VScanArguments::InitArguments()
 //	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-copyright", "-desc [value]", "Copyright notice", &fParameters.fCopyright, fgkOPTIONAL));
 	
 //#ifdef  __linux__ 
-	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-flagfile", "-flagfile [value]", "File containing flags use during compilation", 
-		                                                                  &fParameters.fCompileflags_file, fgkOPTIONAL, FlagFileCallBack));
-//#endif
+	//fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-flagfile", "-flagfile [value]", "File containing flags use during compilation", 
+//		                                                                  &fParameters.fCompileflags_file, fgkOPTIONAL));
+
+
+	auto bla = std::make_shared <GCommandLineArgument<string> >("-flagfile", "-flagfile [value]", "File containing flags use during compilation",
+		&fParameters.fCompileflags_file, fgkOPTIONAL);
+
+
+
+		std::function<bool(const string  cmd, const string args_s, const vector<string>  sub, const vector<string>  par)>
+		funct(std::bind(&VScanArguments::FlagFileCallBack, this, std::placeholders::_1,
+			std::placeholders::_2,
+			std::placeholders::_3,
+			std::placeholders::_4));
+
+		bla->SetValidationFunction(funct);
+
+		fArguments.push_back(bla);
+
+	//#endif
 
 	//	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-exename", "-exename [value]", "name of the executable", &fParameters.fExename, fgkOPTIONAL));
 
