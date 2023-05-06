@@ -12,7 +12,7 @@ SRCCPP+= cmdline-dll-test.cpp \
 include  ../../../../common.mk
 include ../../../../unittest-common.mk
 
-LIBS+=  -llogmaster  -lcmdline  -lexception -lutilities -lreadline -lhistory -lncurses -lsqlite-embc -ldl
+LIBS+=  -llogmaster  -lcmdline   -lutilities -lreadline -lhistory -lncurses -lsqlite-embc -ldl
 
 LIBS+=  -lm
 

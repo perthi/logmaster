@@ -44,7 +44,7 @@ int argc_ = 0; \
 char** argv_ = nullptr; \
 int  main(int argc, char** argv) \
 { \
-GMenu::Instance()->ScanArguments(argc, (const char** )argv);\
+ /* GMenu::Instance()->ScanArguments(argc, (const char** )argv); */ \
 argc_ = argc; \
     argv_ = argv; \
         new GLogApplication( 1, (const char **)argv); \

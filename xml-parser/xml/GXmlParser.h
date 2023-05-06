@@ -36,7 +36,7 @@ class GXmlEntity;
 
 #ifdef HAS_LOGGING
 #include <logging/LLogApi.h>
-#include <exception/GException.h>
+#include <logging/GException.h>
 using namespace LOGMASTER;
 #endif
 

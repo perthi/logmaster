@@ -27,7 +27,7 @@ VScanArguments::InitArguements()
 //	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-copyright", "-desc [value]", "Copyright notice", &fParameters.fCopyright, fgkOPTIONAL));
 	
 #ifdef  __linux__ 
-	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-flagfile", "-flagfile [value]", "File containing flags use during compilation", &fParameters.fCompileflags_file, fgkOPTIONAL));
+	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-flagfile", "-flagfile [value]", "File containing flags use during compilation", &fParameters.fCompileflags_file, fgkMANDATORY));
 #endif
 
 	//	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-exename", "-exename [value]", "name of the executable", &fParameters.fExename, fgkOPTIONAL));

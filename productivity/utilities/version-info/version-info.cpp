@@ -34,7 +34,8 @@
 
 int main(int argc, const char** argv)
 {
-	return 0;
+	CERR << "Running version info" << endl;
+	//return 0;
 	if (g_cmdscan()->HasArgument(argc, argv, "-help"))
 	{
 		VHELPERS::helpMenu();

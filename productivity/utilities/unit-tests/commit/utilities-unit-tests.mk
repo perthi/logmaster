@@ -2,6 +2,7 @@
 
 PROGRAM:=utilities-unit-tests
 
+
 SRCCPP += utilities-unit-tests.cpp \
 	TestGMath.cpp \
 	TestGRandom.cpp \
@@ -20,10 +21,12 @@ SRCCPP += utilities-unit-tests.cpp \
 	TestGFormatting.cpp
 
 
+
+
 include ../../../../common.mk
 include ../../../../unittest-common.mk
 
-LIBS+=   -lutilities 
+LIBS+=   -lutilities  -lsqlite-embc
 
 ifdef HAS_LOGGING
 LIBS+=  -llogmaster	  -lsqlite-embc -ldl -lpthread  

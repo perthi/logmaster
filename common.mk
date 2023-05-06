@@ -89,15 +89,22 @@ $(LIBNAME_A): $(OBJS) $(OBJSCPP)
 endif
 
 
+.PHONY: compileinfo_dir
+compileinfo_dir:  
+	@if [ ! -b ../../.compileinfo-$(TARGET) ]; \
+		then \
+		mkdir  -p ../../.compileinfo-$(TARGET) ; \
+	fi
 
-$(PROGRAM): $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC)
+
+$(PROGRAM):: $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC)
 	$(CCLOCAL) $(CPPFLAGS) -o  $(PROGRAM) $(OBJS) $(OBJSCPP) $(LIBS) 
 	$(MAKE) install 
 
 
 define generate-version-info
 	@if [ "$(PROGRAM)" !=  "version-info" ]; then \
-		$(VERSIONINFO_EXE) $(PROGRAM) -compileflags_file $(CURDIR)/../..//.compileinfo-$(TARGET)/$(PROGRAM)_flags.txt $(CURDIR); \
+		$(VERSIONINFO_EXE) -appname  $(PROGRAM) -flagfile blahhh $(CURDIR)/../..//.compileinfo-$(TARGET)/$(PROGRAM)_flags.txt $(CURDIR); \
 		mv GVersion.cpp  tmp.cpp; \
 		old=../GVersion.cpp; \
 		new=tmp.cpp; \
@@ -120,6 +127,8 @@ define generate-version-info
 endef
 
 
+$(PROGRAM)::  compileinfo_dir
+	$(call generate-version-info )
 
 VPATH=../
 

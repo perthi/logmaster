@@ -68,21 +68,19 @@ export UNIT_TEST_LIBS:= $(SUPPORT_LIBS) -lgtest-embc -lpthread
 version-info:=           productivity/utilities/version-info/$(TARGET)
 gtest-embc:=             productivity/gtest-embc/$(TARGET)
 utilities:=              utilities/$(TARGET)
-#utilities-unittest:=     utilities/unit-tests/commit/$(TARGET)
+utilities-unittest:=     utilities/unit-tests/commit/$(TARGET)
 logging:=                logging/$(TARGET)
-logging-example1:=       logging/examples/logging-example1/$(TARGET)
+# logging-example1:=       logging/examples/logging-example1/$(TARGET)
 logging-unittest:=       logging/unit-tests/commit/$(TARGET)
 cmdline:=                cmdline/$(TARGET)
-cmdline-example1:=       cmdline/examples/cmdline-example1/$(TARGET)
+# cmdline-example1:=       cmdline/examples/cmdline-example1/$(TARGET)
 cmdline-unittest:=       cmdline/unit-tests/commit/$(TARGET)
-# exception:=              exception/$(TARGET)
-# exception-unittest:=     exception/unit-tests/commit/$(TARGET)
 xml:=                    xml-parser/xml/$(TARGET)
 configurator:=           configurator/$(TARGET)
 configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
-logging-configurator:=   configurator/logging-configurator/$(TARGET)
+# logging-configurator:=   configurator/logging-configurator/$(TARGET)
 helloworld:=             helloworld/$(TARGET)
-db-test:=                database-test/$(TARGET)
+# db-test:=                database-test/$(TARGET)
 sqlite:=                 productivity//sqlite/$(TARGET) 
 
 api-logmaster:=          api/api-logmaster/$(TARGET) 
@@ -116,6 +114,7 @@ src-lib:= $(support-modules) \
 	$(common) \
     $(exception) \
 	$(sqlite)
+
 
 
 
