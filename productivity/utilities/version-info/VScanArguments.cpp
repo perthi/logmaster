@@ -115,7 +115,7 @@ VScanArguments::Scan(int argc, const char** argv)
 bool 
 VScanArguments::FlagFileCallBack(const string cmnd, const string  args_s, const vector<string> sub, const vector<string> par)
 {
-	CERR << "args_s = " << args_s << endl;
+	CERR << "args_s = " << args_s << ENDL;
 	G_ASSERT_ARGUMENT_EXCEPTION(sub.size() == 0, "%s does not take any sub commands; (args = %s)", args_s.c_str() );
 	G_ASSERT_ARGUMENT_EXCEPTION(par.size() == 2, "%s takes exactly two parameters: 1) The name of the flag file, 2) the output directory");
 
