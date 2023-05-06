@@ -67,7 +67,6 @@ export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest-embc -lpthread
 
 version-info:=           productivity/utilities/version-info/$(TARGET)
 gtest-embc:=             productivity/gtest-embc/$(TARGET)
-testlib:=                testlib/$(TARGET)
 utilities:=              utilities/$(TARGET)
 utilities-unittest:=     utilities/unit-tests/commit/$(TARGET)
 logging:=                logging/$(TARGET)
