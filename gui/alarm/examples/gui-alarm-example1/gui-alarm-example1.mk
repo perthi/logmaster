@@ -10,7 +10,7 @@ export CPPFLAGS:=$(CPPFLAGS_RELAXED)
 
 
 INCLUDES+= -isystem $(QT_INCLUDE)   
-LIBS+=  -lcmdline  -llogmaster -lutilities -lexception  \
+LIBS+=  -lcmdline  -llogmaster -lutilities   \
  -lreadline  -lpthread  -lgui-alarm -lgui-common -lsqlite-embc -ldl
 
 

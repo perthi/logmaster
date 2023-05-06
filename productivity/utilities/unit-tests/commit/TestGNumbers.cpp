@@ -644,7 +644,7 @@ TEST_F(TestGNumbers, NSR1988DisableError)
     g_numbers()->DisableError();
     EXPECT_NO_THROW(g_numbers()->ToNumber<float>("blahhhh"));
     EXPECT_NO_THROW(g_numbers()->ToHex("blahhhh"));
-    EXPECT_NO_THROW(g_numbers()->ToBinary("blahhhh"));
+    EXPECT_NO_THROW(g_numbers()->BinaryStringToNumber("blahhhh"));
     g_numbers()->EnableError();
     GException::EnableException();
 }

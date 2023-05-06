@@ -20,7 +20,8 @@ SRCCPP:= LColorMap.cpp \
 	LPublisher.cpp \
 	LMessage2Json.cpp \
 	LDatabase.cpp \
-	LEnum2String.cpp
+	LEnum2String.cpp \
+	GException.cpp
 
 
 

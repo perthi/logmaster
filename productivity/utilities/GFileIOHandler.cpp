@@ -27,9 +27,9 @@
 ******************************************************************************
 ******************************************************************************/
 
-#ifdef _WIN32
+//#ifdef _WIN32
 #pragma once
-#endif
+//#endif
 
 #include "GFileIOHandler.h"
 #include "GUtilities.h"
@@ -568,7 +568,7 @@ GFileIOHandler::ClearAttribute(const string fname, unsigned long attr)
         CERR << "could not set attribute !!" << ENDL;
     }
 }
-
+#endif
 
 
 /** Read the content of a file into a vector
@@ -612,10 +612,5 @@ GFileIOHandler::ReadAll(const string fname, bool* status)
 }
 
 
-
-
-
-
-#endif
 
 

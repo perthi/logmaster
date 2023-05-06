@@ -16,8 +16,5 @@ namespace VHELPERS
 	string path(int argc, const char** argv);
 	FILE* file(const string directory, const string fname);
 	string configuration();
-
 	void    helpMenu();
-	
-};
-
+}

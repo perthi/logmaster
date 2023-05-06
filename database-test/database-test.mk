@@ -3,7 +3,7 @@
 PROGRAM:=database-test
 SRCCPP+=database-test.cpp
 
-LIBS+=    -llogmaster  -lutilities  -lexception   -lsqlite-embc -ldl -lreadline -lhistory -lncurses -ldl -lpthread
+LIBS+=    -llogmaster  -lutilities   -lsqlite-embc -ldl -lreadline -lhistory -lncurses -ldl -lpthread
 
 
 ifneq (arm, $(TARGET))

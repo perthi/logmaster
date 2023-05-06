@@ -15,12 +15,12 @@ public:
 	VParameters & Scan(const string &cmdline);
 	VParameters & Scan(int argc, const char** argv);
 
-	void EnableForceOptional(string ar = "") { fForceOptional = true; };
+	void EnableForceOptional() { fForceOptional = true; };
 
 private:
-	VParameters fParameters;
+	VParameters fParameters  = VParameters();
 
-	std::deque< std::shared_ptr<GArgument> > fArguments;
+	std::deque< std::shared_ptr<GArgument> > fArguments = 	std::deque< std::shared_ptr<GArgument> >();
 
 	void  InitArguements();
 	void  ApllyFlag(bool is_optional);

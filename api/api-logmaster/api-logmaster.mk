@@ -12,9 +12,6 @@ export CPPFLAGS:=$(CPPFLAGS_RELAXED)
 
 include ../../../common.mk
 
-#INCLUDES+= -I $(QT_DIR)/include/ -I $(QT_DIR)/include/QtCore  -I $(QT_DIR)/include/QtWidgets   
-
-#LIBS+= -lboost_filesystem -lm
 
 ifneq (arm, $(TARGET))
 LIBS+= -lX11

@@ -49,7 +49,11 @@ VScanArguments::ApllyFlag(bool is_optional)
 }
 
 bool  
+#ifdef _WIN32
 VScanArguments::CheckParameters(const VParameters p) const
+#else
+VScanArguments::CheckParameters(const VParameters) const
+#endif
 {
 #ifdef _WIN32
 	if (p.fAppName != "")

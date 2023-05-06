@@ -4,7 +4,7 @@
 #include <utilities/GUtilities.h>
 
 void 
-VVersionHeader::GenerateFile(const string version, const string branch, const string  configuration)
+VVersionHeader::GenerateFile(const string version, const string /*branch*/, const string  configuration)
 {
 	FILE* fp_h = VHELPERS::file("include", "Version.h");
 	string v = VHELPERS::versionString(version);

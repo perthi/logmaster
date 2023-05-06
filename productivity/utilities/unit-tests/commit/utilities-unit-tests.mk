@@ -26,7 +26,7 @@ include ../../../../unittest-common.mk
 LIBS+=   -lutilities 
 
 ifdef HAS_LOGGING
-LIBS+=  -lexception -llogmaster	  -lsqlite-embc -ldl -lpthread  
+LIBS+=  -llogmaster	  -lsqlite-embc -ldl -lpthread  
 endif
 
 LIBS+= -lreadline -lhistory -lncurses 

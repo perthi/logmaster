@@ -13,10 +13,10 @@
 #include <exception>
 #include <cmath>
 #include <ctgmath>
-
 #include "GXmlParser.h"
-
 #include "GXmlEnum2String.h"
+
+#undef HAS_LOGGING
 
 #ifdef HAS_LOGGING
 #include <utilities/GLocation.h>
@@ -101,11 +101,11 @@ GXmlParser::AssertTag(std::shared_ptr<GXmlStreamReader> xmlReader, const string 
 
 
 void
-GXmlParser::PrinttAttributes( const GXmlNode * const node,  GLocationXml l)
+GXmlParser::PrinttAttributes( const GXmlNode * const node,  GLocationXml  /*l*/ )
 {
 	vector<GXmlAttribute> a =  node->GetAttributes();
 	string name = node->GetName();
-	auto type = node->GetType();
+	//auto type = node->GetType();
 	
 	#ifdef HAS_LOGGING
 	GLocation ll =  GLocation( l.fFileName, l.fLineNo , l.fFunctName );

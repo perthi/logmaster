@@ -28,6 +28,7 @@
 
 #include  "GCommonXML.h"
 
+#undef HAS_LOGGING
 
 
 #ifdef HAS_LOGGING

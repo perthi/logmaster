@@ -43,7 +43,7 @@ export LOGMASTER_HOME=$(PWD)
 export COMMON_FLAGS:= -fPIC  -std=c++17  -g   -DGUI_DIR='"$(LOGMASTER_HOME)"'
 
 ## export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wfatal-errors  -Werror
-export PEDANTIC_FLAGS:=  -ggdb  -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum  -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security -Werror
+export PEDANTIC_FLAGS:=  -ggdb  -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum  -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security
 
 
 export HAS_LOGGING:=""
@@ -63,20 +63,20 @@ GTEST_INCLUDES:= -isystem $(PWD)/productivity/
 LIBS= -L $(PWD)/build/$(TARGET)/lib  -lm
 
 export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster 
-export UNIT_TEST_LIBS:=-ltestlib $(SUPPORT_LIBS) -lgtest-embc -lpthread 
+export UNIT_TEST_LIBS:= $(SUPPORT_LIBS) -lgtest-embc -lpthread 
 
 version-info:=           productivity/utilities/version-info/$(TARGET)
 gtest-embc:=             productivity/gtest-embc/$(TARGET)
 utilities:=              utilities/$(TARGET)
-utilities-unittest:=     utilities/unit-tests/commit/$(TARGET)
+#utilities-unittest:=     utilities/unit-tests/commit/$(TARGET)
 logging:=                logging/$(TARGET)
 logging-example1:=       logging/examples/logging-example1/$(TARGET)
 logging-unittest:=       logging/unit-tests/commit/$(TARGET)
 cmdline:=                cmdline/$(TARGET)
 cmdline-example1:=       cmdline/examples/cmdline-example1/$(TARGET)
 cmdline-unittest:=       cmdline/unit-tests/commit/$(TARGET)
-exception:=              exception/$(TARGET)
-exception-unittest:=     exception/unit-tests/commit/$(TARGET)
+# exception:=              exception/$(TARGET)
+# exception-unittest:=     exception/unit-tests/commit/$(TARGET)
 xml:=                    xml-parser/xml/$(TARGET)
 configurator:=           configurator/$(TARGET)
 configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)

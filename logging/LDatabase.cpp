@@ -100,11 +100,12 @@ namespace LOGMASTER
           //  fopen_s(&p_file, fDBPath.c_str(), "rb");
             if (p_file == nullptr)
             {
-                std::exception(("Could not open database:"+ fDBPath).c_str() );
+                std::invalid_argument( ("Could not open database:"+ fDBPath).c_str() );
+                
             }
             
             fseek(p_file,0,SEEK_END);
-            auto fileSize = ftell(p_file);
+            auto fileSize = (uint64_t)ftell(p_file);
             fclose(p_file);
             if(fileSize > fMaxDbFileSize)
             {
@@ -339,8 +340,7 @@ namespace LOGMASTER
           sql_query += LimitString(limit);  
         }
 
-        
-        const char **test = 0;
+    
         int rc = sqlite3_prepare(fDataBase, sql_query.c_str(), (int)sql_query.length(), &fStmt, nullptr);    
 
         if (rc != SQLITE_OK)
