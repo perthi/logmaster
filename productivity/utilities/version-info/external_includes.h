@@ -31,6 +31,8 @@
 #include <cmdline/GLogApplication.cpp>
 #include <cmdline/GCmdApi.h>
 #include <cmdline/GCmdApi.cpp>
+#include <cmdline/GCmdScan.cpp>
+
 #include <logging/LColorMap.h>
 #include <logging/LColorMap.cpp>
 #include <logging/LLogging.h>

@@ -77,6 +77,8 @@ namespace LOGMASTER
 		}
 	}
 
+
+
 	string
 	LEnum2String::ToString(const eMSGSYSTEM sys)
 	{

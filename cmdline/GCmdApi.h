@@ -20,7 +20,7 @@
 using std::vector;
 using std::string;
 
-/** @brief scanning of boolean argumenst (used by the command line system )*/
+/** @brief scanning of boolean arguments (used by the command line system )*/
 class GCmdApi
 {
 public:

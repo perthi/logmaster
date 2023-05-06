@@ -63,11 +63,11 @@ int main(int argc, const char** argv)
 
 	catch (std::exception& e)
 	{
-		CERR << "Exception caught: " << e.what() << endl;
+		CERR << "Exception caught: " << e.what() << ENDL;
 	}
 	catch (...)
 	{
-		CERR << "Unknown exception caught" << endl;
+		CERR << "Unknown exception caught" << ENDL;
 	}
 	return 0;
 }

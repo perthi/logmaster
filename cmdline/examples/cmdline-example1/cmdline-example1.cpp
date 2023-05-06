@@ -94,11 +94,8 @@ int main(const int argc, const char** argv )
 
     try
     {
-
         SET_LOGFORMAT("1111111");
         SET_LOGTARGET("1111");
-        // SET_LOGLEVEL("1111111111111111");
-       //  G_ERROR("This is a error message, the answeer to the univers is  %d", 42);
 
         int test1 = 0;
         int test2 = 0;
@@ -115,7 +112,7 @@ int main(const int argc, const char** argv )
             &test1, fgkOPTIONAL, callback_test1);
 
 
-        /// Simlified version, no callback function, the argumen is assumed to be optional
+        /// Simlified version, no callback function, the argument is assumed to be optional
         std::shared_ptr<GArgument> a2 = std::make_shared <GCommandLineArgument< int> >("-mydouble",
             "-mydouble [value]",
             "sets the second value",

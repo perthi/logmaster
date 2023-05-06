@@ -8,14 +8,18 @@
 #include  <logging/GException.h>
 #include  <utilities/GString.h>
 
+
+VParameters  VScanArguments::fParameters = VParameters();
+
+
 VScanArguments::VScanArguments()
 {
-	InitArguements();
+	InitArguments();
 }
 
 
 void
-VScanArguments::InitArguements()
+VScanArguments::InitArguments()
 {
 
 #ifdef _WIN32
@@ -26,9 +30,10 @@ VScanArguments::InitArguements()
 	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-desc", "-desc [value]", "The name of the product", &fParameters.fDescription, fgkOPTIONAL));
 //	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-copyright", "-desc [value]", "Copyright notice", &fParameters.fCopyright, fgkOPTIONAL));
 	
-#ifdef  __linux__ 
-	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-flagfile", "-flagfile [value]", "File containing flags use during compilation", &fParameters.fCompileflags_file, fgkMANDATORY));
-#endif
+//#ifdef  __linux__ 
+	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-flagfile", "-flagfile [value]", "File containing flags use during compilation", 
+		                                                                  &fParameters.fCompileflags_file, fgkOPTIONAL, FlagFileCallBack));
+//#endif
 
 	//	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-exename", "-exename [value]", "name of the executable", &fParameters.fExename, fgkOPTIONAL));
 
@@ -36,7 +41,7 @@ VScanArguments::InitArguements()
 
 
 void 
-VScanArguments::ApllyFlag(bool is_optional)
+VScanArguments::ApplyFlag(bool is_optional)
 {
 	if (is_optional == true)
 	{
@@ -60,7 +65,7 @@ VScanArguments::CheckParameters(const VParameters) const
 	{
 		G_ASSERT_ARGUMENT_EXCEPTION(g_string()->EndsWith(p.fAppName, vector<string>{ ".dll", ".exe"}), "Invalid DLL/exe name %s. Must end with either .dll or .exe", p.fAppName.c_str() );
 		G_ASSERT_ARGUMENT_EXCEPTION(g_string()->EndsWith(p.fRCFilename,".rc" ), "Invalid RC filename name %s. Must end with .rc", p.fRCFilename.c_str());
-		return false; /// Just in case exeptiona are disabled
+		return false; /// Just in case exceptions are disabled
 	}
 #endif
 	return true;
@@ -70,7 +75,7 @@ VScanArguments::CheckParameters(const VParameters) const
 VParameters  &
 VScanArguments::Scan(const string &cmdline)
 {
-	ApllyFlag(fForceOptional);
+	ApplyFlag(fForceOptional);
 	GLogApplication().ScanArguments(cmdline, fArguments);
 	CheckParameters( fParameters );
 
@@ -81,9 +86,26 @@ VScanArguments::Scan(const string &cmdline)
 VParameters &
 VScanArguments::Scan(int argc, const char** argv)
 {
-	ApllyFlag(fForceOptional);
+	ApplyFlag(fForceOptional);
 	GLogApplication().ScanArguments(argc, argv, fArguments);
 	CheckParameters(fParameters);
-	return fParameters;
+	return  fParameters;
+}
+
+
+bool 
+VScanArguments::FlagFileCallBack(const string cmnd, const string  args_s, const vector<string> sub, const vector<string> par)
+{
+	CERR << "args_s = " << args_s << endl;
+	G_ASSERT_ARGUMENT_EXCEPTION(sub.size() == 0, "%s does not take any sub commands; (args = %s)", args_s.c_str() );
+	G_ASSERT_ARGUMENT_EXCEPTION(par.size() == 2, "%s takes exactly two parameters: 1) The name of the flag file, 2) the output directory");
+
+	if (par.size() == 2)
+	{
+		fParameters.fCompileinfo = par[0];
+		fParameters.fCompileflags_file = par[1];
+	}
+
+	return false;
 }
 

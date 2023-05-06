@@ -49,7 +49,7 @@ GCmdApi::~GCmdApi()
 * @param subs sub-commands (must be zero or one in this case)
 * @param args parameters for this command line tag, this vector must always be of zero size for
 * boolean GArguments, nevertheless the GArgument must be present in order to match the function
-* pointer signature for the command line API ( and since its allready present we might as weel check the size ). */
+* pointer signature for the command line API ( and since its already present we might as well check the size ). */
 bool
 GCmdApi::bool2( const string cmnd, const string /*args_s*/, const vector<string> subs, const vector<string> args)
 {
@@ -60,7 +60,7 @@ GCmdApi::bool2( const string cmnd, const string /*args_s*/, const vector<string>
 
     if (args.size() != 0)
     {
-        EXCEPTION("The command \"%s\" does not take any argumenst, you can use the subcommand \"--true\" or \"--false\"", cmnd.c_str());
+        EXCEPTION("The command \"%s\" does not take any arguments, you can use the subcommand \"--true\" or \"--false\"", cmnd.c_str());
     }
 
     if (subs.size() == 1)
