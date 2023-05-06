@@ -26,8 +26,10 @@
 ******************************************************************************
 ******************************************************************************/
 
-
+#ifdef _WIN32
 #pragma once
+#include "Windows.h"
+#endif
 
 
 #include "GString.h"
@@ -35,14 +37,9 @@
 #include <clocale>
 #include <algorithm>
 
-#include "Windows.h"
-
-
 
 #define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING 1
 #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS	 1
-
-
 
 
 GString  * g_string()
@@ -291,7 +288,13 @@ string& GString::ToLower(string& s)
         std::locale loc("");
         std::wstring ws;
         ws.resize(6);
+        
+        #ifdef _WIN32
         MultiByteToWideChar(CP_UTF8, 0, s.c_str(), (int)s.size(), &ws[0], (int)ws.size());
+        #else        
+        std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+        ws = converter.from_bytes(str);
+        #endif
 
         for (unsigned int n = 0; n < ws.size(); n++)
         {
@@ -300,8 +303,12 @@ string& GString::ToLower(string& s)
 
         str.resize(ws.size()*2);
 
+    #ifdef _WIN32
         WideCharToMultiByte( CP_UTF8, 0, ws.c_str(), (int)ws.size(), &str[0], (int)str.size(), 0, 0);
-       // str = converter.to_bytes(ws);
+    #else
+       str = converter.to_bytes(ws);
+    #endif
+    
     }
     else
     {
@@ -320,7 +327,6 @@ string& GString::ToLower(string& s)
 }
 
 
-
  /**  Converts string to uppercase. Handles both UTF-8 and ANSI, both will not convert ANSI to UTF-8.
   *  @param[in, out] s  String to be converted. The content is not altered.
   *  @return  uppercase of s.  */
@@ -334,17 +340,25 @@ string& GString::ToUpper(string& s)
         std::locale loc("");
         std::wstring ws;
         ws.resize(s.size()*4);
-        //std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-
+        
+        #ifdef _WIN32
         MultiByteToWideChar(CP_UTF8, 0, s.c_str(), (int)s.size(), &ws[0], (int)ws.size());
-     //   ws = converter.from_bytes(str);
+        #else
+        std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;  
+         ws = converter.from_bytes(str);
+
+        #endif
+        
         for (unsigned int n = 0; n < ws.size(); n++)
         {
             ws[n] = std::toupper(ws[n], loc);
         }
        
+       #ifdef _WIN32
         WideCharToMultiByte(CP_UTF8, 0, ws.c_str(), (int)ws.size(), &str[0], (int)str.size(), 0, 0);
-        //str = converter.to_bytes(ws);
+        #else
+        str = converter.to_bytes(ws);
+        #endif
     }
     else
     {

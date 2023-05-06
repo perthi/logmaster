@@ -34,7 +34,10 @@
 #define SQLITE3_H
 #include <stdarg.h>     /* Needed for the definition of va_list */
 
+#ifdef _WIN32
 #define SQLITE_API __declspec(dllexport)
+#endif
+
 
 /*
 ** Make sure we can call this stuff from C++.
@@ -411,7 +414,8 @@ typedef int (*sqlite3_callback)(void*,int,char**, char**);
 **      the 2nd parameter of sqlite3_exec() while sqlite3_exec() is running.
 ** </ul>
 */
-SQLITE_API int __cdecl sqlite3_exec(
+//SQLITE_API int __cdecl sqlite3_exec(
+int  sqlite3_exec(
   sqlite3*,                                  /* An open database */
   const char *sql,                           /* SQL to be evaluated */
   int (*callback)(void*,int,char**,char**),  /* Callback function */

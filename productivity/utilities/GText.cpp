@@ -27,10 +27,15 @@
 ******************************************************************************
 ******************************************************************************/
 
-#pragma once
+//#pragma once
 
 #include "GText.h"
 #include <cstdarg>
+//#include <errno.h>
+//#include <sys/errno.h>
+
+
+
 
 #define GTEXT_MAX_SIZE 4096
 

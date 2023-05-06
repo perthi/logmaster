@@ -111,7 +111,7 @@ GSystem::Errno2String(const  errno_t code, const string fname, const string  opt
 }
 #else
 string
-GFileIOHandler::Errno2String(const  error_t code, const string fname, const string  opt)
+GSystem::Errno2String(const int code, const string fname, const string  opt)
 {
     char* errmsg = strerror(code);;
     if (errmsg != nullptr)
@@ -163,6 +163,8 @@ GSystem::mkdir(const string dirname, const bool print_error)
     }
 }
 
+#include <string.h>
+
 
 /**@{*/ 
 /** mkdir =   Make Directory (that is a folder in Windows terms), Unix/bash style
@@ -186,11 +188,12 @@ GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
 
 #ifdef _WIN32
     int status = ::_mkdir(dirname.c_str() );
+    strerror_s(err, 1024, errno);
 #else
      int status = ::mkdir(dirname.c_str(),  opt );
+      strerror_r(errno, err,  1024);
+
 #endif // _WIN32
-    
-    strerror_s(err, 1024, errno);
 
     switch (status)
     {

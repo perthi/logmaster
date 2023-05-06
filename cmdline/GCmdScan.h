@@ -321,7 +321,8 @@ GCmdScan::ScanArguments(const int argc, const char **argv, deque<  std::shared_p
     }
 
     vector<GArgumentParsed> v = SplitCommands(argc, argv);
-    auto ret = CheckValid(v, args);
+    
+    CheckValid(v, args);
     CheckMandatory(v, args);
 
     for (uint16_t i = 0; i < args->size(); i++)

@@ -26,7 +26,7 @@
 ******************************************************************************
 ******************************************************************************/
 
-#pragma once
+//#pragma once
 
 #include "GCommon.h"
 #include "GDefinitions.h"
@@ -50,14 +50,14 @@ void  API
 GCommon::DisableOutput()
 { 
     fDisableOuput = true; 
-};
+}
 
 
 void  API  
 GCommon::EnableOutput()
 { 
     fDisableOuput = false; 
-};
+}
 
 
 #ifdef HAS_LOGGING

@@ -15,8 +15,8 @@
 
 
 
-#include "VGenerateVersionInfo.h"
-#include "GVersion.h"
+#include <utilities/version-info/VGenerateVersionInfo.h>
+#include <utilities/version-info/GMenu.h>
 #include <utilities/GDefinitions.h>
 #include <utilities/GUtilities.h>
 
@@ -29,7 +29,9 @@
 #include <string>
 using std::string;
 
-#define G GVersion
+#include "GVersion.h"
+
+//#define G GVersion
 
 
 #include <memory>
@@ -93,27 +95,27 @@ GMenu::CallBack(const string  /*cmd*/, const string /*args_s*/,  const vector<st
 
     if( option == "--tag" )
     {
-        cout << "version(tag)=\t" << G::GetGitTag() << endl; 
+        cout << "version(tag)=\t" << GVersion::GetGitTag() << endl; 
     }
     else
     if(  option == "--branch" )
     {
-        cout << "branch=\t" << G::GetGitBranch() << endl; 
+        cout << "branch=\t" << GVersion::GetGitBranch() << endl; 
     }
     else
     if(  option == "--gitinfo" )
     {
-        cout << "git-info=\t" << G::GetGitInfo()<< endl; 
+        cout << "git-info=\t" << GVersion::GetGitInfo()<< endl; 
     }
     else
     if( option == "--compile-flags" )
     {
-        cout << "compile flags=\t" << G::GetCompileFlags() << endl; 
+        cout << "compile flags=\t" <<  GVersion::GetCompileFlags() << endl; 
     }
     else
     if( option == "--link-flags" )
     {
-        cout << "link-flags=\t" << G::GetLinkFlags() << endl; 
+        cout << "link-flags=\t" <<  GVersion::GetLinkFlags() << endl; 
     }
     else
     {
