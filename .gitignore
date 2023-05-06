@@ -1,5 +1,4 @@
-
-**/.compileinfo-x86*
+//*/.compileinfo-x86*
 *.d
 *.o
 *.log
@@ -19,11 +18,8 @@ version-info/x86/version-info
 *.vcxproj.filters
 *.vcxproj.user
 *.swp
-**/GVersion.cpp
 *.json
 ../bin**
-**/SvnData.h
-software/**/Version.h
 #!arm-extras/*
 **/testlist_x64.txt
 **/testlist_x86.txt
