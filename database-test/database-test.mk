@@ -1,9 +1,10 @@
 
 
 PROGRAM:=database-test
-SRCCPP+=database-test.cpp
+SRCCPP+=database-test.cpp \
+        GVersion.cpp  
 
-LIBS+=    -llogmaster  -lutilities   -lsqlite-embc -ldl -lreadline -lhistory -lncurses -ldl -lpthread
+LIBS+=    -llogmaster  -lutilities  -lcmdline -lutilities -llogmaster  -lsqlite-embc -ldl -lreadline -lhistory -lncurses -ldl -lpthread
 
 
 ifneq (arm, $(TARGET))

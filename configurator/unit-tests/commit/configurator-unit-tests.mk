@@ -5,7 +5,8 @@ PROGRAM=configurator-unit-tests
 
 SRCCPP:=configurator-unit-tests.cpp \
 		TestLConfigurator.cpp \
-		TestLXmlParser.cpp
+		TestLXmlParser.cpp \
+		GVersion.cpp
 
 include  ../../../../common.mk
 include ../../../../unittest-common.mk

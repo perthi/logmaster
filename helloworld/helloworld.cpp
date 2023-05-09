@@ -38,7 +38,7 @@ public:
 
 int main(int argc, const char **argv)
 {
-	//GMenu::Instance()->ScanArguments(argc, argv);
+	GMenu::Instance()->ScanArguments(argc, argv);
 
 	try
 	{

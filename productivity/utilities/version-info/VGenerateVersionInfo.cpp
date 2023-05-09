@@ -149,6 +149,7 @@ VGenerateVersionInfo::GenerateClass(const string class_name, const string exenam
     FILE* fp = 0;
     fopen_s(&fp, filename_cpp.c_str(), "w");
 #else
+    
     FILE* fp = fopen(filename_cpp.c_str(), "w");
 #endif
 
@@ -170,7 +171,6 @@ VGenerateVersionInfo::GenerateClass(const string class_name, const string exenam
         fprintf(fp, "const string %s::fCompileFlags = \"%s\";\n", class_name.c_str(), CompileInfo(info_file).c_str());
         fprintf(fp, "const string %s::fLinkFlags = \"%s\";\n", class_name.c_str(), LinkInfo(info_file).c_str());
         fprintf(fp, "const string %s::fOriginalExeName = \"%s\";\n", class_name.c_str(), exename.c_str());
-
 
 #ifdef _WIN32
         fprintf(fp, "const string %s::fGitInfo = \"%s\";\n", class_name.c_str(), "Not yest implemented for Windows");

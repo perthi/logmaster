@@ -654,7 +654,7 @@ GCmdScan::SetIgnoreStrayArgument(const bool ignore)
 }
 
 
-inline bool
+bool
 GCmdScan::GetIgnoreStrayArgument() const
 {
     return fDoIgnoreStrayArguments;

@@ -34,9 +34,6 @@
 
 int main(int argc, const char** argv)
 {
-	return 0;
-	CERR << "Running version info" << endl;
-	//return 0;
 	if (g_cmdscan()->HasArgument(argc, argv, "-help"))
 	{
 		VHELPERS::helpMenu();
@@ -60,6 +57,7 @@ int main(int argc, const char** argv)
 		VGenerateRCFile::Generate("", p.fRCFilename, p.fCompany, p.fDescription, p.fAppName, p.fCopyright, p.fProductname);
 #endif
 		VGenerateVersionInfo::GenerateClass("GVersion", p.fAppName, p.fCompileflags_file, ".");
+	
 	}
 
 	catch (std::exception& e)

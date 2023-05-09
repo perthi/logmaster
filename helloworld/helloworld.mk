@@ -1,6 +1,7 @@
 
 PROGRAM:=helloworld
-SRCCPP+=helloworld.cpp
+SRCCPP+=helloworld.cpp \
+        GVersion.cpp
 
 
 LIBS+=    -lcmdline -llogmaster  -lutilities  -llogmaster  -lcmdline -lsqlite-embc  -lreadline -lhistory -lncurses -ldl -lpthread
