@@ -88,7 +88,7 @@ bug(const string, const string args_s, const vector<string> sub, const vector<st
 
 int main(const int argc, const char** argv )
 { 
-   // GMenu::Instance()->ScanArguments(argc, argv);
+    GMenu::Instance()->ScanArguments(argc, argv);
     cerr << "The hostname is: " << g_system()->GetHostName() << endl;
     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 

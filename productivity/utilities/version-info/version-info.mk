@@ -11,6 +11,9 @@ SRCCPP+=	version-info.cpp \
 
 
 
-LIBS+= -llogmaster -lutilities -lcmdline -lsqlite-embc  -ldl -lpthread -lreadline -lhistory -lncurses
+# LIBS+= -llogmaster -lutilities -lcmdline -lsqlite-embc  -ldl -lpthread -lreadline -lhistory -lncurses
+
+LIBS+=  -lsqlite-embc  -ldl -lpthread -lreadline -lhistory -lncurses
+
 
 include ../../../common.mk

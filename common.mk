@@ -99,6 +99,7 @@ compileinfo_dir:
 
 $(PROGRAM):: $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC)
 	@echo $(LIBS) > $(CURDIR)/../..//.compileinfo-$(TARGET)/$(PROGRAM)_flags.txt
+	@echo $(CPPFLAGS) >> $(CURDIR)/../..//.compileinfo-$(TARGET)/$(PROGRAM)_flags.txt
 	$(CCLOCAL) $(CPPFLAGS) -o  $(PROGRAM) $(OBJS) $(OBJSCPP) $(LIBS) 
 	$(MAKE) install 
 

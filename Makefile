@@ -82,9 +82,7 @@ logging-configurator:=   configurator/logging-configurator/$(TARGET)
 helloworld:=             helloworld/$(TARGET)
 db-test:=                database-test/$(TARGET)
 sqlite:=                 productivity//sqlite/$(TARGET) 
-
 api-logmaster:=          api/api-logmaster/$(TARGET) 
-
 gui-example1:=           gui/logger/examples/gui-loggergui-example1/$(TARGET)
 gui-example2:=           gui/logmaster/examples/gui-qt-logmaster-example1/$(TARGET)
 gui-alarm:=              gui/alarm/$(TARGET) 
@@ -123,7 +121,7 @@ src-exe:=$(helloworld) \
 	$(logging-example1) \
 	$(cmdline-example1) \
 	$(db-test) \
-        $(version-info)
+	$(version-info)
 
 
 
@@ -178,6 +176,11 @@ endif
 
 export
 
+#$(all-src) : $(version-info)
+
+#$(version-info) :
+#	$(MAKE) --directory=$@ all
+
 
 
 .PHONY: all $(all-src)
@@ -186,9 +189,12 @@ all: $(all-src)
 $(src-exe) : $(src-lib)
 
 
-$(all-src): 
+$(all-src): $(version-info)
 	$(MAKE) --directory=$@ all
 
+
+# $(version-info) :
+#	$(MAKE) --directory=$@ all
 
 .PHONY: check-compiler
 check-compiler:
