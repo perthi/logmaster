@@ -16,6 +16,7 @@ struct VParameters
 	string fRCFilename = ""; //! (Windows only): Name of the file containing resource information that will be embedded int the details section of the <DLL/exe file
 	string fCompileflags_file = ""; //!< Name of file containing information about what compilation flags was used during code generation
 	string fCompileinfo = "";  //!< Compilation info read from fCompileflags_file
+	string fLinkinfo = "";
 	string fCompany = ""; //!< Organization name
 	string fAppName = ""; //!< Original name of the binary file
 	string fProductname = "";

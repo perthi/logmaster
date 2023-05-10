@@ -10,12 +10,12 @@
 
 #include <functional>
 
+
 VParameters  VScanArguments::fParameters = VParameters();
 
 
 VScanArguments::VScanArguments()
 {
-
 	InitArguments();
 }
 
@@ -123,8 +123,8 @@ VScanArguments::FlagFileCallBack(const string cmnd, const string  args_s, const 
 		fParameters.fCompileinfo = par[1];
 		fParameters.fCompileflags_file = par[0];
 
-		G_DEBUG("compile info = %s",  par[1].c_str() );
-		G_DEBUG("compile flags file = %s",  par[0].c_str() );
+		FORCE_DEBUG("compile info = %s",  par[1].c_str() );
+		FORCE_DEBUG("compile flags file = %s",  par[0].c_str() );
 	}
 
 	return false;
