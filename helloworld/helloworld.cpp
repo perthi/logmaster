@@ -1,6 +1,6 @@
 // -*- mode: c++ -*-
 
-#ifdef _WIN32
+#ifdef _W_IN32
 #include <Windows.h>
 #endif
 #include <stdio.h>
