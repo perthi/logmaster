@@ -99,7 +99,7 @@ int main(const int argc, const char** argv )
 
         int test1 = 0;
         int test2 = 0;
-        double test3 = 0;
+        //double test3 = 0;
         string test4 = "";
         vector<string> test5 = vector<string>();
 
@@ -184,10 +184,9 @@ int main(const int argc, const char** argv )
 
 
 bool
-bug(const string, const string args_s, const vector<string> sub, const vector<string> par)
+bug(const string, const string /*args_s*/, const vector<string> sub, const vector<string> par)
 {
 
-    FORCE_DEBUG("BLAHHHH");
     FORCE_DEBUG("Inside callback !!!!!!!, sub.size() = %d, par.size() = %d");
     G_ASSERT_EXCEPTION(sub.size() == 1, "Unexpected subcommand size\t%d, expected size =1 ", sub.size());
     G_ASSERT_EXCEPTION(par.size() == 0, "Unexpected parameter size\t%d, expected size =1 ", par.size());

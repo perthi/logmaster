@@ -8,21 +8,12 @@
 #include <utilities/GRandom.h>
 #include <utilities/GFileIOHandler.h>
 #include <utilities/GString.h>
+
+#include <logging/LPublisher.h>
+
+using namespace LOGMASTER;
 //#include <logging/LMessageGenerator.h>
 
-
-/*
-TestException::TestException() : TestBase()
-{
-
-}
-
-
-TestException::~TestException()
-{
-
-}
-*/
 
 
 void 
@@ -31,6 +22,7 @@ TestException::SetUp()
 	LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
     TestBase::SetUp();
 }
+
 
 
 
@@ -105,14 +97,15 @@ TEST_F(TestException, assert_macro)
 }
 
 
-
+ /*
  TEST_F(TestException, buffer_overwrite_NSR1737)
  {
  	PUSH();
+	LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
  	SET_LOGFORMAT("0000001");
- 	SET_LOGTARGET("0000 --target-file");
-	
- 	 char *msg = 0;
+	SET_LOGTARGET("0000 --target-file --target-stdout");
+
+	char  *msg = nullptr;
 
  	try
  	{
@@ -121,11 +114,11 @@ TEST_F(TestException, assert_macro)
  	catch(GException &e)
  	{
  		msg = G_ERROR( "The exception message is:%s",  e.what( ) )->at(eMSGTARGET::TARGET_EXCEPTION)->fMsgBody;
- 	}
-			
+	}
  	EXPECT_STREQ("The exception message is:\tlorem ipsum (class GException)\n", msg );
- 	POP();
+	POP();
  }
+*/
 
 
 

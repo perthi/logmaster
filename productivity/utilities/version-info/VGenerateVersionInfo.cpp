@@ -177,12 +177,14 @@ VGenerateVersionInfo::GenerateClass(const string class_name, const string exenam
         string li =     g_string()->Replace(LinkInfo(info_file), "\"", "\\\"" ) ;
 
 
+        /*
         CERR << "COMPILE =\t" <<  CompileInfo(info_file).c_str() << ENDL;
         CERR << "LINK =\t" << LinkInfo(info_file).c_str() << ENDL;
 
         CERR << "linkflags =\t" <<  li.c_str() << ENDL;
         CERR << "compilfags =\t" << ci.c_str() << ENDL;
-        
+        */
+
         fprintf(fp, "const string %s::fCompileFlags = \"%s\";\n", class_name.c_str(), ci.c_str());
         fprintf(fp, "const string %s::fLinkFlags = \"%s\";\n", class_name.c_str(), li.c_str());
 

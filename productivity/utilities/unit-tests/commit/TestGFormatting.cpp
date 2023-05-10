@@ -28,7 +28,9 @@
 
 #include "TestGFormatting.h"
 
-#define HAS_LOGGING
+//#define HAS_LOGGING
+
+#undef HAS_LOGGING
 
 #ifdef HAS_LOGGING
 #include <logging/GException.h>

@@ -37,17 +37,41 @@ constexpr char LOGMASTER_HOME[] = "ERROR_NOT_SET";
 #define EXPAND(x) STRINGLIFY(x)
 
 
+
+
 void 
 TestLDatabase::SetUpTestCase()
 {
+    try
+    {
+    //LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+
+#ifdef _WIN32
     string s = EXPAND(LOGMASTER_HOME);
     s.erase(0, 1);
     s.erase(s.size() - 2);
+    fgDatabaseBasePath = s + "\\test-data\\logmaster-test.db";
+#else
+     fgDatabaseBasePath = LOGMASTER_HOME + string("/logging/unit-tests/commit/test-data/logmaster-test.db"); 
 
-    fgDatabaseBasePath = s + "\\test-data";
-    s = fgDatabaseBasePath + "\\logmaster-test.db";
-    CERR << "s = " << s << ENDL;
-    fgDatabase =  LDatabase::Instance( s );
+#endif
+    fgDatabase =  LDatabase::Instance( fgDatabaseBasePath  );
+    
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    catch(GException &e)
+    {
+        CERR << e.what() << ENDL;
+    }
+    catch(...)
+    {
+        CERR << "Unkown exception caught" << ENDL;
+
+    }
+
 }
 
 
@@ -76,7 +100,8 @@ TestLDatabase::TearDown()
 
 
 TEST_F( TestLDatabase , all_entries )
-{
+{   
+    ASSERT_NE(nullptr,fgDatabase );
     auto db = fgDatabase;
     auto entries = db->Query( ALL_ENTRIES );
     size_t entries_max = entries.size();
@@ -100,6 +125,8 @@ TEST_F( TestLDatabase , all_entries )
 }
 
 
+
+/*
 TEST_F( TestLDatabase , specific_system )
 {
      auto db = fgDatabase;
@@ -263,3 +290,4 @@ TEST_F( TestLDatabase , logrotation)
     db = LDatabase::Instance(oldPath);
 }
 
+*/

@@ -14,4 +14,4 @@
 #include <testlib/TestBase.h>
 
 
-MAIN_UNITTEST();
+MAIN_UNITTEST()

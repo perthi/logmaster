@@ -17,10 +17,9 @@ using namespace LOGMASTER;
 void  logger_callback(const std::shared_ptr<LMessage>  m)
 {
 	static int cnt = 0;
-	COUT << "GOT NEW MESSAGE, cnt = " << cnt << endl;
-	//GUILogger::GetInstance()->newMessage(cnt, *m);
+	COUT << "GOT NEW MESSAGE, cnt = " << cnt << "m = "<< m->fMsgBody << endl;
 	cnt++;
-};
+}
 
 class TEST_CALLBACK
 {
@@ -28,21 +27,25 @@ public:
 	static void  logger_callback(const std::shared_ptr<LMessage>  m)
 	{
 		static int cnt = 0;
-		COUT << "GOT NEW MESSAGE, cnt = " << cnt << endl;
-		//GUILogger::GetInstance()->newMessage(cnt, *m);
+		COUT << "GOT NEW MESSAGE, cnt = " << cnt << "m = " << m->fMsgBody << endl;
 		cnt++;
 	};
 
 
 };
 
+
 int main(int argc, const char **argv)
 {
+	//cout << "str = " << GLocation(__FUNCTION_ __FILE__, )
+	
+//	return 0;
+	
 	GMenu::Instance()->ScanArguments(argc, argv);
 
 	try
 	{
-		LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+	//	LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 		COM_ERROR("s1 = %d, s2 = %d, s3 = %d", 10, 11);
 	}
 	catch (std::exception& e)

@@ -51,11 +51,6 @@ VScanArguments::InitArguments()
 		bla->SetValidationFunction(funct);
 
 		fArguments.push_back(bla);
-
-	//#endif
-
-	//	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-exename", "-exename [value]", "name of the executable", &fParameters.fExename, fgkOPTIONAL));
-
 }
 
 
@@ -113,7 +108,7 @@ VScanArguments::Scan(int argc, const char** argv)
 
 
 bool 
-VScanArguments::FlagFileCallBack(const string cmnd, const string  args_s, const vector<string> sub, const vector<string> par)
+VScanArguments::FlagFileCallBack(const string /*cmnd*/, const string  args_s, const vector<string> sub, const vector<string> par)
 {
 	G_ASSERT_ARGUMENT_EXCEPTION(sub.size() == 0, "%s does not take any sub commands; (args = %s)", args_s.c_str() );
 	G_ASSERT_ARGUMENT_EXCEPTION(par.size() == 2, "%s takes exactly two parameters: 1) The name of the flag file, 2) the output directory");
@@ -123,8 +118,8 @@ VScanArguments::FlagFileCallBack(const string cmnd, const string  args_s, const 
 		fParameters.fCompileinfo = par[1];
 		fParameters.fCompileflags_file = par[0];
 
-		FORCE_DEBUG("compile info = %s",  par[1].c_str() );
-		FORCE_DEBUG("compile flags file = %s",  par[0].c_str() );
+	//	FORCE_DEBUG("compile info = %s",  par[1].c_str() );
+	//	FORCE_DEBUG("compile flags file = %s",  par[0].c_str() );
 	}
 
 	return false;
