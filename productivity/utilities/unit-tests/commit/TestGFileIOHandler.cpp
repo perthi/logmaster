@@ -220,3 +220,4 @@ TEST_F(TestGFileIOHandler, GetExtention)
     EXPECT_EQ(exeExt, "");
 #endif
 }
+

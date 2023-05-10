@@ -3,7 +3,7 @@
 PROGRAM:=utilities-unit-tests
 
 
-SRCCPP += utilities-unit-tests.cpp \
+#SRCCPP += utilities-unit-tests.cpp \
 	TestGMath.cpp \
 	TestGRandom.cpp \
 	TestGString.cpp \
@@ -20,6 +20,9 @@ SRCCPP += utilities-unit-tests.cpp \
 	TestGSystem.cpp \
 	TestGFormatting.cpp
 
+
+SRCCPP += utilities-unit-tests.cpp \
+	TestGLocation.cpp  \
 
 
 

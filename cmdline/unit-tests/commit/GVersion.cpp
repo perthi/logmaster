@@ -9,7 +9,7 @@ using std::string;
 #include <utilities/version-info/GVersion.h>
 
 const string GVersion::fGitBranch = "master";
-const string GVersion::fGitTag = "v1-2-1-ucw-146-g0f7e13e";
+const string GVersion::fGitTag = "v1-2-1-ucw-147-gb29d000";
 const string GVersion::fCompileFlags = "-fPIC -std=c++17 -g -DGUI_DIR=\"/home/perthi/work/logmaster\" -ggdb -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security -Werror -DHAS_LOGGING";
 const string GVersion::fLinkFlags = "-L /home/perthi/work/logmaster/build/x86/lib -lm -lcmdline -lutilities -llogmaster -lgtest-embc -lpthread -llogmaster -lcmdline -lutilities -lreadline -lhistory -lncurses -lsqlite-embc -ldl -lm";
 const string GVersion::fOriginalExeName = "cmdline-unit-tests";
@@ -24,9 +24,9 @@ __ Remote Branches:\n\
 __ Local Branches:\n\
 _ master\n\
 __ Most Recent Commit:\n\
-commit 0f7e13e2dc9d2c9cbe9a7ea4ad034f8f7528f57f\n\
+commit b29d000853bcd633a7b96348780562814a28f827\n\
 Author: perthi <pth_embc.no>\n\
-    compilation for Linux\n\
+    refactoring\n\
 Type 'git log' for more commits, or 'git show <commit id>' for full commit details.\n\
 __ Configuration (.git/config):\n\
 user.name=perthi\n\
