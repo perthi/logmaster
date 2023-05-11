@@ -171,8 +171,8 @@ LGeneratorHashMap::GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntityS
     *  This hash table holds the current logging level for a given sub-system. \
     *  This table is checked every time the logging system is asked to log a message, and if logging \
     *  is enabled for the given level and sub-system then the message is created. \
-    *  Where the message is actuall written (if at all) is decided by the target configuration,\
-    *  wether or not logging is enabled to to file, to console, etc.. */");
+    *  Where the message is actually written (if at all) is decided by the target configuration,\
+    *  whether or not logging is enabled to to file, to console, etc.. */");
 
     lines.push_back("   void");
     lines.push_back("   LHashMapsBase::InitHashLogLevel( )");

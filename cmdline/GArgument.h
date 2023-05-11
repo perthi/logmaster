@@ -19,7 +19,7 @@
 *   @brief Base class for all command line arguments
 *
 *   The main purpose of this class is to proved an interface that makes it possible to create a vector of  pointers to command line arguments. This vector is then used by the command line
-*   handling system when scanning arguments (see GCmdScan). The main implementation is in the template class GCommandLinArgument.  It would not bes possibel in general to use this class when 
+*   handling system when scanning arguments (see GCmdScan). The main implementation is in the template class GCommandLinArgument.  It would not bes possible in general to use this class when 
 *   creating a vector *of pointers because different template initializations would yield different pointer types. */
 
 #include <utilities/GDefinitions.h>

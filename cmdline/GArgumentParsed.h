@@ -22,11 +22,11 @@ using std::vector;
 using std::string;
 
 
-/** @brief Helper class for the commandline system. Holds the argument after parsing. The commandline argumen is parsed according to 
+/** @brief Helper class for the command line system. Holds the argument after parsing. The command line argument is parsed according to 
  *  tokens beginning with "-". Subcommands are identified with the "--" and parameters is assumed to be
- *  anything that doesn start with "-" or "--" 
+ *  anything that doesn't start with "-" or "--" 
  * 
- * example: -myarg1 --sub1 --sub2 1 2 3 -myarg2 --sub3 --sub3 4 5 6 wil genrate two instances of
+ * example: -myarg1 --sub1 --sub2 1 2 3 -myarg2 --sub3 --sub3 4 5 6 wil generate two instances of
  * GArgumentParsed
  *  - First argument:    -myarg1 vector<string>{--sub1, --sub2} vector<string>{"1","2","3"}
  *  - Second argument:   -myarg2 vector<string>{--sub2, --sub3} vector<string>{"4","5","6"} */
