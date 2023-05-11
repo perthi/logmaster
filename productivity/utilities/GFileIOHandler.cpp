@@ -36,6 +36,7 @@
 #include "GSystem.h"
 #include "GText.h"
 #include "GTokenizer.h"
+#include "GCommon.h"
 #include <fstream>
 #include <sys/stat.h>
 #include <stdio.h>
@@ -468,9 +469,6 @@ GFileIOHandler::SetAttribute(const string fname, unsigned long attr)
 #endif
 
 
-
-
-
 string
 GFileIOHandler::ReadFirstLine(const string fname)
 {
@@ -485,9 +483,6 @@ GFileIOHandler::ReadFirstLine(const string fname)
         return  content.at(0);
     }
 }
-
-
-
 
 
 bool
@@ -575,6 +570,7 @@ GFileIOHandler::ClearAttribute(const string fname, unsigned long attr)
 *  @param fname  The file to read
 *  @param[in,out] status: whether or not the file was successfully read. ZERO = OK, ONE = NOT_OK
 *  @return A vector of data, with on element for each line in the file */
+//vector<string> 
 vector<string>
 GFileIOHandler::ReadAll(const string fname, bool* status)
 {
@@ -586,13 +582,15 @@ GFileIOHandler::ReadAll(const string fname, bool* status)
     vector<string> ret;
     std::ifstream fin;
     string line;
-
+    
     bool l_status = true;
 
     fin.open(fname);
     if (!fin.good())
     {
         l_status = false;
+        GCommon().HandleError(  fname +": "+ string(strerror(errno)) , GLOCATION, true );
+    
     }
     else
     {

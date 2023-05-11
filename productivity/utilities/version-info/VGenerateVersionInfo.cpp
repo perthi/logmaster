@@ -108,6 +108,8 @@ VGenerateVersionInfo::LinkInfo(const string fname)
 string
 VGenerateVersionInfo::ReadCompileInfo(const unsigned int idx, const string fname)
 {
+   // auto test = g_file()->ReadAll(fname.c_str());
+
     vector<string> cont = g_file()->ReadAll(fname.c_str());
     string ret;
 
@@ -177,13 +179,6 @@ VGenerateVersionInfo::GenerateClass(const string class_name, const string exenam
         string li =     g_string()->Replace(LinkInfo(info_file), "\"", "\\\"" ) ;
 
 
-        /*
-        CERR << "COMPILE =\t" <<  CompileInfo(info_file).c_str() << ENDL;
-        CERR << "LINK =\t" << LinkInfo(info_file).c_str() << ENDL;
-
-        CERR << "linkflags =\t" <<  li.c_str() << ENDL;
-        CERR << "compilfags =\t" << ci.c_str() << ENDL;
-        */
 
         fprintf(fp, "const string %s::fCompileFlags = \"%s\";\n", class_name.c_str(), ci.c_str());
         fprintf(fp, "const string %s::fLinkFlags = \"%s\";\n", class_name.c_str(), li.c_str());

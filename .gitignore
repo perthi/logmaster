@@ -48,7 +48,7 @@ configurator/logging-configurator/x86/logging-configurator
 **/.vs/
 **/bin
 #**/x64
-#*GVersion.cpp*
+*GVersion.cpp*
 #!submodules/xml-parser-1-0-2/xml/3rd-party/libxml/lib
 **/Release
 submodules/productivity-1-0-2/utilities/unit-tests/commit/arm/utilities-unit-tests

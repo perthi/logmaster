@@ -109,8 +109,9 @@ namespace LOGMASTER
          std::atomic_bool  fDoPause   =   false;
          std::atomic_bool  fIsRunning =   false; 
 
-         ePUBLISH_MODE fPublisherMode =  ePUBLISH_MODE::ASYNCHRONOUS;
-        
+         //ePUBLISH_MODE fPublisherMode =  ePUBLISH_MODE::ASYNCHRONOUS;
+         ePUBLISH_MODE fPublisherMode =  ePUBLISH_MODE::SYNCHRONOUS;
+
          GTime fTime;
          LMessage2Json fMessage2Json;
          ///std::shared_ptr<LDatabase>

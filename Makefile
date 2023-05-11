@@ -81,7 +81,7 @@ configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
 logging-configurator:=   configurator/logging-configurator/$(TARGET)
 helloworld:=             helloworld/$(TARGET)
 db-test:=                database-test/$(TARGET)
-sqlite:=                 productivity//sqlite/$(TARGET) 
+sqlite:=                 productivity/sqlite/$(TARGET) 
 api-logmaster:=          api/api-logmaster/$(TARGET) 
 gui-example1:=           gui/logger/examples/gui-loggergui-example1/$(TARGET)
 gui-example2:=           gui/logmaster/examples/gui-qt-logmaster-example1/$(TARGET)
@@ -89,13 +89,12 @@ gui-alarm:=              gui/alarm/$(TARGET)
 gui-logger:=             gui/logger/$(TARGET) 
 gui-logmaster:=          gui/logmaster/$(TARGET) 
 gui-common:=             gui/common/$(TARGET) 
-gui-alarm-example1:=              gui/alarm/examples/gui-alarm-example1/$(TARGET) 
+gui-alarm-example1:=     gui/alarm/examples/gui-alarm-example1/$(TARGET) 
 
 unittests:= 	$(utilities-unittest) \
-		$(exception-unittest) \
+		        $(exception-unittest) \
                 $(logging-unittest) \
-		$(cmdline-unittest) \
-		$(configurator-unittest) 
+		        $(cmdline-unittest)
 
 
 support-modules:= 	$(utilities) \
@@ -133,7 +132,7 @@ all-clean:= $(src-lib)  $(x86-src) $(configurator-unittest) $(configurator)  $(a
 ifeq (x86, $(TARGET))
 #unittests+= $(configurator-unittest)
 src-lib+= $(configurator)  $(api-logmaster)
-src-exe+= $(xml-validator) $(configurator-example1) $(logging-configurator)
+src-exe+= $(xml-validator) $(configurator-example1) $(logging-configurator) $(configurator-unittest)
 x86-src:= $(src-lib) $(src-exe)
 all-src:=$(x86-src)
 all-clean:=$(all-src)
@@ -162,7 +161,7 @@ ifeq (x86, $(TARGET))
 CCLOCAL:=c++   -std=c++17
 ARLOCAL:=ar
 else
-LIBS+= -L$(CURDIR)/3rd-party/arm/lib/
+LIBS+= -L$(CURDIR)/productivity/3rd-party/arm/lib/
 CCLOCAL:=arm-linux-gnueabihf-g++   -std=c++17 -DARM
 CC:= arm-linux-gnueabihf-gcc
 ARLOCAL:=arm-linux-gnueabihf-ar

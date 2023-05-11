@@ -9,9 +9,9 @@ using std::string;
 #include <utilities/version-info/GVersion.h>
 
 const string GVersion::fGitBranch = "master";
-const string GVersion::fGitTag = "v1-2-1-ucw-147-gb29d000";
+const string GVersion::fGitTag = "v1-2-1-ucw-149-g4e25c96";
 const string GVersion::fCompileFlags = "-fPIC -std=c++17 -g -DGUI_DIR=\"/home/perthi/work/logmaster\" -ggdb -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security -Werror -DHAS_LOGGING";
-const string GVersion::fLinkFlags = "-L /home/perthi/work/logmaster/build/x86/lib -lm -lcmdline -llogmaster -lutilities -llogmaster -lutilities -lsqlite-embc -lreadline -lhistory -lncurses -ldl -lpthread -lreadline";
+const string GVersion::fLinkFlags = "-L /home/perthi/work/logmaster/build/arm/lib -lm -L /home/perthi/work/logmaster/arm-extras -L/home/perthi/work/logmaster/productivity/3rd-party/arm/lib/ -lcmdline -llogmaster -lutilities -llogmaster -lutilities -lsqlite-embc -lreadline -lhistory -lncurses -ldl -lpthread";
 const string GVersion::fOriginalExeName = "helloworld";
 const string GVersion::fGitInfo = "__ Remote URLs:\n\
 origin	git_github.com:perthi/logmaster.git (fetch)\n\
@@ -24,9 +24,9 @@ __ Remote Branches:\n\
 __ Local Branches:\n\
 _ master\n\
 __ Most Recent Commit:\n\
-commit b29d000853bcd633a7b96348780562814a28f827\n\
+commit 4e25c965a895381afd2418bd1c0b08ed8f6623e4\n\
 Author: perthi <pth_embc.no>\n\
-    refactoring\n\
+    bug fix\n\
 Type 'git log' for more commits, or 'git show <commit id>' for full commit details.\n\
 __ Configuration (.git/config):\n\
 user.name=perthi\n\
