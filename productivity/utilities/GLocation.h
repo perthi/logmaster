@@ -37,21 +37,28 @@ public:
 
     inline const char * c_str() const
     {    
-      static  thread_local std::mutex m;
-      std::lock_guard<std::mutex> guard( m );
+  //    static  thread_local std::mutex m;
+  //    std::lock_guard<std::mutex> guard( m );
        static thread_local string str_local;
        str_local = str();
        return str_local.c_str();
    }
 
-    inline string str() const
+
+    inline string & str() const
     {
-        static  thread_local std::mutex m;
-        std::lock_guard<std::mutex> guard( m );
-        static thread_local char loc[4096];
+//        static  thread_local std::mutex m;
+//        std::lock_guard<std::mutex> guard( m );
+        static thread_local char loc[4096] = {0};
+
         SPRINTF(loc, 4097, "%s[line%d]: %s", fFileName.c_str() , fLineNo, fFunctName.c_str() );
 
-        return  string(loc);
+        static thread_local string str_local;
+        str_local = loc;
+
+        return str_local;
+
+        //return  string(loc);
     }
 
 };

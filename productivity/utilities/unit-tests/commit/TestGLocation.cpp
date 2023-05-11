@@ -70,22 +70,17 @@ TEST_F(   TestGLocation , strings )
 
 TEST_F(   TestGLocation , charptr )
 {
-    static int cnt = 0;
-    
     for(int i=0; i < 100; i++)
     {
         int num = g_random()->Uniform(0, 10000);
-        //g_string()->ToString(333);
         string expected =   "some/file/path[line" +  g_string()->ToString(num) +  string("]: MyClass::SomeFunction");
         const char *actual = GLocation("some/file/path",  num, "MyClass::SomeFunction").c_str();
-        FORCE_DEBUG("expected = %s, size = %d", expected.c_str(), expected.size() );
-        FORCE_DEBUG("actual = %s, size = %d", actual,  strlen(actual) );
         EXPECT_EQ(expected, actual );
-        cnt ++;
     }
-
-//    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
+
+
+
 
 
 TEST_F(   TestGLocation , strings_c_str )
@@ -93,15 +88,9 @@ TEST_F(   TestGLocation , strings_c_str )
     for(int i=0; i < 100; i++)
     {
         int num = g_random()->Uniform(0, 10000);
-        //g_string()->ToString(333);
         string expected =   "some/file/path[line" +  g_string()->ToString(num) +  string("]: MyClass::SomeFunction");
-        
         const char *actual = GLocation("some/file/path",  num, "MyClass::SomeFunction").str().c_str();
-        //FORCE_DEBUG("expected = %s, size = %d", expected.c_str(), expected.size() );
-        //FORCE_DEBUG("actual = %s, size = %d", actual.c_str(), actual.size() );
         EXPECT_EQ(expected, string(actual) );
     }
 }
 
-
-///TEST_F(   TestGLocation , strings )
