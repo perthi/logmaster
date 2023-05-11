@@ -28,7 +28,7 @@ VScanArguments::InitArguments()
 	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-rcname", "-rcname [value]", "sets the name of the RC file (Windows)", &fParameters.fRCFilename, fgkMANDATORY));
 #endif
 	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-appname", "-appname [value]", "sets the name of the exe/binary file", &fParameters.fAppName, fgkMANDATORY ));
-	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-producname", "-product [value]", "The product name", &fParameters.fProductname, fgkOPTIONAL));
+	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-productname", "-product [value]", "The product name", &fParameters.fProductname, fgkOPTIONAL));
 	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-desc", "-desc [value]", "The name of the product", &fParameters.fDescription, fgkOPTIONAL));
 //	fArguments.push_back(std::make_shared <GCommandLineArgument<string> >("-copyright", "-desc [value]", "Copyright notice", &fParameters.fCopyright, fgkOPTIONAL));
 	

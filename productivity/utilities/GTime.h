@@ -32,8 +32,8 @@ using std::map;
 
 #define MAX_TIMESTAMP_SIZE 256
 
-/** @brief various utility for acess to system time which is can be availabel on a user specifed format
- *  @details Also contains function for leap-year checks and validtiy check for days, months etc.. */
+/** @brief various utility for access to system time which is can be available on a user specified format
+ *  @details Also contains function for leap-year checks and validity check for days, months etc.. */
 class GTime 
 {
 public:
