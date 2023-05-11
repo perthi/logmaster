@@ -47,8 +47,10 @@ configurator/logging-configurator/x86/logging-configurator
 **/build/
 **/.vs/
 **/bin
+*.aps
 #**/x64
 *GVersion.cpp*
+Version.h
 #!submodules/xml-parser-1-0-2/xml/3rd-party/libxml/lib
 **/Release
 submodules/productivity-1-0-2/utilities/unit-tests/commit/arm/utilities-unit-tests
