@@ -118,8 +118,6 @@ GCmdScan::SetParametersF(std::shared_ptr<GArgument>  a, GArgumentParsed v) const
 }
 
 
-
-
 template<>
 inline void
 GCmdScan::SetParametersF<string>(std::shared_ptr<GArgument>  a, GArgumentParsed v) const
@@ -323,10 +321,11 @@ GCmdScan::ScanArguments(const int argc, const char** argv, deque<  std::shared_p
 bool
 GCmdScan::Verify(std::shared_ptr<GArgument> a, GArgumentParsed v) const
 {
-    if (a->ValidateCommands != 0)
+    if (a->ValidateCommands != nullptr)
     {
-        string args_s = g_string()->Vec2String(v.GetSubCommands()) + " " + g_string()->Vec2String(v.GetArguments());
-        bool test = a->ValidateCommands(v.GetCommand(), args_s, v.GetSubCommands(), v.GetArguments());
+        string args_s = g_string()->Vec2String(v.GetSubCommands(), " ") + " " + g_string()->Vec2String(v.GetArguments(), " ");
+        bool test = a->ValidateCommands(v.GetCommand(), args_s, v.GetSubCommands(), v.GetArguments());  
+        
         return test;
     }
     else

@@ -64,8 +64,8 @@ VScanArguments::ApplyFlag(bool is_optional)
 			arg->SetOptional();
 		}
 	}
-
 }
+
 
 bool  
 #ifdef _WIN32

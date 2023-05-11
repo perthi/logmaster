@@ -143,13 +143,13 @@ string GCommandLineArgument<T>::str() const
 template<class T>
 inline void GCommandLineArgument<T>::SetParameter(T * par)
 {
-    if (par ==  nullptr )
+    if (par ==  nullptr || fParameter == nullptr )
     {
-        G_ERROR("Parameter \"par\" is a ZERO pointer");
+        G_INFO("Parameter is a ZERO pointer, no assignment possible");
+        return;
     }
     else
     {
-
         if (typeid(T).name() == typeid(string).name())
         {
             *fParameter = *par;
