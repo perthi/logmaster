@@ -50,16 +50,16 @@ using namespace std::chrono;
 /*
  * @class GTimeFormat class for 
  *  - manipulation of time/date stamps.
- *  - time estamp for the current time on user a defined format
+ *  - time stamp for the current time on user a defined format
  *  - Conversion between different forms of date representation
  *  
- *  The standard formattting used when converting to/from astring representation is shown below
+ *  The standard formatting used when converting to/from a string representation is shown below
  *     ***************************************************
  *     ***********    FORMAT SPECIFIERS      *************
  *     ***************************************************
- *     %a  =  abbrevated weekday
+ *     %a  =  abbreviated weekday
  *     %A  =  weekday
- *     %b  =  abbrevated month
+ *     %b  =  abbreviated month
  *     %B  =  month
  *     %C  =  Century (00-99)
  *     %d  =  Day of month (01-31), zero padded
@@ -68,7 +68,7 @@ using namespace std::chrono;
  *     %F  =  Equivalent to %Y-%m-%d
  *     %g  =  last two digits of the week-based year
  *     %G  =  Week-based year
- *     %h  =  equivalent to %b (abbrevated month)
+ *     %h  =  equivalent to %b (abbreviated month)
  *     %H  =  24-hour decimal (00-24)
  *     %I  =  12-hour decimal (00-12)
  *     %j  =  year day (001-366)
@@ -83,8 +83,8 @@ using namespace std::chrono;
  *     %T  =  Equivalent to  %H:%M:%S
  *     %u  =  week day in decimal (1-7)
  *     %w  =  week day in decimal (0-6)
- *     %U  =  sunday week number (00-53)
- *     %W  =  monday week number (00-53)
+ *     %U  =  Sunday week number (00-53)
+ *     %W  =  Monday week number (00-53)
  *     %V  =  ISO 8601 week number (00-53)
  *     %X  =  Time display
  *     %y  =  year without century
@@ -114,9 +114,9 @@ s_validDays = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun",
 "monday",  "tuesday",  "wednesday",  "thursday", "friday", "saturday", "sunday"};
 
 s_validFormat  = {
-    {"%a", "abbrevated weekday"},
+    {"%a", "abbreviated weekday"},
     {"%A", "weekday"},
-    {"%b", "abbrevated month"},
+    {"%b", "abbreviated month"},
     {"%B", "month"},
     {"%C", "Century (00-99)"},
     {"%d", "Day of month (01-31), zero padded"},
@@ -125,7 +125,7 @@ s_validFormat  = {
     {"%F", "Equivalent to \"%Y-%m-%d\""},
     {"%g", "last two digits of the week-based year"},
     {"%G", "Week-based year"},
-    {"%h", "equivalent to %b (abbrevated month)"},
+    {"%h", "equivalent to %b (abbreviated month)"},
     {"%H", "24-hour decimal (00-24)"},
 
     {"%I", "12-hour decimal (00-12)"},
@@ -143,8 +143,8 @@ s_validFormat  = {
     {"%u", "week day in decimal (1-7)"},
     {"%w", "week day in decimal (0-6)"},
 
-    {"%U", "sunday week number (00-53)"},
-    {"%W", "monday week number (00-53)"},
+    {"%U", "Sunday week number (00-53)"},
+    {"%W", "Monday week number (00-53)"},
     {"%V", " ISO 8601 week number (00-53)"},
     {"%X", "Time display"},
 

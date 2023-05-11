@@ -53,7 +53,7 @@ GString  * g_string()
 /** Count the number of times the character "c" occurs in the input string
 *  @param[in] str  The input string to scan
 *  @param[in] c    The character to count occurrences of
-*  @param[in]  ignore_case  Wether or not to ignore case when counting characters. If set to true, then both the input string
+*  @param[in]  ignore_case  whether or not to ignore case when counting characters. If set to true, then both the input string
 *  and the character will be converted to lower case before doing the comparison. Please not that this flag only applies to letters
 *  A-Z for all other characters the flag is ignored.
 *  @return  The number of times "c" occurs in "str" */
@@ -84,8 +84,8 @@ GString::CountOccurrences(const string str, const char c, const bool ignore_case
 /** Check if the string "str" the begins with "substring"
 *   @param str The array to check for occurrences of "token"
 *   @param substring   The token to search for in "str"
-*   @param ignore_case Wether or not to ignore case
-*   @return true if "str" begins with "substring", false othervise" */
+*   @param ignore_case whether or not to ignore case
+*   @return true if "str" begins with "substring", false otherwise" */
 bool
 GString::BeginsWith(const string &str, const string &substring, const bool ignore_case)
 {
@@ -105,8 +105,8 @@ GString::BeginsWith(const string &str, const string &substring, const bool ignor
 /** Check if any of the strings in the vector "arr"  begins with the token "token"
 *   @param[in] arr The array to check for occurrences of "token"
 *   @param[in] token   The token to search for in the vector "arr"
-*   @param[in] ignore_case wether or not the text search should be case sensitive.
-*   @return true if "arr" has any element that begins with "token, false othervise" */
+*   @param[in] ignore_case whether or not the text search should be case sensitive.
+*   @return true if "arr" has any element that begins with "token, false otherwise" */
 bool GString::BeginsWith(const vector<string> *const arr, const string token, const bool ignore_case)
 {
     if (arr == nullptr)
@@ -382,7 +382,7 @@ string& GString::ToUpper(string& s)
 #define GET_SAFE_CHAR(str,ptr,len) (ptr<len?str[ptr]:'\0')
 
 
-/**  Checks if a strins is Ansi/ASCII or UTF-8
+/**  Checks if a string is Ansi/ASCII or UTF-8
 *    @param[in, out] s  String to be check. The content is not altered.
 *    @return  true if Ansi/ASCII. */
 bool 
@@ -551,9 +551,9 @@ GString::IsMatch(const string pattern, const string val, bool require_exact_matc
 /**   @brief Check if the string "str" contains "substring"
   *   @param[in] str The array to check for occurrences of "token"
   *   @param[in] substring   The token to search for in "str"
-  *   @param[in] ignore_case Wether or not to ignore case when comparing strings
+  *   @param[in] ignore_case whether or not to ignore case when comparing strings
   *   @param[out] pos  The position of the first occurrence of "str"
-  *   @return true if "str" contains "substring", false othervise" */
+  *   @return true if "str" contains "substring", false otherwise" */
 bool
 GString::Contains(const vector<string>& str, const string& substring, const bool ignore_case, long long int* pos)
 {
@@ -643,10 +643,10 @@ GString::Replace(const string original, const string substring, const string rep
 
 /**@{
  *  Replacing bad/unwanted characters in the input string, bad characters ar characters such as for instance (,),{,},%# etc..
- *  @param[in,out] inputstring  The input string/character array that will be modified
- *  @param[in] delimeter  bad characters will be replaced
+ *  @param[in,out] input string  The input string/character array that will be modified
+ *  @param[in] delimiter  bad characters will be replaced
  *  @param[in] suspicious  array of characters to be replaced, if it is a zero pointer then a default set of bad characters will be used.
- *  @return  The modified string with all "bad" characters replaced with the delimeter. */
+ *  @return  The modified string with all "bad" characters replaced with the delimiter. */
 string
 GString::ReplaceBadChar(string& inputstring, const char delimeter, const char* suspicious)
 {
@@ -665,7 +665,7 @@ GString::ReplaceBadChar(char* inputstring, const char delimeter, const char* sus
 {
 
 
-    /// @todo handle the case where the inpout string contains one or more zeroes
+    /// @todo handle the case where the input string contains one or more zeroes
     static char souspiciouscharacters[1023];
     if (suspicious == 0)
     {

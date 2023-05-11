@@ -65,7 +65,7 @@ GTime::GTime() :   fTimeVal(), fTimeFormat(), fTimeValidate()
  *  The system Epoch time will then be ignored
  *  @param  funct[in] function pointer to the function that will generate
  *  the epoch time to be used when generate the time stamp. The function
- *  must return the number of seconds sinc 1.Jan 1970 */
+ *  must return the number of seconds since 1.Jan 1970 */
 void
 GTime::SetExternalTimeSource(  std::function<double()>  funct )
 {
@@ -73,7 +73,7 @@ GTime::SetExternalTimeSource(  std::function<double()>  funct )
 }
 
 
-/** Todays GTime and date on a format understood by the Access databas. In Access the dat is represented as a
+/** Todays GTime and date on a format understood by the Access database. In Access the dat is represented as a
  *  single number (double) as the number of days since 1 Jan 1900 on decimal form (tha is, for instance 0.5 days = 12 hours )
  *  The dat is taken from the operating system 
  *  @return The number of days since 1.January 1900 00:00  on decimal form */
@@ -84,7 +84,7 @@ long double GTime::AccessDate()
 }
 
 
-/** Date and GTime converter form the input GArguments to a format understood by the Access databas. In Access the data is represented as a
+/** Date and GTime converter form the input GArguments to a format understood by the Access database. In Access the data is represented as a
  *  single number (double) as the number of days since 1 Jan 1900 on decimal form (that is, for instance 0.5 days = 12 hours )
  *  @param date on string format which assumes the format yyyy:mm:dd:hh:mm:ss  The separator is insignificant
  *  @return The date on Access format */
@@ -149,11 +149,11 @@ long double  GTime::AccessDate(const string date)
 
 
 
-/*  Converts a date on string format to the number of seconds since January 1st 1970. Optionally gnerates std:tm struct 
+/*  Converts a date on string format to the number of seconds since January 1st 1970. Optionally generates std:tm struct 
  *  and calculates the number of microseconds 
  *  by optional in/out parameters if the date string is on the ISO8601 format.    
  *  @param[in]  date  The date that should be converted
- *  @param[in]  format  The format of the date string. NB the format must match the date. Othervise all fields in the "tm" struct is set to ZERO.   
+ *  @param[in]  format  The format of the date string. NB the format must match the date. Otherwise all fields in the "tm" struct is set to ZERO.   
      For instance 
      date =  "1988-June-23 10:09:49";
      must be parsed with 

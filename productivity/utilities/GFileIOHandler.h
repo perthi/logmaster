@@ -19,7 +19,6 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
-#include <optional>
 
 using std::vector;
 using std::string;

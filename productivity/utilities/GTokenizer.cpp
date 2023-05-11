@@ -128,7 +128,7 @@ GTokenizer::TokenizeCommandline(string line)
  *  @param[in]      fin    The input filename
  *  @param[in,out]  dir    The resulting directory, without the filename is stored in this variable
  *  @param[in,out]  fout   The resulting filename, without the directory is stored in this variable
- *  @param[in]      keep_trailing_slash Wether or not to keep the trailing slash on the directory path after the path has been stripped */
+ *  @param[in]      keep_trailing_slash whether or not to keep the trailing slash on the directory path after the path has been stripped */
 void
 GTokenizer::StripPath(const string fin, string& dir, string& fout, const bool keep_trailing_slahs)
 {
@@ -185,16 +185,16 @@ GTokenizer::StripPath(const string fin, string& dir, string& fout, const bool ke
  *  Tokenizing an input string/vector of strings using  arbitrary separator/vector of separators
  *  @param[in] source The input string(s) to tokenize
  *  @param[in] sep    The separator(s) to use when tokenizing the string, "sep" can be either a single separator or an array (vector) of separators
- *  @param[in] keep_empty Wether or not to keep empty tokens (tokens with zero length) after tokenizing the string.
- *  For example, concider the string  "a\\tb\t \\t\\t\\t" if this string is tokenized using tab ("\\t") as the separator, then  <br>
+ *  @param[in] keep_empty whether or not to keep empty tokens (tokens with zero length) after tokenizing the string.
+ *  For example, consider the string  "a\\tb\t \\t\\t\\t" if this string is tokenized using tab ("\\t") as the separator, then  <br>
  *  1) If the keep_empty flag is false (default) then we will get 3 tokens, namely  "a", "b", " ", whereas the 3 empty strings will be discarded.<br>
  *  2) If the keep_empty flag is true then we will get 5 tokens, "a", "b", " "   and 3 empty strings ("", "", "") <br>
- *  @param  keep_sep  Wether or not to keep the separator in the tokens after the string has been tokenized.
+ *  @param  keep_sep  whether or not to keep the separator in the tokens after the string has been tokenized.
  *  As an example, consider the string dir1/dir2/dir3/filename. The <br>
- *  1) If the keep_sep flag is false (default) and the separator is "/", the the genrated tokens will be  {"dir1", "dir2", "dir3", "filename"}. <br>
- *  1) If the keep_sep flag is true   and the separator is "/", the the genrated tokens will be  {"dir1/", "dir2/", "dir3/", "filename"}. <br>
+ *  1) If the keep_sep flag is false (default) and the separator is "/", the the generated tokens will be  {"dir1", "dir2", "dir3", "filename"}. <br>
+ *  1) If the keep_sep flag is true   and the separator is "/", the the generated tokens will be  {"dir1/", "dir2/", "dir3/", "filename"}. <br>
  *  @return a vector of tokens <br><br>
- *  It is possible to us an array (vector) of tokens. Concider for instance the string   a/b\\c/d . <br>
+ *  It is possible to us an array (vector) of tokens. Consider for instance the string   a/b\\c/d . <br>
  *  Tokenizing this string using the vector {"/", "\\"}  will yield the result {"a", "b", "c", "d"} */
 vector<string>
 GTokenizer::Tokenize(const vector<string>& source, const string sep, const bool keep_empty, const bool keep_sep)
@@ -239,7 +239,7 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
 
     while ((next = source.find(sep, prev)) != std::string::npos)
     {
-        /// We need to check against empty separators, othervise we get stuck in the while loop
+        /// We need to check against empty separators, otherwise we get stuck in the while loop
         if (sep == "")
         {
             continue;

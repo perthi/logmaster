@@ -420,7 +420,7 @@ GNumbers::ToHex(const string num)
 *  @param[in] b  The string to convert
 *  @return the corresponding number as a 64 bit int
 *  @exception GException  if the system dependent maximum  number if bits is exceeded, or if the string has wrong format. Ths is,
-*  not valid binary string format containing 0'oes nad 1'nes, and/or an optional precedding minus sign. */
+*  not valid binary string format containing 0'oes nad 1'nes, and/or an optional preceding minus sign. */
  int64_t
 GNumbers::BinaryStringToNumber(const string b)
 {
@@ -486,7 +486,7 @@ GNumbers::BinaryStringToNumber(const string b)
 
 
 /**@{
-* Evaluates the the width of the binary number "in" repsented on string format in number of bits.
+* Evaluates the the width of the binary number "in" represented on string format in number of bits.
 * For example "0010101" is 5 bits wide (discarding proceeding zeroes), "111" is 3 bits wide, etc
 * @param[in] in Must be a binary number, i.e  a string containing only "0" and "1".
 * @exception std::exception if the string "in" is not a valid binary number

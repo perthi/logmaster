@@ -63,12 +63,12 @@ GFileIOHandler* g_file()
 
 
 
-/* Append an input to the file if it exists, othervise create it first, then writhe the append to the file
+/* Append an input to the file if it exists, otherwise create it first, then writhe the append to the file
  * @param  fname The file to write to
  * @param  fmt Format string for the input
  * @param ...  Variable GArgument list
  * The input is on the same format as when using printf/sprintf/fprintf
- * @return true if the input string was successfully written to the file, false othervise */
+ * @return true if the input string was successfully written to the file, false otherwise */
 bool
 GFileIOHandler::Append(const string fname, const char* fmt, ...)
 {
@@ -212,9 +212,9 @@ GFileIOHandler::ReadLastLine(const string fname, const unsigned int offset)
 
 
 
-/** Convert the filename to absolute filepath. Can also be used to clean up messy filepath containing ..
- *  @param[in] fname The filename to convert to absolute filepath
- *  @return The absolute filepath of fname. */
+/** Convert the filename to absolute file path. Can also be used to clean up messy file path containing ..
+ *  @param[in] fname The filename to convert to absolute file path
+ *  @return The absolute file path of fname. */
 #ifdef _WIN32
 string
 GFileIOHandler::GetAbsolutePath(const string fname)
@@ -237,9 +237,9 @@ GFileIOHandler::GetAbsolutePath(const string)
 
 
 
-/** Get the extention of a filename
+/** Get the extension of a filename
 *  @param[in] fname The filename
-*  @return The extention part of fname, excluding the dot, in lowercase. */
+*  @return The extension part of fname, excluding the dot, in lowercase. */
 string
 #ifdef _WIN32 
 GFileIOHandler::GetExtention(const string fname)
@@ -305,8 +305,8 @@ GFileIOHandler::ReadConfigFile(int argc, const char** argv, const string path)
 
     if (argc != 1 && argc != 3)
     {
-        GCommon().HandleError(GText("When reading commanline argumenst from file you must specify either no arguments,\
-            or exactly two arguments.\ncase1: If no argumenst are given, the command line arguments are read from\
+        GCommon().HandleError(GText("When reading command line arguments from file you must specify either no arguments,\
+            or exactly two arguments.\ncase 1: If no arguments are given, the command line arguments are read from\
              %s\ncase: the arguments must be on the form -file [filename] in which case the command line is read from [filename]").str(), GLOCATION, THROW_EXCEPTION);
 
     }
@@ -384,7 +384,7 @@ GFileIOHandler::CheckFile(const string fname, const string opt)
 
     if (opt.size() > 2)
     {
-        GCommon().HandleError(GText("Too many otion flags (%d), expected at most 2. opt = %s", opt.c_str() ).str(), GLOCATION, DISABLE_EXCEPTION);
+        GCommon().HandleError(GText("Too many option flags (%d), expected at most 2. opt = %s", opt.c_str() ).str(), GLOCATION, DISABLE_EXCEPTION);
     }
 
     if (!(opt == "w" || opt == "w+" || opt == "a" || opt == "a+" || opt == "r" || opt == "r+"))

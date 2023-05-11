@@ -130,7 +130,7 @@ GSystem::Errno2String(const int code, const string fname, const string  opt)
 
 /** mkdir =   Make Directory (that is a folder in Windows terms), Unix/bash style
 *   @param    dirname The directory to create
-*   @return   true if the directory exists, or if it doesn't allready exists, but was
+*   @return   true if the directory exists, or if it doesn't already exists, but was
 *   successfully created
 *   @return false if the directory doesn't exist, and it also cannot be created (for instance if
 *   the program is running under a user that doesn't have write access to the current directory)
@@ -171,8 +171,8 @@ GSystem::mkdir(const string dirname, const bool print_error)
 *   @param    dirname The directory to create
 *   @param    l The location  where this function was called from
 *   @param    opt Access settings (typically 755)
-*   @param    overwrite whether or not tor overwrite/replace existing directory of it allready exists 
-*   @return   true if the directory exists, or if it doesn't allready exists, but was
+*   @param    overwrite whether or not tor overwrite/replace existing directory of it already exists 
+*   @return   true if the directory exists, or if it doesn't already exists, but was
 *   successfully created
 *   @return false if the directory doesn't exist, and it also cannot be created (for instance if
 *   the program is running under a user that doesn't have write access to the currant directory)
@@ -202,7 +202,7 @@ GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
     case ELOOP:        // Loop in symbolic link
     case EMLINK:       // Link count too high
     case ENAMETOOLONG: // Filename too long
-    case ENOENT:       // Not a path / emtpy string
+    case ENOENT:       // Not a path / empty string
     case ENOSPC:       // No space left on device
     case ENOTDIR:      // Path is not (or cannot be) a directory
     case EROFS:        // The parent directory is read only
@@ -411,7 +411,7 @@ GSystem::GetExePath()
 }
 
 
-/**   @return The path relative to the current location for the current excutable excluding  the name of the exec file  */
+/**   @return The path relative to the current location for the current executable excluding  the name of the exec file  */
 char *
 GSystem::GetExeDir()
 {
@@ -471,8 +471,8 @@ GSystem::GetHostName()
 }
 
 
-/** pwd = Print Working Directory after the simlar Unix/Linux command
-*   @param print Wether or not to print the name of the current directory to stdout
+/** pwd = Print Working Directory after the similar Unix/Linux command
+*   @param print whether or not to print the name of the current directory to stdout
 *   @return a string containing the absolute path to the current directory */
 string
 GSystem::pwd(const bool print)

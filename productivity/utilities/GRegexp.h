@@ -69,10 +69,10 @@ GRegexp * g_regexp()
 /** @brief Scans number from a string
 *   @param input the input string to scan
 *   @param digits the number of digits required (written on string format for convenience since it is used directly in the
-*   regular expression). For instance if digist = "4" the it is searched only for four digit numbers (for instance 1234) etc,.. whereas
+*   regular expression). For instance if digits = "4" the it is searched only for four digit numbers (for instance 1234) etc,.. whereas
 *   digits = "1,3" searches for number with 1,2 or 3 digits
 *   @return a vector of numbers written out on string format.
-*   @throw A "boost::exception_detail" if the regular exression is invalid */
+*   @throw A "boost::exception_detail" if the regular expression is invalid */
 vector <string>
 GRegexp::ScanNumber(const string input, const string digits)
 {
@@ -98,14 +98,14 @@ GRegexp::ScanNumber(const string input, const string digits)
 }
 
 
-/*  Checks wether or not a string matches a pattern where pattern must be a valid regular expression. It is possible to
-*  use wildcars (*). For instance "lorem ipsum" will match the patther "(.*)psum"
+/*  Checks whether or not a string matches a pattern where pattern must be a valid regular expression. It is possible to
+*  use wildcars (*). For instance "lorem ipsum" will match the pattern "(.*)psum"
 *  and the pattern lor(.*) or the pattern (.*)em ips(.*). Furthermore the pattern l(.*)sum wil also match "lorem ipsum".
 *    If the pattern string does not contain any wildcards then an exact match between the input string and the pattern is
 *  required.
 *  @param input[in] The input string to check
 *  @param pattern[in] The pattern to match the input string against
-*  @return true if the input matches pattern, false othervise
+*  @return true if the input matches pattern, false otherwise
 *  @exception std::regex_error if the regular expression is not well formed*/
 inline bool
 GRegexp::IsMatch(const string input, const std::regex e)
@@ -164,7 +164,7 @@ inline GRegexp::Filter(const vector<string> input, const std::regex e, vector<st
 
 /* Helper function that validates the format specifier when scanning numbers from a string
 *  @param format The format string to validate
-*  @return true if "format" is on the form "a,b"  where a and b are positive integers, false othervise */
+*  @return true if "format" is on the form "a,b"  where a and b are positive integers, false otherwise */
 bool
 GRegexp::CheckFormat(const string format)
 {
