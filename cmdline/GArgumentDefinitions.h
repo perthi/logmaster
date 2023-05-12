@@ -15,8 +15,8 @@ using arg_deque_ptr  =  std::shared_ptr < arg_deque >;
 duplicate command line arguments*/
 enum class eDUPLICATE_STRATEGY
 {
-	REPLACE_DUP, /// The new argument replaces the existing one
-	IGNORE_DUP,  /// The argument is ignored, and the original argument kept
-	EXEPTION /// Throw an exception on encountering a duplicate argument
+	REPLACE_DUPLICATE, /// The new argument replaces the existing one
+	IGNORE_DUPLICATE,  /// The argument is ignored, and the original argument kept
+	THROW_EXEPTION /// Throw an exception on encountering a duplicate argument
 };
 

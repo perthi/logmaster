@@ -232,21 +232,17 @@ GLogApplication::Purge()
 void
 GLogApplication::InitLogArgs()
 {
-    FORCE_DEBUG("Initializing log args");
     fHelp = std::make_shared < GCommandLineArgument < void > >("-help", "-help", "prints help menu", nullptr, fgkOPTIONAL);
 	fLog = std::make_shared < GCommandLineArgument < vector< string > > >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::Instance()->LogLevelDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
 	fTarget = std::make_shared < GCommandLineArgument < vector< string > > >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::Instance()->LogTargetDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
 	fFormat = std::make_shared < GCommandLineArgument < vector< string > > >("-logformat", "-logformat\t\t[subcommands]", LDoc::Instance()->LogFormatDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
 	fColor = std::make_shared<GCommandLineArgument < bool > >("-logcolor", "-logcolor\t\t--true/--false", "Whether or not to use colors when writing log messages to the console", LPublisher::Instance()->GetEnableColor(), fgkOPTIONAL, GCmdApi::bool2);
-
-    FORCE_DEBUG("TP0");
-
-//	AddArgument(fHelp);
-    FORCE_DEBUG("TP1");
-	AddArgument(fLog);
-	AddArgument(fTarget);
-	AddArgument(fFormat);
-	AddArgument(fColor);
+	
+    AddArgument(fHelp, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE );
+	AddArgument(fLog, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE );
+	AddArgument(fTarget, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE);
+	AddArgument(fFormat, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE);
+	AddArgument(fColor, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE);
 }
 
 
@@ -334,24 +330,32 @@ GLogApplication::AddArgument( std::shared_ptr<GArgument>  arg, eDUPLICATE_STRATE
 {
     if (arg != 0)
     {
-        switch(strategy)
+        if (HasCommand(arg->GetCommand()) == false)
         {
-        case eDUPLICATE_STRATEGY::EXEPTION:
-                if (HasCommand(arg->GetCommand()) == false)
+            fArgs.push_back(arg);
+        }
+        
+        else
+        {
+            switch (strategy)
+            {
+            case eDUPLICATE_STRATEGY::THROW_EXEPTION:
+                if (HasCommand(arg->GetCommand()) == true)
                 {
                     INVALID_ARGUMENT_EXCEPTION("argument %s already exists", arg->GetCommand().c_str());
                 }
-            break;
-        case eDUPLICATE_STRATEGY::IGNORE_DUP:
-            G_WARNING("Cannot add argument %s that already exists", arg->GetCommand().c_str());
-            break;
-        case  eDUPLICATE_STRATEGY::REPLACE_DUP:
-            G_WARNING("Replacing argument: %s", arg->GetCommand().c_str());
-            RemoveArgument(arg->GetCommand());
-            fArgs.push_back(arg);
-        default:
-            break;
+                break;
+            case eDUPLICATE_STRATEGY::IGNORE_DUPLICATE:
+                G_WARNING("Cannot add argument %s that already exists", arg->GetCommand().c_str());
+                break;
+            case  eDUPLICATE_STRATEGY::REPLACE_DUPLICATE:
+                G_WARNING("Replacing argument: %s", arg->GetCommand().c_str());
+                RemoveArgument(arg->GetCommand());
+                fArgs.push_back(arg);
+            default:
+                break;
 
+            }
         }
             
         /*

@@ -111,7 +111,7 @@ TYPED_TEST_P(TestDataTypesT, Values)
 
 /** Here we want to verify that the basic operators  "+" "-" "*" "/" behaves as expected
 *  if both operand and the result is inside range, and that an exception is thrown if they are outside of range
-*  We test them on a somewhat arbritray set of values */
+*  We test them on a somewhat arbitrary set of values */
 TYPED_TEST_P(TestDataTypesT, Operators)
 {
     vector<double> val1 = { 1,   2, 33,  4.5,  65,  112.3,  1000 };
@@ -162,7 +162,7 @@ REGISTER_TYPED_TEST_CASE_P(TestDataTypesT, Limits, Values, Operators);
 
 
 /** Check if an operator is any of the four valid ones, "+", "-", "*", "/"
-* @return true for a valid operator, false othervise */
+* @return true for a valid operator, false otherwise */
 bool checkOperator(const string op)
 {
     vector<string> valid = { "+", "-", "*", "/" };
@@ -184,7 +184,7 @@ bool checkOperator(const string op)
 * @tparam par1 Lower limit
 * @tparam par2  Upper limit
 * @param comp  The value to check
-* @return true if "comp is within range of par1 and par2 and false othervise" */
+* @return true if "comp is within range of par1 and par2 and false otherwise" */
 template< typename T1, typename T2  >
 bool checkRange(const T1 par1, const T2 par2, const double compare )
 {
@@ -212,10 +212,10 @@ bool checkRange(const T1 par1, const T2 par2, const double compare )
 *   @param  val1  value of left operand
 *   @param  val2  value right operand
 *   @param  val3  The return value
-*   @param  d1    arbritray double value to use for operator check
-*   @param  d2    arbritray double value to use for operator check
+*   @param  d1    arbitrary double value to use for operator check
+*   @param  d2    arbitrary double value to use for operator check
 *   @param  op    The operator to test, must be any of {+, -, *, / }
-*   The purpose of "d1" and "d2" is to test the regular +, -, * and / opearators against the corresponding operators
+*   The purpose of "d1" and "d2" is to test the regular +, -, * and / operators against the corresponding operators
 *   for the user defined types that inherits from Val_t. We use long double for this since all operations on long doubles is also valid
 *   for short, int, long int, float etc... */
 template< typename T1, typename T2, typename T3 >
@@ -283,13 +283,13 @@ void testOperators(const T1 val1, const T2 val2,  T3 val3, const double d1, cons
 
 
 /** Testing of the four operators using different datatypes. We want to allow multiplication and division between different types, but we disallow
-*   addition and subtraction. For instance  adding meters and seconds does not make sens at is almost certainly a user error)
+*   addition and subtraction. For instance  adding meters and seconds does not make sense at is almost certainly a user error)
 *   Before we start we just make sure that if we get an exception then its the operator / types that is the problem, and not that we are out of range, *
-*   we dont care about the actual values of the type parameters for this test
+*   we don't care about the actual values of the type parameters for this test
 *  @tparam T1 first  template parameter
 *  @tparam T2 second template parameter
-*  @tparam T3 third templat parameter
-*  @tparam T4 fourth templat parameter */
+*  @tparam T3 third template parameter
+*  @tparam T4 fourth template parameter */
 template <typename T1, typename T2, typename T3, typename T4 >
 void operatorSanityCheck()
 {

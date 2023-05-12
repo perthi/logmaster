@@ -97,7 +97,7 @@ int  main(int argc, char** argv) \
 	}                                                         \
 	catch (...)                                               \
 	{                                                         \
-		CERR << "Unknown exception caught" << endl;          \
+		CERR << "Unknown excpeption caught" << endl;          \
 		FAIL();                                               \
 	}
 

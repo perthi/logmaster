@@ -60,16 +60,17 @@ TEST_F(TestGLogApplication,   remove_argument )
 
 
 
-
 TEST_F(TestGLogApplication, cmdline_from_file)
 {
-        SET_LOGTARGET("1111");  
+        SET_LOGTARGET("1111"); 
+        LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
         g_file()->GFileIOHandler::Append(fValidCommands, "%s", "-loglevel --all -logtarget 0000 --target-file");
         EXPECT_EQ("-loglevel --all -logtarget 0000 --target-file", g_file()->ReadLastLine(fValidCommands));
         g_file()->Append(fNotValidCommands, "%s", "gibberish");
         EXPECT_EQ("gibberish", g_file()->ReadLastLine(fNotValidCommands));
         EXPECT_NO_THROW( new GLogApplication( GFileName_t(fValidCommands) )  );
         EXPECT_ANY_THROW( new GLogApplication(GFileName_t(fNotValidCommands) ));
+        
 
         try
         {
@@ -77,7 +78,9 @@ TEST_F(TestGLogApplication, cmdline_from_file)
         }
         catch( GException &e )
         {
+
           cerr  << e.what() << endl;
+          FORCE_DEBUG("Got exception");
         }
 
 }

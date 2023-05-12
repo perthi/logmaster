@@ -29,7 +29,7 @@
 
 
 /** @defgroup datatype_test Structs for testing of the datatype library. 
-*   Here we decalere a couple of tests classes (structs actually) in order to test basic operations such as 
+*   Here we declare a couple of tests classes (structs actually) in order to test basic operations such as 
 *   addition, subtraction, multiplication and division. In particular we want to cross check that addition and 
 *   subtraction of different types is disallowed, and that
 *   we get an exception on such attempts, as this is almost certainly a user error. 
@@ -145,7 +145,7 @@ typedef Types< Time_t, Distance_t, Mass_t, Dummy_t > impl;
 
 
 /* Bug in google test !! it seems that calling INSTANTIATE_TYPED_TEST_CASE_P only for the first test, also instantiate them for the other also
-*  we therofr only need to call it once for the same test. */
+*  we therefore only need to call it once for the same test. */
 INSTANTIATE_TYPED_TEST_CASE_P(Operators, TestDataTypesT, impl);
 
 

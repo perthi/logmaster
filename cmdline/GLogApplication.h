@@ -65,20 +65,18 @@ public:
  
     API  GLogApplication(	const int argc, const char** argv,  arg_deque  *additional_arguments = nullptr, bool do_init = DO_INIT);
     API  GLogApplication(	const GFileName_t &t, arg_deque *additional_arguments = nullptr);
-    
 
     void		API     Purge();
     void		API		SetCallBackFunction(	const string cmd,
                                                 std::function< bool( const string cmd,  const string args_s,
                                                                      const vector<string> sub, const	vector<string> par ) > funct ) ;
-    
-    void		     API	RemoveArgument(const string cmd);
+    void		API	    RemoveArgument(const string cmd);
   
     API     std::shared_ptr<GArgument>	 	GetArgument(const string cmd);
     virtual void        API     SetDuplicateStrategy(const eDUPLICATE_STRATEGY);
     virtual eDUPLICATE_STRATEGY  API     GetDuplicateStrategy() const;
     
-    GLogApplication  API & AddArgument(std::shared_ptr<GArgument>  arg, eDUPLICATE_STRATEGY ignore_duplicates = eDUPLICATE_STRATEGY::EXEPTION);
+    GLogApplication  API & AddArgument(std::shared_ptr<GArgument>  arg, eDUPLICATE_STRATEGY ignore_duplicates = eDUPLICATE_STRATEGY::THROW_EXEPTION);
     GLogApplication  API & AddArguments(deque< std::shared_ptr<GArgument> >  args);
 
 
@@ -121,7 +119,7 @@ private:
 
 
 
-    eDUPLICATE_STRATEGY fStrategy = eDUPLICATE_STRATEGY::EXEPTION;
+    eDUPLICATE_STRATEGY fStrategy = eDUPLICATE_STRATEGY::THROW_EXEPTION;
 
 };
 

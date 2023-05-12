@@ -57,8 +57,8 @@ TestGCommandLineArgument::~TestGCommandLineArgument()
 
 void TestGCommandLineArgument::SetUp()
 {
+	LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 	////  SET_LOGTARGET(eMSGTARGET::TARGET_OFF);
-
 	g_cmdscan()->SetIgnoreStrayArgument(false);
 	SET_LOGTARGET("0000");
 	g->AddArgument(farg);
@@ -81,7 +81,6 @@ void TestGCommandLineArgument::SetUp()
 	g->AddArgument(vdarg);
 	g->AddArgument(vldarg);
 	g->AddArgument(vfarg);
-
 }
 
 
@@ -121,7 +120,6 @@ TestGCommandLineArgument::ValidateFunct(const string cmnd, const string args_s,
 
 
 
-/*
 TEST_F(TestGCommandLineArgument, simpleArgs)
 {
 	g->ScanArguments("-myint 10");
@@ -490,13 +488,13 @@ TEST_F(TestGCommandLineArgument, simpleconstructorNSR216)
 	delete t;
 
 }
-*/
-
 
 
 
 TEST_F(TestGCommandLineArgument, stringscanBugNSR808)
 {
+
+
 	string test;
 	std::shared_ptr<GCommandLineArgument<string> > s_arg = std::make_shared< GCommandLineArgument<string> >("-mystring2", &test);
 
@@ -515,27 +513,65 @@ TEST_F(TestGCommandLineArgument, stringscanBugNSR808)
 
 	try
 	{
-		g->AddArgument(s_arg).ScanArguments("-mystring2 \"lorem ipsum\"");
+		g->AddArgument(s_arg, eDUPLICATE_STRATEGY::REPLACE_DUPLICATE ).ScanArguments("-mystring2 \"lorem ipsum\"");
 	}
 	catch (GException& e)
 	{
 		cout << e.what() << endl;
 	}
 	
-	//EXPECT_EQ(test, "lorem ipsum");
+	EXPECT_EQ(test, "lorem ipsum");
 }
 
 
-/*
+
+
+
 TEST_F(TestGCommandLineArgument, duplicate_arguemnts )
 {
 	GLogApplication a;
 	string first;
 	string second;
-	std::shared_ptr<GCommandLineArgument<string> > s_arg1 = std::make_shared< GCommandLineArgument<string> >("-mystring", &first);
-	std::shared_ptr<GCommandLineArgument<string> > s_arg2 = std::make_shared< GCommandLineArgument<string> >("-mystring", &second);
-	EXPECT_ANY_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2));
-	//EXPECT_NO_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2, eDUPLICATE_STRATEGY::IGNORE_DUP ));
+	std::shared_ptr<GCommandLineArgument<string> > s_arg1 = std::make_shared< GCommandLineArgument<string> >("-myarg", &first);
+	std::shared_ptr<GCommandLineArgument<string> > s_arg2 = std::make_shared< GCommandLineArgument<string> >("-myarg", &second);
+	EXPECT_ANY_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2)); // Default behavior is exception if arguments with same tag is added
+	
+	ASSERT_TRUE(a.GetArguments().size() > 0);
+	a.Purge(); // Removing all argumenst, sixe should be 0
+	ASSERT_TRUE(a.GetArguments().size() == 0);
+
+	EXPECT_ANY_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2, eDUPLICATE_STRATEGY::THROW_EXEPTION));
+	EXPECT_NO_THROW(a.AddArgument(s_arg1, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE));
+	EXPECT_NO_THROW(a.AddArgument(s_arg1, eDUPLICATE_STRATEGY::REPLACE_DUPLICATE));
+
+	// EXPECT_NO_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2, eDUPLICATE_STRATEGY::IGNORE_DUP ));
+	// EXPECT_NO_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2, eDUPLICATE_STRATEGY::IGNORE_DUP));
 }
-*/
+
+
+
+
+
+TEST_F(TestGCommandLineArgument, duplicate_arguemnts_replace)
+{
+	GLogApplication a;
+	string first;
+	string second;
+	std::shared_ptr<GCommandLineArgument<string> > s_arg1 = std::make_shared< GCommandLineArgument<string> >("-myarg", &first);
+	std::shared_ptr<GCommandLineArgument<string> > s_arg2 = std::make_shared< GCommandLineArgument<string> >("-myarg", &second);
+	
+	ASSERT_NO_THROW(a.AddArgument(s_arg1) );
+	uint64_t s_arg1_address = (uint64_t)a.GetArgument("-myarg").get();
+	ASSERT_NO_THROW(a.AddArgument(s_arg2, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE ));
+	uint64_t address = (uint64_t)a.GetArgument("-myarg").get();
+	EXPECT_EQ(s_arg1_address, address);
+    ASSERT_NO_THROW(a.AddArgument(s_arg2, eDUPLICATE_STRATEGY::REPLACE_DUPLICATE));
+
+	address = (uint64_t)a.GetArgument("-myarg").get();
+
+	EXPECT_NE(s_arg1_address, address);
+
+}
+
+
 
