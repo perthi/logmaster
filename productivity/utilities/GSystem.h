@@ -58,12 +58,7 @@ public:
     static string         API      exec(const char *cmd);
     static string         API      GetProcessID();
     static string         API      getenv(const string var);
-
-//#ifdef _WIN32
     static string           API  Errno2String(const  int code, const string fname, const string  opt);
-//#else
-//    static string           API  Errno2String(const  error_t code, const string fname, const string  opt);
-//#endif
 
 #ifdef _WIN32
     static string    API   GetCommandLineAll();
@@ -78,9 +73,12 @@ public:
     static bool API Exists(const string filepath);
     static string API GetDirectory(const string filepath);
 
+    
 #ifdef _WIN32
+    /// @todo Remove
     static char API *GetHomeDir();
 #endif
+
 
     private:
    //   GSystem(){};

@@ -101,14 +101,14 @@ GSystem::getenv(const string  var  )
 
 
 #ifdef _WIN32
-/// @todo Move to GSystem
 string
 GSystem::Errno2String(const  errno_t code, const string fname, const string  opt)
 {
-    CERR << "errno = " << errno;
     static const size_t sz = 2048;
-    char errmsg[sz];
+    char errmsg[sz] = {0};
     strerror_s(errmsg, sz, code);
+    strcat_s(errmsg, 2048, fname.c_str());
+
     return string(errmsg);
 }
 #else
@@ -603,18 +603,18 @@ GSystem::rm(const string filename, bool recursive)
     }
     catch (std::exception& e)
     {
-        GCommon().HandleError(GText("could not remove file:%s (%s)", filename.c_str(), e.what()  ).str(), GLOCATION, DISABLE_EXCEPTION);
+        GCommon().HandleError(GText("could not remove file:%s  (%s)", filename.c_str(), e.what()  ).str(), GLOCATION, DISABLE_EXCEPTION);
         return false;
     }
     catch (...)
     {
-        GCommon().HandleError(GText("could not remove file:%s (Unknown error)", filename.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
+        GCommon().HandleError(GText("could not remove file:%s  (Unknown error)", filename.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
 
     }
 
     if (errno != 0)
     {
-        GCommon().HandleError(g_system()->Errno2String(errno, filename, ""), GLOCATION );
+        GCommon().HandleError(g_system()->Errno2String(errno, filename, ""), GLOCATION, DISABLE_EXCEPTION);
         return false;
     }
     
@@ -633,7 +633,6 @@ GSystem::mv(const string src, const string dest)
 
 
 /** @return Returns the name of rootdir */
-
 #ifdef _WIN32
 char*
 GSystem::GetHomeDir()

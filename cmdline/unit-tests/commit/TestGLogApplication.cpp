@@ -21,8 +21,8 @@ TestGLogApplication::SetUp()
 void 
 TestGLogApplication::TearDown()
 {
-    g_system()->rm(fValidCommands);
-    g_system()->rm(fNotValidCommands);
+   g_system()->rm(fValidCommands);
+   g_system()->rm(fNotValidCommands);
 }
 
 TEST_F(TestGLogApplication, get_argument )
@@ -30,6 +30,7 @@ TEST_F(TestGLogApplication, get_argument )
     EXPECT_NE(nullptr, g->GetArgument("-loglevel")  );
  // delete g;
 }
+
 
 
 TEST_F(TestGLogApplication,   remove_argument )
@@ -61,31 +62,49 @@ TEST_F(TestGLogApplication,   remove_argument )
 
 
 
+TEST_F(TestGLogApplication,  dummy)
+{
+    SUCCEED();
+}
+
 TEST_F(TestGLogApplication, cmdline_from_file)
 {
+    try
+    {
+        
         SET_LOGTARGET("1111"); 
         LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
-        g_file()->GFileIOHandler::Append(fValidCommands, "%s", "-loglevel --all -logtarget 0000 --target-file");
-        EXPECT_EQ("-loglevel --all -logtarget 0000 --target-file", g_file()->ReadLastLine(fValidCommands));
-        g_file()->Append(fNotValidCommands, "%s", "gibberish");
-        EXPECT_EQ("gibberish", g_file()->ReadLastLine(fNotValidCommands));
-        EXPECT_NO_THROW( new GLogApplication( GFileName_t(fValidCommands) )  );
-        EXPECT_ANY_THROW( new GLogApplication(GFileName_t(fNotValidCommands) ));
+        g_file()->GFileIOHandler::Append(fValidCommands, "%s", " -loglevel --all -logtarget 0000 --target-file --target-stdout ");
+        
+        
+        FORCE_DEBUG("filename = %s", fValidCommands.c_str() );
+
+        EXPECT_EQ(" -loglevel --all -logtarget 0000 --target-file --target-stdout ", g_file()->ReadLastLine(fValidCommands));
         
 
-        try
-        {
-          new GLogApplication( GFileName_t(fValidCommands) ); 
+        g_system()->mkfile(fNotValidCommands);
+        g_file()->Append(fNotValidCommands, "%s", "gibberish");
+        EXPECT_EQ("gibberish", g_file()->ReadLastLine(fNotValidCommands));
+        
+        
+        EXPECT_NO_THROW( new GLogApplication( GFileName_t(fValidCommands) )  );
+        EXPECT_ANY_THROW( new GLogApplication(GFileName_t(fNotValidCommands) ));
+      
+        new GLogApplication( GFileName_t(fValidCommands) ); 
         }
         catch( GException &e )
         {
 
-          cerr  << e.what() << endl;
-          FORCE_DEBUG("Got exception");
+          CERR  << e.what() << ENDL;
+          //FORCE_DEBUG("Got exception");
+        }
+        catch (std::exception& e)
+        {
+            CERR << e.what() << ENDL;
+            FORCE_DEBUG("Got exception");
         }
 
 }
-
 
 
 TEST_F(TestGLogApplication, extra_arguments)
@@ -118,6 +137,4 @@ TEST_F(TestGLogApplication, extra_arguments)
     EXPECT_NEAR(f1, 3.1415901, 0.0001);
     EXPECT_NEAR(f2, 1.61803, 0.0001);
     EXPECT_NEAR(f3, 0.76422, 0.0001);
-    
 }
-
