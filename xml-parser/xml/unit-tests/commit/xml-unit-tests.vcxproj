@@ -118,6 +118,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\xml-parser;$(SolutionDir);$(SolutionDir)\productivity;$(SolutionDir)\productivity\gtest\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

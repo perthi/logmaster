@@ -90,7 +90,7 @@ VParameters  &
 VScanArguments::Scan(const string &cmdline)
 {
 	ApplyFlag(fForceOptional);
-	GLogApplication().ScanArguments(cmdline, fArguments);
+	GLogApplication().AddArguments(fArguments).ScanArguments(cmdline);
 	CheckParameters( fParameters );
 
 	return fParameters;
@@ -101,7 +101,7 @@ VParameters &
 VScanArguments::Scan(int argc, const char** argv)
 {
 	ApplyFlag(fForceOptional);
-	GLogApplication().ScanArguments(argc, argv, fArguments);
+	GLogApplication().AddArguments(fArguments).ScanArguments(argc, argv);
 	CheckParameters(fParameters);
 	return  fParameters;
 }

@@ -8,8 +8,6 @@
 class TestGLogApplication : public TestBase
 {
 public:
-    API TestGLogApplication();
-    API virtual ~TestGLogApplication();
     API virtual void SetUp() override;
     API virtual void TearDown() override;
 

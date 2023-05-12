@@ -80,7 +80,7 @@ int main(int argc, const char **argv)
 
 	try
 	{
-		GLogApplication().ScanArguments("-test xxxxblahh1 blhaah2 fooo bar --exstra --extra2  -test2 3  4 55  --bar", args);
+		GLogApplication().AddArguments(args).ScanArguments("-test xxxxblahh1 blhaah2 fooo bar --exstra --extra2  -test2 3  4 55  --bar");
 
 //		bool status = true;
 	}

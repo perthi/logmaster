@@ -97,7 +97,7 @@ int main(int  argc, const char **  argv)
 		SET_LOGLEVEL("--all-off --all-debug");
 		SET_LOGFORMAT("1111111");
 
-		g->ScanArguments(argc, argv, arguments );
+		g->AddArguments(arguments).ScanArguments(argc, argv);
 
 		string addendum = "/*** Generated from " + xml + " **/\n" ;
 		addendum +=  "/*** Validated by " + xsd + " **/\n";
@@ -119,7 +119,7 @@ int main(int  argc, const char **  argv)
 			vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems;
 			p->ParseXML(xml, xsd, loglevels,  subsystems );
 
-			XML_INFO("Successfully validatet %s against %s and parsed the XML file", xml.c_str(), xsd.c_str() );
+			XML_INFO("Successfully validated %s against %s and parsed the XML file", xml.c_str(), xsd.c_str() );
 
 			vector< std::shared_ptr< LGenerator >  > generators;
 			generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumGenerated.h") );

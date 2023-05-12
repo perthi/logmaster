@@ -12,7 +12,6 @@
 
 #include <exception>
 #include <cmath>
-#include <ctgmath>
 #include "GXmlParser.h"
 #include "GXmlEnum2String.h"
 

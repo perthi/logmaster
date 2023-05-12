@@ -232,13 +232,17 @@ GLogApplication::Purge()
 void
 GLogApplication::InitLogArgs()
 {
+    FORCE_DEBUG("Initializing log args");
     fHelp = std::make_shared < GCommandLineArgument < void > >("-help", "-help", "prints help menu", nullptr, fgkOPTIONAL);
 	fLog = std::make_shared < GCommandLineArgument < vector< string > > >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::Instance()->LogLevelDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
 	fTarget = std::make_shared < GCommandLineArgument < vector< string > > >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::Instance()->LogTargetDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
 	fFormat = std::make_shared < GCommandLineArgument < vector< string > > >("-logformat", "-logformat\t\t[subcommands]", LDoc::Instance()->LogFormatDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
 	fColor = std::make_shared<GCommandLineArgument < bool > >("-logcolor", "-logcolor\t\t--true/--false", "Whether or not to use colors when writing log messages to the console", LPublisher::Instance()->GetEnableColor(), fgkOPTIONAL, GCmdApi::bool2);
 
-	AddArgument(fHelp);
+    FORCE_DEBUG("TP0");
+
+//	AddArgument(fHelp);
+    FORCE_DEBUG("TP1");
 	AddArgument(fLog);
 	AddArgument(fTarget);
 	AddArgument(fFormat);
@@ -309,12 +313,14 @@ GLogApplication::ScanArguments(const string cmdline, deque <  std::shared_ptr<GA
 }
  
  
+
 GLogApplication &
 GLogApplication::ScanArguments(const int argc, const char ** argv, deque < std::shared_ptr<GArgument> > args)
 {
     g_cmdscan()->ScanArguments(argc, argv, &args);
     return *this;
 }        
+
 
 
 void GLogApplication::ScanArguments(const int argc, const char ** argv)
@@ -328,6 +334,27 @@ GLogApplication::AddArgument( std::shared_ptr<GArgument>  arg, eDUPLICATE_STRATE
 {
     if (arg != 0)
     {
+        switch(strategy)
+        {
+        case eDUPLICATE_STRATEGY::EXEPTION:
+                if (HasCommand(arg->GetCommand()) == false)
+                {
+                    INVALID_ARGUMENT_EXCEPTION("argument %s already exists", arg->GetCommand().c_str());
+                }
+            break;
+        case eDUPLICATE_STRATEGY::IGNORE_DUP:
+            G_WARNING("Cannot add argument %s that already exists", arg->GetCommand().c_str());
+            break;
+        case  eDUPLICATE_STRATEGY::REPLACE_DUP:
+            G_WARNING("Replacing argument: %s", arg->GetCommand().c_str());
+            RemoveArgument(arg->GetCommand());
+            fArgs.push_back(arg);
+        default:
+            break;
+
+        }
+            
+        /*
         if( HasCommand( arg->GetCommand() ) == false)
         {
            // CERR << "argument DUESNT exists" << endl;
@@ -352,6 +379,7 @@ GLogApplication::AddArgument( std::shared_ptr<GArgument>  arg, eDUPLICATE_STRATE
                 fArgs.push_back(arg);
             }
         }
+        */
     }
     return *this;
 
@@ -368,30 +396,6 @@ GLogApplication::AddArguments(  arg_deque  args)
     return *this;
 }
 
-
-/*
-void 
-GLogApplication::AddArgumentFront( std::shared_ptr<GArgument> arg)
-{
-    if (HasCommand(arg->GetCommand()) == false)
-    {
-        fArgs.push_front(arg);
-    }
-    else
-    {
-        G_ERROR("argument %s already exists", arg->GetCommand().c_str());
-    }
-}
-
-void    
-GLogApplication::AddArgumentsFront(deque< std::shared_ptr<GArgument> >  args )
-{
-    for (uint16_t i = 0; i < args.size(); i++)
-    {
-        AddArgument( args.at(i) );
-    }  
-}
-*/
 
 
 std::shared_ptr<GArgument> 

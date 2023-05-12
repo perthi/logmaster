@@ -121,6 +121,7 @@
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions> /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

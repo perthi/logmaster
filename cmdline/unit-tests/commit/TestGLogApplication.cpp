@@ -6,14 +6,7 @@
 #include <cmdline/GCommandLineArgument.h>
 #include <cmdline/GArgumentDefinitions.h>
 
-TestGLogApplication::TestGLogApplication()
-{
-}
 
-
-TestGLogApplication::~TestGLogApplication()
-{
-}
 
 
 void 
@@ -123,8 +116,4 @@ TEST_F(TestGLogApplication, extra_arguments)
     EXPECT_NEAR(f3, 0.76422, 0.0001);
     
 }
- 
-
-
-
 

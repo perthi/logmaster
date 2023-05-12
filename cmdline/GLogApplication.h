@@ -19,10 +19,10 @@
 *   from the command line by all applications that inherits from this class.
 *
 *   It also adds a command line tag "--version"
-*   that when issued on the commanline prints out SVN revision and tag information for this application. That is, which source code
-*   revision, branch (trung, tag, or release) an release tag (v-x-y-z) the application was compiled from.
-*   The SVN information is contained in the object pointet to by SvnData fSvnData. The SvnData class is autogenerted based on the current SVN
-*   Information. The autogeneration tool is svninfo.exe.
+*   that when issued on the command line prints out SVN revision and tag information for this application. That is, which source code
+*   revision, branch (trunk, tag, or release) an release tag (v-x-y-z) the application was compiled from.
+*   The SVN information is contained in the object pointed to by SvnData fSvnData. The SvnData class is auto generated based on the current SVN
+*   Information. The auto generation tool is svninfo.exe.
 */
 
 #include <utilities/GDefinitions.h>
@@ -71,32 +71,22 @@ public:
     void		API		SetCallBackFunction(	const string cmd,
                                                 std::function< bool( const string cmd,  const string args_s,
                                                                      const vector<string> sub, const	vector<string> par ) > funct ) ;
-
-    GLogApplication  API &  	 AddArgument( std::shared_ptr<GArgument>  arg, eDUPLICATE_STRATEGY ignore_duplicates =  eDUPLICATE_STRATEGY::EXEPTION );
+    
+    void		     API	RemoveArgument(const string cmd);
+  
+    API     std::shared_ptr<GArgument>	 	GetArgument(const string cmd);
+    virtual void        API     SetDuplicateStrategy(const eDUPLICATE_STRATEGY);
+    virtual eDUPLICATE_STRATEGY  API     GetDuplicateStrategy() const;
+    
+    GLogApplication  API & AddArgument(std::shared_ptr<GArgument>  arg, eDUPLICATE_STRATEGY ignore_duplicates = eDUPLICATE_STRATEGY::EXEPTION);
     GLogApplication  API & AddArguments(deque< std::shared_ptr<GArgument> >  args);
-    
-    // void		API		AddArgumentFront( std::shared_ptr<GArgument>  arg);
-    // void		API		AddArgumentsFront(deque< std::shared_ptr<GArgument> >  args);
 
 
-   
-                API     std::shared_ptr<GArgument>	 	GetArgument(const string cmd);
-    void		API		RemoveArgument(const string cmd);
+    virtual void                 API       ScanArguments(const string cmdline);
+    virtual void                 API	   ScanArguments(const int argc, const char** argv);
 #ifdef _WIN32
-    void		API		ScanArguments();
+    void		                 API       ScanArguments();
 #endif
-
-public:
-    virtual void        API     SetDuplicateStrategy( const eDUPLICATE_STRATEGY );
-    virtual eDUPLICATE_STRATEGY      API     GetDuplicateStrategy() const;
-    virtual void        API		ScanArguments(const string cmdline);
-    
-    
-    virtual void        API		ScanArguments(const string cmdline,  std::shared_ptr<GArgument> arg);
-    virtual void        API		ScanArguments(const string cmdline, deque  < std::shared_ptr<GArgument> > args);
-    virtual      GLogApplication API &     ScanArguments(const int argc, const char** argv, deque  < std::shared_ptr<GArgument>  > arg);
-    virtual void        API		ScanArguments(const int argc, const char** argv);
-    
     
     static bool			API		HasCommand( deque < std::shared_ptr<GArgument>  >  args, const string cmd);
     bool				API		HasCommand( const string cmd);
@@ -104,14 +94,18 @@ public:
     string				API		Help(const string cmd = "" ) const;
     static string		API		Help(const deque  <  std::shared_ptr<GArgument>  > args, const string cmd = "" );
     string				API		Help(const char *exename, const string heading,  const string cmd = "" ) const;
-    virtual void		API		InitLogArgs();
+  //  virtual void		API		InitLogArgs();
 	int					API		SetMandatory(const string cmd);
 	int					API		SetOptional(const string cmd);
 	bool				API		IsMandatory(const string cmd) const;
 	bool				API		IsOptional(const string cmd) const;
 
 
-protected:
+//protected:
+private:
+
+    virtual void		API		InitLogArgs();
+
     deque  <  std::shared_ptr<GArgument>  >    fArgs  =  deque  <  std::shared_ptr<GArgument>  > ()  ; 
     std::shared_ptr<GCommandLineArgument < void > > fHelp = nullptr; //!< Command line argument for printing out version information
     std::shared_ptr<GCommandLineArgument < vector< string > > >  fLog = nullptr;     //!< Command line argument for the configuration of the log  level
@@ -119,9 +113,13 @@ protected:
     std::shared_ptr < GCommandLineArgument < vector< string > > > fFormat = nullptr;  //!< Command line argument for the configuration of the log  format
     std::shared_ptr < GCommandLineArgument < bool > > fColor = nullptr;   //!< Command line argument for controlling whether or not to use color coding of log messages
 
- private:
     API GLogApplication (GLogApplication &);
     void operator=(GLogApplication &);
+    virtual void                 API       ScanArguments(const string cmdline, std::shared_ptr<GArgument> arg);
+    virtual void                 API	   ScanArguments(const string cmdline, deque  < std::shared_ptr<GArgument> > args);
+    virtual      GLogApplication API& ScanArguments(const int argc, const char** argv, deque  < std::shared_ptr<GArgument>  > arg);
+
+
 
     eDUPLICATE_STRATEGY fStrategy = eDUPLICATE_STRATEGY::EXEPTION;
 

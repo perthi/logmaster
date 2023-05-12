@@ -157,7 +157,7 @@ int main(const int argc, const char** argv )
         GLogApplication* g = new GLogApplication();
         
         
-        g->ScanArguments(argc, argv, arguments);
+        g->AddArguments(arguments).ScanArguments(argc, argv);
       //  g->ScanArguments("-test", arguments);
 
         cout << "test1 = " << test1 << endl;
