@@ -114,50 +114,6 @@ GFileIOHandler::Append(const string fname, const char* fmt, ...)
 }
 
 
-bool GFileIOHandler::Delete(const string fname)
-{
-    FILE* fp = OpenFile(fname, "r", GLOCATION);
-
-    if (fp == nullptr)
-    {
-        GCommon().HandleError(GText("could not remove file: \"%s\"", fname.c_str()).str(), GLOCATION, true);
-        return false;
-    }
-    else
-    {
-        fclose(fp);
-        int ret = std::remove(fname.c_str());
-
-        if (ret != 0)
-        {
-            string errmsg = g_system()->Errno2String(errno, fname, "r");
-            GCommon().HandleError(GText("could not remove file: \"%s\"", errmsg.c_str()).str(), GLOCATION, true);
-            return false;
-        }
-
-    }
-
-    return true;
-}
-
-
-
-bool
-GFileIOHandler::CreateFileLocal(const string fname, const bool print_error)
-{
-
-    return g_system()->mkfile(fname, print_error );
-}
-
-
-
-bool
-GFileIOHandler::CreateFolder(const string fname,  const bool print_error)
-{
-    return g_system()->mkdir(fname, print_error);
-}
-
-
 
 
 /** Read the last line of the file.
@@ -279,62 +235,6 @@ GFileIOHandler::CheckFileEx(const string fname, const char* opt)
 }
 
 
-/** @todo move somewhere else */
-string
-GFileIOHandler::ReadConfigFile(int argc, const char** argv, const string path)
-{
-
-    vector<string> tokens = GTokenizer().Tokenize(string(argv[0]), ".");
-    string fname = "";
-    string dir = "";
-
-    GTokenizer().StripPath(tokens.at(0), dir, fname, false);
-
-    if (tokens.size() > 0)
-    {
-        fname = path + "/" + fname + ".cfg";
-    }
-
-    if (  DoExists( fname ) == false )
-    {
-        GCommon().HandleError(GText("The file \"%s\" does not exist", fname.c_str()).str(), GLOCATION, THROW_EXCEPTION);
-        return "";
-    }
-
-    COUT << "fname = " << fname << endl;
-
-    if (argc != 1 && argc != 3)
-    {
-        GCommon().HandleError(GText("When reading command line arguments from file you must specify either no arguments,\
-            or exactly two arguments.\ncase 1: If no arguments are given, the command line arguments are read from\
-             %s\ncase: the arguments must be on the form -file [filename] in which case the command line is read from [filename]").str(), GLOCATION, THROW_EXCEPTION);
-
-    }
-
-    if (argc == 3)
-    {
-        if (string(argv[1]) != "-file")
-        {
-            GCommon().HandleError(GText("Expected the first argument to be  \"-file\"").str(), GLOCATION, THROW_EXCEPTION);
-            return "";
-        }
-        else
-        {
-            fname = string(argv[2]);
-        }
-    }
-
-    if (DoExists(fname) == false)
-    {
-        GCommon().HandleError(GText("The file \"%s\" does not exist", fname.c_str()).str(), GLOCATION, THROW_EXCEPTION);
-        return "";
-    }
-    else
-    {
-        return ReadFirstLine(fname);
-    }
-}
-
 
 bool
 GFileIOHandler::DoExists(const string fname, const char* opt)
@@ -370,13 +270,19 @@ GFileIOHandler::OpenFile(const string fname, const string opt, const GLocation l
 }
 
 
+
 /**  Checks if a file can be safely written, read, or appended to
  *   @param fname The full path + filename to the file to be written
  *   @param opt The access option which must be either w, w+, r, r+, a, a+
- *   @return false: if 1) an existing file is attempted opened with the w or w+ option 2) The file does not exist and cannot be
- *   opened with the w, w+ option. 3) The file exists and cannot be opened with the a, a+, r, r+ option. 4) if the option parameter is invalid
- *   @return true: If 1) the file does not exists and can be successfully opened with the w or w+ option. 2) the file exists and can be successfully
- *   opened with the a, a+, r, r+ options */
+ *   @return false: if 
+ *   1) an existing file is attempted opened with the w or w+ option 
+ *   2) The file does not exist and cannot be
+ *   opened with the w, w+ option. 
+ *   3) The file exists and cannot be opened with the a, a+, r, r+ option. 
+ *   4) if the option parameter is invalid
+ * 
+ *   @return true: If 1) the file does not exists and can be successfully opened with the w or w+ option. 
+ *                    2) the file exists and can be successfully opened with the a, a+, r, r+ options */
 bool
 GFileIOHandler::CheckFile(const string fname, const string opt)
 {
@@ -490,7 +396,7 @@ GFileIOHandler::Recreate(const string fname,  const bool print_error)
 {
     if (DoExists(fname) == true)
     {
-        if (Delete(fname) == false)
+        if ( g_system()->rm(fname) == false)
         {
             if(print_error  == true )
             {
@@ -500,7 +406,7 @@ GFileIOHandler::Recreate(const string fname,  const bool print_error)
         }
     }
 
-    if (CreateFileLocal(fname, print_error ) == true)
+    if (  g_system()->mkfile(fname, print_error ) == true)
     {  
         return true;
     }
@@ -515,7 +421,7 @@ GFileIOHandler::Recreate(const string fname,  const bool print_error)
 }
 
 
-
+/*
 bool
 GFileIOHandler::DeleteAll(const string fname)
 {
@@ -527,10 +433,14 @@ GFileIOHandler::DeleteAll(const string fname)
         GCommon().HandleError(GText("could not remove file: \"fname\"", fname.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
     }
 
+    cerr << g_system()->Errno2String(errno, "", "") << endl;
+
     return ret;
 }
+*/
 
 
+/*
 void
 GFileIOHandler::CreateDirIfNeeded(const std::string& filename)
 {
@@ -542,6 +452,7 @@ GFileIOHandler::CreateDirIfNeeded(const std::string& filename)
     CreateDirIfNeeded(g_system()->GetDirectory(cleanName));
     g_system()->mkdir(cleanName);
 }
+*/
 
 
 

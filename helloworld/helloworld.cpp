@@ -6,6 +6,9 @@
 #include <utilities/GFileIOHandler.h>
 #include <cmdline/GCommandLineArgument.h>
 #include <cmdline/GArgument.h>
+#include <utilities/GFileIOHandler.h>
+#include <utilities/GSystem.h>
+ 
 
 using namespace LOGMASTER;
 
@@ -19,39 +22,91 @@ using namespace LOGMASTER;
 #include <optional>
 #include <string>
 
+#include <filesystem>
 
+bool rm(const string fname)
+{
+	struct stat s;
+
+	if (stat(fname.c_str(), &s) == 0)
+	{
+
+		if (s.st_mode & S_IFDIR)
+		{
+			CERR << fname << "  Is a directory" << ENDL;
+		}
+		else if (s.st_mode & S_IFREG)
+		{
+			CERR << fname << "  Is a regular file" << ENDL;
+		}
+		else
+		{
+			CERR << fname << "Something else" << ENDL;
+		}
+	}
+	else
+	{
+		//error
+	}
+
+	bool ret = std::filesystem::remove(fname.c_str());
+
+	//	bool ret = std::filesystem::remove_all(fname.c_str());
+
+
+	if (ret == false)
+	{
+		GCommon().HandleError(GText("could not remove file: \"fname\"", fname.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
+	}
+
+	cerr << g_system()->Errno2String(errno, "", "") << endl;
+	return errno == 0 ? true : false;
+}
+
+
+
+
+int main(int argc, const char** argv)
+{
+	try
+	{
+		FORCE_DEBUG("Deleting file");
+		//	auto ret = g_file()->DeleteAll("pth");
+
+		//auto ret = std::filesystem::remove("pth");
+
+		auto ret = rm("pth");
+		//	FORCE_DEBUG("Done: ret = %s", (ret == true ? "TRUE" : "FALSE"));
+		
+		//cerr << g_system()->Errno2String(errno, "", "") << endl;
+		//	ret = g_file()->DeleteAll("mylogfile.log");
+		//	ret = g_file()->DeleteAll("mylogfile.log");
+	}
+	catch( std::exception &e)
+	{
+		cerr << "exception caught:" << e.what() << endl;
+		cerr << g_system()->Errno2String(errno, "", "") << endl;
+	}
+	catch (...)
+	{
+		cerr << "exception caught:"  << endl;
+		cerr << g_system()->Errno2String(errno, "", "") << endl;
+	}
+
+	return 0;
+}
 
 /*
-auto bla = std::make_shared <GCommandLineArgument<string> >("-flagfile", "-flagfile [value]", "File containing flags use during compilation",
-		&fParameters.fCompileflags_file, fgkOPTIONAL);
-
-
-
-		std::function<bool(const string  cmd, const string args_s, const vector<string>  sub, const vector<string>  par)>
-		funct(std::bind(&VScanArguments::FlagFileCallBack, this, std::placeholders::_1,
-			std::placeholders::_2,
-			std::placeholders::_3,
-			std::placeholders::_4));
-
-		bla->SetValidationFunction(funct);
-
-		fArguments.push_back(bla);
-*/
-
-
-
-
 class Test
 {
 	public:
-		bool CallBack (const string  /*cmnd*/, const string args_s, const vector<string> /*sub*/, const vector<string> /*par*/)
+		bool CallBack (const string  cmnd, const string args_s, const vector<string> sub, const vector<string> par)
 		{
 			FORCE_DEBUG( "args_s = %s", args_s.c_str() );
 			return true;
 		}
         
 };
-
 
 
 int main(int argc, const char **argv)
@@ -101,3 +156,4 @@ int main(int argc, const char **argv)
 
 }
 
+*/

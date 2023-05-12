@@ -99,7 +99,7 @@ TEST_F(TestGFileIOHandler, CheckFileNSR305)
     EXPECT_EQ(true,  f->CheckFile(rand_fname2, "r+"));
 
     // Checking that the file is intact after all the testing
-    EXPECT_TRUE ( f->Delete(rand_fname2) );
+    EXPECT_TRUE (g_system()->rm(rand_fname2) );
 
     #ifdef HAS_LOGGING
     //EXPECT_EQ("Hello Dolly", FileIOTest(rand_fname2));
@@ -121,6 +121,8 @@ TEST_F(TestGFileIOHandler, CheckFileNSR305)
 TEST_F(TestGFileIOHandler, AppendCreate)
 {
     GFileIOHandler* f = g_file();
+    GSystem* s = g_system();
+    
     string fname = g_random()->Name("append_test", ".txt");
     EXPECT_EQ(true, f->Append(fname, "testwrite to file with parameters: a=%d, b=%d\n", 42, 43));
     
@@ -128,16 +130,16 @@ TEST_F(TestGFileIOHandler, AppendCreate)
     EXPECT_EQ(FileIOTest(fname), "testwrite to file with parameters: a=42, b=43");
     #endif
 
-    EXPECT_EQ (true,   f->Delete(fname));
-    EXPECT_EQ( false,  f->Delete(fname));
-    EXPECT_EQ( false,  f->Delete(fname));
+    EXPECT_EQ (true,   s->rm(fname));
+    EXPECT_EQ( false,  s->rm(fname));
+    EXPECT_EQ( false,  s->rm(fname));
     fname = g_random()->Name("append_test", ".txt");
-    EXPECT_EQ(true,  f->CreateFileLocal(fname));
+    EXPECT_EQ(true,  s->mkfile(fname));
     
     //EXPECT_EQ(false, f->CreateFileLocal(fname));
 
-    EXPECT_EQ(true,  f->Delete(fname));
-    EXPECT_EQ(false, f->Delete(fname));
+    EXPECT_EQ(true, s->rm(fname));
+    EXPECT_EQ(false, s->rm(fname));
 }
 
 
@@ -167,7 +169,7 @@ TEST_F(TestGFileIOHandler, Read)
         EXPECT_EQ(r[2], "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat");
     }
 
-    f->Delete(fname);
+    g_system()->rm(fname);
 
     fname = g_random()->Name("read_test", ".txt");
     f->Append(fname,  "Duis aute irure dolor in reprehenderit in voluptate\n\
@@ -193,7 +195,7 @@ cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est la
     }
     
 
-    f->Delete(fname);
+    g_system()->rm(fname);
 }
 
 

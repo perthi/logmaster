@@ -5,6 +5,7 @@
 #include <logging/GException.h>
 #include <cmdline/GCommandLineArgument.h>
 #include <cmdline/GArgumentDefinitions.h>
+#include <utilities/GSystem.h>
 
 
 
@@ -20,8 +21,8 @@ TestGLogApplication::SetUp()
 void 
 TestGLogApplication::TearDown()
 {
-    g_file()->Delete(fValidCommands);
-    g_file()->Delete(fNotValidCommands);
+    g_system()->rm(fValidCommands);
+    g_system()->rm(fNotValidCommands);
 }
 
 TEST_F(TestGLogApplication, get_argument )
@@ -111,7 +112,7 @@ TEST_F(TestGLogApplication, extra_arguments)
 
     EXPECT_NO_THROW( new GLogApplication(GFileName_t(fValidCommands),  &arg1_v ));
     EXPECT_NEAR(f1, 3.1415901, 0.001);
-    g_file()->Delete(fValidCommands);
+    g_system()->rm(fValidCommands);
     g_file()->Append(fValidCommands, "%s", "-fval1 3.1415901  -fval2  1.61803  -fval3  0.76422");
     EXPECT_NO_THROW(  new GLogApplication(GFileName_t(fValidCommands),  &all_args  ));
     EXPECT_NEAR(f1, 3.1415901, 0.0001);

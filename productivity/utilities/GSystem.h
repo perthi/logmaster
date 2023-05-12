@@ -52,7 +52,8 @@ public:
 
     static bool           API      mkfile(const string filepath,  const bool print_error = true );
     static void           API      cp(string src, string dest);
-    static bool           API      rm(const string filename);
+    static bool           API      rm(const string filename, bool recursive = false);
+    static bool           API      rmdir(const string filename, bool recursive = false);
     static void           API      mv(const string src, const string dest);
     static string         API      exec(const char *cmd);
     static string         API      GetProcessID();

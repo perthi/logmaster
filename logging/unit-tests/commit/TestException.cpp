@@ -7,6 +7,7 @@
 #include <utilities/GText.h>
 #include <utilities/GRandom.h>
 #include <utilities/GFileIOHandler.h>
+#include <utilities/GSystem.h>
 #include <utilities/GString.h>
 
 #include <logging/LPublisher.h>
@@ -55,11 +56,11 @@ TEST_F( TestException, simple)
      EXPECT_THROW(FILE_NOT_FOUND_EXCEPTION("Cannot find file: %s", f.c_str()), GFileNotFoundException);
      EXPECT_EQ( g_file()->ReadFirstLine(f2), "<Fatal:Exeption>         \tCannot find file: dontexist.txt (class GFileNotFoundException)");
 
-     g_file()->Delete(f1);
-     g_file()->Delete(f2);
+     g_system()->rm(f1);
+     g_system()->rm(f2);
 
-     g_file()->Delete(f1 + ".json");
-     g_file()->Delete(f2 + ".json");
+     g_system()->rm(f1 + ".json");
+     g_system()->rm(f2 + ".json");
   }
  
 

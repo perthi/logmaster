@@ -92,7 +92,7 @@ public:
     string				API		Help(const string cmd = "" ) const;
     static string		API		Help(const deque  <  std::shared_ptr<GArgument>  > args, const string cmd = "" );
     string				API		Help(const char *exename, const string heading,  const string cmd = "" ) const;
-  //  virtual void		API		InitLogArgs();
+    virtual void		API		InitLogArgs();
 	int					API		SetMandatory(const string cmd);
 	int					API		SetOptional(const string cmd);
 	bool				API		IsMandatory(const string cmd) const;
@@ -101,9 +101,6 @@ public:
 
 //protected:
 private:
-
-    virtual void		API		InitLogArgs();
-
     deque  <  std::shared_ptr<GArgument>  >    fArgs  =  deque  <  std::shared_ptr<GArgument>  > ()  ; 
     std::shared_ptr<GCommandLineArgument < void > > fHelp = nullptr; //!< Command line argument for printing out version information
     std::shared_ptr<GCommandLineArgument < vector< string > > >  fLog = nullptr;     //!< Command line argument for the configuration of the log  level

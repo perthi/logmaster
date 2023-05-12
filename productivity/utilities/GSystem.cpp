@@ -55,6 +55,7 @@
 #include <memory>
 #include <sys/stat.h>
 #include <cstdlib>
+#include <filesystem>
 
 #ifndef _WIN32
 #include <libgen.h>
@@ -104,6 +105,7 @@ GSystem::getenv(const string  var  )
 string
 GSystem::Errno2String(const  errno_t code, const string fname, const string  opt)
 {
+    CERR << "errno = " << errno;
     static const size_t sz = 2048;
     char errmsg[sz];
     strerror_s(errmsg, sz, code);
@@ -206,7 +208,7 @@ GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
     case ENOSPC:       // No space left on device
     case ENOTDIR:      // Path is not (or cannot be) a directory
     case EROFS:        // The parent directory is read only
-          GCommon().HandleError(GText("non recoverabele erro encountered creating directory %s ( errno %d; %s )",
+          GCommon().HandleError(GText("non recoverable error encountered creating directory %s ( errno %d; %s )",
                                          dirname.c_str(),
                                          errno,
                                          err )
@@ -278,6 +280,8 @@ GSystem::GetProcessID()
 #endif
     return buffer.str();
 }
+
+
 /** @return Returns the name of rootdir */
 
 
@@ -318,8 +322,6 @@ GSystem::exec(const char* cmd)
 
 
 
-
-
 #ifdef _WIN32
 /** @return all the command line arguments as a single string*/
 string
@@ -344,10 +346,6 @@ GSystem::GetCommandLineArguments()
 #ifdef _WIN32
 #include "Windows.h"
     int argc;
-  //  std::wstring ws;
-    //  ws = MultiByteToWideChar(CP_UTF8, 0, s.c_str());
-   // MultiByteToWideChar(CP_UTF8, 0, s.c_str(), (int)s.size(), &ws[0], (int)ws.size());
-   // std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
 
     LPWSTR cmdline = GetCommandLineW();
     LPWSTR* argv = ::CommandLineToArgvW(cmdline, &argc);
@@ -357,7 +355,6 @@ GSystem::GetCommandLineArguments()
         ret += n > 1 ? " \"" : "\"";
         WideCharToMultiByte(CP_UTF8, 0, argv[n], (int)wcslen(argv[n]), &ret2[0], (int)ret2.size(), 0, 0);
         ret += ret2;
-    //    ret += converter.to_bytes(argv[n]);
         ret += "\"";
     }
 
@@ -536,7 +533,7 @@ GSystem::mkfile(const string filepath,const bool print_error )
     {
         if(print_error == true )
         {
-          GCommon().HandleError( GText("File \"%s\" allready exists, will not be recreated", filepath.c_str()  ).str(), GLOCATION, DISABLE_EXCEPTION ) ;
+          GCommon().HandleError( GText("File \"%s\" already exists, will not be recreated", filepath.c_str()  ).str(), GLOCATION, DISABLE_EXCEPTION ) ;
         }
         fclose(fp);
        // return false;
@@ -583,11 +580,48 @@ GSystem::cp(string source, string dest)
 
 
 bool
-GSystem::rm(const string filename)
+GSystem::rmdir(const string filename, bool recursive)
 {
-    return g_file()->Delete(filename);
-    //return std::remove(filename.c_str());
+    return rm(filename, true);
 }
+
+
+bool
+GSystem::rm(const string filename, bool recursive)
+{
+    try
+    {
+        if (recursive == false)
+        {
+            std::filesystem::remove(filename.c_str());
+        }
+        else
+        {
+            std::filesystem::remove_all(filename.c_str());
+        }
+
+    }
+    catch (std::exception& e)
+    {
+        GCommon().HandleError(GText("could not remove file:%s (%s)", filename.c_str(), e.what()  ).str(), GLOCATION, DISABLE_EXCEPTION);
+        return false;
+    }
+    catch (...)
+    {
+        GCommon().HandleError(GText("could not remove file:%s (Unknown error)", filename.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
+
+    }
+
+    if (errno != 0)
+    {
+        GCommon().HandleError(g_system()->Errno2String(errno, filename, ""), GLOCATION );
+        return false;
+    }
+    
+    return true;
+
+}
+
 
 
 void
