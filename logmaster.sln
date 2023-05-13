@@ -169,6 +169,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gui-logger-example1", "gui\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "utilities-unit-tests", "productivity\utilities\unit-tests\commit\utilities-unit-tests.vcxproj", "{7608E412-5B67-4326-BE3C-AB8467EFDC2C}"
 	ProjectSection(ProjectDependencies) = postProject
+		{056929FF-F5CE-44F6-97A1-9F2493E7A9CB} = {056929FF-F5CE-44F6-97A1-9F2493E7A9CB}
 		{26B32CDF-4053-4C0E-8EC5-88A5F6D2AB0C} = {26B32CDF-4053-4C0E-8EC5-88A5F6D2AB0C}
 		{6F7DDC0E-541A-4A52-90B7-8A4FC10B6C5B} = {6F7DDC0E-541A-4A52-90B7-8A4FC10B6C5B}
 	EndProjectSection
