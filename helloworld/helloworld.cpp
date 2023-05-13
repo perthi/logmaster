@@ -21,7 +21,6 @@ using namespace LOGMASTER;
 #include <chrono>
 #include <optional>
 #include <string>
-
 #include <filesystem>
 
 bool rm(const string fname)
@@ -66,7 +65,7 @@ bool rm(const string fname)
 
 
 
-int main(int argc, const char** argv)
+int main(int /*argc*/, const char** /*argv*/ )
 {
 	try
 	{
@@ -75,7 +74,7 @@ int main(int argc, const char** argv)
 
 		//auto ret = std::filesystem::remove("pth");
 
-		auto ret = rm("pth");
+		//auto ret = rm("pth");
 		//	FORCE_DEBUG("Done: ret = %s", (ret == true ? "TRUE" : "FALSE"));
 		
 		//cerr << g_system()->Errno2String(errno, "", "") << endl;

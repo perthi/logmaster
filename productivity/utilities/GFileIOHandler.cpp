@@ -365,7 +365,7 @@ GFileIOHandler::ReadFirstLine(const string fname)
 
 
 bool
-GFileIOHandler::Recreate(const string fname, const bool print_error)
+GFileIOHandler::Recreate(const string fname)
 {
     g_system()->rm(fname);
     return g_system()->mkfile(fname);

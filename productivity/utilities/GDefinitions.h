@@ -32,6 +32,10 @@ using std::string;
 
 #include <type_traits>
 
+#ifdef __linux__
+typedef int errno_t;
+#endif
+
 
 #ifdef _WIN64f
 #define __CALL__  _fastcall 

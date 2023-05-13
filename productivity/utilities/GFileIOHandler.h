@@ -53,7 +53,7 @@ public:
     string           API  ReadLastLine(const string fname, const unsigned int offset = 0);
     string           API  GetAbsolutePath(const string fname);
     string           API  GetExtention(const string fname);
-    bool             API  Recreate(const string fname, const bool print_error= true);
+    bool             API  Recreate(const string fname);
     FILE             API* OpenFile(const string fname, const string opt, const GLocation loc, const bool print_error = true);
 
 

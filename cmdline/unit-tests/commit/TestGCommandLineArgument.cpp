@@ -94,8 +94,8 @@ TestGCommandLineArgument::TearDown()
 
 
 bool
-TestGCommandLineArgument::ValidateFunct(const string cmnd, const string args_s,
-	const vector<string> subs, const vector<string> args)
+TestGCommandLineArgument::ValidateFunct(const string /*cmnd*/, const string /*args_s*/,
+	const vector<string> /*subs*/, const vector<string> args)
 {
 	// We just make up some artificial conditions 
 	int min = 10;
