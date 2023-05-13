@@ -46,7 +46,7 @@ int main(int argc, const char **argv)
 	{
 		try
 		{
-			G_EXCEPTION("This is an exception message");
+			EXCEPTION("This is an exception message");
 		}
 		catch (GException &e)
 		{
