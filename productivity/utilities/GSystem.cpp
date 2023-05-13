@@ -35,6 +35,8 @@
 #include "GText.h"
 #include "GCommon.h"
 #include "GLocation.h"
+//#include <logging/GException.h> 
+
 
 #ifndef _WIN32
 #include <dirent.h>
@@ -515,6 +517,21 @@ GSystem::ls(const string dir)
 }
 
 
+void
+GSystem::cp(string source, string dest)
+{
+    mkfile(dest);
+    vector<string> content = g_file()->ReadAll(source);
+    for (uint16_t i = 0; i < content.size(); i++)
+    {
+        g_file()->Append(dest, content[i].c_str());
+        if (i < content.size() - 1)
+        {
+            g_file()->Append(dest, "\n");
+        }
+    }
+}
+
 
 bool
 GSystem::mkfile(const string filepath,const bool print_error )
@@ -563,39 +580,40 @@ GSystem::mkfile(const string filepath,const bool print_error )
 }
 
 
-void
-GSystem::cp(string source, string dest)
-{
-    mkfile(dest);
-    vector<string> content = g_file()->ReadAll(source);
-    for (uint16_t i = 0; i < content.size(); i++)
-    {
-        g_file()->Append(dest, content[i].c_str());
-        if (i < content.size() - 1)
-        {
-            g_file()->Append(dest, "\n");
-        }
-    }
-}
-
-
 bool
-GSystem::rmdir(const string filename, bool recursive)
+GSystem::rmdir(const string filename)
 {
     return rm(filename, true);
 }
 
 
-
 bool
 GSystem::rm(const string filename, bool recursive)
 {
-    //CERR << "recursive = " << (recursive == false ? "FALSE" : "TRUE") << ENDL;
+
+    auto errorhandling = [=](GLocation l, errno_t err, const char *exception_msg) 
+    {
+        GCommon().HandleError(GText("could not remove file:%s:  %s", filename.c_str(), 
+                                exception_msg).str(), l, DISABLE_EXCEPTION);
+        if(err !=0)
+        {
+           GCommon().HandleError(Errno2String(errno, filename, ""),l, DISABLE_EXCEPTION);
+        }
+        return false;
+    };
+ 
     try
     {
         if (recursive == false)
         {
-            return  std::filesystem::remove(filename.c_str());
+            auto ret = std::filesystem::remove(filename.c_str());
+            if (ret == false)
+            {
+                errorhandling(GLOCATION, errno,
+                    GText("removal of file %s resulted in an error", filename.c_str()).str().c_str()); /// "todo simplify
+            }
+
+            return ret;
         }
         else
         {
@@ -603,22 +621,17 @@ GSystem::rm(const string filename, bool recursive)
         }
     }
     catch (std::exception& e)
-    {
-        GCommon().HandleError(GText("could not remove file:%s  (%s)", filename.c_str(), e.what()  ).str(), GLOCATION, DISABLE_EXCEPTION);
+    {   
+        errorhandling(GLOCATION, errno, e.what());
         return false;
     }
     catch (...)
     {
-        GCommon().HandleError(GText("could not remove file:%s  (Unknown error)", filename.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
+        errorhandling(GLOCATION, errno, "unknown exception");
         return false;
     }
 
-    if (errno != 0)
-    {
-        GCommon().HandleError(g_system()->Errno2String(errno, filename, ""), GLOCATION, DISABLE_EXCEPTION);
-        return false;
-    }
-    
+
     return true;
 
 }

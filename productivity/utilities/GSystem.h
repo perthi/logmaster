@@ -53,12 +53,12 @@ public:
     static bool           API      mkfile(const string filepath,  const bool print_error = true );
     static void           API      cp(string src, string dest);
     static bool           API      rm(const string filename, bool recursive = false);
-    static bool           API      rmdir(const string filename, bool recursive = false);
+    static bool           API      rmdir(const string filename);
     static void           API      mv(const string src, const string dest);
     static string         API      exec(const char *cmd);
     static string         API      GetProcessID();
     static string         API      getenv(const string var);
-    static string           API  Errno2String(const  int code, const string fname, const string  opt);
+    static string         API      Errno2String(const  int code, const string fname, const string  opt);
 
 #ifdef _WIN32
     static string    API   GetCommandLineAll();

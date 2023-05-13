@@ -218,32 +218,6 @@ GFileIOHandler::GetExtention(const string)
 
 
 
-bool
-GFileIOHandler::CheckFileEx(const string fname, const char* opt)
-{
-    if (CheckFile(fname, opt) == false)
-    {
-        GCommon().HandleError(GText("could not open file %s in %c mode)", fname.c_str(), opt).str(), GLOCATION, THROW_EXCEPTION);
-    }
-
-    else
-    {
-        return true;
-    }
-
-    return true;
-}
-
-
-
-bool
-GFileIOHandler::DoExists(const string fname, const char* opt)
-{
-    return CheckFile(fname, opt);
-}
-
-
-
 
 FILE*
 GFileIOHandler::OpenFile(const string fname, const string opt, const GLocation l, const bool print_error )
@@ -287,8 +261,6 @@ GFileIOHandler::OpenFile(const string fname, const string opt, const GLocation l
 bool
 GFileIOHandler::CheckFile(const string fname, const string opt)
 {
-    //string tmp = string(opt);
-
     if (opt.size() > 2)
     {
         GCommon().HandleError(GText("Too many option flags (%d), expected at most 2. opt = %s", opt.c_str() ).str(), GLOCATION, DISABLE_EXCEPTION);
@@ -393,67 +365,11 @@ GFileIOHandler::ReadFirstLine(const string fname)
 
 
 bool
-GFileIOHandler::Recreate(const string fname,  const bool print_error)
+GFileIOHandler::Recreate(const string fname, const bool print_error)
 {
-    if (DoExists(fname) == true)
-    {
-        if ( g_system()->rm(fname) == false)
-        {
-            if(print_error  == true )
-            {
-               GCommon().HandleError(GText("Failed to delete file: %s", fname.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
-            }
-            return false;
-        }
-    }
-
-    if (  g_system()->mkfile(fname, print_error ) == true)
-    {  
-        return true;
-    }
-    else
-    {
-        if(print_error  == true )
-        {
-           GCommon().HandleError(GText("Failed to create file: %s", fname.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
-        }
-        return  false;
-    }
+    g_system()->rm(fname);
+    return g_system()->mkfile(fname);
 }
-
-
-/*
-bool
-GFileIOHandler::DeleteAll(const string fname)
-{
-    // bool ret = remove_all(fname);
-    bool ret = remove(fname.c_str());
-
-    if (ret == false)
-    {
-        GCommon().HandleError(GText("could not remove file: \"fname\"", fname.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
-    }
-
-    cerr << g_system()->Errno2String(errno, "", "") << endl;
-
-    return ret;
-}
-*/
-
-
-/*
-void
-GFileIOHandler::CreateDirIfNeeded(const std::string& filename)
-{
-    string cleanName = GetAbsolutePath(filename);
-    if (g_system()->Exists(cleanName))
-    {
-        return;
-    }
-    CreateDirIfNeeded(g_system()->GetDirectory(cleanName));
-    g_system()->mkdir(cleanName);
-}
-*/
 
 
 
@@ -481,8 +397,7 @@ GFileIOHandler::ClearAttribute(const string fname, unsigned long attr)
 /** Read the content of a file into a vector
 *  @param fname  The file to read
 *  @param[in,out] status: whether or not the file was successfully read. ZERO = OK, ONE = NOT_OK
-*  @return A vector of data, with on element for each line in the file */
-//vector<string> 
+*  @return A vector of data, with on element for each line in the file */ 
 vector<string>
 GFileIOHandler::ReadAll(const string fname, bool* status)
 {

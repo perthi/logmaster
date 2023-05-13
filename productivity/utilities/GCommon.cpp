@@ -81,6 +81,7 @@ GCommon::HandleError(const string message, const GLocation  l,   const bool   di
 void
 GCommon::HandleError(const string message, const GLocation l, const bool   disable_exception  )
 {
+
     if ( disable_exception == false)
     {
     #ifdef _WIN32

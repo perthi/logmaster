@@ -194,7 +194,7 @@ VGenerateVersionInfo::GenerateClass(const string class_name, const string exenam
         fprintf(fp, "const string %s::fOriginalExeName = \"%s\";\n", class_name.c_str(), exename.c_str());
 
 #ifdef _WIN32
-        fprintf(fp, "const string %s::fGitInfo = \"%s\";\n", class_name.c_str(), "Not yest implemented for Windows");
+        fprintf(fp, "const string %s::fGitInfo = \"%s\";\n", class_name.c_str(), "Not yet implemented for Windows");
 #else
 
         string tmp = GitInfo();

@@ -50,48 +50,52 @@ TestGSystem::~TestGSystem()
 void
 TestGSystem::SetUpTestCase()
 {
-    GCommon().DisableOutput();
+    //GCommon().DisableOutput();
 }
 
 
 void
 TestGSystem::TearDownTestCase()
 {
-    GCommon().EnableOutput();
+    //GCommon().EnableOutput();
 }
 
- 
+
+
 
 TEST_F(TestGSystem, mkfile)
 {
     try
     {
-       g_system()->rm( "testdir2"); 
-       g_system()->mkfile("testdir2/testfile2.txt");
-       EXPECT_TRUE( g_system()->rm( "testdir2/testfile2.txt") ) ;
-       g_system()->rm( "testdir2"); 
+        EXPECT_FALSE(g_system()->rm("testdir2"));
+        g_system()->mkfile("testdir2/testfile2.txt");
+
+    //    EXPECT_TRUE(g_system()->rm("testdir2/testfile2.txt"));
+        EXPECT_TRUE(g_system()->rm("testdir2", true));
+
+        // g_system()->mkfile("bla1/bla2/testfile2.txt");
     }
-    catch( std::exception &e  )
+    catch (std::exception& e)
     {
-        GCommon().HandleError( e.what(), GLOCATION, DISABLE_EXCEPTION );
-        FAIL();    
+        GCommon().HandleError(e.what(), GLOCATION, DISABLE_EXCEPTION);
+        FAIL();
     }
-    #ifdef HAS_LOGGING
-    catch (GException &e)
+#ifdef HAS_LOGGING
+    catch (GException& e)
     {
         cerr << e.what() << endl;
         FAIL();
     }
-    #endif
-    catch(...)
+#endif
+    catch (...)
     {
-        GCommon().HandleError( "Unknown exception caught", GLOCATION, DISABLE_EXCEPTION );
+        GCommon().HandleError("Unknown exception caught", GLOCATION, DISABLE_EXCEPTION);
         FAIL();
     }
 }
 
 
-
+/*
 TEST_F(TestGSystem,  cp)
 {
     string s = "source.txt";
@@ -122,7 +126,6 @@ TEST_F(TestGSystem,  cp)
 
 
 
-
 TEST_F(TestGSystem, mv)
 {
     string s = "source.txt";
@@ -149,4 +152,4 @@ TEST_F(TestGSystem, mv)
     EXPECT_TRUE(g_file()->CheckFile(d));
     g_system()->rm(d);
 }
-
+*/

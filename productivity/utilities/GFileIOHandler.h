@@ -47,8 +47,6 @@ class GFileIOHandler
 
 public:
     bool             API  CheckFile(const string fname, const string opt = "r");    // checking if file exists
-    bool             API  DoExists(const string fname, const char* opt = "r");    // checking if file or directory exists
-    bool             API  CheckFileEx(const string fname, const char* opt = "r");    // checking if file exists
     bool             API  Append(const string fname, const char* fmt, ...);
     vector<string>   API  ReadAll(const string fname, bool* status = nullptr);
     string           API  ReadFirstLine(const string fname);
@@ -56,10 +54,7 @@ public:
     string           API  GetAbsolutePath(const string fname);
     string           API  GetExtention(const string fname);
     bool             API  Recreate(const string fname, const bool print_error= true);
-
-   // bool             API  DeleteAll(const string fname);
-  //  void             API  CreateDirIfNeeded(const std::string& filename);
-    FILE             API* OpenFile(const string fname, const string opt, const GLocation loc, const bool print_error = true );
+    FILE             API* OpenFile(const string fname, const string opt, const GLocation loc, const bool print_error = true);
 
 
 
