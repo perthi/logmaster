@@ -4,7 +4,6 @@ LIBNAME_A=libgui-logger.a
 
 
 SRCCPP:=GUILogger.cpp \
-	GUILogger_moc.cpp \
 	GUILoggerGui.cpp \
 	GUILoggerGui_moc.cpp
 
