@@ -1,8 +1,6 @@
 // -*- mode: c++ -*-
 
 
-
-
 #include <logging/LLogApi.h>
 #include <logging/LPublisher.h>
 #include <utilities/version-info/GMenu.h>
@@ -11,6 +9,8 @@
 #include <cmdline/GArgument.h>
 #include <utilities/GFileIOHandler.h>
 #include <utilities/GSystem.h>
+#include <logging/GException.h>
+
 
 using namespace LOGMASTER;
 
@@ -35,49 +35,35 @@ using std::string;
 using std::cout;
 using std::endl;
 
+using namespace LOGMASTER;
+
 
 bool rm(const string fname);
 
-
-
-int main()
+int main(int argc, const char **argv)
 {
-	cerr << "exedir = " << GSystem::GetExeDir() << endl;;
-
-}
-
-
-/*
-int main(int argc, const char** argv )
-{
-	try
+	for (int i = 0; i < 5; i++)
 	{
-		FORCE_DEBUG("Deleting file");
-		//	auto ret = g_file()->DeleteAll("pth");
-
-		//auto ret = std::filesystem::remove("pth");
-
-		//auto ret = rm("pth");
-		//	FORCE_DEBUG("Done: ret = %s", (ret == true ? "TRUE" : "FALSE"));
-		
-		//cerr << g_system()->Errno2String(errno, "", "") << endl;
-		//	ret = g_file()->DeleteAll("mylogfile.log");
-		//	ret = g_file()->DeleteAll("mylogfile.log");
-	}
-	catch( std::exception &e)
-	{
-		cerr << "exception caught:" << e.what() << endl;
-		cerr << g_system()->Errno2String(errno, "", "") << endl;
-	}
-	catch (...)
-	{
-		cerr << "exception caught:"  << endl;
-		cerr << g_system()->Errno2String(errno, "", "") << endl;
+		try
+		{
+			G_EXCEPTION("This is an exception message");
+		}
+		catch (GException &e)
+		{
+			FORCE_DEBUG("The message is: %s", e.what());
+			cerr << "exception caught:" << e.what() << endl;
+			cerr << g_system()->Errno2String(errno, "", "") << endl;
+		}
+		catch (...)
+		{
+			cerr << "unknown exception caught:" << endl;
+		}
 	}
 
 	return 0;
 }
-*/
+
+
 
 /*
 class Test
@@ -88,7 +74,6 @@ class Test
 			FORCE_DEBUG( "args_s = %s", args_s.c_str() );
 			return true;
 		}
-        
 };
 
 
@@ -98,11 +83,9 @@ int main(int argc, const char **argv)
 
 	auto t1 = std::make_shared <GCommandLineArgument<string> >("-test", "-test [value]", "Testing calback", nullptr, fgkOPTIONAL);
 	auto t2 = std::make_shared <GCommandLineArgument<string> >("-test2", "-test2 [value]", "Testing calback", nullptr, fgkOPTIONAL);
-
-     std::deque< std::shared_ptr<GArgument> > args = 	std::deque< std::shared_ptr<GArgument> >();
+    std::deque< std::shared_ptr<GArgument> > args = 	std::deque< std::shared_ptr<GArgument> >();
 
 	Test test;
-
 
 	args.push_back(t1);
 	args.push_back(t2);
@@ -134,52 +117,9 @@ int main(int argc, const char **argv)
 	{
 		cout << "Unknown exception caught" << endl;
 	}
-
 	FORCE_DEBUG("DONE");
-
-}
-
-*/
-
-
-/*
-bool rm(const string fname)
-{
-	struct stat s;
-
-	if (stat(fname.c_str(), &s) == 0)
-	{
-
-		if (s.st_mode & S_IFDIR)
-		{
-			CERR << fname << "  Is a directory" << ENDL;
-		}
-		else if (s.st_mode & S_IFREG)
-		{
-			CERR << fname << "  Is a regular file" << ENDL;
-		}
-		else
-		{
-			CERR << fname << "Something else" << ENDL;
-		}
-	}
-	else
-	{
-		//error
-	}
-
-	bool ret = std::filesystem::remove(fname.c_str());
-
-	//	bool ret = std::filesystem::remove_all(fname.c_str());
-
-
-	if (ret == false)
-	{
-		GCommon().HandleError(GText("could not remove file: \"fname\"", fname.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
-	}
-
-	cerr << g_system()->Errno2String(errno, "", "") << endl;
-	return errno == 0 ? true : false;
 }
 */
+
+
 
