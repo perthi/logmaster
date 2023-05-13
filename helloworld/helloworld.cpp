@@ -1,5 +1,8 @@
 // -*- mode: c++ -*-
 
+
+
+
 #include <logging/LLogApi.h>
 #include <logging/LPublisher.h>
 #include <utilities/version-info/GMenu.h>
@@ -8,64 +11,44 @@
 #include <cmdline/GArgument.h>
 #include <utilities/GFileIOHandler.h>
 #include <utilities/GSystem.h>
- 
 
 using namespace LOGMASTER;
+
 
 #ifdef _W_IN32
 #include <Windows.h>
 #endif
-#include <stdio.h>
 
+
+#include <stdio.h>
 #include <thread>
 #include <chrono>
 #include <optional>
 #include <string>
 #include <filesystem>
 
-bool rm(const string fname)
+
+#include <string>
+using std::string;
+
+#include <iostream>
+using std::cout;
+using std::endl;
+
+
+bool rm(const string fname);
+
+
+
+int main()
 {
-	struct stat s;
+	cerr << "exedir = " << GSystem::GetExeDir() << endl;;
 
-	if (stat(fname.c_str(), &s) == 0)
-	{
-
-		if (s.st_mode & S_IFDIR)
-		{
-			CERR << fname << "  Is a directory" << ENDL;
-		}
-		else if (s.st_mode & S_IFREG)
-		{
-			CERR << fname << "  Is a regular file" << ENDL;
-		}
-		else
-		{
-			CERR << fname << "Something else" << ENDL;
-		}
-	}
-	else
-	{
-		//error
-	}
-
-	bool ret = std::filesystem::remove(fname.c_str());
-
-	//	bool ret = std::filesystem::remove_all(fname.c_str());
-
-
-	if (ret == false)
-	{
-		GCommon().HandleError(GText("could not remove file: \"fname\"", fname.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
-	}
-
-	cerr << g_system()->Errno2String(errno, "", "") << endl;
-	return errno == 0 ? true : false;
 }
 
 
-
-
-int main(int /*argc*/, const char** /*argv*/ )
+/*
+int main(int argc, const char** argv )
 {
 	try
 	{
@@ -94,6 +77,7 @@ int main(int /*argc*/, const char** /*argv*/ )
 
 	return 0;
 }
+*/
 
 /*
 class Test
@@ -156,3 +140,46 @@ int main(int argc, const char **argv)
 }
 
 */
+
+
+/*
+bool rm(const string fname)
+{
+	struct stat s;
+
+	if (stat(fname.c_str(), &s) == 0)
+	{
+
+		if (s.st_mode & S_IFDIR)
+		{
+			CERR << fname << "  Is a directory" << ENDL;
+		}
+		else if (s.st_mode & S_IFREG)
+		{
+			CERR << fname << "  Is a regular file" << ENDL;
+		}
+		else
+		{
+			CERR << fname << "Something else" << ENDL;
+		}
+	}
+	else
+	{
+		//error
+	}
+
+	bool ret = std::filesystem::remove(fname.c_str());
+
+	//	bool ret = std::filesystem::remove_all(fname.c_str());
+
+
+	if (ret == false)
+	{
+		GCommon().HandleError(GText("could not remove file: \"fname\"", fname.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
+	}
+
+	cerr << g_system()->Errno2String(errno, "", "") << endl;
+	return errno == 0 ? true : false;
+}
+*/
+

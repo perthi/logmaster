@@ -47,12 +47,13 @@ class GFileIOHandler
 
 public:
     bool             API  CheckFile(const string fname, const string opt = "r");    // checking if file exists
+ //   bool             API  DoExist(const string);
     bool             API  Append(const string fname, const char* fmt, ...);
     vector<string>   API  ReadAll(const string fname, bool* status = nullptr);
     string           API  ReadFirstLine(const string fname);
     string           API  ReadLastLine(const string fname, const unsigned int offset = 0);
     string           API  GetAbsolutePath(const string fname);
-    string           API  GetExtention(const string fname);
+    string           API  GetExtention(const string fname);/// @todo move to utilities
     bool             API  Recreate(const string fname);
     FILE             API* OpenFile(const string fname, const string opt, const GLocation loc, const bool print_error = true);
 

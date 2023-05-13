@@ -43,22 +43,26 @@ public:
     static string         API      pwd(const bool print = false);
     static vector<string> API      ls(const string dir = ".");
     static bool           API      mkdir(const string dirname, const bool print_error = true);
-
 #ifndef _WIN32
     static bool           API      mkdir(const string dirname, const GLocation l,  const int opt = S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH, bool overwrite = true);
 #else
     static bool           API      mkdir(const string dirname, const GLocation l, const int opt, bool overwrite = true);
 #endif // !_WIN32
-
     static bool           API      mkfile(const string filepath,  const bool print_error = true );
     static void           API      cp(string src, string dest);
     static bool           API      rm(const string filename, bool recursive = false);
     static bool           API      rmdir(const string filename);
     static void           API      mv(const string src, const string dest);
     static string         API      exec(const char *cmd);
+    static bool           API      doexist(const string fname);
     static string         API      GetProcessID();
     static string         API      getenv(const string var);
+    
+    
     static string         API      Errno2String(const  int code, const string fname, const string  opt);
+
+
+
 
 #ifdef _WIN32
     static string    API   GetCommandLineAll();

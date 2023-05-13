@@ -66,12 +66,16 @@ class GString
      bool         API EndsWith(const string& str, const vector <string>   substrings, const bool ignore_case = true);
 
      bool         API CompareNoCase(string lhs, string rhs) { return (ToUpper(lhs) == ToUpper(rhs)); }
+ 
      string       API & Ltrim(string &s, const char c = ' ');
      string       API & Rtrim(string &s, const char c = ' ');
      string       API & Trim(string &s, const char c = ' ');
      string       API & Trim(string &s, const vector<char> tokens);
      vector<string> API Trim(vector<string> &s, const char c = ' ');
      vector<string> API Trim(vector<string> &s, const vector<char> tokens);
+
+
+
      string       API &Utf8ToAnsi(string &s);
      char         API *Utf8ToAnsi(char *s);
      bool         API  IsAnsi(string &s);

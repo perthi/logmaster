@@ -115,7 +115,6 @@ GFileIOHandler::Append(const string fname, const char* fmt, ...)
 
 
 
-
 /** Read the last line of the file.
  *  @param[in] fname The file to read from
  *  @param[in] offset The line number, counting from the end, of the line to return. For example offset = 1 return the second last line, offset = 2 the third last etc.
@@ -322,8 +321,6 @@ GFileIOHandler::CheckFile(const string fname, const string opt)
     }
     return false;
 }
-
-
 
 
 

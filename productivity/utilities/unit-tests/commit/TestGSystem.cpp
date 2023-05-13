@@ -95,21 +95,22 @@ TEST_F(TestGSystem, mkfile)
 }
 
 
-/*
 TEST_F(TestGSystem,  cp)
 {
-    string s = "source.txt";
-    string d = "dest.txt";
-    g_system()->rm(s);
-    g_system()->rm(d);
+    string source = "source.txt";
+    string dest = "dest.txt";
+    g_system()->rm(source);
+    g_system()->rm(dest);
 
-    g_system()->mkfile(s);
-    g_file()->Append(s,  "Lorem ipsum dolor sit amet");
-    g_file()->Append(s,  "\nconsectetur adipiscing elit");
-    g_system()->cp(s, d);
+    g_system()->mkfile(source);
+    g_file()->Append(source,  "Lorem ipsum dolor sit amet");
+    g_file()->Append(source,  "\nconsectetur adipiscing elit");
+    g_system()->cp(source, dest);
     
-    vector<string> content = g_file()->ReadAll(d);
+    vector<string> content = g_file()->ReadAll(dest);
     EXPECT_EQ(2, content.size());
+
+
 
     if (content.size() == 2)
     {
@@ -117,11 +118,11 @@ TEST_F(TestGSystem,  cp)
         EXPECT_EQ("consectetur adipiscing elit", content[1]);
     }
     
-    EXPECT_TRUE(g_file()->CheckFile(s));
-    EXPECT_TRUE(g_file()->CheckFile(d));
+    EXPECT_TRUE(g_file()->CheckFile(source));
+    EXPECT_TRUE(g_file()->CheckFile(dest));
 
-    g_system()->rm(s);
-    g_system()->rm(d);
+    g_system()->rm(source);
+    g_system()->rm(dest);
 }
 
 
@@ -137,7 +138,15 @@ TEST_F(TestGSystem, mv)
     g_file()->Append(s, "Sed ut perspiciatis unde omnis iste natus error sit voluptatem");
     g_file()->Append(s, "\naccusantium doloremque laudantium, totam rem aperiam, eaque ipsa");
 
+    vector<string> s_data = g_file()->ReadAll(s);
+
     g_system()->mv(s, d);
+
+    vector<string> d_data = g_file()->ReadAll(d);
+    EXPECT_EQ(s_data, d_data);
+    EXPECT_FALSE( g_system()->doexist(s) );
+    EXPECT_TRUE( g_system()->doexist(d));
+
 
     vector<string> content = g_file()->ReadAll(d);
     EXPECT_EQ(2, content.size());
@@ -152,4 +161,4 @@ TEST_F(TestGSystem, mv)
     EXPECT_TRUE(g_file()->CheckFile(d));
     g_system()->rm(d);
 }
-*/
+

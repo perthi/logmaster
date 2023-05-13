@@ -188,7 +188,7 @@ GSystem::mkdir(const string dirname, GLocation l, const int  opt, bool overwrite
 GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
 #endif // !_WIN32
 {
-    char err[1024];
+    char err[1024]; /// @todo check for buffer size
 
 #ifdef _WIN32
     int status = ::_mkdir(dirname.c_str() );
@@ -320,6 +320,14 @@ GSystem::exec(const char* cmd)
     }
 
     return result;
+}
+
+bool
+GSystem::doexist(const string fname)
+{
+    FILE* fp = nullptr;
+    fopen_s(&fp, fname.c_str(), "r");
+    return fp == nullptr ?  false : true;
 }
 
 
