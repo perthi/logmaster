@@ -1,6 +1,7 @@
 PROGRAM:=gui-qt-logmaster-example1
 
-SRCCPP+=gui-qt-logmaster-example1.cpp
+SRCCPP+=gui-qt-logmaster-example1.cpp \
+        GVersion.cpp
 
 export CPPFLAGS:=$(CPPFLAGS_RELAXED)
 INCLUDES+= -isystem $(QT_INCLUDE)

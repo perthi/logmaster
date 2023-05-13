@@ -29,7 +29,7 @@ void alarm_subscriber(const std::shared_ptr<LMessage>  m)
 }
 
 
-int main( int argc, char **argv )
+int main( int /*argc*/, char ** /*argv*/ )
 {
     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
     LLogging::Instance()->RegisterGuiSubscriber(alarm_subscriber);
