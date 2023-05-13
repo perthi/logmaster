@@ -308,7 +308,7 @@ GUILoggerGui::StartTimer()
 
 
 void
-GUILoggerGui::timerEvent(QTimerEvent* event)
+GUILoggerGui::timerEvent(QTimerEvent* /*event*/)
 {
 	NewMessages(new_messages);
 }

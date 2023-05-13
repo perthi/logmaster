@@ -97,7 +97,7 @@ GUIAlarmGui::RetranslateUi()
 
 
 void
-GUIAlarmGui::timerEvent(QTimerEvent* event)
+GUIAlarmGui::timerEvent(QTimerEvent* /*event*/)
 {
 	NewMessages(fNewMessages);
 }

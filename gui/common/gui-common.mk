@@ -4,12 +4,8 @@
 LIBNAME_A=libgui-common.a
 
 
-SRCCPP:=GUICommonGui.cpp \
-	GUIPushButton.cpp \
-	GUIInitStyles.cpp \
-	GUILoggerBase.cpp \
-	GUICommonGui_moc.cpp  \
-	GUIPushButton_moc.cpp 
+SRCCPP:= GUIInitStyles.cpp \
+	     GUILoggerBase.cpp
 
 
 export CPPFLAGS:=$(CPPFLAGS_RELAXED)
