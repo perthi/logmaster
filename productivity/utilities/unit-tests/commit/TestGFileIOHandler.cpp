@@ -55,7 +55,7 @@ TestGFileIOHandler::TearDownTestCase()
 /**
 * Here we check that the Utilities::CheckFile  function actually does what is expected, and that
 * it does not accidentally destroy any files. We check the following
-* - That we can  create an arbritray random file and write to it
+* - That we can  create an arbitrary random file and write to it
 * - That  we return value is false when opening an existing file for writing
 * - That we can open an existing file for reading */
 TEST_F(TestGFileIOHandler, CheckFileNSR305)
@@ -83,14 +83,19 @@ TEST_F(TestGFileIOHandler, CheckFileNSR305)
 
 
     FILE *fp = f->OpenFile(rand_fname2, "w", GLOCATION );
+    
+    
     ASSERT_NE(fp, nullptr);
 
-    // We write an arbritray string to the file in order to check at the end that the UtilitesCheckFile function is non destructive
+    // We write an arbitrary string to the file in order to check at the end that the CheckFile function is non destructive
     fprintf(fp, "Hello Dolly\n");
     fclose(fp);
     
-    // For an exisiting file we expect the return value to be false if we try to open it with the w/w+ option because data
-    // allready in the file will then be lost, for all other valid access options we expect true as the retrun value
+
+
+
+    // For an existing file we expect the return value to be false if we try to open it with the w/w+ option because data
+    // already in the file will then be lost, for all other valid access options we expect true as the return value
     EXPECT_EQ(false, f->CheckFile(rand_fname2, "w"));
     EXPECT_EQ(false, f->CheckFile(rand_fname2, "w+"));
     EXPECT_EQ(true,  f->CheckFile(rand_fname2, "a"));
@@ -115,7 +120,6 @@ TEST_F(TestGFileIOHandler, CheckFileNSR305)
     
 
 }
-
 
 
 TEST_F(TestGFileIOHandler, AppendCreate)
@@ -214,7 +218,7 @@ TEST_F(TestGFileIOHandler, GetAbsolutePath)
 
 TEST_F(TestGFileIOHandler, GetExtention)
 {
-   GFileIOHandler *f = g_file();
+    GFileIOHandler *f = g_file();
     string exeExt = f->GetExtention(g_system()->GetExeName());
 #ifdef _WIN32
     EXPECT_EQ(exeExt, "exe");

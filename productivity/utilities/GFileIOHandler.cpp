@@ -248,6 +248,7 @@ GFileIOHandler::DoExists(const string fname, const char* opt)
 FILE*
 GFileIOHandler::OpenFile(const string fname, const string opt, const GLocation l, const bool print_error )
 {
+
     FILE* fp = nullptr;
 
 #ifdef _WIN32

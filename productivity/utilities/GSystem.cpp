@@ -586,20 +586,21 @@ GSystem::rmdir(const string filename, bool recursive)
 }
 
 
+
 bool
 GSystem::rm(const string filename, bool recursive)
 {
+    //CERR << "recursive = " << (recursive == false ? "FALSE" : "TRUE") << ENDL;
     try
     {
         if (recursive == false)
         {
-            std::filesystem::remove(filename.c_str());
+            return  std::filesystem::remove(filename.c_str());
         }
         else
         {
             std::filesystem::remove_all(filename.c_str());
         }
-
     }
     catch (std::exception& e)
     {
@@ -609,7 +610,7 @@ GSystem::rm(const string filename, bool recursive)
     catch (...)
     {
         GCommon().HandleError(GText("could not remove file:%s  (Unknown error)", filename.c_str()).str(), GLOCATION, DISABLE_EXCEPTION);
-
+        return false;
     }
 
     if (errno != 0)
