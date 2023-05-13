@@ -22,7 +22,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QLineEdit>
-#include <QtCore5compat/QRegExp>
+#include <QtCore5Compat/QRegExp>
 
 
 class GUILogger;
@@ -33,7 +33,7 @@ class GUILoggerGui : public QWidget
 
    public:
       explicit API GUILoggerGui(GUILogger *logger,  QWidget *parent = 0);
-      API ~GUILoggerGui();
+      virtual API ~GUILoggerGui();
     //  API void StartTimer();
       API static void AddMessage(int cnt, LMessage msg);
 

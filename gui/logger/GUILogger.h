@@ -20,7 +20,7 @@ using namespace LOGMASTER;
    {
    public:
 	   explicit API GUILogger();
-	   ~GUILogger() = default;
+	   virtual ~GUILogger() = default;
 	   virtual void newMessage(int cnt, const LMessage &msg);
 
    private: // functions
