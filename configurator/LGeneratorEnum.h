@@ -17,7 +17,7 @@ class  LGeneratorEnum : public LGenerator
 {
 	public:
 		LGeneratorEnum( const string fname );
-		virtual ~LGeneratorEnum();
+		virtual ~LGeneratorEnum() = default;
 		virtual vector<string>  Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, const string autoclause ) const override;
 	private:		

@@ -28,6 +28,7 @@ class  LGenerator
 
 	string GetFilename( ) const { return fFileName; };	
 
+
 	protected:
 		string fFileName		= "UNKNOWN";
 		string fLevelEnumName    =   "eLOGLEVEL";

@@ -19,11 +19,6 @@ LGeneratorEnum::LGeneratorEnum( const string fname ) : LGenerator( fname )
 }
 
 
-LGeneratorEnum::~LGeneratorEnum()
-{
-
-}
-
 vector<string>
 LGeneratorEnum::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>>  levels,
                          vector<std::shared_ptr<LXmlEntitySubSystem>> systems,   const string autoclause  ) const
@@ -85,10 +80,10 @@ LGeneratorEnum::GenerateSystems(vector<std::shared_ptr<LXmlEntitySubSystem>> sys
     lines.push_back("#endif");
     lines.push_back(" {");
     lines.push_back("\tSYS_NONE\t\t=  0x0000,    //  00000000 00000000    No sub system");
-    lines.push_back("\tSYS_EX\t\t\t=  0x0001,    //  00000000 00000001    The exeption handling sub system");
-    lines.push_back("\tSYS_ALARM\t\t\t=  0x0002,    //  00000000 00000001    The exeption handling sub system");
-    lines.push_back("\tSYS_USER\t\t=  0x0004,    //  00000000 00000010    User messages");
-    lines.push_back("\tSYS_GENERAL\t\t=  0x0008,    //  00000000 00000100    No specific sub system (i.e general message)");
+    lines.push_back("\tSYS_EX\t\t\t=  0x0001,    //  00000000 00000001    The exception handling sub system");
+    lines.push_back("\tSYS_ALARM\t\t=  0x0002,    //  00000000 00000010    The exception handling sub system");
+    lines.push_back("\tSYS_USER\t\t=  0x0004,    //  00000000 00000100    User messages");
+    lines.push_back("\tSYS_GENERAL\t\t=  0x0008,    //  00000000 00001000    No specific sub system (i.e general message)");
 
     int i = 4;
 

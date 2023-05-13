@@ -40,6 +40,8 @@
 #include <configurator/LGeneratorHashMap.h>
 #include <configurator/LGeneratorMacrosException.h>
 #include <configurator/LGeneratorEnum.h>
+#include <configurator/LGeneratorLogTest.h>
+
 #include <cmdline/GCommandLineArgument.h>
 #include <cmdline/GLogApplication.h>
 #include <utilities/GUtilities.h>
@@ -126,6 +128,7 @@ int main(int  argc, const char **  argv)
 			generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApi.h") );
 			generators.push_back(std::make_shared < LGeneratorMacrosException >( "exception/GExceptionMacros.h") );
 			generators.push_back(std::make_shared < LGeneratorHashMap >( "logging/LHashMapsBase.cpp") );
+			generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTest2.cpp"));
 			generator( generators, loglevels, subsystems ,  clause );
 
 		}
@@ -159,7 +162,6 @@ void generator( vector< std::shared_ptr< LGenerator >  > generators,
 {
 	for( auto  gen : generators )
 	{
-		///FORCE_DEBUG("genearting %s", gen->GetFilename().c_str() );
 		vector<string> lines = gen->Generate( loglevels, subsystems, autoclause );
 		FILE* fp = nullptr;
 

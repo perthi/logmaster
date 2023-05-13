@@ -16,14 +16,9 @@ LGeneratorMacrosException::LGeneratorMacrosException( const string fname ) : LGe
 }
 
 
-LGeneratorMacrosException::~LGeneratorMacrosException()
-{
-
-}
-
 vector<string>  
 LGeneratorMacrosException::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/ ,
-	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,  const string autoclause  ) const
+                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,  const string autoclause  ) const
 {
     vector<string> lines;
     lines.push_back("// -*- mode: c++ -*-\n\n");

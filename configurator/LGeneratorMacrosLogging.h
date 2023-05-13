@@ -20,7 +20,7 @@ class  LGeneratorMacrosLogging : public LGenerator
 {
 	public:
 	   API LGeneratorMacrosLogging( const string fname );
-	   virtual API ~LGeneratorMacrosLogging();
+	   virtual API ~LGeneratorMacrosLogging() = default;
 
 	   virtual vector<string> API Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                           vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,  const string autoclause) const override;

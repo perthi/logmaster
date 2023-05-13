@@ -20,11 +20,6 @@ LGeneratorMacrosLogging::LGeneratorMacrosLogging( const string name  ) : LGenera
 }
 
 
-LGeneratorMacrosLogging::~LGeneratorMacrosLogging()
-{
-
-}
-
 
 
 LGeneratorMacrosLogging::LMacroEntry 
@@ -57,7 +52,6 @@ LGeneratorMacrosLogging::GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel
 
     if (with_user == true)
     {
-       // names.push_back(LMacroName( sys->fName + "_" + lvl->fName + user , false));
         systems.push_back(LSystem("USER"));
     }
     return  LMacroEntry( lvl->fName , names, systems  );
@@ -159,7 +153,9 @@ LGeneratorMacrosLogging::GenerateLine( const LMacroName m,  const vector<LSystem
 }
 
 
+/** 
 
+*/
 vector<string>  
 LGeneratorMacrosLogging::GenerateCommon( const string autoclause   ) const
 {
