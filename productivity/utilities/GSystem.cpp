@@ -326,7 +326,12 @@ bool
 GSystem::doexist(const string fname)
 {
     FILE* fp = nullptr;
+    #ifdef _WIN32
     fopen_s(&fp, fname.c_str(), "r");
+    #else
+    fp =  fopen(fname.c_str(), "r");
+    #endif
+
     return fp == nullptr ?  false : true;
 }
 
