@@ -75,7 +75,7 @@ LGeneratorHashMap::GenerateInitHashLogTags(   vector< std::shared_ptr<LXmlEntity
     
     lines.push_back("   {");
 
-    for (auto sys : systems)
+    for (auto &sys : systems)
     {
         vector<string> tags;
         tags.push_back(sys->fTag);
@@ -84,12 +84,12 @@ LGeneratorHashMap::GenerateInitHashLogTags(   vector< std::shared_ptr<LXmlEntity
             tags.push_back(sys->fTagShort);
         }
 
-        for (auto tag : tags)
+        for (auto &tag : tags)
         {
         
             lines.push_back( g_utilities()->TabAlign("\tSubCmdHash->emplace(\"" + tag + "-off\"" + ",", 5)  +  "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + ","	+ "  eLOGLEVEL::LOG_OFF));");
 
-            for (auto lvl : levels)
+            for (auto &lvl : levels)
             {
                 string tmptag = tag + "-" + g_string()->ToLower(lvl->fName);  
                lines.push_back(  g_utilities()->TabAlign( "\tSubCmdHash->emplace(\"" + tmptag + "\"" + ",", 5) +  "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + ","	+ "  eLOGLEVEL::LOG_"+ lvl->fName  +"));");   
@@ -114,7 +114,7 @@ LGeneratorHashMap::GenerateInitHashLevel2String (  vector< std::shared_ptr<LXmlE
     lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_OFF, \"OFF\");");
     lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_FORCE_DEBUG, \"Force_Debug\");");
 
-    for( auto lvl: levels )
+    for( auto &lvl: levels )
     {
         std::stringstream buffer; 
         buffer << "\tLevel2StringHash->emplace(eLOGLEVEL::" << "LOG_" << lvl->fName << ",\t" << "\"" << g_string()->ToPascalCase(  lvl->fName ) << "\"" ");";
@@ -140,7 +140,7 @@ LGeneratorHashMap::GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEn
     lines.push_back( "\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_ALARM,    \"Alarm\");");
     lines.push_back( "\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_NONE,     \"System Unknown\");");
     
-    for (auto sys : systems)
+    for (auto &sys : systems)
     {
         std::stringstream buffer; 
         buffer << "\t" << "System2StringHash->emplace(eMSGSYSTEM::" << "SYS_" << sys->fName + ", ";
@@ -176,7 +176,7 @@ LGeneratorHashMap::GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntityS
     lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,") +   "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );");
     lines.push_back("\t" + g_utilities()->TabAlign( "fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM,") +  "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );");
 
-    for (auto sys : systems)
+    for (auto &sys : systems)
     {
         std::stringstream buffer;
         buffer << "\t" + g_utilities()->TabAlign("fLogLevelHash.emplace(" + fSystemEnumName + "::" + "SYS_" + sys->fName + ", ");

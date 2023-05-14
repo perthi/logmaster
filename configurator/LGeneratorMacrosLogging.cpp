@@ -72,9 +72,9 @@ LGeneratorMacrosLogging::Generate(  vector<std::shared_ptr<LXmlEntityLogLevel > 
 
     lines.insert(lines.end(), lines_common.begin(), lines_common.end());
 
-    for (auto sys : systems)
+    for (auto &sys : systems)
     {
-        for (auto lvl : levels)
+        for (auto &lvl : levels)
         {
             vector<LMacroEntry> entries;
             LMacroEntry e = GenerateMacroEntry(lvl, sys, false);
@@ -101,10 +101,10 @@ LGeneratorMacrosLogging::GenerateLines( const vector<LMacroEntry>  m_entries  ) 
 {
   vector<string> lines;
 
-    for( auto entry: m_entries )
+    for( auto &entry: m_entries )
     {
     
-        for ( auto m: entry.fMacroNames)
+        for ( auto &m: entry.fMacroNames)
         {
             string line;
             line = GenerateLine(  m , entry.fSystems,  entry.fLevel );
