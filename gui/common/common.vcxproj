@@ -187,11 +187,9 @@
     <ClInclude Include="GUIDefenitions.h" />
     <ClInclude Include="GUIExecWidget.h" />
     <ClInclude Include="GUIInitStyles.h" />
-    <ClInclude Include="GUILoggerBase.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GUIInitStyles.cpp" />
-    <ClCompile Include="GUILoggerBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="gui-common-dll.rc" />
