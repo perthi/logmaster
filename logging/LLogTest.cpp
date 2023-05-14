@@ -26,7 +26,7 @@
 ******************************************************************************/
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sun 14 May-2023 17:04:40  ***/
+/*** Generated at: Sun 14 May-2023 17:21:19  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -116,6 +116,15 @@ LLogTest::WriteMessages()
         GENERAL_WARNING("This is a GENERAL_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
         GENERAL_INFO("This is a GENERAL_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
         GENERAL_DEBUG("This is a GENERAL_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+
+
+        fval = g_random()->Uniform<float>(-10, 100);
+        ival = g_random()->Uniform<int>(-10, 1000);
+        ALARM_FATAL("This is a ALARM_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        ALARM_ERROR("This is a ALARM_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        ALARM_WARNING("This is a ALARM_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        ALARM_INFO("This is a ALARM_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        ALARM_DEBUG("This is a ALARM_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
     cout << endl;
 }
 }

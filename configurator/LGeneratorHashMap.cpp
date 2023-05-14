@@ -30,17 +30,15 @@ void
 LGeneratorHashMap::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                          vector< std::shared_ptr<LXmlEntitySubSystem > >  systems )
 {
-//    vector<string> lines;
-
-
     XML_INFO("levles size = %d",  levels.size() );
     XML_INFO("systems size = %d", systems.size() );
+
+    CERR << " systems.size()" << systems.size() << ENDL;
 
     G_ASSERT_EXCEPTION(  systems.size() <= MAX_ADDITIONL_SUBSYSTEMS, 
     "Max number of syb systems exceeded. You can define maximum 12 additional sub systems, \
     you hav defined %d. please check your XML configuration",   systems.size() );    
     
-  //  lines.push_back(  autoclause ); 
     fFileLineEntries.push_back("#include \""+ fClassName + ".h\"");
     fFileLineEntries.push_back("#include <utilities/GNumbers.h>");
     fFileLineEntries.push_back("#include <utilities/GUtilities.h>");
@@ -56,11 +54,7 @@ LGeneratorHashMap::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  l
     GenerateInitHashLevel2String( levels,    fFileLineEntries   );
     GenerateInitHashLogTags( levels, systems, fFileLineEntries );
  
-    //lines.push_back( "}" );
     fFileLineEntries.push_back("}");
-
-    //return lines;
-    //return fFileLineEntries;
 }	
 
 

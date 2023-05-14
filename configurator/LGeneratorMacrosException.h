@@ -14,8 +14,6 @@ using std::vector;
 #include <memory>
 
 
-
-
 class LXmlEntitySubSystem;
 
 

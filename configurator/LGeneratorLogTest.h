@@ -7,10 +7,6 @@
 
 
 
-
-//struct LMacroCallEntry;
-
-
 class LGeneratorLogTest : public LGenerator
 {
 public:
@@ -19,16 +15,6 @@ public:
 
 	virtual void  Generate(std::vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 		std::vector< std::shared_ptr<LXmlEntitySubSystem > >  systems) override;
-
-	///std::vector<string> fFileLineEntries;
-private:
-	
-	/*
-	struct LMacroCallEntry
-	{
-
-	};
-	*/
 
 };
 

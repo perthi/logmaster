@@ -16,8 +16,6 @@ LGenerator::LGenerator( const string path,  const string xml, const string xsd) 
    fClassName = g_string()->Path2ClassName(path);
    fSourceFileName = fClassName + ".cpp";
    fHeaderFileName = fClassName + ".h";
-   
-  // FORCE_DEBUG("classname = %s", fClassName.c_str() );
    GenerateHeader(xml, xsd);
 
 }

@@ -26,7 +26,7 @@
 ******************************************************************************/
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sun 14 May-2023 17:04:40  ***/
+/*** Generated at: Sun 14 May-2023 17:21:19  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -63,6 +63,7 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_DATABASE, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL,(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );
    }
@@ -84,6 +85,7 @@ LHashMapsBase::~LHashMapsBase(){ }
 	System2StringHash->emplace(eMSGSYSTEM::SYS_DATABASE, 	"Database");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_USER, 	"User");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_GENERAL, 	"General");
+	System2StringHash->emplace(eMSGSYSTEM::SYS_ALARM, 	"Alarm");
    }
 
 
@@ -195,6 +197,15 @@ LHashMapsBase::~LHashMapsBase(){ }
 	SubCmdHash->emplace("--gen-info",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_INFO));
 	SubCmdHash->emplace("--gen-debug",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_DEBUG));
 	SubCmdHash->emplace("--gen-all",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_ALL));
+
+
+	SubCmdHash->emplace("--alarm-off",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eLOGLEVEL::LOG_OFF));
+	SubCmdHash->emplace("--alarm-fatal",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eLOGLEVEL::LOG_FATAL));
+	SubCmdHash->emplace("--alarm-error",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eLOGLEVEL::LOG_ERROR));
+	SubCmdHash->emplace("--alarm-warning",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eLOGLEVEL::LOG_WARNING));
+	SubCmdHash->emplace("--alarm-info",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eLOGLEVEL::LOG_INFO));
+	SubCmdHash->emplace("--alarm-debug",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eLOGLEVEL::LOG_DEBUG));
+	SubCmdHash->emplace("--alarm-all",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eLOGLEVEL::LOG_ALL));
 
 
    }

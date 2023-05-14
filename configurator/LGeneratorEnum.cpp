@@ -23,21 +23,15 @@ void
 LGeneratorEnum::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>>  levels,
                          vector<std::shared_ptr<LXmlEntitySubSystem>> systems)
 {
-   // vector<string> lines;
-   //  lines.push_back(  autoclause ); 
     GenerateSystems( systems,  fFileLineEntries  );
     fFileLineEntries.push_back("\n\n");
     GenerateLevels ( levels, fFileLineEntries );
-    //return  fFileLineEntries;
 }
 
 
 void 
 LGeneratorEnum::GenerateLevels( vector< std::shared_ptr<LXmlEntityLogLevel > >  levels, vector<string> &  lines ) const
 {
- ///   vector<string> lines;
-   
-    
     lines.push_back("/*Enum controlling the log level*/");
     lines.push_back("#ifdef __cplusplus");
     lines.push_back("enum class  eLOGLEVEL");
@@ -46,7 +40,6 @@ LGeneratorEnum::GenerateLevels( vector< std::shared_ptr<LXmlEntityLogLevel > >  
     lines.push_back("#endif");
     lines.push_back("{");
  
-  //  cout << "LV SIZE = " << levels.size() << endl;
     lines.push_back("\tLOG_OFF\t\t\t=  0x00,    //  00000000   No sub system");
     int i = 0;
 
@@ -54,16 +47,12 @@ LGeneratorEnum::GenerateLevels( vector< std::shared_ptr<LXmlEntityLogLevel > >  
     {
         string line = g_utilities()->TabAlign("\tLOG_" + lvl->fName + " ", 3) + "=  " + ToHexString(1 << i, 2 ) + ",    //  " + ToBinaryString(1 << i, 8);
         lines.push_back(line);
-    ///    cout << "LEVEL:" << lvl->fName << endl;
         i++;
-
     }
 
     lines.push_back("\tLOG_FORCE_DEBUG\t\t= " +   ToHexString(1 << i, 2 ) + ",  // " + ToBinaryString(1 << i, 8)) ;  
     lines.push_back("\tLOG_ALL\t\t\t=  0xff,    //  11111111   All sub systems");
     lines.push_back("};");
-
-
 }
 
 
@@ -81,11 +70,8 @@ LGeneratorEnum::GenerateSystems(vector<std::shared_ptr<LXmlEntitySubSystem>> sys
     lines.push_back(" {");
     lines.push_back("\tSYS_NONE\t\t=  0x0000,    //  00000000 00000000    No sub system");
     lines.push_back("\tSYS_EX\t\t\t=  0x0001,    //  00000000 00000001    The exception handling sub system");
-    lines.push_back("\tSYS_ALARM\t\t=  0x0002,    //  00000000 00000010    The exception handling sub system");
-   // lines.push_back("\tSYS_USER\t\t=  0x0004,    //  00000000 00000100    User messages");
-   // lines.push_back("\tSYS_GENERAL\t\t=  0x0008,    //  00000000 00001000    No specific sub system (i.e general message)");
 
-    int i = 4;
+    int i = 1;
 
     for (auto &sys : systems)
     {
@@ -109,6 +95,7 @@ LGeneratorEnum::ToHexString( const int num, const int width ) const
 }
 
 
+/** @todo move to GUtilities, or check if function allready exists*/
 string 
 LGeneratorEnum::ToBinaryString(int num, const int width ) const
 {

@@ -30,10 +30,12 @@ class  LGenerator
 	                                   std::vector< std::shared_ptr<LXmlEntitySubSystem > >  systems) = 0;
 
 	string GetFilePath( ) const { return fFilePath; };	
+	
 	void   GenerateHeader(const string xml, const string xsd);
+	
 	vector<string>& GetLines() { return  fFileLineEntries; };
 
-	//protected:
+	protected:
 		string fFilePath		         =  "UNKNOWN";        //!< Full path of the .cpp or .h source file
 		string fClassName                =  "UNKNOWN";        //!< Name of the class (extracted from the file path
 		string fSourceFileName           =  "UNKNOWN";        //!< Name of the .cpp source file if applicable
