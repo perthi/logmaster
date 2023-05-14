@@ -49,9 +49,10 @@ public:
     {
 //        static  thread_local std::mutex m;
 //        std::lock_guard<std::mutex> guard( m );
-        static thread_local char loc[4096] = {0};
+        //static int max_size = 1024;
+        static thread_local char loc[(int)1024] = {0};
 
-        SPRINTF(loc, 4097, "%s[line%d]: %s", fFileName.c_str() , fLineNo, fFunctName.c_str() );
+        SPRINTF(loc, (int)1024, "%s[line%d]: %s", fFileName.c_str(), fLineNo, fFunctName.c_str());
 
         static thread_local string str_local;
         str_local = loc;

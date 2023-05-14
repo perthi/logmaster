@@ -28,7 +28,7 @@
 
 
 #include "TestLConfigurator.h"
-#include <configurator/LConfigurator.h>
+//#include <configurator/LConfigurator.h>
 
 
 #include <logging/LLogApi.h>

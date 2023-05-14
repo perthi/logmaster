@@ -33,7 +33,7 @@
 
 
 #ifdef _WIN32
-#include <Windows.h>
+//#include <Windows.h>
 #else
 #include <unistd.h>
 #endif
@@ -50,6 +50,7 @@
 
 #include <memory>
 using namespace std::chrono;
+
 
 std::function<double()>  GTime::fExternalTimeSource = nullptr;
 
@@ -138,11 +139,15 @@ long double  GTime::AccessDate(const string date)
             nDays += 1;
         }
 
+        
         nDays += (long double)day - (long double)1;
-        int64_t minutes_per_day = 24 * 60;
+        int64_t hours_per_day = 24;
+        int64_t sixty = 60;
+        int64_t minutes_per_day = hours_per_day*sixty;
         int64_t seconds_per_day = minutes_per_day*60;
         long double rem = (long double)hour / 24 + (long double)min / (minutes_per_day) + (long double)sec / (seconds_per_day );
         nDays += rem;
+        
     }
     return nDays;
 }
@@ -245,7 +250,7 @@ GTime::GetEpochTime( time_t * sec, int64_t * us )
     {
         *sec = (time_t)epoch_time;
     }
-    if(  us != nullptr )
+    if(  us != nullptr && sec != nullptr )
     {
         *us = dtn.count()  %  *sec;
     }
