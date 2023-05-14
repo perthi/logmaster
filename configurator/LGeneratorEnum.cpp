@@ -13,7 +13,7 @@ using namespace LOGMASTER;
 
 
 
-LGeneratorEnum::LGeneratorEnum( const string fname ) : LGenerator( fname )
+LGeneratorEnum::LGeneratorEnum( const string fname, const string xml, const string xsd ) : LGenerator( fname, xml, xsd )
 {
 
 }
@@ -21,14 +21,14 @@ LGeneratorEnum::LGeneratorEnum( const string fname ) : LGenerator( fname )
 
 vector<string>
 LGeneratorEnum::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>>  levels,
-                         vector<std::shared_ptr<LXmlEntitySubSystem>> systems,   const string autoclause  ) const
+                         vector<std::shared_ptr<LXmlEntitySubSystem>> systems)
 {
-    vector<string> lines;
-     lines.push_back(  autoclause ); 
-    GenerateSystems( systems, lines );
-    lines.push_back("\n\n");
-    GenerateLevels ( levels, lines );
-    return lines;
+   // vector<string> lines;
+   //  lines.push_back(  autoclause ); 
+    GenerateSystems( systems,  fFileLineEntries  );
+    fFileLineEntries.push_back("\n\n");
+    GenerateLevels ( levels, fFileLineEntries );
+    return  fFileLineEntries;
 }
 
 

@@ -3,9 +3,9 @@
 
 
 #include "LGenerator.h"
-
-
 #include <utilities/GDefinitions.h>
+
+
 
 
 //struct LMacroCallEntry;
@@ -14,12 +14,13 @@
 class LGeneratorLogTest : public LGenerator
 {
 public:
-	API LGeneratorLogTest(const string filename);
+	API LGeneratorLogTest(const string filename, const string xml, const string xsd);
 	virtual API ~LGeneratorLogTest() = default;
 
-	virtual vector<string> API Generate(vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-		vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, const string autoclause) const override;
+	virtual std::vector<string>  Generate(std::vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+		std::vector< std::shared_ptr<LXmlEntitySubSystem > >  systems) override;
 
+	///std::vector<string> fFileLineEntries;
 private:
 	
 	/*

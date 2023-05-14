@@ -10,7 +10,7 @@
 using namespace LOGMASTER;
 
 
-LGeneratorMacrosException::LGeneratorMacrosException( const string fname ) : LGenerator(fname)
+LGeneratorMacrosException::LGeneratorMacrosException( const string fname, const string xml, const string xsd) : LGenerator(fname, xml, xsd)
 {
 
 }
@@ -18,24 +18,28 @@ LGeneratorMacrosException::LGeneratorMacrosException( const string fname ) : LGe
 
 vector<string>  
 LGeneratorMacrosException::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/ ,
-                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,  const string autoclause  ) const
+                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)
 {
-    vector<string> lines;
-    lines.push_back("// -*- mode: c++ -*-\n\n");
-    lines.push_back("\n#pragma once \n\n" );    
-    lines.push_back(  autoclause );
+    //vector<string> lines;
+   // lines.push_back("// -*- mode: c++ -*-\n\n");
+   // lines.push_back("\n#pragma once \n\n" );    
+   // lines.push_back(  autoclause );
 
+    /*
     for( auto sys : systems )
     {
         string tmp =  g_string()->ToPascalCase( sys->fName );
     }
+    */
     
-    GenerateClasses(  systems,  lines );
-    lines.push_back("\n\n");
-    GenerateExceptionMacros(  systems, lines  );
-    lines.push_back("\n\n");
+   // fFileLineEntries
 
-    return lines;
+    GenerateClasses(  systems, fFileLineEntries );
+    fFileLineEntries.push_back("\n\n");
+    GenerateExceptionMacros(  systems, fFileLineEntries);
+    fFileLineEntries.push_back("\n\n");
+
+    return fFileLineEntries;
 }
 
 

@@ -16,10 +16,10 @@ using std::vector;
 class  LGeneratorEnum : public LGenerator
 {
 	public:
-		LGeneratorEnum( const string fname );
+		LGeneratorEnum( const string fname, const string xml, const string xsd );
 		virtual ~LGeneratorEnum() = default;
 		virtual vector<string>  Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, const string autoclause ) const override;
+	                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)  override;
 	private:		
 		void  GenerateLevels(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels, 	vector<string> &lines ) const;
 		void  GenerateSystems( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, 	vector<string> &lines ) const;								   

@@ -41,6 +41,7 @@
 #include <configurator/LGeneratorMacrosException.h>
 #include <configurator/LGeneratorEnum.h>
 #include <configurator/LGeneratorLogTest.h>
+#include <configurator/LCopyright.h>
 
 #include <cmdline/GCommandLineArgument.h>
 #include <cmdline/GLogApplication.h>
@@ -63,9 +64,9 @@ using std::endl;
 using std::deque;
 
 
-void generator(  vector< std::shared_ptr< LGenerator >  > generators,
-                 vector< std::shared_ptr< LXmlEntityLogLevel > > loglevels,
-			     vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems, const string autoclause );
+void generator(  const vector< std::shared_ptr< LGenerator >  > &generators,
+                 const vector< std::shared_ptr< LXmlEntityLogLevel > > &loglevels,
+			     const vector< std::shared_ptr< LXmlEntitySubSystem > >  &subsystems, const string &autoclause );
 
 
 
@@ -99,15 +100,16 @@ int main(int  argc, const char **  argv)
 		SET_LOGLEVEL("--all-off --all-debug");
 		SET_LOGFORMAT("1111111");
 
-		g->AddArguments(arguments).ScanArguments(argc, argv);
-
-		string addendum = "/*** Generated from " + xml + " **/\n" ;
-		addendum +=  "/*** Validated by " + xsd + " **/\n";
-		addendum += "/*** Copyright Per Thomas Hille pth@embc.no ***/\n";
-
-        string clause =   g_utilities()->AutoClause( addendum );
 		
-                
+		g->AddArguments(arguments).ScanArguments(argc, argv);
+		
+		
+		// string addendum = "/*** Generated from " + xml + " **/\n" ;
+		// addendum +=  "/*** Validated by " + xsd + " **/\n";
+		// addendum += "/*** Copyright Per Thomas Hille pth@embc.no ***/\n";
+        // string clause =   g_utilities()->AutoClause( addendum );
+		
+
 		auto validator = std::make_shared<GXmlValidator>();
 
 		if (validator->IsValid(xml, xsd) == false)
@@ -124,13 +126,13 @@ int main(int  argc, const char **  argv)
 			XML_INFO("Successfully validated %s against %s and parsed the XML file", xml.c_str(), xsd.c_str() );
 
 			vector< std::shared_ptr< LGenerator >  > generators;
-			generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumGenerated.h") );
-			generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApi.h") );
-			generators.push_back(std::make_shared < LGeneratorMacrosException >( "exception/GExceptionMacros.h") );
-			generators.push_back(std::make_shared < LGeneratorHashMap >( "logging/LHashMapsBase.cpp") );
-			generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTest.cpp"));
-			generator( generators, loglevels, subsystems ,  clause );
-
+			generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumGenerated.h", xml, xsd) );
+			generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApi.h", xml, xsd) );
+			generators.push_back(std::make_shared < LGeneratorMacrosException >( "exception/GExceptionMacros.h", xml, xsd) );
+			generators.push_back(std::make_shared < LGeneratorHashMap >( "logging/LHashMapsBase.cpp", xml, xsd) );
+			generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTest.cpp", xml, xsd));
+			//generator( generators, loglevels, subsystems ,  clause );
+			generator(generators, loglevels, subsystems, LCopyright::str(xml, xsd));
 
 		}
 	}
@@ -157,9 +159,9 @@ int main(int  argc, const char **  argv)
 }
 
 
-void generator( vector< std::shared_ptr< LGenerator >  > generators,
-                vector< std::shared_ptr< LXmlEntityLogLevel > > loglevels,
-			    vector< std::shared_ptr< LXmlEntitySubSystem > >  subsystems,   const string autoclause   ) 
+void generator( const vector< std::shared_ptr< LGenerator >  > &generators,
+                const vector< std::shared_ptr< LXmlEntityLogLevel > > &loglevels,
+			    const vector< std::shared_ptr< LXmlEntitySubSystem > >  &subsystems,   const string &autoclause   ) 
 {
 	for( auto  gen : generators )
 	{

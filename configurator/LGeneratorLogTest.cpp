@@ -7,45 +7,48 @@
 
 #include <sstream>
 
+using std::vector;
 
-LGeneratorLogTest::LGeneratorLogTest(const string filename) : LGenerator(filename)
+
+LGeneratorLogTest::LGeneratorLogTest(const string filename, const string xml, const string xsd) : LGenerator(filename, xml, xsd)
 {
 
 }
 
 
-vector<string> LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>> levels, vector<std::shared_ptr<LXmlEntitySubSystem>>  systems, const string /*autoclause*/) const
+vector<string> 
+LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>> levels, vector<std::shared_ptr<LXmlEntitySubSystem>>  systems)
 {
-	vector<string> lines;
+//	vector<string> lines;
+	//lines.push_back("// -*- mode: c++ -*-");
+	//fFileLineEntries.size();
+	//this->fFileLineEntries2.push_back( string("\n\n"));
 
-	lines.push_back("\n\n");
-	lines.push_back("#include \"" + fHeaderFileName + "\"");
-	lines.push_back("#include \"LLogApi.h\"");
-	lines.push_back("#include \<utilities/GRandom.h>");
-	lines.push_back("#include <utilities/GLocation.h>\n");
-	lines.push_back("#include <iostream>");
+	fFileLineEntries.push_back(string("\n\n"));
 
-	lines.push_back("using std::endl");
-	lines.push_back("using std::cout");
-
-
-	lines.push_back("\n\n\n");
-
-	lines.push_back(" namespace LOGMASTER ");
-	lines.push_back("{");
-
-	lines.push_back("void");
-	lines.push_back(fClassName + "::WriteMessages()");
-	lines.push_back("{");
-
-	lines.push_back("    float fval = 0");
-	lines.push_back("    int ival = 0");
+	
+	fFileLineEntries.push_back("#include \"" + fHeaderFileName + "\"");
+	fFileLineEntries.push_back("#include \"LLogApi.h\"");
+	fFileLineEntries.push_back("#include <utilities/GRandom.h>");
+	fFileLineEntries.push_back("#include <utilities/GLocation.h>\n");
+	fFileLineEntries.push_back("#include <iostream>");
+	fFileLineEntries.push_back("using std::endl");
+	fFileLineEntries.push_back("using std::cout");
+	fFileLineEntries.push_back("\n\n\n");
+	fFileLineEntries.push_back(" namespace LOGMASTER ");
+	fFileLineEntries.push_back("{");
+	fFileLineEntries.push_back("void");
+	fFileLineEntries.push_back(fClassName + "::WriteMessages()");
+	fFileLineEntries.push_back("{");
+	fFileLineEntries.push_back("    float fval = 0");
+	fFileLineEntries.push_back("    int ival = 0");
+	
 
 
 	for (auto s : systems)
 	{
-		 lines.push_back("    fval = g_random()->Uniform<float>(-10, 100)");
-	     lines.push_back("    ival = g_random()->Uniform<int>(-10, 1000");
+		fFileLineEntries.push_back("    fval = g_random()->Uniform<float>(-10, 100)");
+		fFileLineEntries.push_back("    ival = g_random()->Uniform<int>(-10, 1000");
 
 		for (auto l : levels)
 		{
@@ -58,19 +61,19 @@ vector<string> LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogL
 			buffer << "     " << macroname << "(\"This is a " << macroname << "  test message with parameter: ival = %d, fval = %f\", ival, fval )";
 			cerr << buffer.str() << endl;
 
-			lines.push_back(buffer.str());
+			fFileLineEntries.push_back(buffer.str());
 
 		}
 
 	}
 
 
-	lines.push_back("    cout << endl");
-	lines.push_back("}");
+	//fFileLineEntries.push_back("    cout << endl");
+	//fFileLineEntries.push_back("}");
 
 	//float r = g_random()->Uniform(-10, 100);
 
-	return lines;
+	return fFileLineEntries;
 }
 
 

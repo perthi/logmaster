@@ -22,10 +22,10 @@ class LXmlEntitySubSystem;
 class  LGeneratorMacrosException : public LGenerator
 {
 	public:
-		API LGeneratorMacrosException( const string fname );
+		API LGeneratorMacrosException( const string fname, const string xml, const string xsd);
 		virtual API ~LGeneratorMacrosException() = default;
 		virtual vector<string>  API Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, const string autoclause ) const override;
+	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems )  override;
 
 	public:
 		void API GenerateClasses(          vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,   vector<string>  &in  ) const;	

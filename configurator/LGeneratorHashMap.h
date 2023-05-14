@@ -18,10 +18,10 @@ class LXmlEntitySubSystem;
 class  LGeneratorHashMap : public  LGenerator
 {
 	public:
-	  LGeneratorHashMap( const string fname );
-	  virtual ~LGeneratorHashMap();
+	  LGeneratorHashMap( const string fname, const string xml, const string xsd);
+	  virtual ~LGeneratorHashMap() =default;
 	  virtual vector<string> Generate( vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, const string autoclause) const override;	
+	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems  )  override;	
 	  
 	private:
 	  void   GenerateInitHashLogLevel(       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string> &in )  const;	 	

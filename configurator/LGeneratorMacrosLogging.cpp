@@ -14,7 +14,7 @@ using namespace LOGMASTER;
 
 
 
-LGeneratorMacrosLogging::LGeneratorMacrosLogging( const string name  ) : LGenerator( name)
+LGeneratorMacrosLogging::LGeneratorMacrosLogging( const string name,  const string xml, const string xsd) : LGenerator( name, xml, xsd)
 {
 
 }
@@ -63,13 +63,13 @@ LGeneratorMacrosLogging::GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel
 
 vector<string> 
 LGeneratorMacrosLogging::Generate(  vector<std::shared_ptr<LXmlEntityLogLevel > > levels,
-	                                vector<  std::shared_ptr< LXmlEntitySubSystem > >  systems,  const string autoclause ) const
+	                                vector<  std::shared_ptr< LXmlEntitySubSystem > >  systems )
 {
+    vector<string>     lines_common = GenerateCommon(  );
     std::stringstream  buffer;
     vector<string>     lines;
-    
-    
-    vector<string>     lines_common = GenerateCommon( autoclause  );
+
+
     lines.insert(lines.end(), lines_common.begin(), lines_common.end());
 
     for (auto sys : systems)
@@ -157,97 +157,91 @@ LGeneratorMacrosLogging::GenerateLine( const LMacroName m,  const vector<LSystem
 
 */
 vector<string>  
-LGeneratorMacrosLogging::GenerateCommon( const string autoclause   ) const
+LGeneratorMacrosLogging::GenerateCommon(    ) 
 {
-    vector<string> lines;
-    lines.push_back("// -*- mode: c++ -*-\n\n");
-    lines.push_back( LCopyright().Copyrightt() + "\n\n\n\n");
-    lines.push_back( autoclause );
-    lines.push_back("#ifdef _WIN32");
-    lines.push_back("#define __func__ __FUNCTION__");
-    lines.push_back("#endif");
-    lines.push_back("#include  <logging/LEnums.h>");
-    lines.push_back("#include  <logging/LLogging.h>");
-    lines.push_back("#include  <logging/LOperators.h>");
-    lines.push_back("#include  <utilities/GDefinitions.h>");
-    
+   // vector<string> lines;
+    //lines.push_back("// -*- mode: c++ -*-\n\n\n");
+    //lines.push_back( LCopyright().Copyright() + "\n\n\n\n");
+ //   fFileLineEntries
 
-    lines.push_back("\n\n");
-    lines.push_back("#ifdef ERROR");
-    lines.push_back("#undef ERROR");
-    lines.push_back("#endif");
-    lines.push_back("\n\n");
-    lines.push_back("#ifdef __cplusplus");
-    lines.push_back("\n\n");
-    lines.push_back("#include <utilities/GLocation.h>");
-    lines.push_back("\n\n");
-    lines.push_back("#define SET_LOGLEVEL(level)          LLogging::Instance()->SetLogLevel(level )");
-    lines.push_back("#define SET_LOGFORMAT(format )       LLogging::Instance()->SetLogFormat(format )");
-    lines.push_back("#define SET_LOGTARGET(target )       LLogging::Instance()->SetLogTarget(target )");
-    lines.push_back("#define SET_LOGFILENAME(filename)    LLogging::Instance()->SetLogFileName(filename )");
-    lines.push_back("#define SET_APPLICATION(src)         LLogging::Instance()->SetApplication(src) ");
-    
-    lines.push_back("\n\n");
-    lines.push_back("#define PUSH()                       LLogging::Instance()->Push(  )");
-    lines.push_back("#define POP()                        LLogging::Instance()->Pop(  )");
-    lines.push_back("#define LOG_DATA(data, ...)          LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,  eMSGSYSTEM::SYS_DATA,  GLocation( __FILE__, __LINE__, __func__ ), data,  __VA_ARGS__)");
-    lines.push_back("#define G_LOG(level, system, ...)    LLogging::Instance()->Log( level, system,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    
-    lines.push_back("\n\n");
+  //  fFileLineEntries.push_back( autoclause );
+    fFileLineEntries.push_back("#ifdef _WIN32");
+    fFileLineEntries.push_back("#define __func__ __FUNCTION__");
+    fFileLineEntries.push_back("#endif");
+    fFileLineEntries.push_back("#include  <logging/LEnums.h>");
+    fFileLineEntries.push_back("#include  <logging/LLogging.h>");
+    fFileLineEntries.push_back("#include  <logging/LOperators.h>");
+    fFileLineEntries.push_back("#include  <utilities/GDefinitions.h>");
+    fFileLineEntries.push_back("\n\n");
+    fFileLineEntries.push_back("#ifdef ERROR");
+    fFileLineEntries.push_back("#undef ERROR");
+    fFileLineEntries.push_back("#endif");
+    fFileLineEntries.push_back("\n\n");
+    fFileLineEntries.push_back("#ifdef __cplusplus");
+    fFileLineEntries.push_back("\n\n");
+    fFileLineEntries.push_back("#include <utilities/GLocation.h>");
+    fFileLineEntries.push_back("\n\n");
+    fFileLineEntries.push_back("#define SET_LOGLEVEL(level)          LLogging::Instance()->SetLogLevel(level )");
+    fFileLineEntries.push_back("#define SET_LOGFORMAT(format )       LLogging::Instance()->SetLogFormat(format )");
+    fFileLineEntries.push_back("#define SET_LOGTARGET(target )       LLogging::Instance()->SetLogTarget(target )");
+    fFileLineEntries.push_back("#define SET_LOGFILENAME(filename)    LLogging::Instance()->SetLogFileName(filename )");
+    fFileLineEntries.push_back("#define SET_APPLICATION(src)         LLogging::Instance()->SetApplication(src) ");
+    fFileLineEntries.push_back("\n\n");
+    fFileLineEntries.push_back("#define PUSH()                       LLogging::Instance()->Push(  )");
+    fFileLineEntries.push_back("#define POP()                        LLogging::Instance()->Pop(  )");
+    fFileLineEntries.push_back("#define LOG_DATA(data, ...)          LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,  eMSGSYSTEM::SYS_DATA,  GLocation( __FILE__, __LINE__, __func__ ), data,  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_LOG(level, system, ...)    LLogging::Instance()->Log( level, system,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("\n\n");
+    fFileLineEntries.push_back("#define FORCE_DEBUG(...)             LLogging::Instance()->Log(eLOGLEVEL::LOG_FORCE_DEBUG, eMSGSYSTEM::SYS_GENERAL,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define EX_ERROR(...)                LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_EX,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define EX_FATAL(...)                LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_EX,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("\n\n");
+    fFileLineEntries.push_back("#define ALARM_WARNING(...)             LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_ALARM,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALARM_ERROR(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_ALARM,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALARM_FATAL(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_ALARM,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALARM_ASSERT_WARNING(expr, ...)    if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_ALARM,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALARM_ASSERT_ERROR(expr, ...)      if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_ALARM,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALARM_ASSERT_FATAL(expr, ...)      if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_ALARM,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALL_DEBUG(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_DEBUG,       eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALL_INFO(...)                LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,        eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALL_WARNING(...)             LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALL_ERROR(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALL_FATAL(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALL_ASSERT_DEBUG(expr, ...)      if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_DEBUG,       eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALL_ASSERT_INFO(expr, ...)       if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,        eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALL_ASSERT_WARNING(expr, ...)    if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALL_ASSERT_ERROR(expr, ...)      if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define ALL_ASSERT_FATAL(expr, ...)      if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("\n\n");
+    fFileLineEntries.push_back("#define G_DEBUG(...)                 LLogging::Instance()->Log(eLOGLEVEL::LOG_DEBUG,       eMSGSYSTEM::SYS_GENERAL,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_INFO(...)                  LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,        eMSGSYSTEM::SYS_GENERAL,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_WARNING(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_GENERAL,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_ERROR(...)                 LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_GENERAL,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_FATAL(...)                 LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_GENERAL,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_DEBUG_U(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_DEBUG,       eMSGSYSTEM::SYS_GENERAL | eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_INFO_U(...)                LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,        eMSGSYSTEM::SYS_GENERAL | eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_WARNING_U(...)             LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_GENERAL | eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_ERROR_U(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_GENERAL | eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_FATAL_U(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,	   eMSGSYSTEM::SYS_GENERAL | eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_ASSERT_DEBUG(expr, ...)    if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_DEBUG,     eMSGSYSTEM::SYS_GENERAL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_ASSERT_INFO(expr,  ...)    if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,       eMSGSYSTEM::SYS_GENERAL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_ASSERT_WARNING(expr, ...)  if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_GENERAL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_ASSERT_ERROR(expr,  ...)   if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_GENERAL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define G_ASSERT_FATAL(expr,  ...)   if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_GENERAL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("\n\n");
+    fFileLineEntries.push_back("#define USER_DEBUG(...)              LLogging::Instance()->Log(eLOGLEVEL::LOG_DEBUG,       eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define USER_INFO(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,        eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define USER_WARNING(...)            LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define USER_ERROR(...)              LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define USER_FATAL(...)              LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
+    fFileLineEntries.push_back("#define USER_ASSERT_DEBUG(expr, ...)    if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::DEBUG,     eMSGSYSTEM::SYS_USER,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define USER_ASSERT_INFO(expr,  ...)    if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,       eMSGSYSTEM::SYS_USER,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define USER_ASSERT_WARNING(expr, ...)  if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_USER,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define USER_ASSERT_ERROR(expr,  ...)   if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_USER,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("#define USER_ASSERT_FATAL(expr,  ...)   if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_USER,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
+    fFileLineEntries.push_back("\n\n");
 
-    lines.push_back("#define FORCE_DEBUG(...)             LLogging::Instance()->Log(eLOGLEVEL::LOG_FORCE_DEBUG, eMSGSYSTEM::SYS_GENERAL,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define EX_ERROR(...)                LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_EX,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define EX_FATAL(...)                LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_EX,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    
-    lines.push_back("\n\n");
+    //return lines;
 
-    lines.push_back("#define ALARM_WARNING(...)             LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_ALARM,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define ALARM_ERROR(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_ALARM,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define ALARM_FATAL(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_ALARM,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define ALARM_ASSERT_WARNING(expr, ...)    if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_ALARM,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define ALARM_ASSERT_ERROR(expr, ...)      if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_ALARM,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define ALARM_ASSERT_FATAL(expr, ...)      if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_ALARM,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-
-    lines.push_back("#define ALL_DEBUG(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_DEBUG,       eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define ALL_INFO(...)                LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,        eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define ALL_WARNING(...)             LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define ALL_ERROR(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define ALL_FATAL(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define ALL_ASSERT_DEBUG(expr, ...)      if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_DEBUG,       eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define ALL_ASSERT_INFO(expr, ...)       if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,        eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define ALL_ASSERT_WARNING(expr, ...)    if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define ALL_ASSERT_ERROR(expr, ...)      if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define ALL_ASSERT_FATAL(expr, ...)      if( ! ( expr ))  LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_ALL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    
-    lines.push_back("\n\n");
-
-    lines.push_back("#define G_DEBUG(...)                 LLogging::Instance()->Log(eLOGLEVEL::LOG_DEBUG,       eMSGSYSTEM::SYS_GENERAL,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define G_INFO(...)                  LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,        eMSGSYSTEM::SYS_GENERAL,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define G_WARNING(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_GENERAL,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define G_ERROR(...)                 LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_GENERAL,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define G_FATAL(...)                 LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_GENERAL,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define G_DEBUG_U(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_DEBUG,       eMSGSYSTEM::SYS_GENERAL | eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define G_INFO_U(...)                LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,        eMSGSYSTEM::SYS_GENERAL | eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define G_WARNING_U(...)             LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_GENERAL | eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define G_ERROR_U(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_GENERAL | eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define G_FATAL_U(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,	   eMSGSYSTEM::SYS_GENERAL | eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define G_ASSERT_DEBUG(expr, ...)    if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_DEBUG,     eMSGSYSTEM::SYS_GENERAL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define G_ASSERT_INFO(expr,  ...)    if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,       eMSGSYSTEM::SYS_GENERAL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define G_ASSERT_WARNING(expr, ...)  if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_GENERAL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define G_ASSERT_ERROR(expr,  ...)   if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_GENERAL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define G_ASSERT_FATAL(expr,  ...)   if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_GENERAL,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-     lines.push_back("\n\n");
-    lines.push_back("#define USER_DEBUG(...)              LLogging::Instance()->Log(eLOGLEVEL::LOG_DEBUG,       eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define USER_INFO(...)               LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,        eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define USER_WARNING(...)            LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define USER_ERROR(...)              LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define USER_FATAL(...)              LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_USER,   GLocation( __FILE__, __LINE__, __func__ ),  __VA_ARGS__)");
-    lines.push_back("#define USER_ASSERT_DEBUG(expr, ...)    if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::DEBUG,     eMSGSYSTEM::SYS_USER,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define USER_ASSERT_INFO(expr,  ...)    if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_INFO,       eMSGSYSTEM::SYS_USER,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define USER_ASSERT_WARNING(expr, ...)  if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_WARNING,     eMSGSYSTEM::SYS_USER,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define USER_ASSERT_ERROR(expr,  ...)   if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_ERROR,       eMSGSYSTEM::SYS_USER,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("#define USER_ASSERT_FATAL(expr,  ...)   if(! (expr) ) LLogging::Instance()->Log(eLOGLEVEL::LOG_FATAL,       eMSGSYSTEM::SYS_USER,  GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)");
-    lines.push_back("\n\n");
-
-    return lines;
+    return fFileLineEntries;
 }

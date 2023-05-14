@@ -150,7 +150,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="LConfigurator.cpp" />
     <ClCompile Include="LCopyright.cpp" />
     <ClCompile Include="LGenerator.cpp" />
     <ClCompile Include="LGeneratorEnum.cpp" />
@@ -164,7 +163,6 @@
     <ClCompile Include="LXmlParser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LConfigurator.h" />
     <ClInclude Include="LCopyright.h" />
     <ClInclude Include="LGenerator.h" />
     <ClInclude Include="LGeneratorEnum.h" />

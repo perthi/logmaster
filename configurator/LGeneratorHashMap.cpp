@@ -19,23 +19,18 @@ using namespace LOGMASTER;
 
 #define MAX_ADDITIONL_SUBSYSTEMS 12
 
-LGeneratorHashMap::LGeneratorHashMap( const string fname ) : LGenerator(fname)
+LGeneratorHashMap::LGeneratorHashMap( const string fname, const string xml, const string xsd) : LGenerator(fname, xml, xsd)
 {
     
 }
 
 
-LGeneratorHashMap::~LGeneratorHashMap()
-{
-
-}
-
 
 vector< string > 
 LGeneratorHashMap::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                          vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, const string autoclause ) const
+	                          vector< std::shared_ptr<LXmlEntitySubSystem > >  systems )
 {
-    vector<string> lines;
+//    vector<string> lines;
 
 
     XML_INFO("levles size = %d",  levels.size() );
@@ -45,26 +40,27 @@ LGeneratorHashMap::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  l
     "Max number of syb systems exeeeded. You can define maximum 12 additional sub systems, \
     you hav defined %d. please check your XML configuration",   systems.size() );    
     
-    lines.push_back(  autoclause ); 
-    lines.push_back("#include \""+ fClassName + ".h\"");
-    lines.push_back("#include <utilities/GNumbers.h>");
-    lines.push_back("#include <utilities/GUtilities.h>");
-    lines.push_back("\n\n");
-    lines.push_back( "namespace LOGMASTER");
-    lines.push_back( "{" );
-    lines.push_back( fClassName + "::" + fClassName+"( ) : fLogLevelHash() {}");
-    lines.push_back( fClassName + "::~" + fClassName +"(){ }");
-    lines.push_back("\n\n");
+  //  lines.push_back(  autoclause ); 
+    fFileLineEntries.push_back("#include \""+ fClassName + ".h\"");
+    fFileLineEntries.push_back("#include <utilities/GNumbers.h>");
+    fFileLineEntries.push_back("#include <utilities/GUtilities.h>");
+    fFileLineEntries.push_back("\n\n");
+    fFileLineEntries.push_back( "namespace LOGMASTER");
+    fFileLineEntries.push_back( "{" );
+    fFileLineEntries.push_back( fClassName + "::" + fClassName+"( ) : fLogLevelHash() {}");
+    fFileLineEntries.push_back( fClassName + "::~" + fClassName +"(){ }");
+    fFileLineEntries.push_back("\n\n");
 
-    GenerateInitHashLogLevel( systems,        lines );
-    GenerateInitHashSystem2String( systems,   lines );
-    GenerateInitHashLevel2String( levels,     lines );
-    GenerateInitHashLogTags( levels, systems, lines );
+    GenerateInitHashLogLevel( systems,       fFileLineEntries  );
+    GenerateInitHashSystem2String( systems,  fFileLineEntries  );
+    GenerateInitHashLevel2String( levels,    fFileLineEntries   );
+    GenerateInitHashLogTags( levels, systems, fFileLineEntries );
  
-    lines.push_back( "}" );
+    //lines.push_back( "}" );
+    fFileLineEntries.push_back("}");
 
-    return lines;
-
+    //return lines;
+    return fFileLineEntries;
 }	
 
 

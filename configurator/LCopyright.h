@@ -14,9 +14,9 @@ using std::string;
 class  LCopyright
 {
 	public:
-		LCopyright();
-	  	virtual ~LCopyright();
-		string Copyrightt();
+		LCopyright() = default;
+	  	virtual ~LCopyright() = default;
+		static string str(const string xml, const string xsd);
 
 	private:
 		int     fYear = 2020;
