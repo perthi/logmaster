@@ -26,7 +26,7 @@
 ******************************************************************************/
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sun 14 May-2023 19:42:03  ***/
+/*** Generated at: Sun 14 May-2023 20:47:35  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -39,8 +39,8 @@
 
 namespace LOGMASTER
 {
-LHashMapsBase::LHashMapsBase( ) : fLogLevelHash() {}
-LHashMapsBase::~LHashMapsBase(){ }
+LHashMapsAutoGen::LHashMapsAutoGen( ) : fLogLevelHash() {}
+LHashMapsAutoGen::~LHashMapsAutoGen(){ }
 
 
 
@@ -49,7 +49,7 @@ LHashMapsBase::~LHashMapsBase(){ }
 
 /** @brief initialization of the hash table for the logginglevel     *     *  This hash table holds the current logging level for a given sub-system.     *  This table is checked every time the logging system is asked to log a message, and if logging     *  is enabled for the given level and sub-system then the message is created.     *  Where the message is actually written (if at all) is decided by the target configuration,    *  whether or not logging is enabled to to file, to console, etc.. */
    void
-   LHashMapsBase::InitHashLogLevel( )
+   LHashMapsAutoGen::InitHashLogLevel( )
    {
 	fLogLevelHash.clear();
 //	eLOGLEVEL level = (eLOGLEVEL)(PAD((int)l));
@@ -71,7 +71,7 @@ LHashMapsBase::~LHashMapsBase(){ }
 
 
    void
-   LHashMapsBase::InitHashSystem2String( map<eMSGSYSTEM, string>  *System2StringHash )
+   LHashMapsAutoGen::InitHashSystem2String( map<eMSGSYSTEM, string>  *System2StringHash )
    {
 	System2StringHash->emplace(eMSGSYSTEM::SYS_EX,       "Exeption");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_GENERAL,  "General");
@@ -91,7 +91,7 @@ LHashMapsBase::~LHashMapsBase(){ }
 
 
    void
-   LHashMapsBase::InitHashLevel2String(  map<eLOGLEVEL, string> *Level2StringHash  )
+   LHashMapsAutoGen::InitHashLevel2String(  map<eLOGLEVEL, string> *Level2StringHash  )
    {
 	Level2StringHash->emplace(eLOGLEVEL::LOG_OFF, "OFF");
 	Level2StringHash->emplace(eLOGLEVEL::LOG_FORCE_DEBUG, "Force_Debug");
@@ -106,7 +106,7 @@ LHashMapsBase::~LHashMapsBase(){ }
 
 
    void
-   LHashMapsBase::InitHashLogTags(  map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash   )
+   LHashMapsAutoGen::InitHashLogTags(  map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash   )
    {
 	SubCmdHash->emplace("--fsm-off",		std::make_pair(eMSGSYSTEM::SYS_FSM,  eLOGLEVEL::LOG_OFF));
 	SubCmdHash->emplace("--fsm-fatal",		std::make_pair(eMSGSYSTEM::SYS_FSM,  eLOGLEVEL::LOG_FATAL));

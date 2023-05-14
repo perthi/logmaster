@@ -4,7 +4,7 @@
 #include  <gui/common/GUIExecWidget.h>
 #include  <gui/common/GUIInitStyles.h>
 
-#include  <logging/LLogTest.h>
+#include  <logging/LLogTestAutoGen.h>
 #include  <logging/LPublisher.h>
 using namespace LOGMASTER;
 
@@ -49,6 +49,6 @@ void generate_messages()
     while (true)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-        LLogTest::WriteMessages();
+        LLogTestAutoGen::WriteMessages();
     }
 }

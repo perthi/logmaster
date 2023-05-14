@@ -27,7 +27,7 @@ namespace LOGMASTER
 	class LConfig;
 	class LLogging;
 
-	class LHashMaps : public LHashMapsBase
+	class LHashMaps : public LHashMapsAutoGen
 	{
 		friend LConfig;
 		friend LLogging;

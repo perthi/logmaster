@@ -17,11 +17,11 @@ namespace  LOGMASTER
 {
 
 /**@brief Testing application for the logging system  */
-class LLogTest
+class LLogTestAutoGen
 {
 public:
-	LLogTest()  {};
-	~LLogTest() {};
+	LLogTestAutoGen()  {};
+	~LLogTestAutoGen() {};
 	static API void WriteMessages();
 
 

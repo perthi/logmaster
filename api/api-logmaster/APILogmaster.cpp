@@ -12,7 +12,7 @@
 
 #include <logging/LConfig.h>
 #include <logging/LColorMap.h>
-#include <logging/LLogTest.h>
+#include <logging/LLogTestAutoGen.h>
 #include <bitset>
 
 #include <logging/LLogApi.h>
@@ -473,7 +473,7 @@ APILogmaster::SetSubSysAndLevControl(int x_Lev, int y_Sys, bool enable)
 void
 APILogmaster::WriteTestMessages()
 {
-    LLogTest::WriteMessages();
+    LLogTestAutoGen::WriteMessages();
     return;
 }
 

@@ -26,7 +26,7 @@
 ******************************************************************************/
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sun 14 May-2023 19:42:03  ***/
+/*** Generated at: Sun 14 May-2023 20:47:35  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -34,7 +34,7 @@
 
 
 
-#include "LLogTest.h"
+#include "LLogTestAutoGen.h"
 #include "LLogApi.h"
 #include <utilities/GRandom.h>
 #include <utilities/GLocation.h>
@@ -49,7 +49,7 @@ using std::cout;
  namespace LOGMASTER 
 {
 void
-LLogTest::WriteMessages()
+LLogTestAutoGen::WriteMessages()
 {
     float fval = 0;
     int ival = 0;

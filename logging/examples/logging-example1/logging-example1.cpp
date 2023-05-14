@@ -30,7 +30,7 @@
 
 #include  <iostream>
 #include  <logging/LLogging.h>
-#include  <logging/LLogTest.h>
+#include  <logging/LLogTestAutoGen.h>
 #include  <logging/LMessage.h>
 #include  <logging/LConfig.h>
 #include  <logging/LPublisher.h>
@@ -68,15 +68,15 @@ main(int  argc, const char ** argv)
         SET_LOGTARGET("--target-stdout --target-file");
         FORCE_DEBUG("Writing some test messages");
                 
-        LLogTest::WriteMessages();
+        LLogTestAutoGen::WriteMessages();
 
         FORCE_DEBUG("Turning everything off");
         FORCE_DEBUG("Setting loglevel to fatal");
         SET_LOGLEVEL("--fatal"); 
-        LLogTest::WriteMessages(); // should see only fatal log messages
+        LLogTestAutoGen::WriteMessages(); // should see only fatal log messages
         FORCE_DEBUG("Setting loglevel to OFF");
         SET_LOGLEVEL("--off");
-        LLogTest::WriteMessages(); // should see nothing
+        LLogTestAutoGen::WriteMessages(); // should see nothing
         double temperature = 99999.999;
         FORCE_DEBUG("Alarms are always writing, attempt to turn them off are vetoed by the system");
         ALARM_FATAL("Temperature reached %f degrees\n\n", temperature );
@@ -84,7 +84,7 @@ main(int  argc, const char ** argv)
         FORCE_DEBUG("Forcing output to stdout, all settings ignored");
         FORCE_DEBUG("Setting  log level to debug for all subsystems");
         SET_LOGLEVEL("--debug");
-        LLogTest::WriteMessages();
+        LLogTestAutoGen::WriteMessages();
         
         
         // Pushing an popping coinfigurations on/off the stack 
@@ -92,24 +92,24 @@ main(int  argc, const char ** argv)
         SET_LOGLEVEL("--all-off --fsm-info");
         SET_LOGFORMAT("--short-user");
         FORCE_DEBUG("Selected info messages and above  the FSM subsystem");
-        LLogTest::WriteMessages();      
+        LLogTestAutoGen::WriteMessages();      
         
         
         SET_LOGFORMAT("--all-off --msg-body");
         SET_LOGFORMAT("--all-off --msg-body");
-        LLogTest::WriteMessages();      
+        LLogTestAutoGen::WriteMessages();      
     
         FORCE_DEBUG("Popping back the previous configuration");
         POP();
-        LLogTest::WriteMessages();
+        LLogTestAutoGen::WriteMessages();
     
         FSM_ASSERT_WARNING( true == false, "true and false are not equal"); 
-        FSM_ASSERT_WARNING( true == true, "true and true are EQUAL"); //nothing writtns since the assertion is true 
+        FSM_ASSERT_WARNING( true == true, "true and true are EQUAL"); //nothing written since the assertion is true 
     
         SET_LOGLEVEL("--fatal");
-        FSM_ASSERT_WARNING( true == false, "true and false are not equal"); // nothing written because loglevel is fatal 
-        FSM_ASSERT_ERROR( true == false, "true and false are not equal"); // nothing written because loglevel is fatal
-        FSM_ASSERT_FATAL( true == false, "true and false are not equal"); // written beacause level is fatal, and assertion is false
+        FSM_ASSERT_WARNING( true == false, "true and false are not equal"); // nothing written because log level is fatal 
+        FSM_ASSERT_ERROR( true == false, "true and false are not equal"); // nothing written because log level is fatal
+        FSM_ASSERT_FATAL( true == false, "true and false are not equal"); // written because level is fatal, and assertion is false
         FSM_ASSERT_FATAL( true == true, "true and true are EQUAL"); // nothing written, assertion is true
 
         double temp_max = 125;

@@ -23,7 +23,7 @@ using std::cout;
 #include <logging/LMessage2Json.h>
 #include <logging/LConfig.h>
 #include <logging/LDatabase.h>
-#include <logging/LLogTest.h>
+#include <logging/LLogTestAutoGen.h>
 #include <logging/LLogEntrySQL.h>
 
 #include <logging/GException.h>
@@ -62,7 +62,7 @@ int main (int argc, const char **argv)
       
       for(int i= 0; i < 10; i++ )
       {
-         LLogTest::WriteMessages();
+         LLogTestAutoGen::WriteMessages();
       }
 
         LDatabase::Instance()->InitSQLQuery( 0 );

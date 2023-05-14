@@ -33,12 +33,12 @@ namespace LOGMASTER
         map<eMSGSYSTEM, string> fSystem2StringHash;
     } // namespace
 
-    class LHashMapsBase
+    class LHashMapsAutoGen
 	{
     protected:
-        API LHashMapsBase();
+        API LHashMapsAutoGen();
      //   API LHashMapsBase( const eLOGLEVEL  level );
-        API ~LHashMapsBase();
+        API ~LHashMapsAutoGen();
         
         static void API InitHashLogTags(        map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash );
         static void API InitHashSystem2String(  map<eMSGSYSTEM, string>  *System2StringHash );

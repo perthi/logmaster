@@ -420,7 +420,7 @@ namespace LOGMASTER
         fSubCmdHash.emplace("--user-debug",            std::make_pair(eMSGSYSTEM::SYS_USER,        eLOGLEVEL::LOG_DEBUG));
         fSubCmdHash.emplace("--user-all",            std::make_pair(eMSGSYSTEM::SYS_USER,        eLOGLEVEL::LOG_ALL));
   
-        LHashMapsBase::InitHashLogTags( &fSubCmdHash );
+        LHashMapsAutoGen::InitHashLogTags( &fSubCmdHash );
 
         for (auto it = fSubCmdHash.begin(); it != fSubCmdHash.end(); ++it)
         {
