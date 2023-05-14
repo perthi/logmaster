@@ -67,7 +67,11 @@ void generator(  const vector< std::shared_ptr< LGenerator >  > &generators,
 			     const vector< std::shared_ptr< LXmlEntitySubSystem > >  &subsystems );
 
 
-
+/** Application that auto generates LOG macros for the logging system. Unit tests,
+ *  and a test class used for demonstration and debugging.
+ *  The Log levels and subsystems are defined in an XML file and validated by
+ * and XSD file. A default setup is present under <logmaster dir>/config/logging.xml
+ *  \@usage (typical) logging-configurator -xml logging.xml -xsd logging.xsd */
 int main(int  argc, const char **  argv)
 {
 	GMenu::Instance()->ScanArguments(argc, argv);
@@ -77,12 +81,12 @@ int main(int  argc, const char **  argv)
 
 	std::shared_ptr<GArgument> xml_arg  =  std::make_shared <GCommandLineArgument< string > >("-xml", 
                                                     "-xml [file path]",
-                                                    "Sets the xml file to use",
+                                                    "Sets the XML file to use",
                                                      &xml , fgkMANDATORY );
 
 	std::shared_ptr<GArgument> xsd_arg  =  std::make_shared <GCommandLineArgument< string > >("-xsd", 
                                                     "-xsd [file path]",
-                                                    "Sets the xsd file to use for validation of the XML file",
+                                                    "Sets the XSD file to use for validation of the XML file",
                                                      &xsd , fgkMANDATORY );
    
    	deque< std::shared_ptr<GArgument>  > arguments;
@@ -123,7 +127,6 @@ int main(int  argc, const char **  argv)
 			generators.push_back(std::make_shared < LGeneratorMacrosException >( "logging/GExceptionAutoGen.h", xml, xsd) );
 			generators.push_back(std::make_shared < LGeneratorHashMap >( "logging/LHashMapsAutoGen.cpp", xml, xsd) );
 			generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTestAutoGen.cpp", xml, xsd));
-			//generator( generators, loglevels, subsystems ,  clause );
 			generator(generators, loglevels, subsystems );
 
 		}
@@ -157,7 +160,7 @@ void generator( const vector< std::shared_ptr< LGenerator >  > &generators,
                 const vector< std::shared_ptr< LXmlEntityLogLevel > > &loglevels,
 			    const vector< std::shared_ptr< LXmlEntitySubSystem > >  &subsystems  ) 
 {
-	for( auto  gen : generators )
+	for( auto  &gen : generators )
 	{
 		gen->Generate(loglevels, subsystems);
 		vector<string> lines = gen->GetLines();

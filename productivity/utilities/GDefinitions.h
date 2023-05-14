@@ -77,6 +77,9 @@ typedef int errno_t;
 #define strcasecmp _stricmp	
 #endif
 
+#define STRINGLIFY(x) #x
+#define EXPAND(x) STRINGLIFY(x)
+
 
 #define EXCECUTION_ERROR -33
 #define ARG_MAX 4096

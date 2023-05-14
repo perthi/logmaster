@@ -95,6 +95,10 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 			return "";
 		}
 	}
+	else
+	{
+		return 0;
+	}
 
 	XML_ASSERT( node->GetType() == eXML_NODETYPE::EOpenTagNode, 
 	GTextXml("Unexpected node type %d (name = %s, type = %s, value = %s)", 

@@ -77,7 +77,7 @@ public:
     static bool API Exists(const string filepath);
     static string API GetDirectory(const string filepath);
 
-    
+ 
 #ifdef _WIN32
     /// @todo Remove
     static char API *GetHomeDir();

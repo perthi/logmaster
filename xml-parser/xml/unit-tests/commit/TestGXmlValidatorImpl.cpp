@@ -8,32 +8,53 @@
 
 #include "TestGXmlValidatorImpl.h"
 #include <xml/GXmlValidator.h>
+#include <utilities/GSystem.h>
+
+
+
 #include <cstdlib>
 
  
  string  TestGXmlValidatorImpl::fDataDir = "";
 
+ /** @todo Either remove this test or implement it properly */
+
 
  void TestGXmlValidatorImpl::SetUpTestCase()
  {
-
-
-	/* #ifdef _WIN32
-	 	fDataDir = std::string( g_system()->GetHomeDir()) + std::string("modules\\support-modules\\xml\\unit-tests\\commit\\data\\");
-	 #else
-			string home = getenv("XML__PARSER_HOME");
-			fDataDir =  home + "/modules/support-modules/xml/unit-tests/commit/data/";
-	 #endif*/
+	//#ifdef _WIN32
+	//	fDataDir = std::string( g_system()->GetHomeDir()) + std::string("modules\\support-modules\\xml\\unit-tests\\commit\\data\\");
+	//#else
+	//		string home = getenv("XML__PARSER_HOME");
+	//		fDataDir =  home + "/modules/support-modules/xml/unit-tests/commit/data/";
+	//#endif
 	
+		   
+     #ifdef _WIN32		
+			string s = EXPAND(XML_HOME);
+			fDataDir = s + "\\data";
+			CERR << "data dir = " << fDataDir << ENDL;
+     #else
+			string home = "";
+			
+			char *ptr = getenv("XML__PARSER_HOME");
+			if (ptr != nullptr)
+			{
+				home = string(ptr);
+			}
+
+			/** @bug Wrong directory */
+			fDataDir = home + "/modules/support-modules/xml/unit-tests/commit/data/";
+
+     #endif
  }
 
 
-
-// TEST_F(TestGXmlValidatorImpl, Ok)
+/// TEST_F(TestGXmlValidatorImpl, Ok)
 // {
-// 	std::string xmlFilename = fDataDir + "INM6_S52824_NOR_SNO12_PVT_IRL_J13_J113_2018-10-01T135945.xml";
-// 	std::string xsdFilename = fDataDir + "EUR3.SP.00057.DG.ASTR.V10.xsd";
-// 	EXPECT_TRUE(GXmlValidator::IsValid(xmlFilename, xsdFilename));
+//	std::string xmlFilename = fDataDir + "INM6_S52824_NOR_SNO12_PVT_IRL_J13_J113_2018-10-01T135945.xml";
+//	std::string xsdFilename = fDataDir + "EUR3.SP.00057.DG.ASTR.V10.xsd";
+//	EXPECT_TRUE(GXmlValidator::IsValid(xmlFilename, xsdFilename));
 // }
 
 

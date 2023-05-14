@@ -33,8 +33,7 @@ constexpr char LOGMASTER_HOME[] = "ERROR_NOT_SET";
 #endif
 
 
-#define STRINGLIFY(x) #x
-#define EXPAND(x) STRINGLIFY(x)
+
 
 
 

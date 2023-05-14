@@ -11,6 +11,7 @@
 
 using namespace LOGMASTER;
 
+/** Class for autogeneration  @*/
 LGenerator::LGenerator( const string path,  const string xml, const string xsd) : fFilePath(path)
 {
    fClassName = g_string()->Path2ClassName(path);
