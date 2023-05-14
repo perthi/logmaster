@@ -10,15 +10,13 @@
 
 using namespace LOGMASTER;
 
-LGenerator::LGenerator( const string fname ) : fFileName(fname)
+LGenerator::LGenerator( const string path ) : fFilePath(path)
 {
-   fClassName = g_string()->Path2ClassName(fname);
+   fClassName = g_string()->Path2ClassName(path);
+   fSourceFileName = fClassName + ".cpp";
+   fHeaderFileName = fClassName + ".h";
+   
    FORCE_DEBUG("classname = %s", fClassName.c_str() );
-
-}
-
-LGenerator::~LGenerator()
-{
 
 }
 
