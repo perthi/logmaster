@@ -18,40 +18,44 @@ vector<string> LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogL
 {
 	vector<string> lines;
 
-/*
-#include "LLogTest.h"
-#include "LLogApi.h"
-#include <utilities/GLocation.h>
+	lines.push_back("\n\n");
+	lines.push_back("#include \"" + fHeaderFileName + "\"");
+	lines.push_back("#include \"LLogApi.h\"");
+	lines.push_back("#include \<utilities/GRandom.h>");
+	lines.push_back("#include <utilities/GLocation.h>\n");
+	lines.push_back("#include <iostream>");
 
-#include <iostream>
-
-using std::endl;
-using std::cout;
+	lines.push_back("using std::endl");
+	lines.push_back("using std::cout");
 
 
-namespace LOGMASTER
-{
+	lines.push_back("\n\n\n");
 
-void 
-LLogTest::WriteMessages()
-{
-*/
+	lines.push_back(" namespace LOGMASTER ");
+	lines.push_back("{");
 
-     lines.push_back( "#include \"" + fHeaderFileName + "\"" );
-     lines.push_back( "#include \"LLogApi.h\"");
-	 lines.push_back( "#include <utilities/GLocation.h>" );
+	lines.push_back("void");
+	lines.push_back(fClassName + "::WriteMessages()");
+	lines.push_back("{");
+
+	lines.push_back("    float fval = 0");
+	lines.push_back("    int ival = 0");
+
 
 	for (auto s : systems)
 	{
+		 lines.push_back("    fval = g_random()->Uniform<float>(-10, 100)");
+	     lines.push_back("    ival = g_random()->Uniform<int>(-10, 1000");
+
 		for (auto l : levels)
 		{
 			string macroname = s->fName + "_" + l->fName;
 
-		//	float fval = g_random()->Uniform<float>(-10, 100);
-		//	int   ival = g_random()->Uniform<int>(-10, 1000);
+			//	float fval = g_random()->Uniform<float>(-10, 100);
+			//	int   ival = g_random()->Uniform<int>(-10, 1000);
 
 			std::stringstream buffer;
-			buffer << macroname <<  "(\"This is a " << macroname << "  test message with parameter: ival = %d, fval %f\", ival, fval )";
+			buffer << "     " << macroname << "(\"This is a " << macroname << "  test message with parameter: ival = %d, fval = %f\", ival, fval )";
 			cerr << buffer.str() << endl;
 
 			lines.push_back(buffer.str());
@@ -59,6 +63,10 @@ LLogTest::WriteMessages()
 		}
 
 	}
+
+
+	lines.push_back("    cout << endl");
+	lines.push_back("}");
 
 	//float r = g_random()->Uniform(-10, 100);
 

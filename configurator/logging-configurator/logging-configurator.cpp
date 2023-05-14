@@ -128,7 +128,7 @@ int main(int  argc, const char **  argv)
 			generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApi.h") );
 			generators.push_back(std::make_shared < LGeneratorMacrosException >( "exception/GExceptionMacros.h") );
 			generators.push_back(std::make_shared < LGeneratorHashMap >( "logging/LHashMapsBase.cpp") );
-			generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTest2.cpp"));
+			generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTest.cpp"));
 			generator( generators, loglevels, subsystems ,  clause );
 
 
@@ -167,7 +167,7 @@ void generator( vector< std::shared_ptr< LGenerator >  > generators,
 		FILE* fp = nullptr;
 
 #ifdef _WIN32
-		fopen_s(&fp, gen->GetFilename().c_str(), "w");
+		fopen_s(&fp, gen->GetFilePath().c_str(), "w");
 #else // 
 		fp = fopen(gen->GetFilename().c_str(), "w");
 #endif
@@ -184,7 +184,7 @@ void generator( vector< std::shared_ptr< LGenerator >  > generators,
 
 		 	SET_LOGFORMAT("1111111");
 			SET_LOGLEVEL("--all-debug");
-			G_INFO("created %s", gen->GetFilename().c_str() );
+			G_INFO("created %s", gen->GetFilePath().c_str() );
 		}
 	}
 
