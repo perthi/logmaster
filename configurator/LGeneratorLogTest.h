@@ -17,7 +17,7 @@ public:
 	API LGeneratorLogTest(const string filename, const string xml, const string xsd);
 	virtual API ~LGeneratorLogTest() = default;
 
-	virtual std::vector<string>  Generate(std::vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+	virtual void  Generate(std::vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 		std::vector< std::shared_ptr<LXmlEntitySubSystem > >  systems) override;
 
 	///std::vector<string> fFileLineEntries;

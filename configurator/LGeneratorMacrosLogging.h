@@ -22,7 +22,7 @@ class  LGeneratorMacrosLogging : public LGenerator
 	   API LGeneratorMacrosLogging( const string fname, const string xml, const string xsd );
 	   virtual API ~LGeneratorMacrosLogging() = default;
 
-	   virtual vector<string> API Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+	   virtual void API Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                           vector< std::shared_ptr<LXmlEntitySubSystem > >  systems )  override;
 
 	private:
@@ -56,11 +56,11 @@ class  LGeneratorMacrosLogging : public LGenerator
 		                                         std::shared_ptr<LXmlEntitySubSystem > sys, 
 												 bool with_user = false) const;
 		
-		vector<string>  GenerateLines( const vector<LMacroEntry> m  ) const;
+		void  GenerateLines( const vector<LMacroEntry> m  );
 		
 		string  GenerateLine( const LMacroName m,  const vector<LSystem> s, const string lvl ) const;
 
-		vector<string>  GenerateCommon( );
+		void  GenerateMandatory( );
 
 
 };

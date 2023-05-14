@@ -19,7 +19,7 @@ LGeneratorEnum::LGeneratorEnum( const string fname, const string xml, const stri
 }
 
 
-vector<string>
+void
 LGeneratorEnum::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>>  levels,
                          vector<std::shared_ptr<LXmlEntitySubSystem>> systems)
 {
@@ -28,7 +28,7 @@ LGeneratorEnum::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>>  levels,
     GenerateSystems( systems,  fFileLineEntries  );
     fFileLineEntries.push_back("\n\n");
     GenerateLevels ( levels, fFileLineEntries );
-    return  fFileLineEntries;
+    //return  fFileLineEntries;
 }
 
 
@@ -50,7 +50,7 @@ LGeneratorEnum::GenerateLevels( vector< std::shared_ptr<LXmlEntityLogLevel > >  
     lines.push_back("\tLOG_OFF\t\t\t=  0x00,    //  00000000   No sub system");
     int i = 0;
 
-    for (auto lvl : levels)
+    for (auto &lvl : levels)
     {
         string line = g_utilities()->TabAlign("\tLOG_" + lvl->fName + " ", 3) + "=  " + ToHexString(1 << i, 2 ) + ",    //  " + ToBinaryString(1 << i, 8);
         lines.push_back(line);

@@ -26,11 +26,12 @@ class  LGenerator
 	 LGenerator( const string path, const string xml, const string xsd );
 	 virtual ~LGenerator() = default;
 
-	virtual std::vector<string>  Generate(  std::vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+	virtual void  Generate(  std::vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                                   std::vector< std::shared_ptr<LXmlEntitySubSystem > >  systems) = 0;
 
 	string GetFilePath( ) const { return fFilePath; };	
 	void   GenerateHeader(const string xml, const string xsd);
+	vector<string>& GetLines() { return  fFileLineEntries; };
 
 	//protected:
 		string fFilePath		         =  "UNKNOWN";        //!< Full path of the .cpp or .h source file

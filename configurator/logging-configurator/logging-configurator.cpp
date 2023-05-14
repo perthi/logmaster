@@ -165,7 +165,8 @@ void generator( const vector< std::shared_ptr< LGenerator >  > &generators,
 {
 	for( auto  gen : generators )
 	{
-		vector<string> lines = gen->Generate( loglevels, subsystems );
+		gen->Generate(loglevels, subsystems);
+		vector<string> lines = gen->GetLines();
 		FILE* fp = nullptr;
 
 #ifdef _WIN32
@@ -176,7 +177,7 @@ void generator( const vector< std::shared_ptr< LGenerator >  > &generators,
 	
 		if(fp != nullptr)
 		{	
-			for( auto l: lines )
+			for( auto &l: lines )
 			{
 				fprintf(fp,  "%s\n", l.c_str() );
 			}

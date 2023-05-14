@@ -16,7 +16,7 @@ LGeneratorLogTest::LGeneratorLogTest(const string filename, const string xml, co
 }
 
 
-vector<string> 
+void
 LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>> levels, vector<std::shared_ptr<LXmlEntitySubSystem>>  systems)
 {
 //	vector<string> lines;
@@ -45,7 +45,7 @@ LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>> levels, 
 	
 
 
-	for (auto s : systems)
+	for (auto &s : systems)
 	{
 		fFileLineEntries.push_back("\n");  
 		fFileLineEntries.push_back("        fval = g_random()->Uniform<float>(-10, 100);");
@@ -74,7 +74,7 @@ LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>> levels, 
 	fFileLineEntries.push_back("}");
 	//float r = g_random()->Uniform(-10, 100);
 
-	return fFileLineEntries;
+	//return fFileLineEntries;
 }
 
 

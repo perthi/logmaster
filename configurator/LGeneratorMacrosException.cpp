@@ -16,7 +16,7 @@ LGeneratorMacrosException::LGeneratorMacrosException( const string fname, const 
 }
 
 
-vector<string>  
+void
 LGeneratorMacrosException::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/ ,
                                        vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)
 {
@@ -39,7 +39,7 @@ LGeneratorMacrosException::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel
     GenerateExceptionMacros(  systems, fFileLineEntries);
     fFileLineEntries.push_back("\n\n");
 
-    return fFileLineEntries;
+  //  return fFileLineEntries;
 }
 
 
@@ -54,7 +54,7 @@ LGeneratorMacrosException::ClassName(std::shared_ptr<LXmlEntitySubSystem >  sys 
 void 
 LGeneratorMacrosException::GenerateClasses(vector<std::shared_ptr<LXmlEntitySubSystem>> systems, vector<string> &in) const
 {
-    for (auto sys : systems)
+    for (auto &sys : systems)
     {
         string tmp = "EXCEPTION_CLASS_H\t(" + ClassName( sys) + ")";
         in.push_back(tmp);
@@ -76,7 +76,7 @@ LGeneratorMacrosException::GenerateExceptionMacros(  vector< std::shared_ptr<LXm
     {
         vector<string> syslist = MacroNames(sys);
         
-        for( auto name: syslist )
+        for( auto &name: syslist )
         {
             std::stringstream buffer;
             buffer <<  g_utilities()->TabAlign ( "#define " + name + "_EXCEPTION(...)", tabsize );

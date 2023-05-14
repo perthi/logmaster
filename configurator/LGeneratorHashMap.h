@@ -20,7 +20,7 @@ class  LGeneratorHashMap : public  LGenerator
 	public:
 	  LGeneratorHashMap( const string fname, const string xml, const string xsd);
 	  virtual ~LGeneratorHashMap() =default;
-	  virtual vector<string> Generate( vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+	  virtual void Generate( vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems  )  override;	
 	  
 	private:

@@ -61,16 +61,16 @@ LGeneratorMacrosLogging::GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel
 
 
 
-vector<string> 
+void 
 LGeneratorMacrosLogging::Generate(  vector<std::shared_ptr<LXmlEntityLogLevel > > levels,
 	                                vector<  std::shared_ptr< LXmlEntitySubSystem > >  systems )
 {
-    vector<string>     lines_common = GenerateCommon(  );
-    std::stringstream  buffer;
-    vector<string>     lines;
+    //vector<string>     lines_common = GenerateMandatory(  );
+   // std::stringstream  buffer;
+    //vector<string>     lines;
+    GenerateMandatory();
 
-
-    lines.insert(lines.end(), lines_common.begin(), lines_common.end());
+    //lines.insert(lines.end(), lines_common.begin(), lines_common.end());
 
     for (auto &sys : systems)
     {
@@ -81,25 +81,30 @@ LGeneratorMacrosLogging::Generate(  vector<std::shared_ptr<LXmlEntityLogLevel > 
             entries.push_back(LMacroEntry(e));
             e = GenerateMacroEntry(lvl, sys, true);
             entries.push_back(LMacroEntry(e));
-            vector<string> new_lines = GenerateLines(entries);
-            lines.insert(lines.end(), new_lines.begin(), new_lines.end());
-            lines.push_back("\n");
+            
+          //  vector<string> new_lines = GenerateLines(entries);
+            GenerateLines(entries);
+            
+          //  lines.insert(lines.end(), new_lines.begin(), new_lines.end());
+            
+            
+            fFileLineEntries.push_back("\n");
         }
-        lines.push_back("\n\n\n");
+        fFileLineEntries.push_back("\n\n\n");
     }
 
-    lines.push_back("\n\n");
-    lines.push_back( "#endif" );
-    lines.push_back("\n\n");
+    fFileLineEntries.push_back("\n\n");
+    fFileLineEntries.push_back( "#endif" );
+    fFileLineEntries.push_back("\n\n");
 
-    return lines;
+    //return lines;
 }
 
 
-vector<string> 
-LGeneratorMacrosLogging::GenerateLines( const vector<LMacroEntry>  m_entries  )  const
+void 
+LGeneratorMacrosLogging::GenerateLines( const vector<LMacroEntry>  m_entries  )
 {
-  vector<string> lines;
+  //vector<string> lines;
 
     for( auto &entry: m_entries )
     {
@@ -108,10 +113,10 @@ LGeneratorMacrosLogging::GenerateLines( const vector<LMacroEntry>  m_entries  ) 
         {
             string line;
             line = GenerateLine(  m , entry.fSystems,  entry.fLevel );
-            lines.push_back(line);
+            fFileLineEntries.push_back(line);
         } 
     }
-    return lines;    
+   /// return lines;    
 }
 
 
@@ -153,11 +158,11 @@ LGeneratorMacrosLogging::GenerateLine( const LMacroName m,  const vector<LSystem
 }
 
 
-/** 
 
-*/
-vector<string>  
-LGeneratorMacrosLogging::GenerateCommon(    ) 
+
+
+void  
+LGeneratorMacrosLogging::GenerateMandatory(    ) 
 {
    // vector<string> lines;
     //lines.push_back("// -*- mode: c++ -*-\n\n\n");
@@ -243,5 +248,5 @@ LGeneratorMacrosLogging::GenerateCommon(    )
 
     //return lines;
 
-    return fFileLineEntries;
+    //return fFileLineEntries;
 }

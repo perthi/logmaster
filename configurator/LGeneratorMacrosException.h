@@ -24,7 +24,7 @@ class  LGeneratorMacrosException : public LGenerator
 	public:
 		API LGeneratorMacrosException( const string fname, const string xml, const string xsd);
 		virtual API ~LGeneratorMacrosException() = default;
-		virtual vector<string>  API Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+		virtual void  API Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems )  override;
 
 	public:

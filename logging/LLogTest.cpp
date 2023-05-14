@@ -1,9 +1,8 @@
 // -*- mode: c++ -*-
-
-/*****************************************************************************
-***          Author: Per Thomas Hille <pth@embc.no>                       ****
-******************************************************************************/
-
+/***************************************************
+* @copyright Embedded Consulting AS                *
+* @author Per Thomas Hille <pth@embc.no>           *
+***************************************************/
 /*****************************************************************************
 ******************************************************************************
 *** This file is part of logmaster.                                        ***
@@ -26,144 +25,79 @@
 ******************************************************************************
 ******************************************************************************/
 
+/***** Auto generated file: DO NOT EDIT !!!!!! *****/
+/*** Generated at: Sun 14 May-2023 16:24:04  ***/
+/*** Generated from config\logging.xml **/
+/*** Validated by config\logging.xsd **/
+
+
+
+
 
 #include "LLogTest.h"
 #include "LLogApi.h"
+#include <utilities/GRandom.h>
 #include <utilities/GLocation.h>
 
 #include <iostream>
-
 using std::endl;
 using std::cout;
 
 
-namespace LOGMASTER
-{
 
-void 
+
+ namespace LOGMASTER 
+{
+void
 LLogTest::WriteMessages()
 {
-  //  Header();
-    int a = 40;
-    int b = 2;
-
-   
-    G_DEBUG("This is a system wide general DEBUG message written if any of the sub systems are enabled");
-    G_INFO("This is a system wide general INFO message written if any of the sub systems are enabled");
-    G_WARNING("This is a system wide general(non system specific) WARNING message ");
-    G_ERROR("This a system wide general ERROR message with parameters: a = %d, b = %d", a, b);
-    G_FATAL("Oppps.... a system wide general (non system specific) fatal nessage");
-    
-
-     ALL_DEBUG("This is a ALL_DEBUG message (applied if any of the subsystems are on)");
-     ALL_INFO("This is a system wide  ALL_INFO message (applied if any of the subsystems are on)");
-     ALL_WARNING("This is a system wide ALL_WARNING message (applied if any of the subsystems are on)");
-     ALL_ERROR("This a This is a system wide ALL_ERROR message (applied if any of the subsystems are on) with parameters: a = %d, b = %d", a, b);
-     ALL_FATAL("Oppps.... a system wide ALL_FATAL message");
-
-   //   EX_DEBUG("This is a EX_DEBUG message");
-    //  EX_INFO("This  is a EX_INFO  message");
-    //    EX_WARNING("This is a EX_WARNING message");
-    // EX_ERROR("This is a EX_ERROR message with parameters: a = %d, b = %d", a, b);
-    // EX_FATAL("Oppps.... a  EX_FATAL message");
+    float fval = 0;
+    int ival = 0;
 
 
-    USER_DEBUG("This is a USER_DEBUG message");
-    USER_INFO("This  is a USER_INFO  message");
-    USER_WARNING("This is a USER_WARNING message");
-    USER_ERROR("This is a USER_ERROR message with parameters: a = %d, b = %d", a, b);
-    USER_FATAL("Oppps.... a  USER_FATAL message");
-   
-
-    
-    FSM_DEBUG("This is a FSM_DEBUG message");
-    FSM_INFO("This  is a FSM_INFO  message");
-    FSM_WARNING("This is a FSM_WARNING message");
-    FSM_ERROR("This is a FSM_ERROR message with parameters: a = %d, b = %d", a, b);
-    FSM_FATAL("Oppps.... a  FSM_FATAL message");
-    
-
-    
-    FSM_DEBUG_U("This is a FSM_DEBUG and USER message");
-    FSM_INFO_U("This  is a FSM_INFO and USER message");
-    FSM_WARNING_U("This is a FSM_WARNING and USER message");
-    FSM_ERROR_U("This is a FSM_ERROR USERmessage with parameters: a = %d, b = %d", a, b);
-    FSM_FATAL("Oppps.... a  FSM_FATAL USER message");
-
-    COM_DEBUG(       "sed do eiusmod tempor incididunt ut labore et dolore");
-    COM_WARNING(     "magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    COM_INFO(        "sed do eiusmod tempor incididunt ut labore et dolore");
-    COM_ERROR(       "magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    COM_FATAL(       "exercitation ullamco laboris nisi ut aliquip ex ea");
-    COM_DEBUG_U(     "sed do eiusmod tempor incididunt ut labore et dolore");
-    COM_WARNING_U(   "magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    COM_INFO_U(      "sed do eiusmod tempor incididunt ut labore et dolore");
-    COM_ERROR_U(     "magna aliqua. Ut enim ad minim veniam, quis nostrud");
-    COM_FATAL_U(     "exercitation ullamco laboris nisi ut aliquip ex ea");
+        fval = g_random()->Uniform<float>(-10, 100);
+        ival = g_random()->Uniform<int>(-10, 1000);
+        FSM_FATAL("This is a FSM_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        FSM_ERROR("This is a FSM_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        FSM_WARNING("This is a FSM_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        FSM_INFO("This is a FSM_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        FSM_DEBUG("This is a FSM_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
-    XML_DEBUG("This is a XML_DEBUG message");
-    XML_INFO("This  is a XML_INFO  message");
-    XML_WARNING("This is a XML_WARNING message");
-    XML_ERROR("This is a XML_ERROR message with parameters: a = %d, b = %d", a, b);
-    XML_FATAL("Oppps.... a  XML_FATAL message");
+        fval = g_random()->Uniform<float>(-10, 100);
+        ival = g_random()->Uniform<int>(-10, 1000);
+        MESSAGE_FATAL("This is a MESSAGE_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MESSAGE_ERROR("This is a MESSAGE_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MESSAGE_WARNING("This is a MESSAGE_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MESSAGE_INFO("This is a MESSAGE_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MESSAGE_DEBUG("This is a MESSAGE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
-    MESSAGE_DEBUG("This is a MESSAGE_DEBUG message");
-    MESSAGE_INFO("This  is a MESSAGE_INFO  message");
-    MESSAGE_WARNING("This is a MESSAGE_WARNING message");
-    MESSAGE_ERROR("This is a MESSAGE_ERROR message with parameters: a = %d, b = %d", a, b);
-    MESSAGE_FATAL("Oppps.... a  MESSAGE_FATAL message");
 
-    DB_DEBUG("This is a DB_DEBUG message");
-    DB_INFO("This  is a DB_INFO  message");
-    DB_WARNING("This is a DB_WARNING message");
-    DB_ERROR("This is a DB_ERROR message with parameters: a = %d, b = %d", a, b);
-    DB_FATAL("Oppps.... a  DB_FATAL message");
-    
+        fval = g_random()->Uniform<float>(-10, 100);
+        ival = g_random()->Uniform<int>(-10, 1000);
+        COM_FATAL("This is a COM_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        COM_ERROR("This is a COM_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        COM_WARNING("This is a COM_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        COM_INFO("This is a COM_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        COM_DEBUG("This is a COM_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
-   // ALARM_DEBUG("This is a ALARAM_DEBUG message");
-   // ALARM_INFO("This  is a ALARAM_INFO  message");
-    ALARM_WARNING("This is a ALARAM_WARNING message");
- 
-     ALARM_ERROR("This is a ALARAM_ERROR message with parameters: a = %d, b = %d", a, b);
-     ALARM_FATAL("Oppps.... a  ALARAM_FATAL message");
-    
-    
-  //  Footer();
 
+        fval = g_random()->Uniform<float>(-10, 100);
+        ival = g_random()->Uniform<int>(-10, 1000);
+        XML_FATAL("This is a XML_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        XML_ERROR("This is a XML_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        XML_WARNING("This is a XML_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        XML_INFO("This is a XML_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        XML_DEBUG("This is a XML_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+
+
+        fval = g_random()->Uniform<float>(-10, 100);
+        ival = g_random()->Uniform<int>(-10, 1000);
+        DATABASE_FATAL("This is a DATABASE_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        DATABASE_ERROR("This is a DATABASE_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        DATABASE_WARNING("This is a DATABASE_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        DATABASE_INFO("This is a DATABASE_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        DATABASE_DEBUG("This is a DATABASE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
     cout << endl;
-
 }
-
-
-
-
- void
-LLogTest::test()
-{
-
-    USER_ERROR("This is at test");
-
-}
-
-
-
-void
-LLogTest::Header()
-{
-    cout << "*********************************************" << endl;
-    cout << "********** WRITING MESSAGES *****************" << endl;
-    cout << "*********************************************" << endl;
-}
-
-
-void
-LLogTest::Footer()
-{
-    cout << "*********************************************" << endl;
-    cout << "************** DONE *************************" << endl;
-    cout << "*********************************************" << endl;
-}
-
-
 }

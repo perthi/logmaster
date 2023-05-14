@@ -26,7 +26,7 @@ LGeneratorHashMap::LGeneratorHashMap( const string fname, const string xml, cons
 
 
 
-vector< string > 
+void 
 LGeneratorHashMap::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                          vector< std::shared_ptr<LXmlEntitySubSystem > >  systems )
 {
@@ -60,7 +60,7 @@ LGeneratorHashMap::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  l
     fFileLineEntries.push_back("}");
 
     //return lines;
-    return fFileLineEntries;
+    //return fFileLineEntries;
 }	
 
 
