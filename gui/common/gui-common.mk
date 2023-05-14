@@ -4,8 +4,7 @@
 LIBNAME_A=libgui-common.a
 
 
-SRCCPP:= GUIInitStyles.cpp \
-	     GUILoggerBase.cpp
+SRCCPP:= GUIInitStyles.cpp
 
 
 export CPPFLAGS:=$(CPPFLAGS_RELAXED)
