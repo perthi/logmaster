@@ -46,20 +46,14 @@ LGeneratorHashMap::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  l
     you hav defined %d. please check your XML configuration",   systems.size() );    
     
     lines.push_back(  autoclause ); 
-
-    lines.push_back("#include \"LHashMapsBase.h\"");
+    lines.push_back("#include \""+ fClassName + ".h\"");
     lines.push_back("#include <utilities/GNumbers.h>");
     lines.push_back("#include <utilities/GUtilities.h>");
-  
     lines.push_back("\n\n");
-
     lines.push_back( "namespace LOGMASTER");
     lines.push_back( "{" );
-    
-    lines.push_back("LHashMapsBase::LHashMapsBase( ) : fLogLevelHash() {}");
-   // lines.push_back("LHashMapsBase::LHashMapsBase( const eLOGLEVEL  level) : fLogLevelHash(), fDefaultLevel( level ) {}");
-    lines.push_back("LHashMapsBase::~LHashMapsBase(){ }");
-
+    lines.push_back( fClassName + "::" + fClassName+"( ) : fLogLevelHash() {}");
+    lines.push_back( fClassName + "::~" + fClassName +"(){ }");
     lines.push_back("\n\n");
 
     GenerateInitHashLogLevel( systems,        lines );
@@ -81,7 +75,8 @@ LGeneratorHashMap::GenerateInitHashLogTags(   vector< std::shared_ptr<LXmlEntity
 {
     lines.push_back("\n\n");
     lines.push_back("   void");
-    lines.push_back("   LHashMapsBase::InitHashLogTags(  map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash   )");
+    lines.push_back("   "+ fClassName + "::InitHashLogTags(  map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash   )");
+    
     lines.push_back("   {");
 
     for (auto sys : systems)
@@ -118,9 +113,8 @@ LGeneratorHashMap::GenerateInitHashLevel2String (  vector< std::shared_ptr<LXmlE
 {
     lines.push_back("\n\n");
     lines.push_back("   void" );
-    lines.push_back("   LHashMapsBase::InitHashLevel2String(  map<eLOGLEVEL, string> *Level2StringHash  )");
+    lines.push_back("   " +  fClassName +"::InitHashLevel2String(  map<eLOGLEVEL, string> *Level2StringHash  )");
     lines.push_back("   {");
-
     lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_OFF, \"OFF\");");
     lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_FORCE_DEBUG, \"Force_Debug\");");
 
@@ -141,7 +135,8 @@ LGeneratorHashMap::GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEn
 {
     lines.push_back("\n\n");
     lines.push_back("   void");
-    lines.push_back("   LHashMapsBase::InitHashSystem2String( map<eMSGSYSTEM, string>  *System2StringHash )");
+    
+    lines.push_back("   " + fClassName + "::InitHashSystem2String( map<eMSGSYSTEM, string>  *System2StringHash )");
     lines.push_back("   {");
     lines.push_back( "\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_EX,       \"Exeption\");");
     lines.push_back( "\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_GENERAL,  \"General\");");
@@ -175,7 +170,8 @@ LGeneratorHashMap::GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntityS
     *  whether or not logging is enabled to to file, to console, etc.. */");
 
     lines.push_back("   void");
-    lines.push_back("   LHashMapsBase::InitHashLogLevel( )");
+    lines.push_back("   " + fClassName + "::InitHashLogLevel( )");
+
     lines.push_back("   {");
     lines.push_back("\tfLogLevelHash.clear();");
     lines.push_back("//\teLOGLEVEL level = (eLOGLEVEL)(PAD((int)l));");

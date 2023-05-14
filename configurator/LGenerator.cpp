@@ -12,9 +12,8 @@ using namespace LOGMASTER;
 
 LGenerator::LGenerator( const string fname ) : fFileName(fname)
 {
-    fClassName = g_string()->Path2ClassName(fname);
-    
-    FORCE_DEBUG("classname = %s", fClassName.c_str() );
+   fClassName = g_string()->Path2ClassName(fname);
+   FORCE_DEBUG("classname = %s", fClassName.c_str() );
 
 }
 
