@@ -253,6 +253,7 @@ TEST_F(TestGString, CountOccurrences)
 
 
 #ifdef _WIN32
+/// @todo fix test for Linux
 TEST_F(TestGString, ToStringBUG_NSR1049)
 {
     EXPECT_EQ( "1300.12312344",  g_string()->ToString(1300.12312344));
@@ -274,7 +275,6 @@ TEST_F(TestGString, Utf8ToAnsi)
 }
 
 
-#ifdef _WIN32
 TEST_F(TestGString, AnsiToUtf8)
 {
    const std::string makeNoChanges = "A sentence without special characters";
@@ -283,10 +283,10 @@ TEST_F(TestGString, AnsiToUtf8)
    EXPECT_EQ(makeNoChanges,  g_string()->AnsiToUtf8(makeNoChanges));
    EXPECT_EQ(norwegianUtf8,  g_string()->AnsiToUtf8(norwegianAnsi));
 }
-#endif
 
 
 #ifdef _WIN32
+/// @todo fix test for Linux
 TEST_F(TestGString, ToLower)
 {
     string s = "ABC \xC2\xA2 123";
@@ -309,6 +309,7 @@ TEST_F(TestGString, ToLower)
 
 
 #ifdef _WIN32
+/// @todo fix test for Linux
 TEST_F(TestGString, ToUpper)
 {
     string s = "abc \xC2\xA2 123";
@@ -348,7 +349,7 @@ TEST_F(TestGString, beginswidth_empty)
 
 
 
-TEST_F(TestGString, end_with)
+TEST_F(TestGString, ends_with)
 {
     string s = "myapp.exe";
     EXPECT_TRUE(  g_string()->EndsWith(s, ".exe") );
@@ -356,4 +357,14 @@ TEST_F(TestGString, end_with)
     EXPECT_TRUE(g_string()->EndsWith(s,  vector<string>{ ".exe", ".dll"}));
     EXPECT_TRUE(g_string()->EndsWith(s, vector<string>{ ".blahhh", ".dll", "exe"}));
     EXPECT_FALSE(g_string()->EndsWith(s, vector<string>{ ".foo", ".bar"}));
+}
+
+
+
+TEST_F(TestGString, path2classname)
+{
+    string p = "mypath1/mypath2/MyClass.cpp";
+    string classname = g_string()->Path2ClassName(p);
+    EXPECT_EQ(classname, "MyClass");
+
 }

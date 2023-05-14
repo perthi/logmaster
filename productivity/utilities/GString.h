@@ -50,6 +50,8 @@ class GString
      string    API ToUpperCase(  const string  in ) const;  
      string    API ToLowerCase(  const string  in ) const;
 
+     string    API Path2ClassName(const string & path);   
+
      template <typename T>
      string    API Vec2String(const vector<T> in, const string sep = "\n");
      

@@ -43,8 +43,8 @@ vector<string> LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogL
 		{
 			string macroname = s->fName + "_" + l->fName;
 
-			float fval = g_random()->Uniform<float>(-10, 100);
-			int   ival = g_random()->Uniform<int>(-10, 1000);
+		//	float fval = g_random()->Uniform<float>(-10, 100);
+		//	int   ival = g_random()->Uniform<int>(-10, 1000);
 
 			std::stringstream buffer;
 			buffer << macroname <<  "(\"This is a " << macroname << "  test message with parameter: ival = %d, fval %f\", ival, fval )";

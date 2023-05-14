@@ -30,9 +30,10 @@ class  LGenerator
 
 
 	protected:
-		string fFileName		= "UNKNOWN";
-		string fLevelEnumName    =   "eLOGLEVEL";
-	    string fSystemEnumName   =   "eMSGSYSTEM";					
+		string fFileName		 =  "UNKNOWN";
+		string fClassName        =  "UNKNOWN";
+		string fLevelEnumName    =  "eLOGLEVEL";
+	    string fSystemEnumName   =  "eMSGSYSTEM";					
 
 };
 

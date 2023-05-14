@@ -33,6 +33,8 @@
 
 
 #include "GString.h"
+#include "GTokenizer.h"
+
 #include <cwctype>
 #include <clocale>
 #include <algorithm>
@@ -734,3 +736,32 @@ GString::ToLowerCase(const string in) const
      std::transform( copy.begin(), copy.end(),  copy.begin(), ::tolower );    
      return copy;   
 }
+
+
+/**Calculate a class name from a path. The convention that
+ * is almost always used is that the classname and the
+ * filename is always the same, minus the .h/c<7.cpp or .xx
+ * suffix. For instance if the file path is 
+ * /mydirectory/MyClass.cpp. Then the function will return
+ * "MyClass"
+ * @param[in] path
+ * @return The filename, minus the suffix */
+string  
+GString::Path2ClassName(const string & path)
+{
+    string directory;
+    string filename;
+    g_tokenizer()->StripPath(path, directory, filename );
+    string ret = "";
+    vector<string> tokens = g_tokenizer()->Tokenize(filename, ".");
+    
+    if(tokens.size() > 0)
+    {
+        ret = tokens.at(0);
+    }
+    
+    return ret;
+}
+
+
+//:StripPath(const string fin, string& dir, string& fout, const bool keep_trailing_slahs)

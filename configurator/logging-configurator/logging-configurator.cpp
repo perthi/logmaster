@@ -131,6 +131,7 @@ int main(int  argc, const char **  argv)
 			generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTest2.cpp"));
 			generator( generators, loglevels, subsystems ,  clause );
 
+
 		}
 	}
 	catch( const GException &e )
