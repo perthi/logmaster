@@ -16,26 +16,30 @@ LGeneratorLogTest::LGeneratorLogTest(const string filename) : LGenerator(filenam
 
 vector<string> LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>> levels, vector<std::shared_ptr<LXmlEntitySubSystem>>  systems, const string /*autoclause*/) const
 {
-	CERR << "NOT EMPLEMENTED YET" << ENDL;
-
-	
-	for (auto l : levels)
-	{
-		CERR << "level =  " << l->fName  << ENDL;
-	}
-	
-	for (auto s : systems )
-	{
-		CERR << "system =  " << s->fName << ENDL;
-	}
-
-	for (int i = 0; i < 10; i++)
-	{
-		float r = g_random()->Uniform<float>(-10, 100);
-		CERR << "num = " << r << ENDL;
-	}
-
 	vector<string> lines;
+
+/*
+#include "LLogTest.h"
+#include "LLogApi.h"
+#include <utilities/GLocation.h>
+
+#include <iostream>
+
+using std::endl;
+using std::cout;
+
+
+namespace LOGMASTER
+{
+
+void 
+LLogTest::WriteMessages()
+{
+*/
+
+     lines.push_back( "#include \"" + fHeaderFileName + "\"" );
+     lines.push_back( "#include \"LLogApi.h\"");
+	 lines.push_back( "#include <utilities/GLocation.h>" );
 
 	for (auto s : systems)
 	{
