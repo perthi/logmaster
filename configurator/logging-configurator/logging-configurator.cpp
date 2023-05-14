@@ -98,14 +98,7 @@ int main(int  argc, const char **  argv)
 		SET_LOGLEVEL("--all-off --all-debug");
 		SET_LOGFORMAT("1111111");
 
-		
 		g->AddArguments(arguments).ScanArguments(argc, argv);
-		
-		
-		// string addendum = "/*** Generated from " + xml + " **/\n" ;
-		// addendum +=  "/*** Validated by " + xsd + " **/\n";
-		// addendum += "/*** Copyright Per Thomas Hille pth@embc.no ***/\n";
-        // string clause =   g_utilities()->AutoClause( addendum );
 		
 
 		auto validator = std::make_shared<GXmlValidator>();
@@ -126,7 +119,7 @@ int main(int  argc, const char **  argv)
 			vector< std::shared_ptr< LGenerator >  > generators;
 			generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumGenerated.h", xml, xsd) );
 			generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApi.h", xml, xsd) );
-			generators.push_back(std::make_shared < LGeneratorMacrosException >( "exception/GExceptionMacros.h", xml, xsd) );
+			generators.push_back(std::make_shared < LGeneratorMacrosException >( "logging/GExceptionMacros.h", xml, xsd) );
 			generators.push_back(std::make_shared < LGeneratorHashMap >( "logging/LHashMapsBase.cpp", xml, xsd) );
 			generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTest.cpp", xml, xsd));
 			//generator( generators, loglevels, subsystems ,  clause );

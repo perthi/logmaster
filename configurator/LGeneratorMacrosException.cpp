@@ -20,26 +20,10 @@ void
 LGeneratorMacrosException::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/ ,
                                        vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)
 {
-    //vector<string> lines;
-   // lines.push_back("// -*- mode: c++ -*-\n\n");
-   // lines.push_back("\n#pragma once \n\n" );    
-   // lines.push_back(  autoclause );
-
-    /*
-    for( auto sys : systems )
-    {
-        string tmp =  g_string()->ToPascalCase( sys->fName );
-    }
-    */
-    
-   // fFileLineEntries
-
     GenerateClasses(  systems, fFileLineEntries );
     fFileLineEntries.push_back("\n\n");
     GenerateExceptionMacros(  systems, fFileLineEntries);
     fFileLineEntries.push_back("\n\n");
-
-  //  return fFileLineEntries;
 }
 
 
@@ -72,7 +56,7 @@ LGeneratorMacrosException::GenerateExceptionMacros(  vector< std::shared_ptr<LXm
 
     int tabsize = 6;
 
-    for (auto sys : systems)
+    for (auto &sys : systems)
     {
         vector<string> syslist = MacroNames(sys);
         
@@ -90,7 +74,7 @@ LGeneratorMacrosException::GenerateExceptionMacros(  vector< std::shared_ptr<LXm
             buffer <<  g_utilities()->TabAlign ( "#define " + name  +  "_ASSERT_EXCEPTION(expr,  ...)", tabsize  );
             buffer <<  " if(!(expr)) throw_exception( " << ClassName(sys) << "(\t";
             buffer <<   "__FILE__,  __func__, __LINE__ , ";
-            auto e = fSystemEnumName; 
+            auto &e = fSystemEnumName; 
             buffer <<  "(" << e << ")(" << e <<"::SYS_EX | " <<  e <<"::SYS_" << sys->fName << "),\t__VA_ARGS__ ) )";
             ass_macros.push_back( buffer.str() );
         }

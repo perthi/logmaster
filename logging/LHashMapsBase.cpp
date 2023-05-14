@@ -26,7 +26,7 @@
 ******************************************************************************/
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sun 14 May-2023 16:24:04  ***/
+/*** Generated at: Sun 14 May-2023 17:04:40  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -61,6 +61,8 @@ LHashMapsBase::~LHashMapsBase(){ }
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_COM, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_XML, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_DATABASE, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL,(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );
    }
@@ -80,6 +82,8 @@ LHashMapsBase::~LHashMapsBase(){ }
 	System2StringHash->emplace(eMSGSYSTEM::SYS_COM, 	"Com");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_XML, 	"Xml");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_DATABASE, 	"Database");
+	System2StringHash->emplace(eMSGSYSTEM::SYS_USER, 	"User");
+	System2StringHash->emplace(eMSGSYSTEM::SYS_GENERAL, 	"General");
    }
 
 
@@ -159,6 +163,38 @@ LHashMapsBase::~LHashMapsBase(){ }
 	SubCmdHash->emplace("--db-info",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eLOGLEVEL::LOG_INFO));
 	SubCmdHash->emplace("--db-debug",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eLOGLEVEL::LOG_DEBUG));
 	SubCmdHash->emplace("--db-all",		std::make_pair(eMSGSYSTEM::SYS_DATABASE,  eLOGLEVEL::LOG_ALL));
+
+
+	SubCmdHash->emplace("--user-off",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_OFF));
+	SubCmdHash->emplace("--user-fatal",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_FATAL));
+	SubCmdHash->emplace("--user-error",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_ERROR));
+	SubCmdHash->emplace("--user-warning",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_WARNING));
+	SubCmdHash->emplace("--user-info",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_INFO));
+	SubCmdHash->emplace("--user-debug",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_DEBUG));
+	SubCmdHash->emplace("--user-all",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_ALL));
+	SubCmdHash->emplace("--usr-off",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_OFF));
+	SubCmdHash->emplace("--usr-fatal",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_FATAL));
+	SubCmdHash->emplace("--usr-error",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_ERROR));
+	SubCmdHash->emplace("--usr-warning",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_WARNING));
+	SubCmdHash->emplace("--usr-info",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_INFO));
+	SubCmdHash->emplace("--usr-debug",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_DEBUG));
+	SubCmdHash->emplace("--usr-all",		std::make_pair(eMSGSYSTEM::SYS_USER,  eLOGLEVEL::LOG_ALL));
+
+
+	SubCmdHash->emplace("--general-off",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_OFF));
+	SubCmdHash->emplace("--general-fatal",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_FATAL));
+	SubCmdHash->emplace("--general-error",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_ERROR));
+	SubCmdHash->emplace("--general-warning",	std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_WARNING));
+	SubCmdHash->emplace("--general-info",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_INFO));
+	SubCmdHash->emplace("--general-debug",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_DEBUG));
+	SubCmdHash->emplace("--general-all",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_ALL));
+	SubCmdHash->emplace("--gen-off",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_OFF));
+	SubCmdHash->emplace("--gen-fatal",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_FATAL));
+	SubCmdHash->emplace("--gen-error",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_ERROR));
+	SubCmdHash->emplace("--gen-warning",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_WARNING));
+	SubCmdHash->emplace("--gen-info",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_INFO));
+	SubCmdHash->emplace("--gen-debug",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_DEBUG));
+	SubCmdHash->emplace("--gen-all",		std::make_pair(eMSGSYSTEM::SYS_GENERAL,  eLOGLEVEL::LOG_ALL));
 
 
    }

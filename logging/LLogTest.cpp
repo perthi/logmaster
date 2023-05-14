@@ -26,7 +26,7 @@
 ******************************************************************************/
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sun 14 May-2023 16:24:04  ***/
+/*** Generated at: Sun 14 May-2023 17:04:40  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -98,6 +98,24 @@ LLogTest::WriteMessages()
         DATABASE_WARNING("This is a DATABASE_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
         DATABASE_INFO("This is a DATABASE_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
         DATABASE_DEBUG("This is a DATABASE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+
+
+        fval = g_random()->Uniform<float>(-10, 100);
+        ival = g_random()->Uniform<int>(-10, 1000);
+        USER_FATAL("This is a USER_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        USER_ERROR("This is a USER_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        USER_WARNING("This is a USER_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        USER_INFO("This is a USER_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        USER_DEBUG("This is a USER_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+
+
+        fval = g_random()->Uniform<float>(-10, 100);
+        ival = g_random()->Uniform<int>(-10, 1000);
+        GENERAL_FATAL("This is a GENERAL_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        GENERAL_ERROR("This is a GENERAL_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        GENERAL_WARNING("This is a GENERAL_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        GENERAL_INFO("This is a GENERAL_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        GENERAL_DEBUG("This is a GENERAL_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
     cout << endl;
 }
 }

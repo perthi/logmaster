@@ -69,8 +69,25 @@
             <DEFAULT>WARNING</DEFAULT>
             <CAN_MODIFY>true</CAN_MODIFY>
             <FORCE_OUTPUT>false</FORCE_OUTPUT>
+          </SYSTEM>
+        <SYSTEM> 
+            <NAME>USER</NAME>
+            <SHORT_NAME>USR</SHORT_NAME>
+            <TAG>--user</TAG>
+            <TAG_SHORT>--usr</TAG_SHORT>
+            <DEFAULT>WARNING</DEFAULT>
+            <CAN_MODIFY>true</CAN_MODIFY>
+            <FORCE_OUTPUT>false</FORCE_OUTPUT>
         </SYSTEM>
-
+        <SYSTEM> 
+            <NAME>GENERAL</NAME>
+            <SHORT_NAME>G</SHORT_NAME>
+            <TAG>--general</TAG>
+            <TAG_SHORT>--gen</TAG_SHORT>
+            <DEFAULT>WARNING</DEFAULT>
+            <CAN_MODIFY>true</CAN_MODIFY>
+            <FORCE_OUTPUT>false</FORCE_OUTPUT>
+        </SYSTEM>
 
     </SUBSYSTEMS>
 

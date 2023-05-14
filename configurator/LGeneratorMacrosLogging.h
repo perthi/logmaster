@@ -27,6 +27,8 @@ class  LGeneratorMacrosLogging : public LGenerator
 
 	private:
 
+
+
 		struct LSystem
 		{
 			LSystem( const  string name) : fSystem(name) {}
