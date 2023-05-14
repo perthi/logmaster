@@ -32,7 +32,7 @@
 
 #define XML_MAX_SIZE 4096
 
-
+/** @todo Replace. Use the version in the GText class*/
 GTextXml::GTextXml(const char * fmt, ...) : fText("")
 {
     va_list ap;
@@ -42,12 +42,14 @@ GTextXml::GTextXml(const char * fmt, ...) : fText("")
  }
 
 
+/** @todo Replace. Use the version in the GText class*/
 GTextXml::GTextXml(const string s ) : fText("")
 {   
    fText = s;
 }
 
 
+/** @todo Replace. Use the version in the GText class*/
 void
 GTextXml::SetGTextXml(const char *fmt, va_list ap)
 {
@@ -57,7 +59,7 @@ GTextXml::SetGTextXml(const char *fmt, va_list ap)
 }
 
 
-
+/** @todo Replace. Use the version in the GText class*/
 GTextXml & 
 GTextXml::operator  = (const char *rhs)
 {
@@ -66,6 +68,7 @@ GTextXml::operator  = (const char *rhs)
 }
 
 
+/** @todo Replace. Use the version in the GText class*/
 void 
 GTextXml::SetGTextXml(const char *txt)
 {
@@ -74,7 +77,7 @@ GTextXml::SetGTextXml(const char *txt)
 
 
 
-
+/** @todo Replace. Use the version in the GText class*/
 string    
 GTextXml::str() const 
 { 
@@ -83,6 +86,7 @@ GTextXml::str() const
 }
 
 
+/** @todo Replace. Use the version in the GText class*/
 int64_t  
 GTextXml::size() const
 {
@@ -90,6 +94,7 @@ GTextXml::size() const
 }
 
 
+/** @todo Replace. Use the version in the GText class*/
 const char *  
 GTextXml::c_str() const 
 { 
@@ -97,6 +102,7 @@ GTextXml::c_str() const
 }
 
 
+/** @todo Replace. Use the version in the GText class*/
 const char *
 GTextXml::what() const
 { 

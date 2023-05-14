@@ -62,7 +62,6 @@ class  LGeneratorMacrosLogging : public LGenerator
 		
 		string  GenerateLine( const LMacroName m,  const vector<LSystem> s, const string lvl ) const;
 
-		void  GenerateMandatory( );
 
 
 };

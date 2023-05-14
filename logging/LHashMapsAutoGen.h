@@ -9,7 +9,7 @@
 *****************************************************************************/
 
 #include  "LEnums.h"
-#include  "LHashMapsBase.h"
+#include  "LHashMapsAutoGen.h"
 #include  <utilities/GDefinitions.h>
 
 #include <map>

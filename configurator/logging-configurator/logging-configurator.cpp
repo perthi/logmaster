@@ -93,6 +93,7 @@ int main(int  argc, const char **  argv)
 
 	LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 
+
 	try
 	{
 		SET_LOGLEVEL("--all-off --all-debug");
@@ -117,11 +118,11 @@ int main(int  argc, const char **  argv)
 			XML_INFO("Successfully validated %s against %s and parsed the XML file", xml.c_str(), xsd.c_str() );
 
 			vector< std::shared_ptr< LGenerator >  > generators;
-			generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumGenerated.h", xml, xsd) );
-			generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApi.h", xml, xsd) );
-			generators.push_back(std::make_shared < LGeneratorMacrosException >( "logging/GExceptionMacros.h", xml, xsd) );
-			generators.push_back(std::make_shared < LGeneratorHashMap >( "logging/LHashMapsBase.cpp", xml, xsd) );
-			generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTest.cpp", xml, xsd));
+			generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumAutoGen.h", xml, xsd) );
+			generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApiAutoGen.h", xml, xsd) );
+			generators.push_back(std::make_shared < LGeneratorMacrosException >( "logging/GExceptionAutoGen.h", xml, xsd) );
+			generators.push_back(std::make_shared < LGeneratorHashMap >( "logging/LHashMapsAutoGen.cpp", xml, xsd) );
+			generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTestAutoGen.cpp", xml, xsd));
 			//generator( generators, loglevels, subsystems ,  clause );
 			generator(generators, loglevels, subsystems );
 

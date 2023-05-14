@@ -29,18 +29,18 @@ using std::string;
 #include <memory>
 #include <cstdarg>
 
-/** @brief custom execeptions that uses the logging system
+/** @brief custom exceptions that uses the logging system
  *
- *  @details Throws exceptions using printf formatting. The exeption handling system uses the logging system so that
- * any execptions thrown are also written to logfiles or standard output if the loglevel is ERROR or higher.
- * From the point of view of the logging system an execption message is just like any other logging message with the
+ *  @details Throws exceptions using printf formatting. The exception handling system uses the logging system so that
+ * any exceptions thrown are also written to logfiles or standard output if the log level is ERROR or higher.
+ * From the point of view of the logging system an exception message is just like any other logging message with the
  * following specifications
  *  - loglevel is ERROR
  *  - sub system is either
  *    -# SYS_EXCEPTION
  *    -# SYS_EXCEPTION  | "<any other sub-system>""
  *
- * The execptions can be disabled for debugging purposes. If disabled then a EX_FATAL exception message is written
+ * The exceptions can be disabled for debugging purposes. If disabled then a EX_FATAL exception message is written
  * insted of throwing an exception when calling an exception macro. */
 class  GException
 {
@@ -77,7 +77,7 @@ public:
     mutable std::shared_ptr<LOGMASTER::LMessage>  fgMessage = nullptr;
     
 public:
-    static bool fIsEnabledStackTrace; /* !< If set to true then a stack trace is included in the log message for the exception. This can be usefull for debugging. Default is FALSE*/
+    static bool fIsEnabledStackTrace; /* !< If set to true then a stack trace is included in the log message for the exception. This can be useful for debugging. Default is FALSE*/
     static bool fIsEnabledException;  /* !< If set to FALSE then a fatal error message is written instead of throwing an exception */
 
 };
@@ -154,7 +154,7 @@ EXCEPTION_CLASS_CPP(GRangeException)
 
 
 /** Including auto generated macros */
-#include "GExceptionMacros.h"
+ #include "GExceptionAutoGen.h"
 
 
 #define  CATCH_EXCEPTION_DB \

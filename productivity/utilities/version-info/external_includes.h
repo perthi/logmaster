@@ -19,7 +19,7 @@
 #include <utilities/GNumbers.cpp>
 #include <logging/LLogApi.h>
 #include <logging/LHashMaps.cpp>
-#include <logging/LHashMapsBase.cpp>
+#include <logging/LHashMapsAutoGen.cpp>
 #include <logging/GException.h>
 #include <logging/GException.cpp>
 #include <utilities/GFileIOHandler.cpp>

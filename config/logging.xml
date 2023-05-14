@@ -22,8 +22,7 @@
             <LEVEL>DEBUG</LEVEL>
         </LOGLEVEL>
     </LEVELS>
-
-
+    
     <SUBSYSTEMS>
         <SYSTEM>
             <NAME>FSM</NAME>
@@ -97,7 +96,6 @@
             <CAN_MODIFY>false</CAN_MODIFY>
             <FORCE_OUTPUT>false</FORCE_OUTPUT>
         </SYSTEM>
-
     </SUBSYSTEMS>
 
 </LOGGING>

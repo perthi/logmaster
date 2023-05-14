@@ -47,10 +47,7 @@ LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>> levels, 
 			string macroname = s->fName + "_" + l->fName;
 			std::stringstream buffer;
 			buffer << "        " << macroname << "(\"This is a " << macroname << "  test message with parameter: ival = %d, fval = %f\", ival, fval );";
-			cerr << buffer.str() << endl;
-
 			fFileLineEntries.push_back(buffer.str());
-
 		}
 
 	}
