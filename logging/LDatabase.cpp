@@ -96,11 +96,11 @@ namespace LOGMASTER
             FILE *p_file = NULL;
             p_file = fopen(fDBPath.c_str(),"rb");
 
-            /// @todo intepret errno value on failure
+            /// @todo interpret errno value on failure
           //  fopen_s(&p_file, fDBPath.c_str(), "rb");
             if (p_file == nullptr)
             {
-                std::invalid_argument( ("Could not open database:"+ fDBPath).c_str() );
+                throw(std::invalid_argument( ("Could not open database:"+ fDBPath).c_str() ));
                 
             }
             

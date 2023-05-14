@@ -7,7 +7,7 @@
 /*****************************************************************************
 ******************************************************************************
 *** This file is part of logmaster.                                        ***
-*** Copyright (C) 2018 Per Thomas Hille <pth@embc.no> http:///www.embc.no  ***
+*** Copyright (C) 2018 Per Thomas Hille <pth@embc.no> HTTP:///www.embc.no  ***
 *** all rights reserved                                                    ***
 ***                                                                        ***
 *** logmaster is free software: you can redistribute it and/or modify      ***
@@ -111,7 +111,7 @@ s_validMonths = {
     "July",    "August",   "September", "October", "November", "December"};
 
 s_validDays = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun",
-"monday",  "tuesday",  "wednesday",  "thursday", "friday", "saturday", "sunday"};
+"Monday",  "Tuesday",  "Wednesday",  "Thursday", "Friday", "Saturday", "Sunday"};
 
 s_validFormat  = {
     {"%a", "abbreviated weekday"},
@@ -167,16 +167,6 @@ vector<string>  &
 GTimeFormat::GetFormatSpecifiersV()
 {
     return  s_format_specifiers;
-
-    // vector<string> tmp;
-    // std::map<string, string>  format =  GetValidFormat();
-
-    // for (std::map<string, string>::iterator iter = format.begin(); iter != format.end(); ++iter)
-    // {
-    //     tmp.push_back(iter->first);
-    // }
-
-    // return tmp;
 }
 
 

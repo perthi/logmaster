@@ -8,7 +8,7 @@
 /*****************************************************************************
 ******************************************************************************
 *** This file is part of logmaster.                                        ***
-*** Copyright (C) Per Thomas Hille <pth@embc.no>  http:///www.embc.no      ***
+*** Copyright (C) Per Thomas Hille <pth@embc.no>  HTTP:///www.embc.no      ***
 *** all rights reserved                                                    ***
 ***                                                                        ***
 *** logmaster is free software: you can redistribute it and/or modify      ***
@@ -27,13 +27,9 @@
 ******************************************************************************
 ******************************************************************************/
 
-//#pragma once
 
 #include "GText.h"
 #include <cstdarg>
-//#include <errno.h>
-//#include <sys/errno.h>
-
 
 
 
@@ -54,7 +50,7 @@ GText::GText(char *message, const int n, const char * fmt, ...) : fText("")
 {
     va_list ap;
     va_start(ap, fmt);
-    vsnprintf(message, n-1 , fmt, ap);
+    vsnprintf(message,(size_t)n -1 , fmt, ap);
     static char msg[GTEXT_MAX_SIZE];
     va_start(ap, fmt);
     vsnprintf(msg, sizeof(msg) -1, fmt, ap);

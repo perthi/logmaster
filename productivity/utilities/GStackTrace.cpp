@@ -88,6 +88,11 @@ GStackTrace::str()
     SymInitialize(process, NULL, TRUE);
     frames = (func)(0, kMaxCallers, callers_stack, NULL);
     symbol = (SYMBOL_INFO *)calloc(sizeof(SYMBOL_INFO) + 256 * sizeof(char), 1);
+    if(symbol == nullptr)
+    { 
+        return "symbol == NULLPTR";
+    }
+    
     symbol->MaxNameLen = 255;
     symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
 

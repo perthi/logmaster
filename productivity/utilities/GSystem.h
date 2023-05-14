@@ -1,5 +1,4 @@
 // -*- mode: c++ -*-
-//#pragma once
 
 #ifndef GSYSTEM_HPP
 #define GSYSTEM_HPP

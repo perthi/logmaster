@@ -7,7 +7,7 @@
 /*****************************************************************************
 ******************************************************************************
 *** This file is part of logmaster.                                        ***
-*** Copyright (C) 2018 Per Thomas Hille <pth@embc.no> http:///www.embc.no  ***
+*** Copyright (C) 2018 Per Thomas Hille <pth@embc.no> HTTP:///www.embc.no  ***
 *** all rights reserved                                                    ***
 ***                                                                        ***
 *** logmaster is free software: you can redistribute it and/or modify      ***
@@ -55,8 +55,10 @@ GString  * g_string()
 /** Count the number of times the character "c" occurs in the input string
 *  @param[in] str  The input string to scan
 *  @param[in] c    The character to count occurrences of
-*  @param[in]  ignore_case  whether or not to ignore case when counting characters. If set to true, then both the input string
-*  and the character will be converted to lower case before doing the comparison. Please not that this flag only applies to letters
+*  @param[in]  ignore_case  whether or not to ignore case when counting characters. 
+*  If set to true, then both the input string
+*  and the character will be converted to lower case before doing the comparison. 
+*  Please not that this flag only applies to letters
 *  A-Z for all other characters the flag is ignored.
 *  @return  The number of times "c" occurs in "str" */
 int
@@ -113,7 +115,6 @@ bool GString::BeginsWith(const vector<string> *const arr, const string token, co
 {
     if (arr == nullptr)
     {
-        //CERR << "ZERO POINTER" << endl;
         return false;
     }
     else
@@ -384,9 +385,9 @@ string& GString::ToUpper(string& s)
 #define GET_SAFE_CHAR(str,ptr,len) (ptr<len?str[ptr]:'\0')
 
 
-/**  Checks if a string is Ansi/ASCII or UTF-8
+/**  Checks if a string is ANSI/ASCII or UTF-8
 *    @param[in, out] s  String to be check. The content is not altered.
-*    @return  true if Ansi/ASCII. */
+*    @return  true if ANSI/ASCII. */
 bool 
 GString::IsAnsi(string& s)
 {
@@ -505,7 +506,7 @@ std::string
 GString::AnsiToUtf8(const std::string& ansiStr)
 {
     std::string utf8Str;
-    utf8Str.resize(2 * ansiStr.size()); // worst case, all ansi bytes need 2 utf8 bytes
+    utf8Str.resize(2 * ansiStr.size()); // worst case, all ANSI bytes need 2 utf8 bytes
 
     for (size_t ansi_index = 0, utf8_index = 0; ansi_index < ansiStr.size(); ansi_index++) {
         if (static_cast<unsigned char>(ansiStr[ansi_index]) < 0x80) {
@@ -644,7 +645,7 @@ GString::Replace(const string original, const string substring, const string rep
 
 
 /**@{
- *  Replacing bad/unwanted characters in the input string, bad characters ar characters such as for instance (,),{,},%# etc..
+ *  Replacing bad/unwanted characters in the input string, bad characters are characters such as for instance (,),{,},%# etc..
  *  @param[in,out] input string  The input string/character array that will be modified
  *  @param[in] delimiter  bad characters will be replaced
  *  @param[in] suspicious  array of characters to be replaced, if it is a zero pointer then a default set of bad characters will be used.
@@ -653,7 +654,7 @@ string
 GString::ReplaceBadChar(string& inputstring, const char delimeter, const char* suspicious)
 {
 
-    static char tmp[1023]; // TODO allocate approriate buffer
+    static char tmp[1023]; // TODO allocate appropriate buffer
     SPRINTF_S(tmp, inputstring);
     ReplaceBadChar(tmp, delimeter, suspicious);
     inputstring = tmp;
@@ -667,7 +668,7 @@ GString::ReplaceBadChar(char* inputstring, const char delimeter, const char* sus
 {
 
 
-    /// @todo handle the case where the input string contains one or more zeroes
+    /// @todo handle the case where the input string contains one or more zeros
     static char souspiciouscharacters[1023];
     if (suspicious == 0)
     {
@@ -683,14 +684,12 @@ GString::ReplaceBadChar(char* inputstring, const char delimeter, const char* sus
 
     for (int i = 0; i < length; i++)
     {
-        //  bool foundsuspicious = false;
         long long int badcharlength = strlen(souspiciouscharacters);
         for (int j = 0; j < badcharlength; j++)
         {
             if (inputstring[i] == souspiciouscharacters[j])
             {
                 inputstring[i] = delimeter;
-                //      foundsuspicious = true;
             }
         }
     }
@@ -739,7 +738,7 @@ GString::ToLowerCase(const string in) const
 
 
 /**Calculate a class name from a path. The convention that
- * is almost always used is that the classname and the
+ * is almost always used is that the class name and the
  * filename is always the same, minus the .h/c<7.cpp or .xx
  * suffix. For instance if the file path is 
  * /mydirectory/MyClass.cpp. Then the function will return
@@ -762,6 +761,3 @@ GString::Path2ClassName(const string & path)
     
     return ret;
 }
-
-
-//:StripPath(const string fin, string& dir, string& fout, const bool keep_trailing_slahs)

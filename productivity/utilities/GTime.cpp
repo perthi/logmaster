@@ -7,7 +7,7 @@
 /*****************************************************************************
 ******************************************************************************
 *** This file is part of logmaster.                                        ***
-*** Copyright (C) 2018 Per Thomas Hille <pth@embc.no> http:///www.embc.no  ***
+*** Copyright (C) 2018 Per Thomas Hille <pth@embc.no> HTTP:///www.embc.no  ***
 *** all rights reserved                                                    ***
 ***                                                                        ***
 *** logmaster is free software: you can redistribute it and/or modify      ***
@@ -26,7 +26,6 @@
 ******************************************************************************
 ******************************************************************************/
 
-//#pragma once
 
 #include "GTime.h"
 #include "GTimeFormat.h"

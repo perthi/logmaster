@@ -8,7 +8,7 @@
 /*****************************************************************************
 ******************************************************************************
 *** This file is part of logmaster.                                        ***
-*** Copyright (C) 2018 Per Thomas Hille <pth@embc.no> http:///www.embc.no  ***
+*** Copyright (C) 2018 Per Thomas Hille <pth@embc.no> HTTP:///www.embc.no  ***
 *** all rights reserved                                                    ***
 ***                                                                        ***
 *** logmaster is free software: you can redistribute it and/or modify      ***
@@ -225,7 +225,7 @@ GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
         }
         else
         {
-            GCommon().HandleError(GText("directory %s allready exists and you are not allowed to overwrite it ( errno %d; %s)",
+            GCommon().HandleError(GText("directory %s already exists and you are not allowed to overwrite it ( errno %d; %s)",
                                              dirname.c_str(),
                                              errno,
                                              err )
@@ -284,9 +284,6 @@ GSystem::GetProcessID()
 }
 
 
-/** @return Returns the name of rootdir */
-
-
 
 /** Executes a system command.
 *   @param cmd The command to execute
@@ -296,7 +293,6 @@ string
 GSystem::exec(const char* cmd)
 {
 
-    //cout << "executing" << endl;
 #ifdef _WIN32
     std::shared_ptr<FILE> pipe(_popen(cmd, "r"), _pclose);
 #else

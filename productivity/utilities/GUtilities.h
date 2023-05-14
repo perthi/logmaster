@@ -428,11 +428,11 @@ inline void GUtilities::Print(const T &array, const string file, const string fu
 
 /* We consider a string empty if it only contains spaces, tabs or newline *
  * in[in] The input string to check
- * @return true if the string is empty, false othervise */
+ * @return true if the string is empty, false otherwise */
 bool
 inline GUtilities::IsSpacesOnly(const string &in) const
 {
-    for (uint16_t i = 0; i < in.size(); i++)
+    for (size_t i = 0; i < in.size(); i++)
     {
         if (in[i] != ' ' && in[i] != '\t' && in[i] != '\n')
         {

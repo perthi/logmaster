@@ -8,7 +8,7 @@
 /*****************************************************************************
 ******************************************************************************
 *** This file is part of logmaster.                                        ***
-*** Copyright (C) Per Thomas Hille <pth@embc.no>  http:///www.embc.no      ***
+*** Copyright (C) Per Thomas Hille <pth@embc.no>  HTTP:///www.embc.no      ***
 *** all rights reserved                                                    ***
 ***                                                                        ***
 *** logmaster is free software: you can redistribute it and/or modify      ***
@@ -69,7 +69,7 @@ GUtilities::Sizes() const
     cout << "sizeof(int) =\t\t\t"    << sizeof(i)    << endl;
     cout << "sizeof(long int) =\t\t"   << sizeof(li)   << endl;
     cout << "sizeof(unsigned long int) =\t"  << sizeof(uli)  << endl;
-    cout << "sizeof(uns. long long int )=\t" << sizeof(ulli) << endl;
+    cout << "sizeof(unsigned long long int )=\t" << sizeof(ulli) << endl;
     cout << "sizeof(double) =\t\t"    << sizeof(d)    << endl;
     cout << "sizeof(long double) =\t\t"   << sizeof(ld)   << endl;
     cout << "sizeof(float) =\t\t\t"    << sizeof(f)  << endl;
@@ -128,7 +128,6 @@ GUtilities::QueryInput( const string prompt)
     string user_input;
     std::getline(std::cin,  user_input);
     return user_input;
-    //double freq_f = g_numbers()->ToFloat( freq);
 }
 #endif
 
@@ -147,8 +146,6 @@ GUtilities::QueryInput(const string prompt)
         option = string(line);
         free((void *)line);
     }
-
-    //cout << endl;
 
     return option;
 }
