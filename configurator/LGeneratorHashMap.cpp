@@ -37,7 +37,7 @@ LGeneratorHashMap::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  l
     XML_INFO("systems size = %d", systems.size() );
 
     G_ASSERT_EXCEPTION(  systems.size() <= MAX_ADDITIONL_SUBSYSTEMS, 
-    "Max number of syb systems exeeeded. You can define maximum 12 additional sub systems, \
+    "Max number of syb systems exceeded. You can define maximum 12 additional sub systems, \
     you hav defined %d. please check your XML configuration",   systems.size() );    
     
   //  lines.push_back(  autoclause ); 

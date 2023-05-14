@@ -32,23 +32,24 @@ LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>> levels, 
 	fFileLineEntries.push_back("#include <utilities/GRandom.h>");
 	fFileLineEntries.push_back("#include <utilities/GLocation.h>\n");
 	fFileLineEntries.push_back("#include <iostream>");
-	fFileLineEntries.push_back("using std::endl");
-	fFileLineEntries.push_back("using std::cout");
+	fFileLineEntries.push_back("using std::endl;");
+	fFileLineEntries.push_back("using std::cout;");
 	fFileLineEntries.push_back("\n\n\n");
 	fFileLineEntries.push_back(" namespace LOGMASTER ");
 	fFileLineEntries.push_back("{");
 	fFileLineEntries.push_back("void");
 	fFileLineEntries.push_back(fClassName + "::WriteMessages()");
 	fFileLineEntries.push_back("{");
-	fFileLineEntries.push_back("    float fval = 0");
-	fFileLineEntries.push_back("    int ival = 0");
+	fFileLineEntries.push_back("    float fval = 0;");
+	fFileLineEntries.push_back("    int ival = 0;");
 	
 
 
 	for (auto s : systems)
 	{
-		fFileLineEntries.push_back("    fval = g_random()->Uniform<float>(-10, 100)");
-		fFileLineEntries.push_back("    ival = g_random()->Uniform<int>(-10, 1000");
+		fFileLineEntries.push_back("\n");  
+		fFileLineEntries.push_back("        fval = g_random()->Uniform<float>(-10, 100);");
+		fFileLineEntries.push_back("        ival = g_random()->Uniform<int>(-10, 1000);");
 
 		for (auto l : levels)
 		{
@@ -58,7 +59,7 @@ LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>> levels, 
 			//	int   ival = g_random()->Uniform<int>(-10, 1000);
 
 			std::stringstream buffer;
-			buffer << "     " << macroname << "(\"This is a " << macroname << "  test message with parameter: ival = %d, fval = %f\", ival, fval )";
+			buffer << "        " << macroname << "(\"This is a " << macroname << "  test message with parameter: ival = %d, fval = %f\", ival, fval );";
 			cerr << buffer.str() << endl;
 
 			fFileLineEntries.push_back(buffer.str());
@@ -68,9 +69,9 @@ LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>> levels, 
 	}
 
 
-	//fFileLineEntries.push_back("    cout << endl");
-	//fFileLineEntries.push_back("}");
-
+	fFileLineEntries.push_back("    cout << endl;");
+	fFileLineEntries.push_back("}");
+	fFileLineEntries.push_back("}");
 	//float r = g_random()->Uniform(-10, 100);
 
 	return fFileLineEntries;

@@ -27,9 +27,6 @@
 ******************************************************************************/
 
 
-
-
-#include <configurator/LConfigurator.h>
 #include <configurator/LXmlParser.h>
 #include <xml/GXmlValidator.h>
 #include <logging/GException.h>
@@ -64,9 +61,10 @@ using std::endl;
 using std::deque;
 
 
+
 void generator(  const vector< std::shared_ptr< LGenerator >  > &generators,
                  const vector< std::shared_ptr< LXmlEntityLogLevel > > &loglevels,
-			     const vector< std::shared_ptr< LXmlEntitySubSystem > >  &subsystems, const string &autoclause );
+			     const vector< std::shared_ptr< LXmlEntitySubSystem > >  &subsystems );
 
 
 
@@ -132,10 +130,12 @@ int main(int  argc, const char **  argv)
 			generators.push_back(std::make_shared < LGeneratorHashMap >( "logging/LHashMapsBase.cpp", xml, xsd) );
 			generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTest.cpp", xml, xsd));
 			//generator( generators, loglevels, subsystems ,  clause );
-			generator(generators, loglevels, subsystems, LCopyright::str(xml, xsd));
+			generator(generators, loglevels, subsystems );
 
 		}
 	}
+
+
 	catch( const GException &e )
 	{
             std::cerr << e.what() << endl;
@@ -161,11 +161,11 @@ int main(int  argc, const char **  argv)
 
 void generator( const vector< std::shared_ptr< LGenerator >  > &generators,
                 const vector< std::shared_ptr< LXmlEntityLogLevel > > &loglevels,
-			    const vector< std::shared_ptr< LXmlEntitySubSystem > >  &subsystems,   const string &autoclause   ) 
+			    const vector< std::shared_ptr< LXmlEntitySubSystem > >  &subsystems  ) 
 {
 	for( auto  gen : generators )
 	{
-		vector<string> lines = gen->Generate( loglevels, subsystems, autoclause );
+		vector<string> lines = gen->Generate( loglevels, subsystems );
 		FILE* fp = nullptr;
 
 #ifdef _WIN32

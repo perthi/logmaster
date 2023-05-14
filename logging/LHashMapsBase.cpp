@@ -1,9 +1,34 @@
+// -*- mode: c++ -*-
+/***************************************************
+* @copyright Embedded Consulting AS                *
+* @author Per Thomas Hille <pth@embc.no>           *
+***************************************************/
+/*****************************************************************************
+******************************************************************************
+*** This file is part of logmaster.                                        ***
+*** Copyright (C) Per Thomas Hille <pth@embc.no>  http:///www.embc.no      ***
+*** all rights reserved                                                    ***
+***                                                                        ***
+*** logmaster is free software: you can redistribute it and/or modify      ***
+*** it under the terms of the Lesser GNU General Public License (LGPL)     ***
+*** as published by the Free Software Foundation, either version 3 of the  ***
+*** License, or (at your option) any later version.                        ***
+***                                                                        ***
+*** logmaster is distributed in the hope that it will be useful,           ***
+*** but WITHOUT ANY WARRANTY; without even the implied warranty of         ***
+*** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          ***
+*** GNU General Public License for more details.                           ***
+***                                                                        ***
+*** You should have received a copy of the Lesser GNU General Public       ***
+*** License along with logmaster in the README file in the source code     ***
+*** directory. If not, see <http://www.gnu.org/licenses/>.                 ***
+******************************************************************************
+******************************************************************************/
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 24 June-2022 22:42:36  ***/
-/*** Generated from config/logging.xml **/
-/*** Validated by config/logging.xsd **/
-/*** Copyright Per Thomas Hille pth@embc.no ***/
+/*** Generated at: Sun 14 May-2023 10:00:18  ***/
+/*** Generated from config\logging.xml **/
+/*** Validated by config\logging.xsd **/
 
 
 #include "LHashMapsBase.h"
@@ -22,7 +47,7 @@ LHashMapsBase::~LHashMapsBase(){ }
 
 
 
-/** @brief initialization of the hash table for the logginglevel     *     *  This hash table holds the current logging level for a given sub-system.     *  This table is checked every time the logging system is asked to log a message, and if logging     *  is enabled for the given level and sub-system then the message is created.     *  Where the message is actuall written (if at all) is decided by the target configuration,    *  wether or not logging is enabled to to file, to console, etc.. */
+/** @brief initialization of the hash table for the logginglevel     *     *  This hash table holds the current logging level for a given sub-system.     *  This table is checked every time the logging system is asked to log a message, and if logging     *  is enabled for the given level and sub-system then the message is created.     *  Where the message is actually written (if at all) is decided by the target configuration,    *  whether or not logging is enabled to to file, to console, etc.. */
    void
    LHashMapsBase::InitHashLogLevel( )
    {
