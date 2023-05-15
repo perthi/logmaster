@@ -25,16 +25,6 @@ using namespace LOGMASTER;
 using std::vector;
 
 
-LXmlParser::LXmlParser()
-{
-
-}
-
-
-LXmlParser::~LXmlParser()
-{
-
-}
 
 void 
 LXmlParser::ParseXML( const string xml, const string xsd,

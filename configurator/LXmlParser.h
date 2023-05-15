@@ -20,9 +20,6 @@ class GXmlStreamReader;
 class  LXmlParser : public GXmlParser
 {
 	public:
-        API LXmlParser();
-	    virtual API ~LXmlParser();
-
         virtual  void API ParseXML( const string  xml, 
                                      const string  xsd, 
                                      std::vector< std::shared_ptr <LXmlEntityLogLevel> >  &loglevlels,

@@ -27,6 +27,7 @@
 ******************************************************************************/
 
 
+
 #include <configurator/LXmlParser.h>
 #include <xml/GXmlValidator.h>
 #include <logging/GException.h>
@@ -40,6 +41,7 @@
 #include <configurator/LGeneratorEnum.h>
 #include <configurator/LGeneratorLogTest.h>
 #include <configurator/LFileCreator.h>
+#include <configurator/LArgumentScanner.h>
 
 //#include <configurator/LCopyright.h>
 #include <configurator/LDefinitions.h>
@@ -66,47 +68,41 @@ using std::endl;
 using std::deque;
 
 
-/*
-void gen(const generator_vec & generators,
-    const loglevel_vec & loglevels,
-    const subsystem_vec & subsystems);
-*/
-
 
 /** Application that auto generates LOG macros for the logging system. Unit tests,
  *  and a test class used for demonstration and debugging.
  *  The Log levels and subsystems are defined in an XML file and validated by
- * and XSD file. A default setup is present under <logmaster dir>/config/logging.xml
- *  \@usage (typical) logging-configurator -xml logging.xml -xsd logging.xsd */
+ *  and XSD file. A default setup is present under <logmaster dir>/config/logging.xml
+ *  @usage (typical) logging-configurator -xml logging.xml -xsd logging.xsd */
 int main(int  argc, const char** argv)
 {
     GMenu::Instance()->ScanArguments(argc, argv);
+    
+    SET_LOGLEVEL("--all-off --all-warning");
+    SET_LOGFORMAT("1111111");
 
     string xml = "";
     string xsd = "";
 
+    /*
     std::shared_ptr<GArgument> xml_arg = std::make_shared <GCommandLineArgument< string > >("-xml", "-xml [file path]", "Sets the XML file to use", &xml, fgkMANDATORY);
     std::shared_ptr<GArgument> xsd_arg = std::make_shared <GCommandLineArgument< string > >("-xsd", "-xsd [file path]", "Sets the XSD file to use for validation of the XML file",&xsd, fgkMANDATORY);
-
     deque< std::shared_ptr<GArgument>  > arguments;
-
     arguments.push_back(xml_arg);
     arguments.push_back(xsd_arg);
-    
     std::shared_ptr<GLogApplication>  g = std::make_shared<GLogApplication>();
-    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+    g->AddArguments(arguments).ScanArguments(argc, argv);
+    LArgumentScanner::ScanArguments(argc, argv,  xml, xsd);
+    */
+
+    LArgumentScanner::ScanArguments(argc, argv, xml, xsd);
 
     try
     {
-        SET_LOGLEVEL("--all-off --all-warning");
-        SET_LOGFORMAT("1111111");
-        g->AddArguments(arguments).ScanArguments(argc, argv);
-
         XML_ASSERT_EXCEPTION(GXmlValidator().IsValid(xml, xsd), "failed to validate %s against %s", xml.c_str(), xsd.c_str());
         
         loglevel_vec loglevels;
         subsystem_vec  subsystems;
-        
         LXmlParser().ParseXML(xml, xsd, loglevels, subsystems);
 
         XML_INFO("Successfully validated %s against %s and parsed the XML file", xml.c_str(), xsd.c_str());
@@ -120,9 +116,6 @@ int main(int  argc, const char** argv)
 
         
         LFileCreator::GenerateFiles(generators, loglevels, subsystems);
-
-
-        ///gen(generators, loglevels, subsystems);
 
     }
 
@@ -148,36 +141,4 @@ int main(int  argc, const char** argv)
 
 
 }
-
-
-/*
-void
-gen(const generator_vec & generators,
-    const loglevel_vec& loglevels,
-    const subsystem_vec & subsystems)
-{
-    for (auto& gen : generators)
-    {
-        gen->GenerateContent(loglevels, subsystems);
-        vector<string> lines = gen->GetLines();
-        FILE* fp = nullptr;
-
-#ifdef _WIN32
-        fopen_s(&fp, gen->GetFilePath().c_str(), "w");
-#else // 
-        fp = fopen(gen->GetFilename().c_str(), "w");
-#endif
-
-        if (fp != nullptr)
-        {
-            for (auto& l : lines)
-            {
-                fprintf(fp, "%s\n", l.c_str());
-            }
-
-            fclose(fp);
-        }
-    }
-}
-*/
 

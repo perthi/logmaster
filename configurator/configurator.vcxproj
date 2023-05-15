@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LArgumentScanner.cpp" />
     <ClCompile Include="LCopyright.cpp" />
     <ClCompile Include="LFileCreator.cpp" />
     <ClCompile Include="LGenerator.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="LXmlParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LArgumentScanner.h" />
     <ClInclude Include="LCopyright.h" />
     <ClInclude Include="LDefinitions.h" />
     <ClInclude Include="LFileCreator.h" />

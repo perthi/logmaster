@@ -30,14 +30,12 @@ void
 LGeneratorHashMap::GenerateContent(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                          vector< std::shared_ptr<LXmlEntitySubSystem > >  systems )
 {
-    XML_INFO("levles size = %d",  levels.size() );
+    XML_INFO("levels size = %d",  levels.size() );
     XML_INFO("systems size = %d", systems.size() );
 
-    CERR << " systems.size()" << systems.size() << ENDL;
-
     G_ASSERT_EXCEPTION(  systems.size() <= MAX_ADDITIONL_SUBSYSTEMS, 
-    "Max number of syb systems exceeded. You can define maximum 12 additional sub systems, \
-    you hav defined %d. please check your XML configuration",   systems.size() );    
+    "Max number of sub systems exceeded. You can define maximum 12 additional sub systems, \
+    you have defined %d. please check your XML configuration",   systems.size() );    
     
     fFileLineEntries.push_back("#include \""+ fClassName + ".h\"");
     fFileLineEntries.push_back("#include <utilities/GNumbers.h>");
@@ -128,7 +126,7 @@ LGeneratorHashMap::GenerateInitHashSystem2String( vector< std::shared_ptr<LXmlEn
     
     lines.push_back("   " + fClassName + "::InitHashSystem2String( map<eMSGSYSTEM, string>  *System2StringHash )");
     lines.push_back("   {");
-    lines.push_back( "\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_EX,       \"Exeption\");");
+    lines.push_back( "\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_EX,       \"Exception\");");
     lines.push_back( "\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_GENERAL,  \"General\");");
     lines.push_back( "\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_USER,     \"User\");");
     lines.push_back( "\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_ALARM,    \"Alarm\");");
@@ -151,7 +149,7 @@ void
 LGeneratorHashMap::GenerateInitHashLogLevel( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string> &lines  ) const
 {
     lines.push_back("\n\n");
-    lines.push_back("/** @brief initialization of the hash table for the logginglevel \
+    lines.push_back("/** @brief initialization of the hash table for the logging level \
     * \
     *  This hash table holds the current logging level for a given sub-system. \
     *  This table is checked every time the logging system is asked to log a message, and if logging \
