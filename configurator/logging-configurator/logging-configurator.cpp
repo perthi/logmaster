@@ -39,6 +39,7 @@
 #include <configurator/LGeneratorMacrosException.h>
 #include <configurator/LGeneratorEnum.h>
 #include <configurator/LGeneratorLogTest.h>
+#include <configurator/LFileCreator.h>
 
 //#include <configurator/LCopyright.h>
 #include <configurator/LDefinitions.h>
@@ -65,10 +66,11 @@ using std::endl;
 using std::deque;
 
 
-
+/*
 void gen(const generator_vec & generators,
     const loglevel_vec & loglevels,
     const subsystem_vec & subsystems);
+*/
 
 
 /** Application that auto generates LOG macros for the logging system. Unit tests,
@@ -116,7 +118,11 @@ int main(int  argc, const char** argv)
         generators.push_back(std::make_shared < LGeneratorHashMap >("logging/LHashMapsAutoGen.cpp", xml, xsd));
         generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTestAutoGen.cpp", xml, xsd));
 
-        gen(generators, loglevels, subsystems);
+        
+        LFileCreator::GenerateFiles(generators, loglevels, subsystems);
+
+
+        ///gen(generators, loglevels, subsystems);
 
     }
 
@@ -144,6 +150,7 @@ int main(int  argc, const char** argv)
 }
 
 
+/*
 void
 gen(const generator_vec & generators,
     const loglevel_vec& loglevels,
@@ -172,4 +179,5 @@ gen(const generator_vec & generators,
         }
     }
 }
+*/
 
