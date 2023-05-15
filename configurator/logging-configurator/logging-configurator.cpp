@@ -84,17 +84,6 @@ int main(int  argc, const char** argv)
     string xml = "";
     string xsd = "";
 
-    /*
-    std::shared_ptr<GArgument> xml_arg = std::make_shared <GCommandLineArgument< string > >("-xml", "-xml [file path]", "Sets the XML file to use", &xml, fgkMANDATORY);
-    std::shared_ptr<GArgument> xsd_arg = std::make_shared <GCommandLineArgument< string > >("-xsd", "-xsd [file path]", "Sets the XSD file to use for validation of the XML file",&xsd, fgkMANDATORY);
-    deque< std::shared_ptr<GArgument>  > arguments;
-    arguments.push_back(xml_arg);
-    arguments.push_back(xsd_arg);
-    std::shared_ptr<GLogApplication>  g = std::make_shared<GLogApplication>();
-    g->AddArguments(arguments).ScanArguments(argc, argv);
-    LArgumentScanner::ScanArguments(argc, argv,  xml, xsd);
-    */
-
     LArgumentScanner::ScanArguments(argc, argv, xml, xsd);
 
     try
