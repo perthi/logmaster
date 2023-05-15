@@ -26,7 +26,7 @@ class  LGenerator
 	 LGenerator( const string path, const string xml, const string xsd );
 	 virtual ~LGenerator() = default;
 
-	virtual void  Generate(  std::vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+	virtual void  GenerateContent(  std::vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                                   std::vector< std::shared_ptr<LXmlEntitySubSystem > >  systems) = 0;
 
 	string GetFilePath( ) const { return fFilePath; };	

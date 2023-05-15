@@ -17,7 +17,7 @@ LGeneratorLogTest::LGeneratorLogTest(const string filename, const string xml, co
 
 
 void
-LGeneratorLogTest::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>> levels, vector<std::shared_ptr<LXmlEntitySubSystem>>  systems)
+LGeneratorLogTest::GenerateContent(vector<std::shared_ptr<LXmlEntityLogLevel>> levels, vector<std::shared_ptr<LXmlEntitySubSystem>>  systems)
 {
 	fFileLineEntries.push_back(string("\n\n"));
 	fFileLineEntries.push_back("#include \"" + fHeaderFileName + "\"");

@@ -18,7 +18,7 @@ class  LGeneratorEnum : public LGenerator
 	public:
 		LGeneratorEnum( const string fname, const string xml, const string xsd );
 		virtual ~LGeneratorEnum() = default;
-		virtual void  Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+		virtual void  GenerateContent(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)  override;
 	private:		
 		void  GenerateLevels(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels, 	vector<string> &lines ) const;

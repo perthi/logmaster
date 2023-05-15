@@ -17,7 +17,7 @@ LGeneratorMacrosException::LGeneratorMacrosException( const string fname, const 
 
 
 void
-LGeneratorMacrosException::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/ ,
+LGeneratorMacrosException::GenerateContent(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/ ,
                                        vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)
 {
     GenerateClasses(  systems, fFileLineEntries );

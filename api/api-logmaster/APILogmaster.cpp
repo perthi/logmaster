@@ -37,7 +37,7 @@ APILogmaster::APILogmaster(string targetName, eMSGTARGET target)
         //USER_WARNING("Can't initialize logmaster, returned zero pointer" );
     }
 
-    // Get Log levels and and systems, these variables does not change during runtime
+    // Get Log levels and systems, these variables does not change during runtime
     fLevels =  *fHashMap->GetLevel2StringHash();
     fSystems = *fHashMap->GetSystem2StringHash();
 
@@ -58,7 +58,7 @@ APILogmaster::~APILogmaster()
 
 /** @brief      SetLoggingTarget
 *   @details    This Function will Set the Logging target, and then get the target
-*               from the loggingsystem before updating the local variable
+*               from the logging system before updating the local variable
 *   @param[in]  target **/
 void
 APILogmaster::SetLoggingTarget(const  string  &target)
@@ -164,7 +164,7 @@ APILogmaster::GetSubSysAndLevControl()
     int y_sys = 0;                  // System - Columns
     fSybSysLevelXYTrack.clear();    // clear data to XY vs Sys / Lev map
 
-    // Step through all Loggin System, except SYS_NONE and SYS_DB_ALL
+    // Step through all Logging System, except SYS_NONE and SYS_DB_ALL
     for (auto sys = fSystems.rbegin(); sys != fSystems.rend(); sys++)
     {
         //Skip none system
@@ -284,7 +284,6 @@ bool APILogmaster::isLevelEnabledForAllSystems(eLOGLEVEL level)
 bool APILogmaster::isSystemEnabledForAllLevels(eMSGSYSTEM system)
 {
     int cnt = 0;
-    ///FORCE_DEBUG("TP0");
     
     for (auto lvl = fLevels.rbegin(); lvl != fLevels.rend(); lvl++)
     {
@@ -313,7 +312,7 @@ bool APILogmaster::isSystemEnabledForAllLevels(eMSGSYSTEM system)
 
 
 /** @brief      isAllSystemAndAllLevelsEnabled
-*   @details    This Function will return true if All levels and and systems are ON
+*   @details    This Function will return true if All levels and systems are ON
 *   @return     true or false (bool)**/
 bool APILogmaster::isAllSystemAndAllLevelsEnabled()
 {
@@ -389,7 +388,7 @@ APILogmaster::SetMessageFormat(string format, bool enable)
 
 
 /** @brief      SetSubSystem
-*   @details    This Function will try to adjust to the coresponding Subsystem
+*   @details    This Function will try to adjust to the corresponding Subsystem
 *   @param[in]  system on string format, as defined by the Logging system.**/
 void
 APILogmaster::SetSubSystem(string system)
@@ -507,13 +506,9 @@ APILogmaster::IsLevSysEnabled(int x_lev, int y_Sys)
 {
     eLOGLEVEL selLvl;
     eMSGSYSTEM selSys;
-
     ConvertXYToLevSys(x_lev, y_Sys, &selLvl, &selSys);
     
-    //COUT << "Checklevel = " << (LLogging::Instance()->CheckLevel(selSys, selLvl, fTarget) == true ? "TRUE" : "FALSE") << endl;
-    
-    
-    // Now check wether selected Level and system is enabled in the logging system.
+    // Now check whether selected Level and system is enabled in the logging system.
     return LLogging::Instance()->CheckLevel(selSys, selLvl, fTarget);
 }
 
@@ -523,7 +518,7 @@ APILogmaster::IsLevSysEnabled(int x_lev, int y_Sys)
 void 
 APILogmaster::SetNumberOfSystems() 
 { 
-    // Step through all Loggin System, except SYS_NONE and SYS_DB_ALL
+    // Step through all Logging System, except SYS_NONE and SYS_DB_ALL
     for (auto sys = fSystems.rbegin(); sys != fSystems.rend(); sys++)
     {
         if (sys->first == eMSGSYSTEM::SYS_NONE)     continue;
@@ -532,6 +527,7 @@ APILogmaster::SetNumberOfSystems()
         fSystemsCount++; 
     }
 }
+
 
 
 /** @brief      SetNumberOfLevels

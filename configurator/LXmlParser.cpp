@@ -42,7 +42,7 @@ LXmlParser::ParseXML( const string xml, const string xsd,
                       std::vector<std::shared_ptr<LXmlEntitySubSystem>> &subsystems)
 {
 
-    XML_ASSERT_EXCEPTION(GXmlValidator::IsValid(xml, xsd), "Faild to validate XML file %s against %s",
+    XML_ASSERT_EXCEPTION(GXmlValidator::IsValid(xml, xsd), "Failed to validate XML file %s against %s",
                          xml.c_str(), xsd.c_str());
 
     std::shared_ptr<GXmlStreamReader> xmlReader = GXmlClassFactory::CreateStreamReaderSmartPtr(xml.c_str());

@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="LCopyright.cpp" />
+    <ClCompile Include="LFileCreator.cpp" />
     <ClCompile Include="LGenerator.cpp" />
     <ClCompile Include="LGeneratorEnum.cpp" />
     <ClCompile Include="LGeneratorHashMap.cpp" />
@@ -164,6 +165,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LCopyright.h" />
+    <ClInclude Include="LDefinitions.h" />
+    <ClInclude Include="LFileCreator.h" />
     <ClInclude Include="LGenerator.h" />
     <ClInclude Include="LGeneratorEnum.h" />
     <ClInclude Include="LGeneratorHashMap.h" />

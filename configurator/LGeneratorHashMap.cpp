@@ -27,7 +27,7 @@ LGeneratorHashMap::LGeneratorHashMap( const string fname, const string xml, cons
 
 
 void 
-LGeneratorHashMap::Generate(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+LGeneratorHashMap::GenerateContent(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                          vector< std::shared_ptr<LXmlEntitySubSystem > >  systems )
 {
     XML_INFO("levles size = %d",  levels.size() );

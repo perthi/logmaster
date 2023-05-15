@@ -20,7 +20,7 @@ LGeneratorEnum::LGeneratorEnum( const string fname, const string xml, const stri
 
 
 void
-LGeneratorEnum::Generate(vector<std::shared_ptr<LXmlEntityLogLevel>>  levels,
+LGeneratorEnum::GenerateContent(vector<std::shared_ptr<LXmlEntityLogLevel>>  levels,
                          vector<std::shared_ptr<LXmlEntitySubSystem>> systems)
 {
     GenerateSystems( systems,  fFileLineEntries  );
@@ -95,7 +95,7 @@ LGeneratorEnum::ToHexString( const int num, const int width ) const
 }
 
 
-/** @todo move to GUtilities, or check if function allready exists*/
+/** @todo move to GUtilities, or check if function already exists*/
 string 
 LGeneratorEnum::ToBinaryString(int num, const int width ) const
 {

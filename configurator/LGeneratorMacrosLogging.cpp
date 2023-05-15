@@ -62,7 +62,7 @@ LGeneratorMacrosLogging::GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel
 
 
 void 
-LGeneratorMacrosLogging::Generate(  vector<std::shared_ptr<LXmlEntityLogLevel > > levels,
+LGeneratorMacrosLogging::GenerateContent(  vector<std::shared_ptr<LXmlEntityLogLevel > > levels,
 	                                vector<  std::shared_ptr< LXmlEntitySubSystem > >  systems )
 {
     for (auto &sys : systems)
