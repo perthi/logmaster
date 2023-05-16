@@ -6,13 +6,14 @@
 * @author Per Thomas Hille <pth@embc.no>           *
 ***************************************************/
 
-#include <memory>
 
+#include "LDefinitions.h"
+#include "LXMLInfo.h"
+
+#include <memory>
 
 #include <string>
 using std::string;
-
-
 #include <vector>
 using std::vector;
 
@@ -23,19 +24,22 @@ class LXmlEntitySubSystem;
 class  LGenerator
 {
 	public:
-	 LGenerator( const string path, const string xml, const string xsd );
+	 LGenerator( const string path, const  LXMLInfo info );
 	 virtual ~LGenerator() = default;
 
-	virtual void  GenerateContent(  std::vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                                   std::vector< std::shared_ptr<LXmlEntitySubSystem > >  systems) = 0;
+	virtual void  GenerateContent(   loglevel_vec   levels,
+	                                 subsystem_vec  systems) = 0;
 
 	string GetFilePath( ) const { return fFilePath; };	
 	
-	void   GenerateHeader(const string xml, const string xsd);
+	void   GenerateHeader(  const LXMLInfo );
 	
-	vector<string>& GetLines() { return  fFileLineEntries; };
+	vector<string>& GetContent() { return  fFileLineEntries; };
+
+	//static string SetXmlInfo(LXMLInfo);
 
 	protected:
+		static LXMLInfo   fXMLFileName;  //    
 		string fFilePath		         =  "UNKNOWN";        //!< Full path of the .cpp or .h source file
 		string fClassName                =  "UNKNOWN";        //!< Name of the class (extracted from the file path
 		string fSourceFileName           =  "UNKNOWN";        //!< Name of the .cpp source file if applicable

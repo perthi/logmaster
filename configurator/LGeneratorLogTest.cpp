@@ -10,7 +10,7 @@
 using std::vector;
 
 
-LGeneratorLogTest::LGeneratorLogTest(const string filename, const string xml, const string xsd) : LGenerator(filename, xml, xsd)
+LGeneratorLogTest::LGeneratorLogTest(const string filename, const  LXMLInfo xmlinfo) : LGenerator(filename, xmlinfo)
 {
 
 }

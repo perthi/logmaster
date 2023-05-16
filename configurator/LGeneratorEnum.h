@@ -4,6 +4,7 @@
 
 
 #include "LGenerator.h"
+#include "LXMLInfo.h"
 
 #include <vector>
 #include <string>
@@ -16,7 +17,7 @@ using std::vector;
 class  LGeneratorEnum : public LGenerator
 {
 	public:
-		LGeneratorEnum( const string fname, const string xml, const string xsd );
+		LGeneratorEnum( const string fname, const LXMLInfo xmlinfo );
 		virtual ~LGeneratorEnum() = default;
 		virtual void  GenerateContent(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)  override;

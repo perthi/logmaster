@@ -4,6 +4,7 @@
 
 
 #include "LGenerator.h"
+#include "LXMLInfo.h"
 #include <utilities/GDefinitions.h>
 
 #include <vector>
@@ -20,7 +21,7 @@ class LXmlEntitySubSystem;
 class  LGeneratorMacrosException : public LGenerator
 {
 	public:
-		API LGeneratorMacrosException( const string fname, const string xml, const string xsd);
+		API LGeneratorMacrosException( const string fname, const LXMLInfo xmlinfo);
 		virtual API ~LGeneratorMacrosException() = default;
 		virtual void  API GenerateContent(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems )  override;

@@ -12,19 +12,19 @@
 using namespace LOGMASTER;
 
 /** Class for autogeneration  @*/
-LGenerator::LGenerator( const string path,  const string xml, const string xsd) : fFilePath(path)
+LGenerator::LGenerator( const string path, const  LXMLInfo info) : fFilePath(path)
 {
    fClassName = g_string()->Path2ClassName(path);
    fSourceFileName = fClassName + ".cpp";
    fHeaderFileName = fClassName + ".h";
-   GenerateHeader(xml, xsd);
+   GenerateHeader(info);
 
 }
 
 
 void   
-LGenerator::GenerateHeader( const string xml, const string xsd )
+LGenerator::GenerateHeader(  const LXMLInfo info )
 {
 	fFileLineEntries.push_back("// -*- mode: c++ -*-");
-	fFileLineEntries.push_back(LCopyright::str(xml, xsd));
+	fFileLineEntries.push_back(LCopyright::str( info ));
 }

@@ -6,8 +6,12 @@
 * @author Per Thomas Hille <pth@embc.no>           *
 ***************************************************/
 
-#include <string>
 
+#include "LDefinitions.h"
+
+class  LXMLInfo;
+
+#include <string>
 using std::string;
 
 
@@ -16,7 +20,7 @@ class  LCopyright
 	public:
 		LCopyright() = default;
 	  	virtual ~LCopyright() = default;
-		static string str(const string xml, const string xsd);
+		static string str(LXMLInfo info );
 
 	private:
 		int     fYear = 2020;

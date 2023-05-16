@@ -13,7 +13,7 @@ using namespace LOGMASTER;
 
 
 
-LGeneratorEnum::LGeneratorEnum( const string fname, const string xml, const string xsd ) : LGenerator( fname, xml, xsd )
+LGeneratorEnum::LGeneratorEnum( const string fname, const LXMLInfo xmlinfo) : LGenerator( fname, xmlinfo )
 {
 
 }

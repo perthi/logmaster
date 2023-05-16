@@ -14,7 +14,7 @@ using namespace LOGMASTER;
 
 
 
-LGeneratorMacrosLogging::LGeneratorMacrosLogging( const string name,  const string xml, const string xsd) : LGenerator( name, xml, xsd)
+LGeneratorMacrosLogging::LGeneratorMacrosLogging( const string name, const LXMLInfo xmlinfo) : LGenerator( name, xmlinfo)
 {
 
 }

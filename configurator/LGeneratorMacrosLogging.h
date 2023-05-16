@@ -2,6 +2,12 @@
 #ifndef LGENERATORMACROSLOGGING_H
 #define LGENERATORMACROSLOGGING_H
 
+
+#include "LGenerator.h"
+#include "LXMLInfo.h"
+#include <utilities/GDefinitions.h>
+
+
 #include <memory>
 #include <vector>
 using std::vector;
@@ -9,17 +15,15 @@ using std::vector;
 #include <string>
 using std::string;
 
+
 class LXmlEntityLogLevel;
 class LXmlEntitySubSystem;
-
-#include <configurator/LGenerator.h>
-#include <utilities/GDefinitions.h>
 
 
 class  LGeneratorMacrosLogging : public LGenerator
 {
 	public:
-	   API LGeneratorMacrosLogging( const string fname, const string xml, const string xsd );
+	   API LGeneratorMacrosLogging( const string fname, const LXMLInfo xmlinfo);
 	   virtual API ~LGeneratorMacrosLogging() = default;
 
 	   virtual void API GenerateContent(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,

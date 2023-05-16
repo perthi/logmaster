@@ -19,7 +19,7 @@ using namespace LOGMASTER;
 
 #define MAX_ADDITIONL_SUBSYSTEMS 12
 
-LGeneratorHashMap::LGeneratorHashMap( const string fname, const string xml, const string xsd) : LGenerator(fname, xml, xsd)
+LGeneratorHashMap::LGeneratorHashMap( const string fname,  const LXMLInfo xmlinfo ) : LGenerator(fname, xmlinfo)
 {
     
 }

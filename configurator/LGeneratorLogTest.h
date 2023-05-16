@@ -2,15 +2,17 @@
 #pragma once
 
 
-#include "LGenerator.h"
 #include <utilities/GDefinitions.h>
+#include "LGenerator.h"
+#include "LXMLInfo.h"
+
 
 
 
 class LGeneratorLogTest : public LGenerator
 {
 public:
-	API LGeneratorLogTest(const string filename, const string xml, const string xsd);
+	API LGeneratorLogTest(const string filename, const  LXMLInfo xmlinfo );
 	virtual API ~LGeneratorLogTest() = default;
 
 	virtual void  GenerateContent(std::vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,

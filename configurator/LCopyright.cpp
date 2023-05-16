@@ -6,6 +6,7 @@
 
 
 #include "LCopyright.h"
+#include "LXMLInfo.h"
 #include <utilities/GUtilities.h>
 
 #include <sstream>
@@ -15,13 +16,8 @@ using std::endl;
 
 
 
-// string addendum = "/*** Generated from " + xml + " **/\n";
-// addendum += "/*** Validated by " + xsd + " **/\n";
-// addendum += "/*** Copyright Per Thomas Hille pth@embc.no ***/\n";
-// string clause = g_utilities()->AutoClause(addendum);
-
 string 
-LCopyright::str(const string xml, const string xsd)
+LCopyright::str( const LXMLInfo info)
 {
     std::stringstream buffer;
     buffer << "/***************************************************"  << endl;
@@ -51,8 +47,17 @@ LCopyright::str(const string xml, const string xsd)
     buffer << "******************************************************************************" << endl;
     buffer << "******************************************************************************/" << endl;
     
-    string addendum = "/*** Generated from " + xml + " **/\n";
-    addendum += "/*** Validated by " + xsd + " **/\n";
+    string addendum = "";
+
+    auto xml = info.fXMLFileName;
+    auto xsd = info.fXSDFileName ;
+
+    if (xml != "" && xsd != "")
+    {
+        string addendum = "/*** Generated from " + xml + " **/\n";
+        addendum += "/*** Validated by " + xsd + " **/\n";
+    }
+    
     buffer << g_utilities()->AutoClause(addendum);
     
     return buffer.str();

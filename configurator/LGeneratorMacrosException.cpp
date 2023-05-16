@@ -10,7 +10,7 @@
 using namespace LOGMASTER;
 
 
-LGeneratorMacrosException::LGeneratorMacrosException( const string fname, const string xml, const string xsd) : LGenerator(fname, xml, xsd)
+LGeneratorMacrosException::LGeneratorMacrosException( const string fname, const LXMLInfo xmlinfo) : LGenerator(fname, xmlinfo)
 {
 
 }

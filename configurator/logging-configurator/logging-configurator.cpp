@@ -35,11 +35,14 @@
 
 #include <configurator/LXmlEntityLogLevel.h>
 #include <configurator/LXmlEntitySubSystem.h>
+
+
 #include <configurator/LGeneratorMacrosLogging.h>
 #include <configurator/LGeneratorHashMap.h>
 #include <configurator/LGeneratorMacrosException.h>
 #include <configurator/LGeneratorEnum.h>
 #include <configurator/LGeneratorLogTest.h>
+
 #include <configurator/LFileCreator.h>
 #include <configurator/LArgumentScanner.h>
 

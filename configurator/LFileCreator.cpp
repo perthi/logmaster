@@ -20,7 +20,7 @@ void
 LFileCreator::GenerateSingleFile(const generator& gen, const loglevel_vec& loglevels, const subsystem_vec& subsystems )
 {
         gen->GenerateContent(loglevels, subsystems);
-        vector<string> lines = gen->GetLines();
+        vector<string> lines = gen->GetContent();
         FILE* fp = nullptr;
 
 #ifdef _WIN32

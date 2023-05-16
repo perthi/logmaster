@@ -10,15 +10,17 @@ using std::vector;
 #include <string>
 using std::string;
 
+
+#include "LGenerator.h"
+#include "LXMLInfo.h"
+
 class LXmlEntityLogLevel;
 class LXmlEntitySubSystem;
-
-#include <configurator/LGenerator.h>
 
 class  LGeneratorHashMap : public  LGenerator
 {
 	public:
-	  LGeneratorHashMap( const string fname, const string xml, const string xsd);
+	  LGeneratorHashMap( const string fname, const LXMLInfo xmlinfo);
 	  virtual ~LGeneratorHashMap() =default;
 	  virtual void GenerateContent( vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
 	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems  )  override;	
