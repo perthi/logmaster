@@ -21,11 +21,13 @@ namespace CONFIGURATOR
     {
 
     }
-
-
-    void
-        LGeneratorEnum::GenerateContent(vector<std::shared_ptr<LXmlEntityLogLevel>>  levels,
-            vector<std::shared_ptr<LXmlEntitySubSystem>> systems)
+    
+    /** @copydoc LGenerator::GenerateContent 
+     * 
+     * Generation of enums for logging levels and subsystems.
+    */
+    void LGeneratorEnum::GenerateContent(vector<std::shared_ptr<LXmlEntityLogLevel>> levels,
+                                         vector<std::shared_ptr<LXmlEntitySubSystem>> systems)
     {
         GenerateSystems(systems, fFileLineEntries);
         fFileLineEntries.push_back("\n\n");
@@ -97,7 +99,7 @@ namespace CONFIGURATOR
     }
 
 
-
+    /** @todo move to GUtilities, or check if function already exists*/
     string
         LGeneratorEnum::ToHexString(const int num, const int width) const
     {

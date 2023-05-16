@@ -31,7 +31,7 @@ namespace CONFIGURATOR
 
 		/** Generate the content that will be written to file. This abstract method
 		 * must  be implemented by all derived classes. The generated content will typically
-		 * be a .cpp or .h source file. The parameters @levels and @systems is parsed from
+		 * be a .cpp or .h source file. The parameters \ref levels and  \ref systems is parsed from
 		 * a XML/XSD file. By default they should be defined in config/logging.xml and config/logging.xsd,
 		 * but any other XML file can be used as long as it is validated by config/logging xsd,
 		 * @param levels The log levels parsed from the XML file

@@ -20,7 +20,7 @@ namespace CONFIGURATOR
 
     void
         LGeneratorMacrosException::GenerateContent(vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/,
-            vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)
+                                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)
     {
         GenerateClasses(systems, fFileLineEntries);
         fFileLineEntries.push_back("\n\n");
