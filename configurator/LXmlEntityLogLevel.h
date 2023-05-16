@@ -5,15 +5,20 @@
 
 #include "LXmlEntity.h"
 
-class  LXmlEntityLogLevel : public LXmlEntity
+
+namespace CONFIGURATOR
 {
+
+	class  LXmlEntityLogLevel : public LXmlEntity
+	{
 	public:
-	   LXmlEntityLogLevel();
-	   virtual ~LXmlEntityLogLevel();
-	   virtual  string API str() const override;
-	   bool    fForecOutput = false;
+		LXmlEntityLogLevel() = default;
+		virtual ~LXmlEntityLogLevel() = default;
+		virtual  string API str() const override;
+		bool    fForecOutput = false;
 
-};
+	};
 
+}
 
 #endif

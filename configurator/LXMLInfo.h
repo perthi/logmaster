@@ -4,13 +4,20 @@
 #include <string>
 using std::string;
 
-class LXMLInfo
+
+
+namespace CONFIGURATOR
 {
-public:
-	LXMLInfo(const string& xml, const string& xsd);
 
-	string fXMLFileName = "";
-	string fXSDFileName = "";
+	class LXMLInfo
+	{
+	public:
+		LXMLInfo(const string& xml, const string& xsd);
 
-};
+		string fXMLFileName = "";
+		string fXSDFileName = "";
+
+	};
+
+}
 

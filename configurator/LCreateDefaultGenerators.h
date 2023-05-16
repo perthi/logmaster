@@ -11,20 +11,20 @@ using std::string;
 
 class LGenerator;
 
-class LCreateDefaultGenerators
-{
-public:
-	static generator_vec  CreateAll( const LXMLInfo xmlinfo );
 
 
-
-};
-
-/*
-template<typename T>
-inline generator_vec LCreateDefaultGenerators::CreateSingle(const string fname)
+namespace CONFIGURATOR
 {
 
-	return generator_vec();
+	class LCreateDefaultGenerators
+	{
+	public:
+		static generator_vec  CreateAll(const LXMLInfo xmlinfo);
+
+
+
+	};
+
+
 }
-*/
+

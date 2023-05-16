@@ -10,14 +10,20 @@
 #include <xml/GXmlEntity.h>
 
 
-class  LXmlEntity : public GXmlEntity
-{
-	public:
-	   LXmlEntity();
-	   virtual ~LXmlEntity();
-	   virtual  string API str() const override = 0;
 
-	   string fName = "";
-};
+namespace CONFIGURATOR
+{
+
+	class  LXmlEntity : public GXmlEntity
+	{
+	public:
+		LXmlEntity() = default;
+		virtual ~LXmlEntity() = default;
+		virtual  string API str() const override = 0;
+
+		string fName = "";
+	};
+
+}
 
 #endif

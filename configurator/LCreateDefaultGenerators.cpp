@@ -11,18 +11,21 @@
 
 #include <memory>
 
-generator_vec LCreateDefaultGenerators::CreateAll(LXMLInfo xmlinfo)
+
+namespace CONFIGURATOR
 {
-    vector< std::shared_ptr< LGenerator >  > generators;
 
-    generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumAutoGen.h", xmlinfo ));
-    generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApiAutoGen.h", xmlinfo));
-    generators.push_back(std::make_shared < LGeneratorMacrosException >("logging/GExceptionAutoGen.h", xmlinfo));
-    generators.push_back(std::make_shared < LGeneratorHashMap >("logging/LHashMapsAutoGen.cpp", xmlinfo));
-    generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTestAutoGen.cpp", xmlinfo));
-    
+    generator_vec LCreateDefaultGenerators::CreateAll(LXMLInfo xmlinfo)
+    {
+        vector< std::shared_ptr< LGenerator >  > generators;
 
+        generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumAutoGen.h", xmlinfo));
+        generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApiAutoGen.h", xmlinfo));
+        generators.push_back(std::make_shared < LGeneratorMacrosException >("logging/GExceptionAutoGen.h", xmlinfo));
+        generators.push_back(std::make_shared < LGeneratorHashMap >("logging/LHashMapsAutoGen.cpp", xmlinfo));
+        generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTestAutoGen.cpp", xmlinfo));
+        //  generator_vec generators;
+        return generators;
+    }
 
-  //  generator_vec generators;
-    return generators;
 }

@@ -8,22 +8,16 @@
 
 using std::endl;
 
-LXmlEntityLogLevel::LXmlEntityLogLevel()
+
+namespace CONFIGURATOR
 {
 
-}
+    string
+        LXmlEntityLogLevel::str() const
+    {
+        std::stringstream buffer;
+        buffer << g_utilities()->TabAlign("NAME:") << fName << endl;
+        return buffer.str();
+    }
 
-
-LXmlEntityLogLevel::~LXmlEntityLogLevel()
-{
-
-}
-
-
-string 
-LXmlEntityLogLevel::str() const
-{
-    std::stringstream buffer;
-    buffer <<  g_utilities()->TabAlign("NAME:") << fName << endl;
-    return buffer.str();
 }

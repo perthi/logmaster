@@ -82,3 +82,10 @@ gui/logmaster/examples/gui-qt-logmaster-example1//gui-qt-logmaster-example1
 gui/logmaster/examples/gui-qt-logmaster-example1/x86/gui-loggergui-example1
 gui/logmaster/examples/gui-qt-logmaster-example1/x86/gui-qt-logmaster-example1
 productivity/utilities/version-info/arm/version-info
+doxygen.exe
+doxygen_warnings.txt
+doxyindexer.exe
+doxysearch.cgi.exe
+doxywizard.exe
+libclang.dll
+html

@@ -13,18 +13,16 @@ using namespace LOGMASTER;
 #include <configurator/LXmlEntitySubSystem.h>
 #include <configurator/LXmlParser.h>
 
+using namespace CONFIGURATOR;
+
+
 #include <utilities/GUtilities.h>
+#include <utilities/GString.h>
+#include <utilities/GSystem.h>
 
 
 #include <vector>
 using std::vector;
-
-#include <utilities/GString.h>
-#include <utilities/GSystem.h>
-#include <logging/LLogApi.h>
-
-using namespace LOGMASTER;
-
 
 TestLXmlParser::TestLXmlParser()
 {

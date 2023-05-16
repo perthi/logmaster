@@ -20,14 +20,19 @@ class LXmlEntityLogLevel;
 class LXmlEntitySubSystem;
 
 
-class  LGeneratorMacrosLogging : public LGenerator
-{
-	public:
-	   API LGeneratorMacrosLogging( const string fname, const LXMLInfo xmlinfo);
-	   virtual API ~LGeneratorMacrosLogging() = default;
 
-	   virtual void API GenerateContent(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                           vector< std::shared_ptr<LXmlEntitySubSystem > >  systems )  override;
+
+namespace CONFIGURATOR
+{
+
+	class  LGeneratorMacrosLogging : public LGenerator
+	{
+	public:
+		API LGeneratorMacrosLogging(const string fname, const LXMLInfo xmlinfo);
+		virtual API ~LGeneratorMacrosLogging() = default;
+
+		virtual void API GenerateContent(vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+			vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)  override;
 
 	private:
 
@@ -35,39 +40,39 @@ class  LGeneratorMacrosLogging : public LGenerator
 
 		struct LSystem
 		{
-			LSystem( const  string name) : fSystem(name) {}
+			LSystem(const  string name) : fSystem(name) {}
 			string fSystem = "";
 		};
 
-		struct LMacroName 
+		struct LMacroName
 		{
-			LMacroName(const string name, bool is_assert) : fMacroName(name), fIsAssert( is_assert ) {}
+			LMacroName(const string name, bool is_assert) : fMacroName(name), fIsAssert(is_assert) {}
 			string fMacroName = "";
-			bool   fIsAssert  = false;
+			bool   fIsAssert = false;
 		};
 
 
 		struct LMacroEntry
 		{
-			LMacroEntry(const string lvl, vector<LMacroName> m, vector<LSystem> s ): 
-			                               fLevel(lvl), 
-										   fMacroNames(m), 
-										   fSystems(s) {};
+			LMacroEntry(const string lvl, vector<LMacroName> m, vector<LSystem> s) :
+				fLevel(lvl),
+				fMacroNames(m),
+				fSystems(s) {};
 			string fLevel;
 			vector< LMacroName> fMacroNames;
 			vector<LSystem> fSystems;
 		};
 
-		LMacroEntry GenerateMacroEntry(  std::shared_ptr<LXmlEntityLogLevel>   lvl, 
-		                                         std::shared_ptr<LXmlEntitySubSystem > sys, 
-												 bool with_user = false) const;
-		
-		void  GenerateLines( const vector<LMacroEntry> m  );
-		
-		string  GenerateLine( const LMacroName m,  const vector<LSystem> s, const string lvl ) const;
+		LMacroEntry GenerateMacroEntry(std::shared_ptr<LXmlEntityLogLevel>   lvl,
+			std::shared_ptr<LXmlEntitySubSystem > sys,
+			bool with_user = false) const;
 
+		void  GenerateLines(const vector<LMacroEntry> m);
 
+		string  GenerateLine(const LMacroName m, const vector<LSystem> s, const string lvl) const;
 
-};
+	};
+
+}
 
 #endif

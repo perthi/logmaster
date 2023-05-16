@@ -9,22 +9,28 @@
 
 #include "LDefinitions.h"
 
-class  LXMLInfo;
+
 
 #include <string>
 using std::string;
 
 
-class  LCopyright
+namespace CONFIGURATOR
 {
+	class  LXMLInfo;
+
+	class  LCopyright
+	{
 	public:
 		LCopyright() = default;
-	  	virtual ~LCopyright() = default;
-		static string str(LXMLInfo info );
+		virtual ~LCopyright() = default;
+		static string str(LXMLInfo info);
 
 	private:
 		int     fYear = 2020;
 
-};
+	};
+
+}
 
 #endif

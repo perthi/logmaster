@@ -6,21 +6,26 @@
 #include "LXmlEntity.h"
 
 
-class  LXmlEntitySubSystem : public LXmlEntity
+namespace CONFIGURATOR
 {
+
+	class  LXmlEntitySubSystem : public LXmlEntity
+	{
 	public:
-	   LXmlEntitySubSystem();
-	   virtual ~LXmlEntitySubSystem();
-	   virtual  string API str() const override;
+		LXmlEntitySubSystem();
+		virtual ~LXmlEntitySubSystem();
+		virtual  string API str() const override;
 
-	   string fNameShort  =  "";	
-	   string fTag        =  "";	
-	   string fTagShort   =  "";	
-	
-	   string fDefault = "";
-	   bool   fCanModify = true;	
-	   bool   fForceOutput = true;	
+		string fNameShort = "";
+		string fTag = "";
+		string fTagShort = "";
 
-};
+		string fDefault = "";
+		bool   fCanModify = true;
+		bool   fForceOutput = true;
+
+	};
+
+}
 
 #endif

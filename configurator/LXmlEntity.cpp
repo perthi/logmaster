@@ -8,19 +8,15 @@
 #include "LXmlEntity.h"
 
 
-LXmlEntity::LXmlEntity()
+
+
+namespace CONFIGURATOR
 {
 
-}
+    string
+        LXmlEntity::str() const
+    {
+        return "NOT YET IMPLEMENTED";
+    }
 
-LXmlEntity::~LXmlEntity()
-{
-
-}
-
-
-string 
-LXmlEntity::str() const
-{
-    return "NOT YET IMPLEMENTED";
 }

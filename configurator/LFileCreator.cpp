@@ -5,20 +5,24 @@
 #include "LGenerator.h"
 #include <logging/GException.h>
 
-void 
-LFileCreator::GenerateFiles(const generator_vec& gens, const loglevel_vec& loglevels, const subsystem_vec& subs)
+
+namespace CONFIGURATOR
 {
-	for (auto gen : gens)
-	{
-		GenerateSingleFile(gen,  loglevels, subs );
-	}
 
-}
+    void
+        LFileCreator::GenerateFiles(const generator_vec& gens, const loglevel_vec& loglevels, const subsystem_vec& subs)
+    {
+        for (auto gen : gens)
+        {
+            GenerateSingleFile(gen, loglevels, subs);
+        }
+
+    }
 
 
-void 
-LFileCreator::GenerateSingleFile(const generator& gen, const loglevel_vec& loglevels, const subsystem_vec& subsystems )
-{
+    void
+        LFileCreator::GenerateSingleFile(const generator& gen, const loglevel_vec& loglevels, const subsystem_vec& subsystems)
+    {
         gen->GenerateContent(loglevels, subsystems);
         vector<string> lines = gen->GetContent();
         FILE* fp = nullptr;
@@ -43,7 +47,10 @@ LFileCreator::GenerateSingleFile(const generator& gen, const loglevel_vec& logle
         }
         else
         {
-                XML_EXCEPTION("FILE IS ZERO POINTER");
+            XML_EXCEPTION("FILE IS ZERO POINTER");
         }
+
+    }
+
 
 }

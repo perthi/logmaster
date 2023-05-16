@@ -13,21 +13,26 @@ using std::vector;
 
 #include <memory>
 
-
-class  LGeneratorEnum : public LGenerator
+namespace CONFIGURATOR
 {
-	public:
-		LGeneratorEnum( const string fname, const LXMLInfo xmlinfo );
-		virtual ~LGeneratorEnum() = default;
-		virtual void  GenerateContent(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                                       vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)  override;
-	private:		
-		void  GenerateLevels(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels, 	vector<string> &lines ) const;
-		void  GenerateSystems( vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, 	vector<string> &lines ) const;								   
-		
-		string ToHexString( const int num, const int widt = 4 ) const;
-		string ToBinaryString( const int num, const int widt = 16 ) const;
 
-};
+
+	class  LGeneratorEnum : public LGenerator
+	{
+	public:
+		LGeneratorEnum(const string fname, const LXMLInfo xmlinfo);
+		virtual ~LGeneratorEnum() = default;
+		virtual void  GenerateContent(vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+			vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)  override;
+	private:
+		void  GenerateLevels(vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels, vector<string>& lines) const;
+		void  GenerateSystems(vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& lines) const;
+
+		string ToHexString(const int num, const int widt = 4) const;
+		string ToBinaryString(const int num, const int widt = 16) const;
+
+	};
+
+}
 
 #endif

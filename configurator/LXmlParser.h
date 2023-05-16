@@ -12,43 +12,50 @@
 #include <vector>
 using std::vector;
 
-class LXmlEntityLogLevel;
-class LXmlEntitySubSystem;
 class GXmlStreamReader;
 
-
-class  LXmlParser : public GXmlParser
+namespace CONFIGURATOR
 {
-	public:
-        virtual  void API ParseXML( const string  xml, 
-                                     const string  xsd, 
-                                     std::vector< std::shared_ptr <LXmlEntityLogLevel> >  &loglevlels,
-                                     std::vector< std::shared_ptr <LXmlEntitySubSystem> > &subsystems ) ;
-		
-        template< typename T>
-        bool API HasElement( const string name,  vector<std::shared_ptr < T > > in ); 
 
-	private:		
-    	std::shared_ptr <LXmlEntitySubSystem>    ParseSubSystem(  std::shared_ptr<GXmlStreamReader> r, const string closing_tag  );
-	    std::shared_ptr < LXmlEntityLogLevel  >  ParseLogLevel( std::shared_ptr<GXmlStreamReader> r, const string closing_tag   );
-
-};
+    class LXmlEntityLogLevel;
+    class LXmlEntitySubSystem;
+  
 
 
-
-template< typename T>
-bool 
-LXmlParser::HasElement( const string name,  vector<std::shared_ptr < T> > in )
-{
-    for( auto element : in )
+    class  LXmlParser : public GXmlParser
     {
-        if ( element->fName == name  )
-        {
-            return true;
-        }
-    }
-    return false;
-}
+    public:
+        virtual  void API ParseXML(const string  xml,
+            const string  xsd,
+            std::vector< std::shared_ptr <LXmlEntityLogLevel> >& loglevlels,
+            std::vector< std::shared_ptr <LXmlEntitySubSystem> >& subsystems);
 
+        template< typename T>
+        bool API HasElement(const string name, vector<std::shared_ptr < T > > in);
+
+    private:
+        std::shared_ptr <LXmlEntitySubSystem>    ParseSubSystem(std::shared_ptr<GXmlStreamReader> r, const string closing_tag);
+        std::shared_ptr < LXmlEntityLogLevel  >  ParseLogLevel(std::shared_ptr<GXmlStreamReader> r, const string closing_tag);
+
+    };
+
+
+
+    template< typename T>
+    bool
+        LXmlParser::HasElement(const string name, vector<std::shared_ptr < T> > in)
+    {
+        for (auto element : in)
+        {
+            if (element->fName == name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+}
 
 #endif

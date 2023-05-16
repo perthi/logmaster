@@ -15,23 +15,28 @@ using std::vector;
 #include <memory>
 
 
-class LXmlEntitySubSystem;
-
-
-class  LGeneratorMacrosException : public LGenerator
+namespace CONFIGURATOR
 {
+
+	class LXmlEntitySubSystem;
+
+
+	class  LGeneratorMacrosException : public LGenerator
+	{
 	public:
-		API LGeneratorMacrosException( const string fname, const LXMLInfo xmlinfo);
+		API LGeneratorMacrosException(const string fname, const LXMLInfo xmlinfo);
 		virtual API ~LGeneratorMacrosException() = default;
-		virtual void  API GenerateContent(  vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-	                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems )  override;
+		virtual void  API GenerateContent(vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
+			vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)  override;
 
 	public:
-		void API GenerateClasses(          vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,   vector<string>  &in  ) const;	
-		void API GenerateExceptionMacros(  vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,   vector<string>  &in  ) const;	
-		void API GenerateAssertMacros(     vector< std::shared_ptr<LXmlEntitySubSystem > >  systems,   vector<string>  &in  ) const;	
-  		vector<string> API MacroNames(     std::shared_ptr<LXmlEntitySubSystem >  sys  ) const;
-		string API ClassName(std::shared_ptr<LXmlEntitySubSystem >  sys ) const;  
-};
+		void API GenerateClasses(vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& in) const;
+		void API GenerateExceptionMacros(vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& in) const;
+		void API GenerateAssertMacros(vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& in) const;
+		vector<string> API MacroNames(std::shared_ptr<LXmlEntitySubSystem >  sys) const;
+		string API ClassName(std::shared_ptr<LXmlEntitySubSystem >  sys) const;
+	};
+
+}
 
 #endif

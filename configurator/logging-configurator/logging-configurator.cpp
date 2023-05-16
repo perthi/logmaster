@@ -38,23 +38,10 @@
 #include <configurator/LArgumentScanner.h>
 #include <configurator/LDefinitions.h>
 #include <configurator/LXMLInfo.h>
-#include <cmdline/GCommandLineArgument.h>
-#include <cmdline/GLogApplication.h>
 #include <utilities/version-info/GMenu.h>
 
-
-#include <chrono>
-#include <thread>
-
 using namespace LOGMASTER;
-
-#include <iostream>
-using std::cout;
-using std::endl;
-
-#include <memory>
-#include <deque>
-using std::deque;
+using namespace CONFIGURATOR;
 
 
 
@@ -102,7 +89,7 @@ int main(int  argc, const char** argv)
         FORCE_DEBUG("Unknown exception caught ....");
     }
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+ //   std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
 }
 
