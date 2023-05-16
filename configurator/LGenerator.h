@@ -39,7 +39,7 @@ class  LGenerator
 	//static string SetXmlInfo(LXMLInfo);
 
 	protected:
-		static LXMLInfo   fXMLFileName;  //    
+		static LXMLInfo   fXMLFileNames;  //XML and XSD file used to generate files    
 		string fFilePath		         =  "UNKNOWN";        //!< Full path of the .cpp or .h source file
 		string fClassName                =  "UNKNOWN";        //!< Name of the class (extracted from the file path
 		string fSourceFileName           =  "UNKNOWN";        //!< Name of the .cpp source file if applicable
