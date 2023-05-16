@@ -20,6 +20,7 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#include <string.h>
 
 
 #undef HAS_LOGGING
@@ -36,8 +37,14 @@ bool GXmlValidatorImpl::fHasError2 = false;
 static void schemaParseErrorHandler(void *  /*ctx*/, xmlErrorPtr error)
 {
 	char err[1024] = {0};
+
+	#ifdef _WIN32
 	strerror_s(err, 1024, errno);
-	cerr << __FILE__ << __LINE__ << "ERROR = " << err << endl;
+	#else
+	strerror_r(errno, err, 1024);
+	#endif
+	
+	///cerr << __FILE__ << __LINE__ << "ERROR = " << err << endl;
 	
 	fprintf(stderr, "filename: %s\n", error->file );
 

@@ -26,9 +26,9 @@
 ******************************************************************************/
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sun 14 May-2023 20:47:35  ***/
-/*** Generated from config\logging.xml **/
-/*** Validated by config\logging.xsd **/
+/*** Generated at: Tue 16 May-2023 18:32:05  ***/
+/*** Generated from config/logging.xml **/
+/*** Validated by config/logging.xsd **/
 
 
 #include "LHashMapsAutoGen.h"
@@ -47,7 +47,7 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
 
 
 
-/** @brief initialization of the hash table for the logginglevel     *     *  This hash table holds the current logging level for a given sub-system.     *  This table is checked every time the logging system is asked to log a message, and if logging     *  is enabled for the given level and sub-system then the message is created.     *  Where the message is actually written (if at all) is decided by the target configuration,    *  whether or not logging is enabled to to file, to console, etc.. */
+/** @brief initialization of the hash table for the logging level     *     *  This hash table holds the current logging level for a given sub-system.     *  This table is checked every time the logging system is asked to log a message, and if logging     *  is enabled for the given level and sub-system then the message is created.     *  Where the message is actually written (if at all) is decided by the target configuration,    *  whether or not logging is enabled to to file, to console, etc.. */
    void
    LHashMapsAutoGen::InitHashLogLevel( )
    {
@@ -73,7 +73,7 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
    void
    LHashMapsAutoGen::InitHashSystem2String( map<eMSGSYSTEM, string>  *System2StringHash )
    {
-	System2StringHash->emplace(eMSGSYSTEM::SYS_EX,       "Exeption");
+	System2StringHash->emplace(eMSGSYSTEM::SYS_EX,       "Exception");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_GENERAL,  "General");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_USER,     "User");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_ALARM,    "Alarm");

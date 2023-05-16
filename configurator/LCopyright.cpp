@@ -54,7 +54,7 @@ LCopyright::str( const LXMLInfo info)
 
     if (xml != "" && xsd != "")
     {
-        string addendum = "/*** Generated from " + xml + " **/\n";
+        addendum = "/*** Generated from " + xml + " **/\n";
         addendum += "/*** Validated by " + xsd + " **/\n";
     }
     

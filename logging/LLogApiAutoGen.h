@@ -26,9 +26,9 @@
 ******************************************************************************/
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sun 14 May-2023 20:47:35  ***/
-/*** Generated from config\logging.xml **/
-/*** Validated by config\logging.xsd **/
+/*** Generated at: Tue 16 May-2023 18:32:05  ***/
+/*** Generated from config/logging.xml **/
+/*** Validated by config/logging.xsd **/
 
 
 #define FSM_FATAL(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_FSM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)

@@ -46,7 +46,7 @@ class  LGenerator
 		string fHeaderFileName           =  "UNKNOWN";        //!< Name of the .h header file if applicable
 		string fLevelEnumName            =  "eLOGLEVEL";      //!< enum identifier for log level in generated files
 	    string fSystemEnumName           =  "eMSGSYSTEM";     //!< enum identifier for subsystem in generated files					
-		vector<string> fFileLineEntries;  //!< The lines that will be written to the generated file 	
+		vector<string> fFileLineEntries = vector<string>()   ;  //!< The lines that will be written to the generated file 	
 
 };
 

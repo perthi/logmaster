@@ -9,7 +9,6 @@ SRCCPP:= LColorMap.cpp \
 	LHashMaps.cpp \
     LHashMapsBase.cpp \
 	LLogging.cpp \
-	LLogTest.cpp \
 	LMessageFactory.cpp \
 	LValidateArgs.cpp \
 	LConfig.cpp \
@@ -21,8 +20,9 @@ SRCCPP:= LColorMap.cpp \
 	LMessage2Json.cpp \
 	LDatabase.cpp \
 	LEnum2String.cpp \
+    LHashMapsAutoGen.cpp \
+	LLogTestAutoGen.cpp \
 	GException.cpp
-
 
 
 #CPPFLAGS+= -Wno-format-truncation  -Wno-format-security

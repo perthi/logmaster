@@ -6,19 +6,21 @@ LIBNAME_SO=libconfigurator.so
 LIBNAME_A=libconfigurator.a
 
 
-SRCCPP:= LConfigurator.cpp \
-	     LGenerator.cpp \
-         LGeneratorEnum.cpp \
+SRCCPP:= LArgumentScanner.cpp \
+         LCreateDefaultGenerators.cpp \
+         LGenerator.cpp \
          LGeneratorHashMap.cpp \
-	     LGeneratorMacrosException.cpp \
-         LGeneratorMacrosLogging.cpp \
-         LGeneratorLogTest.cpp \
-         LCopyright.cpp \
+         LGeneratorMacrosException.cpp \
          LXmlEntity.cpp \
-         LXmlEntityLogLevel.cpp \
          LXmlEntitySubSystem.cpp \
-         LXmlParser.cpp
-
+         LXmlParser.cpp \
+         LCopyright.cpp \
+         LFileCreator.cpp \
+         LGeneratorEnum.cpp \
+         LGeneratorLogTest.cpp \
+         LGeneratorMacrosLogging.cpp \
+         LXmlEntityLogLevel.cpp \
+         LXMLInfo.cpp
 
 include ../../common.mk
 

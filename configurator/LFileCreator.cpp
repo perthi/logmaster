@@ -3,14 +3,14 @@
 #include "LFileCreator.h"
 
 #include "LGenerator.h"
-
+#include <logging/GException.h>
 
 void 
-LFileCreator::GenerateFiles(const generator_vec& generators, const loglevel_vec& loglevels, const subsystem_vec& subsystem)
+LFileCreator::GenerateFiles(const generator_vec& gens, const loglevel_vec& loglevels, const subsystem_vec& subs)
 {
-	for (auto gen : generators)
+	for (auto gen : gens)
 	{
-		GenerateSingleFile(gen,  loglevels, subsystem );
+		GenerateSingleFile(gen,  loglevels, subs );
 	}
 
 }
@@ -26,8 +26,11 @@ LFileCreator::GenerateSingleFile(const generator& gen, const loglevel_vec& logle
 #ifdef _WIN32
         fopen_s(&fp, gen->GetFilePath().c_str(), "w");
 #else // 
-        fp = fopen(gen->GetFilename().c_str(), "w");
+        fp = fopen(gen->GetFilePath().c_str(), "w");
 #endif
+        CERR << "FILEPATH =  " << gen->GetFilePath() << ENDL;
+
+
 
         if (fp != nullptr)
         {
@@ -37,6 +40,10 @@ LFileCreator::GenerateSingleFile(const generator& gen, const loglevel_vec& logle
             }
 
             fclose(fp);
+        }
+        else
+        {
+                XML_EXCEPTION("FILE IS ZERO POINTER");
         }
 
 }

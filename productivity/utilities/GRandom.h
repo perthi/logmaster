@@ -69,10 +69,10 @@ public:
         }
         else
         {
-            static std::default_random_engine generator;
-            static std::mt19937 gen(generator());
+            static std::default_random_engine gens;
+            static std::mt19937 gen(gens());
             std::uniform_real_distribution<T> uniform_dist(min, max);
-            T tmp =   uniform_dist(generator);
+            T tmp =   uniform_dist(gens);
             return  tmp;
         }
         return 0;
