@@ -13,6 +13,7 @@ using std::vector;
 namespace CONFIGURATOR
 {
 
+	/** @copydoc LGenerator */
 	LGeneratorLogTest::LGeneratorLogTest(const string filename, const  LXMLInfo xmlinfo) : LGenerator(filename, xmlinfo)
 	{
 
