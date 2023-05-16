@@ -30,30 +30,16 @@
 
 #include <configurator/LXmlParser.h>
 #include <xml/GXmlValidator.h>
-#include <logging/GException.h>
 #include <logging/LLogApi.h>
-
 #include <configurator/LXmlEntityLogLevel.h>
 #include <configurator/LXmlEntitySubSystem.h>
-
-
-#include <configurator/LGeneratorMacrosLogging.h>
-#include <configurator/LGeneratorHashMap.h>
-#include <configurator/LGeneratorMacrosException.h>
-#include <configurator/LGeneratorEnum.h>
-#include <configurator/LGeneratorLogTest.h>
-
+#include <configurator/LCreateDefaultGenerators.h>
 #include <configurator/LFileCreator.h>
 #include <configurator/LArgumentScanner.h>
-
-//#include <configurator/LCopyright.h>
 #include <configurator/LDefinitions.h>
-
-
+#include <configurator/LXMLInfo.h>
 #include <cmdline/GCommandLineArgument.h>
 #include <cmdline/GLogApplication.h>
-//#include <utilities/GUtilities.h>
-
 #include <utilities/version-info/GMenu.h>
 
 
@@ -92,26 +78,13 @@ int main(int  argc, const char** argv)
     try
     {
         XML_ASSERT_EXCEPTION(GXmlValidator().IsValid(xml, xsd), "failed to validate %s against %s", xml.c_str(), xsd.c_str());
-        
         loglevel_vec loglevels;
         subsystem_vec  subsystems;
         LXmlParser().ParseXML(xml, xsd, loglevels, subsystems);
-
         XML_INFO("Successfully validated %s against %s and parsed the XML file", xml.c_str(), xsd.c_str());
-
-        vector< std::shared_ptr< LGenerator >  > generators;
-        generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumAutoGen.h", xml, xsd));
-        generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApiAutoGen.h", xml, xsd));
-        generators.push_back(std::make_shared < LGeneratorMacrosException >("logging/GExceptionAutoGen.h", xml, xsd));
-        generators.push_back(std::make_shared < LGeneratorHashMap >("logging/LHashMapsAutoGen.cpp", xml, xsd));
-        generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTestAutoGen.cpp", xml, xsd));
-
-        
+        generator_vec  generators  = LCreateDefaultGenerators::CreateAll(LXMLInfo(xml, xsd));
         LFileCreator::GenerateFiles(generators, loglevels, subsystems);
-
     }
-
-
     catch (const GException& e)
     {
         std::cerr << e.what() << endl;
@@ -129,8 +102,7 @@ int main(int  argc, const char** argv)
         FORCE_DEBUG("Unknown exception caught ....");
     }
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
-
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
 }
 

@@ -16,14 +16,15 @@ class LCreateDefaultGenerators
 public:
 	static generator_vec  CreateAll( const LXMLInfo xmlinfo );
 
-	template<typename T> 
-	generator_vec CreateSingle(const string fname);
+
 
 };
 
+/*
 template<typename T>
 inline generator_vec LCreateDefaultGenerators::CreateSingle(const string fname)
 {
 
 	return generator_vec();
 }
+*/
