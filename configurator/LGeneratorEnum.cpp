@@ -33,6 +33,11 @@ namespace CONFIGURATOR
     }
 
 
+    /** Generation of c++ enums code fragment for the logging levels of the logging system
+    * (typically DEBUG, INFO .... FATAL). The content is added to "lines" that will
+    * be used to generate the file at a later stage.
+    * @param[in] levels log levels that was parsed form a XML file (for instance config/logging.xml or similar)
+    * @param[in, out] lines The content is added to this vector*/
     void
         LGeneratorEnum::GenerateLevels(vector< std::shared_ptr<LXmlEntityLogLevel > >  levels, vector<string>& lines) const
     {
@@ -60,9 +65,12 @@ namespace CONFIGURATOR
     }
 
 
-
+    /** Generation of c++ enums code fragment for the logging sub systems of the logging system
+   * The content is added to @ref lines that will * be used to generate the file at a later stage.
+   * @param[in] levels log levels that was parsed form a XML file (for instance config/logging.xml or similar)
+   * @param[in, out] lines The content is added to this vector*/
     void
-        LGeneratorEnum::GenerateSystems(vector<std::shared_ptr<LXmlEntitySubSystem>> systems, vector<string>& lines) const
+    LGeneratorEnum::GenerateSystems(vector<std::shared_ptr<LXmlEntitySubSystem>> systems, vector<string>& lines) const
     {
         lines.push_back("// -*- mode: c++ -*-/n/n");
         lines.push_back("#pragma once\n\n");
