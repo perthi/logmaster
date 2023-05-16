@@ -12,7 +12,7 @@ using namespace LOGMASTER;
 #include <bitset>
 
 
-
+/** @copydoc LGenerator */
 LGeneratorEnum::LGeneratorEnum( const string fname, const LXMLInfo xmlinfo) : LGenerator( fname, xmlinfo )
 {
 
