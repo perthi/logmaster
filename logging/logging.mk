@@ -7,7 +7,6 @@ LIBNAME_A=liblogmaster.a
 SRCCPP:= LColorMap.cpp \
 	LConversion.cpp \
 	LHashMaps.cpp \
-    LHashMapsBase.cpp \
 	LLogging.cpp \
 	LMessageFactory.cpp \
 	LValidateArgs.cpp \
