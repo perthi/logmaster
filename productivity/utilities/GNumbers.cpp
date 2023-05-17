@@ -179,7 +179,7 @@ GNumbers::IsDecNumber(const string  num)
 }
 
 
-/* Wether or not the string "num" is digit in base given by "base". For base 10
+/* Whether or not the string "num" is digit in base given by "base". For base 10
 *  The digits shall be 0-9, for base 16 0-F  etc..
 *  @param num  The string representation of the digit
 *  @param base the base, or radix of the number "num"
@@ -421,72 +421,33 @@ GNumbers::ToHex(const string num)
 
 
 
- 
+ /** Converts a number to a binary string representation
+ * @param number The number that will be represented as a binary string
+ * @widt The number of digits in the string, regardless of the value of "num".
+ * The string will be padded with zeros. The default width is 64 bits.
+ * @param shift The number will be shifted (to the left) by this number of
+ * bits. The default is no shift.
+ * @return The binary representation of the string */
  string 
   GNumbers::Number2BinaryString(const uint64_t number, const int width, const int shift)
  {
-     std::bitset<64> num(number);
+     auto num_l = number;
+     /** @todo warn or throw exception if overflow after bit shifting */
+     std::bitset<64> num(num_l << shift);
      std::stringstream buffer;
      buffer << num  << std::setfill('0');
-     return buffer.str();
- }
+     
+    
+     if ( width < 64 )
+     {
+         return  buffer.str().substr(64 - width);
+     }
+     else
+     {
+         return buffer.str( );
+     }
+  }
  
-
- /*
- string
- GNumbers::Number2BinaryString(const uint64_t num, const int width, const int shift)
- {
-     int upper = (num & 0xff00) >> 8;
-     int lower = num & 0x00ff;
-
-     std::bitset<64> x1(upper);
-     std::bitset<64> x2(lower);
-     std::stringstream buffer1;
-     if (width > 8)
-     {
-         buffer1 << x1 << " " << x2 << std::setfill('0');
-     }
-     else
-     {
-         buffer1 << x2 << std::setfill('0');
-     }
-
-     ///  CERR << "Binary string =\ty" << buffer1.str( ) << ENDL;
-
-     return buffer1.str();
-
- }
- */
-
-
-
- /** @todo move to GUtilities, or check if function already exists*/
- /*
- string
-     LUtilities::ToBinaryString(int num, const int width)
- {
-     int upper = (num & 0xff00) >> 8;
-     int lower = num & 0x00ff;
-
-     std::bitset<8> x1(upper);
-     std::bitset<8> x2(lower);
-     std::stringstream buffer1;
-     if (width > 8)
-     {
-         buffer1 << x1 << " " << x2 << std::setfill('0');
-     }
-     else
-     {
-         buffer1 << x2 << std::setfill('0');
-     }
-
-     ///  CERR << "Binary string =\ty" << buffer1.str( ) << ENDL;
-
-     return buffer1.str();
- }
- */
-
-
 
 /* @brief Converts a binary number string to a 64 bits integer. The string is interpreted assuming radix 2 (i.e binary)
 *  @param[in] b  The string to convert

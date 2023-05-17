@@ -36,7 +36,7 @@
 
 
 
-/*
+
 TEST_F(TestGNumbers, count_ones)
 {
     EXPECT_EQ( 0, g_numbers()->CountBits(0) );
@@ -76,10 +76,10 @@ TEST_F(TestGNumbers, Hex2DecDec2Hex)
     EXPECT_EQ("0xdead", g_numbers()->Dec2Hex(g_numbers()->Hex2Dec("0xdead")));
     EXPECT_EQ("0xdeaddead", g_numbers()->Dec2Hex(g_numbers()->Hex2Dec("0xdeaddead")));
 }
-*/
 
 
-/*
+
+
 TEST_F(TestGNumbers, IsAlphaNumber)
 {
    EXPECT_TRUE( g_numbers()->IsAlphaNumber("A")); 
@@ -115,20 +115,59 @@ TEST_F(TestGNumbers, IsBinary)
     EXPECT_TRUE(g_numbers()->IsBinary( string("1100101101111111100000111101101010")));
     EXPECT_FALSE(g_numbers()->IsBinary(string("110210110")));
 }
-*/
 
 
-TEST_F(TestGNumbers, number2binary)
+
+TEST_F(TestGNumbers, number2binary_widt)
 {
     auto num_s = g_numbers()->Number2BinaryString(1);
     EXPECT_EQ(num_s, "0000000000000000000000000000000000000000000000000000000000000001");
+    num_s = g_numbers( )->Number2BinaryString(1, 32);
+    EXPECT_EQ(num_s, "00000000000000000000000000000001");
+    
+    num_s = g_numbers( )->Number2BinaryString(1, 24);
+    EXPECT_EQ(num_s, "000000000000000000000001");
+
+    num_s = g_numbers( )->Number2BinaryString(1,16);
+    EXPECT_EQ(num_s, "0000000000000001");
+    
+    num_s = g_numbers( )->Number2BinaryString(1, 8);
+    EXPECT_EQ(num_s, "00000001");
 
 
- 
+    num_s = g_numbers( )->Number2BinaryString(17);
+    EXPECT_EQ(num_s, "0000000000000000000000000000000000000000000000000000000000010001");
+    num_s = g_numbers( )->Number2BinaryString(17, 32);
+    EXPECT_EQ(num_s, "00000000000000000000000000010001");
+
+    num_s = g_numbers( )->Number2BinaryString(17, 24);
+    EXPECT_EQ(num_s, "000000000000000000010001");
+
+    num_s = g_numbers( )->Number2BinaryString(17, 16);
+    EXPECT_EQ(num_s, "0000000000010001");
+
+    num_s = g_numbers( )->Number2BinaryString(17, 8);
+    EXPECT_EQ(num_s, "00010001");
+
+
 }
 
 
-/*
+
+TEST_F(TestGNumbers, number2binary_shift)
+{
+    string num_s = g_numbers( )->Number2BinaryString(7, 32);
+    EXPECT_EQ(num_s, "00000000000000000000000000000111");
+    num_s = g_numbers( )->Number2BinaryString(7, 32, 1);
+    EXPECT_EQ(num_s, "00000000000000000000000000001110");
+    num_s = g_numbers( )->Number2BinaryString(7, 32, 5);
+    EXPECT_EQ(num_s, "00000000000000000000000011100000");
+    num_s = g_numbers( )->Number2BinaryString(7, 32, 10);
+    EXPECT_EQ(num_s, "00000000000000000001110000000000");
+}
+
+
+
 TEST_F(TestGNumbers, binary2number)
 {
     EXPECT_EQ(457893, g_numbers()->BinaryString2Number("1101111110010100101"));
@@ -150,11 +189,10 @@ TEST_F(TestGNumbers, binary2number)
     EXPECT_EQ(-6, g_numbers()->BinaryString2Number("-110"));
     EXPECT_ANY_THROW(g_numbers()->BinaryString2Number("12345"));
 }
-*/
 
 
 
-/*
+
 TEST_F(TestGNumbers, IsDecNumber)
 {
     EXPECT_TRUE( g_numbers()->IsDecNumber("10") );
@@ -664,4 +702,3 @@ TEST_F(TestGNumbers, NSR1988DisableError)
     GException::EnableException();
 }
 #endif
-*/
