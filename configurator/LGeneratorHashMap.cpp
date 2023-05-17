@@ -111,7 +111,9 @@ namespace CONFIGURATOR
 		
         
         lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_OFF, \"OFF\");");
-	///	lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_FORCE_DEBUG, \"Force_Debug\");");
+		
+		/** @bug FORCE_DEBUG should be added to XML file, but current regexp pattern does not allow underscore*/
+		lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_FORCE_DEBUG, \"Force_Debug\");");
 
 		for (auto& lvl : levels)
 		{

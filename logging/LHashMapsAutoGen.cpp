@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Wed 17 May-2023 18:26:30  ***/
+/*** Generated at: Wed 17 May-2023 23:27:52  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -87,6 +87,7 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
    LHashMapsAutoGen::InitHashLevel2String(  map<eLOGLEVEL, string> *Level2StringHash  )
    {
 	Level2StringHash->emplace(eLOGLEVEL::LOG_OFF, "OFF");
+	Level2StringHash->emplace(eLOGLEVEL::LOG_FORCE_DEBUG, "Force_Debug");
 	Level2StringHash->emplace(eLOGLEVEL::LOG_FATAL,	"Fatal");
 	Level2StringHash->emplace(eLOGLEVEL::LOG_ERROR,	"Error");
 	Level2StringHash->emplace(eLOGLEVEL::LOG_WARNING,	"Warning");

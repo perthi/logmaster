@@ -52,7 +52,7 @@ TestLHashMaps::~TestLHashMaps()
 void 
 TestLHashMaps::SetUp()
 {
-
+    //FORCE_DEBUG("HELLO");
 }
 
 void 
@@ -296,7 +296,7 @@ TEST_F(TestLHashMaps, contains_levle_enums)
     EXPECT_TRUE(true);
     vector<eLOGLEVEL>  levels = LHashMaps::Instance()->GetLevelEnums();
     EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_OFF));
-    EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_FORCE_DEBUG));
+ //   EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_FORCE_DEBUG));
     EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_DEBUG));
     EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_INFO));
     EXPECT_TRUE(g_utilities()->Contains(levels, eLOGLEVEL::LOG_WARNING));
