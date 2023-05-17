@@ -26,7 +26,7 @@
     <SUBSYSTEMS>
         <SYSTEM>
             <NAME>EXCEPTION</NAME>
-            <SHORT_NAME>EXCEPTION</SHORT_NAME>
+            <SHORT_NAME>EX</SHORT_NAME>
             <TAG>--exception</TAG>
             <TAG_SHORT>--ex</TAG_SHORT>
             <DEFAULT>ERROR</DEFAULT>

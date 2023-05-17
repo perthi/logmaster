@@ -215,7 +215,6 @@ namespace LOGMASTER
     {
         static int i = 0;
         i ++;
-        // COUT << i << "Applying level" << endl;
         eLOGLEVEL  l_level = level;
         eMSGSYSTEM l_system = system;
       //  FilterOut( l_system, {eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EXCEPTION });

@@ -1,0 +1,1 @@
+bin\x64_Debug\logging-configurator.exe -xml config\logging.xml -xsd config\logging.xsd

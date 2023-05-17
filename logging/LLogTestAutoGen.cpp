@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Wed 17 May-2023 06:52:23  ***/
+/*** Generated at: Wed 17 May-2023 16:54:35  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -53,6 +53,15 @@ LLogTestAutoGen::WriteMessages()
 {
     float fval = 0;
     int ival = 0;
+
+
+        fval = g_random()->Uniform<float>(-10, 100);
+        ival = g_random()->Uniform<int>(-10, 1000);
+        EXCEPTION_FATAL("This is a EXCEPTION_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EXCEPTION_ERROR("This is a EXCEPTION_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EXCEPTION_WARNING("This is a EXCEPTION_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EXCEPTION_INFO("This is a EXCEPTION_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EXCEPTION_DEBUG("This is a EXCEPTION_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);

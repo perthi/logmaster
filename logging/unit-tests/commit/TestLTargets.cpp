@@ -148,7 +148,7 @@ TEST_F( TestLTargets, configure_level_specific_target )
     EXPECT_EQ(PAD(eLOGLEVEL::LOG_WARNING),  (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
 
     g->ScanArguments( "-loglevel --all-warning");
-    g_utilities()->FilterOut( e_s, { eMSGSYSTEM::SYS_ALL, eMSGSYSTEM::SYS_NONE, eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EX } );
+    g_utilities()->FilterOut( e_s, { eMSGSYSTEM::SYS_ALL, eMSGSYSTEM::SYS_NONE, eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EXCEPTION } );
     g_utilities()->FilterOut( e_t, { eMSGTARGET::TARGET_ALL, eMSGTARGET::TARGET_OFF  } );
     
 

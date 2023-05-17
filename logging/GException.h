@@ -141,14 +141,13 @@ EXCEPTION_CLASS_CPP(GRangeException)
 // EXCEPTION_CLASS_CPP	(GAlarmException)
 
 
-#define EXCEPTION(...)                     throw_exception( GException(                 __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
-
-#define RANGE_EXCEPTION(...)               throw_exception( GRangeException(            __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
-#define FILE_NOT_FOUND_EXCEPTION(...)      throw_exception( GFileNotFoundException(     __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
-#define INVALID_ARGUMENT_EXCEPTION(...)    throw_exception( GInvalidArgumentException(  __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
-#define MISSING_ARGUMENT_EXCEPTION(...)    throw_exception( GMissingArgumentException(  __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX,       __VA_ARGS__ ) )
+#define EXCEPTION(...)                     throw_exception( GException(                 __FILE__,  __func__, __LINE__ ,   eMSGSYSTEM::SYS_EXCEPTION,       __VA_ARGS__ ) )
+#define RANGE_EXCEPTION(...)               throw_exception( GRangeException(            __FILE__,  __func__, __LINE__ ,   eMSGSYSTEM::SYS_EXCEPTION,       __VA_ARGS__ ) )
+#define FILE_NOT_FOUND_EXCEPTION(...)      throw_exception( GFileNotFoundException(     __FILE__,  __func__, __LINE__ ,   eMSGSYSTEM::SYS_EXCEPTION,       __VA_ARGS__ ) )
+#define INVALID_ARGUMENT_EXCEPTION(...)    throw_exception( GInvalidArgumentException(  __FILE__,  __func__, __LINE__ ,   eMSGSYSTEM::SYS_EXCEPTION,       __VA_ARGS__ ) )
+#define MISSING_ARGUMENT_EXCEPTION(...)    throw_exception( GMissingArgumentException(  __FILE__,  __func__, __LINE__ ,   eMSGSYSTEM::SYS_EXCEPTION,       __VA_ARGS__ ) )
 //#define G_ASSERT_EXCEPTION(expr, ...)          if(!(expr)) throw_exception( GException(          __FILE__,  __func__, __LINE__ ,    eMSGSYSTEM::SYS_EX , __VA_ARGS__ ) )
-#define G_ASSERT_ARGUMENT_EXCEPTION(expr, ...)          if(!(expr)) throw_exception( GInvalidArgumentException(          __FILE__,  __func__, __LINE__ ,    eMSGSYSTEM::SYS_EX , __VA_ARGS__ ) )
+#define G_ASSERT_ARGUMENT_EXCEPTION(expr, ...)          if(!(expr)) throw_exception( GInvalidArgumentException(          __FILE__,  __func__, __LINE__ ,    eMSGSYSTEM::SYS_EXCEPTION , __VA_ARGS__ ) )
 
 //#define ALARM_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GAlarmException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EX | eMSGSYSTEM::SYS_ALARM ),	__VA_ARGS__ ) )
 

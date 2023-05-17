@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Wed 17 May-2023 06:52:23  ***/
+/*** Generated at: Wed 17 May-2023 16:54:35  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -53,9 +53,10 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
    {
 	fLogLevelHash.clear();
 //	eLOGLEVEL level = (eLOGLEVEL)(PAD((int)l));
-	fLogLevelHash.emplace(eMSGSYSTEM::SYS_EX,(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_ERROR)  );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_EXCEPTION,(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_ERROR)  );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM,(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_EXCEPTION, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_ERROR) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_FSM, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_MESSAGE, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_COM, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
@@ -73,11 +74,12 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
    void
    LHashMapsAutoGen::InitHashSystem2String( map<eMSGSYSTEM, string>  *System2StringHash )
    {
-	System2StringHash->emplace(eMSGSYSTEM::SYS_EX,       "Exception");
+	System2StringHash->emplace(eMSGSYSTEM::SYS_EXCEPTION,       "Exception");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_GENERAL,  "General");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_USER,     "User");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_ALARM,    "Alarm");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_NONE,     "System Unknown");
+	System2StringHash->emplace(eMSGSYSTEM::SYS_EXCEPTION, 	"Exception");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_FSM, 	"Fsm");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_MESSAGE, 	"Message");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_COM, 	"Com");
@@ -108,6 +110,22 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
    void
    LHashMapsAutoGen::InitHashLogTags(  map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash   )
    {
+	SubCmdHash->emplace("--exception-off",		std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_OFF));
+	SubCmdHash->emplace("--exception-fatal",	std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_FATAL));
+	SubCmdHash->emplace("--exception-error",	std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_ERROR));
+	SubCmdHash->emplace("--exception-warning",	std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_WARNING));
+	SubCmdHash->emplace("--exception-info",	std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_INFO));
+	SubCmdHash->emplace("--exception-debug",	std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_DEBUG));
+	SubCmdHash->emplace("--exception-all",		std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_ALL));
+	SubCmdHash->emplace("--ex-off",		std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_OFF));
+	SubCmdHash->emplace("--ex-fatal",		std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_FATAL));
+	SubCmdHash->emplace("--ex-error",		std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_ERROR));
+	SubCmdHash->emplace("--ex-warning",		std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_WARNING));
+	SubCmdHash->emplace("--ex-info",		std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_INFO));
+	SubCmdHash->emplace("--ex-debug",		std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_DEBUG));
+	SubCmdHash->emplace("--ex-all",		std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,  eLOGLEVEL::LOG_ALL));
+
+
 	SubCmdHash->emplace("--fsm-off",		std::make_pair(eMSGSYSTEM::SYS_FSM,  eLOGLEVEL::LOG_OFF));
 	SubCmdHash->emplace("--fsm-fatal",		std::make_pair(eMSGSYSTEM::SYS_FSM,  eLOGLEVEL::LOG_FATAL));
 	SubCmdHash->emplace("--fsm-error",		std::make_pair(eMSGSYSTEM::SYS_FSM,  eLOGLEVEL::LOG_ERROR));

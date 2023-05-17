@@ -401,8 +401,8 @@ namespace LOGMASTER
         fSubCmdHash.emplace("--debug",                std::make_pair(eMSGSYSTEM::SYS_ALL,            eLOGLEVEL::LOG_DEBUG));
         fSubCmdHash.emplace("--all",                std::make_pair(eMSGSYSTEM::SYS_ALL,            eLOGLEVEL::LOG_ALL));
 
-        fSubCmdHash.emplace("--ex-fatal",            std::make_pair(eMSGSYSTEM::SYS_EX,            eLOGLEVEL::LOG_FATAL));
-        fSubCmdHash.emplace("--ex-error",            std::make_pair(eMSGSYSTEM::SYS_EX,            eLOGLEVEL::LOG_ERROR));
+        fSubCmdHash.emplace("--ex-fatal",            std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,            eLOGLEVEL::LOG_FATAL));
+        fSubCmdHash.emplace("--ex-error",            std::make_pair(eMSGSYSTEM::SYS_EXCEPTION,            eLOGLEVEL::LOG_ERROR));
 
         fSubCmdHash.emplace("--gen-off",            std::make_pair(eMSGSYSTEM::SYS_GENERAL,        eLOGLEVEL::LOG_OFF));
         fSubCmdHash.emplace("--gen-fatal",            std::make_pair(eMSGSYSTEM::SYS_GENERAL,        eLOGLEVEL::LOG_FATAL));
