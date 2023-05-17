@@ -79,10 +79,10 @@ GNumbers::IsFloatTypeS(string type)
 
 /**
 * Converting a number on hexadecimal form represented as a string into
-* the same number writen on decimale base 10 format (also represented as a string)
-* @param str Input string on hex format. NB it must start with either 0x or 0X succeded
-* witk a valid sequence of hex digits (0-F) othervise and exeption will be thrown.
-* @return The input number on decinmal base 10 format. */
+* the same number written on decimal base 10 format (also represented as a string)
+* @param str Input string on hex format. NB it must start with either 0x or 0X succeed
+* with a valid sequence of hex digits (0-F) otherwise and exception will be thrown.
+* @return The input number on decimal base 10 format. */
  string
 GNumbers::Hex2Dec(const string  str)
 {
@@ -95,9 +95,9 @@ GNumbers::Hex2Dec(const string  str)
 
 /**
 * Converting a number on decimal from (base 10) form represented as a string into
-* the same number writen on hexadecimal format (also represented as a string)
+* the same number written on hexadecimal format (also represented as a string)
 * @param str Input string on DEC format.
-* with a valid sequence of hex digits (0-F) othervise and exeption will be thrown.
+* with a valid sequence of hex digits (0-F) otherwise and exception will be thrown.
 * @return The input number on hexadecimal form. */
 string
 GNumbers::Dec2Hex(const string  str)
@@ -259,10 +259,6 @@ GNumbers::IsNumber(const double num)
 }
 
 
-
-
-
-
 bool
 GNumbers::IsNumber(const string  num)
 {
@@ -278,10 +274,6 @@ GNumbers::IsNumber(const string  num)
         return false;
     }
 }
-
-
-
-
 
  bool
 GNumbers::IsFundamentalTypeS( string type )
@@ -351,7 +343,6 @@ GNumbers::IsFloatVTypeS(string type)
         return false;
     }
 }
-
 
 
  bool
