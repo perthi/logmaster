@@ -36,7 +36,7 @@ namespace CONFIGURATOR
 		 * but any other XML file can be used as long as it is validated by config/logging xsd,
 		 * @param levels The log levels parsed from the XML file
 		 * @param systems The logging sub-systems parsed from the XML file*/
-		virtual void GenerateContent( logentity_vec levels,  sysentity_vec systems) = 0;
+		virtual void GenerateContent( const logentity_vec levels,  const sysentity_vec systems) = 0;
 
 		string GetFilePath() const { return fFilePath; };
 

@@ -31,8 +31,7 @@ namespace CONFIGURATOR
 		API LGeneratorMacrosLogging(const string fname, const LXMLInfo xmlinfo);
 		virtual API ~LGeneratorMacrosLogging() = default;
 
-		virtual void API GenerateContent(vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-			vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)  override;
+		virtual void API GenerateContent( const logentity_vec levels, const sysentity_vec systems)  override;
 
 	private:
 
@@ -63,8 +62,8 @@ namespace CONFIGURATOR
 			vector<LSystem> fSystems;
 		};
 
-		LMacroEntry GenerateMacroEntry(std::shared_ptr<LXmlEntityLogLevel>   lvl,
-			std::shared_ptr<LXmlEntitySubSystem > sys,
+		LMacroEntry GenerateMacroEntry( const logentity_ptr lvl,
+			sysentity_ptr systems,
 			bool with_user = false) const;
 
 		void  GenerateLines(const vector<LMacroEntry> m);

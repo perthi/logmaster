@@ -23,8 +23,8 @@ namespace CONFIGURATOR
     }
 
     LGeneratorMacrosLogging::LMacroEntry
-        LGeneratorMacrosLogging::GenerateMacroEntry(std::shared_ptr<LXmlEntityLogLevel> lvl,
-            std::shared_ptr<LXmlEntitySubSystem >  sys,
+        LGeneratorMacrosLogging::GenerateMacroEntry( logentity_ptr lvl,
+            sysentity_ptr sys,
             bool with_user) const
     {
         vector<LMacroName> names;
@@ -62,8 +62,7 @@ namespace CONFIGURATOR
 
 
     void
-        LGeneratorMacrosLogging::GenerateContent(vector<std::shared_ptr<LXmlEntityLogLevel > > levels,
-            vector<  std::shared_ptr< LXmlEntitySubSystem > >  systems)
+        LGeneratorMacrosLogging::GenerateContent( const logentity_vec levels, const sysentity_vec  systems)
     {
         for (auto& sys : systems)
         {

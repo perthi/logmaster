@@ -27,16 +27,15 @@ namespace CONFIGURATOR
     public:
         LGeneratorHashMap(const string fname, const LXMLInfo xmlinfo);
         virtual ~LGeneratorHashMap() = default;
-        virtual void GenerateContent(vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-            vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)  override;
+        virtual void GenerateContent( const logentity_vec levels, const sysentity_vec systems)  override;
 
     private:
-        void   GenerateInitHashLogLevel(vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& in)  const;
-        void   GenerateInitHashSystem2String(vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& in)  const;
-        void   GenerateInitHashLevel2String(vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels, vector<string>& in)  const;
+        void   GenerateInitHashLogLevel( const sysentity_vec  systems, content_vec &content)  const;
+        void   GenerateInitHashSystem2String( const sysentity_vec systems, content_vec & content)  const;
+        void   GenerateInitHashLevel2String( const logentity_vec  levels, content_vec & content)  const;
 
-        void   GenerateInitHashLogTags(vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-            vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& in) const;
+        void   GenerateInitHashLogTags( logentity_vec levels,
+            sysentity_vec, vector<string>& in) const;
 
 
     };

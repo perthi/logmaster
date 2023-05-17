@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 
-
+#include <string>
 
 namespace CONFIGURATOR
 {
@@ -24,5 +24,6 @@ namespace CONFIGURATOR
 	using generator_ptr = std::shared_ptr< LGenerator >;
 	using generator_vec = std::vector<std::shared_ptr< LGenerator > >;
 
+    using content_vec = std::vector<std::string>;
 
 }

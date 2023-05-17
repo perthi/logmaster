@@ -19,8 +19,7 @@ namespace CONFIGURATOR
 
 
     void
-        LGeneratorMacrosException::GenerateContent(vector< std::shared_ptr<LXmlEntityLogLevel  > >  /*levels*/,
-                                                   vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)
+        LGeneratorMacrosException::GenerateContent( const logentity_vec  /*levels*/, const sysentity_vec systems)
     {
         GenerateClasses(systems, fFileLineEntries);
         fFileLineEntries.push_back("\n\n");
@@ -38,20 +37,20 @@ namespace CONFIGURATOR
 
 
     void
-        LGeneratorMacrosException::GenerateClasses(vector<std::shared_ptr<LXmlEntitySubSystem>> systems, vector<string>& in) const
+        LGeneratorMacrosException::GenerateClasses(  const sysentity_vec systems, content_vec & content) const
     {
         for (auto& sys : systems)
         {
             string tmp = "EXCEPTION_CLASS_H\t(" + ClassName(sys) + ")";
-            in.push_back(tmp);
+            content.push_back(tmp);
             tmp = "EXCEPTION_CLASS_CPP\t(" + ClassName(sys) + ")";
-            in.push_back(tmp);
+            content.push_back(tmp);
         }
     }
 
 
     void
-        LGeneratorMacrosException::GenerateExceptionMacros(vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& in) const
+        LGeneratorMacrosException::GenerateExceptionMacros( const sysentity_vec systems, content_vec & content) const
     {
         vector<string> exc_macros;
         vector<string> ass_macros;
@@ -82,9 +81,9 @@ namespace CONFIGURATOR
             }
         }
 
-        in.insert(in.end(), exc_macros.begin(), exc_macros.end());
-        in.push_back("\n");
-        in.insert(in.end(), ass_macros.begin(), ass_macros.end());
+        content.insert(content.end(), exc_macros.begin(), exc_macros.end());
+        content.push_back("\n");
+        content.insert(content.end(), ass_macros.begin(), ass_macros.end());
     }
 
 

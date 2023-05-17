@@ -24,8 +24,8 @@ namespace CONFIGURATOR
 		virtual ~LGeneratorEnum() = default;
 		virtual void  GenerateContent( logentity_vec  levels, sysentity_vec  systems)  override;
 	private:
-		void  GenerateLevels(logentity_vec levels,     vector<string>& content) const;
-		void  GenerateSystems(sysentity_vec  systems,  vector<string>& lines) const;
+		void  GenerateLevels(logentity_vec levels,   content_vec  &content) const;
+		void  GenerateSystems(sysentity_vec  systems,  content_vec &content) const;
 
 		
 
