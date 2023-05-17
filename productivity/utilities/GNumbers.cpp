@@ -435,20 +435,20 @@ GNumbers::BinaryStringToNumber(const string b)
     {
         char message[512];
         #ifdef ARM
-        snprintf(message, 512,"Bitstream constains %lld bits, ( bitstring = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
+        snprintf(message, 512,"Bit-stream contains %lld bits, ( bit-string = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
 #endif
         
 
 
         //   #else
 #ifdef _WIN32
-        SPRINTF(message, 512,"Bitstream constains %lld bits, ( bitstring = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
+        SPRINTF(message, 512,"Bit-stream contains %lld bits, ( bit-string = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
 #else
 #ifdef ARM
 
-        SPRINTF(message, 512, "Bitstream constains %lld bits, ( bitstring = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
+        SPRINTF(message, 512, "Bit-stream contains %lld bits, ( bit-string = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
 #else
-        SPRINTF(message, 512, "Bitstream constains %ld bits, ( bitstring = %s ). The max number of bits is: %ld", BitWidths, b.c_str(), maxbits);
+        SPRINTF(message, 512, "Bit-stream contains %ld bits, ( bit-string = %s ). The max number of bits is: %ld", BitWidths, b.c_str(), maxbits);
 
 #endif
 

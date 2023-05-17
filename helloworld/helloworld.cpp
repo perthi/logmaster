@@ -87,7 +87,7 @@ int main(int  argc, const char** argv)
         l_system.GenerateContent(loglevels, subsystems);
             
         //generator_vec  generators = LCreateDefaultGenerators::CreateAll(LXMLInfo(xml, xsd));
-        //LFileCreator::GenerateFiles(generators, loglevels, subsystems);
+        //LFileCreator::GenerateFiles(generators, log levels, subsystems);
     }
     catch ( const GException& e )
     {
