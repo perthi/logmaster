@@ -104,7 +104,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>CONFIG_DIR="\"$(SolutionDir)\config\"";_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CONFIG_DIR="\"$(SolutionDir)\config\""; LOGMASTER_HOME="$(ProjectDir)."; _DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(include);$(gtest-include);$(SolutionDir)\xml-parser</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -158,13 +158,15 @@
   <ItemGroup>
     <ClCompile Include="configurator-unit-tests.cpp" />
     <ClCompile Include="GVersion.cpp" />
-    <ClCompile Include="TestLConfigurator.cpp" />
+    <ClCompile Include="TestLUtilities.cpp" />
     <ClCompile Include="TestLXmlParser.cpp" />
+    <ClCompile Include="TestReferenceDataP.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="configurator-unit-tests.h" />
-    <ClInclude Include="TestLConfigurator.h" />
+    <ClInclude Include="TestLUtilities.h" />
     <ClInclude Include="TestLXmlParser.h" />
+    <ClInclude Include="TestReferenceDataP.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="configurator-unit-tests.rc" />

@@ -27,7 +27,7 @@
 ******************************************************************************/
 
 
-#include "TestLConfigurator.h"
+#include "TestLUtilities.h"
 //#include <configurator/LConfigurator.h>
 
 
@@ -35,19 +35,9 @@
 using namespace LOGMASTER;
 
 
-TestLConfigurator::TestLConfigurator()
-{
-	
-}
 
 
-TestLConfigurator::~TestLConfigurator()
-{
-
-}
-
-
-TEST_F( TestLConfigurator , dummy )
+TEST_F( TestLUtilities, dummy )
 {
 	EXPECT_TRUE(true);
 }

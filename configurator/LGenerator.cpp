@@ -41,7 +41,7 @@ namespace CONFIGURATOR
 	void
 		LGenerator::GenerateHeader(const LXMLInfo xmlinfo)
 	{
-		fFileLineEntries.push_back("// -*- mode: c++ -*-");
+		//fFileLineEntries.push_back("// -*- mode: c++ -*-");
 		fFileLineEntries.push_back(LCopyright::str(xmlinfo));
 	}
 

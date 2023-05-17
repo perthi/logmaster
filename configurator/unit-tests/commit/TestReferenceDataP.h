@@ -11,12 +11,31 @@
 #pragma once
 
 #include <testlib/TestBase.h>
+#include <configurator/LGenerator.h>
 
+using namespace CONFIGURATOR;
 
-class TestLConfigurator  : public TestBase
+template<typename T>
+struct ValuePair
+{
+	ValuePair(string s) : fFilename(s) {}
+	string fFilename = "";
+	T fGenerator;
+};
+
+//class  TestReferenceDataP : public TestBase, public testing::TestWithParam<string>
+class  TestReferenceDataP : public testing::TestWithParam<string>
 {
 public:
-	TestLConfigurator();
-	virtual ~ TestLConfigurator();
+	static void SetUpTestCase();
+	static void TearDownTestCase();
+
+	void SetUp() override;
+
+
+protected:
+	static string fTestDataDir;
+
 };
+
 

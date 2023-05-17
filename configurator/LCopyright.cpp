@@ -22,6 +22,23 @@ namespace CONFIGURATOR
     LCopyright::str(const LXMLInfo info)
     {
         std::stringstream buffer;
+        buffer << "// -*- mode: c++ -*-" << endl; /// So that emacs understand that it is a c++ file
+
+        string addendum = "";
+
+        auto xml = info.fXMLFileName;
+        auto xsd = info.fXSDFileName;
+
+        if (xml != "" && xsd != "")
+        {
+            addendum = "/*** Generated from " + xml + " **/\n";
+            addendum += "/*** Validated by " + xsd + " **/\n";
+        }
+    
+
+        buffer << g_utilities()->AutoClause(addendum);
+
+       
         buffer << "/***************************************************" << endl;
         buffer << "* @copyright Embedded Consulting AS                *" << endl;
         buffer << "* @author Per Thomas Hille <pth@embc.no>           *" << endl;
@@ -49,18 +66,7 @@ namespace CONFIGURATOR
         buffer << "******************************************************************************" << endl;
         buffer << "******************************************************************************/" << endl;
 
-        string addendum = "";
-
-        auto xml = info.fXMLFileName;
-        auto xsd = info.fXSDFileName;
-
-        if (xml != "" && xsd != "")
-        {
-            addendum = "/*** Generated from " + xml + " **/\n";
-            addendum += "/*** Validated by " + xsd + " **/\n";
-        }
-
-        buffer << g_utilities()->AutoClause(addendum);
+       
 
         return buffer.str();
     }

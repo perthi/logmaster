@@ -35,7 +35,7 @@ namespace LOGMASTER
 {
 #endif
 
-#include "LEnumGenerated.h" /// NB autognerated
+#include "LEnumAutoGen.h" /// NB auto generated
 
 
 #ifdef __cplusplus
@@ -50,7 +50,7 @@ enum  ePUBLISH_MODE
 
 
 
-    /*Enum controling where the logmessages are written*/
+    /*Enum controlling where the log messages are written*/
 #ifdef __cplusplus
     enum class eMSGTARGET
 #else

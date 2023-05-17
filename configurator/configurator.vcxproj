@@ -150,7 +150,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Class.cpp" />
     <ClCompile Include="LArgumentScanner.cpp" />
     <ClCompile Include="LCopyright.cpp" />
     <ClCompile Include="LCreateDefaultGenerators.cpp" />
@@ -169,7 +168,6 @@
     <ClCompile Include="LXmlParser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Class.h" />
     <ClInclude Include="LArgumentScanner.h" />
     <ClInclude Include="LCopyright.h" />
     <ClInclude Include="LCreateDefaultGenerators.h" />

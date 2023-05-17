@@ -1,4 +1,10 @@
 // -*- mode: c++ -*-
+
+/***** Auto generated file: DO NOT EDIT !!!!!! *****/
+/*** Generated at: Wed 17 May-2023 03:29:06  ***/
+/*** Generated from config\logging.xml **/
+/*** Validated by config\logging.xsd **/
+
 /***************************************************
 * @copyright Embedded Consulting AS                *
 * @author Per Thomas Hille <pth@embc.no>           *
@@ -25,13 +31,6 @@
 ******************************************************************************
 ******************************************************************************/
 
-/***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sun 14 May-2023 20:01:22  ***/
-/*** Generated from config\logging.xml **/
-/*** Validated by config\logging.xsd **/
-
-
-// -*- mode: c++ -*-/n/n
 #pragma once
 
 

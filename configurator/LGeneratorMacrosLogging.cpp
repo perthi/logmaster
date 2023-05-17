@@ -22,9 +22,6 @@ namespace CONFIGURATOR
 
     }
 
-
-
-
     LGeneratorMacrosLogging::LMacroEntry
         LGeneratorMacrosLogging::GenerateMacroEntry(std::shared_ptr<LXmlEntityLogLevel> lvl,
             std::shared_ptr<LXmlEntitySubSystem >  sys,

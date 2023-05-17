@@ -56,6 +56,7 @@ namespace CONFIGURATOR
 
         for (auto& lvl : levels)
         {
+            //hex_s = LUtilities::ToHexString(1 << i, 2)
             string line = g_utilities()->TabAlign("\tLOG_" + lvl->fName + " ", 3) + "=  " + LUtilities::ToHexString(1 << i, 2) + ",    //  " +  LUtilities::ToBinaryString(1 << i, 8);
             lines.push_back(line);
             i++;
@@ -74,7 +75,7 @@ namespace CONFIGURATOR
     void
     LGeneratorEnum::GenerateSystems(vector<std::shared_ptr<LXmlEntitySubSystem>> systems, vector<string>& lines) const
     {
-        lines.push_back("// -*- mode: c++ -*-/n/n");
+       // lines.push_back("// -*- mode: c++ -*-/n/n");
         lines.push_back("#pragma once\n\n");
         lines.push_back(" #ifdef __cplusplus");
         lines.push_back("enum class " + fSystemEnumName);
