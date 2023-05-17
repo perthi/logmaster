@@ -53,7 +53,7 @@ namespace CONFIGURATOR
 
 		struct LMacroEntry
 		{
-			LMacroEntry(const string lvl, vector<LMacroName> m, vector<LSystem> s) :
+			LMacroEntry(const string lvl, const vector<LMacroName> m, const vector<LSystem> s) :
 				fLevel(lvl),
 				fMacroNames(m),
 				fSystems(s) {};
@@ -62,9 +62,7 @@ namespace CONFIGURATOR
 			vector<LSystem> fSystems;
 		};
 
-		LMacroEntry GenerateMacroEntry( const logentity_ptr lvl,
-			sysentity_ptr systems,
-			bool with_user = false) const;
+		LMacroEntry GenerateMacroEntry( const logentity_ptr lvl, sysentity_ptr systems, bool with_user = false) const;
 
 		void  GenerateLines(const vector<LMacroEntry> m);
 
