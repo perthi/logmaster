@@ -13,7 +13,7 @@ namespace CONFIGURATOR
     void
     LFileCreator::GenerateFiles(const generator_vec& gens, const loglevel_vec& loglevels, const subsystem_vec& subs)
     {
-        for (auto gen : gens)
+        for (auto &gen : gens)
         {
             GenerateSingleFile(gen, loglevels, subs);
         }

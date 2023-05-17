@@ -160,13 +160,13 @@
     <ClCompile Include="GVersion.cpp" />
     <ClCompile Include="TestLUtilities.cpp" />
     <ClCompile Include="TestLXmlParser.cpp" />
-    <ClCompile Include="TestReferenceDataP.cpp" />
+    <ClCompile Include="TestReferenceData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="configurator-unit-tests.h" />
     <ClInclude Include="TestLUtilities.h" />
     <ClInclude Include="TestLXmlParser.h" />
-    <ClInclude Include="TestReferenceDataP.h" />
+    <ClInclude Include="TestReferenceData.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="configurator-unit-tests.rc" />

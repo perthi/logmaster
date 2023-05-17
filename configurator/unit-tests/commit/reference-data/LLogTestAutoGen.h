@@ -1,5 +1,8 @@
 // -*- mode: c++ -*-
 
+#ifndef LLogTest_H
+#define LLogTest_H
+
 /****************************************************************************
 *** Copyright(C) 2015  Per Thomas Hille, pth@embc.no                     ***
 *** This file is part of logmaster. logmaster is free software : you can ***
@@ -7,35 +10,34 @@
 *** General Public License (LGPL) V3 or later. See .cpp file for details ***
 *****************************************************************************/
 
+#include  "LLogging.h"
+#include  <utilities/GDefinitions.h>
 
-#pragma once
-
-#include <testlib/TestBase.h>
-#include <configurator/LGenerator.h>
-
-using namespace CONFIGURATOR;
-
-template<typename T>
-struct ValuePair
+namespace  LOGMASTER
 {
-	ValuePair(string s) : fFilename(s) {}
-	string fFilename = "";
-	T fGenerator;
-};
 
-//class  TestReferenceDataP : public TestBase, public testing::TestWithParam<string>
-class  TestReferenceDataP : public testing::TestWithParam<string>
+/**@brief Testing application for the logging system  */
+class LLogTestAutoGen
 {
 public:
-	static void SetUpTestCase();
-	static void TearDownTestCase();
+	LLogTestAutoGen()  {};
+	~LLogTestAutoGen() {};
+	static API void WriteMessages();
 
-	void SetUp() override;
 
+    static API string file()
+    {
+        return __FILE__;
+    }
 
-protected:
-	static string fTestDataDir;
+    static API void test();
 
+private:	
+	static void Header();
+	static void Footer();
 };
 
 
+}
+
+#endif

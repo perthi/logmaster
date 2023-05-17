@@ -36,7 +36,7 @@ namespace CONFIGURATOR
             buffer1 << x2 << std::setfill('0');
         }
 
-        CERR << "Binary string =\ty" << buffer1.str( ) << ENDL;
+      ///  CERR << "Binary string =\ty" << buffer1.str( ) << ENDL;
 
         return buffer1.str( );
     }

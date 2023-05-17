@@ -1,4 +1,10 @@
 // -*- mode: c++ -*-
+
+/***** Auto generated file: DO NOT EDIT !!!!!! *****/
+/*** Generated at: Wed 17 May-2023 06:52:23  ***/
+/*** Generated from config\logging.xml **/
+/*** Validated by config\logging.xsd **/
+
 /***************************************************
 * @copyright Embedded Consulting AS                *
 * @author Per Thomas Hille <pth@embc.no>           *
@@ -24,12 +30,6 @@
 *** directory. If not, see <http://www.gnu.org/licenses/>.                 ***
 ******************************************************************************
 ******************************************************************************/
-
-/***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Tue 16 May-2023 18:32:05  ***/
-/*** Generated from config/logging.xml **/
-/*** Validated by config/logging.xsd **/
-
 
 #define FSM_FATAL(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_FSM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define FSM_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_FSM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)

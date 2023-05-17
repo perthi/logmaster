@@ -1,4 +1,10 @@
 // -*- mode: c++ -*-
+
+/***** Auto generated file: DO NOT EDIT !!!!!! *****/
+/*** Generated at: Wed 17 May-2023 06:52:23  ***/
+/*** Generated from config\logging.xml **/
+/*** Validated by config\logging.xsd **/
+
 /***************************************************
 * @copyright Embedded Consulting AS                *
 * @author Per Thomas Hille <pth@embc.no>           *
@@ -25,12 +31,6 @@
 ******************************************************************************
 ******************************************************************************/
 
-/***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Tue 16 May-2023 18:32:05  ***/
-/*** Generated from config/logging.xml **/
-/*** Validated by config/logging.xsd **/
-
-
 #include "LHashMapsAutoGen.h"
 #include <utilities/GNumbers.h>
 #include <utilities/GUtilities.h>
@@ -47,7 +47,7 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
 
 
 
-/** @brief initialization of the hash table for the logging level     *     *  This hash table holds the current logging level for a given sub-system.     *  This table is checked every time the logging system is asked to log a message, and if logging     *  is enabled for the given level and sub-system then the message is created.     *  Where the message is actually written (if at all) is decided by the target configuration,    *  whether or not logging is enabled to to file, to console, etc.. */
+/** @brief initialization of the hash table for the logging level     *     *  This hash table holds the current logging level for a given sub-system.     *  This table is checked every time the logging system is asked to log a message, and if logging     *  is enabled for the given level and sub-system then the message is created.     *  Where the message is actually written (if at all) is decided by the target configuration,    *  whether or not logging is enabled to file, to console, etc.. */
    void
    LHashMapsAutoGen::InitHashLogLevel( )
    {
@@ -100,7 +100,7 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
 	Level2StringHash->emplace(eLOGLEVEL::LOG_WARNING,	"Warning");
 	Level2StringHash->emplace(eLOGLEVEL::LOG_INFO,	"Info");
 	Level2StringHash->emplace(eLOGLEVEL::LOG_DEBUG,	"Debug");
-	Level2StringHash->emplace(eLOGLEVEL::LOG_ALL, "ALL loglevels");
+	Level2StringHash->emplace(eLOGLEVEL::LOG_ALL, "ALL log-levels");
    }
 
 
