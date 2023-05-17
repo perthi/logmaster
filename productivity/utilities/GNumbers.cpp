@@ -29,6 +29,10 @@
 
 #include "GNumbers.h"
 
+#include <sstream>
+#include <bitset>
+
+
 #ifndef GNUMBERSXXX_CPP
 #define GNUMBERSXXX_CPP
 
@@ -416,13 +420,81 @@ GNumbers::ToHex(const string num)
 }
 
 
+
+ 
+ string 
+  GNumbers::Number2BinaryString(const uint64_t number, const int width, const int shift)
+ {
+     std::bitset<64> num(number);
+     std::stringstream buffer;
+     buffer << num  << std::setfill('0');
+     return buffer.str();
+ }
+ 
+
+ /*
+ string
+ GNumbers::Number2BinaryString(const uint64_t num, const int width, const int shift)
+ {
+     int upper = (num & 0xff00) >> 8;
+     int lower = num & 0x00ff;
+
+     std::bitset<64> x1(upper);
+     std::bitset<64> x2(lower);
+     std::stringstream buffer1;
+     if (width > 8)
+     {
+         buffer1 << x1 << " " << x2 << std::setfill('0');
+     }
+     else
+     {
+         buffer1 << x2 << std::setfill('0');
+     }
+
+     ///  CERR << "Binary string =\ty" << buffer1.str( ) << ENDL;
+
+     return buffer1.str();
+
+ }
+ */
+
+
+
+ /** @todo move to GUtilities, or check if function already exists*/
+ /*
+ string
+     LUtilities::ToBinaryString(int num, const int width)
+ {
+     int upper = (num & 0xff00) >> 8;
+     int lower = num & 0x00ff;
+
+     std::bitset<8> x1(upper);
+     std::bitset<8> x2(lower);
+     std::stringstream buffer1;
+     if (width > 8)
+     {
+         buffer1 << x1 << " " << x2 << std::setfill('0');
+     }
+     else
+     {
+         buffer1 << x2 << std::setfill('0');
+     }
+
+     ///  CERR << "Binary string =\ty" << buffer1.str( ) << ENDL;
+
+     return buffer1.str();
+ }
+ */
+
+
+
 /* @brief Converts a binary number string to a 64 bits integer. The string is interpreted assuming radix 2 (i.e binary)
 *  @param[in] b  The string to convert
 *  @return the corresponding number as a 64 bit int
 *  @exception GException  if the system dependent maximum  number if bits is exceeded, or if the string has wrong format. Ths is,
 *  not valid binary string format containing 0'oes nad 1'nes, and/or an optional preceding minus sign. */
  int64_t
-GNumbers::BinaryStringToNumber(const string b)
+GNumbers::BinaryString2Number(const string b)
 {
     string s = b;
     g_string()->Trim(s);
@@ -485,9 +557,11 @@ GNumbers::BinaryStringToNumber(const string b)
 }
 
 
+
+
 /**@{
-* Evaluates the the width of the binary number "in" represented on string format in number of bits.
-* For example "0010101" is 5 bits wide (discarding proceeding zeroes), "111" is 3 bits wide, etc
+* Evaluates the width of the binary number "in" represented on string format in number of bits.
+* For example "0010101" is 5 bits wide (discarding proceeding zeros), "111" is 3 bits wide, etc
 * @param[in] in Must be a binary number, i.e  a string containing only "0" and "1".
 * @exception std::exception if the string "in" is not a valid binary number
 * @return The width in number of bits */

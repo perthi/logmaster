@@ -29,7 +29,7 @@ namespace CONFIGURATOR
 
 
     string
-        LGeneratorMacrosException::ClassName(std::shared_ptr<LXmlEntitySubSystem >  sys) const
+        LGeneratorMacrosException::ClassName(  const sysentity_ptr   sys) const
     {
         return  string("G") + g_string()->ToPascalCase(sys->fName) + "Exception";
 

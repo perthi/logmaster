@@ -124,7 +124,7 @@ namespace LOGMASTER
 
         if ( g_numbers()->IsBinary( in ) )
         {
-            tmp = g_numbers()->BinaryStringToNumber( in );
+            tmp = g_numbers()->BinaryString2Number( in );
         }
         else if ( g_numbers()->IsHex( in ) )
         {

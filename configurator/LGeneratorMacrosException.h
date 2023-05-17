@@ -33,7 +33,7 @@ namespace CONFIGURATOR
 		void API GenerateExceptionMacros(const sysentity_vec systems,  content_vec & content) const;
 		//void API GenerateAssertMacros( sysentity_vec  systems, content_vec & content) const;
 		vector<string> API MacroNames(sysentity_ptr  sys) const;
-		string API ClassName(sysentity_ptr  sys) const;
+		string API ClassName( const sysentity_ptr  sys) const;
 	};
 
 }

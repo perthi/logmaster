@@ -75,6 +75,7 @@ using namespace CONFIGURATOR;
 				{
 					bool the_end = false;
 
+
 					while (the_end == false)
 					{
 						node = xmlReader->ReadNode();
@@ -100,8 +101,12 @@ using namespace CONFIGURATOR;
 	std::shared_ptr < LXmlEntityLogLevel >
 		LXmlParser::ParseLogLevel(std::shared_ptr<GXmlStreamReader>  r, const string   closing_tag)
 	{
+		static int index = 1;
 		std::shared_ptr<LXmlEntityLogLevel> l = std::make_shared<LXmlEntityLogLevel>();
 		l->fName = GetTagValue<string>(r, "LEVEL", GLOCATION_SRC);
+		l->fIndex = index;
+
+		index++;
 
 		AssertTagCloseGroup(r, closing_tag, GLOCATION_SRC);
 		return l;
@@ -112,6 +117,8 @@ using namespace CONFIGURATOR;
 	std::shared_ptr < LXmlEntitySubSystem >
 		LXmlParser::ParseSubSystem(std::shared_ptr<GXmlStreamReader>  r, const string  closing_tag)
 	{
+		/** @bug index is not reset if the parser is called twice (which should not happen) */
+		static int index = 1;
 		std::shared_ptr< LXmlEntitySubSystem> s = std::make_shared< LXmlEntitySubSystem>();
 		s->fName = GetTagValue<string>(r, "NAME", GLOCATION_SRC);
 		s->fNameShort = GetTagValue<string>(r, "SHORT_NAME", GLOCATION_SRC);
@@ -120,6 +127,9 @@ using namespace CONFIGURATOR;
 		s->fDefault = GetTagValue<string>(r, "DEFAULT", GLOCATION_SRC);
 		s->fCanModify = GetTagValue<bool>(r, "CAN_MODIFY", GLOCATION_SRC);
 		s->fForceOutput = GetTagValue<bool>(r, "FORCE_OUTPUT", GLOCATION_SRC);
+		s->fIndex = index;
+
+		index++;
 
 		AssertTagCloseGroup(r, closing_tag, GLOCATION_SRC);
 		return s;

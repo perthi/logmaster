@@ -26,7 +26,7 @@ namespace CONFIGURATOR
             FORCE_DEBUG("fName:%s fNameShort: %s  fTag:%s  fTagShort:%s",s->fName.c_str(), s->fNameShort.c_str(), 
                 s->fTag.c_str(), s->fTagShort.c_str() );
 
-            
+            FORCE_DEBUG("fIndex = %d\n\n", s->fIndex);
         }
 
         POP();

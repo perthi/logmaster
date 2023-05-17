@@ -178,9 +178,10 @@ TEST_F(TestLConversion,  String2Level )
 
 
 /** @todo this test should be auto-generated from  the XML file */
-// TEST_F(TestLConversion,  String2System )
-// {
-//     EXPECT_EQ( eMSGSYSTEM::SYS_NONE,      LConversion::String2System( "000000000000000000000000" ) );
+ TEST_F(TestLConversion,  String2System )
+ {
+//
+      EXPECT_EQ( eMSGSYSTEM::SYS_NONE,      LConversion::String2System( "000000000000000000000000" ) );
 //     EXPECT_EQ( eMSGSYSTEM::SYS_EX,        LConversion::String2System( "000000000000000000000100" ) );
 //     EXPECT_EQ( eMSGSYSTEM::SYS_USER,      LConversion::String2System( "000000000000000000010000" ) );
 //     EXPECT_EQ( eMSGSYSTEM::SYS_FSM,       LConversion::String2System( "000000000000000000100000" ) );
@@ -207,7 +208,7 @@ TEST_F(TestLConversion,  String2Level )
 //     EXPECT_EQ( eMSGSYSTEM::SYS_USER,      LConversion::String2System( "--user-fatal" ) );
 //     EXPECT_EQ( eMSGSYSTEM::SYS_FSM,       LConversion::String2System( "--fsm-info" ) );
 //     EXPECT_EQ( eMSGSYSTEM::SYS_ALL,       LConversion::String2System( "--all-error" ) );    
-// }
+ }
 
 
 /** @todo this test should be auto-generated from the XML file */

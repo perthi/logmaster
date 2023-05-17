@@ -51,7 +51,7 @@ using namespace CONFIGURATOR;
 
 int main(int  argc, const char** argv)
 {
-   // LConversion::String2System("000000110000000000000100");
+    LConversion::String2System("000000110000000000000100");
 
 
     GMenu::Instance( )->ScanArguments(argc, argv);

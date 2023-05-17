@@ -22,6 +22,7 @@ namespace CONFIGURATOR
 		virtual  string API str() const override = 0;
 
 		string fName = "";
+		int fIndex = 0; //<!  Used to generate the bit mask
 	};
 
 }

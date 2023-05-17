@@ -86,13 +86,15 @@ namespace CONFIGURATOR
         
         //content.push_back("\tSYS_EX\t\t\t=  0x0001,    //  00000000 00000001    The exception handling sub system");
 
-        int i = 1;
+        int i2 = 1;
 
         for (auto& sys : systems)
         {
-            string line = g_utilities()->TabAlign("\tSYS_" + sys->fName + " ", 3) + "=  " + LUtilities::ToHexString(1 << i) + ",    //  " +  LUtilities::ToBinaryString(1 << i);
+            FORCE_DEBUG("i = %d, fIIndex = %d", i2, sys->fIndex );
+
+            string line = g_utilities()->TabAlign("\tSYS_" + sys->fName + " ", 3) + "=  " + LUtilities::ToHexString(1 << sys->fIndex ) + ",    //  " +  LUtilities::ToBinaryString(1 << sys->fIndex );
             content.push_back(line);
-            i++;
+            i2++;
         }
 
         content.push_back("\tSYS_ALL\t\t\t=  0xffff     //  11111111 11111111    Any sub system (message will apply if logging is turned on for any of the sub system)");
