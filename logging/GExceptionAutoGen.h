@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Wed 17 May-2023 06:52:23  ***/
+/*** Generated at: Wed 17 May-2023 17:50:42  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -31,6 +31,8 @@
 ******************************************************************************
 ******************************************************************************/
 
+EXCEPTION_CLASS_H	(GExceptionException)
+EXCEPTION_CLASS_CPP	(GExceptionException)
 EXCEPTION_CLASS_H	(GFsmException)
 EXCEPTION_CLASS_CPP	(GFsmException)
 EXCEPTION_CLASS_H	(GMessageException)
@@ -50,6 +52,8 @@ EXCEPTION_CLASS_CPP	(GAlarmException)
 
 
 
+#define EXCEPTION_EXCEPTION(...)		throw_exception( GExceptionException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EXCEPTION,	__VA_ARGS__ ) )
+#define EX_EXCEPTION(...)			throw_exception( GExceptionException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EXCEPTION,	__VA_ARGS__ ) )
 #define FSM_EXCEPTION(...)			throw_exception( GFsmException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_FSM,	__VA_ARGS__ ) )
 #define MESSAGE_EXCEPTION(...)			throw_exception( GMessageException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_MESSAGE,	__VA_ARGS__ ) )
 #define MSG_EXCEPTION(...)			throw_exception( GMessageException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_MESSAGE,	__VA_ARGS__ ) )
@@ -64,18 +68,20 @@ EXCEPTION_CLASS_CPP	(GAlarmException)
 #define ALARM_EXCEPTION(...)			throw_exception( GAlarmException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_ALARM,	__VA_ARGS__ ) )
 
 
-#define FSM_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GFsmException(	__FILE__,  __func__, __LINE__ ,         (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_FSM),	__VA_ARGS__ ) )
+#define EXCEPTION_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GExceptionException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_EXCEPTION),	__VA_ARGS__ ) )
+#define EX_ASSERT_EXCEPTION(expr,  ...)		 if(!(expr)) throw_exception( GExceptionException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_EXCEPTION),	__VA_ARGS__ ) )
+#define FSM_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GFsmException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_FSM),	__VA_ARGS__ ) )
 #define MESSAGE_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GMessageException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_MESSAGE),	__VA_ARGS__ ) )
-#define MSG_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GMessageException(	__FILE__,  __func__, __LINE__ ,     (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_MESSAGE),	__VA_ARGS__ ) )
-#define COM_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GComException(	__FILE__,  __func__, __LINE__ ,         (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_COM),	__VA_ARGS__ ) )
-#define XML_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GXmlException(	__FILE__,  __func__, __LINE__ ,         (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_XML),	__VA_ARGS__ ) )
+#define MSG_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GMessageException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_MESSAGE),	__VA_ARGS__ ) )
+#define COM_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GComException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_COM),	__VA_ARGS__ ) )
+#define XML_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GXmlException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_XML),	__VA_ARGS__ ) )
 #define DATABASE_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GDatabaseException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_DATABASE),	__VA_ARGS__ ) )
-#define DB_ASSERT_EXCEPTION(expr,  ...)		 if(!(expr)) throw_exception( GDatabaseException(	__FILE__,  __func__, __LINE__ ,     (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_DATABASE),	__VA_ARGS__ ) )
-#define USER_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GUserException(	__FILE__,  __func__, __LINE__ ,         (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_USER),	__VA_ARGS__ ) )
-#define USR_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GUserException(	__FILE__,  __func__, __LINE__ ,         (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_USER),	__VA_ARGS__ ) )
+#define DB_ASSERT_EXCEPTION(expr,  ...)		 if(!(expr)) throw_exception( GDatabaseException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_DATABASE),	__VA_ARGS__ ) )
+#define USER_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GUserException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_USER),	__VA_ARGS__ ) )
+#define USR_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GUserException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_USER),	__VA_ARGS__ ) )
 #define GENERAL_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GGeneralException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_GENERAL),	__VA_ARGS__ ) )
-#define G_ASSERT_EXCEPTION(expr,  ...)		 if(!(expr)) throw_exception( GGeneralException(	__FILE__,  __func__, __LINE__ ,     (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_GENERAL),	__VA_ARGS__ ) )
-#define ALARM_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GAlarmException(	__FILE__,  __func__, __LINE__ ,         (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_ALARM),	__VA_ARGS__ ) )
+#define G_ASSERT_EXCEPTION(expr,  ...)		 if(!(expr)) throw_exception( GGeneralException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_GENERAL),	__VA_ARGS__ ) )
+#define ALARM_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GAlarmException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_ALARM),	__VA_ARGS__ ) )
 
 
 
