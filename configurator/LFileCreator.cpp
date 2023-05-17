@@ -39,9 +39,7 @@ namespace CONFIGURATOR
 #else // 
         fp = fopen(gen->GetFilePath().c_str(), "w");
 #endif
-        CERR << "FILEPATH =  " << gen->GetFilePath() << ENDL;
-
-
+        //CERR << "FILEPATH =  " << gen->GetFilePath() << ENDL;
 
         if (fp != nullptr)
         {

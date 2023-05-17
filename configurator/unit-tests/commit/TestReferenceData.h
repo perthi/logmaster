@@ -38,7 +38,7 @@ public:
 
 protected:
     template<typename T>
-    void GenerateData(const string filename_ref, vector<string>& ref, vector<string>& gen);
+    void GenerateData(const string filename_ref );
     void Compare(const int max_errors = 3);
     vector<string> fReferenceData;
     vector<string> fGeneratedData;
@@ -63,15 +63,16 @@ protected:
  with the reference data */
 template<typename T>
 void 
-TestReferenceData::GenerateData(const string filename_ref, vector<string>& ref, vector<string>& gen)
+TestReferenceData::GenerateData(const string filename_ref)
 {
+
     string fname = fTestDataDir + filename_ref;
-    CERR << "fname = " << fname << ENDL;
+   // CERR << "fname = " << fname << ENDL;
     ASSERT_TRUE(g_system( )->Exists(fname));
-    ref = g_file( )->ReadAll(fname);
+    fReferenceData  = g_file( )->ReadAll(fname);
     auto g = std::make_shared<T>("tmp.txt", *fXMLInfo);
     LFileCreator::GenerateSingleFile(g, fLogLevels, fSubSystems);
-    gen = g_file( )->ReadAll("tmp.txt");
+    fGeneratedData = g_file( )->ReadAll("tmp.txt");
     g_system( )->rm("tmp.txt");
 }
 

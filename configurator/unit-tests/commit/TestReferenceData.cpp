@@ -30,15 +30,13 @@
 #include "TestReferenceData.h"
 
 #include <configurator/LGeneratorMacrosException.h>
-#include  <configurator/LGeneratorMacrosLogging.h>
-
-
+#include <configurator/LGeneratorMacrosLogging.h>
 #include <configurator/LGeneratorEnum.h>
 #include <configurator/LGeneratorHashMap.h>
 #include <configurator/LGeneratorLogTest.h>
+
 #include <configurator/LXmlParser.h>
 
-#include <configurator/LGeneratorMacrosLogging.h>
 
 #include <utilities/GDefinitions.h>
 
@@ -110,8 +108,6 @@ TEST_F(TestReferenceData, exists_xsd)
 void 
 TestReferenceData::Compare(const int max_errors)
 {
-    CERR << "ref.size() = " << fReferenceData.size( ) << ENDL;
-    CERR << "gen.size() = " << fGeneratedData.size( ) << ENDL;
     ASSERT_TRUE(fReferenceData.size( ) == fGeneratedData.size( ));
     ASSERT_TRUE(fReferenceData.size() > MINIMUM_EXPECTED_LINES);
     int n_eq = 0; // number of lines that is equal
@@ -123,39 +119,52 @@ TestReferenceData::Compare(const int max_errors)
             n_eq++;
         }
         else {
+          //  FORCE_DEBUG("%s", fGeneratedData.at(i).c_str() );
+          //  FORCE_DEBUG("%s\n\n", fReferenceData.at(i).c_str());
+
             n_neq++;
         }
     }
+
+ //   CERR << "n_eq =  " << n_neq << ENDL;
 
     EXPECT_TRUE( n_neq <= max_errors);
 
 };
 
 
-
 TEST_F(TestReferenceData, exception_macros)
 {
-    //vector<string> reference;
-    //vector<string> generated;
-    GenerateData<LGeneratorMacrosException>("GExceptionAutoGen.h", fReferenceData, fGeneratedData );
+    GenerateData<LGeneratorMacrosException>("GExceptionAutoGen.h");
     Compare();
 }
 
 
 TEST_F(TestReferenceData, logging_macros)
 {
-  //  vector<string> reference;
-  //  vector<string> generated;
-    GenerateData<LGeneratorMacrosLogging>("LLogApiAutoGen.h", fReferenceData, fReferenceData);
+    GenerateData<LGeneratorMacrosLogging>("LLogApiAutoGen.h");
     Compare();
 }
-
 
 
 TEST_F(TestReferenceData, enums)
 {
-   // vector<string> reference;
-   // vector<string> generated;
-    GenerateData<LGeneratorEnum>("LEnumAutoGen.h", fReferenceData, fGeneratedData);
+    GenerateData<LGeneratorEnum>("LEnumAutoGen.h");
     Compare();
 }
+
+
+TEST_F(TestReferenceData, hashmaps)
+{
+    GenerateData<LGeneratorHashMap>("LHashMapsAutoGen.cpp");
+    Compare(30);// This file will have more different line because the class name is derived from the filename
+}
+
+
+TEST_F(TestReferenceData, logtest)
+{
+    GenerateData<LGeneratorLogTest>("LLogTestAutoGen.cpp");
+    Compare(5);
+}
+
+

@@ -158,15 +158,25 @@
   <ItemGroup>
     <ClCompile Include="configurator-unit-tests.cpp" />
     <ClCompile Include="GVersion.cpp" />
-    <ClCompile Include="TestLUtilities.cpp" />
-    <ClCompile Include="TestLXmlParser.cpp" />
+    <ClCompile Include="TestLUtilities.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="TestLXmlParser.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="TestReferenceData.cpp" />
+    <ClCompile Include="TestXMLInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="configurator-unit-tests.h" />
-    <ClInclude Include="TestLUtilities.h" />
-    <ClInclude Include="TestLXmlParser.h" />
+    <ClInclude Include="TestLUtilities.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="TestLXmlParser.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="TestReferenceData.h" />
+    <ClInclude Include="TestXMLInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="configurator-unit-tests.rc" />
