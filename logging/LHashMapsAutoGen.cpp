@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Wed 17 May-2023 16:54:35  ***/
+/*** Generated at: Wed 17 May-2023 17:42:14  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -53,9 +53,6 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
    {
 	fLogLevelHash.clear();
 //	eLOGLEVEL level = (eLOGLEVEL)(PAD((int)l));
-	fLogLevelHash.emplace(eMSGSYSTEM::SYS_EXCEPTION,(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_ERROR)  );
-	fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );
-	fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM,(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_EXCEPTION, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_ERROR) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_FSM, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_MESSAGE, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
@@ -65,8 +62,6 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
-	fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL,(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );
-	fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );
    }
 
 
@@ -74,10 +69,6 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
    void
    LHashMapsAutoGen::InitHashSystem2String( map<eMSGSYSTEM, string>  *System2StringHash )
    {
-	System2StringHash->emplace(eMSGSYSTEM::SYS_EXCEPTION,       "Exception");
-	System2StringHash->emplace(eMSGSYSTEM::SYS_GENERAL,  "General");
-	System2StringHash->emplace(eMSGSYSTEM::SYS_USER,     "User");
-	System2StringHash->emplace(eMSGSYSTEM::SYS_ALARM,    "Alarm");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_NONE,     "System Unknown");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_EXCEPTION, 	"Exception");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_FSM, 	"Fsm");
@@ -96,7 +87,6 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
    LHashMapsAutoGen::InitHashLevel2String(  map<eLOGLEVEL, string> *Level2StringHash  )
    {
 	Level2StringHash->emplace(eLOGLEVEL::LOG_OFF, "OFF");
-	Level2StringHash->emplace(eLOGLEVEL::LOG_FORCE_DEBUG, "Force_Debug");
 	Level2StringHash->emplace(eLOGLEVEL::LOG_FATAL,	"Fatal");
 	Level2StringHash->emplace(eLOGLEVEL::LOG_ERROR,	"Error");
 	Level2StringHash->emplace(eLOGLEVEL::LOG_WARNING,	"Warning");

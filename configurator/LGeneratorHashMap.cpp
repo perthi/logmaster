@@ -108,8 +108,10 @@ namespace CONFIGURATOR
 		lines.push_back("   void");
 		lines.push_back("   " + fClassName + "::InitHashLevel2String(  map<eLOGLEVEL, string> *Level2StringHash  )");
 		lines.push_back("   {");
-		lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_OFF, \"OFF\");");
-		lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_FORCE_DEBUG, \"Force_Debug\");");
+		
+        
+        lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_OFF, \"OFF\");");
+	///	lines.push_back("\tLevel2StringHash->emplace(eLOGLEVEL::LOG_FORCE_DEBUG, \"Force_Debug\");");
 
 		for (auto& lvl : levels)
 		{
@@ -131,11 +133,7 @@ namespace CONFIGURATOR
 
 		lines.push_back("   " + fClassName + "::InitHashSystem2String( map<eMSGSYSTEM, string>  *System2StringHash )");
 		lines.push_back("   {");
-		lines.push_back("\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_EX,       \"Exception\");");
-		lines.push_back("\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_GENERAL,  \"General\");");
-		lines.push_back("\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_USER,     \"User\");");
-		lines.push_back("\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_ALARM,    \"Alarm\");");
-		lines.push_back("\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_NONE,     \"System Unknown\");");
+        lines.push_back("\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_NONE,     \"System Unknown\");");
 
 		for (auto& sys : systems)
 		{
@@ -151,10 +149,10 @@ namespace CONFIGURATOR
 
 
 	void
-	LGeneratorHashMap::GenerateInitHashLogLevel(vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& lines) const
+	LGeneratorHashMap::GenerateInitHashLogLevel(vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& content) const
 	{
-		lines.push_back("\n\n");
-		lines.push_back("/** @brief initialization of the hash table for the logging level \
+		content.push_back("\n\n");
+		content.push_back("/** @brief initialization of the hash table for the logging level \
     * \
     *  This hash table holds the current logging level for a given sub-system. \
     *  This table is checked every time the logging system is asked to log a message, and if logging \
@@ -162,32 +160,22 @@ namespace CONFIGURATOR
     *  Where the message is actually written (if at all) is decided by the target configuration,\
     *  whether or not logging is enabled to file, to console, etc.. */");
 
-		lines.push_back("   void");
-		lines.push_back("   " + fClassName + "::InitHashLogLevel( )");
+		content.push_back("   void");
+		content.push_back("   " + fClassName + "::InitHashLogLevel( )");
+		content.push_back("   {");
+		content.push_back("\tfLogLevelHash.clear();");
+		content.push_back("//\teLOGLEVEL level = (eLOGLEVEL)(PAD((int)l));");
 
-		lines.push_back("   {");
-		lines.push_back("\tfLogLevelHash.clear();");
-		lines.push_back("//\teLOGLEVEL level = (eLOGLEVEL)(PAD((int)l));");
-
-		lines.push_back("\t" + g_utilities()->TabAlign("fLogLevelHash.emplace(eMSGSYSTEM::SYS_EX,") + "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_ERROR)  );");
-		lines.push_back("\t" + g_utilities()->TabAlign("fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER,") + "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );");
-		lines.push_back("\t" + g_utilities()->TabAlign("fLogLevelHash.emplace(eMSGSYSTEM::SYS_ALARM,") + "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );");
 
 		for (auto& sys : systems)
 		{
 			std::stringstream buffer;
 			buffer << "\t" + g_utilities()->TabAlign("fLogLevelHash.emplace(" + fSystemEnumName + "::" + "SYS_" + sys->fName + ", ");
 			buffer << "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_" + sys->fDefault + ") );";
-			lines.push_back(buffer.str());
-			//FORCE_DEBUG("name = %s", buffer.str().c_str() );
+			content.push_back(buffer.str());
 		}
 
-
-		lines.push_back("\t" + g_utilities()->TabAlign("fLogLevelHash.emplace(eMSGSYSTEM::SYS_GENERAL,") + "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );");
-		lines.push_back("\t" + g_utilities()->TabAlign("fLogLevelHash.emplace(eMSGSYSTEM::SYS_NONE,") + "(eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING ) );");
-
-		lines.push_back("   }");
-
+		content.push_back("   }");
 	}
 
 
