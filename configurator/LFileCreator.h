@@ -17,8 +17,8 @@ namespace CONFIGURATOR
 	class LFileCreator
 	{
 	public:
-		static void API GenerateFiles(const generator_vec& g, const loglevel_vec& l, const subsystem_vec& s);
-		static void API GenerateSingleFile(const generator& g, const loglevel_vec& l, const subsystem_vec& s);
+		static void API GenerateFiles(const generator_vec& g, const  logentity_vec, const  sysentity_vec  s);
+		static void API GenerateSingleFile(const generator_ptr& g, const logentity_vec l, const  sysentity_vec s);
 	};
 
 }

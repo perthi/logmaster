@@ -48,8 +48,8 @@ string  TestReferenceData::fTestDataDir = "";
 string  TestReferenceData::fXMLPath = "";
 string  TestReferenceData::fXSDPath = "";
 std::shared_ptr<LXMLInfo>  TestReferenceData::fXMLInfo;
-subsystem_vec   TestReferenceData::fSubSystems;
-loglevel_vec  TestReferenceData::fLogLevels;
+sysentity_vec    TestReferenceData::fSubSystems;
+logentity_vec  TestReferenceData::fLogLevels;
 
 using namespace CONFIGURATOR;
 

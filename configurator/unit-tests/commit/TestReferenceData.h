@@ -47,8 +47,8 @@ protected:
     static string fXMLPath;
     static string fXSDPath;
     static std::shared_ptr<LXMLInfo> fXMLInfo;
-    static subsystem_vec fSubSystems;
-    static loglevel_vec fLogLevels;
+    static sysentity_vec  fSubSystems;
+    static logentity_vec  fLogLevels;
 
 };
 

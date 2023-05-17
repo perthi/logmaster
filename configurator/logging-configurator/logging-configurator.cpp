@@ -65,8 +65,8 @@ int main(int  argc, const char** argv)
     try
     {
         XML_ASSERT_EXCEPTION(GXmlValidator().IsValid(xml, xsd), "failed to validate %s against %s", xml.c_str(), xsd.c_str());
-        loglevel_vec loglevels;
-        subsystem_vec  subsystems;
+        logentity_vec  loglevels;
+        sysentity_vec  subsystems;
         LXmlParser().ParseXML(xml, xsd, loglevels, subsystems);
         XML_INFO("Successfully validated %s against %s and parsed the XML file", xml.c_str(), xsd.c_str());
         generator_vec  generators  = LCreateDefaultGenerators::CreateAll(LXMLInfo(xml, xsd));

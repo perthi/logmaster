@@ -16,8 +16,7 @@ namespace CONFIGURATOR
 		API LGeneratorLogTest(const string filename, const  LXMLInfo xmlinfo);
 		virtual API ~LGeneratorLogTest() = default;
 
-		virtual void  GenerateContent(std::vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-			std::vector< std::shared_ptr<LXmlEntitySubSystem > >  systems) override;
+		virtual void  GenerateContent(logentity_vec  levels, sysentity_vec  systems) override;
 
 	};
 

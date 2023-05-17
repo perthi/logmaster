@@ -22,11 +22,10 @@ namespace CONFIGURATOR
 	public:
 		LGeneratorEnum(const string fname, const LXMLInfo xmlinfo);
 		virtual ~LGeneratorEnum() = default;
-		virtual void  GenerateContent(vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-			vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)  override;
+		virtual void  GenerateContent( logentity_vec  levels, sysentity_vec  systems)  override;
 	private:
-		void  GenerateLevels(vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels, vector<string>& lines) const;
-		void  GenerateSystems(vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& lines) const;
+		void  GenerateLevels(logentity_vec levels,     vector<string>& content) const;
+		void  GenerateSystems(sysentity_vec  systems,  vector<string>& lines) const;
 
 		
 

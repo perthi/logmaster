@@ -26,15 +26,14 @@ namespace CONFIGURATOR
 	public:
 		API LGeneratorMacrosException(const string fname, const LXMLInfo xmlinfo);
 		virtual API ~LGeneratorMacrosException() = default;
-		virtual void  API GenerateContent(vector< std::shared_ptr<LXmlEntityLogLevel  > >  levels,
-			vector< std::shared_ptr<LXmlEntitySubSystem > >  systems)  override;
+		virtual void  API GenerateContent(logentity_vec  levels, sysentity_vec  systems)  override;
 
 	public:
-		void API GenerateClasses(vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& in) const;
-		void API GenerateExceptionMacros(vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& in) const;
-		void API GenerateAssertMacros(vector< std::shared_ptr<LXmlEntitySubSystem > >  systems, vector<string>& in) const;
-		vector<string> API MacroNames(std::shared_ptr<LXmlEntitySubSystem >  sys) const;
-		string API ClassName(std::shared_ptr<LXmlEntitySubSystem >  sys) const;
+		void API GenerateClasses(sysentity_vec  systems, vector<string>& content) const;
+		void API GenerateExceptionMacros(sysentity_vec systems, vector<string>& in) const;
+		void API GenerateAssertMacros( sysentity_vec  systems, vector<string>& in) const;
+		vector<string> API MacroNames(sysentity_ptr  sys) const;
+		string API ClassName(sysentity_ptr  sys) const;
 	};
 
 }

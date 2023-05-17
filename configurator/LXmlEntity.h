@@ -7,7 +7,7 @@
 ***************************************************/
 
 
-#include <xml/GXmlEntity.h>
+#include <xml-parser/xml/GXmlEntity.h>
 
 
 

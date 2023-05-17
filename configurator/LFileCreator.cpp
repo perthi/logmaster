@@ -11,11 +11,11 @@ namespace CONFIGURATOR
     /** Loops over a vector of file generators and generates the corresponding files.
     See documentation of @ref GenerateSingleFile */
     void
-    LFileCreator::GenerateFiles(const generator_vec& gens, const loglevel_vec& loglevels, const subsystem_vec& subs)
+    LFileCreator::GenerateFiles(const generator_vec& gens, const logentity_vec loglevels, const sysentity_vec  subs)
     {
         for (auto &gen : gens)
         {
-            GenerateSingleFile(gen, loglevels, subs);
+            GenerateSingleFile(gen,  loglevels, subs);
         }
 
     }
@@ -28,7 +28,8 @@ namespace CONFIGURATOR
     * @param[in] subsystems A vector of sub systems parsed from the XML config file 
     * @exception GException if the file cannot be created */
     void
-    LFileCreator::GenerateSingleFile(const generator& gen, const loglevel_vec& loglevels, const subsystem_vec& subsystems)
+    LFileCreator::GenerateSingleFile(const generator_ptr& gen, const logentity_vec  loglevels, 
+                                     const sysentity_vec subsystems)
     {
         gen->GenerateContent(loglevels, subsystems); /// Generating the file content
         vector<string> lines = gen->GetContent();

@@ -6,7 +6,7 @@
 * @author Per Thomas Hille <pth@embc.no>           *
 ***************************************************/
 
-#include <xml/GXmlParser.h>
+#include <xml-parser/xml/GXmlParser.h>
 #include <memory>
 
 #include <vector>
