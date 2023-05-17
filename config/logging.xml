@@ -21,6 +21,9 @@
         <LOGLEVEL>
             <LEVEL>DEBUG</LEVEL>
         </LOGLEVEL>
+        <LOGLEVEL>
+            <LEVEL>FORCE_DEBUG</LEVEL>
+        </LOGLEVEL>
     </LEVELS>
     
     <SUBSYSTEMS>

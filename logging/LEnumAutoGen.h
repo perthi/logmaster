@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Wed 17 May-2023 23:27:52  ***/
+/*** Generated at: Thu 18 May-2023 00:33:47  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -68,6 +68,6 @@ enum eLOGLEVEL
 	LOG_WARNING 		=  0x04,    //  00000100
 	LOG_INFO 		=  0x08,    //  00001000
 	LOG_DEBUG 		=  0x10,    //  00010000
-	LOG_FORCE_DEBUG		= 0x20,  // 00100000
+	LOG_FORCE_DEBUG 	=  0x20,    //  00100000
 	LOG_ALL			=  0xff,    //  11111111   All sub systems
 };

@@ -3,7 +3,7 @@
   xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning">
   <xs:simpleType name="LogLevel">
     <xs:restriction base="xs:string">
-      <xs:pattern value="[A-Z]+[0-9]*"/>
+      <xs:pattern value="[A-Z,_]+[0-9]*"/>
       <!--  <xs:pattern value="[A-Z]+"/>-->
       <xs:enumeration value="DEBUG"/>
       <xs:enumeration value="INFO"/>
@@ -12,6 +12,7 @@
       <xs:enumeration value="FATAL"/>
       <xs:enumeration value="FATAL2"/>
       <xs:enumeration value="FORCE"/>
+      <xs:enumeration value="FORCE_DEBUG"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="SystemType">

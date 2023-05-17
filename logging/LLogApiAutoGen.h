@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Wed 17 May-2023 23:27:52  ***/
+/*** Generated at: Thu 18 May-2023 00:33:47  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -71,6 +71,14 @@
 #define EX_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
+#define EXCEPTION_FORCE_DEBUG(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_EXCEPTION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EXCEPTION_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_EXCEPTION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EX_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_EXCEPTION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EX_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_EXCEPTION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EXCEPTION_FORCE_DEBUG_U(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EX_FORCE_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
 
 
 
@@ -98,6 +106,11 @@
 #define FSM_DEBUG(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_FSM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define FSM_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_FSM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define FSM_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_FSM | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define FSM_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_FSM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define FSM_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_FSM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define FSM_FORCE_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_FSM | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
 
@@ -144,6 +157,14 @@
 #define MSG_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_MESSAGE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
+#define MESSAGE_FORCE_DEBUG(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_MESSAGE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MESSAGE_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_MESSAGE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MSG_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_MESSAGE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MSG_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_MESSAGE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MESSAGE_FORCE_DEBUG_U(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_MESSAGE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MSG_FORCE_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_MESSAGE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
 
 
 
@@ -173,6 +194,11 @@
 #define COM_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_COM | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
+#define COM_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define COM_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define COM_FORCE_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_COM | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
 
 
 
@@ -200,6 +226,11 @@
 #define XML_DEBUG(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_XML, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define XML_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_XML, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define XML_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_XML | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define XML_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_XML, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define XML_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_XML, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define XML_FORCE_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_XML | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
 
@@ -246,6 +277,14 @@
 #define DB_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_DATABASE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
+#define DATABASE_FORCE_DEBUG(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DATABASE_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_DATABASE, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DATABASE_FORCE_DEBUG_U(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_DATABASE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define DB_FORCE_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_DATABASE | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
 
 
 
@@ -288,6 +327,14 @@
 #define USR_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define USER_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_USER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define USR_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_USER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define USER_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define USER_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define USR_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define USR_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define USER_FORCE_DEBUG_U(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_USER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define USR_FORCE_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_USER | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
 
@@ -334,6 +381,14 @@
 #define G_DEBUG_U(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_GENERAL | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
+#define GENERAL_FORCE_DEBUG(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_GENERAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define GENERAL_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_GENERAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define G_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_GENERAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define G_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_GENERAL, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define GENERAL_FORCE_DEBUG_U(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_GENERAL | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define G_FORCE_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_GENERAL | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
 
 
 
@@ -361,6 +416,11 @@
 #define ALARM_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_ALARM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define ALARM_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_ALARM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define ALARM_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_ALARM | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define ALARM_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_ALARM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define ALARM_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_ALARM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define ALARM_FORCE_DEBUG_U(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_ALARM | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
 

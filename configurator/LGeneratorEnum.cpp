@@ -61,7 +61,7 @@ namespace CONFIGURATOR
             i++;
         }
 
-        content.push_back("\tLOG_FORCE_DEBUG\t\t= " +   LUtilities::ToHexString(1 << i, 2) + ",  // " + LUtilities::ToBinaryString(1 << i, 8));
+       // content.push_back("\tLOG_FORCE_DEBUG\t\t= " +   LUtilities::ToHexString(1 << i, 2) + ",  // " + LUtilities::ToBinaryString(1 << i, 8));
         content.push_back("\tLOG_ALL\t\t\t=  0xff,    //  11111111   All sub systems");
         content.push_back("};");
     }
