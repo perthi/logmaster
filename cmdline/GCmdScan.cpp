@@ -206,7 +206,7 @@ GCmdScan::SetParametersVI(std::shared_ptr<GArgument>  a, vector<string> vs) cons
     }
     else
     {
-        EXCEPTION("cast failed (attemted to cast a to %s", typeid(U).name());
+        EXCEPTION("cast failed (attempted to cast a to %s", typeid(U).name());
     }
 }
 

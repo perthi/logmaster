@@ -49,12 +49,12 @@ TEST_F( TestException, simple)
      SET_LOGFORMAT("1000001");
 
      EXPECT_ANY_THROW(EXCEPTION("a simple exception"));
-	 EXPECT_EQ(g_file()->ReadFirstLine(f1),  "<Fatal:Exeption>         \ta simple exception (class GException)");
+	 EXPECT_EQ(g_file()->ReadFirstLine(f1),  "<Fatal:Exception>        \ta simple exception (class GException)");
      SET_LOGFILENAME(f2);
 
      string f = "dontexist.txt";
      EXPECT_THROW(FILE_NOT_FOUND_EXCEPTION("Cannot find file: %s", f.c_str()), GFileNotFoundException);
-     EXPECT_EQ( g_file()->ReadFirstLine(f2), "<Fatal:Exeption>         \tCannot find file: dontexist.txt (class GFileNotFoundException)");
+     EXPECT_EQ( g_file()->ReadFirstLine(f2), "<Fatal:Exception>        \tCannot find file: dontexist.txt (class GFileNotFoundException)");
 
      g_system()->rm(f1);
      g_system()->rm(f2);
@@ -64,6 +64,8 @@ TEST_F( TestException, simple)
   }
  
 
+
+ 
  TEST_F(TestException, NSR248)
  {
      SET_LOGFORMAT("0000001");
@@ -98,7 +100,6 @@ TEST_F(TestException, assert_macro)
 }
 
 
- /*
  TEST_F(TestException, buffer_overwrite_NSR1737)
  {
  	PUSH();
@@ -119,7 +120,6 @@ TEST_F(TestException, assert_macro)
  	EXPECT_STREQ("The exception message is:\tlorem ipsum (class GException)\n", msg );
 	POP();
  }
-*/
 
 
 
@@ -183,4 +183,4 @@ TEST_F(TestException, disable_execptionNSR1769)
  		EXPECT_STREQ("\tlorem ipsum, the number is 42 (class GException)\n", e.what());
  	}
  }
-
+ 

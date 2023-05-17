@@ -6,7 +6,7 @@
 #include  <configurator/LCopyright.h>
 #include  <configurator/LXmlEntityLogLevel.h>
 #include  <configurator/LXmlEntitySubSystem.h> 
-#include  <configurator/LGeneratorLoggingSystem.h>
+#include  <configurator/LGeneratorLoggingSystemTests.h>
 #include  <utilities/GUtilities.h>
 #include  <logging/LLogApi.h>
 using namespace LOGMASTER;

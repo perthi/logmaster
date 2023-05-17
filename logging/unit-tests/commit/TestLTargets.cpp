@@ -131,7 +131,6 @@ TEST_F(TestLTargets, configure_format_specific_target)
 
 
 
-
 TEST_F( TestLTargets, configure_level_specific_target )
 {
      //SET_LOGFORMAT("0000000");
@@ -139,13 +138,16 @@ TEST_F( TestLTargets, configure_level_specific_target )
     
     g->ScanArguments( "-loglevel --all-debug");
    
-    FORCE_DEBUG("START1");
     
     vector<eMSGSYSTEM> e_s = LHashMaps::Instance()->GetSystemEnums();
     vector<eMSGTARGET> e_t = LHashMaps::Instance()->GetTargetEnums();
     
     g->ScanArguments( "-loglevel --all-debug");
+    
+    /** @bug The XML files specifies that the ALARM sub system should not be changed, but it is not respected by the logging system*/
     EXPECT_EQ(PAD(eLOGLEVEL::LOG_WARNING),  (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
+    EXPECT_EQ(PAD(eLOGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT));
+
 
     g->ScanArguments( "-loglevel --all-warning");
     g_utilities()->FilterOut( e_s, { eMSGSYSTEM::SYS_ALL, eMSGSYSTEM::SYS_NONE, eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EXCEPTION } );
@@ -184,13 +186,12 @@ TEST_F( TestLTargets, configure_level_specific_target )
         }
     }
     
+   
+    /** @bug The XML files specifies that the ALARM sub system should not be changed, but it is not respected by the logging system*/
     EXPECT_EQ(PAD(eLOGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
     EXPECT_EQ(PAD(eLOGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
     EXPECT_EQ(PAD(eLOGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
     EXPECT_EQ(PAD(eLOGLEVEL::LOG_WARNING), (int64_t)l->GetLogLevel(eMSGSYSTEM::SYS_ALARM, eMSGTARGET::TARGET_STDOUT ));
-    
-
-   FORCE_DEBUG("END1");
     
 
 }

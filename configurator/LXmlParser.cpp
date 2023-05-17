@@ -101,7 +101,9 @@ using namespace CONFIGURATOR;
 	std::shared_ptr < LXmlEntityLogLevel >
 		LXmlParser::ParseLogLevel(std::shared_ptr<GXmlStreamReader>  r, const string   closing_tag)
 	{
-		static int index = 1;
+		//static int index = 1;
+		static int index = 0;
+
 		std::shared_ptr<LXmlEntityLogLevel> l = std::make_shared<LXmlEntityLogLevel>();
 		l->fName = GetTagValue<string>(r, "LEVEL", GLOCATION_SRC);
 		l->fIndex = index;
@@ -118,7 +120,9 @@ using namespace CONFIGURATOR;
 		LXmlParser::ParseSubSystem(std::shared_ptr<GXmlStreamReader>  r, const string  closing_tag)
 	{
 		/** @bug index is not reset if the parser is called twice (which should not happen) */
-		static int index = 1;
+		//static int index = 1;
+		static int index = 0;
+
 		std::shared_ptr< LXmlEntitySubSystem> s = std::make_shared< LXmlEntitySubSystem>();
 		s->fName = GetTagValue<string>(r, "NAME", GLOCATION_SRC);
 		s->fNameShort = GetTagValue<string>(r, "SHORT_NAME", GLOCATION_SRC);

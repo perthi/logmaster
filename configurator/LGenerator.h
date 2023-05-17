@@ -44,6 +44,8 @@ namespace CONFIGURATOR
 
 		vector<string>& GetContent() { return fFileLineEntries; };
 		
+	
+
 	protected:
 		static LXMLInfo fXMLFileNames;						// XML and XSD file used to generate files
 		string fFilePath = "UNKNOWN";						//!< Full path of the .cpp or .h source file to be generated

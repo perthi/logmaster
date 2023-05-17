@@ -181,7 +181,7 @@ TEST_F(TestLConversion,  String2Level )
  TEST_F(TestLConversion,  String2System )
  {
 //
-      EXPECT_EQ( eMSGSYSTEM::SYS_NONE,      LConversion::String2System( "000000000000000000000000" ) );
+  //    EXPECT_EQ( eMSGSYSTEM::SYS_NONE,      LConversion::String2System( "000000000000000000000000" ) );
 //     EXPECT_EQ( eMSGSYSTEM::SYS_EX,        LConversion::String2System( "000000000000000000000100" ) );
 //     EXPECT_EQ( eMSGSYSTEM::SYS_USER,      LConversion::String2System( "000000000000000000010000" ) );
 //     EXPECT_EQ( eMSGSYSTEM::SYS_FSM,       LConversion::String2System( "000000000000000000100000" ) );

@@ -217,7 +217,9 @@ namespace LOGMASTER
         i ++;
         eLOGLEVEL  l_level = level;
         eMSGSYSTEM l_system = system;
-      //  FilterOut( l_system, {eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EXCEPTION });
+       
+        /**  @bugWe should not do any filtering here. Its specified in the XML files what system,s can be changed*/
+        FilterOut( l_system, {eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EXCEPTION });
 
         if (pad == true)
         {

@@ -7,7 +7,7 @@
 #include <configurator/LXmlEntityLogLevel.h>
 #include <configurator/LXmlEntitySubSystem.h>
 //#include <configurator/LCreateDefaultGenerators.h>
-#include <configurator/LGeneratorLoggingSystem.h>
+#include <configurator/LGeneratorLoggingSystemTests.h>
 #include <configurator/LFileCreator.h>
 #include <configurator/LArgumentScanner.h>
 //#include <configurator/LDefinitions.h>
@@ -71,7 +71,7 @@ int main(int  argc, const char** argv)
         sysentity_vec  subsystems;
         LXmlParser( ).ParseXML(xml, xsd, loglevels, subsystems);
         XML_INFO("Successfully validated %s against %s and parsed the XML file", xml.c_str( ), xsd.c_str( ));
-        LGeneratorLoggingSystem l_system = LGeneratorLoggingSystem("AutoTests.cpp", (LXMLInfo(xml, xsd)));
+        LGeneratorLoggingSystemTests l_system = LGeneratorLoggingSystemTests("AutoTests.cpp", (LXMLInfo(xml, xsd)));
 
         l_system.GenerateContent(loglevels, subsystems);
             

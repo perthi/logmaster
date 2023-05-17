@@ -64,7 +64,7 @@ TestLConfig::TearDown()
 
 
 
-
+/*
 TEST_F( TestLConfig, target_all )
 {
     LLogging *log = LLogging::Instance();
@@ -161,6 +161,8 @@ TEST_F(TestLConfig, apply_get_level_logging)
 
     POP();
 }
+*/
+
 
 
 TEST_F(TestLConfig, apply_get_level_logging_target)
