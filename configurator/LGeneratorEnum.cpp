@@ -1,13 +1,15 @@
 // -*- mode: c++ -*-
 #include "LGeneratorEnum.h"
-#include <configurator/LXmlEntitySubSystem.h>
-#include <configurator/LXmlEntityLogLevel.h>
+#include "LXmlEntitySubSystem.h"
+#include "LXmlEntityLogLevel.h"
+#include "LUtilities.h"
 
+#include <utilities/GUtilities.h>
 
 #include <logging/LLogApi.h>
 using namespace LOGMASTER;
 
-#include <bitset>
+
 
 
 namespace CONFIGURATOR
@@ -54,12 +56,12 @@ namespace CONFIGURATOR
 
         for (auto& lvl : levels)
         {
-            string line = g_utilities()->TabAlign("\tLOG_" + lvl->fName + " ", 3) + "=  " + ToHexString(1 << i, 2) + ",    //  " + ToBinaryString(1 << i, 8);
+            string line = g_utilities()->TabAlign("\tLOG_" + lvl->fName + " ", 3) + "=  " + LUtilities::ToHexString(1 << i, 2) + ",    //  " +  LUtilities::ToBinaryString(1 << i, 8);
             lines.push_back(line);
             i++;
         }
 
-        lines.push_back("\tLOG_FORCE_DEBUG\t\t= " + ToHexString(1 << i, 2) + ",  // " + ToBinaryString(1 << i, 8));
+        lines.push_back("\tLOG_FORCE_DEBUG\t\t= " +   LUtilities::ToHexString(1 << i, 2) + ",  // " + LUtilities::ToBinaryString(1 << i, 8));
         lines.push_back("\tLOG_ALL\t\t\t=  0xff,    //  11111111   All sub systems");
         lines.push_back("};");
     }
@@ -87,7 +89,7 @@ namespace CONFIGURATOR
 
         for (auto& sys : systems)
         {
-            string line = g_utilities()->TabAlign("\tSYS_" + sys->fName + " ", 3) + "=  " + ToHexString(1 << i) + ",    //  " + ToBinaryString(1 << i);
+            string line = g_utilities()->TabAlign("\tSYS_" + sys->fName + " ", 3) + "=  " + LUtilities::ToHexString(1 << i) + ",    //  " +  LUtilities::ToBinaryString(1 << i);
             lines.push_back(line);
             i++;
         }

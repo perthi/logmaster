@@ -2,6 +2,7 @@
 #include <utilities/GUtilities.h>
 #include <utilities/GString.h>
 #include <sstream>
+#include <bitset>
 
 namespace CONFIGURATOR
 {
