@@ -45,20 +45,13 @@ using namespace LOGMASTER;
 using std::string;
 
 
-
-
-
-
 using namespace LOGMASTER;
 using namespace CONFIGURATOR;
 
 
 int main(int  argc, const char** argv)
 {
-
-
-
-    LConversion::String2System("000000110000000000000100");
+   // LConversion::String2System("000000110000000000000100");
 
 
     GMenu::Instance( )->ScanArguments(argc, argv);
@@ -78,10 +71,6 @@ int main(int  argc, const char** argv)
         sysentity_vec  subsystems;
         LXmlParser( ).ParseXML(xml, xsd, loglevels, subsystems);
         XML_INFO("Successfully validated %s against %s and parsed the XML file", xml.c_str( ), xsd.c_str( ));
-        
-
-       
-
         LGeneratorLoggingSystem l_system = LGeneratorLoggingSystem("AutoTests.cpp", (LXMLInfo(xml, xsd)));
 
         l_system.GenerateContent(loglevels, subsystems);

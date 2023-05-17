@@ -11,19 +11,19 @@ namespace CONFIGURATOR
     LGeneratorLoggingSystem::LGeneratorLoggingSystem(const string fname, const LXMLInfo xmlinfo) : LGenerator(fname, xmlinfo)
     {
     }
-    void LGeneratorLoggingSystem::GenerateContent(logentity_vec levels, sysentity_vec systems)
+    void LGeneratorLoggingSystem::GenerateContent(const logentity_vec levels, const sysentity_vec systems)
     {
         PUSH();
         SET_LOGFORMAT("1000001");
 
         for (auto l : levels)
         {
-            FORCE_DEBUG("name = %s", l->fName.c_str() );
+            FORCE_DEBUG("fName = %s", l->fName.c_str() );
         }
 
         for (auto s : systems)
         {
-            FORCE_DEBUG("Name:%s Short name: %s  tag:%s  tag-short:%s",s->fName.c_str(), s->fNameShort.c_str(), 
+            FORCE_DEBUG("fName:%s fNameShort: %s  fTag:%s  fTagShort:%s",s->fName.c_str(), s->fNameShort.c_str(), 
                 s->fTag.c_str(), s->fTagShort.c_str() );
 
             
