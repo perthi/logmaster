@@ -118,15 +118,15 @@ bool throw_exception(const T &e)
     }
     else
     {
-        EX_FATAL("Fatal condition that would have resultetd in an exception, but exceptions was switched off !!");
-        EX_FATAL("%s", e.what());
+      //  EXCEPTION_FATAL("Fatal condition that would have resulted in an exception, but exceptions was switched off !!");
+      //  EXCEPTION_FATAL("%s", e.what());
         return false;
     }
 
     return true;
 }
 
-/** Common macro defintions of Exception classes */
+/** Common macro definitions of Exception classes */
 
 EXCEPTION_CLASS_CPP(GException)
 EXCEPTION_CLASS_H(   GFileNotFoundException )

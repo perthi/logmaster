@@ -378,8 +378,8 @@ namespace LOGMASTER
          *
          * The hash table maps between a string tag (i.e --all, --info etc..) and the corresponding logging level and subsystem on binary format.
          * The second entry is a 32 bit integer where the most significant 8 bits represents the loglevel and the least significant 16 bits the the subsystem.
-         * The hashmap is static and is initialzed only once. The actual loglevel is contained in the fLogLevelHash hashmap. The loglevel is padded with ones so that if a higher loglevel is
-         * set, all lower leves are set. This is typically the behaviour the user expects. For example, if the loglevel is EXCEPTION_CLASS_CPP(GEngineException)set to WARNING, then one would expect
+         * The hashmap is static and is initialized only once. The actual loglevel is contained in the fLogLevelHash hashmap. The loglevel is padded with ones so that if a higher loglevel is
+         * set, all lower levels are set. This is typically the behavior the user expects. For example, if the loglevel is EXCEPTION_CLASS_CPP(GEngineException)set to WARNING, then one would expect
          * to also get messages with higher severity, that is ERROR and FATAL.
          * The padding is done at the end, after the hash map has been poulated.**/
     void

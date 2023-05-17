@@ -25,6 +25,15 @@
     
     <SUBSYSTEMS>
         <SYSTEM>
+            <NAME>EXCEPTION</NAME>
+            <SHORT_NAME>EXCEPTION</SHORT_NAME>
+            <TAG>--exception</TAG>
+            <TAG_SHORT>--ex</TAG_SHORT>
+            <DEFAULT>ERROR</DEFAULT>
+            <CAN_MODIFY>false</CAN_MODIFY>
+            <FORCE_OUTPUT>false</FORCE_OUTPUT>
+        </SYSTEM>
+        <SYSTEM>
             <NAME>FSM</NAME>
             <SHORT_NAME>FSM</SHORT_NAME>
             <TAG>--fsm</TAG>

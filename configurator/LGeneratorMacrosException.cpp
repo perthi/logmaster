@@ -76,7 +76,9 @@ namespace CONFIGURATOR
                 buffer << " if(!(expr)) throw_exception( " << ClassName(sys) << "(\t";
                 buffer << "__FILE__,  __func__, __LINE__ , ";
                 auto& e = fSystemEnumName;
-                buffer << "(" << e << ")(" << e << "::SYS_EX | " << e << "::SYS_" << sys->fName << "),\t__VA_ARGS__ ) )";
+                
+                /** @bug SYS_EXCEPTION should be read from XML file, not hard coded */
+                buffer << "(" << e << ")(" << e << "::SYS_EXCEPTION | " << e << "::SYS_" << sys->fName << "),\t__VA_ARGS__ ) )";
                 ass_macros.push_back(buffer.str());
             }
         }

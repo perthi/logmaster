@@ -83,7 +83,8 @@ namespace CONFIGURATOR
         content.push_back("#endif");
         content.push_back(" {");
         content.push_back("\tSYS_NONE\t\t=  0x0000,    //  00000000 00000000    No sub system");
-        content.push_back("\tSYS_EX\t\t\t=  0x0001,    //  00000000 00000001    The exception handling sub system");
+        
+        //content.push_back("\tSYS_EX\t\t\t=  0x0001,    //  00000000 00000001    The exception handling sub system");
 
         int i = 1;
 
