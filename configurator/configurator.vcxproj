@@ -154,6 +154,7 @@
     <ClCompile Include="LCopyright.cpp" />
     <ClCompile Include="LCreateDefaultGenerators.cpp" />
     <ClCompile Include="LFileCreator.cpp" />
+    <ClCompile Include="LFileInfo.cpp" />
     <ClCompile Include="LGenerator.cpp" />
     <ClCompile Include="LGeneratorEnum.cpp" />
     <ClCompile Include="LGeneratorHashMap.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="LCreateDefaultGenerators.h" />
     <ClInclude Include="LDefinitions.h" />
     <ClInclude Include="LFileCreator.h" />
+    <ClInclude Include="LFileInfo.h" />
     <ClInclude Include="LGenerator.h" />
     <ClInclude Include="LGeneratorEnum.h" />
     <ClInclude Include="LGeneratorHashMap.h" />

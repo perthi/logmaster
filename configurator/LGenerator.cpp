@@ -8,6 +8,7 @@
 #include "LCopyright.h"
 #include <utilities/GString.h>
 #include <logging/LLogApi.h>
+#include <logging/GException.h>
 
 using namespace LOGMASTER;
 
@@ -20,14 +21,26 @@ namespace CONFIGURATOR
 	 * file is derived from the path to ensure that the class names is always the
 	 * same as the file name (excluding the suffix) which must be the default for all
 	 * classes
-	 * @param[in] path File path where the generated file will be written.
+	 * @param[in] path File path to the directory where the generated file h/cpp files will be written.
 	 * @param[in] xmlinfo Struct containing the name of the XML file defining logging macros
 	 * etc, and the corresponding XSD file*/
-	LGenerator::LGenerator(const string path, const  LXMLInfo xmlinfo) : fFilePath(path)
+	LGenerator::LGenerator(const string path, const string classname, const  LXMLInfo xmlinfo) : fFilePath(path)
 	{
+		//fClassName = g_string()->Path2ClassName(path);
+		fClassName = classname;
+
+		//XML_ASSERT_EXCEPTION( g_string()->EndsWith(classname)         );
+
+		fSourceFileName = fClassName + ".cpp";
+		fHeaderFileName = fClassName + ".h";
+		
+		
+		/*
 		fClassName = g_string()->Path2ClassName(path);
 		fSourceFileName = fClassName + ".cpp";
 		fHeaderFileName = fClassName + ".h";
+		*/
+
 		GenerateLicenseHeader(xmlinfo);
 
 	}

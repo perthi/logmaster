@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Wed 17 May-2023 06:52:23  ***/
+/*** Generated at: Thu 18 May-2023 00:33:47  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -57,11 +57,22 @@ LLogTestAutoGen::WriteMessages()
 
         fval = g_random()->Uniform<float>(-10, 100);
         ival = g_random()->Uniform<int>(-10, 1000);
+        EXCEPTION_FATAL("This is a EXCEPTION_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EXCEPTION_ERROR("This is a EXCEPTION_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EXCEPTION_WARNING("This is a EXCEPTION_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EXCEPTION_INFO("This is a EXCEPTION_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EXCEPTION_DEBUG("This is a EXCEPTION_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EXCEPTION_FORCE_DEBUG("This is a EXCEPTION_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+
+
+        fval = g_random()->Uniform<float>(-10, 100);
+        ival = g_random()->Uniform<int>(-10, 1000);
         FSM_FATAL("This is a FSM_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
         FSM_ERROR("This is a FSM_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
         FSM_WARNING("This is a FSM_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
         FSM_INFO("This is a FSM_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
         FSM_DEBUG("This is a FSM_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        FSM_FORCE_DEBUG("This is a FSM_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);
@@ -71,6 +82,7 @@ LLogTestAutoGen::WriteMessages()
         MESSAGE_WARNING("This is a MESSAGE_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
         MESSAGE_INFO("This is a MESSAGE_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
         MESSAGE_DEBUG("This is a MESSAGE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MESSAGE_FORCE_DEBUG("This is a MESSAGE_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);
@@ -80,6 +92,7 @@ LLogTestAutoGen::WriteMessages()
         COM_WARNING("This is a COM_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
         COM_INFO("This is a COM_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
         COM_DEBUG("This is a COM_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        COM_FORCE_DEBUG("This is a COM_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);
@@ -89,6 +102,7 @@ LLogTestAutoGen::WriteMessages()
         XML_WARNING("This is a XML_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
         XML_INFO("This is a XML_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
         XML_DEBUG("This is a XML_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        XML_FORCE_DEBUG("This is a XML_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);
@@ -98,6 +112,7 @@ LLogTestAutoGen::WriteMessages()
         DATABASE_WARNING("This is a DATABASE_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
         DATABASE_INFO("This is a DATABASE_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
         DATABASE_DEBUG("This is a DATABASE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        DATABASE_FORCE_DEBUG("This is a DATABASE_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);
@@ -107,6 +122,7 @@ LLogTestAutoGen::WriteMessages()
         USER_WARNING("This is a USER_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
         USER_INFO("This is a USER_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
         USER_DEBUG("This is a USER_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        USER_FORCE_DEBUG("This is a USER_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);
@@ -116,6 +132,7 @@ LLogTestAutoGen::WriteMessages()
         GENERAL_WARNING("This is a GENERAL_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
         GENERAL_INFO("This is a GENERAL_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
         GENERAL_DEBUG("This is a GENERAL_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        GENERAL_FORCE_DEBUG("This is a GENERAL_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);
@@ -125,6 +142,7 @@ LLogTestAutoGen::WriteMessages()
         ALARM_WARNING("This is a ALARM_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
         ALARM_INFO("This is a ALARM_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
         ALARM_DEBUG("This is a ALARM_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        ALARM_FORCE_DEBUG("This is a ALARM_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
     cout << endl;
 }
 }
