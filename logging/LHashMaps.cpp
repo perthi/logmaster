@@ -377,11 +377,11 @@ namespace LOGMASTER
     /** @brief Initialization of hash tags for the logging system used  on the command line or via the programming API
          *
          * The hash table maps between a string tag (i.e --all, --info etc..) and the corresponding logging level and subsystem on binary format.
-         * The second entry is a 32 bit integer where the most significant 8 bits represents the loglevel and the least significant 16 bits the the subsystem.
-         * The hashmap is static and is initialized only once. The actual loglevel is contained in the fLogLevelHash hashmap. The loglevel is padded with ones so that if a higher loglevel is
-         * set, all lower levels are set. This is typically the behavior the user expects. For example, if the loglevel is EXCEPTION_CLASS_CPP(GEngineException)set to WARNING, then one would expect
+         * The second entry is a 32 bit integer where the most significant 8 bits represents the log level and the least significant 16 bits the subsystem.
+         * The hash map is static and is initialized only once. The actual log level is contained in the fLogLevelHash hash map. The log level is padded with ones so that if a higher log level is
+         * set, all lower levels are set. This is typically the behavior the user expects. For example, if the log level is EXCEPTION_CLASS_CPP(GEngineException)set to WARNING, then one would expect
          * to also get messages with higher severity, that is ERROR and FATAL.
-         * The padding is done at the end, after the hash map has been poulated.**/
+         * The padding is done at the end, after the hash map has been populated.**/
     void
     LHashMaps::InitHashLogTags()
     {

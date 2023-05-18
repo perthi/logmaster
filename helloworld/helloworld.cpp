@@ -49,6 +49,7 @@ using namespace LOGMASTER;
 using namespace CONFIGURATOR;
 
 
+
 int main(int  argc, const char** argv)
 {
     LConversion::String2System("000000110000000000000100");

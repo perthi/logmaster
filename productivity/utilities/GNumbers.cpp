@@ -32,7 +32,7 @@
 
 #include <sstream>
 #include <bitset>
-
+#include <format>
 
 //#ifndef GNUMBERSXXX_CPP
 //#define GNUMBERSXXX_CPP
@@ -102,13 +102,8 @@ GNumbers::Dec2Hex(const string  str)
 
 
 
-
-
-
-
-
-
- /** Converts a number to a binary string representation
+/**@{
+ /** Converts a number to a binary/hex string representation
  * @param number The number that will be represented as a binary/hex string
  * @widt The number of digits in the string, regardless of the value of "num".
  * The string will be padded with zeros. The default width is 64 bits.
@@ -118,25 +113,52 @@ GNumbers::Dec2Hex(const string  str)
  string 
   GNumbers::Number2BinaryString(const uint64_t number, const int width, const int shift)
  {
-     auto num_l = number;
-     /** @todo warn or throw exception if overflow after bit shifting */
-     std::bitset<64> num(num_l << shift);
-     std::stringstream buffer;
-     buffer << num  << std::setfill('0');
+     auto num_l = (number << shift);
      
-    
-     if ( width < 64 )
+     /** @todo warn or throw exception if overflow after bit shifting */
+   
+     
+     if ( width <= 64 && width > 0)
      {
+         std::bitset<64> num(num_l);
+         std::stringstream buffer;
+         buffer << num << std::setfill('0');
+         
          return  buffer.str().substr(64 - width);
      }
      else
      {
-         return buffer.str( );
+         return std::format("{:b}", num_l);
      }
   }
- 
 
 
+ //unsigned char a = -58;
+ //std::cout << std::format("{:b}", a);
+
+ string    
+ GNumbers::Number2BHexString(const uint64_t number, const int width, const int shift)
+ {
+     /** @todo warn or throw exception if overflow after bit shifting */
+     int64_t num = shift > 0 ?  (number << shift) : number;
+     std::stringstream buffer;
+     if (width > 0)
+     {
+         buffer << std::setfill('0') << std::setw(width);
+     }
+
+     buffer << std::hex << num;
+    
+     return buffer.str();
+ }
+
+ /*
+ stream << std::setfill('0') << std::setw(sizeof(your_type) * 2)
+     << std::hex << your_int;
+     */
+
+
+ /**@}
 
 
  /**@{
@@ -144,7 +166,7 @@ GNumbers::Dec2Hex(const string  str)
 *  @param[in] b  The string to convert
 *  @return the corresponding number as a 64 bit int
 *  @exception GException  if the system dependent maximum  number if bits is exceeded, or if the string has wrong format. Ths is,
-*  not valid binary string format containing 0'oes nad 1'nes, and/or an optional preceding minus sign. */
+*  not valid binary string format containing 0'oes and 1'nes, and/or an optional preceding minus sign. */
  int64_t
 GNumbers::BinaryString2Number(const string b)
 {

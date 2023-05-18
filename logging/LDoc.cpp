@@ -122,13 +122,12 @@ Example 1) --all-debug = All subsystem is using loglevel debug\n\t\tExample 2) -
         std::stringstream buffer;
         buffer << "*** USAGE ***" << endl;
         buffer << "1) Either Use any number of subcommands ( starting with --)" << endl;
-        buffer << "2) OR: Specify a number indicating the loglevel" << endl;
+        buffer << "2) OR: Specify a number indicating the log level" << endl;
         buffer << "3) If on number form the number must be either a string of  ZERO and ONES containing exactly 16 bits" << endl;
         buffer << "\tOr a hex number starting with 0x and  having exactly 4 fields" << endl;
         
         buffer  << "****  SUB COMMANDS CONTROLLING THE LOGLEVEL ***** " << endl;
 
-   //     buffer << "Available subcommands are: Valid sub-commands are\n" << g_utilities()->Hash2String (LHashMaps::GetSubCmdHash() ) << endl;
         buffer  << g_utilities()->Hash2String (LHashMaps::GetSubCmdHash() ) << endl;
         buffer << "           ****   DONE *****                        "    << endl;    
          

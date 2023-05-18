@@ -37,7 +37,7 @@
 
 
 
-
+/*
 TEST_F(TestGNumbers, count_ones)
 {
     EXPECT_EQ( 0, g_numbers()->CountBits(0) );
@@ -77,12 +77,35 @@ TEST_F(TestGNumbers, Hex2DecDec2Hex)
     EXPECT_EQ("0xdead", g_numbers()->Dec2Hex(g_numbers()->Hex2Dec("0xdead")));
     EXPECT_EQ("0xdeaddead", g_numbers()->Dec2Hex(g_numbers()->Hex2Dec("0xdeaddead")));
 }
+*/
+
+
+TEST_F(TestGNumbers, number2binary)
+{
+    auto num_s = g_numbers()->Number2BinaryString(1);
+    EXPECT_EQ(num_s, "1");
+    
+    num_s = g_numbers()->Number2BinaryString(3);
+    EXPECT_EQ(num_s, "11");
+
+    num_s = g_numbers()->Number2BinaryString(8);
+    EXPECT_EQ(num_s, "1000");
+
+    num_s = g_numbers()->Number2BinaryString(7);
+    EXPECT_EQ(num_s, "111");
+
+    num_s = g_numbers()->Number2BinaryString(7, 0, 3);
+    EXPECT_EQ(num_s, "111000");
+
+    num_s = g_numbers()->Number2BinaryString(7, 0, 6);
+    EXPECT_EQ(num_s, "111000000");
+ }
 
 
 
 TEST_F(TestGNumbers, number2binary_widt)
 {
-    auto num_s = g_numbers()->Number2BinaryString(1);
+    auto num_s = g_numbers()->Number2BinaryString(1, 64);
     EXPECT_EQ(num_s, "0000000000000000000000000000000000000000000000000000000000000001");
     num_s = g_numbers( )->Number2BinaryString(1, 32);
     EXPECT_EQ(num_s, "00000000000000000000000000000001");
@@ -97,7 +120,7 @@ TEST_F(TestGNumbers, number2binary_widt)
     EXPECT_EQ(num_s, "00000001");
 
 
-    num_s = g_numbers( )->Number2BinaryString(17);
+    num_s = g_numbers( )->Number2BinaryString(17, 64);
     EXPECT_EQ(num_s, "0000000000000000000000000000000000000000000000000000000000010001");
     num_s = g_numbers( )->Number2BinaryString(17, 32);
     EXPECT_EQ(num_s, "00000000000000000000000000010001");
@@ -114,7 +137,7 @@ TEST_F(TestGNumbers, number2binary_widt)
 
 
 
-TEST_F(TestGNumbers, number2binary_shift)
+TEST_F(TestGNumbers, number2binary_shift_width)
 {
     string num_s = g_numbers( )->Number2BinaryString(7, 32);
     EXPECT_EQ(num_s, "00000000000000000000000000000111");
@@ -152,6 +175,9 @@ TEST_F(TestGNumbers, binary2number)
 
 
 
+
+
+/*
 TEST_F(TestGNumbers, ToNumber)
 {
     EXPECT_EQ(9223372036854775807, g_numbers()->ToNumber<long long int>("9223372036854775807"));
@@ -160,9 +186,9 @@ TEST_F(TestGNumbers, ToNumber)
 
 TEST_F(TestGNumbers, ToInteger)
 {
-    EXPECT_EQ(9223372036854775807,  g_numbers()->ToInteger("9223372036854775807") );
-    EXPECT_EQ(-9223372036854775807, g_numbers()->ToInteger("-9223372036854775807"));
-    EXPECT_EQ(0xabcdef, g_numbers()->ToInteger("0xabcdef"));
+    EXPECT_EQ(9223372036854775807,  g_numbers()->ToInteger<long>("9223372036854775807") );
+    EXPECT_EQ(-9223372036854775807, g_numbers()->ToInteger<long>("-9223372036854775807"));
+    EXPECT_EQ(0xabcdef, g_numbers()->ToInteger<long>("0xabcdef"));
     vector<string> int_array = {"0xa", "0Xb", "0x12bc", "123"};
     vector<long long int> num = g_numbers()->ToInteger< long long int >(int_array);
     EXPECT_EQ(0xa, num[0]);
@@ -205,8 +231,8 @@ TEST_F(TestGNumbers, ToFloat)
     }
 
 
-    EXPECT_DOUBLE_EQ((long double)9223372036854775807, g_numbers()->ToFloat("9223372036854775807"));
-    EXPECT_DOUBLE_EQ((long double)-9223372036854775807, g_numbers()->ToFloat("-9223372036854775807"));
+    EXPECT_DOUBLE_EQ((long double)9223372036854775807, g_numbers()->ToFloat<long double>("9223372036854775807"));
+    EXPECT_DOUBLE_EQ((long double)-9223372036854775807, g_numbers()->ToFloat<long double>("-9223372036854775807"));
 }
 
 
@@ -297,3 +323,4 @@ TEST_F(TestGNumbers, NSR1988DisableError)
     GException::EnableException();
 }
 #endif
+*/

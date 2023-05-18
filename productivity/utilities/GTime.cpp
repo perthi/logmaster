@@ -185,7 +185,7 @@ GTime::DateString2Time(const string date, const string format, std::tm *t, int64
             if (g_number_types()->IsNumber(snum))
             {
                 snum = "." + snum;
-                double d = g_numbers()->ToFloat(snum);
+                double d = g_numbers()->ToFloat<double>(snum);
                 *us = (int64_t)(d * 1000000);
             }
             else

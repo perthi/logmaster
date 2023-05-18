@@ -147,9 +147,6 @@ namespace LOGMASTER
 		case  eMSGTARGET::TARGET_STDOUT:
 			buffer <<  "eMSGTARGET::TARGET_STDOUT";
 			break;
-//		case  eMSGTARGET::TARGET_TESTING:
-//		 	buffer <<  "eMSGTARGET::TARGET_TESTING";
-//			 break;
 		case  eMSGTARGET::TARGET_SUBSCRIBERS:
 		 	buffer <<  "eMSGTARGET::TARGET_SUBSCRIBERS";
 			 break;	 

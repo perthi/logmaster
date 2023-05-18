@@ -65,11 +65,11 @@ GCmdScan::SetParameterVal_t(std::shared_ptr<GArgument> a, GArgumentParsed v) con
             if (args_v.size() == 0)
             {
                 G_FATAL("%s: Argument missing !!", ab->GetCommand().c_str());
-                // d = -1;
+                //d = -1;
             }
             else
             {
-                d = g_numbers()->ToFloat(v.GetArguments()[0]);
+                d = g_numbers()->ToFloat<double>(v.GetArguments()[0]);
             }
         }
         ab->SetParameterVal_t(&d);

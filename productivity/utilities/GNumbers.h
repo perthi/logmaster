@@ -73,15 +73,16 @@ public:
     
   
     int64_t		        API     BinaryString2Number(const string num);
-    string              API     Number2BinaryString(const uint64_t, const int width = 64, const int shift = 0);
     int64_t             API     HexString2Number(const string num);
+    string              API     Number2BinaryString(const uint64_t, const int width = 0, const int shift = 0);
+    string              API     Number2BHexString(const uint64_t, const int width = 0, const int shift = 0);
     
-    template<typename T = long double>     vector<T> API ToFloat(const vector<string> num);
+    template<typename T >     vector<T> API ToFloat(const vector<string> num);
     template<typename T = long double>    T          API ToFloat(const string num);
-   // int64_t                  API            ToHex(const string num);
     
-    template<typename T =  int64_t>  T      API    ToInteger(const string num);
+    template<typename T>  T      API    ToInteger(const string num);
     template<typename T>   vector<T>            API    ToInteger(const vector<string> num);
+    
     
     template< typename  T >  typename std::enable_if<std::is_integral<T>::value, T>::type 
         API ToNumber(const string num) {return ToInteger<T>(num);}
@@ -89,6 +90,8 @@ public:
     template< typename  T >  typename std::enable_if< std::is_floating_point <T>::value, T>::type
        API    ToNumber(const string num){return ToFloat<T>(num);}
     
+
+
     template <typename T> 
     int API CountBits(const T in);
     

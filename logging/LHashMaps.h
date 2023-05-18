@@ -34,16 +34,13 @@ namespace LOGMASTER
 
 	public:
             API    LHashMaps(  );
-          //  API    LHashMaps(const eLOGLEVEL level  );
             API    ~LHashMaps();
             static  LHashMaps API* Instance();
             
             static void		API		InitHash();
-          //  void			API		InitHash( const eLOGLEVEL level );
             static void		API		InitHashMsgFormat();
             static void		API		InitHashLogTags();
             static void		API		InitHashLogTargets();
-         ////  void			API		InitHashLogLevel(const eLOGLEVEL level, map<eMSGSYSTEM, eLOGLEVEL> *hash );
             
             static	string							API DoxygenDoc(const string filename);
             static	map < string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > >  API * GetSubCmdHash();
