@@ -31,15 +31,19 @@ namespace CONFIGURATOR
     LFileCreator::GenerateSingleFile(const generator_ptr& gen, const logentity_vec  loglevels, 
                                      const sysentity_vec subsystems)
     {
+        PUSH( );
+        SET_LOGFORMAT("0000111");
         gen->GenerateContent(loglevels, subsystems); /// Generating the file content
         vector<string> lines = gen->GetContent();
         FILE* fp = nullptr;
 
 #ifdef _WIN32
         fopen_s(&fp, gen->GetFilePath().c_str(), "w");
+        
 #else // 
         fp = fopen(gen->GetFilePath().c_str(), "w");
 #endif
+        FORCE_DEBUG("FilePath = %s",  gen->GetFilePath( ).c_str( ) );
         //CERR << "FILEPATH =  " << gen->GetFilePath() << ENDL;
 
         if (fp != nullptr)
@@ -55,7 +59,7 @@ namespace CONFIGURATOR
         {
             XML_EXCEPTION("FILE IS ZERO POINTER");
         }
-
+        POP( );
     }
 
 }
