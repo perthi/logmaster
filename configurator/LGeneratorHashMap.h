@@ -25,7 +25,7 @@ namespace CONFIGURATOR
     class  LGeneratorHashMap : public  LGenerator
     {
     public:
-        LGeneratorHashMap(const string fname, const LXMLInfo xmlinfo);
+        LGeneratorHashMap(const string path, const string classname, const LXMLInfo xmlinfo);
         virtual ~LGeneratorHashMap() = default;
         virtual void GenerateContent( const logentity_vec levels, const sysentity_vec systems)  override;
 

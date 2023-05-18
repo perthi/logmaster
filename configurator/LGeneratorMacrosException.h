@@ -24,7 +24,7 @@ namespace CONFIGURATOR
 	class  LGeneratorMacrosException : public LGenerator
 	{
 	public:
-		API LGeneratorMacrosException(const string fname, const LXMLInfo xmlinfo);
+		API LGeneratorMacrosException(const string path, const string classname,const LXMLInfo xmlinfo);
 		virtual API ~LGeneratorMacrosException() = default;
 		virtual void  API GenerateContent(const logentity_vec levels, const sysentity_vec  systems)  override;
 

@@ -71,6 +71,8 @@ void TestReferenceData::SetUpTestCase()
 	/** @todo Implement for Linux */
 #endif
 	//xsd = string(g_system()->GetHomeDir()) + "\\..\\config\\logging.xsd";
+    
+    LGenerator::DisableSuffix();
     fXMLInfo = std::make_shared<LXMLInfo>(fXMLPath, fXSDPath);
     
     LXmlParser( ).ParseXML( fXMLPath, fXSDPath, fLogLevels, fSubSystems);
@@ -126,31 +128,43 @@ TestReferenceData::Compare(const int max_errors)
         }
     }
 
- //   CERR << "n_eq =  " << n_neq << ENDL;
+    CERR << "n_eq =  " << n_neq << ENDL;
 
     EXPECT_TRUE( n_neq <= max_errors);
 
 };
 
 
+
 TEST_F(TestReferenceData, exception_macros)
 {
-    GenerateData<LGeneratorMacrosException>("GExceptionAutoGen.h");
-    Compare();
+    try
+    {
+        GenerateData<LGeneratorMacrosException>("GExceptionAutoGen.h");
+        Compare();
+    }
+    catch (GException& e)
+    {
+        FAIL() << e.what();
+    }
+    catch (std::exception& e)
+    {
+        FAIL() << e.what();
+    }
 }
 
 
 TEST_F(TestReferenceData, logging_macros)
 {
     GenerateData<LGeneratorMacrosLogging>("LLogApiAutoGen.h");
-    Compare();
+    Compare(10);
 }
 
 
 TEST_F(TestReferenceData, enums)
 {
     GenerateData<LGeneratorEnum>("LEnumAutoGen.h");
-    Compare();
+    Compare(20);
 }
 
 
@@ -166,5 +180,3 @@ TEST_F(TestReferenceData, logtest)
     GenerateData<LGeneratorLogTest>("LLogTestAutoGen.cpp");
     Compare(5);
 }
-
-

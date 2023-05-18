@@ -24,7 +24,7 @@ namespace CONFIGURATOR
 
 
 	/** @copydoc LGenerator */
-	LGeneratorHashMap::LGeneratorHashMap(const string fname, const LXMLInfo xmlinfo) : LGenerator(fname, xmlinfo)
+	LGeneratorHashMap::LGeneratorHashMap(const string path, const string classname, const LXMLInfo xmlinfo) : LGenerator(path, classname, xmlinfo)
 	{
         fDoGenerateSource = true;
 	}

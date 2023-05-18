@@ -17,7 +17,7 @@ namespace CONFIGURATOR
 
 
     /** @copydoc LGenerator */
-    LGeneratorEnum::LGeneratorEnum(const string fname, const LXMLInfo xmlinfo) : LGenerator(fname, xmlinfo)
+    LGeneratorEnum::LGeneratorEnum(const string path, const string classname,  const LXMLInfo xmlinfo) : LGenerator(path, classname,  xmlinfo)
     {
         fDoGenerateHeader = true;
     }
@@ -93,7 +93,7 @@ namespace CONFIGURATOR
 
         for (auto& sys : systems)
         {
-            FORCE_DEBUG("i = %d, fIIndex = %d", i2, sys->fIndex );
+          //  FORCE_DEBUG("i = %d, fIIndex = %d", i2, sys->fIndex );
 
             string line = g_utilities()->TabAlign("\tSYS_" + sys->fName + " ", 3) + "=  " + LUtilities::ToHexString(1 << sys->fIndex ) + ",    //  " +  LUtilities::ToBinaryString(1 << sys->fIndex );
             content.push_back(line);

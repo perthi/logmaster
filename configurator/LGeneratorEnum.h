@@ -20,7 +20,7 @@ namespace CONFIGURATOR
 	class  LGeneratorEnum : public LGenerator
 	{
 	public:
-		LGeneratorEnum(const string fname, const LXMLInfo xmlinfo);
+		LGeneratorEnum(const string path, const string classname, const LXMLInfo xmlinfo);
 		virtual ~LGeneratorEnum() = default;
 		virtual void  GenerateContent( logentity_vec  levels, sysentity_vec  systems)  override;
 	private:

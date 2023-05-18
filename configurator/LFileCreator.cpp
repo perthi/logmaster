@@ -4,7 +4,7 @@
 
 #include "LGenerator.h"
 #include <logging/GException.h>
-
+#include <format>
 
 namespace CONFIGURATOR
 {
@@ -31,39 +31,33 @@ namespace CONFIGURATOR
     void
     LFileCreator::GenerateSingleFile(const generator_ptr& gen, const logentity_vec  loglevels, const sysentity_vec subsystems)
     {
-       
+        PUSH();
+        SET_LOGFORMAT("0000111");
+        SET_LOGLEVEL("--all-info");
         gen->GenerateContent(loglevels, subsystems); /// Generating the file content
-        
 
-        static int cnt = 0;
+        string basepath = gen->GetFilePath();
 
-        
-      
 
         if ( gen->IsEnabledHeader( ) )
         {
-
-            CERR << "writing header to " << gen->GetFilePath() << "  cnt = "<< cnt  << endl;
-            
-
-            CERR << " (gen->GetContentHeader( ).size()" << gen->GetContentHeader( ).size( ) << endl;
-            
-            
-            WriteFile(gen->GetContentHeader( ), gen->GetFilePath( ));
+            string filename = basepath + gen->GetHeaderFileName();
+            XML_INFO("Writing header to: %s",  filename.c_str() );
+            WriteFile(gen->GetContentHeader( ),  filename );
         }
         else if ( gen->IsEnabledSource( ) )
         {
-            CERR << "writing source to " << gen->GetFilePath( ) << endl;
-            WriteFile(gen->GetContentSource( ), gen->GetFilePath( ));
+            string filename = basepath + gen->GetSourceFileName();
+            XML_INFO("Writing source to: %s", filename.c_str());
+            WriteFile(gen->GetContentSource( ), filename );
         }
         else
         {
-            CERR << "DOING nothing " << gen->GetFilePath( ) << endl;
-            // Nothing to do
-            /** @todo write warning/error message or throw exception */
+            //  Nothing to do, that must be an error
+            XML_EXCEPTION("Nothing to do, neither Source or Header generation is enabled");
         }
 
-        cnt++;
+        POP();
     }
 
 
@@ -71,18 +65,16 @@ namespace CONFIGURATOR
     void
         LFileCreator::WriteFile(const vector<string>& content, const string& filepath)
     {
-        PUSH( );
-        SET_LOGFORMAT("0000111");
+        XML_ASSERT_EXCEPTION(filepath !="", "The filename is empty");
         FILE* fp = nullptr;
-
-        CERR << "Content size = " << content.size() << "\tpath = " << filepath << ENDL;
 
 #ifdef _WIN32
         fopen_s(&fp, filepath.c_str( ), "w");
 #else // 
         fp = fopen(gen->GetFilePath( ).c_str( ), "w");
 #endif
-        FORCE_DEBUG("FilePath = %s", filepath.c_str( ));
+        XML_ASSERT_EXCEPTION(fp !=nullptr, std::format("Could not open: {}, fp = nullptr", filepath).c_str() );
+        
         if ( fp != nullptr )
         {
             for ( auto& l : content )
@@ -96,7 +88,7 @@ namespace CONFIGURATOR
         {
             XML_EXCEPTION("FILE IS ZERO POINTER");
         }
-        POP( );
+       
     }
   
 

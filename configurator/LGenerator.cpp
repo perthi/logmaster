@@ -12,9 +12,11 @@
 
 using namespace LOGMASTER;
 
+
 namespace CONFIGURATOR
 {
 
+	bool  LGenerator::fDoAddSuffix = true;
 
 	/** Class for auto-generated of files for the logging system.
 	 * The .cpp/.h
@@ -30,10 +32,16 @@ namespace CONFIGURATOR
 		fClassName = classname;
 
 		//XML_ASSERT_EXCEPTION( g_string()->EndsWith(classname)         );
+		fSourceFileName = fClassName;
+		fHeaderFileName = fClassName;
 
-		fSourceFileName = fClassName + ".cpp";
-		fHeaderFileName = fClassName + ".h";
-		
+		if (fDoAddSuffix == true)
+		{
+			fSourceFileName  += ".cpp";
+			fHeaderFileName  += ".h";
+		}
+
+
 		
 		/*
 		fClassName = g_string()->Path2ClassName(path);
@@ -59,5 +67,18 @@ namespace CONFIGURATOR
         fFileContentHeader.push_back(LCopyright::str(xmlinfo));
 	
     }
+
+
+	void 
+		LGenerator::EnableSuffix()
+	{
+		fDoAddSuffix = true;
+	}
+	
+    void 
+		LGenerator::DisableSuffix()
+	{
+		fDoAddSuffix = false;
+	}
 
 }

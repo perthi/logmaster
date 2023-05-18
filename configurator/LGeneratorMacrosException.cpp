@@ -12,7 +12,8 @@ using namespace LOGMASTER;
 namespace CONFIGURATOR
 {
     /** @copydoc LGenerator */
-    LGeneratorMacrosException::LGeneratorMacrosException(const string fname, const LXMLInfo xmlinfo) : LGenerator(fname, xmlinfo)
+    LGeneratorMacrosException::LGeneratorMacrosException(const string path, const string classname, 
+        const LXMLInfo xmlinfo) : LGenerator(path, classname, xmlinfo)
     {
         fDoGenerateHeader = true;
     }

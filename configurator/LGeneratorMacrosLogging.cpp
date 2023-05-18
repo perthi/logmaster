@@ -18,7 +18,7 @@ namespace CONFIGURATOR
 {
     /** Class for generating macros used by the logging system
     /* @copydoc LGenerator */
-    LGeneratorMacrosLogging::LGeneratorMacrosLogging(const string name, const LXMLInfo xmlinfo) : LGenerator(name, xmlinfo)
+    LGeneratorMacrosLogging::LGeneratorMacrosLogging(const string path, const string classname, const LXMLInfo xmlinfo) : LGenerator(path, classname, xmlinfo)
     {
         fDoGenerateHeader = true;
     }

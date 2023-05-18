@@ -14,7 +14,8 @@ namespace CONFIGURATOR
 {
 
 	/** @copydoc LGenerator */
-	LGeneratorLogTest::LGeneratorLogTest(const string filename, const  LXMLInfo xmlinfo) : LGenerator(filename, xmlinfo)
+	LGeneratorLogTest::LGeneratorLogTest(const string path, const string classname, const  LXMLInfo xmlinfo) : 
+		LGenerator(path, classname,  xmlinfo)
 	{
         fDoGenerateSource = true;
 	}

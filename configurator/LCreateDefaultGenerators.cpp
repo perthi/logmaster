@@ -22,11 +22,11 @@ namespace CONFIGURATOR
         /** @todo Remove hard coded path*/
         string b = "C:/work/logmaster/";
 
-        generators.push_back(std::make_shared < LGeneratorEnum >(b + "logging/LEnumAutoGen.h", xmlinfo));
-        generators.push_back(std::make_shared < LGeneratorMacrosLogging >(b + "logging/LLogApiAutoGen.h", xmlinfo));
-        generators.push_back(std::make_shared < LGeneratorMacrosException >(b+"logging/GExceptionAutoGen.h", xmlinfo));
-        generators.push_back(std::make_shared < LGeneratorHashMap >(b+ "logging/LHashMapsAutoGen.cpp", xmlinfo));
-        generators.push_back(std::make_shared < LGeneratorLogTest >(b+ "logging/LLogTestAutoGen.cpp", xmlinfo));
+        generators.push_back(std::make_shared < LGeneratorEnum >(b + "logging/", "LEnumAutoGen", xmlinfo));
+        generators.push_back(std::make_shared < LGeneratorMacrosLogging >(b + "logging/", "LLogApiAutoGen", xmlinfo));
+        generators.push_back(std::make_shared < LGeneratorMacrosException >(b+"logging/", "GExceptionAutoGen", xmlinfo));
+        generators.push_back(std::make_shared < LGeneratorHashMap >(b+ "logging/", "LHashMapsAutoGen", xmlinfo));
+        generators.push_back(std::make_shared < LGeneratorLogTest >(b+ "logging/","LLogTestAutoGen", xmlinfo));
       
         
         /*

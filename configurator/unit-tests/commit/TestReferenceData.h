@@ -70,7 +70,7 @@ TestReferenceData::GenerateData(const string filename_ref)
    // CERR << "fname = " << fname << ENDL;
     ASSERT_TRUE(g_system( )->Exists(fname));
     fReferenceData  = g_file( )->ReadAll(fname);
-    auto g = std::make_shared<T>("tmp.txt", *fXMLInfo);
+    auto g = std::make_shared<T>("", "tmp.txt", *fXMLInfo);
     LFileCreator::GenerateSingleFile(g, fLogLevels, fSubSystems);
     fGeneratedData = g_file( )->ReadAll("tmp.txt");
     g_system( )->rm("tmp.txt");

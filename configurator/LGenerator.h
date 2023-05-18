@@ -45,9 +45,15 @@ namespace CONFIGURATOR
 
         vector<string>& GetContentHeader( ) { return fFileContentHeader; };
         vector<string>& GetContentSource() { return fFileContentSource; };
-     
+		
+		const string GetHeaderFileName() const { return fHeaderFileName; }
+		const string GetSourceFileName() const { return fSourceFileName; }
+
         bool IsEnabledHeader( ) { return fDoGenerateHeader;  };
         bool IsEnabledSource( ) { return fDoGenerateSource; };
+
+		static void EnableSuffix();
+		static void DisableSuffix();
 
 	protected:
 		static LXMLInfo fXMLFileNames;						// XML and XSD file used to generate files
@@ -64,6 +70,8 @@ namespace CONFIGURATOR
 
         bool fDoGenerateHeader = false;
         bool fDoGenerateSource = false;
+
+		static bool fDoAddSuffix;
     
     };
 

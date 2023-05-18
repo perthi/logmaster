@@ -28,7 +28,7 @@ namespace CONFIGURATOR
 	class  LGeneratorMacrosLogging : public LGenerator
 	{
 	public:
-		API LGeneratorMacrosLogging(const string fname, const LXMLInfo xmlinfo);
+		API LGeneratorMacrosLogging(const string path, const string classname,  const LXMLInfo xmlinfo);
 		virtual API ~LGeneratorMacrosLogging() = default;
 
 		virtual void API GenerateContent( const logentity_vec levels, const sysentity_vec systems)  override;
