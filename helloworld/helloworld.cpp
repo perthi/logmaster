@@ -72,13 +72,15 @@ int main(int  argc, const char** argv)
     SET_LOGLEVEL("--all-off --all-warning");
     SET_LOGFORMAT("1111111");
 
-    string xml = "";
-    string xsd = "";
-
-    LArgumentScanner::ScanArguments(argc, argv, xml, xsd);
+  
 
     try
     {
+        string xml = "";
+        string xsd = "";
+
+        LArgumentScanner::ScanArguments(argc, argv, xml, xsd);
+
         XML_ASSERT_EXCEPTION(GXmlValidator( ).IsValid(xml, xsd), "failed to validate %s against %s", xml.c_str( ), xsd.c_str( ));
         logentity_vec  loglevels;
         sysentity_vec  subsystems;

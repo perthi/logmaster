@@ -49,7 +49,7 @@ namespace CONFIGURATOR
             cout << "fs = " << single_test;
 
 
-            fFileLineEntries.push_back(single_test);
+            fFileContentSource.push_back(single_test);
 
 
         }

@@ -20,7 +20,7 @@ namespace CONFIGURATOR
     /* @copydoc LGenerator */
     LGeneratorMacrosLogging::LGeneratorMacrosLogging(const string name, const LXMLInfo xmlinfo) : LGenerator(name, xmlinfo)
     {
-
+        fDoGenerateHeader = true;
     }
 
     LGeneratorMacrosLogging::LMacroEntry
@@ -75,12 +75,12 @@ namespace CONFIGURATOR
                 e = GenerateMacroEntry(lvl, sys, true);
                 entries.push_back(LMacroEntry(e));
                 GenerateLines(entries);
-                fFileLineEntries.push_back("\n");
+             fFileContentHeader.push_back("\n");
             }
-            fFileLineEntries.push_back("\n\n\n");
+            fFileContentHeader.push_back("\n\n\n");
         }
 
-        fFileLineEntries.push_back("\n\n");
+        fFileContentHeader.push_back("\n\n");
     }
 
 
@@ -94,7 +94,7 @@ namespace CONFIGURATOR
             {
                 string line;
                 line = GenerateLine(m, entry.fSystems, entry.fLevel);
-                fFileLineEntries.push_back(line);
+                fFileContentHeader.push_back(line);
             }
         }
     }

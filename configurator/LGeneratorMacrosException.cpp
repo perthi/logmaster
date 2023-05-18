@@ -14,17 +14,17 @@ namespace CONFIGURATOR
     /** @copydoc LGenerator */
     LGeneratorMacrosException::LGeneratorMacrosException(const string fname, const LXMLInfo xmlinfo) : LGenerator(fname, xmlinfo)
     {
-
+        fDoGenerateHeader = true;
     }
 
 
     void
         LGeneratorMacrosException::GenerateContent( const logentity_vec  /*levels*/, const sysentity_vec systems)
     {
-        GenerateClasses(systems, fFileLineEntries);
-        fFileLineEntries.push_back("\n\n");
-        GenerateExceptionMacros(systems, fFileLineEntries);
-        fFileLineEntries.push_back("\n\n");
+        GenerateClasses(systems, fFileContentHeader);
+        fFileContentHeader.push_back("\n\n");
+        GenerateExceptionMacros(systems, fFileContentHeader);
+        fFileContentHeader.push_back("\n\n");
     }
 
 

@@ -26,7 +26,7 @@ namespace CONFIGURATOR
 	/** @copydoc LGenerator */
 	LGeneratorHashMap::LGeneratorHashMap(const string fname, const LXMLInfo xmlinfo) : LGenerator(fname, xmlinfo)
 	{
-
+        fDoGenerateSource = true;
 	}
 
 
@@ -42,22 +42,24 @@ namespace CONFIGURATOR
 			"Max number of sub systems exceeded. You can define maximum 12 additional sub systems, \
     you have defined %d. please check your XML configuration", systems.size());
 
-		fFileLineEntries.push_back("#include \"" + fClassName + ".h\"");
-		fFileLineEntries.push_back("#include <utilities/GNumbers.h>");
-		fFileLineEntries.push_back("#include <utilities/GUtilities.h>");
-		fFileLineEntries.push_back("\n\n");
-		fFileLineEntries.push_back("namespace LOGMASTER");
-		fFileLineEntries.push_back("{");
-		fFileLineEntries.push_back(fClassName + "::" + fClassName + "( ) : fLogLevelHash() {}");
-		fFileLineEntries.push_back(fClassName + "::~" + fClassName + "(){ }");
-		fFileLineEntries.push_back("\n\n");
+      //  fFileContentSource
 
-		GenerateInitHashLogLevel(systems, fFileLineEntries);
-		GenerateInitHashSystem2String(systems, fFileLineEntries);
-		GenerateInitHashLevel2String(levels, fFileLineEntries);
-		GenerateInitHashLogTags(levels, systems, fFileLineEntries);
+		fFileContentSource.push_back("#include \"" + fClassName + ".h\"");
+		fFileContentSource.push_back("#include <utilities/GNumbers.h>");
+		fFileContentSource.push_back("#include <utilities/GUtilities.h>");
+		fFileContentSource.push_back("\n\n");
+		fFileContentSource.push_back("namespace LOGMASTER");
+		fFileContentSource.push_back("{");
+		fFileContentSource.push_back(fClassName + "::" + fClassName + "( ) : fLogLevelHash() {}");
+		fFileContentSource.push_back(fClassName + "::~" + fClassName + "(){ }");
+		fFileContentSource.push_back("\n\n");
 
-		fFileLineEntries.push_back("}");
+		GenerateInitHashLogLevel(systems,        fFileContentSource);
+		GenerateInitHashSystem2String(systems,   fFileContentSource);
+		GenerateInitHashLevel2String(levels,     fFileContentSource);
+		GenerateInitHashLogTags(levels, systems, fFileContentSource);
+
+        fFileContentSource.push_back("}");
 	}
 
 

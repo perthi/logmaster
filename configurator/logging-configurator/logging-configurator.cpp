@@ -43,7 +43,7 @@
 using namespace LOGMASTER;
 using namespace CONFIGURATOR;
 
-
+#include <utilities/GSystem.h>
 
 /** Application that auto generates LOG macros for the logging system. Unit tests,
  *  and a test class used for demonstration and debugging.
@@ -57,6 +57,8 @@ int main(int  argc, const char** argv)
     SET_LOGLEVEL("--all-off --all-warning");
     SET_LOGFORMAT("1111111");
 
+    CERR << "PWD = " << g_system( )->pwd( ) << endl;
+
     string xml = "";
     string xsd = "";
 
@@ -65,6 +67,9 @@ int main(int  argc, const char** argv)
     try
     {
         XML_ASSERT_EXCEPTION(GXmlValidator().IsValid(xml, xsd), "failed to validate %s against %s", xml.c_str(), xsd.c_str());
+        
+        
+        
         logentity_vec  loglevels;
         sysentity_vec  subsystems;
         LXmlParser().ParseXML(xml, xsd, loglevels, subsystems);

@@ -16,50 +16,52 @@ namespace CONFIGURATOR
 	/** @copydoc LGenerator */
 	LGeneratorLogTest::LGeneratorLogTest(const string filename, const  LXMLInfo xmlinfo) : LGenerator(filename, xmlinfo)
 	{
-
+        fDoGenerateSource = true;
 	}
 
 
 	void
 		LGeneratorLogTest::GenerateContent(vector<std::shared_ptr<LXmlEntityLogLevel>> levels, vector<std::shared_ptr<LXmlEntitySubSystem>>  systems)
 	{
-		fFileLineEntries.push_back(string("\n\n"));
-		fFileLineEntries.push_back("#include \"" + fHeaderFileName + "\"");
-		fFileLineEntries.push_back("#include \"LLogApi.h\"");
-		fFileLineEntries.push_back("#include <utilities/GRandom.h>");
-		fFileLineEntries.push_back("#include <utilities/GLocation.h>\n");
-		fFileLineEntries.push_back("#include <iostream>");
-		fFileLineEntries.push_back("using std::endl;");
-		fFileLineEntries.push_back("using std::cout;");
-		fFileLineEntries.push_back("\n\n\n");
-		fFileLineEntries.push_back(" namespace LOGMASTER ");
-		fFileLineEntries.push_back("{");
-		fFileLineEntries.push_back("void");
-		fFileLineEntries.push_back(fClassName + "::WriteMessages()");
-		fFileLineEntries.push_back("{");
-		fFileLineEntries.push_back("    float fval = 0;");
-		fFileLineEntries.push_back("    int ival = 0;");
+        //fFileContentSource
+
+		fFileContentSource.push_back(string("\n\n"));
+		fFileContentSource.push_back("#include \"" + fHeaderFileName + "\"");
+		fFileContentSource.push_back("#include \"LLogApi.h\"");
+		fFileContentSource.push_back("#include <utilities/GRandom.h>");
+		fFileContentSource.push_back("#include <utilities/GLocation.h>\n");
+		fFileContentSource.push_back("#include <iostream>");
+		fFileContentSource.push_back("using std::endl;");
+		fFileContentSource.push_back("using std::cout;");
+		fFileContentSource.push_back("\n\n\n");
+		fFileContentSource.push_back(" namespace LOGMASTER ");
+		fFileContentSource.push_back("{");
+		fFileContentSource.push_back("void");
+		fFileContentSource.push_back(fClassName + "::WriteMessages()");
+		fFileContentSource.push_back("{");
+		fFileContentSource.push_back("    float fval = 0;");
+		fFileContentSource.push_back("    int ival = 0;");
 
 		for (auto& s : systems)
 		{
-			fFileLineEntries.push_back("\n");
-			fFileLineEntries.push_back("        fval = g_random()->Uniform<float>(-10, 100);");
-			fFileLineEntries.push_back("        ival = g_random()->Uniform<int>(-10, 1000);");
+			fFileContentSource.push_back("\n");
+			fFileContentSource.push_back("        fval = g_random()->Uniform<float>(-10, 100);");
+			fFileContentSource.push_back("        ival = g_random()->Uniform<int>(-10, 1000);");
 
 			for (auto l : levels)
 			{
 				string macroname = s->fName + "_" + l->fName;
 				std::stringstream buffer;
 				buffer << "        " << macroname << "(\"This is a " << macroname << "  test message with parameter: ival = %d, fval = %f\", ival, fval );";
-				fFileLineEntries.push_back(buffer.str());
+				fFileContentSource.push_back(buffer.str());
 			}
 
 		}
 
 
-		fFileLineEntries.push_back("    cout << endl;");
-		fFileLineEntries.push_back("}");
-		fFileLineEntries.push_back("}");
+		fFileContentSource.push_back("    cout << endl;");
+		fFileContentSource.push_back("}");
+		fFileContentSource.push_back("}");
 	}
 
 }

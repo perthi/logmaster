@@ -28,7 +28,7 @@ namespace CONFIGURATOR
 		fClassName = g_string()->Path2ClassName(path);
 		fSourceFileName = fClassName + ".cpp";
 		fHeaderFileName = fClassName + ".h";
-		GenerateHeader(xmlinfo);
+		GenerateLicenseHeader(xmlinfo);
 
 	}
 
@@ -39,10 +39,12 @@ namespace CONFIGURATOR
 	 * @param[in] xmlinfo The name of the XML+ XSD files
 	 * used. This is added for information only.*/
 	void
-		LGenerator::GenerateHeader(const LXMLInfo xmlinfo)
+		LGenerator::GenerateLicenseHeader(const LXMLInfo xmlinfo)
 	{
-		//fFileLineEntries.push_back("// -*- mode: c++ -*-");
-		fFileLineEntries.push_back(LCopyright::str(xmlinfo));
-	}
+	/** @todo Write shorter header to the .cpp file that just reference the .h file*/
+        fFileContentSource.push_back(LCopyright::str(xmlinfo));
+        fFileContentHeader.push_back(LCopyright::str(xmlinfo));
+	
+    }
 
 }

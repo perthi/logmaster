@@ -20,6 +20,7 @@ namespace CONFIGURATOR
 
     }
 
+
     /** Generate a .cpp/h source file. First the content will be generated using an 
     *  implementation of one of the generators. Then the generated content will 
     * be written to file. 
@@ -28,29 +29,65 @@ namespace CONFIGURATOR
     * @param[in] subsystems A vector of sub systems parsed from the XML config file 
     * @exception GException if the file cannot be created */
     void
-    LFileCreator::GenerateSingleFile(const generator_ptr& gen, const logentity_vec  loglevels, 
-                                     const sysentity_vec subsystems)
+    LFileCreator::GenerateSingleFile(const generator_ptr& gen, const logentity_vec  loglevels, const sysentity_vec subsystems)
+    {
+       
+        gen->GenerateContent(loglevels, subsystems); /// Generating the file content
+        
+
+        static int cnt = 0;
+
+        
+      
+
+        if ( gen->IsEnabledHeader( ) )
+        {
+
+            CERR << "writing header to " << gen->GetFilePath() << "  cnt = "<< cnt  << endl;
+            
+
+            CERR << " (gen->GetContentHeader( ).size()" << gen->GetContentHeader( ).size( ) << endl;
+            
+            
+            WriteFile(gen->GetContentHeader( ), gen->GetFilePath( ));
+        }
+        else if ( gen->IsEnabledSource( ) )
+        {
+            CERR << "writing source to " << gen->GetFilePath( ) << endl;
+            WriteFile(gen->GetContentSource( ), gen->GetFilePath( ));
+        }
+        else
+        {
+            CERR << "DOING nothing " << gen->GetFilePath( ) << endl;
+            // Nothing to do
+            /** @todo write warning/error message or throw exception */
+        }
+
+        cnt++;
+    }
+
+
+
+    void
+        LFileCreator::WriteFile(const vector<string>& content, const string& filepath)
     {
         PUSH( );
         SET_LOGFORMAT("0000111");
-        gen->GenerateContent(loglevels, subsystems); /// Generating the file content
-        vector<string> lines = gen->GetContent();
         FILE* fp = nullptr;
 
-#ifdef _WIN32
-        fopen_s(&fp, gen->GetFilePath().c_str(), "w");
-        
-#else // 
-        fp = fopen(gen->GetFilePath().c_str(), "w");
-#endif
-        FORCE_DEBUG("FilePath = %s",  gen->GetFilePath( ).c_str( ) );
-        //CERR << "FILEPATH =  " << gen->GetFilePath() << ENDL;
+        CERR << "Content size = " << content.size() << "\tpath = " << filepath << ENDL;
 
-        if (fp != nullptr)
+#ifdef _WIN32
+        fopen_s(&fp, filepath.c_str( ), "w");
+#else // 
+        fp = fopen(gen->GetFilePath( ).c_str( ), "w");
+#endif
+        FORCE_DEBUG("FilePath = %s", filepath.c_str( ));
+        if ( fp != nullptr )
         {
-            for (auto& l : lines)
+            for ( auto& l : content )
             {
-                fprintf(fp, "%s\n", l.c_str());
+                fprintf(fp, "%s\n", l.c_str( ));
             }
 
             fclose(fp);
@@ -61,5 +98,6 @@ namespace CONFIGURATOR
         }
         POP( );
     }
+  
 
 }

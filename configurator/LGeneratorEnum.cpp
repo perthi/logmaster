@@ -19,7 +19,7 @@ namespace CONFIGURATOR
     /** @copydoc LGenerator */
     LGeneratorEnum::LGeneratorEnum(const string fname, const LXMLInfo xmlinfo) : LGenerator(fname, xmlinfo)
     {
-
+        fDoGenerateHeader = true;
     }
     
     /** @copydoc LGenerator::GenerateContent 
@@ -28,9 +28,12 @@ namespace CONFIGURATOR
     */
     void LGeneratorEnum::GenerateContent(logentity_vec levels, sysentity_vec systems)
     {
-        GenerateSystems(systems, fFileLineEntries);
-        fFileLineEntries.push_back("\n\n");
-        GenerateLevels(levels, fFileLineEntries);
+
+
+        CERR << "TP0" << ENDL;
+        GenerateSystems(systems, fFileContentHeader);
+        fFileContentHeader.push_back("\n\n");
+        GenerateLevels(levels, fFileContentHeader);
     }
 
 
@@ -96,6 +99,7 @@ namespace CONFIGURATOR
             content.push_back(line);
             i2++;
         }
+
 
         content.push_back("\tSYS_ALL\t\t\t=  0xffff     //  11111111 11111111    Any sub system (message will apply if logging is turned on for any of the sub system)");
         content.push_back("};");
