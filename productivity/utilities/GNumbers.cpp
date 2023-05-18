@@ -110,12 +110,14 @@ GNumbers::Dec2Hex(const string  str)
  * @param shift The number will be shifted (to the left) by this number of
  * bits. The default is no shift.
  * @return The binary representation of the string */
- string 
+
+/**
+string 
   GNumbers::Number2BinaryString(const uint64_t number, const int width, const int shift)
  {
      auto num_l = (number << shift);
      
-     /** @todo warn or throw exception if overflow after bit shifting */
+     // @todo warn or throw exception if overflow after bit shifting /
    
      
      if ( width <= 64 && width > 0)
@@ -131,13 +133,37 @@ GNumbers::Dec2Hex(const string  str)
          return std::format("{:b}", num_l);
      }
   }
+  */
+
+ string
+     GNumbers::Number2BinaryString(const uint64_t number, const int width, const int shift)
+ {
+
+     auto num_l = (number << shift);
+
+     /** @todo warn or throw exception if overflow after bit shifting */
+
+
+     if ( width <= 64 && width > 0 )
+     {
+         std::bitset<64> num(num_l);
+         std::stringstream buffer;
+         buffer << num << std::setfill('0');
+
+         return  buffer.str( ).substr(64 - width);
+     }
+     else
+     {
+         return std::format("{:b}", num_l);
+     }
+ }
 
 
  //unsigned char a = -58;
  //std::cout << std::format("{:b}", a);
 
  string    
- GNumbers::Number2BHexString(const uint64_t number, const int width, const int shift)
+ GNumbers::Number2HexString(const uint64_t number, const int width, const int shift)
  {
      /** @todo warn or throw exception if overflow after bit shifting */
      int64_t num = shift > 0 ?  (number << shift) : number;
