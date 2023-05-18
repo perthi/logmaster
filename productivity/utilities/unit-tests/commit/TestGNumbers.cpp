@@ -211,18 +211,18 @@ TEST_F(TestGNumbers, ToFloat)
 
 
 
-TEST_F(TestGNumbers, ToHex)
+TEST_F(TestGNumbers, HexString2Number)
 {
-    EXPECT_EQ(9223372036854775807,  g_numbers()->ToHex("0x7FFFFFFFFFFFFFFF"));
-    EXPECT_EQ(-9223372036854775807, g_numbers()->ToHex("-0x7FFFFFFFFFFFFFFF"));
-    EXPECT_EQ( 0x7FFFFFFFFFFFFFFF,  g_numbers()->ToHex("0x7FFFFFFFFFFFFFFF"));
-    EXPECT_EQ(-0x7FFFFFFFFFFFFFFF,  g_numbers()->ToHex("-0x7FFFFFFFFFFFFFFF"));
-    EXPECT_EQ(-0xadef123, g_numbers()->ToHex("-0xadef123"));
-    EXPECT_EQ(0xadef123, g_numbers()->ToHex("0xadef123"));
-    EXPECT_EQ(-0xadef123, g_numbers()->ToHex("     -0xadef123"));
-    EXPECT_EQ(0xadef123, g_numbers()->ToHex("0xadef123"      ));
-    EXPECT_EQ(-0xadef123, g_numbers()->ToHex("-0xadef123"));
-    EXPECT_EQ(0xadef123, g_numbers()->ToHex(       "0xadef123"     ));
+    EXPECT_EQ(9223372036854775807,  g_numbers()->HexString2Number("0x7FFFFFFFFFFFFFFF"));
+    EXPECT_EQ(-9223372036854775807, g_numbers()->HexString2Number("-0x7FFFFFFFFFFFFFFF"));
+    EXPECT_EQ( 0x7FFFFFFFFFFFFFFF,  g_numbers()->HexString2Number("0x7FFFFFFFFFFFFFFF"));
+    EXPECT_EQ(-0x7FFFFFFFFFFFFFFF,  g_numbers()->HexString2Number("-0x7FFFFFFFFFFFFFFF"));
+    EXPECT_EQ(-0xadef123, g_numbers()->HexString2Number("-0xadef123"));
+    EXPECT_EQ(0xadef123, g_numbers()->HexString2Number("0xadef123"));
+    EXPECT_EQ(-0xadef123, g_numbers()->HexString2Number("     -0xadef123"));
+    EXPECT_EQ(0xadef123, g_numbers()->HexString2Number("0xadef123"      ));
+    EXPECT_EQ(-0xadef123, g_numbers()->HexString2Number("-0xadef123"));
+    EXPECT_EQ(0xadef123, g_numbers()->HexString2Number(       "0xadef123"     ));
 }
 
 

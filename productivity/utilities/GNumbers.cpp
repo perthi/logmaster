@@ -70,7 +70,7 @@ GNumbers::EnableError()
 GNumbers::Hex2Dec(const string  str)
 {
     std::stringstream buffer;
-    long long int     num = ToHex(str);
+    long long int     num = HexString2Number(str);
     buffer << num;
     return buffer.str();
 }
@@ -104,27 +104,12 @@ GNumbers::Dec2Hex(const string  str)
 
 
 
- long long int
-GNumbers::ToHex(const string num)
-{
-    string s = num;
-    g_string()->Trim(s);
-    if ( g_number_types()->IsHex(s))
-    {
-        return stoull(s, 0, 16);
-    }
-    else
-    {
-        string message = s + " is NOT a valid hex number string, please make sure that the number starts with 0x folowed by valid hex digits(0 - F)";
-        GCommon().HandleError(message, GLOCATION, IsDisabledError() );
-    }
-    return -99999; // Never reached, but just in case
-}
+
 
 
 
  /** Converts a number to a binary string representation
- * @param number The number that will be represented as a binary string
+ * @param number The number that will be represented as a binary/hex string
  * @widt The number of digits in the string, regardless of the value of "num".
  * The string will be padded with zeros. The default width is 64 bits.
  * @param shift The number will be shifted (to the left) by this number of
@@ -151,7 +136,11 @@ GNumbers::ToHex(const string num)
   }
  
 
-/* @brief Converts a binary number string to a 64 bits integer. The string is interpreted assuming radix 2 (i.e binary)
+
+
+
+ /**@{
+/* @brief Converts a binary/hex number string to a 64 bits integer. The string is interpreted assuming radix 2 (i.e binary)
 *  @param[in] b  The string to convert
 *  @return the corresponding number as a 64 bit int
 *  @exception GException  if the system dependent maximum  number if bits is exceeded, or if the string has wrong format. Ths is,
@@ -172,10 +161,6 @@ GNumbers::BinaryString2Number(const string b)
         #ifdef ARM
         snprintf(message, 512,"Bit-stream contains %lld bits, ( bit-string = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
 #endif
-        
-
-
-        //   #else
 #ifdef _WIN32
         SPRINTF(message, 512,"Bit-stream contains %lld bits, ( bit-string = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
 #else
@@ -184,14 +169,9 @@ GNumbers::BinaryString2Number(const string b)
         SPRINTF(message, 512, "Bit-stream contains %lld bits, ( bit-string = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
 #else
         SPRINTF(message, 512, "Bit-stream contains %ld bits, ( bit-string = %s ). The max number of bits is: %ld", BitWidths, b.c_str(), maxbits);
-
 #endif
-
 #endif
-
-// #ifndef G_STANDALONE
         GCommon().HandleError(message, GLOCATION, IsDisabledError() );
-// #endif
     }
 
     if ( g_number_types()->IsBinary(s) == true)
@@ -212,14 +192,29 @@ GNumbers::BinaryString2Number(const string b)
     else
     {
         string message = s + "\t is not a binary number string, the string must contain only ZERO and ONES prefixed by an optional - (minus) sign";
-// #ifndef G_STANDALONE
-       GCommon().HandleError( message, GLOCATION, IsDisabledError() );
-// #endif
+        GCommon().HandleError( message, GLOCATION, IsDisabledError() );
     }
     return negative == true ?  -tmp : tmp;
 }
+ 
 
-
+ int64_t
+ GNumbers::HexString2Number(const string num)
+ {
+     string s = num;
+     g_string()->Trim(s);
+     if (g_number_types()->IsHex(s))
+     {
+         return stoull(s, 0, 16);
+     }
+     else
+     {
+         string message = s + " is NOT a valid hex number string, please make sure that the number starts with 0x followed by valid hex digits(0 - F)";
+         GCommon().HandleError(message, GLOCATION, IsDisabledError());
+     }
+     return -99999; // Never reached, but just in case
+ }
+ /**@}
 
 
 /**@{
@@ -253,6 +248,3 @@ GNumbers::BitWidth(const string in)
 }
 /**@}*/
 
-
-
-//#endif

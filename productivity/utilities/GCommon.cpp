@@ -94,7 +94,7 @@ GCommon::HandleError(const string message, const GLocation l, const bool   disab
     {
         if (fDisableOuput == false)
         {
-            //cout << l.fFileName << "::" << l.fFunctName << ", line " << l.fLineNo << ";" << message << std::endl;
+            cout << l.fFileName << "::" << l.fFunctName << ", line " << l.fLineNo << ";" << message << std::endl;
         }
      }
 }

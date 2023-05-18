@@ -210,7 +210,7 @@ namespace LOGMASTER
         eMSGTARGET e_tmp = eMSGTARGET::TARGET_OFF;
         if ( g_number_types()->IsHex( in ) )
         {
-            e_tmp = (eMSGTARGET)g_numbers()->ToHex( in );
+            e_tmp = (eMSGTARGET)g_numbers()->HexString2Number( in );
         }
 
         return e_tmp;
@@ -225,7 +225,7 @@ namespace LOGMASTER
         
         if ( g_number_types()->IsHex( in ) )
         {
-            e_tmp = (eMSGFORMAT)g_numbers()->ToHex( in );
+            e_tmp = (eMSGFORMAT)g_numbers()->HexString2Number( in );
         }
 
         return e_tmp;

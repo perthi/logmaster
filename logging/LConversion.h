@@ -129,7 +129,7 @@ namespace LOGMASTER
         }
         else if ( g_number_types()->IsHex( in ) )
         {
-            tmp = g_numbers()->ToHex( in );
+            tmp = g_numbers()->HexString2Number( in );
         }
         else
         {

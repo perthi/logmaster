@@ -60,41 +60,35 @@ class GNumbers
     friend GNumbers * g_numbers();
 
 public:
-    void   API  DisableError();
-    void   API  EnableError();
-    bool   API  IsDisabledError() { return fIsDisabledError; };
-    string   API               Dec2Hex(const string s);
-    string   API               Hex2Dec(const string s);
+    void    API  DisableError();
+    void    API  EnableError();
+    bool    API  IsDisabledError() { return fIsDisabledError; };
+    string  API  Dec2Hex(const string s);
+    string  API  Hex2Dec(const string s);
+
+    template<typename T>   int64_t  API  PadOnes(const T in);
+    template<typename T> int64_t    API  BitWidth(const T in);
+    int64_t                         API  BitWidth(const char* in);
+    int64_t                         API  BitWidth(const string in);
     
-
-
-
-    template<typename T>   int64_t     API  BitWidth(const T in);
-    template<typename T>   int64_t      API  PadOnes(const T in);
+  
+    int64_t		        API     BinaryString2Number(const string num);
+    string              API     Number2BinaryString(const uint64_t, const int width = 64, const int shift = 0);
+    int64_t             API     HexString2Number(const string num);
     
-    int64_t             API        BitWidth(const char *in);
-    int64_t             API        BitWidth(const string in);
-    int64_t		        API        BinaryString2Number(const string num);
-    string              API        Number2BinaryString(const uint64_t, const int width = 64, const int shift = 0);
-
-
     template<typename T = long double>     vector<T> API ToFloat(const vector<string> num);
     template<typename T = long double>    T          API ToFloat(const string num);
-    long long int                API            ToHex(const string num);
-    template<typename T = long long int>  T      API    ToInteger(const string num);
-    template<typename T>    vector<T>            API    ToInteger(const vector<string> num);
+   // int64_t                  API            ToHex(const string num);
     
-    template< typename  T >  typename std::enable_if<std::is_integral<T>::value, T>::type
-    API ToNumber(const string num)
-    {
-        return ToInteger<T>(num);
-    }
+    template<typename T =  int64_t>  T      API    ToInteger(const string num);
+    template<typename T>   vector<T>            API    ToInteger(const vector<string> num);
+    
+    template< typename  T >  typename std::enable_if<std::is_integral<T>::value, T>::type 
+        API ToNumber(const string num) {return ToInteger<T>(num);}
     
     template< typename  T >  typename std::enable_if< std::is_floating_point <T>::value, T>::type
-       API    ToNumber(const string num)
-    {
-        return ToFloat<T>(num);
-    }
+       API    ToNumber(const string num){return ToFloat<T>(num);}
+    
     template <typename T> 
     int API CountBits(const T in);
     
@@ -113,7 +107,7 @@ private:
  * example2: CheckUnsigned<int>("-1"); // OK, num is negative, but T is signed so it can represent a negative number <br>
  * example2: CheckUnsigned<unsigned int>("42"); // OK, T is unsigned, but "num" is positive
  * @tparam T The type to check for signedness
- * @param     num The number on string format eg "1234"  etc..  (or a vector of strings)
+ * @param     num The number on string format eg. "1234"  etc..  (or a vector of strings)
  * @exception std::out_of_range T is an unsigned type, and the number represented by num is negative
  * @exception std::invalid_argument num does not represent a valid number*/
 template<typename T>
@@ -152,12 +146,6 @@ void GNumbers::CheckUnsigned(const vector<string> num)
 
 
 
-
-
-
-
-
-
 template<typename T> T
 GNumbers::ToInteger(const string num)
 {
@@ -177,7 +165,7 @@ GNumbers::ToInteger(const string num)
 
     if (g_number_types()->IsHex(trimmed))
     {
-        return (T)ToHex(trimmed);
+        return (T)HexString2Number(trimmed);
     }
     else
     {
