@@ -28,6 +28,7 @@
 
 #include "TestGNumbers.h"
 #include <utilities/GNumbers.h>
+#include <utilities/GNumberTypes.h>
 #include <utilities/GRandom.h>
 
 #ifdef HAS_LOGGING
@@ -82,38 +83,38 @@ TEST_F(TestGNumbers, Hex2DecDec2Hex)
 
 TEST_F(TestGNumbers, IsAlphaNumber)
 {
-   EXPECT_TRUE( g_numbers()->IsAlphaNumber("A")); 
-   EXPECT_TRUE(g_numbers()->IsAlphaNumber("Q"));
-   EXPECT_TRUE(g_numbers()->IsAlphaNumber("ABC123"));
-   EXPECT_TRUE(g_numbers()->IsAlphaNumber("QXC678"));
-   EXPECT_TRUE(g_numbers()->IsAlphaNumber("    QXC678"));
-   EXPECT_TRUE(g_numbers()->IsAlphaNumber("    QXC678    "));
-   EXPECT_TRUE(g_numbers()->IsAlphaNumber("QXC678    "));
-   EXPECT_FALSE(g_numbers()->IsAlphaNumber("�"));
-   EXPECT_FALSE(g_numbers()->IsAlphaNumber("�"));
-   EXPECT_FALSE(g_numbers()->IsAlphaNumber(" ���wxz  "));
-   EXPECT_FALSE(g_numbers()->IsAlphaNumber(" � � � �� � 123 345  "));
+   EXPECT_TRUE( g_number_types()->IsAlphaNumber("A")); 
+   EXPECT_TRUE( g_number_types()->IsAlphaNumber("Q"));
+   EXPECT_TRUE( g_number_types()->IsAlphaNumber("ABC123"));
+   EXPECT_TRUE( g_number_types()->IsAlphaNumber("QXC678"));
+   EXPECT_TRUE( g_number_types()->IsAlphaNumber("    QXC678"));
+   EXPECT_TRUE( g_number_types()->IsAlphaNumber("    QXC678    "));
+   EXPECT_TRUE( g_number_types()->IsAlphaNumber("QXC678    "));
+   EXPECT_FALSE(g_number_types()->IsAlphaNumber("�"));
+   EXPECT_FALSE(g_number_types()->IsAlphaNumber("�"));
+   EXPECT_FALSE(g_number_types()->IsAlphaNumber(" ���wxz  "));
+   EXPECT_FALSE(g_number_types()->IsAlphaNumber(" � � � �� � 123 345  "));
 }
 
 
 TEST_F(TestGNumbers, IsBinary)
 {
-    EXPECT_TRUE(g_numbers()->IsBinary("0"));
-    EXPECT_TRUE(g_numbers()->IsBinary("1"));
-    EXPECT_TRUE(g_numbers()->IsBinary("110010110"));
-    EXPECT_TRUE(g_numbers()->IsBinary("   110010110"));
-    EXPECT_TRUE(g_numbers()->IsBinary("110010110   "));
-    EXPECT_TRUE(g_numbers()->IsBinary("     110010110  "));
-    EXPECT_TRUE(g_numbers()->IsBinary("1100101101111111100000111101101010"));
-    EXPECT_FALSE(g_numbers()->IsBinary("110210110"));
-    EXPECT_TRUE(g_numbers()->IsBinary( string("0")));
-    EXPECT_TRUE(g_numbers()->IsBinary( string("1")));
-    EXPECT_TRUE(g_numbers()->IsBinary( string("110010110")));
-    EXPECT_TRUE(g_numbers()->IsBinary( string("   110010110")));
-    EXPECT_TRUE(g_numbers()->IsBinary( string("110010110   ")));
-    EXPECT_TRUE(g_numbers()->IsBinary( string("     110010110  ")));
-    EXPECT_TRUE(g_numbers()->IsBinary( string("1100101101111111100000111101101010")));
-    EXPECT_FALSE(g_numbers()->IsBinary(string("110210110")));
+    EXPECT_TRUE(  g_number_types()->IsBinary("0"));
+    EXPECT_TRUE(  g_number_types()->IsBinary("1"));
+    EXPECT_TRUE(  g_number_types()->IsBinary("110010110"));
+    EXPECT_TRUE(  g_number_types()->IsBinary("   110010110"));
+    EXPECT_TRUE(  g_number_types()->IsBinary("110010110   "));
+    EXPECT_TRUE(  g_number_types()->IsBinary("     110010110  "));
+    EXPECT_TRUE(  g_number_types()->IsBinary("1100101101111111100000111101101010"));
+    EXPECT_FALSE( g_number_types()->IsBinary("110210110"));
+    EXPECT_TRUE(  g_number_types()->IsBinary( string("0")));
+    EXPECT_TRUE(  g_number_types()->IsBinary( string("1")));
+    EXPECT_TRUE(  g_number_types()->IsBinary( string("110010110")));
+    EXPECT_TRUE(  g_number_types()->IsBinary( string("   110010110")));
+    EXPECT_TRUE(  g_number_types()->IsBinary( string("110010110   ")));
+    EXPECT_TRUE(  g_number_types()->IsBinary( string("     110010110  ")));
+    EXPECT_TRUE(g_number_types()->IsBinary( string("1100101101111111100000111101101010")));
+    EXPECT_FALSE(g_number_types()->IsBinary(string("110210110")));
 }
 
 
@@ -195,62 +196,62 @@ TEST_F(TestGNumbers, binary2number)
 
 TEST_F(TestGNumbers, IsDecNumber)
 {
-    EXPECT_TRUE( g_numbers()->IsDecNumber("10") );
-    EXPECT_TRUE(g_numbers()->IsDecNumber("9223372036854775807"));
-    EXPECT_FALSE(g_numbers()->IsDecNumber("0x10"));
-    EXPECT_FALSE(g_numbers()->IsDecNumber("blahhhhh"));
+    EXPECT_TRUE(  g_number_types()->IsDecNumber("10") );
+    EXPECT_TRUE(  g_number_types()->IsDecNumber("9223372036854775807"));
+    EXPECT_FALSE( g_number_types()->IsDecNumber("0x10"));
+    EXPECT_FALSE( g_number_types()->IsDecNumber("blahhhhh"));
 }
 
 
 
 TEST_F(TestGNumbers, IsInteger)
 {
-    EXPECT_TRUE( g_numbers()->IsInteger("9223372036854775807"));
-    EXPECT_TRUE(g_numbers()->IsInteger("-9223372036854775807"));
-    EXPECT_TRUE(g_numbers()->IsInteger("123456789101112131"));
-    EXPECT_TRUE(g_numbers()->IsInteger(string("9223372036854775807")));
-    EXPECT_TRUE(g_numbers()->IsInteger(string("-9223372036854775807")));
-    EXPECT_TRUE(g_numbers()->IsInteger(string("123456789101112131")));
-    EXPECT_TRUE(g_numbers()->IsInteger( 9223372036854775807));
-    EXPECT_TRUE(g_numbers()->IsInteger(-9223372036854775807));
-    EXPECT_TRUE(g_numbers()->IsInteger(123456789101112131));
-    EXPECT_FALSE(g_numbers()->IsInteger(1.5));
-    EXPECT_FALSE(g_numbers()->IsInteger(1.61803398875));
-    EXPECT_TRUE( g_numbers()->IsInteger("1"));
-    EXPECT_TRUE(g_numbers()->IsInteger("01"));
-    EXPECT_TRUE(g_numbers()->IsInteger("9"));
-    EXPECT_TRUE(g_numbers()->IsInteger(" 9"));
-    EXPECT_TRUE(g_numbers()->IsInteger("     9  "));
-    EXPECT_TRUE(g_numbers()->IsInteger("07"));
-    EXPECT_TRUE(g_numbers()->IsInteger("1234567"));
-    EXPECT_TRUE(g_numbers()->IsInteger("     1234567"));
-    EXPECT_TRUE(g_numbers()->IsInteger("000001234567"));
-    EXPECT_TRUE(g_numbers()->IsInteger("77  "));
-    EXPECT_TRUE(g_numbers()->IsInteger("  77  "));
-    EXPECT_TRUE(g_numbers()->IsInteger("77"));
-    EXPECT_FALSE(g_numbers()->IsInteger("1 2"));
-    EXPECT_FALSE(g_numbers()->IsInteger("1 2 33 55"));
-    EXPECT_FALSE(g_numbers()->IsInteger("Meeny"));
-    EXPECT_FALSE(g_numbers()->IsInteger("1.33"));
+    EXPECT_TRUE(  g_number_types()->IsInteger("9223372036854775807"));
+    EXPECT_TRUE(  g_number_types()->IsInteger("-9223372036854775807"));
+    EXPECT_TRUE(  g_number_types()->IsInteger("123456789101112131"));
+    EXPECT_TRUE(  g_number_types()->IsInteger(string("9223372036854775807")));
+    EXPECT_TRUE(  g_number_types()->IsInteger(string("-9223372036854775807")));
+    EXPECT_TRUE(  g_number_types()->IsInteger(string("123456789101112131")));
+    EXPECT_TRUE(  g_number_types()->IsInteger( 9223372036854775807));
+    EXPECT_TRUE(  g_number_types()->IsInteger(-9223372036854775807));
+    EXPECT_TRUE(  g_number_types()->IsInteger(123456789101112131));
+    EXPECT_FALSE( g_number_types()->IsInteger(1.5));
+    EXPECT_FALSE( g_number_types()->IsInteger(1.61803398875));
+    EXPECT_TRUE(  g_number_types()->IsInteger("1"));
+    EXPECT_TRUE(  g_number_types()->IsInteger("01"));
+    EXPECT_TRUE(  g_number_types()->IsInteger("9"));
+    EXPECT_TRUE(  g_number_types()->IsInteger(" 9"));
+    EXPECT_TRUE(  g_number_types()->IsInteger("     9  "));
+    EXPECT_TRUE(  g_number_types()->IsInteger("07"));
+    EXPECT_TRUE(  g_number_types()->IsInteger("1234567"));
+    EXPECT_TRUE(  g_number_types()->IsInteger("     1234567"));
+    EXPECT_TRUE(  g_number_types()->IsInteger("000001234567"));
+    EXPECT_TRUE(  g_number_types()->IsInteger("77  "));
+    EXPECT_TRUE(  g_number_types()->IsInteger("  77  "));
+    EXPECT_TRUE(  g_number_types()->IsInteger("77"));
+    EXPECT_FALSE( g_number_types()->IsInteger("1 2"));
+    EXPECT_FALSE( g_number_types()->IsInteger("1 2 33 55"));
+    EXPECT_FALSE( g_number_types()->IsInteger("Meeny"));
+    EXPECT_FALSE( g_number_types()->IsInteger("1.33"));
 }
 
 
 
 TEST_F(TestGNumbers, IsNumber)
 {
-    EXPECT_TRUE(  g_numbers()->IsNumber("77  ") );
-    EXPECT_TRUE(  g_numbers()->IsNumber("1.33") );
-    EXPECT_TRUE(  g_numbers()->IsNumber("QXC678") );
-    EXPECT_TRUE(  g_numbers()->IsNumber("0xabcd"));
-    EXPECT_TRUE(  g_numbers()->IsNumber("   0xdef"));
-    EXPECT_TRUE(g_numbers()->IsNumber("   0xdead   "));
-    EXPECT_TRUE(g_numbers()->IsNumber("   NaN   "));
-    EXPECT_FALSE( g_numbers()->IsNumber("lorem ipsum") );
+    EXPECT_TRUE(  g_number_types()->IsNumber("77  ") );
+    EXPECT_TRUE(  g_number_types()->IsNumber("1.33") );
+    EXPECT_TRUE(  g_number_types()->IsNumber("QXC678") );
+    EXPECT_TRUE(  g_number_types()->IsNumber("0xabcd"));
+    EXPECT_TRUE(  g_number_types()->IsNumber("   0xdef"));
+    EXPECT_TRUE(  g_number_types()->IsNumber("   0xdead   "));
+    EXPECT_TRUE(  g_number_types()->IsNumber("   NaN   "));
+    EXPECT_FALSE( g_number_types()->IsNumber("lorem ipsum") );
 
     string tmp = "   0xffff   ";
-    EXPECT_TRUE(g_numbers()->IsNumber(tmp));
+    EXPECT_TRUE(g_number_types()->IsNumber(tmp));
 
-    EXPECT_TRUE(g_numbers()->IsNumber("10000"));
+    EXPECT_TRUE(g_number_types()->IsNumber("10000"));
 
 }
 
@@ -258,17 +259,17 @@ TEST_F(TestGNumbers, IsNumber)
 
 TEST_F(TestGNumbers, NSR1033)
 {
-    EXPECT_TRUE(g_numbers()->IsNumber("10000\n"));
-    EXPECT_TRUE(g_numbers()->IsNumber("10000\t\t"));
-    EXPECT_TRUE(g_numbers()->IsNumber("10000 \t\t \n"));
-    EXPECT_TRUE(g_numbers()->IsNumber("\t10000 \t\t \n"));
-    EXPECT_TRUE(g_numbers()->IsNumber("\t\n10000 \t\t \n"));
-    EXPECT_TRUE(g_numbers()->IsNumber("\t \n 10000 \t\t \n"));
-    EXPECT_TRUE(g_numbers()->IsInteger("1234567 \t \n"));
-    EXPECT_TRUE(g_numbers()->IsAlphaNumber("QXC678   \n "));
-    EXPECT_TRUE(g_numbers()->IsFloat("3.14159265359\t"));
-    EXPECT_TRUE(g_numbers()->IsFloat("3.14159265359\n"));
-    EXPECT_TRUE(g_numbers()->IsFloat("3.14159265359\t\n"));
+    EXPECT_TRUE(g_number_types()->IsNumber("10000\n"));
+    EXPECT_TRUE(g_number_types()->IsNumber("10000\t\t"));
+    EXPECT_TRUE(g_number_types()->IsNumber("10000 \t\t \n"));
+    EXPECT_TRUE(g_number_types()->IsNumber("\t10000 \t\t \n"));
+    EXPECT_TRUE(g_number_types()->IsNumber("\t\n10000 \t\t \n"));
+    EXPECT_TRUE(g_number_types()->IsNumber("\t \n 10000 \t\t \n"));
+    EXPECT_TRUE(g_number_types()->IsInteger("1234567 \t \n"));
+    EXPECT_TRUE(g_number_types()->IsAlphaNumber("QXC678   \n "));
+    EXPECT_TRUE(g_number_types()->IsFloat("3.14159265359\t"));
+    EXPECT_TRUE(g_number_types()->IsFloat("3.14159265359\n"));
+    EXPECT_TRUE(g_number_types()->IsFloat("3.14159265359\t\n"));
     EXPECT_DOUBLE_EQ(1.7976931348623158e+308, g_numbers()->ToFloat("1.7976931348623158e+308\n"));
     vector<string> int_array = { "0xa\n", "0Xabc\t", "0x12bc  ", "123     \n" };
     vector<long long int> num = g_numbers()->ToInteger< long long int >(int_array);
@@ -302,38 +303,37 @@ TEST_F(TestGNumbers, ToInteger)
 
 TEST_F(TestGNumbers, IsFloat)
 {
-    EXPECT_TRUE(g_numbers()->IsFloat("123456789101112131"));
-    EXPECT_FALSE(g_numbers()->IsInteger("3.14"));
-    EXPECT_FALSE(g_numbers()->IsInteger("   3.14  "));
-    EXPECT_TRUE(g_numbers()->IsFloat("3.14159265359"));
-    EXPECT_TRUE(g_numbers()->IsFloat("      3.14159265359"));
-    EXPECT_TRUE(g_numbers()->IsFloat("3.14159265359      "));
-    EXPECT_TRUE(g_numbers()->IsFloat("   3.14159265359   "));
-    EXPECT_TRUE(g_numbers()->IsFloat("-3.14159265359      "));
-    EXPECT_TRUE(g_numbers()->IsFloat("   -3.14159265359   "));
-    EXPECT_TRUE(g_numbers()->IsFloat("nan"));
+    EXPECT_TRUE(  g_number_types()->IsFloat("123456789101112131"));
+    EXPECT_FALSE( g_number_types()->IsInteger("3.14"));
+    EXPECT_FALSE( g_number_types()->IsInteger("   3.14  "));
+    EXPECT_TRUE(  g_number_types()->IsFloat("3.14159265359"));
+    EXPECT_TRUE(  g_number_types()->IsFloat("      3.14159265359"));
+    EXPECT_TRUE(  g_number_types()->IsFloat("3.14159265359      "));
+    EXPECT_TRUE(  g_number_types()->IsFloat("   3.14159265359   "));
+    EXPECT_TRUE(  g_number_types()->IsFloat("-3.14159265359      "));
+    EXPECT_TRUE(  g_number_types()->IsFloat("   -3.14159265359   "));
+    EXPECT_TRUE(  g_number_types()->IsFloat("nan"));
 
     string goldencut = "  1.618033989   ";
-    EXPECT_TRUE(g_numbers()->IsFloat(goldencut));
-    EXPECT_TRUE(g_numbers()->IsFloat(goldencut.c_str() ));
-
-    EXPECT_TRUE( g_numbers()->IsFloat("1.7976931348623158e+308" ));
-    EXPECT_TRUE( g_numbers()->IsFloat( string("123456789101112131")));
-    EXPECT_FALSE(g_numbers()->IsInteger( string("3.14")) );
-    EXPECT_FALSE(g_numbers()->IsInteger( string("   3.14  ")));
-    EXPECT_TRUE(g_numbers()->IsFloat( string("3.14159265359") ));
-    EXPECT_TRUE(g_numbers()->IsFloat( string("      3.14159265359")));
-    EXPECT_TRUE(g_numbers()->IsFloat( string("3.14159265359      ")));
-    EXPECT_TRUE(g_numbers()->IsFloat( string("   3.14159265359   ")));
-    EXPECT_TRUE(g_numbers()->IsFloat( string("-3.14159265359      ")));
-    EXPECT_TRUE(g_numbers()->IsFloat(string("   -3.14159265359   ")));
-    EXPECT_TRUE(g_numbers()->IsFloat(string("   -3,14159265359   ")));
-    EXPECT_TRUE(g_numbers()->IsFloat(string( "1.7976931348623158e+308")));
-    EXPECT_TRUE(g_numbers()->IsFloat(1.61803398875));
-    EXPECT_TRUE(g_numbers()->IsFloat(-1.61803398875));
-    EXPECT_TRUE(g_numbers()->IsFloat(9223372036854775807));
-    EXPECT_TRUE(g_numbers()->IsFloat(-1));
-    EXPECT_TRUE(g_numbers()->IsFloat( 1.7976931348623158e+308));
+    EXPECT_TRUE(  g_number_types()->IsFloat(goldencut));
+    EXPECT_TRUE(  g_number_types()->IsFloat(goldencut.c_str() ));
+    EXPECT_TRUE(  g_number_types()->IsFloat("1.7976931348623158e+308" ));
+    EXPECT_TRUE(  g_number_types()->IsFloat( string("123456789101112131")));
+    EXPECT_FALSE( g_number_types()->IsInteger( string("3.14")) );
+    EXPECT_FALSE( g_number_types()->IsInteger( string("   3.14  ")));
+    EXPECT_TRUE(  g_number_types()->IsFloat( string("3.14159265359") ));
+    EXPECT_TRUE(  g_number_types()->IsFloat( string("      3.14159265359")));
+    EXPECT_TRUE(  g_number_types()->IsFloat( string("3.14159265359      ")));
+    EXPECT_TRUE(  g_number_types()->IsFloat( string("   3.14159265359   ")));
+    EXPECT_TRUE(  g_number_types()->IsFloat( string("-3.14159265359      ")));
+    EXPECT_TRUE(  g_number_types()->IsFloat(string("   -3.14159265359   ")));
+    EXPECT_TRUE(  g_number_types()->IsFloat(string("   -3,14159265359   ")));
+    EXPECT_TRUE(  g_number_types()->IsFloat(string( "1.7976931348623158e+308")));
+    EXPECT_TRUE(  g_number_types()->IsFloat(1.61803398875));
+    EXPECT_TRUE(  g_number_types()->IsFloat(-1.61803398875));
+    EXPECT_TRUE(  g_number_types()->IsFloat(9223372036854775807));
+    EXPECT_TRUE(  g_number_types()->IsFloat(-1));
+    EXPECT_TRUE(  g_number_types()->IsFloat( 1.7976931348623158e+308));
 }
 
 
@@ -353,50 +353,44 @@ TEST_F(TestGNumbers, IsType)
     unsigned  long long int i8 = 0;
 
 
-    EXPECT_FALSE(g_numbers()->IsUnsignedType(f1));
-    EXPECT_FALSE(g_numbers()->IsUnsignedType(f2));
-    EXPECT_FALSE(g_numbers()->IsUnsignedType(f3));
-
-    EXPECT_FALSE(g_numbers()->IsUnsignedType(i1));
-    EXPECT_FALSE(g_numbers()->IsUnsignedType(i2));
-    EXPECT_FALSE(g_numbers()->IsUnsignedType(i3));
-    EXPECT_FALSE(g_numbers()->IsUnsignedType(i4));
-    EXPECT_TRUE(g_numbers()->IsUnsignedType(i5));
-    EXPECT_TRUE(g_numbers()->IsUnsignedType(i6));
-    EXPECT_TRUE(g_numbers()->IsUnsignedType(i7));
-    EXPECT_TRUE(g_numbers()->IsUnsignedType(i8));
-
-   
-    EXPECT_TRUE(g_numbers()->IsFloatType(f1));
-    EXPECT_TRUE(g_numbers()->IsFloatType(f2));
-    EXPECT_TRUE(g_numbers()->IsFloatType(f3));
-    
-    EXPECT_FALSE(g_numbers()->IsFloatType(i1));
-    EXPECT_FALSE(g_numbers()->IsFloatType(i2));
-    EXPECT_FALSE(g_numbers()->IsFloatType(i3));
-    EXPECT_FALSE(g_numbers()->IsFloatType(i4));
-    EXPECT_FALSE(g_numbers()->IsFloatType(i5));
-    EXPECT_FALSE(g_numbers()->IsFloatType(i6));
-    EXPECT_FALSE(g_numbers()->IsFloatType(i7));
-    EXPECT_FALSE(g_numbers()->IsFloatType(i8));
-
-    EXPECT_TRUE(g_numbers()->IsFloatType(100.0));
-    EXPECT_FALSE(g_numbers()->IsFloatType(100));
-    
-    EXPECT_FALSE(g_numbers()->IsIntegerType(f1));
-    EXPECT_FALSE(g_numbers()->IsIntegerType(f2));
-    EXPECT_TRUE(g_numbers()->IsFloatType(f3));
+    EXPECT_FALSE( g_number_types()->IsUnsignedType(f1));
+    EXPECT_FALSE( g_number_types()->IsUnsignedType(f2));
+    EXPECT_FALSE( g_number_types()->IsUnsignedType(f3));
+    EXPECT_FALSE( g_number_types()->IsUnsignedType(i1));
+    EXPECT_FALSE( g_number_types()->IsUnsignedType(i2));
+    EXPECT_FALSE( g_number_types()->IsUnsignedType(i3));
+    EXPECT_FALSE( g_number_types()->IsUnsignedType(i4));
+    EXPECT_TRUE(  g_number_types()->IsUnsignedType(i5));
+    EXPECT_TRUE(  g_number_types()->IsUnsignedType(i6));
+    EXPECT_TRUE(  g_number_types()->IsUnsignedType(i7));
+    EXPECT_TRUE(  g_number_types()->IsUnsignedType(i8));
+    EXPECT_TRUE(  g_number_types()->IsFloatType(f1));
+    EXPECT_TRUE(  g_number_types()->IsFloatType(f2));
+    EXPECT_TRUE(  g_number_types()->IsFloatType(f3));
+    EXPECT_FALSE( g_number_types()->IsFloatType(i1));
+    EXPECT_FALSE( g_number_types()->IsFloatType(i2));
+    EXPECT_FALSE( g_number_types()->IsFloatType(i3));
+    EXPECT_FALSE( g_number_types()->IsFloatType(i4));
+    EXPECT_FALSE( g_number_types()->IsFloatType(i5));
+    EXPECT_FALSE( g_number_types()->IsFloatType(i6));
+    EXPECT_FALSE( g_number_types()->IsFloatType(i7));
+    EXPECT_FALSE( g_number_types()->IsFloatType(i8));
+    EXPECT_TRUE(  g_number_types()->IsFloatType(100.0));
+    EXPECT_FALSE( g_number_types()->IsFloatType(100));
+    EXPECT_FALSE( g_number_types()->IsIntegerType(f1));
+    EXPECT_FALSE( g_number_types()->IsIntegerType(f2));
+    EXPECT_TRUE(  g_number_types()->IsFloatType(f3));
 
 
-    EXPECT_TRUE(g_numbers()->IsIntegerType(i1));
-    EXPECT_TRUE(g_numbers()->IsIntegerType(i2));
-    EXPECT_TRUE(g_numbers()->IsIntegerType(i3));
-    EXPECT_TRUE(g_numbers()->IsIntegerType(i4));
-    EXPECT_TRUE(g_numbers()->IsIntegerType(i5));
-    EXPECT_TRUE(g_numbers()->IsIntegerType(i6));
-    EXPECT_TRUE(g_numbers()->IsIntegerType(i7));
-    EXPECT_TRUE(g_numbers()->IsIntegerType(i8));
-    EXPECT_FALSE(g_numbers()->IsFloatType(string("0xabcd")));
+    EXPECT_TRUE( g_number_types()->IsIntegerType(i1));
+    EXPECT_TRUE( g_number_types()->IsIntegerType(i2));
+    EXPECT_TRUE( g_number_types()->IsIntegerType(i3));
+    EXPECT_TRUE( g_number_types()->IsIntegerType(i4));
+    EXPECT_TRUE( g_number_types()->IsIntegerType(i5));
+    EXPECT_TRUE( g_number_types()->IsIntegerType(i6));
+    EXPECT_TRUE( g_number_types()->IsIntegerType(i7));
+    EXPECT_TRUE( g_number_types()->IsIntegerType(i8));
+    EXPECT_FALSE(g_number_types()->IsFloatType(string("0xabcd")));
 }
 
 
@@ -404,9 +398,9 @@ TEST_F(TestGNumbers, IsType)
 TEST_F(TestGNumbers, IsFundamentalType)
 {
     int i = 0;
-    EXPECT_TRUE(g_numbers()->IsFundamentalType(i));
+    EXPECT_TRUE(g_number_types()->IsFundamentalType(i));
     string t = typeid(i).name();
-    EXPECT_TRUE(g_numbers()->IsFundamentalTypeS(string(t.c_str())));
+    EXPECT_TRUE(g_number_types()->IsFundamentalTypeS(string(t.c_str())));
 }
 
 
@@ -427,44 +421,42 @@ TEST_F(TestGNumbers, IsVType)
     vector<double>  vf2;
     vector<long double>  vf3;
 
-    EXPECT_TRUE(g_numbers()->IsIntegerVType(vi1));
-    EXPECT_TRUE(g_numbers()->IsIntegerVType(vi2));
-    EXPECT_TRUE(g_numbers()->IsIntegerVType(vi3));
-    EXPECT_TRUE(g_numbers()->IsIntegerVType(vi4));
-    EXPECT_TRUE(g_numbers()->IsIntegerVType(vi5));
-    EXPECT_TRUE(g_numbers()->IsIntegerVType(vi6));
-    EXPECT_TRUE(g_numbers()->IsIntegerVType(vi7));
-    EXPECT_TRUE(g_numbers()->IsIntegerVType(vi8));
-    EXPECT_TRUE(g_numbers()->IsIntegerVType(vi9));
-    EXPECT_FALSE(g_numbers()->IsIntegerVType(vf1));
-    EXPECT_FALSE(g_numbers()->IsIntegerVType(vf2));
-    EXPECT_FALSE(g_numbers()->IsIntegerVType(vf3));
-
-    EXPECT_FALSE(g_numbers()->IsFloatVType(vi1));
-    EXPECT_FALSE(g_numbers()->IsFloatVType(vi2));
-    EXPECT_FALSE(g_numbers()->IsFloatVType(vi3));
-    EXPECT_FALSE(g_numbers()->IsFloatVType(vi4));
-    EXPECT_FALSE(g_numbers()->IsFloatVType(vi5));
-    EXPECT_FALSE(g_numbers()->IsFloatVType(vi6));
-    EXPECT_FALSE(g_numbers()->IsFloatVType(vi7));
-    EXPECT_FALSE(g_numbers()->IsFloatVType(vi8));
-    EXPECT_FALSE(g_numbers()->IsFloatVType(vi9));
-    EXPECT_TRUE(g_numbers()->IsFloatVType(vf1));
-    EXPECT_TRUE(g_numbers()->IsFloatVType(vf2));
-    EXPECT_TRUE(g_numbers()->IsFloatVType(vf3));
-
-    EXPECT_TRUE(g_numbers()->IsFundamentalVType(vi1));
-    EXPECT_TRUE(g_numbers()->IsFundamentalVType(vi2));
-    EXPECT_TRUE(g_numbers()->IsFundamentalVType(vi3));
-    EXPECT_TRUE(g_numbers()->IsFundamentalVType(vi4));
-    EXPECT_TRUE(g_numbers()->IsFundamentalVType(vi5));
-    EXPECT_TRUE(g_numbers()->IsFundamentalVType(vi6));
-    EXPECT_TRUE(g_numbers()->IsFundamentalVType(vi7));
-    EXPECT_TRUE(g_numbers()->IsFundamentalVType(vi8));
-    EXPECT_TRUE(g_numbers()->IsFundamentalVType(vi9));
-    EXPECT_TRUE(g_numbers()->IsFundamentalVType(vf1));
-    EXPECT_TRUE(g_numbers()->IsFundamentalVType(vf2));
-    EXPECT_TRUE(g_numbers()->IsFundamentalVType(vf3));
+    EXPECT_TRUE( g_number_types()->IsIntegerVType(vi1));
+    EXPECT_TRUE( g_number_types()->IsIntegerVType(vi2));
+    EXPECT_TRUE( g_number_types()->IsIntegerVType(vi3));
+    EXPECT_TRUE( g_number_types()->IsIntegerVType(vi4));
+    EXPECT_TRUE( g_number_types()->IsIntegerVType(vi5));
+    EXPECT_TRUE( g_number_types()->IsIntegerVType(vi6));
+    EXPECT_TRUE( g_number_types()->IsIntegerVType(vi7));
+    EXPECT_TRUE( g_number_types()->IsIntegerVType(vi8));
+    EXPECT_TRUE( g_number_types()->IsIntegerVType(vi9));
+    EXPECT_FALSE(g_number_types()->IsIntegerVType(vf1));
+    EXPECT_FALSE(g_number_types()->IsIntegerVType(vf2));
+    EXPECT_FALSE(g_number_types()->IsIntegerVType(vf3));
+    EXPECT_FALSE(g_number_types()->IsFloatVType(vi1));
+    EXPECT_FALSE(g_number_types()->IsFloatVType(vi2));
+    EXPECT_FALSE(g_number_types()->IsFloatVType(vi3));
+    EXPECT_FALSE(g_number_types()->IsFloatVType(vi4));
+    EXPECT_FALSE(g_number_types()->IsFloatVType(vi5));
+    EXPECT_FALSE(g_number_types()->IsFloatVType(vi6));
+    EXPECT_FALSE(g_number_types()->IsFloatVType(vi7));
+    EXPECT_FALSE(g_number_types()->IsFloatVType(vi8));
+    EXPECT_FALSE(g_number_types()->IsFloatVType(vi9));
+    EXPECT_TRUE( g_number_types()->IsFloatVType(vf1));
+    EXPECT_TRUE( g_number_types()->IsFloatVType(vf2));
+    EXPECT_TRUE( g_number_types()->IsFloatVType(vf3));
+    EXPECT_TRUE( g_number_types()->IsFundamentalVType(vi1));
+    EXPECT_TRUE( g_number_types()->IsFundamentalVType(vi2));
+    EXPECT_TRUE( g_number_types()->IsFundamentalVType(vi3));
+    EXPECT_TRUE( g_number_types()->IsFundamentalVType(vi4));
+    EXPECT_TRUE( g_number_types()->IsFundamentalVType(vi5));
+    EXPECT_TRUE( g_number_types()->IsFundamentalVType(vi6));
+    EXPECT_TRUE( g_number_types()->IsFundamentalVType(vi7));
+    EXPECT_TRUE( g_number_types()->IsFundamentalVType(vi8));
+    EXPECT_TRUE( g_number_types()->IsFundamentalVType(vi9));
+    EXPECT_TRUE( g_number_types()->IsFundamentalVType(vf1));
+    EXPECT_TRUE( g_number_types()->IsFundamentalVType(vf2));
+    EXPECT_TRUE( g_number_types()->IsFundamentalVType(vf3));
 }
 
 
@@ -509,34 +501,31 @@ TEST_F(TestGNumbers, ToFloat)
 
 TEST_F(TestGNumbers, IsDigit)
 {
-   
-    EXPECT_TRUE(g_numbers()->IsDigit(0));
-    EXPECT_FALSE(g_numbers()->IsDigit("42"));
-    EXPECT_FALSE(g_numbers()->IsDigit(" 42"));
-    EXPECT_FALSE(g_numbers()->IsDigit(" 42   "));
-    EXPECT_FALSE(g_numbers()->IsDigit("0.5"));
-    EXPECT_FALSE(g_numbers()->IsDigit("3.14159265359"));
-
-    EXPECT_TRUE(g_numbers()->IsDigit("4"));
-    EXPECT_TRUE(g_numbers()->IsDigit(" 4"));
-    EXPECT_TRUE(g_numbers()->IsDigit(" 4   "));
-    EXPECT_FALSE(g_numbers()->IsDigit("x"));
-    EXPECT_FALSE(g_numbers()->IsDigit("xyz"));
-    EXPECT_FALSE(g_numbers()->IsDigit("lorem ipsum"));
-
-    EXPECT_FALSE(g_numbers()->IsDigit(42));
-    EXPECT_FALSE(g_numbers()->IsDigit(1.2345));
-    EXPECT_FALSE(g_numbers()->IsDigit(3.14159265359) );
+    EXPECT_TRUE(  g_number_types()->IsDigit(0));
+    EXPECT_FALSE( g_number_types()->IsDigit("42"));
+    EXPECT_FALSE( g_number_types()->IsDigit(" 42"));
+    EXPECT_FALSE( g_number_types()->IsDigit(" 42   "));
+    EXPECT_FALSE( g_number_types()->IsDigit("0.5"));
+    EXPECT_FALSE( g_number_types()->IsDigit("3.14159265359"));
+    EXPECT_TRUE(  g_number_types()->IsDigit("4"));
+    EXPECT_TRUE(  g_number_types()->IsDigit(" 4"));
+    EXPECT_TRUE(  g_number_types()->IsDigit(" 4   "));
+    EXPECT_FALSE( g_number_types()->IsDigit("x"));
+    EXPECT_FALSE( g_number_types()->IsDigit("xyz"));
+    EXPECT_FALSE( g_number_types()->IsDigit("lorem ipsum"));
+    EXPECT_FALSE( g_number_types()->IsDigit(42));
+    EXPECT_FALSE( g_number_types()->IsDigit(1.2345));
+    EXPECT_FALSE( g_number_types()->IsDigit(3.14159265359) );
 
     short ri =  g_random()->Uniform<short>(10, 100);
     double rd = g_random()->Uniform<double>(10, 100);
 
-    EXPECT_FALSE( g_numbers()->IsDigit(ri)); 
-    EXPECT_FALSE(g_numbers()->IsDigit(rd));
+    EXPECT_FALSE( g_number_types()->IsDigit(ri)); 
+    EXPECT_FALSE(g_number_types()->IsDigit(rd));
 
     for (int i = 10; i < 100; i++)
     {
-        EXPECT_FALSE(g_numbers()->IsDigit(i));
+        EXPECT_FALSE(g_number_types()->IsDigit(i));
     }
  
   //  Test some other bases also, for instance base 2, 8, 16
@@ -545,28 +534,26 @@ TEST_F(TestGNumbers, IsDigit)
     {
         for (int j = 0; j < bases[i]; j++)
         {
-            EXPECT_TRUE(g_numbers()->IsDigit(j, bases[i]));
+            EXPECT_TRUE(g_number_types()->IsDigit(j, bases[i]));
         }
     }
     
-    EXPECT_TRUE(  g_numbers()->IsDigit("1", BASE_2)); 
-    EXPECT_TRUE(  g_numbers()->IsDigit("0", BASE_2));
-    EXPECT_FALSE( g_numbers()->IsDigit("3", BASE_2));
-    EXPECT_FALSE( g_numbers()->IsDigit("6", BASE_2));
-    EXPECT_FALSE( g_numbers()->IsDigit("9", BASE_2));
-
-    EXPECT_TRUE(g_numbers()->IsDigit("3", BASE_8));
-    EXPECT_TRUE(g_numbers()->IsDigit("7", BASE_8));
-    EXPECT_FALSE(g_numbers()->IsDigit("8", BASE_8));
-    EXPECT_FALSE(g_numbers()->IsDigit("9", BASE_8));
-    EXPECT_FALSE(g_numbers()->IsDigit("f", BASE_8));
-
-    EXPECT_TRUE( g_numbers()->IsDigit("1", BASE_16));
-    EXPECT_TRUE( g_numbers()->IsDigit("7", BASE_16));
-    EXPECT_TRUE( g_numbers()->IsDigit("d", BASE_16));
-    EXPECT_TRUE( g_numbers()->IsDigit("e", BASE_16));
-    EXPECT_TRUE( g_numbers()->IsDigit("f", BASE_16));
-    EXPECT_TRUE(g_numbers()->IsDigit("f", BASE_16));
+    EXPECT_TRUE(  g_number_types()->IsDigit("1", BASE_2)); 
+    EXPECT_TRUE(  g_number_types()->IsDigit("0", BASE_2));
+    EXPECT_FALSE( g_number_types()->IsDigit("3", BASE_2));
+    EXPECT_FALSE( g_number_types()->IsDigit("6", BASE_2));
+    EXPECT_FALSE( g_number_types()->IsDigit("9", BASE_2));
+    EXPECT_TRUE(  g_number_types()->IsDigit("3", BASE_8));
+    EXPECT_TRUE(  g_number_types()->IsDigit("7", BASE_8));
+    EXPECT_FALSE( g_number_types()->IsDigit("8", BASE_8));
+    EXPECT_FALSE( g_number_types()->IsDigit("9", BASE_8));
+    EXPECT_FALSE( g_number_types()->IsDigit("f", BASE_8));
+    EXPECT_TRUE(  g_number_types()->IsDigit("1", BASE_16));
+    EXPECT_TRUE(  g_number_types()->IsDigit("7", BASE_16));
+    EXPECT_TRUE(  g_number_types()->IsDigit("d", BASE_16));
+    EXPECT_TRUE(  g_number_types()->IsDigit("e", BASE_16));
+    EXPECT_TRUE(  g_number_types()->IsDigit("f", BASE_16));
+    EXPECT_TRUE(  g_number_types()->IsDigit("f", BASE_16));
   }
   
 
@@ -575,43 +562,44 @@ TEST_F(TestGNumbers, IsDigit)
 TEST_F(TestGNumbers, IsHex) 
 {
   // EXPECT_TRUE(g_numbers()->IsHex("0xffffff\n"));
-   EXPECT_TRUE(g_numbers()->IsHex("0x0"));
-   EXPECT_FALSE(g_numbers()->IsHex("0x"));
-   EXPECT_TRUE(g_numbers()->IsHex("0xabcd"));
-   EXPECT_TRUE(g_numbers()->IsHex("   0xabcd"));
-   EXPECT_TRUE(g_numbers()->IsHex("0Xabcd"));
-   EXPECT_TRUE(g_numbers()->IsHex("   0Xabcd"));
+   EXPECT_TRUE(  g_number_types()->IsHex("0x0"));
+   EXPECT_FALSE( g_number_types()->IsHex("0x"));
+   EXPECT_TRUE(  g_number_types()->IsHex("0xabcd"));
+   EXPECT_TRUE(  g_number_types()->IsHex("   0xabcd"));
+   EXPECT_TRUE(  g_number_types()->IsHex("0Xabcd"));
+   EXPECT_TRUE(  g_number_types()->IsHex("   0Xabcd"));
+   
    string test = "0x123abc";
-   EXPECT_TRUE(g_numbers()->IsHex(test));
-   EXPECT_TRUE(g_numbers()->IsHex(test.c_str() ));
-   EXPECT_TRUE(g_numbers()->IsHex("0xabcd    "));
-   EXPECT_TRUE(g_numbers()->IsHex("  0x12cf  "));
-   EXPECT_TRUE(g_numbers()->IsHex("0x7FFFFFFFFFFFFFFF"));
-   EXPECT_TRUE(g_numbers()->IsHex(string("0x0")));
-   EXPECT_FALSE(g_numbers()->IsHex(string("0x")));
-   EXPECT_TRUE(g_numbers()->IsHex(string("0xabcd")));
-   EXPECT_TRUE(g_numbers()->IsHex(string("   0xabcd")));
-   EXPECT_TRUE(g_numbers()->IsHex(string("0xabcd    ")));
-   EXPECT_TRUE(g_numbers()->IsHex(string("  0x12cf  ")));
-   EXPECT_TRUE(g_numbers()->IsHex(string("0x7FFFFFFFFFFFFFFF")));
-   EXPECT_TRUE(g_numbers()->IsHex("-0x0"));
-   EXPECT_FALSE(g_numbers()->IsHex("-0x"));
-   EXPECT_TRUE(g_numbers()->IsHex("-0xabcd"));
-   EXPECT_TRUE(g_numbers()->IsHex("   -0xabcd"));
-   EXPECT_TRUE(g_numbers()->IsHex("-0xabcd    "));
-   EXPECT_TRUE(g_numbers()->IsHex("  -0x12cf  "));
-   EXPECT_TRUE(g_numbers()->IsHex("-0x7FFFFFFFFFFFFFFF"));
-   EXPECT_TRUE(g_numbers()->IsHex(0x0));
-   EXPECT_TRUE( g_numbers()->IsHex(0x3) );
-   EXPECT_TRUE(g_numbers()->IsHex(100));
-   EXPECT_TRUE(g_numbers()->IsHex(200));
-   EXPECT_TRUE( g_numbers()->IsHex(0xabcd));
-   EXPECT_TRUE(g_numbers()->IsHex(9223372036854775807));
-   EXPECT_FALSE(g_numbers()->IsHex(1.4));
-   EXPECT_FALSE(g_numbers()->IsHex(3.14));
-   EXPECT_FALSE(g_numbers()->IsHex("abc0x4bc"));
-   EXPECT_FALSE(g_numbers()->IsHex("lorem ipsum"));
-   EXPECT_FALSE(g_numbers()->IsHex("Meeny"));
+   EXPECT_TRUE( g_number_types()->IsHex(test));
+   EXPECT_TRUE( g_number_types()->IsHex(test.c_str() ));
+   EXPECT_TRUE( g_number_types()->IsHex("0xabcd    "));
+   EXPECT_TRUE( g_number_types()->IsHex("  0x12cf  "));
+   EXPECT_TRUE( g_number_types()->IsHex("0x7FFFFFFFFFFFFFFF"));
+   EXPECT_TRUE( g_number_types()->IsHex(string("0x0")));
+   EXPECT_FALSE(g_number_types()->IsHex(string("0x")));
+   EXPECT_TRUE( g_number_types()->IsHex(string("0xabcd")));
+   EXPECT_TRUE( g_number_types()->IsHex(string("   0xabcd")));
+   EXPECT_TRUE( g_number_types()->IsHex(string("0xabcd    ")));
+   EXPECT_TRUE( g_number_types()->IsHex(string("  0x12cf  ")));
+   EXPECT_TRUE( g_number_types()->IsHex(string("0x7FFFFFFFFFFFFFFF")));
+   EXPECT_TRUE( g_number_types()->IsHex("-0x0"));
+   EXPECT_FALSE(g_number_types()->IsHex("-0x"));
+   EXPECT_TRUE( g_number_types()->IsHex("-0xabcd"));
+   EXPECT_TRUE( g_number_types()->IsHex("   -0xabcd"));
+   EXPECT_TRUE( g_number_types()->IsHex("-0xabcd    "));
+   EXPECT_TRUE( g_number_types()->IsHex("  -0x12cf  "));
+   EXPECT_TRUE( g_number_types()->IsHex("-0x7FFFFFFFFFFFFFFF"));
+   EXPECT_TRUE( g_number_types()->IsHex(0x0));
+   EXPECT_TRUE( g_number_types()->IsHex(0x3) );
+   EXPECT_TRUE( g_number_types()->IsHex(100));
+   EXPECT_TRUE( g_number_types()->IsHex(200));
+   EXPECT_TRUE( g_number_types()->IsHex(0xabcd));
+   EXPECT_TRUE( g_number_types()->IsHex(9223372036854775807));
+   EXPECT_FALSE(g_number_types()->IsHex(1.4));
+   EXPECT_FALSE(g_number_types()->IsHex(3.14));
+   EXPECT_FALSE(g_number_types()->IsHex("abc0x4bc"));
+   EXPECT_FALSE(g_number_types()->IsHex("lorem ipsum"));
+   EXPECT_FALSE(g_number_types()->IsHex("Meeny"));
 }
 
 

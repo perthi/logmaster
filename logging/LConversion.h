@@ -14,6 +14,7 @@
 #include  "LEnums.h"
 
 #include  <utilities/GNumbers.h>
+#include  <utilities/GNumberTypes.h>
 #include  <utilities/GDefinitions.h>
 
 
@@ -122,11 +123,11 @@ namespace LOGMASTER
 
         mask = PAD( (1LL << (pos + width - 1)) );
 
-        if ( g_numbers()->IsBinary( in ) )
+        if ( g_number_types()->IsBinary( in ) )
         {
             tmp = g_numbers()->BinaryString2Number( in );
         }
-        else if ( g_numbers()->IsHex( in ) )
+        else if ( g_number_types()->IsHex( in ) )
         {
             tmp = g_numbers()->ToHex( in );
         }

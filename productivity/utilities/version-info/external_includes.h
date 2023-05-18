@@ -15,8 +15,14 @@
 #include <utilities/GUtilities.cpp>
 #include <utilities/GCommon.cpp>
 #include <utilities/GText.cpp>
+
+#include <utilities/GNumberTypes.h>
+#include <utilities/GNumberTypes.cpp>
 #include <utilities/GNumbers.h>
 #include <utilities/GNumbers.cpp>
+
+
+
 #include <logging/LLogApi.h>
 #include <logging/LHashMaps.cpp>
 #include <logging/LHashMapsAutoGen.cpp>

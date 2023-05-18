@@ -35,7 +35,7 @@
 #include   "LHashMaps.h"
 #include   "LOperators.h"
 
-
+#include <utilities/GNumberTypes.h>
 
 
 namespace LOGMASTER
@@ -103,7 +103,7 @@ namespace LOGMASTER
             }
             else
             {
-                if ( g_numbers()->IsBinary( format ) )
+                if ( g_number_types()->IsBinary( format ) )
                 {
                     SetLogFormat ( e_tmp );
                 }
@@ -146,14 +146,14 @@ namespace LOGMASTER
             eMSGSYSTEM        e_system = LConversion::String2System( tokens[i] );
             eLOGLEVEL        e_level = LConversion::String2Level( tokens[i] );
 
-            /// We dont let anybody modify the alarm or the exception sub-system, if the user attempt it we just
+            /// We don't let anybody modify the alarm or the exception sub-system, if the user attempt it we just
             /// masks   of that bit and silently ignore it
             if( (int)e_system == 0 )
             {
                 continue;
             }
 
-            if ( g_numbers()->IsBinary( tokens[i] ) || g_numbers()->IsHex( tokens[i] ) )
+            if ( g_number_types()->IsBinary( tokens[i] ) || g_number_types()->IsHex( tokens[i] ) )
             {
                 ApplyLevel( e_system, e_level, NO_PADDING );
             }

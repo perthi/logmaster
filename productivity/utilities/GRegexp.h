@@ -15,6 +15,7 @@
 *** General Public License(LGPL) V3 or later.See.cpp file for details     ***
 *****************************************************************************/
 
+#include "GNumberTypes.h"
 #include "GNumbers.h"
 #include <string>
 #include <vector>
@@ -170,12 +171,12 @@ GRegexp::CheckFormat(const string format)
 {
     for (unsigned int i = 0; i < format.size(); i++)
     {
-        if (!g_numbers()->IsInteger(format.at(i)) && format.at(i) != ',' &&   format.at(i) != ' ')
+        if (!g_number_types()->IsInteger(format.at(i)) && format.at(i) != ',' &&   format.at(i) != ' ')
         {
             return false;
         }
 
-        if (g_numbers()->IsInteger(format.at(i)) == true)
+        if (g_number_types()->IsInteger(format.at(i)) == true)
         {
             int num = g_numbers()->ToInteger<int>(g_string()->ToString(format.at(i)));
             if (num < 0)

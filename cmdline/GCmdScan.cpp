@@ -29,7 +29,7 @@
 
 
 #include "GCmdScan.h"
-
+#include <utilities/GNumberTypes.h>
 
 
 
@@ -103,12 +103,12 @@ GCmdScan::SetParametersF(std::shared_ptr<GArgument>  a, GArgumentParsed v) const
         {
             T d = 0;
 
-            if (g_numbers()->IsIntegerType(d) || ab->GetTypeIdBase() == "Val_t")
+            if (g_number_types()->IsIntegerType(d) || ab->GetTypeIdBase() == "Val_t")
             {
                 d = g_numbers()->ToInteger<T>(v.GetArguments()[0]);
             }
 
-            if (g_numbers()->IsFloatType(d) || ab->GetTypeIdBase() == "Val_t")
+            if (g_number_types()->IsFloatType(d) || ab->GetTypeIdBase() == "Val_t")
             {
                 d = g_numbers()->ToFloat<T>(v.GetArguments()[0]);
             }
@@ -394,7 +394,7 @@ GCmdScan::Verify(std::shared_ptr<GArgument> a, GArgumentParsed v) const
 
         /**********************************************/
 
-        else if (g_numbers()->IsFundamentalTypeS(type) || type == typeid(string).name())
+        else if (g_number_types()->IsFundamentalTypeS(type) || type == typeid(string).name())
         {
             if (v.GetSubCommands().size() != 0 || v.GetArguments().size() != 1 || v.GetArguments().size() == 0)
             {
@@ -464,7 +464,7 @@ bool
 GCmdScan::IsCommand(const string arg) const
 {
 
-    if (g_string()->BeginsWith(arg, "-", false) && !g_string()->BeginsWith(arg, "--", false) && !g_numbers()->IsNumber(arg))
+    if (g_string()->BeginsWith(arg, "-", false) && !g_string()->BeginsWith(arg, "--", false) && !g_number_types()->IsNumber(arg))
     {
         return true;
     }

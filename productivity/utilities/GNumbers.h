@@ -29,7 +29,7 @@
 #include "GUtilities.h"
 #include "GString.h"
 
-
+#include "GNumberTypes.h"
 
 
 using std::hex;
@@ -65,49 +65,8 @@ public:
     bool   API  IsDisabledError() { return fIsDisabledError; };
     string   API               Dec2Hex(const string s);
     string   API               Hex2Dec(const string s);
-    bool     API               IsAlphaNumber(string num);
-    bool     API               IsBinary(const char *num)                      { return IsBinary(string(num)); };
-    bool     API               IsBinary(string num);
-	
-    template<typename T>   bool   API  IsBinary(T num);
-	
-    bool            API            IsDecNumber(const string num);
-    bool            API            IsDigit(const char *num, const int base = 10) { return IsDigit(string(num), base); };
-    bool            API            IsDigit(const string num, const int base = 10);
-    template<typename T>   bool  API   IsDigit(T num, const int base = 10);
-    template<typename T>   bool  API  IsFloat(T num);
-    bool          API              IsFloat(const char *num);
-    bool          API              IsFloat(const string num);
-    bool           API             IsHex(const string num);
-    template<typename T>   bool  API  IsHex(const T num);
-    bool           API             IsHex(const char *num) { return IsHex(string(num)); };
-    bool           API             IsInteger(const string num);
-    template<typename T>   bool  API  IsInteger(T num);
-    bool           API             IsNumber(const string num);
-    bool          API              IsNumber(const double num);
     
-    
-    template<typename T>  bool API IsIntegerVType(T) { return IsIntegerVTypeS(typeid(T).name() );  }
-    bool           API     IsIntegerVTypeS(string type);
-    
-    template<typename T>  bool API IsFundamentalVType(T) { return  IsFundamentalVTypeS(typeid(T).name() ); }
-    bool                      API IsFundamentalVTypeS(string type);
-    
-    template<typename T> bool API IsFloatVType(T) { return  IsFloatVTypeS(typeid(T).name() );}
-     bool                     API  IsFloatVTypeS(string type);
 
-    template<typename T>  bool API IsFundamentalType(T) { return  IsFundamentalTypeS( typeid(T).name() ); }
-     bool             API IsFundamentalTypeS(string type);
-
-    template<typename T>  bool API IsUnsignedType(T) { return  IsUnsignedTypeS(typeid(T).name()); }
-     bool             API IsUnsignedTypeS(string type);
-    
-    template<typename T>  bool API IsIntegerType(T) { return  IsIntegerTypeS(typeid(T).name() );}
-      
-      bool             API IsIntegerTypeS(string type);
-
-    template<typename T>  bool API IsFloatType (T) { return IsFloatTypeS(typeid(T).name() ) ; }
-     bool             API IsFloatTypeS(string type);
 
 
     template<typename T>   int64_t     API  BitWidth(const T in);
@@ -150,7 +109,7 @@ private:
 
 /**@{
  * Checks the signedness of the template parameter T against the number represented by the parameter "num" <br>
- * example1: CheckUnsigned<unsigned int>("-1"); // Throws an exeption because T is unsigned whereas num is negative <br>
+ * example1: CheckUnsigned<unsigned int>("-1"); // Throws an exception because T is unsigned whereas num is negative <br>
  * example2: CheckUnsigned<int>("-1"); // OK, num is negative, but T is signed so it can represent a negative number <br>
  * example2: CheckUnsigned<unsigned int>("42"); // OK, T is unsigned, but "num" is positive
  * @tparam T The type to check for signedness
@@ -162,7 +121,7 @@ void GNumbers::CheckUnsigned(const string num)
 {
     string message;
 
-    if (IsNumber(num) == false)
+    if ( g_number_types()->IsNumber(num) == false)
     {
         message = "\"" + num + "\"" + " is not a number ";
         GCommon().HandleError(message, GLOCATION, IsDisabledError() );
@@ -170,7 +129,7 @@ void GNumbers::CheckUnsigned(const string num)
 
     string tmp = typeid(T).name();
 
-    if( g_string()->BeginsWith(num, "-", false) && IsUnsignedTypeS( tmp) )
+    if( g_string()->BeginsWith(num, "-", false) && g_number_types()->IsUnsignedTypeS( tmp) )
     {
 
         message = string("Illegal operation, you have tried to convert the unsigned type") + typeid(T).name() + string("to a negative number ");
@@ -190,48 +149,13 @@ void GNumbers::CheckUnsigned(const vector<string> num)
 /**@}*/
 
 
-template<typename T>
-bool
-GNumbers::IsBinary(T num)
-{
-    return IsBinary(g_string()->ToString(num));
-}
 
 
-template<typename T>
-bool
-GNumbers::IsDigit(T num, const int base)
-{
-    std::stringstream stream;
-    stream << std::hex << num;
-    return IsDigit(g_string()->ToString(stream.str()), base);
-}
 
 
-template<typename T>
-bool
-GNumbers::IsFloat(T num)
-{
-   return IsFloat(g_string()->ToString(num));
-}
 
 
-template<typename T>
-bool
-GNumbers::IsHex(const T num)
-{
-    std::stringstream stream;
-    stream << std::hex << num;
-    return IsHex(g_string()->ToString("0x"+ stream.str()));
-}
 
-
-template<typename T >
-bool
-GNumbers::IsInteger(T num)
-{
-    return IsInteger(g_string()->ToString(num));
-}
 
 
 template<typename T> T
@@ -241,7 +165,7 @@ GNumbers::ToInteger(const string num)
     string trimmed = num;
     trimmed = g_string()->Trim(trimmed, { ' ', '\t', '\n' });
 
-    if (IsInteger(trimmed) == false && IsHex(trimmed) == false)
+    if ( g_number_types()->IsInteger(trimmed) == false && g_number_types()->IsHex(trimmed) == false)
     {
 
       string message = num + " is NOT an Integer or hex number, aborting, ..";
@@ -251,7 +175,7 @@ GNumbers::ToInteger(const string num)
     CheckUnsigned<T>(trimmed);
     long long int number = atoll(trimmed.c_str());
 
-    if (IsHex(trimmed))
+    if (g_number_types()->IsHex(trimmed))
     {
         return (T)ToHex(trimmed);
     }
@@ -324,7 +248,7 @@ GNumbers::ToFloat(const string num)
     trimmed = g_string()->Trim(trimmed, { ' ', '\t', '\n' });
 	trimmed  = g_string()->Replace(trimmed, ",", ".");
 
-    if ((IsNumber(trimmed) == true) && (IsFloat(trimmed) == true))
+    if (( g_number_types()->IsNumber(trimmed) == true) && ( g_number_types()->IsFloat(trimmed) == true))
     {
 		ret = (T)std::stod(trimmed);
 	}

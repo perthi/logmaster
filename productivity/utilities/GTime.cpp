@@ -39,6 +39,7 @@
 #include "GUtilities.h"
 #include "GTokenizer.h"
 #include "GNumbers.h"
+#include "GNumberTypes.h"
 #include "GRegexp.h"
 #include <sstream>
 #include <chrono>
@@ -181,7 +182,7 @@ GTime::DateString2Time(const string date, const string format, std::tm *t, int64
         else
         {
             string snum = tokens.at(n - 1);
-            if (g_numbers()->IsNumber(snum))
+            if (g_number_types()->IsNumber(snum))
             {
                 snum = "." + snum;
                 double d = g_numbers()->ToFloat(snum);

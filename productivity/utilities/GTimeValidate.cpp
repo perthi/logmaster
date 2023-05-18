@@ -191,7 +191,7 @@ bool GTimeValidate::IsValidSecondS(const string s)
 bool  
 GTimeValidate::ValidateV2(  std::function<bool(  const int ) > funct, const string &s, const vector<string> * const arr  )
 {
-    if ( g_numbers()->IsInteger(s) == true)
+    if ( g_number_types()->IsInteger(s) == true)
     {
         int tmp = g_numbers()->ToInteger<int>(s);
          bool ret = funct(tmp);

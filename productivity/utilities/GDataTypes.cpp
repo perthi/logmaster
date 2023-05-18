@@ -29,6 +29,7 @@
 
 
 #include "GNumbers.h"
+#include "GNumberTypes.h"
 #include "GDataTypes.h"
 #include "GCommon.h"
 #include "GText.h"
@@ -45,7 +46,7 @@ ostream& operator<<(ostream& os, const Val  &o)
 void 
 Val::CheckIsInteger(double t)
 {
-    if( g_numbers()->IsInteger((long double )t) == false )
+    if( g_number_types()->IsInteger((long double )t) == false )
     {
         GCommon().HandleError( GText( "Number (%f) is NOT an integer, the sensor ID must be an integer between ZERO and %d", t, 16).str(), 
                                          GLOCATION, THROW_EXCEPTION  );

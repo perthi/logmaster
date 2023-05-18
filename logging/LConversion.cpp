@@ -33,7 +33,7 @@
 
 #include <utilities/GTokenizer.h>
 #include <utilities/GNumbers.h>
-
+#include <utilities/GNumberTypes.h>
 
 
 namespace LOGMASTER
@@ -61,11 +61,11 @@ namespace LOGMASTER
         }
         else
         {
-            if ( g_numbers()->IsBinary( in ) == true  )
+            if ( g_number_types()->IsBinary( in ) == true  )
             {
                 e_tmp = BinaryString2Format( in );
             }
-            else if ( g_numbers()->IsHex( in )  == true )
+            else if ( g_number_types()->IsHex( in )  == true )
             {
                 e_tmp = HexString2Format( in );
                 if ( e_tmp > eMSGFORMAT::PREFIX_ALL )
@@ -97,11 +97,11 @@ namespace LOGMASTER
         for(size_t i=0; i < tokens.size(); i ++ )
         {
 
-            if ( g_numbers()->IsBinary( tokens[i] ) == true )
+            if ( g_number_types()->IsBinary( tokens[i] ) == true )
             {   
                 e_tmp = e_tmp | BinaryString2Target( tokens[i]  );
             }
-            else if ( g_numbers()->IsHex( tokens[i]  ) == true )
+            else if ( g_number_types()->IsHex( tokens[i]  ) == true )
             {
                 e_tmp = e_tmp | HexString2Target( tokens[i]  );
             }
@@ -131,7 +131,7 @@ namespace LOGMASTER
     LConversion::String2Level( const string & in )
     {
 
-        if ( g_numbers()->IsBinary( in ) )
+        if ( g_number_types()->IsBinary( in ) )
         {
             return BinaryString2Level(in);
         }
@@ -151,11 +151,11 @@ namespace LOGMASTER
     eMSGSYSTEM 
     LConversion::String2System( const string & in )
     {
-        if ( g_numbers()->IsBinary( in ) )
+        if ( g_number_types()->IsBinary( in ) )
         {
             return BinaryString2System(in);
         }
-        else if ( g_numbers()->IsHex( in ) )
+        else if ( g_number_types()->IsHex( in ) )
         {
             return HexString2System(in);
         }
@@ -208,7 +208,7 @@ namespace LOGMASTER
     LConversion::HexString2Target( const string & in )
     {
         eMSGTARGET e_tmp = eMSGTARGET::TARGET_OFF;
-        if ( g_numbers()->IsHex( in ) )
+        if ( g_number_types()->IsHex( in ) )
         {
             e_tmp = (eMSGTARGET)g_numbers()->ToHex( in );
         }
@@ -223,7 +223,7 @@ namespace LOGMASTER
     {
         eMSGFORMAT e_tmp = eMSGFORMAT::ALL_FIELDS_OFF;
         
-        if ( g_numbers()->IsHex( in ) )
+        if ( g_number_types()->IsHex( in ) )
         {
             e_tmp = (eMSGFORMAT)g_numbers()->ToHex( in );
         }

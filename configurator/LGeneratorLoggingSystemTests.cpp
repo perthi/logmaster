@@ -19,12 +19,12 @@ namespace CONFIGURATOR
         PUSH();
         SET_LOGFORMAT("1000001");
 
-        for (auto l : levels)
+        for (auto &l : levels)
         {
            // FORCE_DEBUG("fName = %s", l->fName.c_str() );
         }
 
-        for (auto s : systems)
+        for (auto &s : systems)
         {
             //FORCE_DEBUG("fName:%s fNameShort: %s  fTag:%s  fTagShort:%s",s->fName.c_str(), s->fNameShort.c_str(), 
             //    s->fTag.c_str(), s->fTagShort.c_str() );
