@@ -3,6 +3,7 @@
 #include "LFileCreator.h"
 
 #include "LGenerator.h"
+#include "LFileInfo.h"
 #include <logging/GException.h>
 #include <format>
 
@@ -36,18 +37,20 @@ namespace CONFIGURATOR
       //  SET_LOGLEVEL("--all-info");
         gen->GenerateContent(loglevels, subsystems); /// Generating the file content
 
-        string basepath = gen->GetFilePath();
-
+        //string basepath = gen->GetFilePath();
+        string basepath = gen->GetFileInfo()->GetPath();
 
         if ( gen->IsEnabledHeader( ) )
         {
-            string filename = basepath + gen->GetHeaderFileName();
+            //string filename = basepath + gen->GetHeaderFileName();
+            string filename = basepath + gen->GetFileInfo()->GetHeaderName();
             XML_INFO("Writing header to: %s",  filename.c_str() );
             WriteFile(gen->GetContentHeader( ),  filename );
         }
         else if ( gen->IsEnabledSource( ) )
         {
-            string filename = basepath + gen->GetSourceFileName();
+            //string filename = basepath + gen->GetSourceFileName();
+            string filename = basepath + gen->GetFileInfo()->GetSourceName();
             XML_INFO("Writing source to: %s", filename.c_str());
             WriteFile(gen->GetContentSource( ), filename );
         }

@@ -4,6 +4,7 @@
 #include <configurator/LXmlEntitySubSystem.h>
 #include <configurator/LXmlEntityLogLevel.h>
 #include <utilities/GRandom.h>
+#include "LFileInfo.h"
 
 #include <sstream>
 
@@ -27,7 +28,9 @@ namespace CONFIGURATOR
         //fFileContentSource
 
 		fFileContentSource.push_back(string("\n\n"));
-		fFileContentSource.push_back("#include \"" + fHeaderFileName + "\"");
+		//fFileContentSource.push_back("#include \"" +  fHeaderFileName + "\"");
+		fFileContentSource.push_back("#include \"" + fFileInfo->GetHeaderName()  + "\"");
+
 		fFileContentSource.push_back("#include \"LLogApi.h\"");
 		fFileContentSource.push_back("#include <utilities/GRandom.h>");
 		fFileContentSource.push_back("#include <utilities/GLocation.h>\n");
@@ -38,7 +41,7 @@ namespace CONFIGURATOR
 		fFileContentSource.push_back(" namespace LOGMASTER ");
 		fFileContentSource.push_back("{");
 		fFileContentSource.push_back("void");
-		fFileContentSource.push_back(fClassName + "::WriteMessages()");
+		fFileContentSource.push_back(  fFileInfo->GetClassName() + "::WriteMessages()");
 		fFileContentSource.push_back("{");
 		fFileContentSource.push_back("    float fval = 0;");
 		fFileContentSource.push_back("    int ival = 0;");

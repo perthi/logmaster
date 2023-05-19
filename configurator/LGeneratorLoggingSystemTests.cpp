@@ -5,6 +5,7 @@
 
 #include <logging/LLogApi.h>
 #include <utilities/GNumbers.h>
+#include "LFileInfo.h"
 
 #include <format>
 
@@ -29,7 +30,7 @@ namespace CONFIGURATOR
 
         for (auto &l : levels)
         {
-            FORCE_DEBUG("CLassname = %s", fClassName.c_str());
+            FORCE_DEBUG("CLassname = %s",  fFileInfo->GetClassName().c_str());
             // FORCE_DEBUG("fName = %s", l->fName.c_str() );
         }
 

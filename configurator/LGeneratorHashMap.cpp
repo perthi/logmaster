@@ -12,6 +12,8 @@ using namespace LOGMASTER;
 #include  <utilities/GString.h>
 #include  <logging/GException.h>
 
+#include <configurator/LFileInfo.h>
+
 #include <sstream>
 #include <algorithm>
 #include <algorithm>
@@ -42,16 +44,17 @@ namespace CONFIGURATOR
 			"Max number of sub systems exceeded. You can define maximum 12 additional sub systems, \
     you have defined %d. please check your XML configuration", systems.size());
 
-      //  fFileContentSource
+		string classname = fFileInfo->GetClassName();
 
-		fFileContentSource.push_back("#include \"" + fClassName + ".h\"");
+		//fFileContentSource.push_back("#include \"" + fClassName + ".h\"");
+		fFileContentSource.push_back("#include \"" + classname + ".h\"");
 		fFileContentSource.push_back("#include <utilities/GNumbers.h>");
 		fFileContentSource.push_back("#include <utilities/GUtilities.h>");
 		fFileContentSource.push_back("\n\n");
 		fFileContentSource.push_back("namespace LOGMASTER");
 		fFileContentSource.push_back("{");
-		fFileContentSource.push_back(fClassName + "::" + fClassName + "( ) : fLogLevelHash() {}");
-		fFileContentSource.push_back(fClassName + "::~" + fClassName + "(){ }");
+		fFileContentSource.push_back(classname + "::" + classname + "( ) : fLogLevelHash() {}");
+		fFileContentSource.push_back(classname + "::~" + classname + "(){ }");
 		fFileContentSource.push_back("\n\n");
 
 		GenerateInitHashLogLevel(systems,        fFileContentSource);
@@ -70,7 +73,7 @@ namespace CONFIGURATOR
 	{
 		lines.push_back("\n\n");
 		lines.push_back("   void");
-		lines.push_back("   " + fClassName + "::InitHashLogTags(  map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash   )");
+		lines.push_back("   " + fFileInfo->GetClassName() + "::InitHashLogTags(  map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash   )");
 
 		lines.push_back("   {");
 
@@ -108,7 +111,7 @@ namespace CONFIGURATOR
 	{
 		lines.push_back("\n\n");
 		lines.push_back("   void");
-		lines.push_back("   " + fClassName + "::InitHashLevel2String(  map<eLOGLEVEL, string> *Level2StringHash  )");
+		lines.push_back("   " +  fFileInfo->GetClassName() + "::InitHashLevel2String(  map<eLOGLEVEL, string> *Level2StringHash  )");
 		lines.push_back("   {");
 		
         
@@ -135,7 +138,7 @@ namespace CONFIGURATOR
 		lines.push_back("\n\n");
 		lines.push_back("   void");
 
-		lines.push_back("   " + fClassName + "::InitHashSystem2String( map<eMSGSYSTEM, string>  *System2StringHash )");
+		lines.push_back("   " +  fFileInfo->GetClassName() + "::InitHashSystem2String( map<eMSGSYSTEM, string>  *System2StringHash )");
 		lines.push_back("   {");
         lines.push_back("\tSystem2StringHash->emplace(eMSGSYSTEM::SYS_NONE,     \"System Unknown\");");
 
@@ -165,7 +168,7 @@ namespace CONFIGURATOR
     *  whether or not logging is enabled to file, to console, etc.. */");
 
 		content.push_back("   void");
-		content.push_back("   " + fClassName + "::InitHashLogLevel( )");
+		content.push_back("   " +  fFileInfo->GetClassName() + "::InitHashLogLevel( )");
 		content.push_back("   {");
 		content.push_back("\tfLogLevelHash.clear();");
 		content.push_back("//\teLOGLEVEL level = (eLOGLEVEL)(PAD((int)l));");

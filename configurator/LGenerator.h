@@ -41,7 +41,7 @@ namespace CONFIGURATOR
         virtual void GenerateContent(const logentity_vec levels, const sysentity_vec systems) = 0;
 
 
-		string GetFilePath() const { return fFilePath; };
+		///string GetFilePath() const { return fFilePath; };
 
 		/** @todo Check if this function name is logical */
         void GenerateLicenseHeader(const LXMLInfo);
@@ -49,28 +49,32 @@ namespace CONFIGURATOR
         vector<string>& GetContentHeader( ) { return fFileContentHeader; };
         vector<string>& GetContentSource() { return fFileContentSource; };
 		
-		const string GetHeaderFileName() const { return fHeaderFileName; }
-		const string GetSourceFileName() const { return fSourceFileName; }
+		//const string GetHeaderFileName() const { return fHeaderFileName; }
+		//const string GetSourceFileName() const { return fSourceFileName; }
+
+		std::shared_ptr<LFileInfo> GetFileInfo() { return  fFileInfo; };
+
 
         bool IsEnabledHeader( ) { return fDoGenerateHeader;  };
         bool IsEnabledSource( ) { return fDoGenerateSource; };
 
-		void EnableSuffix();
-		void DisableSuffix();
+		//void EnableSuffix();
+		//void DisableSuffix();
 
 	protected:
 		std::shared_ptr<LFileInfo> fFileInfo = nullptr;
 		
 		static LXMLInfo fXMLFileNames;						// XML and XSD file used to generate files
 		
-        string fFilePath = "UNKNOWN";						//!< Full path of the .cpp or .h source file to be generated
-		string fClassName = "UNKNOWN";						//!< Name of the class (extracted from the file path
-		string fSourceFileName = "UNKNOWN";					//!< Name of the .cpp source file if applicable
-		string fHeaderFileName = "UNKNOWN";					//!< Name of the .h header file if applicable
+       // string fFilePath = "UNKNOWN";						//!< Full path of the .cpp or .h source file to be generated
+	//	string fClassName = "UNKNOWN";						//!< Name of the class (extracted from the file path
+	//	string fSourceFileName = "UNKNOWN";					//!< Name of the .cpp source file if applicable
+	//	string fHeaderFileName = "UNKNOWN";					//!< Name of the .h header file if applicable
 		 
 		
 		string fLevelEnumName = "eLOGLEVEL";				//!< enum identifier for log level in generated files
 		string fSystemEnumName = "eMSGSYSTEM";				//!< enum identifier for subsystem in generated files
+		
 		vector<string> fFileContentSource = vector<string>();  //!< The data that will be written to the .cpp source file
         vector<string> fFileContentHeader =   vector<string>();  //!< The data that will be written to the .h header file
 

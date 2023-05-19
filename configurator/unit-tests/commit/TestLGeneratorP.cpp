@@ -36,6 +36,7 @@
 #include <configurator/LGeneratorHashMap.h>
 #include <configurator/LGeneratorLogTest.h>
 #include <configurator/LFileCreator.h>
+#include <configurator/LFileInfo.h>
 
 #include <configurator/LXmlParser.h>
 
@@ -73,7 +74,8 @@ void TestLGeneratorP::SetUpTestCase()
 void 
 TestLGeneratorP::SetUp( )
 {
-    GetParam( ).fGenerator->DisableSuffix( );
+    GetParam( ).fGenerator->GetFileInfo()->DisableSuffixes( );
+
 };
 
 

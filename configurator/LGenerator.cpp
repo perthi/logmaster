@@ -26,7 +26,8 @@ namespace CONFIGURATOR
 	 * @param[in] path File path to the directory where the generated file h/cpp files will be written.
 	 * @param[in] xmlinfo Struct containing the name of the XML file defining logging macros
 	 * etc, and the corresponding XSD file*/
-	LGenerator::LGenerator(const string path, const string classname, const  LXMLInfo xmlinfo) : fFilePath(path)
+	//LGenerator::LGenerator(const string path, const string classname, const  LXMLInfo xmlinfo) : fFilePath(path)
+		LGenerator::LGenerator(const string path, const string classname, const  LXMLInfo xmlinfo) 
 	{
 
 		try
@@ -46,10 +47,10 @@ namespace CONFIGURATOR
 		}
 
 		//fClassName = g_string()->Path2ClassName(path);
-		fClassName = classname;
+	//	fClassName = classname;
 		//XML_ASSERT_EXCEPTION( g_string()->EndsWith(classname)         );
-		fSourceFileName = fClassName + ".cpp";
-		fHeaderFileName = fClassName + "h";
+	//	fSourceFileName = fClassName + ".cpp";
+	//	fHeaderFileName = fClassName + "h";
 
 		GenerateLicenseHeader(xmlinfo);
 	}
@@ -70,6 +71,7 @@ namespace CONFIGURATOR
     }
 
 
+	/*
 	void 
 		LGenerator::EnableSuffix()
 	{
@@ -80,10 +82,11 @@ namespace CONFIGURATOR
     void 
 		LGenerator::DisableSuffix()
 	{
-
+		
         fHeaderFileName = fClassName;
         fSourceFileName = fClassName;
 		//fDoAddSuffix = false;
 	}
+	*/
 
 }
