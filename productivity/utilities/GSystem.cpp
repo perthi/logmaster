@@ -54,7 +54,7 @@
 
 #include <stdio.h>
 #include <memory>
-#include <sys/stat.h>
+
 #include <cstdlib>
 #include <filesystem>
 #include <format>
@@ -66,11 +66,17 @@
 //#include <ftw.h>
  #include <errno.h>
 
+
+
 GSystem * g_system()
 {
     static GSystem *instance = new GSystem();
     return instance;
 }
+
+
+
+
 
 
 /** @todo return std::optional here*/
@@ -143,8 +149,6 @@ GSystem::Errno2String(const int code, const string fname, const string  opt)
 bool
 GSystem::mkdir(const string dirname, const bool print_error)
 {
-//    FORCE_DEBUG("creating directory %s", dirname.c_str()  );
-
 #ifdef _WIN32
     int status = ::_mkdir(dirname.c_str() );
 #else
@@ -232,14 +236,63 @@ GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
 }
 /**@}*/
 
+
 bool
-GSystem::Exists(const string filepath)
+GSystem::exists(const string filepath, struct  stat *sb_in)
 {
     struct  stat sb;
     int ret = stat( filepath.c_str(), &sb );
+    
+    if ( ret != 0 )
+    {
+        string err = Errno2String(errno, filepath, "");
+        GCommon( ).HandleError(err, GLOCATION);
+    }
+    else
+    {
+        if ( sb_in != nullptr )
+        { 
+            *sb_in = sb;
+        }
+    }
+
     return ret == 0 ? true :false;
 }
 
+/**@{
+/**
+ * Whether or not a path is a regular file or directory.
+ * 
+ * @param filepath
+ * @param sb An optional stat sruct if the user code wants to know more details
+ * about the file. I could be that the file exists, but is a special file like
+ * a socket or similar.
+ * @return true if the path exists and is a regular file/directory.
+ * false otherwise */
+/*
+bool     
+GSystem::isdirectory(const string filepath, struct  stat* sb_in)
+{
+    struct  stat sb;
+    if ( exists(filepath, &sb) == true )
+    {
+        S_ISREG(sb)
+    }
+    
+
+    return false;
+    
+}
+
+
+bool      
+GSystem::isfile(const string filepath, struct  stat* sb)
+{
+
+}
+*/
+
+/**@} */
 
 
 string
@@ -311,19 +364,6 @@ GSystem::exec(const char* cmd)
     return result;
 }
 
-bool
-GSystem::doexist(const string fname)
-{
-    FILE* fp = nullptr;
-    #ifdef _WIN32
-    fopen_s(&fp, fname.c_str(), "r");
-    #else
-    fp =  fopen(fname.c_str(), "r");
-    #endif
-
-    return fp == nullptr ?  false : true;
-}
-
 
 
 #ifdef _WIN32
@@ -335,9 +375,6 @@ GSystem::GetCommandLineAll()
 }
 #endif
 
-
-// using convert_t = std::codecvt_utf8<wchar_t>;
-// std::wstring_convert<convert_t, wchar_t> strconverter;
 
 /** @return all the command line arguments, except the firs one (which is the name of the executable), as a single string*/
 #ifdef _WIN32

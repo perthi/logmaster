@@ -57,19 +57,25 @@ using namespace CONFIGURATOR;
 
 #include <format>
 
-int main(int  argc, const char** argv)
+
+class file_t : public std::exception
 {
 
-    //cout << std::format("Timeout waiting %0.1f seconds for semaphore", time)
+};
 
-    //LConversion::String2System("000000110000000000000100");
+
+
+int main(int  argc, const char** argv)
+{
+    //15;
+
+
+    return 0;
 
     GMenu::Instance( )->ScanArguments(argc, argv);
 
     SET_LOGLEVEL("--all-off --all-warning");
     SET_LOGFORMAT("1111111");
-
-  
 
 
     try

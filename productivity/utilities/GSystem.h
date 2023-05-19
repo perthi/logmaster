@@ -53,10 +53,11 @@ public:
     static bool           API      rmdir(const string filename);
     static void           API      mv(const string src, const string dest);
     static string         API      exec(const char *cmd);
-    static bool           API      doexist(const string fname);
     static string         API      GetProcessID();
     static string         API      getenv(const string var);
-    
+    static bool           API      exists(const string filepath, struct  stat* sb = nullptr);
+    //static bool           API      isdirectory(const string filepath, struct  stat* sb = nullptr);
+    //static bool           API      isfile(const string filepath, struct  stat* sb = nullptr);
     
     static string         API      Errno2String(const  int code, const string fname, const string  opt);
 
@@ -73,7 +74,7 @@ public:
     static char  API * GetExeName();
     static string API  GetHostName();
 
-    static bool API Exists(const string filepath);
+   
     static string API GetDirectory(const string filepath);
 
  
