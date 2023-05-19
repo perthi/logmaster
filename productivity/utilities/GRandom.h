@@ -15,13 +15,14 @@
 
 #include "GDefinitions.h"
 #include "GCommon.h"
-#include "GText.h"
 #include "GLocation.h"
 
 #include <string>
 #include <random>
 #include <typeinfo>
 #include <limits.h>
+
+#include <format>
 
 using std::random_device;
 using std::string;
@@ -53,7 +54,7 @@ public:
     template<typename T>  T
     inline  Binominal(T n, double /*p*/, typename std::enable_if<std::is_floating_point<T>::value>::type* = 0)
     {
-        GCommon().HandleError(  GText( "The parameter n mus be an integral value, n is of type %s", typeid(n).name()).str(), GLOCATION, THROW_EXCEPTION  );
+        GCommon().HandleError(  std::format( "The parameter n mus be an integral value, n is of type {}", typeid(n).name()), GLOCATION, THROW_EXCEPTION  );
         return 0;
     }
   
@@ -64,7 +65,7 @@ public:
     {
         if (min > max)
         {
-            GCommon().HandleError(  GText(  "Min value must be lower than max value, you have entered  min = %f and max = %f", min, max  ).str(), GLOCATION, THROW_EXCEPTION  );
+            GCommon().HandleError( std::format(  "Min value must be lower than max value, you have entered  min = {} and max = {}", min, max  ), GLOCATION, THROW_EXCEPTION  );
             return -1;
         }
         else
@@ -84,7 +85,7 @@ public:
     {
         if (  (min) > (max)  )
         {
-            GCommon().HandleError(  GText(  "Min value must be lower than max value, you have entered  min = %d and max = %d", min, max  ).str(), GLOCATION, false  );
+            GCommon().HandleError(   std::format( "Min value must be lower than max value, you have entered  min = {} and max = {}", min, max  ), GLOCATION, false  );
             return -1;
         }
         else
@@ -103,8 +104,7 @@ public:
         T num = -9999;
         if (sigma < 0)
         {
-            ///RANGE_EXCEPTION("Invalid sigma value %f, sigma must be positive", sigma);
-            GCommon().HandleError(  GText(  "Invalid sigma value %f, sigma must be positive" ) .str(), GLOCATION, THROW_EXCEPTION  );
+            GCommon().HandleError(  std::format( "Invalid sigma value {}, sigma must be positive" ), GLOCATION, THROW_EXCEPTION  );
         }
         else
         {
@@ -119,25 +119,22 @@ public:
     template<typename T>  T
     inline  Gauss(T /*mean*/, T /*sigma*/, typename std::enable_if<std::is_integral<T>::value>::type* = 0)
     {
-        //EXCEPTION("You cannot use the Gauss random geneartor with an integral typ. %s Is an integral type, use a binominal generator instead", typeid(T).name());
-        GCommon().HandleError(  GText(  "You cannot use the Gauss random geneartor with an integral type. \
-                                           %s Is an integral type, use a binominal generator instead", typeid(T).name()) .str(), GLOCATION,   THROW_EXCEPTION  );
+        GCommon().HandleError(  std::format( "You cannot use the Gauss random generator with an integral type. \
+                                           {} Is an integral type, use a binomial generator instead", typeid(T).name()), GLOCATION,   THROW_EXCEPTION  );
         return 0;
     }
 };
 
 
-//#ifdef _WIN32
 inline string
 GRandom::Name(const string prefix, const string postfix)
 {
     static char name[4096];
     unsigned short num = Uniform<unsigned short>(0, USHRT_MAX);
     SPRINTF(name, 4096 - 1, "%s%05d%s", prefix.c_str(), num, postfix.c_str());
-    //    sprintf(name, "%s%05d%s", prefix.c_str(), num, postfix.c_str() );
     return string(name);
 }
-//#endif
+
 
 
 inline string   
@@ -147,7 +144,7 @@ GRandom::RandomString( const size_t size  )
 
     for(size_t i = 0; i <  size; i++ )
     {
-       // char c = Uniform<int>(1, 255);
+        /** @bug magic numbers */
         char c = Uniform<int>(64, 90);
         tmp.push_back(c);
     }

@@ -1,7 +1,7 @@
 
 
+
 #include "GFormatting.h"
-#include "GText.h"
 
 
 #ifdef HAS_LOGGING
@@ -13,8 +13,13 @@ class GMissingArgumentException;
 #endif
 #include <iostream>
 #include <sstream>
-
+#include <format>
 #include <cstdint>
+
+using std::format;
+
+
+
 namespace GFormatting
 {
 
@@ -24,13 +29,7 @@ template<typename T>
 void 
 ThrowException( const char * msg,  const char *file, const char *func, const int line )
 {   
-    #ifndef HAS_LOGGING
-    throw(std::invalid_argument( GText("%s\nFormatting error at: %s::%s[line %d]", msg, file, func, line ).c_str()));
-    #else
-     throw_exception( T(  __FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_EX, "%s:%s", msg, 
-     GText("\nFormatting error at: %s::%s[line %d]",   file, func, line ).c_str()  ) );
-//     MISSING_ARGUMENT_EXCEPTION(msg);
-    #endif
+    throw(std::invalid_argument( format("{}\nFormatting error at: {}::{}[line {}]", msg, file, func, line).c_str()));
 }
 
 
@@ -51,7 +50,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                 if(currentArg >= numArgs)
                 {
                   
-                     ThrowException<GMissingArgumentException>(   GText("Too few arguments, got %d, expected at least %d", 
+                     ThrowException<GMissingArgumentException>(   std::format("Too few arguments, got {}, expected at least {}", 
                      numArgs, numArgs+1 ).c_str(),  file, func, line  ); 
                     
                     return false;
@@ -72,7 +71,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                     case 'X':
                     if(args[currentArg].type != Arg::Type::INT)
                     {
-                       ThrowException<GInvalidArgumentException> ( GText("Expected integer argument as argument %d", currentArg+1 ).c_str(),  
+                       ThrowException<GInvalidArgumentException> ( format("Expected integer argument as argument {}", currentArg+1 ).c_str(),  
                         file,  func, line );
                         return false;
                     }
@@ -80,7 +79,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                     ++currentArg;
                     return true;
                     default:
-                        ThrowException<GInvalidArgumentException> ( GText( "Invalid format specifier at position %d", currentArg+1).c_str(),  
+                        ThrowException<GInvalidArgumentException> ( format( "Invalid format specifier at position {}", currentArg+1).c_str(),  
                          file, func, line   );
                         return false;
                     }
@@ -115,7 +114,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                 case 'X':
                     if(args[currentArg].type != Arg::Type::INT)
                     {
-                        ThrowException<GInvalidArgumentException>  ( GText( "Expected integer argument as argument %d  )", 
+                        ThrowException<GInvalidArgumentException>  ( format("Expected integer argument as argument {}  )", 
                         currentArg+1 ).c_str(),  file, func, line );
                         return false;
                     }
@@ -134,7 +133,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                 case 'A':
                     if(args[currentArg].type != Arg::Type::FLOAT)
                     {
-                        ThrowException<GInvalidArgumentException> ( GText( "Expected floating point argument as argument %d", 
+                        ThrowException<GInvalidArgumentException> ( format("Expected floating point argument as argument {}", 
                         currentArg+1).c_str(), file, func, line );
                         return false;
                     }
@@ -143,7 +142,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                 case 'c':
                     if(args[currentArg].type != Arg::Type::CHAR)
                     {
-                        ThrowException<GInvalidArgumentException> ( GText("Expected char argument as argument %d", 
+                        ThrowException<GInvalidArgumentException> ( format("Expected char argument as argument {}", 
                         currentArg+1 ).c_str(),  file, func, line );
                         return false;
                     }
@@ -152,7 +151,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                 case 's':
                     if(args[currentArg].type != Arg::Type::STRING)
                     {
-                        ThrowException<GInvalidArgumentException> ( GText("Expected string argument as argument %d", 
+                        ThrowException<GInvalidArgumentException> ( format("Expected string argument as argument {}", 
                         currentArg+1 ).c_str(),  file, func, line );
                         return false;
                     }
@@ -161,7 +160,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                 case 'p':
                     if(args[currentArg].type != Arg::Type::POINTER)
                     {
-                        ThrowException<GInvalidArgumentException> ( GText( "Expected pointer argument as argument %d", 
+                        ThrowException<GInvalidArgumentException> ( format("Expected pointer argument as argument {}", 
                         currentArg+1 ).c_str(),  file, func, line  );
                         return false;
                     }
@@ -169,7 +168,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                     return true;
                 case '%': ++currentArg; break;
                 default:
-                      ThrowException<GInvalidArgumentException> ( GText( "Unspecified invalid argument(s) (n args = %d)", 
+                      ThrowException<GInvalidArgumentException> ( format("Unspecified invalid argument(s) (n args = {})", 
                         currentArg+1 ).c_str(),  file, func, line  );   
                 return false;
                 }
@@ -181,7 +180,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
     }
     if(currentArg < numArgs)
     {
-         ThrowException<GInvalidArgumentException>  ( GText( "Too many arguments specified (currentArg = %d, numArgs = %d)", currentArg,  numArgs).c_str(),  
+         ThrowException<GInvalidArgumentException>  ( format("Too many arguments specified (currentArg = {}, numArgs = {})", currentArg,  numArgs).c_str(),  
           file, func, line );
         return false;
     }

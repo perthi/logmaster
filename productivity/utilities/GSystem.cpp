@@ -32,7 +32,6 @@
 #include "GFileIOHandler.h"
 #include "GTokenizer.h"
 #include "GString.h"
-#include "GText.h"
 #include "GCommon.h"
 #include "GLocation.h"
 //#include <logging/GException.h> 
@@ -58,6 +57,7 @@
 #include <sys/stat.h>
 #include <cstdlib>
 #include <filesystem>
+#include <format>
 
 #ifndef _WIN32
 #include <libgen.h>
@@ -73,6 +73,7 @@ GSystem * g_system()
 }
 
 
+/** @todo return std::optional here*/
 string
 GSystem::getenv(const string  var  )
 {
@@ -159,8 +160,8 @@ GSystem::mkdir(const string dirname, const bool print_error)
         string errmsg = Errno2String(errno, dirname, "");
        if( print_error == true)
        {
-            GCommon().HandleError(  GText(  "The directory \"%s\" could not be created (%s),.. please check that you have write + exec permissions to the directory", \
-                                           dirname.c_str( ), errmsg.c_str() ).str(), GLOCATION,  DISABLE_EXCEPTION  );  
+            GCommon().HandleError(  std::format(  "The directory \"{}\" could not be created ({}),.. please check that you have write + exec permissions to the directory", \
+                                           dirname.c_str( ), errmsg.c_str() ), GLOCATION,  DISABLE_EXCEPTION  );  
        }
 
              return false;
@@ -210,12 +211,8 @@ GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
     case ENOSPC:       // No space left on device
     case ENOTDIR:      // Path is not (or cannot be) a directory
     case EROFS:        // The parent directory is read only
-          GCommon().HandleError(GText("non recoverable error encountered creating directory %s ( errno %d; %s )",
-                                         dirname.c_str(),
-                                         errno,
-                                         err )
-                                       .str(),
-                                   l);
+          GCommon().HandleError(std::format("non recoverable error encountered creating directory {} ( errno {}; {} )",
+                                         dirname,errno,err ),l);
         return false;
         break;
     case EEXIST:
@@ -225,12 +222,8 @@ GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
         }
         else
         {
-            GCommon().HandleError(GText("directory %s already exists and you are not allowed to overwrite it ( errno %d; %s)",
-                                             dirname.c_str(),
-                                             errno,
-                                             err )
-                                           .str(),
-                                       l);
+            GCommon().HandleError(std::format("directory {} already exists and you are not allowed to overwrite it ( errno {}; {})",
+                                             dirname,errno,err ),l);
             return false;
         }
         break;
@@ -559,7 +552,7 @@ GSystem::mkfile(const string filepath,const bool print_error )
     {
         if(print_error == true )
         {
-          GCommon().HandleError( GText("File \"%s\" already exists, will not be recreated", filepath.c_str()  ).str(), GLOCATION, DISABLE_EXCEPTION ) ;
+          GCommon().HandleError( std::format("File \"{}\" already exists, will not be recreated", filepath), GLOCATION, DISABLE_EXCEPTION ) ;
         }
         fclose(fp);
        // return false;
@@ -578,8 +571,8 @@ GSystem::mkfile(const string filepath,const bool print_error )
         {
             if(print_error == true )
             {
-              GCommon().HandleError(  GText(  "Could not create file \"%s\" Please check your write permissions for this directory", \
-                                               filepath.c_str()   ).str(), GLOCATION,  DISABLE_EXCEPTION  );
+              GCommon().HandleError(  std::format(  "Could not create file \"{}\" Please check your write permissions for this directory", \
+                                               filepath), GLOCATION,  DISABLE_EXCEPTION  );
             }
             
             return false;      
@@ -602,8 +595,8 @@ GSystem::rm(const string filename, bool recursive)
 
     auto errorhandling = [=](GLocation l, errno_t err, const char *exception_msg) 
     {
-        GCommon().HandleError(GText("could not remove file:%s:  %s", filename.c_str(), 
-                                exception_msg).str(), l, DISABLE_EXCEPTION);
+        GCommon().HandleError( std::format("could not remove file:{}:  {}", filename, exception_msg), l, DISABLE_EXCEPTION);
+
         if(err !=0)
         {
            GCommon().HandleError(Errno2String(errno, filename, ""),l, DISABLE_EXCEPTION);
@@ -619,7 +612,7 @@ GSystem::rm(const string filename, bool recursive)
             if (ret == false)
             {
                 errorhandling(GLOCATION, errno,
-                    GText("removal of file %s resulted in an error", filename.c_str()).str().c_str()); /// "todo simplify
+                    std::format("removal of file {} resulted in an error", filename ).c_str() ); /// "todo simplify
             }
 
             return ret;

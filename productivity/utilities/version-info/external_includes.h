@@ -14,7 +14,6 @@
 #include <utilities/GTimeFormat.cpp>
 #include <utilities/GUtilities.cpp>
 #include <utilities/GCommon.cpp>
-#include <utilities/GText.cpp>
 
 #include <utilities/GNumberTypes.h>
 #include <utilities/GNumberTypes.cpp>

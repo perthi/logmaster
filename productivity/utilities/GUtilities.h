@@ -15,14 +15,13 @@
 #include "GDefinitions.h"
 #include "GLocation.h"
 #include "GCommon.h"
-#include "GText.h"
 #include "GTime.h"
 
 #include <vector>
 #include <map>
 #include <iostream>
 #include <stdio.h>
-#include <string.h>
+//#include <string.h>
 #include <string>
 #include <sstream>
 #include <stdint.h>

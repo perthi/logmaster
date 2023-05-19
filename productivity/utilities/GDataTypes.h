@@ -12,7 +12,6 @@
 
 #include "GDefinitions.h"
 #include "GCommon.h"
-#include "GText.h"
 #include "GLocation.h"
 
 #include <ostream>
@@ -28,6 +27,8 @@ using std::ostream;
 
 using std::endl;
 using std::cout;
+
+#include <format>
 
 class Val
 {
@@ -151,7 +152,7 @@ void Val_t<T>::SetLimits(const T min, const T max)
     {
         std::stringstream buffer;
         buffer << "min cannot be bigger than max, you tried to set  min=" << min << " and max = " << max << ",.. aborting" << endl;
-        GCommon().HandleError(  GText( "%s", buffer.str().c_str()  ).str() , GLOCATION, THROW_EXCEPTION ) ;
+        GCommon().HandleError(  std::format( "{}", buffer.str()  ) , GLOCATION, THROW_EXCEPTION ) ;
     }
     else
     {

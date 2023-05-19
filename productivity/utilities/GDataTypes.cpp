@@ -32,9 +32,10 @@
 #include "GNumberTypes.h"
 #include "GDataTypes.h"
 #include "GCommon.h"
-#include "GText.h"
 #include "GLocation.h"
 #include "GStackTrace.h"
+
+#include <format>
 
 ostream& operator<<(ostream& os, const Val  &o)
 {
@@ -42,13 +43,15 @@ ostream& operator<<(ostream& os, const Val  &o)
     return os;
 }
 
+/** @todo remove this class */
 
 void 
 Val::CheckIsInteger(double t)
 {
     if( g_number_types()->IsInteger((long double )t) == false )
     {
-        GCommon().HandleError( GText( "Number (%f) is NOT an integer, the sensor ID must be an integer between ZERO and %d", t, 16).str(), 
+        /** @bug magic number */
+        GCommon().HandleError(  std::format("Number ({}) is NOT an integer, the sensor ID must be an integer between ZERO and {}", t, 16), 
                                          GLOCATION, THROW_EXCEPTION  );
     }
 }

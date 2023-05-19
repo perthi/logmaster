@@ -33,7 +33,6 @@
 #include  "GLogApplication.h"
 // #include  "SvnData.h"
 #include  <logging/LValidateArgs.h>
-#include  <utilities/GText.h>
 #include  <utilities/GDefinitions.h>
 #include  <utilities/GSystem.h>
 #include  <utilities/GConstants.h>

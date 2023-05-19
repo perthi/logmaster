@@ -30,30 +30,5 @@
 ******************************************************************************/
 
 
-// #include "GRandom.h"
-// #include <limits.h>
-// #include "GDefinitions.h"
-
-////#ifdef _WIN32
-//string 
-//GRandom::Name( const string prefix, const string postfix)
-//{
-//    static char name[4096];
-//    unsigned short num = Uniform<unsigned short>(  0,  USHRT_MAX );
-//    SPRINTF(name, 4096-1, "%s%05d%s", prefix.c_str(), num, postfix.c_str() );
-//    //    sprintf(name, "%s%05d%s", prefix.c_str(), num, postfix.c_str() );
-//    return string(name);   
-//}
-////#endif
-
-
-/*
-const std::default_random_engine 
-g_random()->Seed()
-{
-    std::random_device r;
-    std::default_random_engine e(r());
-    return e;
-}
-*/
+#include "GRandom.h"
 

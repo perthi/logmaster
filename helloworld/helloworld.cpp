@@ -59,35 +59,9 @@ using namespace CONFIGURATOR;
 
 int main(int  argc, const char** argv)
 {
-    string test= "foo bar";
-    //FORCE_DEBUG(test);
 
-    int t = 12345;
-    // string test2;
-    
-    for (int i = 0; i < 100; i++)
-    {
-        t++;
-     //   test2 = std::format("TESTING STD FORMAT {:#x}", t);
-        FORCE_DEBUG(  std::format("TESTING STD FORMAT {:#x}", t)  );
-    
-    }
+    //cout << std::format("Timeout waiting %0.1f seconds for semaphore", time)
 
-
-   ////  FORCE_DEBUG(test2);
-
-   // FORCE_DEBUG(std::format("TESTING STD FORMAT {:x#}", 12345)) ;
-
-    return 0;
-   // long long int num = 0x123456789;
-   /// cout << std::format(f, num);
-   /// std::format fmt;
-    //cout << std::format("{:#03x}\n"), num);
-
-    cout << g_random( )->Uniform<int>(0, 10000) << endl;
-   
-   // return 0;
-   
     //LConversion::String2System("000000110000000000000100");
 
     GMenu::Instance( )->ScanArguments(argc, argv);

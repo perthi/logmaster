@@ -4,7 +4,6 @@
 #include <logging/GException.h>
 
 #include <testlib/TestBase.h>
-#include <utilities/GText.h>
 #include <utilities/GRandom.h>
 #include <utilities/GFileIOHandler.h>
 #include <utilities/GSystem.h>
@@ -29,17 +28,18 @@ TestException::SetUp()
 
 TEST_F( TestException, simple)
 {
-    EXPECT_ANY_THROW(EXCEPTION( "a simple exeption" ) );
+    EXPECT_ANY_THROW(EXCEPTION( "a simple exception" ) );
 	
-	EXPECT_THROW(EXCEPTION("a simple exeption"), GException);
-    EXPECT_THROW( RANGE_EXCEPTION("a simple exeption"), GRangeException );
-    EXPECT_THROW(FILE_NOT_FOUND_EXCEPTION("a simple exeption"), GFileNotFoundException );
+	EXPECT_THROW(EXCEPTION("a simple exception"), GException);
+    EXPECT_THROW( RANGE_EXCEPTION("a simple ecxeption"), GRangeException );
+    EXPECT_THROW(FILE_NOT_FOUND_EXCEPTION("a simple ecxeption"), GFileNotFoundException );
 }
 
 
 
- /// Here we check that the expected mesaage is written to the logfile by the logging system 
- TEST_F(TestException, fileIO)
+ /// Here we check that the expected message is written to the logfile by the logging system 
+/** @todo use google mock here */
+TEST_F(TestException, fileIO)
  {
      string f1 = g_random()->Name("exception_fileio_test", ".txt");
      string f2 = g_random()->Name("exception_fileio_test", ".txt");
@@ -65,29 +65,6 @@ TEST_F( TestException, simple)
  
 
 
- 
- TEST_F(TestException, NSR248)
- {
-     SET_LOGFORMAT("0000001");
-
-     try
-     {
-         throw(GText("A Simple GText with a parameter = %d", 42));
-     }
-     catch(GText &e)
-     {
-         EXPECT_EQ(true,  g_string()->BeginsWith(e.what(), "A Simple GText with a parameter = 42", false ));
-     }
-     try
-     {
-         EXCEPTION("A Simple Text with another parameter = %d", 69);
-     }
-     catch (GException &e)
-     {
-        EXPECT_EQ(true,  g_string()->Contains(e.what(), "Simple Text with another parameter = 69 (class GException)", false));
-        EXPECT_STREQ( "\tA Simple Text with another parameter = 69 (class GException)\n", e.what() );
-     }     
- }
 
 
 TEST_F(TestException, assert_macro)

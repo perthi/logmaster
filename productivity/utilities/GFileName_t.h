@@ -22,6 +22,7 @@ which will interpret a regular string as command line*/
 class GFileName_t
 {
 public:
+    /** @todo simplify or remove */
     GFileName_t(const string fname) : fFileName(fname){};
     virtual ~GFileName_t() {};
     void Set(string fname) { fFileName = fname; }

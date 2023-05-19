@@ -32,7 +32,9 @@
 #include "GTime.h"
 #include "GLocation.h"
 #include "GCommon.h"
-#include "GText.h"
+
+#include <format>
+
 
 GSemaphore * g_semaphore()
 {
@@ -63,25 +65,27 @@ GSemaphore::~GSemaphore()
 void 
 GSemaphore::HandleSemaphoreError( const int ret, const double time ) const
 {
-    GCommon().HandleError(  GText ("%s", strerror(ret) ).str() , GLOCATION, DISABLE_EXCEPTION  );
+    GCommon().HandleError(  std::format ("{}", strerror(ret) ) , GLOCATION, DISABLE_EXCEPTION  );
     
 
     switch(ret)
     {
         case EINTR:
-            GCommon().HandleError(  GText ("call to wait interrupted by signal").str() , GLOCATION, DISABLE_EXCEPTION  );
+            GCommon().HandleError(  std::format("call to wait interrupted by signal") , GLOCATION, DISABLE_EXCEPTION  );
             break;
         case EAGAIN:
-            GCommon().HandleError(  GText ("Could not aquire semaphore without blocking (value is ZERO)").str(), GLOCATION, DISABLE_EXCEPTION  );
+            GCommon().HandleError(  std::format("Could not acquire semaphore without blocking (value is ZERO)"), GLOCATION, DISABLE_EXCEPTION  );
             break;
         case EINVAL:
-            GCommon().HandleError(  GText ("Invalid timespeck value").str() , GLOCATION, DISABLE_EXCEPTION  );
+            GCommon().HandleError(  std::format ("Invalid time speck value"), GLOCATION, DISABLE_EXCEPTION  );
             break;
         case ETIMEDOUT:
-            GCommon().HandleError(  GText ("Timeout waiting %0.1f seconds for semaphore", time).str() , GLOCATION, DISABLE_EXCEPTION  );
+            /**  @todo Check that this gives the same output as with GText/printf */
+            GCommon().HandleError(  std::format("Timeout waiting %0.1f seconds for semaphore", time) , GLOCATION, DISABLE_EXCEPTION  );
+            
             break;
         default:
-            GCommon().HandleError(  GText ("Unknown Error (%d)", ret ).str(),  GLOCATION, DISABLE_EXCEPTION  ); 
+            GCommon().HandleError(  std::format("Unknown Error ({})", ret ),  GLOCATION, DISABLE_EXCEPTION  ); 
     }
 
 }
@@ -109,7 +113,7 @@ GSemaphore::TimedWait(sem_t *s, const double timetowait_sec)
     {
         int val;
         sem_getvalue(s, &val);
-        GCommon().HandleError( GText( "could not get semaphore: current value count is %d", val).str(), GLOCATION, DISABLE_EXCEPTION  );
+        GCommon().HandleError( std::format( "could not get semaphore: current value count is {}", val), GLOCATION, DISABLE_EXCEPTION  );
         HandleSemaphoreError(errno,  timetowait_sec );
         return ret;
     }
@@ -121,7 +125,7 @@ GSemaphore::TimedWait(sem_t *s, const double timetowait_sec)
 int
 GSemaphore::TimedWait(const double timetowait_sec)
 {
-    GCommon().HandleError(GText("Not yet implemeted for Windows").str(), GLOCATION, DISABLE_EXCEPTION);
+    GCommon().HandleError(std::format("Not yet implemented for Windows"), GLOCATION, DISABLE_EXCEPTION);
     return -1;
 }
 #endif
@@ -145,7 +149,7 @@ GSemaphore::Wait(sem_t *s)
 int
 GSemaphore::Wait( )
 {
-    GCommon().HandleError(GText("Not yet implemeted for Windows").str(), GLOCATION, DISABLE_EXCEPTION);
+    GCommon().HandleError( std::format("Not yet implemented for Windows"), GLOCATION, DISABLE_EXCEPTION);
     return -1;
 }
 #endif
