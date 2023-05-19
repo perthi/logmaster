@@ -29,28 +29,23 @@
 
 #include "TestReferenceData.h"
 
+
 #include <configurator/LGeneratorMacrosException.h>
 #include <configurator/LGeneratorMacrosLogging.h>
 #include <configurator/LGeneratorEnum.h>
 #include <configurator/LGeneratorHashMap.h>
 #include <configurator/LGeneratorLogTest.h>
+#include <configurator/LFileCreator.h>
+
 #include <configurator/LXmlParser.h>
 
-
-#include <utilities/GDefinitions.h>
-
-#include <logging/LLogApi.h>
-using namespace LOGMASTER;
+#include <utilities/GSystem.h>
+#include <utilities/GFileIOHandler.h>
 
 
-///    LGenerator::DisableSuffix( );
-
-string  TestReferenceData::fTestDataDir = "";
-// string  TestReferenceData::fXMLPath = "";
-// string  TestReferenceData::fXSDPath = "";
-// std::shared_ptr<LXMLInfo>  TestReferenceData::fXMLInfo = nullptr;
-sysentity_vec    TestReferenceData::fSubSystems;
-logentity_vec  TestReferenceData::fLogLevels;
+string  TestReferenceData::fgTestDataDir = "";
+sysentity_vec    TestReferenceData::fgSubSystems;
+logentity_vec  TestReferenceData::fgLogLevels;
 
 using namespace CONFIGURATOR;
 
@@ -62,55 +57,55 @@ void TestReferenceData::SetUpTestCase()
 {
 #ifdef _WIN32
     /** @todo There must be a better way to do this */
-	string s = string(EXPAND(LOGMASTER_HOME));
+    string s = string(EXPAND(LOGMASTER_HOME));
 	s.erase(0,1);
 	s.erase(s.size() -2 );
-	fTestDataDir = s +  string("reference-data\\");
+	fgTestDataDir = s +  string("reference-data\\");
 
 #else
 	/** @todo Implement for Linux */
 #endif
     /** @todo this parser should take LXMLInfoStruct as input*/
-    LXmlParser( ).ParseXML( gXMLPath, gXSDPath, fLogLevels, fSubSystems);
-    
-    CERR << "testdir = " << fTestDataDir << ENDL;
+    LXmlParser( ).ParseXML( gXMLPath, gXSDPath, fgLogLevels, fgSubSystems);
 }
 
 
-/**
-TEST_F(TestReferenceData, ok)
+void 
+TestReferenceData::SetUp( )
 {
-    SUCCEED( );
-}
-*/
+    GetParam( ).fGenerator->DisableSuffix( );
+};
 
-#define NO_SUFFIX false
+
+
+/** Helper function to read reference data and to generate new data
+* @tparam T The type of generator to use
+* @param[in] filename_ref The filename of the reference test data
+* @param[in,out] ref vector containing the reference data
+* @param[in,out] gen vector containing the generated data that
+* will be compared
+ with the reference data */
+void
+TestReferenceData::GenerateData(const string filename_ref, std::shared_ptr<LGenerator> g)
+{
+    string fname = fgTestDataDir + filename_ref;
+    ASSERT_TRUE(g_system( )->Exists(fname));
+    fReferenceData = g_file( )->ReadAll(fname);
+    LFileCreator::GenerateSingleFile(g, fgLogLevels, fgSubSystems);
+    fGeneratedData = g_file( )->ReadAll("tmp.txt");
+
+}
 
 
 INSTANTIATE_TEST_CASE_P(
     Compare,
     TestReferenceData,
     ::testing::Values(
-          TestParameters(std::make_shared<LGeneratorMacrosException>("", "tmp.txt", gXMLInfo, NO_SUFFIX), "GExceptionAutoGen.h", 30),
-        TestParameters(std::make_shared<LGeneratorMacrosLogging>("", "tmp.txt", gXMLInfo, NO_SUFFIX), "LLogApiAutoGen.h", 30),
-        TestParameters(std::make_shared<LGeneratorEnum>("", "tmp.txt", gXMLInfo, NO_SUFFIX), "LEnumAutoGen.h", 30),
-        TestParameters(std::make_shared<LGeneratorHashMap>("", "tmp.txt", gXMLInfo, NO_SUFFIX), "LHashMapsAutoGen.cpp", 30),
-        TestParameters(std::make_shared<LGeneratorLogTest>("", "tmp.txt", gXMLInfo, NO_SUFFIX), "LLogTestAutoGen.cpp", 30)));
-
-
-/*
-TEST_P(TestReferenceData, OK)
-{
-    SUCCEED( );
-}
-*/
-
-
-void TestReferenceData::TearDownTestCase()
-{
-	//CERR << "TEARDOWN" << ENDL;
-}
-
+          TestParameters(std::make_shared<LGeneratorMacrosException>("", "tmp.txt", gXMLInfo), "GExceptionAutoGen.h", 30),
+        TestParameters(std::make_shared<LGeneratorMacrosLogging>("", "tmp.txt", gXMLInfo), "LLogApiAutoGen.h", 30),
+        TestParameters(std::make_shared<LGeneratorEnum>("", "tmp.txt", gXMLInfo), "LEnumAutoGen.h", 30),
+        TestParameters(std::make_shared<LGeneratorHashMap>("", "tmp.txt", gXMLInfo), "LHashMapsAutoGen.cpp", 30),
+        TestParameters(std::make_shared<LGeneratorLogTest>("", "tmp.txt", gXMLInfo), "LLogTestAutoGen.cpp", 30)));
 
 
 TEST_P(TestReferenceData, exists_xml)
@@ -123,6 +118,7 @@ TEST_P(TestReferenceData, exists_xsd)
 {
     ASSERT_TRUE(g_system( )->Exists(gXSDPath)) << gXSDPath;
 }
+
 
 
 
@@ -150,14 +146,9 @@ TestReferenceData::Compare(const int max_errors)
             n_eq++;
         }
         else {
-          //  FORCE_DEBUG("%s", fGeneratedData.at(i).c_str() );
-          //  FORCE_DEBUG("%s\n\n", fReferenceData.at(i).c_str());
-
             n_neq++;
         }
     }
-
-    CERR << "n_eq =  " << n_neq << ENDL;
 
     EXPECT_TRUE( n_neq <= max_errors);
 
@@ -165,22 +156,11 @@ TestReferenceData::Compare(const int max_errors)
 
 
 
-
 TEST_P(TestReferenceData, Compare)
 {
     auto t = GetParam( );
-    // string filename = "foo.txt";
     GenerateData(t.fFileame, t.fGenerator);
-    
-    
-    CERR << "size1 = " << fGeneratedData.size( ) << ENDL;
-    CERR << "size1 = " << fReferenceData.size( ) << ENDL;
-   
-
     ASSERT_TRUE(fReferenceData.size( ) == fGeneratedData.size( ));
-    
-    
-    
     ASSERT_TRUE(fReferenceData.size( ) > MINIMUM_EXPECTED_LINES);
     int n_eq = 0; // number of lines that is equal
     int n_neq = 0; // number of lines that are identical
@@ -190,70 +170,14 @@ TEST_P(TestReferenceData, Compare)
         if ( fGeneratedData.at(i) == fReferenceData.at(i) ) {
             n_eq++;
         }
-        else {
-            //  FORCE_DEBUG("%s", fGeneratedData.at(i).c_str() );
-            //  FORCE_DEBUG("%s\n\n", fReferenceData.at(i).c_str());
-
+        else 
+        {
             n_neq++;
         }
     }
     
-    CERR << "n_eq =  " << n_neq << ENDL;
     EXPECT_TRUE(n_neq <= t.fMaxErrors );
-    
 }
 
 
-
-
-
-
-/*
-TEST_F(TestReferenceData, exception_macros)
-{
-    try
-    {
-        GenerateData<LGeneratorMacrosException>("GExceptionAutoGen.h");
-        Compare();
-    }
-    catch (GException& e)
-    {
-        FAIL() << e.what();
-    }
-    catch (std::exception& e)
-    {
-        FAIL() << e.what();
-    }
-}
-*/
-
-
-/*
-TEST_F(TestReferenceData, logging_macros)
-{
-    GenerateData<LGeneratorMacrosLogging>("LLogApiAutoGen.h");
-    Compare(10);
-}
-
-
-TEST_F(TestReferenceData, enums)
-{
-    GenerateData<LGeneratorEnum>("LEnumAutoGen.h");
-    Compare(20);
-}
-
-
-TEST_F(TestReferenceData, hashmaps)
-{
-    GenerateData<LGeneratorHashMap>("LHashMapsAutoGen.cpp");
-    Compare(30);// This file will have more different line because the class name is derived from the filename
-}
-
-
-TEST_F(TestReferenceData, logtest)
-{
-    GenerateData<LGeneratorLogTest>("LLogTestAutoGen.cpp");
-    Compare(5);
-}
-*/
 

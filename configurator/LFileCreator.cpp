@@ -33,7 +33,7 @@ namespace CONFIGURATOR
     {
         PUSH();
         SET_LOGFORMAT("0000111");
-        SET_LOGLEVEL("--all-info");
+      //  SET_LOGLEVEL("--all-info");
         gen->GenerateContent(loglevels, subsystems); /// Generating the file content
 
         string basepath = gen->GetFilePath();

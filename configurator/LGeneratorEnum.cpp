@@ -29,8 +29,6 @@ namespace CONFIGURATOR
     void LGeneratorEnum::GenerateContent(logentity_vec levels, sysentity_vec systems)
     {
 
-
-        CERR << "TP0" << ENDL;
         GenerateSystems(systems, fFileContentHeader);
         fFileContentHeader.push_back("\n\n");
         GenerateLevels(levels, fFileContentHeader);

@@ -23,6 +23,7 @@ namespace CONFIGURATOR
 {
 
 
+
 	class LGenerator
 	{
 	public:
@@ -53,8 +54,8 @@ namespace CONFIGURATOR
         bool IsEnabledHeader( ) { return fDoGenerateHeader;  };
         bool IsEnabledSource( ) { return fDoGenerateSource; };
 
-		static void EnableSuffix();
-		static void DisableSuffix();
+		void EnableSuffix();
+		void DisableSuffix();
 
 	protected:
 		static LXMLInfo fXMLFileNames;						// XML and XSD file used to generate files
@@ -72,7 +73,7 @@ namespace CONFIGURATOR
         bool fDoGenerateHeader = false;
         bool fDoGenerateSource = false;
 
-		static bool fDoAddSuffix;
+	//	static bool fDoAddSuffix;
     
     };
 
