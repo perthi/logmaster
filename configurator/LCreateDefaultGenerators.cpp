@@ -19,7 +19,7 @@ namespace CONFIGURATOR
     {
         vector< std::shared_ptr< LGenerator >  > generators;
 
-        /** @todo Remove hard coded path*/
+        /** @bug Remove hard coded path*/
         string b = "C:/work/logmaster/";
 
         generators.push_back(std::make_shared < LGeneratorEnum >(b + "logging/", "LEnumAutoGen", xmlinfo));
@@ -27,18 +27,6 @@ namespace CONFIGURATOR
         generators.push_back(std::make_shared < LGeneratorMacrosException >(b+"logging/", "GExceptionAutoGen", xmlinfo));
         generators.push_back(std::make_shared < LGeneratorHashMap >(b+ "logging/", "LHashMapsAutoGen", xmlinfo));
         generators.push_back(std::make_shared < LGeneratorLogTest >(b+ "logging/","LLogTestAutoGen", xmlinfo));
-      
-        
-        /*
-        generators.push_back(std::make_shared < LGeneratorEnum >("logging/LEnumAutoGen.h", xmlinfo));
-        generators.push_back(std::make_shared < LGeneratorMacrosLogging >("logging/LLogApiAutoGen.h", xmlinfo));
-        generators.push_back(std::make_shared < LGeneratorMacrosException >("logging/GExceptionAutoGen.h", xmlinfo));
-        generators.push_back(std::make_shared < LGeneratorHashMap >("logging/LHashMapsAutoGen.cpp", xmlinfo));
-        generators.push_back(std::make_shared < LGeneratorLogTest >("logging/LLogTestAutoGen.cpp", xmlinfo));
-        */
-        
-        
-        //  generator_vec generators;
         return generators;
     }
 

@@ -27,18 +27,27 @@ using namespace CONFIGURATOR;
 using std::vector;
 
 
-class  TestReferenceData : public TestBase
+struct TestParameters
+{
+    TestParameters (std::shared_ptr<LGenerator> gen, int max_errors) : fGenerator(gen), fMaxErrors(max_errors){ }
+    
+    std::shared_ptr<LGenerator> fGenerator = nullptr;
+    int fMaxErrors = 0;
+};
+
+
+
+class  TestReferenceData : public ::testing::WithParamInterface<  TestParameters >, public TestBase
 {
 public:
 	static void SetUpTestCase();
 	static void TearDownTestCase();
 
-	//void SetUp() override;
-
-
-protected:
+//protected:
     template<typename T>
     void GenerateData(const string filename_ref );
+    
+    
     void Compare(const int max_errors = 3);
     vector<string> fReferenceData;
     vector<string> fGeneratedData;

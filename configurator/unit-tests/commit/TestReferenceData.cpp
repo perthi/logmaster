@@ -34,7 +34,6 @@
 #include <configurator/LGeneratorEnum.h>
 #include <configurator/LGeneratorHashMap.h>
 #include <configurator/LGeneratorLogTest.h>
-
 #include <configurator/LXmlParser.h>
 
 
@@ -44,10 +43,14 @@
 using namespace LOGMASTER;
 
 
+LXMLInfo gXMLInfo("C:\\work\\logmaster\\config\\logging.xml", "C:\\work\\logmaster\\config\\logging.xsd");
+
+
+
 string  TestReferenceData::fTestDataDir = "";
 string  TestReferenceData::fXMLPath = "";
 string  TestReferenceData::fXSDPath = "";
-std::shared_ptr<LXMLInfo>  TestReferenceData::fXMLInfo;
+std::shared_ptr<LXMLInfo>  TestReferenceData::fXMLInfo = nullptr;
 sysentity_vec    TestReferenceData::fSubSystems;
 logentity_vec  TestReferenceData::fLogLevels;
 
@@ -55,17 +58,30 @@ using namespace CONFIGURATOR;
 
 #define MINIMUM_EXPECTED_LINES 40
 
+
+
+
+
+
+
 void TestReferenceData::SetUpTestCase()
 {
 #ifdef _WIN32
-	/** @todo There must be a better way to do this */
+	
+    
+    /** @todo There must be a better way to do this */
 	string s = string(EXPAND(LOGMASTER_HOME));
 	s.erase(0,1);
 	s.erase(s.size() -2 );
 	fTestDataDir = s +  string("reference-data\\");
     
-    fXMLPath = s + "\\..\\..\\..\\config\\logging.xml";
-    fXSDPath = s + "\\..\\..\\..\\config\\logging.xsd";
+    //fXMLPath = s + "\\..\\..\\..\\config\\logging.xml";
+    //fXSDPath = s + "\\..\\..\\..\\config\\logging.xsd";
+
+    /** @bug hard coded path*/
+    fXMLPath = "C:\\work\\logmaster\\config\\logging.xml";
+    fXSDPath = "C:\\work\\logmaster\\config\\logging.xsd";
+
 
 #else
 	/** @todo Implement for Linux */
@@ -77,8 +93,37 @@ void TestReferenceData::SetUpTestCase()
     
     LXmlParser( ).ParseXML( fXMLPath, fXSDPath, fLogLevels, fSubSystems);
     
-   // CERR << "testdir = " << fTestDataDir << ENDL;
+    CERR << "testdir = " << fTestDataDir << ENDL;
 }
+
+
+
+
+
+
+INSTANTIATE_TEST_CASE_P(
+    Compare,
+    TestReferenceData,
+    ::testing::Values(
+
+        TestParameters(std::make_shared<LGeneratorMacrosException>("", "tmp.txt", gXMLInfo), 30),
+        TestParameters(std::make_shared<LGeneratorMacrosLogging>("", "tmp.txt", gXMLInfo), 30),
+        TestParameters(std::make_shared<LGeneratorEnum>("", "tmp.txt", gXMLInfo), 30)
+      //  TestParameters(std::make_shared<LGeneratorHashMap>("", "tmp.txt", gXMLInfo), 30),
+      //  TestParameters(std::make_shared<LGeneratorLogTest>("", "tmp.txt", gfXMLInfo), 30)
+
+    ));
+
+
+
+TEST_P(TestReferenceData, OK)
+{
+
+
+    CERR << "TP0" << ENDL;;
+    FAIL( );
+}
+
 
 
 void TestReferenceData::TearDownTestCase()
@@ -110,6 +155,8 @@ TEST_F(TestReferenceData, exists_xsd)
 void 
 TestReferenceData::Compare(const int max_errors)
 {
+   
+
     ASSERT_TRUE(fReferenceData.size( ) == fGeneratedData.size( ));
     ASSERT_TRUE(fReferenceData.size() > MINIMUM_EXPECTED_LINES);
     int n_eq = 0; // number of lines that is equal
