@@ -27,11 +27,18 @@ using namespace CONFIGURATOR;
 using std::vector;
 
 
+string gXMLPath = "C:\\work\\logmaster\\config\\logging.xml";
+string gXSDPath = "C:\\work\\logmaster\\config\\logging.xsd";
+
+LXMLInfo gXMLInfo(gXMLPath, gXSDPath);
+
+
 struct TestParameters
 {
-    TestParameters (std::shared_ptr<LGenerator> gen, int max_errors) : fGenerator(gen), fMaxErrors(max_errors){ }
+    TestParameters(std::shared_ptr<LGenerator> gen, string fname, int max_errors) : fGenerator(gen), fFileame(fname), fMaxErrors(max_errors) { }
     
     std::shared_ptr<LGenerator> fGenerator = nullptr;
+    string fFileame = "";
     int fMaxErrors = 0;
 };
 
@@ -43,9 +50,11 @@ public:
 	static void SetUpTestCase();
 	static void TearDownTestCase();
 
-//protected:
-    template<typename T>
-    void GenerateData(const string filename_ref );
+//    virtual void SetUp( ) override { LGenerator::DisableSuffix(); };
+
+// protected:
+ //   template<typename T>
+    void GenerateData(const string filename_ref, std::shared_ptr<LGenerator> g);
     
     
     void Compare(const int max_errors = 3);
@@ -53,9 +62,6 @@ public:
     vector<string> fGeneratedData;
 
 	static string fTestDataDir;
-    static string fXMLPath;
-    static string fXSDPath;
-    static std::shared_ptr<LXMLInfo> fXMLInfo;
     static sysentity_vec  fSubSystems;
     static logentity_vec  fLogLevels;
 
@@ -70,6 +76,37 @@ public:
 * @param[in,out] gen vector containing the generated data that
 * will be compared
  with the reference data */
+
+
+/// template<typename T>
+void
+TestReferenceData::GenerateData(const string filename_ref, std::shared_ptr<LGenerator> g)
+{
+    CERR << "GEN.size = " << fGeneratedData.size( ) << ENDL;
+    CERR << "REF.size=  " << fReferenceData.size( ) << ENDL;
+
+    
+    string fname = fTestDataDir + filename_ref;
+    CERR << "fname = " << fname << ENDL;
+    ASSERT_TRUE(g_system( )->Exists(fname));
+    
+    fReferenceData = g_file( )->ReadAll(fname);
+    
+    //g = std::make_shared<T>("", "tmp.txt", gXMLInfo);
+    
+    LFileCreator::GenerateSingleFile(g, fLogLevels, fSubSystems);
+    
+    fGeneratedData = g_file( )->ReadAll("tmp.txt");
+    
+    CERR << "GEN.size = " << fGeneratedData.size() << ENDL;
+    CERR << "REF.size=  " << fReferenceData.size( ) << ENDL;
+    //  g_system( )->rm("tmp.txt");
+    
+}
+
+
+
+/*
 template<typename T>
 void 
 TestReferenceData::GenerateData(const string filename_ref)
@@ -79,9 +116,9 @@ TestReferenceData::GenerateData(const string filename_ref)
    // CERR << "fname = " << fname << ENDL;
     ASSERT_TRUE(g_system( )->Exists(fname));
     fReferenceData  = g_file( )->ReadAll(fname);
-    auto g = std::make_shared<T>("", "tmp.txt", *fXMLInfo);
+    auto g = std::make_shared<T>("", "tmp.txt", gXMLInfo);
     LFileCreator::GenerateSingleFile(g, fLogLevels, fSubSystems);
     fGeneratedData = g_file( )->ReadAll("tmp.txt");
     g_system( )->rm("tmp.txt");
 }
-
+*/

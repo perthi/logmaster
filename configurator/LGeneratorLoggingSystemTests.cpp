@@ -14,7 +14,7 @@ using namespace LOGMASTER;
 
 namespace CONFIGURATOR
 {
-    LGeneratorLoggingSystemTests::LGeneratorLoggingSystemTests(const string path, const string classname,  const LXMLInfo xmlinfo) : LGenerator(path, classname,  xmlinfo)
+    LGeneratorLoggingSystemTests::LGeneratorLoggingSystemTests(const string path, const string classname,  const LXMLInfo xmlinfo, const bool add_suffix) : LGenerator(path, classname,  xmlinfo, add_suffix)
     {
     }
 

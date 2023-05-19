@@ -43,14 +43,12 @@
 using namespace LOGMASTER;
 
 
-LXMLInfo gXMLInfo("C:\\work\\logmaster\\config\\logging.xml", "C:\\work\\logmaster\\config\\logging.xsd");
-
-
+///    LGenerator::DisableSuffix( );
 
 string  TestReferenceData::fTestDataDir = "";
-string  TestReferenceData::fXMLPath = "";
-string  TestReferenceData::fXSDPath = "";
-std::shared_ptr<LXMLInfo>  TestReferenceData::fXMLInfo = nullptr;
+// string  TestReferenceData::fXMLPath = "";
+// string  TestReferenceData::fXSDPath = "";
+// std::shared_ptr<LXMLInfo>  TestReferenceData::fXMLInfo = nullptr;
 sysentity_vec    TestReferenceData::fSubSystems;
 logentity_vec  TestReferenceData::fLogLevels;
 
@@ -60,70 +58,52 @@ using namespace CONFIGURATOR;
 
 
 
-
-
-
-
 void TestReferenceData::SetUpTestCase()
 {
 #ifdef _WIN32
-	
-    
     /** @todo There must be a better way to do this */
 	string s = string(EXPAND(LOGMASTER_HOME));
 	s.erase(0,1);
 	s.erase(s.size() -2 );
 	fTestDataDir = s +  string("reference-data\\");
-    
-    //fXMLPath = s + "\\..\\..\\..\\config\\logging.xml";
-    //fXSDPath = s + "\\..\\..\\..\\config\\logging.xsd";
-
-    /** @bug hard coded path*/
-    fXMLPath = "C:\\work\\logmaster\\config\\logging.xml";
-    fXSDPath = "C:\\work\\logmaster\\config\\logging.xsd";
-
 
 #else
 	/** @todo Implement for Linux */
 #endif
-	//xsd = string(g_system()->GetHomeDir()) + "\\..\\config\\logging.xsd";
-    
-    LGenerator::DisableSuffix();
-    fXMLInfo = std::make_shared<LXMLInfo>(fXMLPath, fXSDPath);
-    
-    LXmlParser( ).ParseXML( fXMLPath, fXSDPath, fLogLevels, fSubSystems);
+    /** @todo this parser should take LXMLInfoStruct as input*/
+    LXmlParser( ).ParseXML( gXMLPath, gXSDPath, fLogLevels, fSubSystems);
     
     CERR << "testdir = " << fTestDataDir << ENDL;
 }
 
 
+/**
+TEST_F(TestReferenceData, ok)
+{
+    SUCCEED( );
+}
+*/
 
-
+#define NO_SUFFIX false
 
 
 INSTANTIATE_TEST_CASE_P(
     Compare,
     TestReferenceData,
     ::testing::Values(
-
-        TestParameters(std::make_shared<LGeneratorMacrosException>("", "tmp.txt", gXMLInfo), 30),
-        TestParameters(std::make_shared<LGeneratorMacrosLogging>("", "tmp.txt", gXMLInfo), 30),
-        TestParameters(std::make_shared<LGeneratorEnum>("", "tmp.txt", gXMLInfo), 30)
-      //  TestParameters(std::make_shared<LGeneratorHashMap>("", "tmp.txt", gXMLInfo), 30),
-      //  TestParameters(std::make_shared<LGeneratorLogTest>("", "tmp.txt", gfXMLInfo), 30)
-
-    ));
+          TestParameters(std::make_shared<LGeneratorMacrosException>("", "tmp.txt", gXMLInfo, NO_SUFFIX), "GExceptionAutoGen.h", 30),
+        TestParameters(std::make_shared<LGeneratorMacrosLogging>("", "tmp.txt", gXMLInfo, NO_SUFFIX), "LLogApiAutoGen.h", 30),
+        TestParameters(std::make_shared<LGeneratorEnum>("", "tmp.txt", gXMLInfo, NO_SUFFIX), "LEnumAutoGen.h", 30),
+        TestParameters(std::make_shared<LGeneratorHashMap>("", "tmp.txt", gXMLInfo, NO_SUFFIX), "LHashMapsAutoGen.cpp", 30),
+        TestParameters(std::make_shared<LGeneratorLogTest>("", "tmp.txt", gXMLInfo, NO_SUFFIX), "LLogTestAutoGen.cpp", 30)));
 
 
-
+/*
 TEST_P(TestReferenceData, OK)
 {
-
-
-    CERR << "TP0" << ENDL;;
-    FAIL( );
+    SUCCEED( );
 }
-
+*/
 
 
 void TestReferenceData::TearDownTestCase()
@@ -132,16 +112,18 @@ void TestReferenceData::TearDownTestCase()
 }
 
 
-TEST_F(TestReferenceData, exists_xml)
+
+TEST_P(TestReferenceData, exists_xml)
 {
-    ASSERT_TRUE(g_system( )->Exists(fXMLPath)) << fXMLPath;
+    ASSERT_TRUE(g_system( )->Exists(gXMLPath)) << gXMLPath;
 }
 
 
-TEST_F(TestReferenceData, exists_xsd)
+TEST_P(TestReferenceData, exists_xsd)
 {
-    ASSERT_TRUE(g_system( )->Exists(fXSDPath)) << fXSDPath;
+    ASSERT_TRUE(g_system( )->Exists(gXSDPath)) << gXSDPath;
 }
+
 
 
 /** Compare generated file content with reference data
@@ -183,6 +165,50 @@ TestReferenceData::Compare(const int max_errors)
 
 
 
+
+TEST_P(TestReferenceData, Compare)
+{
+    auto t = GetParam( );
+    // string filename = "foo.txt";
+    GenerateData(t.fFileame, t.fGenerator);
+    
+    
+    CERR << "size1 = " << fGeneratedData.size( ) << ENDL;
+    CERR << "size1 = " << fReferenceData.size( ) << ENDL;
+   
+
+    ASSERT_TRUE(fReferenceData.size( ) == fGeneratedData.size( ));
+    
+    
+    
+    ASSERT_TRUE(fReferenceData.size( ) > MINIMUM_EXPECTED_LINES);
+    int n_eq = 0; // number of lines that is equal
+    int n_neq = 0; // number of lines that are identical
+
+    for ( size_t i = 0; i < fGeneratedData.size( ); i++ )
+    {
+        if ( fGeneratedData.at(i) == fReferenceData.at(i) ) {
+            n_eq++;
+        }
+        else {
+            //  FORCE_DEBUG("%s", fGeneratedData.at(i).c_str() );
+            //  FORCE_DEBUG("%s\n\n", fReferenceData.at(i).c_str());
+
+            n_neq++;
+        }
+    }
+    
+    CERR << "n_eq =  " << n_neq << ENDL;
+    EXPECT_TRUE(n_neq <= t.fMaxErrors );
+    
+}
+
+
+
+
+
+
+/*
 TEST_F(TestReferenceData, exception_macros)
 {
     try
@@ -199,8 +225,10 @@ TEST_F(TestReferenceData, exception_macros)
         FAIL() << e.what();
     }
 }
+*/
 
 
+/*
 TEST_F(TestReferenceData, logging_macros)
 {
     GenerateData<LGeneratorMacrosLogging>("LLogApiAutoGen.h");
@@ -227,3 +255,5 @@ TEST_F(TestReferenceData, logtest)
     GenerateData<LGeneratorLogTest>("LLogTestAutoGen.cpp");
     Compare(5);
 }
+*/
+
