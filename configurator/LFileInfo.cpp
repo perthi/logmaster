@@ -27,7 +27,7 @@ namespace CONFIGURATOR
     {
         if ( fs::is_directory(path) == false )
         {
-            throw(std::invalid_argument(format("Error accessing {}. Not a valid directory", path)));
+            throw(std::invalid_argument(format("Error accessing \"{}\". Not a valid directory", path)));
         }
         else
         {
@@ -47,7 +47,7 @@ namespace CONFIGURATOR
 
         }
 
-        vector<string> seps = { ",", ".", ":", ";" };
+        vector<string> seps = { ",", ".", ":", ";", "\\", "/"};
         for ( auto& s : seps )
         {
             if ( g_string( )->Contains(classname, s) == true )

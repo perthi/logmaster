@@ -8,6 +8,7 @@
 
 #include "LDefinitions.h"
 #include "LXMLInfo.h"
+//#include "LFileInfo.h"
 
 #include <memory>
 
@@ -21,7 +22,7 @@ class LXmlEntitySubSystem;
 
 namespace CONFIGURATOR
 {
-
+	class LFileInfo;
 
 
 	class LGenerator
@@ -58,6 +59,8 @@ namespace CONFIGURATOR
 		void DisableSuffix();
 
 	protected:
+		std::shared_ptr<LFileInfo> fFileInfo = nullptr;
+		
 		static LXMLInfo fXMLFileNames;						// XML and XSD file used to generate files
 		
         string fFilePath = "UNKNOWN";						//!< Full path of the .cpp or .h source file to be generated

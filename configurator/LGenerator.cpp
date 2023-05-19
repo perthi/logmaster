@@ -5,6 +5,7 @@
 ***************************************************/
 
 #include "LGenerator.h"
+#include "LFileInfo.h"
 #include "LCopyright.h"
 #include <utilities/GString.h>
 #include <logging/LLogApi.h>
@@ -27,6 +28,23 @@ namespace CONFIGURATOR
 	 * etc, and the corresponding XSD file*/
 	LGenerator::LGenerator(const string path, const string classname, const  LXMLInfo xmlinfo) : fFilePath(path)
 	{
+
+		try
+		{
+			fFileInfo = std::make_shared<LFileInfo>(path, classname);
+
+		}
+		catch (std::exception &e)
+		{
+			CERR << e.what() << endl;
+			exit(-1);
+		}
+		catch (...)
+		{
+			CERR << "Unknown exception caught, aborting" << ENDL;
+			exit(-1);
+		}
+
 		//fClassName = g_string()->Path2ClassName(path);
 		fClassName = classname;
 		//XML_ASSERT_EXCEPTION( g_string()->EndsWith(classname)         );

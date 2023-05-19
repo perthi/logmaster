@@ -92,7 +92,7 @@ TestLGeneratorP::GenerateData(const string filename_ref, std::shared_ptr<LGenera
     ASSERT_TRUE(g_system( )->exists(fname));
     fReferenceData = g_file( )->ReadAll(fname);
     LFileCreator::GenerateSingleFile(g, fgLogLevels, fgSubSystems);
-    fGeneratedData = g_file( )->ReadAll("tmp.txt");
+    fGeneratedData = g_file( )->ReadAll(".tmp");
 
 }
 
@@ -101,11 +101,11 @@ INSTANTIATE_TEST_CASE_P(
     Compare,
     TestLGeneratorP,
     ::testing::Values(
-          TestParameters(std::make_shared<LGeneratorMacrosException>("", "tmp.txt", gXMLInfo), "GExceptionAutoGen.h", 30),
-        TestParameters(std::make_shared<LGeneratorMacrosLogging>("", "tmp.txt", gXMLInfo), "LLogApiAutoGen.h", 30),
-        TestParameters(std::make_shared<LGeneratorEnum>("", "tmp.txt", gXMLInfo), "LEnumAutoGen.h", 30),
-        TestParameters(std::make_shared<LGeneratorHashMap>("", "tmp.txt", gXMLInfo), "LHashMapsAutoGen.cpp", 30),
-        TestParameters(std::make_shared<LGeneratorLogTest>("", "tmp.txt", gXMLInfo), "LLogTestAutoGen.cpp", 30)));
+          TestParameters(std::make_shared<LGeneratorMacrosException>(".", "tmp", gXMLInfo), "GExceptionAutoGen.h", 30),
+        TestParameters(std::make_shared<LGeneratorMacrosLogging>(".", "tmp", gXMLInfo), "LLogApiAutoGen.h", 30),
+        TestParameters(std::make_shared<LGeneratorEnum>(".", "tmp", gXMLInfo), "LEnumAutoGen.h", 30),
+        TestParameters(std::make_shared<LGeneratorHashMap>(".", "tmp", gXMLInfo), "LHashMapsAutoGen.cpp", 30),
+        TestParameters(std::make_shared<LGeneratorLogTest>(".", "tmp", gXMLInfo), "LLogTestAutoGen.cpp", 30)));
 
 
 TEST_P(TestLGeneratorP, exists_xml)
