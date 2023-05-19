@@ -86,16 +86,17 @@ GDataBaseIF::SQLType2String(const int sql_type) const
 
 
 /**  Opens the database 
- *   @param[in]   db_path The full path to hte database
- *   @return      TRUE if the database was opened successfully, false othervise */
+ *   @param[in]   db_path The full path to the database
+ *   @return      TRUE if the database was opened successfully, false otherwise */
 bool 
 GDataBaseIF::OpenDatabase(const char *db_path)
 {
+    /// @todo remove dependency on logging system
     #ifdef HAS_LOGGING
           HandleError(GLOCATION, eLOGLEVEL::LOG_DEBUG, DISABLE_EXCEPTION, "opening database \"%s\"",    db_path  );
     #else
-    /// @todo The HandleError function should be called something else since it handes regular messages also
-        HandleError(GLOCATION, DISABLE_EXCEPTION, "opening database \"%s\"\n",    db_path  );
+    /** @todo The HandleError function should be called something else since it handles regular messages also */
+      //  HandleError(GLOCATION, DISABLE_EXCEPTION, "opening database \"%s\"\n",    db_path  );
     #endif 
 
     int rc;

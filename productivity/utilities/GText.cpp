@@ -37,6 +37,7 @@
 
 
 /// @todo Check format using GFormatting
+/*
 GText::GText(const char * fmt, ...) : fText("")
 {
     va_list ap;
@@ -118,4 +119,4 @@ GText::what() const
 { 
     return fText.c_str(); 
 }
-
+*/

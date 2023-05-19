@@ -70,7 +70,15 @@ namespace LOGMASTER
         logmap API Log(const eLOGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt,
             const Args ... args);
         
-        
+        logmap API Log(const eLOGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const std::string message) 
+        {
+            return Log(level, sys, l,  "%s", message.c_str());
+          //  CERR << "MESSAGE = " << message << ENDL;
+          // 
+          // 
+            //return logmap();
+        };
+
         template<typename... Args>
         logmap API LogVarArgs(const eLOGLEVEL level, const eMSGSYSTEM system, const char* filename,
             const int linenumber, const char* functionname, const char* fmt, const Args ... args);
@@ -167,9 +175,9 @@ namespace LOGMASTER
      *   @param  functionname The name of the function that generated the message
      *   @param  force_generate Force the generation of message, regardless of the
      *             loglevel and subsystem. This feature is used by the exception handling system
-     *             where one wants the message to be genrated regardless (because you want to
-     *            catch the exception with an exception handler). This flag is also usefull for debugging
-     *   @param  addendum  optional string to attach to the messag
+     *             where one wants the message to be generated regardless (because you want to
+     *            catch the exception with an exception handler). This flag is also useful for debugging
+     *   @param  addendum  optional string to attach to the message
      *   @param  fmt The formatting for the message (same as the  C style printf formatting)
      *   @param  args  The list of arguments */
     template<typename... Args>
@@ -178,6 +186,7 @@ namespace LOGMASTER
             const char* functionname,
             const bool force_generate, string addendum, const char* fmt, const Args ... args)
     {
+    /** @todo Refactor this function */
 #ifdef THREAD_SAFE
         const std::lock_guard<std::recursive_mutex> lock(fLoggingMutex);
 #endif
@@ -188,8 +197,7 @@ namespace LOGMASTER
             //exit(-1);
         }
 
-        //static std::shared_ptr<LMessage>           tmp_msg = std::make_shared<LMessage>();
-         std::shared_ptr<LMessage>  tmp_msg =  nullptr;
+        std::shared_ptr<LMessage>  tmp_msg =  nullptr;
         std::pair<bool, string>  formatCheck;
 
         auto format_check = [ &addendum, &filename, &linenumber, &functionname, fmt, args...](  )
@@ -213,8 +221,6 @@ namespace LOGMASTER
         }
         
 
-   //     ClearMessages();
-
         for (auto it = fConfig->begin(); it != fConfig->end(); ++it)
         {
             if (it->second.IsEnabled() == true)
@@ -235,10 +241,11 @@ namespace LOGMASTER
                     if (formatCheck.first == true)
                     {
                         tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, functionname, addendum, fmt,
-                            args...);
+                          args...);
                     }
                     else
                     {
+                        /// CERR << "FORMAT ERROR" << ENDL;
                         tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, functionname, addendum, fmt);
                     }
 

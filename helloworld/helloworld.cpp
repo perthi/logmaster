@@ -54,8 +54,31 @@ using namespace CONFIGURATOR;
 
 #include <format>
 
+
+#include <format>
+
 int main(int  argc, const char** argv)
 {
+    string test= "foo bar";
+    //FORCE_DEBUG(test);
+
+    int t = 12345;
+    // string test2;
+    
+    for (int i = 0; i < 100; i++)
+    {
+        t++;
+     //   test2 = std::format("TESTING STD FORMAT {:#x}", t);
+        FORCE_DEBUG(  std::format("TESTING STD FORMAT {:#x}", t)  );
+    
+    }
+
+
+   ////  FORCE_DEBUG(test2);
+
+   // FORCE_DEBUG(std::format("TESTING STD FORMAT {:x#}", 12345)) ;
+
+    return 0;
    // long long int num = 0x123456789;
    /// cout << std::format(f, num);
    /// std::format fmt;
@@ -73,6 +96,7 @@ int main(int  argc, const char** argv)
     SET_LOGFORMAT("1111111");
 
   
+
 
     try
     {
