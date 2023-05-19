@@ -61,9 +61,15 @@ class GString
      int         API  CountOccurrences(const string input, const char c, const bool ignore_case);
      bool         API Contains(const vector<string> &str, const string &substring, const bool ignore_case = true, long long int *pos = 0);
      bool         API Contains(const string &str, const string &substring, const bool ignore_case = true, long long int *pos = 0);
+     
+     
      bool         API BeginsWith(const string &str, const string &substring, const bool ignore_case = true);
+     bool         API BeginsWith(const string& str, const vector<string>& substring, const bool ignore_case = true);
      bool         API BeginsWith(const vector<string> * const arr, const string token, const bool ignore_case = true);
      
+
+
+
      bool         API EndsWith(const string &str, const string &substring, const bool ignore_case = true);
      bool         API EndsWith(const string& str, const vector <string>   substrings, const bool ignore_case = true);
 
