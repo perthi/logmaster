@@ -89,7 +89,7 @@ void
 TestLGeneratorP::GenerateData(const string filename_ref, std::shared_ptr<LGenerator> g)
 {
     string fname = fgTestDataDir + filename_ref;
-    ASSERT_TRUE(g_system( )->Exists(fname));
+    ASSERT_TRUE(g_system( )->exists(fname));
     fReferenceData = g_file( )->ReadAll(fname);
     LFileCreator::GenerateSingleFile(g, fgLogLevels, fgSubSystems);
     fGeneratedData = g_file( )->ReadAll("tmp.txt");
@@ -110,13 +110,13 @@ INSTANTIATE_TEST_CASE_P(
 
 TEST_P(TestLGeneratorP, exists_xml)
 {
-    ASSERT_TRUE(g_system( )->Exists(gXMLPath)) << gXMLPath;
+    ASSERT_TRUE(g_system( )->exists(gXMLPath)) << gXMLPath;
 }
 
 
 TEST_P(TestLGeneratorP, exists_xsd)
 {
-    ASSERT_TRUE(g_system( )->Exists(gXSDPath)) << gXSDPath;
+    ASSERT_TRUE(g_system( )->exists(gXSDPath)) << gXSDPath;
 }
 
 
