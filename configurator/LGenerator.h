@@ -59,11 +59,12 @@ namespace CONFIGURATOR
 
 	protected:
 		static LXMLInfo fXMLFileNames;						// XML and XSD file used to generate files
-		string fFilePath = "UNKNOWN";						//!< Full path of the .cpp or .h source file to be generated
+		
+        string fFilePath = "UNKNOWN";						//!< Full path of the .cpp or .h source file to be generated
 		string fClassName = "UNKNOWN";						//!< Name of the class (extracted from the file path
 		string fSourceFileName = "UNKNOWN";					//!< Name of the .cpp source file if applicable
 		string fHeaderFileName = "UNKNOWN";					//!< Name of the .h header file if applicable
-		
+		 
 		
 		string fLevelEnumName = "eLOGLEVEL";				//!< enum identifier for log level in generated files
 		string fSystemEnumName = "eMSGSYSTEM";				//!< enum identifier for subsystem in generated files

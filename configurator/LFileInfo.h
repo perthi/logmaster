@@ -1,5 +1,6 @@
 #pragma once
 
+#include <utilities/GDefinitions.h>
 #include <string>
 using std::string;
 
@@ -7,16 +8,26 @@ namespace CONFIGURATOR
 {
 	class LFileInfo
 	{
-		LFileInfo(const string filepath, const string classname);
+    public:
+        LFileInfo(const string filepath, const string classname, bool with_suffix = true);
 
-		string  GetSourceFileName() const;
-		string  GetHeaderFileName() const;
-		string  GetPath() const;
-		string  GetClassName() const;
+        string  API GetPath( ) const { return fFilePath; };
+        string  API GetClassName( ) const { return fClassName; };
+        string  API GetSourceName( ) const { return fFilePath; };
+        string  API GetHeaderName( ) const { return  ""; };
+		
+        void  API SetPath( const string path);
+        void  API SetClassName( const string classname );
+        
+        void    API EnableSuffixes( );
+        void    API DisableSuffixes( );
 
 	private:
-		string fPath = "";
-		string fClassName = "";
+
+        string fFilePath = "";			  //!< Full path to the location of .cpp or .h source files to be generated
+        string fClassName = "";			  //!< Name of the class
+        string fSourceFileName = "";      //!< Name of the .cpp source file if applicable
+        string fHeaderFileName = "";      //!< Name of the .h header file if applicable
 
 	};
 
