@@ -38,7 +38,7 @@ struct TestParameters
 
 
 
-class  TestReferenceData : public ::testing::WithParamInterface<  TestParameters >, public TestBase
+class  TestLGeneratorP : public ::testing::WithParamInterface<  TestParameters >, public TestBase
 {
 public:
 	static  void  SetUpTestCase();

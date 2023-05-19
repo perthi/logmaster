@@ -27,7 +27,7 @@
 ******************************************************************************/
 
 
-#include "TestReferenceData.h"
+#include "TestLGeneratorP.h"
 
 
 #include <configurator/LGeneratorMacrosException.h>
@@ -43,9 +43,9 @@
 #include <utilities/GFileIOHandler.h>
 
 
-string  TestReferenceData::fgTestDataDir = "";
-sysentity_vec    TestReferenceData::fgSubSystems;
-logentity_vec  TestReferenceData::fgLogLevels;
+string  TestLGeneratorP::fgTestDataDir = "";
+sysentity_vec    TestLGeneratorP::fgSubSystems;
+logentity_vec  TestLGeneratorP::fgLogLevels;
 
 using namespace CONFIGURATOR;
 
@@ -53,7 +53,7 @@ using namespace CONFIGURATOR;
 
 
 
-void TestReferenceData::SetUpTestCase()
+void TestLGeneratorP::SetUpTestCase()
 {
 #ifdef _WIN32
     /** @todo There must be a better way to do this */
@@ -71,7 +71,7 @@ void TestReferenceData::SetUpTestCase()
 
 
 void 
-TestReferenceData::SetUp( )
+TestLGeneratorP::SetUp( )
 {
     GetParam( ).fGenerator->DisableSuffix( );
 };
@@ -86,7 +86,7 @@ TestReferenceData::SetUp( )
 * will be compared
  with the reference data */
 void
-TestReferenceData::GenerateData(const string filename_ref, std::shared_ptr<LGenerator> g)
+TestLGeneratorP::GenerateData(const string filename_ref, std::shared_ptr<LGenerator> g)
 {
     string fname = fgTestDataDir + filename_ref;
     ASSERT_TRUE(g_system( )->Exists(fname));
@@ -99,7 +99,7 @@ TestReferenceData::GenerateData(const string filename_ref, std::shared_ptr<LGene
 
 INSTANTIATE_TEST_CASE_P(
     Compare,
-    TestReferenceData,
+    TestLGeneratorP,
     ::testing::Values(
           TestParameters(std::make_shared<LGeneratorMacrosException>("", "tmp.txt", gXMLInfo), "GExceptionAutoGen.h", 30),
         TestParameters(std::make_shared<LGeneratorMacrosLogging>("", "tmp.txt", gXMLInfo), "LLogApiAutoGen.h", 30),
@@ -108,13 +108,13 @@ INSTANTIATE_TEST_CASE_P(
         TestParameters(std::make_shared<LGeneratorLogTest>("", "tmp.txt", gXMLInfo), "LLogTestAutoGen.cpp", 30)));
 
 
-TEST_P(TestReferenceData, exists_xml)
+TEST_P(TestLGeneratorP, exists_xml)
 {
     ASSERT_TRUE(g_system( )->Exists(gXMLPath)) << gXMLPath;
 }
 
 
-TEST_P(TestReferenceData, exists_xsd)
+TEST_P(TestLGeneratorP, exists_xsd)
 {
     ASSERT_TRUE(g_system( )->Exists(gXSDPath)) << gXSDPath;
 }
@@ -131,7 +131,7 @@ TEST_P(TestReferenceData, exists_xsd)
 * @param max_errors  The maximum number of lines that can differ.
 * Default is 3 */
 void 
-TestReferenceData::Compare(const int max_errors)
+TestLGeneratorP::Compare(const int max_errors)
 {
    
 
@@ -156,7 +156,7 @@ TestReferenceData::Compare(const int max_errors)
 
 
 
-TEST_P(TestReferenceData, Compare)
+TEST_P(TestLGeneratorP, Compare)
 {
     auto t = GetParam( );
     GenerateData(t.fFileame, t.fGenerator);

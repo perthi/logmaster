@@ -86,6 +86,7 @@ protected:
 
 using testing::Types;
 
+/** @todo move to separate file(s) */
 TYPED_TEST_CASE_P(TestGCommandLineArgumentT);
 
 
