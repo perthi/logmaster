@@ -247,9 +247,9 @@ inline Val_t<T> operator  + ( const Val_t<T> &lhs,  const Val_t<T> &rhs)
     Val_t<T> tmp = lhs;
     if ( ! ( lhs.GetName() == rhs.GetName() )  )
     {
-       GCommon().HandleError(GText(   "You cannot add to variables of different types, you have tried to add %s (%s = %f) and %s ( %s = %f) which is forbidden", 
-                  lhs.GetName().c_str(), lhs.GetSubscript().c_str(), 
-                  lhs.GetValue(), rhs.GetName().c_str(), rhs.GetSubscript().c_str(), rhs.GetValue() ).str(), GLOCATION, THROW_EXCEPTION  ); 
+       GCommon().HandleError(std::format(   "You cannot add to variables of different types, you have tried to add {} ({} = {}) and {} ( {} = {}) which is forbidden", 
+                  lhs.GetName(), lhs.GetSubscript(), 
+                  lhs.GetValue(), rhs.GetName(), rhs.GetSubscript(), rhs.GetValue() ).str(), GLOCATION, THROW_EXCEPTION  ); 
 
     }
     else

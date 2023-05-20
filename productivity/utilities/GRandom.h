@@ -104,7 +104,7 @@ public:
         T num = -9999;
         if (sigma < 0)
         {
-            GCommon().HandleError(  std::format( "Invalid sigma value {}, sigma must be positive" ), GLOCATION, THROW_EXCEPTION  );
+            GCommon().HandleError(  std::format( "Invalid sigma value {}, sigma must be positive", num ), GLOCATION, THROW_EXCEPTION  );
         }
         else
         {

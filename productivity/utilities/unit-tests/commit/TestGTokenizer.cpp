@@ -30,13 +30,13 @@
 #include "TestGTokenizer.h"
 
 #include <utilities/GTokenizer.h>
-#include <utilities/GText.h>
 #include <utilities/GCommon.h>
 #include <utilities/GDefinitions.h>
 #include <utilities/GLocation.h>
 
 #include <ctime>
 
+#include <format>
 
 TestGTokenizer::TestGTokenizer() : TestBase()
 {
@@ -100,7 +100,7 @@ TEST_F(TestGTokenizer, Tokenize )
     }
     else
     {
-        GTEST_FATAL_FAILURE_( GText( "Unexpected vector size %d (expected 12)", res.size() ).c_str() );
+        GTEST_FATAL_FAILURE_( std::format( "Unexpected vector size {} (expected 12)", res.size() ).c_str() );
     }
    
     string d1 = "dir1\\dir2\\dir3";
@@ -124,7 +124,7 @@ TEST_F(TestGTokenizer, Tokenize )
     }
     else
     {
-        GTEST_FATAL_FAILURE_(GText("Unexpected vector size %d (expected 9)", res.size()).c_str());
+        GTEST_FATAL_FAILURE_(std::format("Unexpected vector size {} (expected 9)", res.size()).c_str());
     }
 
      string d4 = "dir1\\dir2/dir3/dir4\\dir5";
@@ -141,7 +141,7 @@ TEST_F(TestGTokenizer, Tokenize )
     }
     else
     {
-        GTEST_FATAL_FAILURE_(GText("Unexpected vector size %d (expected 5)", res.size()).c_str());
+        GTEST_FATAL_FAILURE_(std::format("Unexpected vector size {} (expected 5)", res.size()).c_str());
     }
 
     d4 = "dir1\\dir2/dir3/dir4\\dir5";
@@ -157,7 +157,7 @@ TEST_F(TestGTokenizer, Tokenize )
     }
     else
     {
-        GTEST_FATAL_FAILURE_(GText("Unexpected vector size %d (expected 5)", res.size()).c_str());
+        GTEST_FATAL_FAILURE_(std::format("Unexpected vector size {} (expected 5)", res.size()).c_str() );
     }
 }
 
@@ -209,7 +209,7 @@ TEST_F(TestGTokenizer, GTokenizerNSR246)
     }
     catch (std::exception &e)
     {
-        GCommon().HandleError( GText( "STD Exception caught:\t %s", e.what() ).str(),GLOCATION, DISABLE_EXCEPTION  );
+        GCommon().HandleError( std::format( "STD Exception caught:\t {}", e.what() ),GLOCATION, DISABLE_EXCEPTION  );
     }
     #ifdef HAS_LOGGING
     catch (GException &e)

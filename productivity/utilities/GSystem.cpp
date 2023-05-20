@@ -245,8 +245,8 @@ GSystem::exists(const string filepath, struct  stat *sb_in)
     
     if ( ret != 0 )
     {
-        string err = Errno2String(errno, filepath, "");
-        GCommon( ).HandleError(err, GLOCATION);
+        //string err = Errno2String(errno, filepath, "");
+        //GCommon( ).HandleError(err, GLOCATION, DISABLE_EXCEPTION);
     }
     else
     {

@@ -28,7 +28,6 @@
 
 #include "TestGRandom.h"
 #include <utilities/GRandom.h>
-#include <utilities/GText.h>
 #include <utilities/GLocation.h>
 #include <utilities/GCommon.h>
 

@@ -159,6 +159,7 @@
     <ClCompile Include="LGeneratorCommon.cpp" />
     <ClCompile Include="LGeneratorEnum.cpp" />
     <ClCompile Include="LGeneratorHashMap.cpp" />
+    <ClCompile Include="LGeneratorLoggingSystemTests.cpp" />
     <ClCompile Include="LGeneratorLogTest.cpp" />
     <ClCompile Include="LGeneratorMacrosException.cpp" />
     <ClCompile Include="LGeneratorMacrosLogging.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="LGeneratorCommon.h" />
     <ClInclude Include="LGeneratorEnum.h" />
     <ClInclude Include="LGeneratorHashMap.h" />
+    <ClInclude Include="LGeneratorLoggingSystemTests.h" />
     <ClInclude Include="LGeneratorLogTest.h" />
     <ClInclude Include="LGeneratorMacrosException.h" />
     <ClInclude Include="LGeneratorMacrosLogging.h" />
