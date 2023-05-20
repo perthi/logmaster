@@ -159,10 +159,11 @@
     <ClCompile Include="LGeneratorCommon.cpp" />
     <ClCompile Include="LGeneratorEnum.cpp" />
     <ClCompile Include="LGeneratorHashMap.cpp" />
-    <ClCompile Include="LGeneratorLoggingSystemTests.cpp" />
     <ClCompile Include="LGeneratorLogTest.cpp" />
     <ClCompile Include="LGeneratorMacrosException.cpp" />
     <ClCompile Include="LGeneratorMacrosLogging.cpp" />
+    <ClCompile Include="LGeneratorTestBase.cpp" />
+    <ClCompile Include="LGeneratorTestLoggingSystem.cpp" />
     <ClCompile Include="LUtilities.cpp" />
     <ClCompile Include="LXmlEntity.cpp" />
     <ClCompile Include="LXmlEntityLogLevel.cpp" />
@@ -181,10 +182,11 @@
     <ClInclude Include="LGeneratorCommon.h" />
     <ClInclude Include="LGeneratorEnum.h" />
     <ClInclude Include="LGeneratorHashMap.h" />
-    <ClInclude Include="LGeneratorLoggingSystemTests.h" />
     <ClInclude Include="LGeneratorLogTest.h" />
     <ClInclude Include="LGeneratorMacrosException.h" />
     <ClInclude Include="LGeneratorMacrosLogging.h" />
+    <ClInclude Include="LGeneratorTestBase.h" />
+    <ClInclude Include="LGeneratorTestLoggingSystem.h" />
     <ClInclude Include="LUtilities.h" />
     <ClInclude Include="LXmlEntity.h" />
     <ClInclude Include="LXmlEntityLogLevel.h" />

@@ -33,11 +33,17 @@ namespace CONFIGURATOR
     LFileCreator::GenerateSingleFile(const generator_ptr& gen, const logentity_vec  loglevels, const sysentity_vec subsystems)
     {
         PUSH();
-        //SET_LOGFORMAT("1101111");
-        //SET_LOGLEVEL("--all-info");
+        SET_LOGFORMAT("1100111");
+        SET_LOGLEVEL("--all-info");
         gen->GenerateContent(loglevels, subsystems); /// Generating the file content
 
         string basepath = gen->GetFileInfo()->GetPath();
+
+        if ( !gen->IsEnabledHeader( )  && !gen->IsEnabledSource( ) )
+        {
+            //  Nothing to do, that must be an error
+            XML_EXCEPTION("Nothing to do, neither Source or Header generation is enabled");
+        }
 
         if ( gen->IsEnabledHeader( ) )
         {
@@ -45,16 +51,12 @@ namespace CONFIGURATOR
             XML_INFO("Writing header to: %s",  filename.c_str() );
             WriteFile(gen->GetContentHeader( ),  filename );
         }
-        else if ( gen->IsEnabledSource( ) )
+        
+        if ( gen->IsEnabledSource( ) )
         {
             string filename = basepath + gen->GetFileInfo()->GetSourceName();
             XML_INFO("Writing source to: %s", filename.c_str());
             WriteFile(gen->GetContentSource( ), filename );
-        }
-        else
-        {
-            //  Nothing to do, that must be an error
-            XML_EXCEPTION("Nothing to do, neither Source or Header generation is enabled");
         }
 
         POP();
