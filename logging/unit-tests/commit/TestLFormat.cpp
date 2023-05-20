@@ -78,6 +78,7 @@ TEST_F( TestLFormat, msg_format )
 }
 
 
+/** @todo These tests should be auto generated  */
 /*
 TEST_F( TestLFormat, targets )
 {

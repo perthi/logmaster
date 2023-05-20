@@ -33,23 +33,20 @@ namespace CONFIGURATOR
     LFileCreator::GenerateSingleFile(const generator_ptr& gen, const logentity_vec  loglevels, const sysentity_vec subsystems)
     {
         PUSH();
-        SET_LOGFORMAT("0000111");
-      //  SET_LOGLEVEL("--all-info");
+        SET_LOGFORMAT("1101111");
+        SET_LOGLEVEL("--all-info");
         gen->GenerateContent(loglevels, subsystems); /// Generating the file content
 
-        //string basepath = gen->GetFilePath();
         string basepath = gen->GetFileInfo()->GetPath();
 
         if ( gen->IsEnabledHeader( ) )
         {
-            //string filename = basepath + gen->GetHeaderFileName();
             string filename = basepath + gen->GetFileInfo()->GetHeaderName();
             XML_INFO("Writing header to: %s",  filename.c_str() );
             WriteFile(gen->GetContentHeader( ),  filename );
         }
         else if ( gen->IsEnabledSource( ) )
         {
-            //string filename = basepath + gen->GetSourceFileName();
             string filename = basepath + gen->GetFileInfo()->GetSourceName();
             XML_INFO("Writing source to: %s", filename.c_str());
             WriteFile(gen->GetContentSource( ), filename );

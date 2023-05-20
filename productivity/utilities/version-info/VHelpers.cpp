@@ -28,9 +28,12 @@ namespace VHELPERS
 		return path;
 	}
 
-	string
+	
+
+    string
 		year()
 	{
+        return GTime( ).GetYear( );
 		time_t  the_time = time(NULL);
 
 #ifdef _WIN32

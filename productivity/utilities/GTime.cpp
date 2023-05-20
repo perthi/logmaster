@@ -274,6 +274,29 @@ GTime::TimeStamp(const char * format, int64_t *us)
 }
 
 
+string 
+GTime::GetYear(int* year_in)
+{
+    time_t  the_time = time(NULL);
+
+#ifdef _WIN32
+    struct tm* a_time = localtime(&the_time);
+#else
+    struct tm* a_time = localtime(&the_time);
+#endif
+    
+    int year = a_time->tm_year + 1900;
+
+    if ( year_in != nullptr )
+    {
+        *year_in = year;
+    }
+
+    return g_string( )->ToString<int>(year);
+   
+}
+
+
 
 
 string

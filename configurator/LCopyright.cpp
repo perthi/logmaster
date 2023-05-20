@@ -16,6 +16,7 @@
 using std::endl;
 
 
+
 namespace CONFIGURATOR
 {
 
@@ -37,7 +38,7 @@ namespace CONFIGURATOR
     
 
         buffer << g_utilities()->AutoClause(addendum);
-        buffer << GLicence( ).str( );
+        buffer << GLicence::long_version ( );
 
         return buffer.str();
     }

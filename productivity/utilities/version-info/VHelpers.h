@@ -11,6 +11,7 @@ using std::vector;
 namespace VHELPERS
 {
 	string year();
+
 	string platform();
 	string versionString(string s);
 	string path(int argc, const char** argv);
