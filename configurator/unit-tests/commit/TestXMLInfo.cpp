@@ -9,12 +9,12 @@ void TestXMLInfo::SetUpTestCase()
 {
     PUSH();
     SET_LOGTARGET("0000 --target-file");
-    FORCE_DEBUG("SETUP");
+    //FORCE_DEBUG("SETUP");
 }
 
 void TestXMLInfo::TearDownTestCase()
 {
-    FORCE_DEBUG("TEARDOWN");
+    //FORCE_DEBUG("TEARDOWN");
     POP();
 }
 

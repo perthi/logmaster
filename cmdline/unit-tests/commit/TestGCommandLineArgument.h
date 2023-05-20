@@ -94,7 +94,6 @@ template <typename T>
 class  TestGCommandLineArgumentT : public  TestBase
 {
 public:
-    //TestDataTypesT() ;
     virtual void SetUp() override 
     {
        fArg1 = std::make_shared< GCommandLineArgument<T> >("-myarg", nullptr);
@@ -104,16 +103,10 @@ public:
 protected:
     std::shared_ptr<GCommandLineArgument<T> >  fArg1 = nullptr;
     std::shared_ptr<GCommandLineArgument<T> >  fArg2 = nullptr;
-
-  //  T first;
-  //  T second;
-
 };
 
 
 typedef Types< string, int, long, unsigned long, short,  double, float, char, Val_t<int> > impl;
-
-//using Types = testing::Types<int, long long, std::size_t>;
 
 
 
@@ -122,7 +115,7 @@ TYPED_TEST_P(TestGCommandLineArgumentT, duplicate_arguemnts)
     GLogApplication a;
     EXPECT_ANY_THROW(a.AddArgument( this->fArg1).AddArgument( this->fArg2)); // Default behavior is exception if arguments with same tag is added
     ASSERT_TRUE(a.GetArguments().size() > 0);
-    a.Purge(); // Removing all argumenst, sixe should be 0
+    a.Purge(); // Removing all arguments, size should be 0
     ASSERT_TRUE(a.GetArguments().size() == 0);
 
     EXPECT_ANY_THROW(a.AddArgument(this->fArg1).AddArgument( this->fArg2, eDUPLICATE_STRATEGY::THROW_EXEPTION));

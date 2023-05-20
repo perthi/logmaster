@@ -14,10 +14,8 @@
 #include <logging/LLogApi.h>
 #include <logging/LLogEntrySQL.h>
 #include <utilities/GRandom.h>
-//#include <logging/LEnums.h>
 
 #include <memory>
-
 #include <vector>
 using std::vector;
 
@@ -26,15 +24,12 @@ using namespace LOGMASTER;
 
 LDatabase *  TestLDatabase::fgDatabase = nullptr;
 string    TestLDatabase::fgDatabaseBasePath = "";
-
+string    TestLDatabase::fgDatabaseBaseFile = "";
+string    TestLDatabase::fgDatabaseBaseFileRotate = "";
 
 #ifndef LOGMASTER_HOME
 constexpr char LOGMASTER_HOME[] = "ERROR_NOT_SET";
 #endif
-
-
-
-
 
 
 
@@ -46,29 +41,34 @@ TestLDatabase::SetUpTestCase()
     //LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 
 #ifdef _WIN32
+    
     string s = EXPAND(LOGMASTER_HOME);
     s.erase(0, 1);
     s.erase(s.size() - 2);
-    fgDatabaseBasePath = s + "\\test-data\\logmaster-test.db";
+    fgDatabaseBasePath = s;
+    fgDatabaseBaseFile = s + "\\test-data\\logmaster-test.db";
+    fgDatabaseBaseFileRotate = s+  "\\test-data\\logmaster-test-rotate.db";
 #else
      fgDatabaseBasePath = LOGMASTER_HOME + string("/logging/unit-tests/commit/test-data/logmaster-test.db"); 
 
 #endif
-    fgDatabase =  LDatabase::Instance( fgDatabaseBasePath  );
+    fgDatabase =  LDatabase::Instance( fgDatabaseBaseFile  );
     
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
+        FAIL( );
     }
     catch(GException &e)
     {
         CERR << e.what() << ENDL;
+        FAIL( );
     }
     catch(...)
     {
-        CERR << "Unkown exception caught" << ENDL;
-
+        CERR << "Unknown exception caught" << ENDL;
+        FAIL( );
     }
 
 }
@@ -125,7 +125,6 @@ TEST_F( TestLDatabase , all_entries )
 
 
 
-/*
 TEST_F( TestLDatabase , specific_system )
 {
      auto db = fgDatabase;
@@ -143,6 +142,7 @@ TEST_F( TestLDatabase , specific_system )
 
     }
 }
+
 
 
 TEST_F( TestLDatabase , specific_system_multiple )
@@ -266,11 +266,8 @@ TEST_F( TestLDatabase , time )
 TEST_F( TestLDatabase , logrotation)
 {
     auto oldPath = fgDatabase->GetDBPath();
-
-    string rotatePath = fgDatabaseBasePath += "\\logmaster-test-rotate.db";
-   // string rotatePath = string(LOGMASTER_HOME) + string("/logging/unit-tests/commit/test-data/logmaster-test-rotate.db");
     
-    fgDatabase =  LDatabase::Instance(rotatePath);
+    fgDatabase =  LDatabase::Instance(fgDatabaseBaseFileRotate);
     fgDatabase->SetMaxDbFileSize(1);
     auto db = fgDatabase;
     auto nEntries = db->Query(ALL_ENTRIES).size();
@@ -289,4 +286,3 @@ TEST_F( TestLDatabase , logrotation)
     db = LDatabase::Instance(oldPath);
 }
 
-*/

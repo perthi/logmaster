@@ -14,28 +14,12 @@
 *****************************************************************************/
 
 #include <testlib/TestBase.h>
-#include <cmdline/GCommandLineArgument.h>
-#include <utilities/GConstants.h>
-
-using namespace GCONSTANTS;
-
-
 
 
 class TestGCmdScan : public TestBase
 {
 public:
     TestGCmdScan();
-    virtual ~ TestGCmdScan();
-    virtual void SetUp();
-    virtual void TearDown();
-    static bool ValidateFunct(const string cmnd, const vector<string> subs, const vector<string> args);
-
-
- private:
-    TestGCmdScan& operator = ( const TestGCmdScan & );
-    TestGCmdScan( const TestGCmdScan & );
-    
 };
 
   

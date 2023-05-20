@@ -35,22 +35,19 @@
 TEST_F(TestGRegexp, ScanNumber )
 {
     EXPECT_ANY_THROW(  g_regexp()->ScanNumber("lorem ipsum", "nonumber") );
-    EXPECT_ANY_THROW(  g_regexp()->ScanNumber("lorem ipsum", "{1,2}"));
-    EXPECT_NO_THROW(   g_regexp()->ScanNumber("lorem ipsum", "1,2"));
-    
+    EXPECT_ANY_THROW(g_regexp( )->ScanNumber("lorem ipsum", "{1,2}"));
+    EXPECT_NO_THROW(g_regexp( )->ScanNumber("lorem ipsum", "1,2"));
+
     vector<string> numbers;
-    EXPECT_NO_THROW ( numbers =  g_regexp()->ScanNumber("At vero eos 1et accusamus 23et ius45to odio digni666ssimos ducimus qui blanditiis prae12345sentium voluptatum deleniti atque corrupti quos dolores", "1,5"));
+    EXPECT_NO_THROW(numbers = g_regexp( )->ScanNumber("At vero eos 1et accusamus 23et ius45to odio digni666ssimos ducimus qui blanditiis prae12345sentium voluptatum deleniti atque corrupti quos dolores", "1,5"));
 
-    EXPECT_EQ( 5, numbers.size( ));
+    ASSERT_EQ(5, numbers.size( ));
 
-    if (numbers.size() == 5)
-    {
-        EXPECT_EQ(numbers.at(0), "1");
-        EXPECT_EQ(numbers.at(1), "23");
-        EXPECT_EQ(numbers.at(2), "45");
-        EXPECT_EQ(numbers.at(3), "666");
-        EXPECT_EQ(numbers.at(4), "12345");
-    }
+    EXPECT_EQ(numbers.at(0), "1");
+    EXPECT_EQ(numbers.at(1), "23");
+    EXPECT_EQ(numbers.at(2), "45");
+    EXPECT_EQ(numbers.at(3), "666");
+    EXPECT_EQ(numbers.at(4), "12345");
 
     try
     {
@@ -65,17 +62,20 @@ TEST_F(TestGRegexp, ScanNumber )
     }
     catch (std::exception &e)
     {
-        CERR << e.what() << ENDL;
+        CERR << e.what( ) << ENDL;
+        FAIL( );
     }
     #ifdef HAS_LOGGING
     catch (GException &e)
     {
         cerr << e.what() << ENDL;
+        FAIL( );
     }
     #endif
     catch (...)
     {
         CERR << "UNKNOWN EXCEPTION !!!!" << ENDL;
+        FAIL( );
     }
 }
 

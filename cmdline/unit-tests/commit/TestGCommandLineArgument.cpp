@@ -228,8 +228,7 @@ TEST_F(TestGCommandLineArgument, boolArgs)
 	EXPECT_THROW(g->ScanArguments("-mybool -alpha beta gamma"), GInvalidArgumentException);
 
 	//* Now we try with a validation function. We use a default validation function for 
-   // * boolean argumenst which takes --true and --false as subcommands 
-
+   // * boolean arguments which takes --true and --false as subcommands 
 	barg->SetValidationFunction(GCmdApi::bool2);
 	g->ScanArguments("-mybool");
 	EXPECT_EQ(b, true);
@@ -359,8 +358,6 @@ TEST_F(TestGCommandLineArgument, vectorLongDoubleArgs)
 		EXPECT_DOUBLE_EQ(vld[2], -1.61803399);
 		EXPECT_DOUBLE_EQ(vld[3], 42);
 	}
-
-	// g->ScanArguments("-myldvector gibbersih");
 
 	EXPECT_ANY_THROW(g->ScanArguments("-myldvector gibbersih"));
 	EXPECT_ANY_THROW(g->ScanArguments("-myldvector 1.1 2.2 3 4 5 gibbersih"));
@@ -507,7 +504,8 @@ TEST_F(TestGCommandLineArgument, stringscanBugNSR808)
 	}
 	catch (GException& e)
 	{
-		cout << e.what() << endl;
+		CERR << e.what() << ENDL;
+        FAIL( );
 	}
 
 	EXPECT_EQ(test, "hello world");
@@ -518,7 +516,8 @@ TEST_F(TestGCommandLineArgument, stringscanBugNSR808)
 	}
 	catch (GException& e)
 	{
-		cout << e.what() << endl;
+		CERR << e.what() << ENDL;
+        FAIL( );
 	}
 	
 	EXPECT_EQ(test, "lorem ipsum");
@@ -538,15 +537,17 @@ TEST_F(TestGCommandLineArgument, duplicate_arguemnts )
 	EXPECT_ANY_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2)); // Default behavior is exception if arguments with same tag is added
 	
 	ASSERT_TRUE(a.GetArguments().size() > 0);
-	a.Purge(); // Removing all argumenst, sixe should be 0
+	
+    a.Purge(); // Removing all arguments, size should be 0
 	ASSERT_TRUE(a.GetArguments().size() == 0);
 
 	EXPECT_ANY_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2, eDUPLICATE_STRATEGY::THROW_EXEPTION));
 	EXPECT_NO_THROW(a.AddArgument(s_arg1, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE));
 	EXPECT_NO_THROW(a.AddArgument(s_arg1, eDUPLICATE_STRATEGY::REPLACE_DUPLICATE));
 
-	// EXPECT_NO_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2, eDUPLICATE_STRATEGY::IGNORE_DUP ));
-	// EXPECT_NO_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2, eDUPLICATE_STRATEGY::IGNORE_DUP));
+    a.Purge( );
+	EXPECT_NO_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE));
+    EXPECT_NO_THROW(a.AddArgument(s_arg1, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE).AddArgument(s_arg2, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE));
 }
 
 
@@ -569,10 +570,6 @@ TEST_F(TestGCommandLineArgument, duplicate_arguemnts_replace)
     ASSERT_NO_THROW(a.AddArgument(s_arg2, eDUPLICATE_STRATEGY::REPLACE_DUPLICATE));
 
 	address = (uint64_t)a.GetArgument("-myarg").get();
-
 	EXPECT_NE(s_arg1_address, address);
-
 }
-
-
 

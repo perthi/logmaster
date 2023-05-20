@@ -30,15 +30,8 @@
 
 
 #include "TestGCmdScan.h"
-#include <utilities/GNumbers.h>
-#include <cmdline/GCmdApi.h>
-#include <cmdline/GCmdScan.h>
 #include <cmdline/GArgumentParsed.h>
-#include <string>
-#include <vector>
 
-using std::vector;
-using std::string;
 
 
 TestGCmdScan::TestGCmdScan() : TestBase()
@@ -47,42 +40,11 @@ TestGCmdScan::TestGCmdScan() : TestBase()
 }
 
 
-TestGCmdScan::~TestGCmdScan()
-{
-
-}
-
-
-void TestGCmdScan::SetUp()
-{
-
-}
-
-
-void TestGCmdScan::TearDown()
-{
-
-}
-
-
-bool  callback_test( const string  cmd, const vector<string>  sub, const vector<string>  par )
-{
-    FORCE_DEBUG("callback function invoked");
-    FORCE_DEBUG("cmd = %s", cmd.c_str() );
-    FORCE_DEBUG("parameters = %s",   g_string()->Vec2String(par).c_str() );
-    FORCE_DEBUG("subcommands = %s",  g_string()->Vec2String(sub).c_str() );
-    return true;
-}
-
-
-void print_info(GArgumentParsed *arg);
-
 
 TEST_F(TestGCmdScan, scanning_bug_GRIM415)
 {
 
 #define NARGS 13
-  //  int argc = 14;
     char *argv[NARGS];
 
     for(int i=0; i < NARGS; i++)
@@ -105,8 +67,8 @@ TEST_F(TestGCmdScan, scanning_bug_GRIM415)
     SPRINTF( argv[10], 100, "--msc0" );
     SPRINTF( argv[11], 100, "66" );
     SPRINTF( argv[12], 100, "33" );
+    
     vector<GArgumentParsed> scanned_arguments = g_cmdscan()->SplitCommands(NARGS, (const char **)argv);
-    //FORCE_DEBUG("scanned_arguments.size() = %d", scanned_arguments.size() );
     EXPECT_EQ(2, scanned_arguments.size() );
 
     if( scanned_arguments.size()  == 2 )
@@ -136,25 +98,9 @@ TEST_F(TestGCmdScan, scanning_bug_GRIM415)
         EXPECT_EQ("66", pars1[0]);
         EXPECT_EQ("33", pars1[1]);
     }
+    else
+    {
+        FAIL( );
+    }
 }
 
-
-void 
-print_info(GArgumentParsed *arg)
-{
-    FORCE_DEBUG("cmdname = %s", arg->GetCommand().c_str() );
-    vector<string> subs =  arg->GetSubCommands();
-    vector<string> pars =  arg->GetArguments();
-
-    for(size_t i=0; i < subs.size(); i++ )
-    {
-        FORCE_DEBUG("subcmd[%d] = \t%s", i, subs[i].c_str()    );
-    }   
-   
-    for(size_t i=0; i < pars.size(); i++ )
-    {
-        FORCE_DEBUG("par[%d] = \t%s", i, pars[i].c_str()    );
-    }   
-    
-
-}

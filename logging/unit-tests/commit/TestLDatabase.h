@@ -29,6 +29,8 @@ class  TestLDatabase : public TestBase
 		static  LDatabase * fgDatabase;
         static  LDatabase * fgRotateDatabase;
 		static  string fgDatabaseBasePath;
+        static  string fgDatabaseBaseFile;
+        static  string fgDatabaseBaseFileRotate;
 };
 
 #endif

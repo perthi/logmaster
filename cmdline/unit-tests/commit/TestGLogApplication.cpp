@@ -31,7 +31,6 @@ TestGLogApplication::TearDown()
 TEST_F(TestGLogApplication, get_argument )
 {
     EXPECT_NE(nullptr, g->GetArgument("-loglevel")  );
- // delete g;
 }
 
 
@@ -40,7 +39,6 @@ TEST_F(TestGLogApplication,   remove_argument )
 {
     try
     {
-        //g->InitLogArgs();
         EXPECT_NE(nullptr, g->GetArgument("-loglevel"));
         size_t size_before = g->GetArguments().size();
         g->RemoveArgument("-loglevel");
@@ -51,14 +49,17 @@ TEST_F(TestGLogApplication,   remove_argument )
     catch (GException& e)
     {
         CERR << e.what() << ENDL;
+        FAIL( );
     }
     catch (std::exception &e)
     {
         CERR << e.what() << ENDL;
+        FAIL( );
     }
     catch (...)
     {
         CERR << "Unknown exception caught" << ENDL;
+        FAIL();
     }
 
 }
@@ -74,10 +75,8 @@ TEST_F(TestGLogApplication, cmdline_from_file)
 {
     try
     {
-        //       SET_LOGTARGET("1111"); 
         LPublisher::Instance( )->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
         g_file( )->GFileIOHandler::Append(fValidCommands, "%s", " -loglevel --all -logtarget 0000 --target-file --target-stdout ");
-        //  FORCE_DEBUG("filename = %s", fValidCommands.c_str() );
 
         EXPECT_EQ(" -loglevel --all -logtarget 0000 --target-file --target-stdout ", g_file( )->ReadLastLine(fValidCommands));
         g_system( )->mkfile(fNotValidCommands);

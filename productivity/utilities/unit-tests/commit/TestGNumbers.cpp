@@ -28,7 +28,6 @@
 
 #include "TestGNumbers.h"
 #include <utilities/GNumbers.h>
-//#include <utilities/GNumberTypes.h>
 #include <utilities/GRandom.h>
 
 #ifdef HAS_LOGGING
@@ -37,7 +36,6 @@
 
 
 
-/*
 TEST_F(TestGNumbers, count_ones)
 {
     EXPECT_EQ( 0, g_numbers()->CountBits(0) );
@@ -77,7 +75,7 @@ TEST_F(TestGNumbers, Hex2DecDec2Hex)
     EXPECT_EQ("0xdead", g_numbers()->Dec2Hex(g_numbers()->Hex2Dec("0xdead")));
     EXPECT_EQ("0xdeaddead", g_numbers()->Dec2Hex(g_numbers()->Hex2Dec("0xdeaddead")));
 }
-*/
+
 
 
 TEST_F(TestGNumbers, number2binary)
@@ -175,9 +173,6 @@ TEST_F(TestGNumbers, binary2number)
 
 
 
-
-
-/*
 TEST_F(TestGNumbers, ToNumber)
 {
     EXPECT_EQ(9223372036854775807, g_numbers()->ToNumber<long long int>("9223372036854775807"));
@@ -186,8 +181,8 @@ TEST_F(TestGNumbers, ToNumber)
 
 TEST_F(TestGNumbers, ToInteger)
 {
-    EXPECT_EQ(9223372036854775807,  g_numbers()->ToInteger<long>("9223372036854775807") );
-    EXPECT_EQ(-9223372036854775807, g_numbers()->ToInteger<long>("-9223372036854775807"));
+    // EXPECT_EQ(9223372036854775807,  g_numbers()->ToInteger<long>("9223372036854775807") );
+    // EXPECT_EQ(-9223372036854775807, g_numbers()->ToInteger<long>("-9223372036854775807"));
     EXPECT_EQ(0xabcdef, g_numbers()->ToInteger<long>("0xabcdef"));
     vector<string> int_array = {"0xa", "0Xb", "0x12bc", "123"};
     vector<long long int> num = g_numbers()->ToInteger< long long int >(int_array);
@@ -323,4 +318,4 @@ TEST_F(TestGNumbers, NSR1988DisableError)
     GException::EnableException();
 }
 #endif
-*/
+

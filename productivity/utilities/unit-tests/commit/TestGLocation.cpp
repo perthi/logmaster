@@ -21,8 +21,6 @@ void
  {
     SET_LOGTARGET("--target-stdout");
     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
-    ///FORCE_DEBUG("SETUP");
-    ///FORCE_DEBUG("SETUP2");
  }
 
 void 
@@ -30,7 +28,6 @@ void
  {
     //CERR << "TEARING DOWN" << ENDL;
     /// FORCE_DEBUG("TEARDOWN");
-
  }
 
 

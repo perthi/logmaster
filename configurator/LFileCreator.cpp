@@ -33,8 +33,8 @@ namespace CONFIGURATOR
     LFileCreator::GenerateSingleFile(const generator_ptr& gen, const logentity_vec  loglevels, const sysentity_vec subsystems)
     {
         PUSH();
-        SET_LOGFORMAT("1101111");
-        SET_LOGLEVEL("--all-info");
+        //SET_LOGFORMAT("1101111");
+        //SET_LOGLEVEL("--all-info");
         gen->GenerateContent(loglevels, subsystems); /// Generating the file content
 
         string basepath = gen->GetFileInfo()->GetPath();

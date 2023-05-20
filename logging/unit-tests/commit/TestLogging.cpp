@@ -182,7 +182,7 @@ TEST_F(TestLogging, stdoutIO)
     SET_LOGTARGET("--target-stdout");
     G_ERROR("Test message with parameters: a = %d, b = %d", 1, 2);
 
-//    EXPECT_EQ(fStrCout.str(), "\tTest message with parameters: a = 1, b = 2\n");
+    EXPECT_EQ(fStrCout.str(), "\tTest message with parameters: a = 1, b = 2\n");
     
     SET_LOGFORMAT("0000000");
     fStrCout.str("");
@@ -193,7 +193,7 @@ TEST_F(TestLogging, stdoutIO)
     fStrCout.str("");
     G_WARNING("Test message with parameters: a = %d, b = %d", 1, 2);
     
-///    EXPECT_EQ(fStrCout.str(), "\tTest message with parameters: a = 1, b = 2\n");
+    EXPECT_EQ(fStrCout.str(), "\tTest message with parameters: a = 1, b = 2\n");
     
     fStrCout.str("");
     
@@ -254,8 +254,6 @@ TEST_F(TestLogging, fileIO)
     SET_LOGFILENAME("googletest_logging_file_io.log");
     EXPECT_EQ("googletest_logging_file_io.log", l->GetLogFileName( eMSGTARGET::TARGET_FILE));
     SET_LOGLEVEL("--all-warning");
-    
-    
     G_ERROR("Test message");
     
     std::this_thread::sleep_for( std::chrono::milliseconds(100) );
@@ -268,21 +266,21 @@ TEST_F(TestLogging, fileIO)
 
 
 
-
-// TEST_F(TestLogging, timeStamp)
-// {
-//     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS); 
-//     SET_LOGTARGET( "--target-off");
-//     SET_LOGTARGET(" --target-stdout --target-file");
-//     SET_LOGFORMAT("00100000");
-//     SET_LOGLEVEL("--all-warning");
+ TEST_F(TestLogging, timeStamp)
+ {
+     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS); 
+     SET_LOGTARGET( "--target-off");
+     SET_LOGTARGET(" --target-stdout --target-file");
+    // SET_LOGFORMAT("00100000");
+     SET_LOGLEVEL("--all-warning");
     
-//     EXPECT_EQ(true,    GTime().IsValidDateString(G_FATAL("Ignore")->at(eMSGTARGET::TARGET_FILE)->fTimeStamp ) );
-//     EXPECT_EQ(true,    GTime().IsValidDateString( G_ERROR("Ignore")->at(eMSGTARGET::TARGET_FILE)->fMsg  ));
-//     EXPECT_EQ(true,    GTime().IsValidDateString( G_WARNING("Ignore")->at(eMSGTARGET::TARGET_FILE)->fMsg ));
-//     EXPECT_EQ(false,   GTime().IsValidDateString( G_INFO("Ignore")->at(eMSGTARGET::TARGET_FILE)->fMsg  ));
-//     EXPECT_EQ(false,   GTime().IsValidDateString( G_DEBUG("Ignore")->at(eMSGTARGET::TARGET_FILE)->fMsg  ));  
-// }
+     /// @todo Fix these tests 
+   //  EXPECT_EQ(true,    GTime().IsValidDateString(G_FATAL("Ignore")->at(eMSGTARGET::TARGET_FILE)->fTimeStamp ) );
+   //  EXPECT_EQ(true,    GTime().IsValidDateString( G_ERROR("Ignore")->at(eMSGTARGET::TARGET_FILE)->fMsg  ));
+   //  EXPECT_EQ(true,    GTime().IsValidDateString( G_WARNING("Ignore")->at(eMSGTARGET::TARGET_FILE)->fMsg ));
+   //  EXPECT_EQ(false,   GTime().IsValidDateString( G_INFO("Ignore")->at(eMSGTARGET::TARGET_FILE)->fMsg  ));
+   //  EXPECT_EQ(false,   GTime().IsValidDateString( G_DEBUG("Ignore")->at(eMSGTARGET::TARGET_FILE)->fMsg  ));  
+ }
 
 
 
@@ -301,8 +299,6 @@ TEST_F(TestLogging, NSR218)
    }
 
 
-
-
 TEST_F(TestLogging, NSR219)
 {
     EXPECT_NO_THROW(SET_LOGFORMAT("1111111" ) );
@@ -316,22 +312,17 @@ TEST_F(TestLogging, NSR219)
 }
 
 
-
-
 TEST_F(TestLogging, NSR207)
 {
     
     EXPECT_NO_THROW(SET_LOGTARGET("1111"));
     EXPECT_NO_THROW( g->ScanArguments("-logtarget 1111"));
-    //EXPECT_NO_THROW(SET_LOGTARGET((eMSGTARGET)0x7));
     EXPECT_ANY_THROW(SET_LOGTARGET("111"));
-  //  EXPECT_ANY_THROW(SET_LOGTARGET( (eMSGTARGET)0x123));
 
     EXPECT_NO_THROW(SET_LOGTARGET("0000"));
    // fStrCout.str("");
     SET_LOGFORMAT("0000001");
     G_ERROR("Hello Dolly");
-  //  EXPECT_EQ("", fStrCout.str());
     EXPECT_NE("\t\tHello Dolly\n", FileIOTest());
     EXPECT_EQ("", fMessage);
     l->RegisterSubscriber(Subscriber);
@@ -367,16 +358,13 @@ TEST_F(TestLogging, NSR790HugeMessage)
 
 
 
-
 TEST_F(TestLogging, NSR724ForceDebug)
 {
     SET_LOGLEVEL("--all");
     SET_LOGFORMAT("1000001");
-
     //If we use the force debug macro we shall generate a message regardless of the configuration of the logging system
     EXPECT_STREQ("<Force_Debug:General>    \tForcing the logging system to write a message\n",   FORCE_DEBUG("Forcing the logging system to write a message")->at(eMSGTARGET::TARGET_FILE)->fMsg );
 }
-
 
 
 TEST_F(TestLogging, NSR939Subscribers)
@@ -393,22 +381,16 @@ TEST_F(TestLogging, NSR939Subscribers)
     EXPECT_EQ(BIN("0000000000010101"), (int)l->GetLogTarget());
     SET_LOGTARGET("--target-stdout");
     EXPECT_EQ(BIN("0000000000010111"), (int)l->GetLogTarget());
- 
     SET_LOGTARGET("--target-off --target-subscriber --target-file");
     EXPECT_EQ(BIN("0000000000010101"), (int)l->GetLogTarget());
-
     SET_LOGTARGET("--target-all");
     EXPECT_EQ(BIN("0000000000111111"), (int)l->GetLogTarget());
-    
     SET_LOGTARGET("--target-off");
     EXPECT_EQ(BIN("0000000000010000"), (int)l->GetLogTarget());
- 
     SET_LOGTARGET("0011");
     EXPECT_EQ(BIN("0000000000010011"), (int)l->GetLogTarget());
- 
     SET_LOGTARGET("0111");
     EXPECT_EQ(BIN("0000000000010111"), (int)l->GetLogTarget());
- 
     SET_LOGTARGET("--target-off 0101");
     EXPECT_EQ(BIN("0000000000010101"), (int)l->GetLogTarget());
 
@@ -416,33 +398,21 @@ TEST_F(TestLogging, NSR939Subscribers)
 
 
 
-// TEST_F(TestLogging, logBinary)
-// {
-// //    SET_LOGFORMAT( "01000001"); //
-//     SET_LOGFORMAT( "11111111"); //
-//     SET_LOGLEVEL( "--all-off" );
-//     EXPECT_STREQ( "", ALL_DEBUG( "This is a db DEBUG message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
-//     EXPECT_STREQ( "", ALL_INFO( "This is a db INFO message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
-//     EXPECT_STREQ( "", ALL_WARNING( "This is a ALL_WARNING message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
-//     EXPECT_STREQ( "", ALL_ERROR( "This is a ALL_ERROR message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
-//     EXPECT_STREQ( "", ALL_FATAL( "This is a ALL_FATAL message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
-//     SET_LOGLEVEL( "000001000000000111000000" );
-// }
 
+//
+//TEST_F(TestLogging, logBinary)
+//{
+//    SET_LOGFORMAT("0000001"); //
+//    SET_LOGLEVEL("--all-off");
+//    SET_LOGTARGET("--target-file");
+//    EXPECT_STREQ("", ALL_DEBUG("This is a db DEBUG message")->at(eMSGTARGET::TARGET_FILE)->fMsg);
+//    EXPECT_STREQ("", ALL_INFO("This is a db INFO message")->at(eMSGTARGET::TARGET_FILE)->fMsg);
+//    EXPECT_STREQ("", ALL_WARNING("This is a ALL_WARNING message")->at(eMSGTARGET::TARGET_FILE)->fMsg);
+//    EXPECT_STREQ("", ALL_ERROR("This is a ALL_ERROR message")->at(eMSGTARGET::TARGET_FILE)->fMsg);
+//    EXPECT_STREQ("", ALL_FATAL("This is a ALL_FATAL message")->at(eMSGTARGET::TARGET_FILE)->fMsg);
+//    SET_LOGLEVEL("000001000000000111000000");
+//}
 
-
-// TEST_F(TestLogging, logBinary)
-// {
-// //    SET_LOGFORMAT( "01000001"); //
-//     SET_LOGFORMAT( "11111111"); //
-//     SET_LOGLEVEL( "--all" );
-//     EXPECT_STREQ( "", ALL_DEBUG( "This is a db DEBUG message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
-//     EXPECT_STREQ( "", ALL_INFO( "This is a db INFO message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
-//     EXPECT_STREQ( "", ALL_WARNING( "This is a ALL_WARNING message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
-//     EXPECT_STREQ( "", ALL_ERROR( "This is a ALL_ERROR message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
-//     EXPECT_STREQ( "", ALL_FATAL( "This is a ALL_FATAL message" )->at(eMSGTARGET::TARGET_FILE)->fMsg );
-//     SET_LOGLEVEL( "000001000000000111000000" );
-// }
 
 
 
@@ -482,8 +452,8 @@ TEST_F( TestLogging, performance2 )
         
     for ( i = 0; i < n; ++i )
     {
-        /// A typical eror message that will pass the loglve check, and use all the facilities to generate a message
-        //DRIVER_ERROR( "This is atest message, a = %d and b  %d", 1, 2 );
+        /// A typical error message that will pass the loglevel check, and use all the facilities to generate a message
+        //DRIVER_ERROR( "This is a test message, a = %d and b  %d", 1, 2 );
     }
 
     clock_t end = clock();
@@ -496,7 +466,7 @@ TEST_F( TestLogging, performance2 )
         time = 500.0; // Use longer time for Jenkins as Jenkins might be busy with many opperations at once.
     }
 
-    printf("Average time for loggemacro is %.6f milli seconds, time is %.6f milli seconds\n", average, time);
+    printf("Average time for logging is %.6f milliseconds, time is %.6f milliseconds\n", average, time);
 
     ASSERT_TRUE( average < time);
 }

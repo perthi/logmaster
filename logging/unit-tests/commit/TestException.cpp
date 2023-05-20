@@ -12,7 +12,6 @@
 #include <logging/LPublisher.h>
 
 using namespace LOGMASTER;
-//#include <logging/LMessageGenerator.h>
 
 
 
@@ -82,7 +81,7 @@ TEST_F(TestException, assert_macro)
  	PUSH();
 	LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
  	SET_LOGFORMAT("0000001");
-	SET_LOGTARGET("0000 --target-file --target-stdout");
+	SET_LOGTARGET("0000 --target-file");
 
 	char  *msg = nullptr;
 

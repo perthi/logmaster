@@ -172,7 +172,6 @@ TEST_F(TestLConfig, apply_get_level_logging_target)
 
    // EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_FILE),         PAD(eLOGLEVEL::LOG_WARNING));
     EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EXCEPTION,       eMSGTARGET::TARGET_FILE),         PAD(eLOGLEVEL::LOG_ERROR));
-    
     EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_USER,     eMSGTARGET::TARGET_FILE),         PAD(eLOGLEVEL::LOG_WARNING));
     EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_FSM,      eMSGTARGET::TARGET_FILE),         PAD(eLOGLEVEL::LOG_WARNING));
     
@@ -186,7 +185,7 @@ TEST_F(TestLConfig, apply_get_level_logging_target)
   // This test should pass
    // EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_GUI),          PAD(eLOGLEVEL::LOG_DEBUG));
    
-  // EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EX,       eMSGTARGET::TARGET_GUI),          PAD(eLOGLEVEL::LOG_ERROR));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EXCEPTION,       eMSGTARGET::TARGET_GUI),          PAD(eLOGLEVEL::LOG_ERROR));
     
     EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_USER,     eMSGTARGET::TARGET_GUI),          PAD(eLOGLEVEL::LOG_DEBUG));
     EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_FSM,      eMSGTARGET::TARGET_GUI),          PAD(eLOGLEVEL::LOG_DEBUG));
@@ -194,7 +193,7 @@ TEST_F(TestLConfig, apply_get_level_logging_target)
     
     
    // EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eLOGLEVEL::LOG_WARNING));
-    //EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EX,       eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eLOGLEVEL::LOG_ERROR));
+    EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EXCEPTION,       eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eLOGLEVEL::LOG_ERROR));
     EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_USER,     eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eLOGLEVEL::LOG_WARNING));
     EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_FSM,      eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eLOGLEVEL::LOG_WARNING));
     EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_GENERAL,  eMSGTARGET::TARGET_SUBSCRIBERS),  PAD(eLOGLEVEL::LOG_WARNING));
