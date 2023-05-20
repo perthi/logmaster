@@ -1,35 +1,36 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Thu 18 May-2023 00:33:47  ***/
+/*** Generated at: Sat 20 May-2023 15:31:30  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
 /***************************************************
-* @copyright Embedded Consulting AS                *
+* @copyright Embedded Consulting AS    2023        *
 * @author Per Thomas Hille <pth@embc.no>           *
 ***************************************************/
-/*****************************************************************************
-******************************************************************************
-*** This file is part of logmaster.                                        ***
-*** Copyright (C) Per Thomas Hille <pth@embc.no>  http:///www.embc.no      ***
-*** all rights reserved                                                    ***
-***                                                                        ***
-*** logmaster is free software: you can redistribute it and/or modify      ***
-*** it under the terms of the Lesser GNU General Public License (LGPL)     ***
-*** as published by the Free Software Foundation, either version 3 of the  ***
-*** License, or (at your option) any later version.                        ***
-***                                                                        ***
-*** logmaster is distributed in the hope that it will be useful,           ***
-*** but WITHOUT ANY WARRANTY; without even the implied warranty of         ***
-*** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          ***
-*** GNU General Public License for more details.                           ***
-***                                                                        ***
-*** You should have received a copy of the Lesser GNU General Public       ***
-*** License along with logmaster in the README file in the source code     ***
-*** directory. If not, see <http://www.gnu.org/licenses/>.                 ***
-******************************************************************************
-******************************************************************************/
+
+/********************************************************************************
+**********************************************************************************
+*** This file is part of logmaster.                                           ***
+*** Copyright (C)2023Per Thomas Hille <pth@embc.no>  http:///www.embc.no     ***
+*** all rights reserved                                                       ***
+***                                                                           ***
+*** logmaster is free software: you can redistribute it and/or modify         ***
+*** it under the terms of the Lesser GNU General Public License (LGPL)        ***
+*** as published by the Free Software Foundation, either version 3 of the     ***
+*** License, or (at your option) any later version.                           ***
+***                                                                           ***
+*** logmaster is distributed in the hope that it will be useful,              ***
+*** but WITHOUT ANY WARRANTY; without even the implied warranty of            ***
+*** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             ***
+*** GNU General Public License for more details.                              ***
+***                                                                           ***
+*** You should have received a copy of the Lesser GNU General Public          ***
+*** License along with logmaster in the README file in the source code        ***
+*** directory. If not, see <http://www.gnu.org/licenses/>.                    ***
+*********************************************************************************
+*********************************************************************************/
 
 #include "LHashMapsAutoGen.h"
 #include <utilities/GNumbers.h>
