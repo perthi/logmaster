@@ -13,6 +13,7 @@
 void 
 TestGLogApplication::SetUp()
 {
+    GCommon( ).DisableOutput( );
     g_cmdscan()->SetIgnoreStrayArgument(false);
     l->SetLogTarget("--target-file");    
 }
@@ -23,7 +24,9 @@ TestGLogApplication::TearDown()
 {
    g_system()->rm(fValidCommands);
    g_system()->rm(fNotValidCommands);
+   GCommon( ).EnableOutput();
 }
+
 
 TEST_F(TestGLogApplication, get_argument )
 {
@@ -71,38 +74,32 @@ TEST_F(TestGLogApplication, cmdline_from_file)
 {
     try
     {
-        
-        SET_LOGTARGET("1111"); 
-        LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
-        g_file()->GFileIOHandler::Append(fValidCommands, "%s", " -loglevel --all -logtarget 0000 --target-file --target-stdout ");
-        
-        
-        FORCE_DEBUG("filename = %s", fValidCommands.c_str() );
+        //       SET_LOGTARGET("1111"); 
+        LPublisher::Instance( )->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+        g_file( )->GFileIOHandler::Append(fValidCommands, "%s", " -loglevel --all -logtarget 0000 --target-file --target-stdout ");
+        //  FORCE_DEBUG("filename = %s", fValidCommands.c_str() );
 
-        EXPECT_EQ(" -loglevel --all -logtarget 0000 --target-file --target-stdout ", g_file()->ReadLastLine(fValidCommands));
-        
+        EXPECT_EQ(" -loglevel --all -logtarget 0000 --target-file --target-stdout ", g_file( )->ReadLastLine(fValidCommands));
+        g_system( )->mkfile(fNotValidCommands);
+        g_file( )->Append(fNotValidCommands, "%s", "gibberish");
+        EXPECT_EQ("gibberish", g_file( )->ReadLastLine(fNotValidCommands));
 
-        g_system()->mkfile(fNotValidCommands);
-        g_file()->Append(fNotValidCommands, "%s", "gibberish");
-        EXPECT_EQ("gibberish", g_file()->ReadLastLine(fNotValidCommands));
-        
-        
-        EXPECT_NO_THROW( new GLogApplication( GFileName_t(fValidCommands) )  );
-        EXPECT_ANY_THROW( new GLogApplication(GFileName_t(fNotValidCommands) ));
-      
-        new GLogApplication( GFileName_t(fValidCommands) ); 
-        }
-        catch( GException &e )
-        {
 
-          CERR  << e.what() << ENDL;
-          //FORCE_DEBUG("Got exception");
-        }
-        catch (std::exception& e)
-        {
-            CERR << e.what() << ENDL;
-            FORCE_DEBUG("Got exception");
-        }
+        EXPECT_NO_THROW(new GLogApplication(GFileName_t(fValidCommands)));
+        EXPECT_ANY_THROW(new GLogApplication(GFileName_t(fNotValidCommands)));
+
+        new GLogApplication(GFileName_t(fValidCommands));
+    }
+    catch ( GException& e )
+    {
+        CERR << e.what( ) << ENDL;
+        FAIL( );
+    }
+    catch ( std::exception& e )
+    {
+        CERR << e.what( ) << ENDL;
+        FAIL( );
+    }
 
 }
 
@@ -110,19 +107,14 @@ TEST_F(TestGLogApplication, cmdline_from_file)
 TEST_F(TestGLogApplication, extra_arguments)
 {
     double f1, f2, f3 = 0;
-    ///GArgument *arg1, *arg2, *arg3;
-
     std::shared_ptr < GArgument> arg1 = std::make_shared < GCommandLineArgument<double> > ("-fval1", &f1);
     std::shared_ptr < GArgument> arg2 = std::make_shared < GCommandLineArgument<double> > ("-fval2", &f2);
     std::shared_ptr < GArgument> arg3 = std::make_shared < GCommandLineArgument<double> > ("-fval3", &f3);
 
     arg_deque all_args = { arg1, arg2, arg3 };
-
-    // We expect an execption for both filenames because the files are emty (they are delet in th teardown function)
-    
     arg_deque   arg1_v = {arg1};
 
-    
+    // We expect an exception for both filenames because the files are empty (they are deleted in the tear down function)
     EXPECT_ANY_THROW( new  GLogApplication(GFileName_t(fValidCommands), &arg1_v));
     EXPECT_ANY_THROW( new GLogApplication(GFileName_t(fNotValidCommands), &arg1_v ) );
 

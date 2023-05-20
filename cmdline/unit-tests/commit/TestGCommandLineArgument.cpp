@@ -184,7 +184,7 @@ TEST_F(TestGCommandLineArgument, excpetions)
 	EXPECT_ANY_THROW(g->ScanArguments("-myint 42 -mydouble 3.14159265358979323846  -mystring  \"hello world\"  -gibberish"));
 
 
-	//The following 3 test cases should also throw an exeption, while actually they dont
+	//The following 3 test cases should also throw an exception, while actually they don't
 	//See bug report  NSR-168
 	EXPECT_ANY_THROW(g->ScanArguments("-myint 42 -mydouble 3.14159265358979323846   -mystring  \"hello world\"  gibberish"));
 	EXPECT_ANY_THROW(g->ScanArguments("-myint 42 -mydouble 3.14159265358979323846    gibberish"));

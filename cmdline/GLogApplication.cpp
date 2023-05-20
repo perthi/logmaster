@@ -148,7 +148,7 @@ GLogApplication::GLogApplication(const GFileName_t & tf,  arg_deque *additional_
 
     if ( ( fname_local_content != "" && fname_full_content != "") && ( fname_local_content != fname_full_content ) )
     {
-        INVALID_ARGUMENT_EXCEPTION("conflicting config files. You have two config files in both the current driectory \
+        INVALID_ARGUMENT_EXCEPTION("conflicting config files. You have two config files in both the current directory \
         and the exe directory with the same name, but different content ( \"%s\"  vs  \"%s\" ), please delete one of them",   
         fname_local.c_str(), fname_full.c_str()  );
     }
@@ -356,33 +356,6 @@ GLogApplication::AddArgument( std::shared_ptr<GArgument>  arg, eDUPLICATE_STRATE
 
             }
         }
-            
-        /*
-        if( HasCommand( arg->GetCommand() ) == false)
-        {
-           // CERR << "argument DUESNT exists" << endl;
-            fArgs.push_back(arg);
-        }
-        else
-        {
-
-
-            if ( strategy ==  eDUPLICATE_STRATEGY::IGNORE_DUP )
-            {
-                G_WARNING("Cannot add argument %s that already exists (bool ignore_duplicates)", arg->GetCommand().c_str() );
-            }
-            else if (strategy == eDUPLICATE_STRATEGY::EXEPTION)
-            {
-                INVALID_ARGUMENT_EXCEPTION("argument %s already exists", arg->GetCommand().c_str());
-            }
-            else 
-            {
-                G_WARNING("Replacing argument: %s",  arg->GetCommand().c_str() );
-                RemoveArgument(arg->GetCommand());
-                fArgs.push_back(arg);
-            }
-        }
-        */
     }
     return *this;
 
@@ -411,9 +384,6 @@ GLogApplication::GetArgument(const string cmd)
             return fArgs.at(i);
         }
     }
-
-    COUT << "Returning NULLPTR !!!!" << endl;
-
     return nullptr;
 }
 

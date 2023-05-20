@@ -409,7 +409,7 @@ GFileIOHandler::ReadAll(const string fname, bool* status)
 	fin.open(fname);
 	if (!fin.good())
 	{
-		CERR << fname << "  IS NOT GOOD" << ENDL;
+		//CERR << fname << "  IS NOT GOOD" << ENDL;
 		l_status = false;
 		GCommon().HandleError(fname + ": " + string(strerror(errno)), GLOCATION, true);
 

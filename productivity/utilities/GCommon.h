@@ -18,11 +18,7 @@
 #include <string>
 using std::string;
 
-
-// class GCommon;
 class GLocation;
-
-//GCommon * g_common();
 
 #define DISABLE_EXCEPTION true
 #define THROW_EXCEPTION  false
@@ -32,21 +28,16 @@ class GLocation;
 /** @brief Some common global defines and functions */
 class GCommon
 {
-	//friend    GCommon * g_common();
-
 
 public:
-	API GCommon() {};
-	API ~GCommon() {};
+	API GCommon() = default;
+	API ~GCommon() = default;
 	void  API  HandleError(const string message, const GLocation l, const bool disable_error = false );
 	void  API  DisableOutput();
 	void  API  EnableOutput();
 
 private:
 	static bool fDisableOuput;
-	// GCommon() {};
-	// ~GCommon() {};
-
 };
 
 
