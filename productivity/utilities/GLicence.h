@@ -73,6 +73,6 @@ GLicence::short_version( )
     buffer << "*** This file is part of logmaster.logmaster is free software : you can   ***" << endl;
     buffer << "*** redistribute it and / or modify it under the terms of the Lesser GNU  ***" << endl;
     buffer << "*** General Public License(LGPL) V3 or later. See.cpp file for details    ***" << endl;
-    buffer << "*****************************************************************************" << endl;
+    buffer << "*****************************************************************************/" << endl;
     return buffer.str( );
 }

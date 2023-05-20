@@ -57,6 +57,7 @@ TestGCommandLineArgument::~TestGCommandLineArgument()
 
 void TestGCommandLineArgument::SetUp()
 {
+    GCommon( ).DisableOutput( );
 	LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 	////  SET_LOGTARGET(eMSGTARGET::TARGET_OFF);
 	g_cmdscan()->SetIgnoreStrayArgument(false);
@@ -88,7 +89,7 @@ void TestGCommandLineArgument::SetUp()
 void
 TestGCommandLineArgument::TearDown()
 {
-
+    GCommon( ).EnableOutput( );
 }
 
 

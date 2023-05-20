@@ -48,19 +48,18 @@ TestGSystem::~TestGSystem()
 void
 TestGSystem::SetUpTestCase()
 {
-    //GCommon().DisableOutput();
+    GCommon().DisableOutput();
 }
 
 
 void
 TestGSystem::TearDownTestCase()
 {
-    //GCommon().EnableOutput();
+    GCommon().EnableOutput();
 }
 
 
 
-/*
 TEST_F(TestGSystem, mkfile)
 {
     try
@@ -122,7 +121,6 @@ TEST_F(TestGSystem,  cp)
     g_system()->rm(source);
     g_system()->rm(dest);
 }
-*/
 
 
 
@@ -150,15 +148,8 @@ TEST_F(TestGSystem, mv)
     
     
     EXPECT_EQ(s_data, d_data);
-    
-    
     EXPECT_FALSE( g_system()->exists(s) );
-    
-    /*
     EXPECT_TRUE( g_system()->exists(d));
-    
-
-    /*
 
     vector<string> content = g_file()->ReadAll(d);
     EXPECT_EQ(2, content.size());
@@ -172,6 +163,6 @@ TEST_F(TestGSystem, mv)
     EXPECT_FALSE(g_file()->CheckFile(s));
     EXPECT_TRUE(g_file()->CheckFile(d));
     g_system()->rm(d);
-    */
+    
 }
 
