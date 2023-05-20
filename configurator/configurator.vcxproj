@@ -156,6 +156,7 @@
     <ClCompile Include="LFileCreator.cpp" />
     <ClCompile Include="LFileInfo.cpp" />
     <ClCompile Include="LGenerator.cpp" />
+    <ClCompile Include="LGeneratorCommon.cpp" />
     <ClCompile Include="LGeneratorEnum.cpp" />
     <ClCompile Include="LGeneratorHashMap.cpp" />
     <ClCompile Include="LGeneratorLogTest.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="LFileCreator.h" />
     <ClInclude Include="LFileInfo.h" />
     <ClInclude Include="LGenerator.h" />
+    <ClInclude Include="LGeneratorCommon.h" />
     <ClInclude Include="LGeneratorEnum.h" />
     <ClInclude Include="LGeneratorHashMap.h" />
     <ClInclude Include="LGeneratorLogTest.h" />

@@ -24,10 +24,12 @@ namespace CONFIGURATOR
 	public:
 		LCopyright() = default;
 		virtual ~LCopyright() = default;
-		static string str(LXMLInfo info);
+		static string long_version(LXMLInfo info);
+        static string short_version(LXMLInfo info);
+       
 
 	private:
-		int     fYear = 2020;
+        static string common(const LXMLInfo info);
 
 	};
 

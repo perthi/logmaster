@@ -58,7 +58,7 @@ namespace CONFIGURATOR
 		LGenerator::GenerateLicenseHeader(const LXMLInfo xmlinfo)
 	{
 	/** @todo Write shorter header to the .cpp file that just reference the .h file*/
-        fFileContentSource.push_back(LCopyright::str(xmlinfo));
-        fFileContentHeader.push_back(LCopyright::str(xmlinfo));
+        fFileContentHeader.push_back(LCopyright::short_version(xmlinfo));
+        fFileContentSource.push_back(LCopyright::long_version(xmlinfo));
     }
 }

@@ -19,9 +19,26 @@ using std::endl;
 
 namespace CONFIGURATOR
 {
+    string
+        LCopyright::long_version(const LXMLInfo info)
+    {
+        std::stringstream buffer;
+        buffer << common(info);
+        buffer << GLicence::long_version( );
+        return buffer.str( );
+    }
 
     string
-    LCopyright::str(const LXMLInfo info)
+        LCopyright::short_version(const LXMLInfo info)
+    {
+        std::stringstream buffer;
+        buffer << common(info);
+        buffer << GLicence::short_version( );
+        return buffer.str( );
+    }
+
+    string
+        LCopyright::common(const LXMLInfo info)
     {
         std::stringstream buffer;
         buffer << "// -*- mode: c++ -*-" << endl; /// So that emacs understand that it is a c++ file
@@ -30,17 +47,14 @@ namespace CONFIGURATOR
         auto xml = info.fXMLFileName;
         auto xsd = info.fXSDFileName;
 
-        if (xml != "" && xsd != "")
+        if ( xml != "" && xsd != "" )
         {
             addendum = "/*** Generated from " + xml + " **/\n";
             addendum += "/*** Validated by " + xsd + " **/\n";
         }
-    
 
-        buffer << g_utilities()->AutoClause(addendum);
-        buffer << GLicence::long_version ( );
-
-        return buffer.str();
+        buffer << g_utilities( )->AutoClause(addendum);
+        return buffer.str( );
     }
 
 }

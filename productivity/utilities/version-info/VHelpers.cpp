@@ -34,14 +34,6 @@ namespace VHELPERS
 		year()
 	{
         return GTime( ).GetYear( );
-		time_t  the_time = time(NULL);
-
-#ifdef _WIN32
-		struct tm* a_time = localtime(&the_time);
-#else
-		struct tm* a_time = localtime(&the_time);
-#endif
-		return g_string()->ToString<int>(a_time->tm_year + 1900);
 	}
 
 
