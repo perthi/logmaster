@@ -3,18 +3,19 @@
 #pragma once
 
 /***************************************************
-* @copyright Kongsberg Ferrotech                   *
+* @copyright Embedded Consulting                   *
 * @author Per Thomas Hille <pth@embc.no>           *
 *                                                  *
 * SW developed by Embedded Consulting AS           *
-* for Semcon Norge AS                              *
-***************************************************/
+****************************************************/
 
 #include <string>
 using std::string;
 
-#include "GPrintable.h"
-#include "GDefinitions.h"
+#include <utilities/GPrintable.h>
+#include <utilities/GDefinitions.h>
+
+//#include "GDefinitions.h"
 
 
 class  GXmlEntity : public GPrintable

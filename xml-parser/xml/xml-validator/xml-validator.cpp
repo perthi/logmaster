@@ -14,7 +14,7 @@ using std::endl;
 #include <xml/GXmlMacros.h>
 #include <xml/LEnums.h>
 #include <xml/GColor.h>
-#include <xml/GLocationXml.h>
+#include <xml/GLocation.h>
 #include <xml/GCommonXML.h>
 
 #include <format>
@@ -41,12 +41,12 @@ int main(int argc, const char **  argv )
     {
         if( validator->IsValid(xml, xsd) ==  true )
         {
-            g_common_xml()->HandleError(format("SUCCSESS !!, {} is well formed and validated against {}", xml, xsd), GLOCATION_SRC, DISABLE_EXCEPTION );
+            g_common_xml()->HandleError(format("SUCCSESS !!, {} is well formed and validated against {}", xml, xsd), GLOCATION, DISABLE_EXCEPTION );
         }
         else
         {
             g_common_xml( )->HandleError( format(  "Failed to validate {} against {}", xml, xsd), 
-                GLOCATION_SRC, DISABLE_EXCEPTION   );
+                GLOCATION, DISABLE_EXCEPTION   );
             help( string( argv[0] )  );
             has_error = true;
             return -1;
@@ -54,18 +54,18 @@ int main(int argc, const char **  argv )
     }
     catch(const std::exception&  /*e*/)
     {
-        //PrintMessage(  string( e.what()), GLOCATION_SRC, eLOGLEVEL::LOG_FATAL   );
+        //PrintMessage(  string( e.what()), GLOCATION, eLOGLEVEL::LOG_FATAL   );
         help( string( argv[0] )  );
         has_error = true;
     }
     catch( const string e)
     {
-        ///PrintMessage(  e,  GLOCATION_SRC, eLOGLEVEL::LOG_FATAL   );
+        ///PrintMessage(  e,  GLOCATION, eLOGLEVEL::LOG_FATAL   );
         has_error = true;
     }
     catch(...)
     {
-        ///PrintMessage(   GTextXml( "Unknown exception caught parsing files: xml = %s\txsd = %s", xml.c_str(), xsd.c_str() ).str()  ,     GLOCATION_SRC, eLOGLEVEL::LOG_ERROR   );
+        ///PrintMessage(   GTextXml( "Unknown exception caught parsing files: xml = %s\txsd = %s", xml.c_str(), xsd.c_str() ).str()  ,     GLOCATION, eLOGLEVEL::LOG_ERROR   );
         help( string( argv[0] )  );
         has_error = true;
     }
@@ -107,7 +107,7 @@ bool
 help( const string ex )
 {
     cout << endl;
-    g_common_xml()->HandleError(format("Usage: {}  [xml-file]  [xsd-file]", ex), GLOCATION_SRC, DISABLE_EXCEPTION );
+    g_common_xml()->HandleError(format("Usage: {}  [xml-file]  [xsd-file]", ex), GLOCATION, DISABLE_EXCEPTION );
     cout << endl;
     return true;
 }

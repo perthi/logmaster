@@ -16,7 +16,7 @@ using namespace LOGMASTER;
 #include <xml/GXmlClassFactory.h>
 #include <xml/GXmlStreamReader.h>
 #include <xml/GXmlValidator.h>
-#include <xml/GLocationXml.h>
+#include <xml/GLocation.h>
 
 #include <configurator/LXmlEntityLogLevel.h>
 #include <configurator/LXmlEntitySubSystem.h>
@@ -105,12 +105,12 @@ using namespace CONFIGURATOR;
 		static int index = 0;
 
 		std::shared_ptr<LXmlEntityLogLevel> l = std::make_shared<LXmlEntityLogLevel>();
-		l->fName = GetTagValue<string>(r, "LEVEL", GLOCATION_SRC);
+		l->fName = GetTagValue<string>(r, "LEVEL", GLOCATION);
 		l->fIndex = index;
 
 		index++;
 
-		AssertTagCloseGroup(r, closing_tag, GLOCATION_SRC);
+		AssertTagCloseGroup(r, closing_tag, GLOCATION);
 		return l;
 
 	}
@@ -124,18 +124,18 @@ using namespace CONFIGURATOR;
 		static int index = 0;
 
 		std::shared_ptr< LXmlEntitySubSystem> s = std::make_shared< LXmlEntitySubSystem>();
-		s->fName = GetTagValue<string>(r, "NAME", GLOCATION_SRC);
-		s->fNameShort = GetTagValue<string>(r, "SHORT_NAME", GLOCATION_SRC);
-		s->fTag = GetTagValue<string>(r, "TAG", GLOCATION_SRC);
-		s->fTagShort = GetTagValue<string>(r, "TAG_SHORT", GLOCATION_SRC);
-		s->fDefault = GetTagValue<string>(r, "DEFAULT", GLOCATION_SRC);
-		s->fCanModify = GetTagValue<bool>(r, "CAN_MODIFY", GLOCATION_SRC);
-		s->fForceOutput = GetTagValue<bool>(r, "FORCE_OUTPUT", GLOCATION_SRC);
+		s->fName = GetTagValue<string>(r, "NAME", GLOCATION);
+		s->fNameShort = GetTagValue<string>(r, "SHORT_NAME", GLOCATION);
+		s->fTag = GetTagValue<string>(r, "TAG", GLOCATION);
+		s->fTagShort = GetTagValue<string>(r, "TAG_SHORT", GLOCATION);
+		s->fDefault = GetTagValue<string>(r, "DEFAULT", GLOCATION);
+		s->fCanModify = GetTagValue<bool>(r, "CAN_MODIFY", GLOCATION);
+		s->fForceOutput = GetTagValue<bool>(r, "FORCE_OUTPUT", GLOCATION);
 		s->fIndex = index;
 
 		index++;
 
-		AssertTagCloseGroup(r, closing_tag, GLOCATION_SRC);
+		AssertTagCloseGroup(r, closing_tag, GLOCATION);
 		return s;
 	}
 

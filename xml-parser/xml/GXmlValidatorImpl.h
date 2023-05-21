@@ -8,8 +8,11 @@
 #ifndef GXMLVALIDATORIMPL_H
 #define GXMLVALIDATORIMPL_H
 
-#include  "GDefinitions.h"
-#include  "LEnums.h"
+#include  <utilities/GDefinitions.h>
+//#include  "LEnums.h"
+#include <logging/LEnums.h>
+
+using namespace LOGMASTER;
 
 #include <string>
 using std::string;

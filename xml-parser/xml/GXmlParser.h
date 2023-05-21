@@ -16,8 +16,10 @@
 #include  "GString2Number.h"
 #include  "GXmlParser.h"
 #include  "GXmlMacros.h"
-#include  "GCommonXML.h"
-#include  "GLocationXml.h"
+//#include  "GCommonXML.h"
+//#include  "GLocation.h"
+#include <utilities/GCommon.h>
+#include <utilities/GLocation.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -56,18 +58,18 @@ public:
 
 protected:
 	template<typename T>
-	inline T   API GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader,  const string tagname, GLocationXml l ,const bool read_node  = true );
+	inline T   API GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader,  const string tagname, GLocation l ,const bool read_node  = true );
 
 	template<typename T >
-	inline T   API GetTagValueOrNothing( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname, GLocationXml l, bool *has_value ,const bool read_node = true );
+	inline T   API GetTagValueOrNothing( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname, GLocation l, bool *has_value ,const bool read_node = true );
 	
 	template < typename T>    
 	inline string API Hash2String( const map< string, T>   *m, const int ncols = 8, const string sep = "");
 
-	void   API AssertTagOpenGroup(std::shared_ptr<GXmlStreamReader> xmlReader, const string, GLocationXml l, const bool read_node = true );
-	void   API AssertTagCloseGroup(std::shared_ptr<GXmlStreamReader> xmlReader, const string, GLocationXml l,  const bool read_node = true  );
-	void   API AssertTag(std::shared_ptr<GXmlStreamReader> xmlReader, const string, GLocationXml l, eXML_NODETYPE node_type, const bool read_node = true  );
-	void   API PrinttAttributes( const GXmlNode * const node , GLocationXml l );
+	void   API AssertTagOpenGroup(std::shared_ptr<GXmlStreamReader> xmlReader, const string, GLocation l, const bool read_node = true );
+	void   API AssertTagCloseGroup(std::shared_ptr<GXmlStreamReader> xmlReader, const string, GLocation l,  const bool read_node = true  );
+	void   API AssertTag(std::shared_ptr<GXmlStreamReader> xmlReader, const string, GLocation l, eXML_NODETYPE node_type, const bool read_node = true  );
+	void   API PrinttAttributes( const GXmlNode * const node , GLocation l );
 	bool   API HasAttributes(  const GXmlNode * const node ) const;
 	string API ToString( const eXML_NODETYPE type);
 };
@@ -76,7 +78,7 @@ protected:
 
 template<typename T>
 inline T
-GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname,  GLocationXml l,  const bool read_node  )
+GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname,  GLocation l,  const bool read_node  )
 {
 	GXmlNode	*node = nullptr;
 	if( read_node == true)
@@ -132,7 +134,7 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 
 template < >
 inline int
-GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname, GLocationXml l, const bool read_node   )
+GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname, GLocation l, const bool read_node   )
 {
     string tmp =  GetTagValue<string>( xmlReader, tagname, l, read_node);
 	return (int)GString2Number().ToNumber(tmp);
@@ -141,7 +143,7 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 
 template < >
 inline float
-GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname, GLocationXml l, const bool read_node  )
+GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname, GLocation l, const bool read_node  )
 {
     string tmp =  GetTagValue<string>( xmlReader, tagname, l, read_node);
 	return (float)GString2Number().ToNumber(tmp);
@@ -150,7 +152,7 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 
 template < >
 inline bool
-GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname, GLocationXml l, const bool read_node  )
+GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname, GLocation l, const bool read_node  )
 {
     string tmp =  GetTagValue<string>( xmlReader, tagname, l, read_node);
 
@@ -164,7 +166,7 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 	}
 	else
 	{
-		g_common_xml()->HandleError(  std::format(  "unexpected value for boolean {}, expected either \"true\" or \"false\"",  tmp), GLOCATION_SRC, THROW_EXCEPTION  );
+		g_common()->HandleError(  std::format(  "unexpected value for boolean {}, expected either \"true\" or \"false\"",  tmp), GLOCATION, THROW_EXCEPTION  );
 	}
 
 	return false;
@@ -178,14 +180,14 @@ GXmlParser::String2Enum(const string hash, std::map<string, T>* m)
 	auto it = m->find(hash);
 	XML_ASSERT(it != m->end(), 
 	GTextXml( "could not find enum for hash tag %s, \n legal values are: %s", hash.c_str(), Hash2String(m).c_str()).str() ,
-	GLOCATION_SRC ) ;
+	GLOCATION ) ;
 	return (T)it->second;
 }
 
 
 template<typename T>
 inline T
-GXmlParser::GetTagValueOrNothing( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname, GLocationXml l, bool *has_value,  const bool read_node )
+GXmlParser::GetTagValueOrNothing( std::shared_ptr<GXmlStreamReader> xmlReader, const string tagname, GLocation l, bool *has_value,  const bool read_node )
 {
 	string tmp = GetTagValue<string>( xmlReader, tagname, l, read_node  );
 	if(tmp == "")

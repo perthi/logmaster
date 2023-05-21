@@ -115,7 +115,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)xml\3rd-party\;$(SolutionDir)\xml-parser\xml\3rd-party\;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\productivity;$(ProjectDir)..\;$(ProjectDir)..\..\..\;$(SolutionDir)xml\3rd-party\;$(SolutionDir)\xml-parser\xml\3rd-party\;</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -182,12 +182,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GColor.h" />
-    <ClInclude Include="GCommonXML.h" />
-    <ClInclude Include="GDefinitions.h" />
-    <ClInclude Include="GLocationXml.h" />
-    <ClInclude Include="GPrintable.h" />
-    <ClInclude Include="GString2Number.h" />
     <ClInclude Include="GXmlAttribute.h" />
     <ClInclude Include="GXmlCDataNode.h" />
     <ClInclude Include="GXmlClassFactory.h" />
@@ -214,13 +208,8 @@
     <ClInclude Include="GXmlTextNode.h" />
     <ClInclude Include="GXmlValidator.h" />
     <ClInclude Include="GXmlValidatorImpl.h" />
-    <ClInclude Include="LEnums.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GCommonXML.cpp" />
-    <ClCompile Include="GLocationXml.cpp" />
-    <ClCompile Include="GPrintable.cpp" />
-    <ClCompile Include="GString2Number.cpp" />
     <ClCompile Include="GXmlAttribute.cpp" />
     <ClCompile Include="GXmlCDataNode.cpp" />
     <ClCompile Include="GXmlClassFactory.cpp" />

@@ -1,18 +1,15 @@
 
 
-#include  "GCommonXML.h"
+#include  <utilities/GCommon.h>
 //#include  "GTextXml.h"
 
-#ifdef HAS_LOGGING
 #include  <utilities/GLocation.h>
-#else
-#include  "GLocationXml.h"
-#endif
+
 
 #define XML(s,l, m) \
 if( s >= 0 ) \
 { \
-   g_common_xml()->HandleError( m, l, THROW_EXCEPTION ); \
+   GCommon().HandleError( m, l, THROW_EXCEPTION ); \
 }
 
 
@@ -20,7 +17,7 @@ if( s >= 0 ) \
 #define XML_ASSERT(expr, m, l)  \
 if(! (expr) ) \
 { \
-   g_common_xml()->HandleError( m, l, THROW_EXCEPTION ); \
+   GCommon().HandleError( m, l, THROW_EXCEPTION ); \
 }
 
 

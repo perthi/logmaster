@@ -8,7 +8,7 @@
 #pragma once
 #include "GXmlAttribute.h"
 
-#include "GDefinitions.h"
+#include <utilities/GDefinitions.h>
 #include <string>
 #include <vector>
 #include "GXmlEnums.h"
