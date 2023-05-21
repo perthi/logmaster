@@ -53,6 +53,7 @@ namespace CONFIGURATOR
 		GenerateString2LevelBin(levels, systems);
 		GenerateBin2Leve(levels, systems);
 		GenerateString2LevelHex(levels, systems);
+		GenerateHex2Level(levels, systems);
 		GenerateString2LevelHash(levels, systems);
 		GenerateHash2Level(levels, systems);
 	}
@@ -265,6 +266,23 @@ namespace CONFIGURATOR
 
 	}
 
+	void 
+		LGeneratorTestLoggingSystem::GenerateHex2Level(const logentity_vec levels, const sysentity_vec systems)
+	{
+		vector<string> test_body;
+		for (auto& s : systems) {
+			for (auto l : levels) {
+				string hexstring = hexstring6(l->fIndex, s->fIndex);
+
+				auto single_test = std::format("EXPECT_EQ({}::LOG_{}, LConversion::HexString2Level(\"{}\") );",
+					fLevelEnumName, g_utilities()->TabAlign(l->fName, 2), hexstring);
+				test_body.push_back(single_test);
+			}
+		}
+
+		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "hex2level", test_body));
+
+	}
 
 
 

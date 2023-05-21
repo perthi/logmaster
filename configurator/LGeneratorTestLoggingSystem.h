@@ -27,6 +27,7 @@ namespace CONFIGURATOR
         void GenerateBin2Leve(const logentity_vec levels, const sysentity_vec systems);
 
         void GenerateString2LevelHex(const logentity_vec levels, const sysentity_vec systems);
+        void GenerateHex2Level(const logentity_vec levels, const sysentity_vec systems);
 
         void GenerateString2LevelHash(const logentity_vec levels, const sysentity_vec systems);
         void GenerateHash2Level(const logentity_vec levels, const sysentity_vec systems);
