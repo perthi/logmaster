@@ -9,7 +9,7 @@
 
 #include <logging/LLogApi.h>
 #include <utilities/GNumbers.h>
-
+#include <utilities/GRandom.h>
 
 
 #include <format>
@@ -18,9 +18,11 @@
 using namespace LOGMASTER;
 
 
+
+
 namespace CONFIGURATOR
 {
-    LGeneratorTestLoggingSystem::LGeneratorTestLoggingSystem(const string path, const string classname,  const LXMLInfo xmlinfo) : LGenerator(path, classname,  xmlinfo)
+    LGeneratorTestLoggingSystem::LGeneratorTestLoggingSystem(const string path, const string classname, const LXMLInfo xmlinfo) : LGenerator(path, classname, xmlinfo)
     {
         fDoGenerateHeader = true;
         fDoGenerateSource = true;
@@ -28,59 +30,51 @@ namespace CONFIGURATOR
 
 
 
+    void
+        LGeneratorTestLoggingSystem::GenerateLocalCommon( )
+    {
+        fFileContentHeader.push_back(commonTestHeader(fFileInfo->GetClassName( )));
+        fFileContentSource.push_back(std::format("#include \"{}\"", fFileInfo->GetHeaderName( )));
+        fFileContentSource.push_back("#include <logging/LConversion.h>");
+        fFileContentSource.push_back("\n\n\n");
+    }
 
 
     void LGeneratorTestLoggingSystem::GenerateContent(const logentity_vec levels, const sysentity_vec systems)
     {
-       // PUSH();
-       // SET_LOGFORMAT("1000001");
+        GenerateLocalCommon( );
+        GenerateString2System(levels, systems);
+    }
 
-        string classname = fFileInfo->GetClassName( );
 
-        for (auto &l : levels)
-        {
-            FORCE_DEBUG("CLassname = %s", classname.c_str() );
-            // FORCE_DEBUG("fName = %s", l->fName.c_str() );
-        }
-
-        fFileContentHeader.push_back(commonTestHeader(classname));
-
+    void
+        LGeneratorTestLoggingSystem::GenerateString2System(const logentity_vec levels, const sysentity_vec systems)
+    {
        
-
-       // fFileContentSource.push_back("#include  <testlib/TestBase>");
-        fFileContentSource.push_back(std::format("#include \"{}\"", fFileInfo->GetHeaderName()));
-        fFileContentSource.push_back("#include <logging/LConversion.h>");
-        fFileContentSource.push_back("\n\n\n");
-
         vector<string> test_body;
-     
 
-        for (auto &s : systems)
+        for ( auto& s : systems )
         {
             /** @todo use defines, not hard coded numbers*/
-           // string bin = g_numbers()->Number2BinaryString(s->fIndex, 24, 16 );
-            string bin = g_numbers()->Number2BinaryString(1, 24, s->fIndex );
+            for (auto l: levels)
+            {
+                string system_s = std::format("{:016b}", 1 << s->fIndex);
+                string level_s = std::format("{:08b}", 1 << l->fIndex);
+                string bitstring24_s = level_s + system_s;
 
-
-            auto single_test 
-                = std::format(      "EXPECT_EQ({}::SYS_{}, LConversion::String2System(\"{}\") );", 
+                auto single_test
+                    = std::format("EXPECT_EQ({}::SYS_{}, LConversion::String2System(\"{}\") );",
                                   fSystemEnumName,
-                                    g_utilities()->TabAlign(s->fName, 2), 
-                                   bin);
+                                  g_utilities( )->TabAlign(s->fName, 2),
+                                  bitstring24_s);
 
-//            cout << "fs = " << single_test;
-
-            test_body.push_back(single_test);
-
+                test_body.push_back(single_test);
+            }
 
         }
 
-       /// GenerateTesCase(fFileInfo->GetClassName( ), "string3level", test_body);
 
-        
-        fFileContentSource.push_back(GenerateTesCase(classname, "string3level", test_body));
-
-       // POP();
+        fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName( ), "string2system", test_body));
 
     }
 }

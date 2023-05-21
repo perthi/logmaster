@@ -41,10 +41,14 @@ class file_t : public std::exception
 
 int main(int  argc, const char** argv)
 {
+    int idx = 3;
+
+    CERR << std::format("num = {:08b}", 1  << idx) << ENDL ;
+    CERR << std::format("num = {:016b}", 1 << idx) << ENDL;
+
+  //  return 0;
     GMenu::Instance( )->ScanArguments(argc, argv);
-    
-  //  LPublisher::Instance( )->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
-    
+    LPublisher::Instance( )->SetMode(ePUBLISH_MODE::SYNCHRONOUS);    
     SET_LOGLEVEL("--all-off --all-warning");
     SET_LOGFORMAT("1111111");
 
