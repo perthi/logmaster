@@ -10,6 +10,7 @@
 #include <logging/LLogApi.h>
 #include <utilities/GNumbers.h>
 #include <utilities/GRandom.h>
+#include <utilities/GString.h>
 
 
 #include <format>
@@ -84,14 +85,37 @@ namespace CONFIGURATOR
     void
         LGeneratorTestLoggingSystem::GenerateString2SystemHash(const logentity_vec levels, const sysentity_vec systems)
     {
+        vector<string> test_body;
+
+        auto generate_line = [this](const string& tag, const string& sys, const string& lvl)
+        {
+            auto single_test
+                = std::format("EXPECT_EQ({}::SYS_{}, LConversion::String2System(\"{}-{}\") );",
+                              fSystemEnumName,
+                              g_utilities( )->TabAlign(sys, 2),
+                              tag,
+                              g_string( )->ToLower(lvl)
+                );
+
+            return single_test;
+        };
+
+
         for ( auto& s : systems )
         {
-            /** @todo use defines, not hard coded numbers*/
             for ( auto l : levels )
             {
-                XML_INFO("tag = %s", s->fTag.c_str( ));
+                test_body.push_back(generate_line(s->fTag, s->fName, l->fName));
+
+                if ( s->fTag != s->fTagShort )
+                {
+                    test_body.push_back(generate_line(s->fTagShort, s->fName, l->fName));
+                }
             }
+
         }
+        fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName( ), "string2system_hash", test_body));
     }
+
 
 }

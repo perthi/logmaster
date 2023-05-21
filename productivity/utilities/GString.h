@@ -88,8 +88,8 @@ class GString
      char         API *Utf8ToAnsi(char *s);
      bool         API  IsAnsi(string &s);
      std::string   API AnsiToUtf8(const std::string &ansiStr);
-     string       API &ToLower(string &s);
-     string       API &ToUpper(string &s);
+     string       API &ToLower(const string &s);
+     string       API &ToUpper(const string &s);
      bool API      IsMatch(const string pattern, const string val, bool require_exact_match = false);
 
  private:

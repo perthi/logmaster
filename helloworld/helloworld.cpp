@@ -43,28 +43,14 @@ int main(int  argc, const char** argv)
 {
     GMenu::Instance( )->ScanArguments(argc, argv);
     LPublisher::Instance( )->SetMode(ePUBLISH_MODE::SYNCHRONOUS);    
-   // SET_LOGLEVEL("--all-off --xml-info");
-    //SET_LOGFORMAT("1111111");
 
     try
     {
         string xml = "";
         string xsd = "";
-
         auto xml_args = LArgumentScanner::GenerateArgs(xml, xsd);
 
-        GLogApplication g;
-        g.InitLogArgs( );
-        g.AddArguments(xml_args);
-        g.ScanArguments(argc, argv);
-
-
-     //   LPublisher::Instance( )->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
-
-       // string xml = "";
-       // string xsd = "";
-
-       // LArgumentScanner::ScanArguments(argc, argv, xml, xsd);
+        GLogApplication( ).InitLogArgs( ).AddArguments(xml_args).ScanArguments( argc, argv);
 
         XML_ASSERT_EXCEPTION(GXmlValidator( ).IsValid(xml, xsd), "failed to validate %s against %s", xml.c_str( ), xsd.c_str( ));
         logentity_vec  loglevels;

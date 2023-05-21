@@ -228,7 +228,7 @@ GLogApplication::Purge()
 }
 
 
-void
+GLogApplication &
 GLogApplication::InitLogArgs()
 {
     fHelp = std::make_shared < GCommandLineArgument < void > >("-help", "-help", "prints help menu", nullptr, fgkOPTIONAL);
@@ -242,6 +242,7 @@ GLogApplication::InitLogArgs()
 	AddArgument(fTarget, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE);
 	AddArgument(fFormat, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE);
 	AddArgument(fColor, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE);
+    return *this;
 }
 
 

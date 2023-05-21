@@ -301,8 +301,9 @@ vector<string> GString::Trim(vector<string>& s, const vector<char> tokens)
  /**  Converts string to lowercase. Handles both UTF-8 and ANSI, both will not convert ANSI to UTF-8.
  *  @param[in, out] s  String to be converted. The content is not altered.
  *  @return  lowercase of s. */
-string& GString::ToLower(string& s)
+string& GString::ToLower(const string& s)
 {
+    /** @todo Check if this is a duplicate of ToLowerCase */
     static string str;
     str = s;
     // IF UTF-8, convert to wide char and do to lower on wide char
@@ -353,8 +354,9 @@ string& GString::ToLower(string& s)
  /**  Converts string to uppercase. Handles both UTF-8 and ANSI, both will not convert ANSI to UTF-8.
   *  @param[in, out] s  String to be converted. The content is not altered.
   *  @return  uppercase of s.  */
-string& GString::ToUpper(string& s)
+string& GString::ToUpper(const string& s)
 {
+    /** @todo Check if duplicated by ToUpperCase */
     static string str;
     str = s;
     // IF UTF-8, convert to wide char and do to lower on wide char
