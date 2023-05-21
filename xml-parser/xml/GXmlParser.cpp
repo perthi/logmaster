@@ -88,8 +88,8 @@ GXmlParser::AssertTag(std::shared_ptr<GXmlStreamReader> xmlReader, const string 
 	#else
 	if( tag_l != tag )
 	{
-		g_common_xml()->HandleError(   GTextXml( "Unexpected node type(%s), expected %s, got %s",  
-		                                         ToString(node_type).c_str() ,  tag.c_str(),  tag_l.c_str() ).str(), l, THROW_EXCEPTION    );
+		g_common_xml()->HandleError(   std::format( "Unexpected node type({}), expected {}, got {}",  
+		                                         ToString(node_type) ,  tag,  tag_l ), l, THROW_EXCEPTION    );
 	}
 	else if( node_type != node_type_l )
 	{
