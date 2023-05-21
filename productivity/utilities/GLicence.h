@@ -39,9 +39,9 @@ GLicence::long_version()
     buffer << copyright( ) << endl;;
 
     buffer << "/********************************************************************************" << endl;
-    buffer << "**********************************************************************************" << endl;
+    buffer << "*********************************************************************************" << endl;
     buffer << "*** This file is part of logmaster.                                           ***" << endl;
-    buffer << "*** Copyright (C)" << GTime().GetYear() << "Per Thomas Hille <pth@embc.no>  http:///www.embc.no     ***" << endl;
+    buffer << "*** Copyright (C) " << GTime().GetYear() << " Per Thomas Hille <pth@embc.no>  http:///www.embc.no    ***" << endl;
     buffer << "*** all rights reserved                                                       ***" << endl;
     buffer << "***                                                                           ***" << endl;
     buffer << "*** logmaster is free software: you can redistribute it and/or modify         ***" << endl;
