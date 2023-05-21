@@ -118,7 +118,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>xml.lib;libxml2.lib</AdditionalDependencies>
+      <AdditionalDependencies>xml.lib;libxml2.lib;utilities.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>$(version-exe)</Command>

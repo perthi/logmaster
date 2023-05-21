@@ -52,7 +52,7 @@ GXmlEnum2String ::Enum2String(  const eXML_NODETYPE type )
 			break;	
 	default:
 		std::stringstream buffer;
-		buffer << 	"Type not" << (int)type << "reckognized";
+		buffer << 	"Type not" << (int)type << "recognized";
 		return  buffer.str();	
 		break;
 	}

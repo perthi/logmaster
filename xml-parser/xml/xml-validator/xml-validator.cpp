@@ -8,14 +8,14 @@ using std::endl;
 
 #include <memory>
 #include <functional>
-#include <xml/GDefinitions.h>
+#include  <utilities/GDefinitions.h>
 #include <xml/GXmlValidator.h>
 
-#include <xml/GXmlMacros.h>
-#include <xml/LEnums.h>
-#include <xml/GColor.h>
-#include <xml/GLocation.h>
-#include <xml/GCommonXML.h>
+#include  <xml/GXmlMacros.h>
+#include  <logging/LEnums.h>
+#include  <utilities/GColor.h>
+#include  <utilities/GLocation.h>
+#include   <utilities/GCommon.h>
 
 #include <format>
 
@@ -41,11 +41,11 @@ int main(int argc, const char **  argv )
     {
         if( validator->IsValid(xml, xsd) ==  true )
         {
-            g_common_xml()->HandleError(format("SUCCSESS !!, {} is well formed and validated against {}", xml, xsd), GLOCATION, DISABLE_EXCEPTION );
+            GCommon().HandleError(format("SUCCSESS !!, {} is well formed and validated against {}", xml, xsd), GLOCATION, DISABLE_EXCEPTION );
         }
         else
         {
-            g_common_xml( )->HandleError( format(  "Failed to validate {} against {}", xml, xsd), 
+            GCommon().HandleError( format(  "Failed to validate {} against {}", xml, xsd), 
                 GLOCATION, DISABLE_EXCEPTION   );
             help( string( argv[0] )  );
             has_error = true;
@@ -107,7 +107,7 @@ bool
 help( const string ex )
 {
     cout << endl;
-    g_common_xml()->HandleError(format("Usage: {}  [xml-file]  [xsd-file]", ex), GLOCATION, DISABLE_EXCEPTION );
+    GCommon().HandleError(format("Usage: {}  [xml-file]  [xsd-file]", ex), GLOCATION, DISABLE_EXCEPTION );
     cout << endl;
     return true;
 }

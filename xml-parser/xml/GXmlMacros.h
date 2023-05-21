@@ -1,9 +1,8 @@
 
 
 #include  <utilities/GCommon.h>
-//#include  "GTextXml.h"
-
 #include  <utilities/GLocation.h>
+
 
 
 #define XML(s,l, m) \

@@ -122,8 +122,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)\3rd-party\libxml\lib\x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libxml2.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(bindir);$(ProjectDir)\3rd-party\libxml\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libxml2.lib;utilities.lib;logging.lib;</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>

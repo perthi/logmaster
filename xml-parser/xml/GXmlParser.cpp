@@ -2,11 +2,10 @@
 
 
 /***************************************************
-* @copyright Kongsberg Ferrotech                   *
+* @copyright Embedded Consulting                   *
 * @author Per Thomas Hille <pth@embc.no>           *
 *                                                  *
 * SW developed by Embedded Consulting AS           *
-* for Semcon Norge AS                              *
 ****************************************************/
 
 
@@ -17,13 +16,8 @@
 
 #include <format>
 
-//std::format;
-
-#undef HAS_LOGGING
-
-#ifdef HAS_LOGGING
 #include <utilities/GLocation.h>
-#endif
+
 
 
 GXmlParser::GXmlParser()
@@ -88,12 +82,12 @@ GXmlParser::AssertTag(std::shared_ptr<GXmlStreamReader> xmlReader, const string 
 	#else
 	if( tag_l != tag )
 	{
-		g_common_xml()->HandleError(   std::format( "Unexpected node type({}), expected {}, got {}",  
+		GCommon().HandleError(   std::format( "Unexpected node type({}), expected {}, got {}",  
 		                                         ToString(node_type) ,  tag,  tag_l ), l, THROW_EXCEPTION    );
 	}
 	else if( node_type != node_type_l )
 	{
-		g_common_xml()->HandleError(   std::format(  "Unexpected tag, expected {}, got {}",  ToString(node_type), 
+		GCommon().HandleError(   std::format(  "Unexpected tag, expected {}, got {}",  ToString(node_type), 
 		                                          ToString(node_type_l) ), l, THROW_EXCEPTION    );
 	}
 

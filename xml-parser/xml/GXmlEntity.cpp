@@ -1,6 +1,6 @@
 // -*- mode: c++ -*-
 /***************************************************
-* @copyright Kongsberg Ferrotech                   *
+* @copyright Embedded Consulting                   *
 * @author Per Thomas Hille <pth@embc.no>           *
 *                                                  *
 * SW developed by Embedded Consulting AS           *

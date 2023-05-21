@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***************************************************
-* @copyright Kongsberg Ferrotech                   *
+* @copyright Embedded Consulting                   *
 * @author Per Thomas Hille <pth@embc.no>           *
 *                                                  *
 * SW developed by Embedded Consulting AS           *
@@ -20,6 +20,7 @@
 //#include  "GLocation.h"
 #include <utilities/GCommon.h>
 #include <utilities/GLocation.h>
+#include <logging/GException.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -40,11 +41,10 @@ using std::vector;
 
 class GXmlEntity;
 
-#ifdef HAS_LOGGING
 #include <logging/LLogApi.h>
 #include <logging/GException.h>
 using namespace LOGMASTER;
-#endif
+
 
 
 class GXmlParser
@@ -90,13 +90,13 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 		node	= xmlReader->GetCurrentNode();	
 	}
 
-	XML_ASSERT( node != nullptr,  "  xmlReader->ReadNode() returned a ZERO POINTER !!!", l );
+	XML_ASSERT( node != nullptr,  "  xmlReader->ReadNode() returned a ZERO POINTER !!!",l);
 
 	if (node != nullptr)
 	{
 		if (node->GetType() == eXML_NODETYPE::ESingleTagNode)
 		{
-			g_common_xml()->HandleError(std::format("{} is a single tag node (with no value) !!", tagname), l, DISABLE_EXCEPTION);
+			GCommon().HandleError(std::format("{} is a single tag node (with no value) !!", tagname), l, DISABLE_EXCEPTION);
 			vector<GXmlAttribute> tmp = node->GetAttributes();
 			return "";
 		}
@@ -110,14 +110,14 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 	
                std::format("Unexpected node type {} (name = {}, type = {}, value = {})", 
 	                 (int)node->GetType(), 
-					 node->GetName().c_str(),   
-					 ToString(node->GetType() ).c_str() ,  
-					 node->GetValue().c_str() ) , l ) ;
+					 node->GetName(),   
+					 ToString(node->GetType() ),  
+					 node->GetValue()),l) ;
 	
 
 	string name = node->GetName();
 	XML_ASSERT(node->GetName() == tagname, 
-	std::format( "expected {}, got {} (type = {})", tagname, node->GetName(),  ToString( node->GetType())), l );
+	std::format( "expected {}, got {} (type = {})", tagname, node->GetName(),  ToString( node->GetType())), l);
 	
 	node =  xmlReader->ReadNode();
 
@@ -166,7 +166,8 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 	}
 	else
 	{
-		g_common()->HandleError(  std::format(  "unexpected value for boolean {}, expected either \"true\" or \"false\"",  tmp), GLOCATION, THROW_EXCEPTION  );
+      
+		GCommon().HandleError(  std::format(  "unexpected value for boolean {}, expected either \"true\" or \"false\"",  tmp), GLOCATION, THROW_EXCEPTION  );
 	}
 
 	return false;

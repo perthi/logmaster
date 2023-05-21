@@ -178,17 +178,22 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "utilities-unit-tests", "pro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xml-validator", "xml-parser\xml\xml-validator\xml-validator.vcxproj", "{D46379D6-6127-441C-9864-E05AFAD82B81}"
 	ProjectSection(ProjectDependencies) = postProject
+		{26B32CDF-4053-4C0E-8EC5-88A5F6D2AB0C} = {26B32CDF-4053-4C0E-8EC5-88A5F6D2AB0C}
 		{6A271C05-6E79-46F1-90D6-70A71FDB3EF9} = {6A271C05-6E79-46F1-90D6-70A71FDB3EF9}
+		{6F7DDC0E-541A-4A52-90B7-8A4FC10B6C5B} = {6F7DDC0E-541A-4A52-90B7-8A4FC10B6C5B}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xml-example1", "xml-parser\xml\examples\xml-example1\xml-example1.vcxproj", "{8F5F2681-3052-407D-9865-F495B261FB44}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6A271C05-6E79-46F1-90D6-70A71FDB3EF9} = {6A271C05-6E79-46F1-90D6-70A71FDB3EF9}
+		{6F7DDC0E-541A-4A52-90B7-8A4FC10B6C5B} = {6F7DDC0E-541A-4A52-90B7-8A4FC10B6C5B}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xml-unit-tests", "xml-parser\xml\unit-tests\commit\xml-unit-tests.vcxproj", "{287E2A23-E84F-474B-9B8A-69FA79D1E9F1}"
 	ProjectSection(ProjectDependencies) = postProject
+		{26B32CDF-4053-4C0E-8EC5-88A5F6D2AB0C} = {26B32CDF-4053-4C0E-8EC5-88A5F6D2AB0C}
 		{6A271C05-6E79-46F1-90D6-70A71FDB3EF9} = {6A271C05-6E79-46F1-90D6-70A71FDB3EF9}
+		{6F7DDC0E-541A-4A52-90B7-8A4FC10B6C5B} = {6F7DDC0E-541A-4A52-90B7-8A4FC10B6C5B}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "version-info", "productivity\utilities\version-info\version-info.vcxproj", "{55AC1806-B859-452E-9348-BCE58C1CA50B}"
