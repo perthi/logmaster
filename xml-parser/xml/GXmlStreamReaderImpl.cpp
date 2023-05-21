@@ -18,7 +18,6 @@
 #include "GXmlCDataNode.h"
 
 #include  "GCommonXML.h"
-#include  "GTextXml.h"
 #include  "GLocationXml.h"
 
 #include <libxml/xmlreader.h>
@@ -26,11 +25,13 @@
 #include <vector>
 #include <algorithm>
 
+#include <format>
+using std::format;
 
 #define XML_SUCCESS_ASSERT(returnvalue, ...) DATA_ASSERT((returnvalue) == NULL, __VA_ARGS__);
 
 
-// Convert libxml2 nodetype identifier to readable string
+// Convert libxml2 node type identifier to readable string
 std::string NodeTypeToString(const int t)
 {
 	switch (t)
@@ -55,7 +56,7 @@ std::string NodeTypeToString(const int t)
 	case XML_READER_TYPE_XML_DECLARATION: return "xml_declaration";
 	}
 
-	g_common_xml()->HandleError( GTextXml ( "error determining xml node type for type %i", t).str() , GLOCATION_SRC, THROW_EXCEPTION  );
+	g_common_xml()->HandleError( format( "error determining xml node type for type {}", t) , GLOCATION_SRC, THROW_EXCEPTION  );
 	return "ERROR_TYPE";
 }
 
@@ -70,7 +71,7 @@ GXmlStreamReaderImpl::GXmlStreamReaderImpl(const std::string& filename)
 	
 	if( fReader == nullptr  )
 	{
-		g_common_xml()->HandleError( GTextXml (  "xml open failed: %s", filename.c_str()  ).str() , GLOCATION_SRC, THROW_EXCEPTION  );
+		g_common_xml()->HandleError( format(  "xml open failed: {}", filename) , GLOCATION_SRC, THROW_EXCEPTION  );
 	}
 
 }
@@ -228,5 +229,5 @@ GXmlStreamReaderImpl::DoError(void *ctx, const char *msg, ...)
 	vsnprintf (buff, sizeof(buff), msg, ap);
 	#endif
 	va_end(ap);
-	g_common_xml()->HandleError( GTextXml (   buff    ).str() , location,  DISABLE_EXCEPTION );
+	g_common_xml()->HandleError( format ("{}",   buff), location, DISABLE_EXCEPTION);
 }

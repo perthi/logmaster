@@ -8,6 +8,8 @@
 #include <iostream> 
 #include <string>
 
+#include <format>
+using std::format;
 
 GString2Number::GString2Number()
 {
@@ -47,7 +49,7 @@ GString2Number::ToNumber( const string num )
     }
     catch (const std::exception &e)
     {
-        g_common_xml()->HandleError(GTextXml("exection caught ( %s )trying to convert \"%s\" to a number ", e.what(), num.c_str()).str(), GLOCATION_SRC, THROW_EXCEPTION);
+        g_common_xml()->HandleError(format("exception caught ( {} )trying to convert \"{}\" to a number ", e.what(), num), GLOCATION_SRC, THROW_EXCEPTION);
         return d;
     
     }

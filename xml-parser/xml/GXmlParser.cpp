@@ -15,6 +15,10 @@
 #include "GXmlParser.h"
 #include "GXmlEnum2String.h"
 
+#include <format>
+
+using std::format;
+
 #undef HAS_LOGGING
 
 #ifdef HAS_LOGGING

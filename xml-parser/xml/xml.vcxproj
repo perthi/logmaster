@@ -188,7 +188,6 @@
     <ClInclude Include="GLocationXml.h" />
     <ClInclude Include="GPrintable.h" />
     <ClInclude Include="GString2Number.h" />
-    <ClInclude Include="GTextXml.h" />
     <ClInclude Include="GXmlAttribute.h" />
     <ClInclude Include="GXmlCDataNode.h" />
     <ClInclude Include="GXmlClassFactory.h" />
@@ -222,7 +221,6 @@
     <ClCompile Include="GLocationXml.cpp" />
     <ClCompile Include="GPrintable.cpp" />
     <ClCompile Include="GString2Number.cpp" />
-    <ClCompile Include="GTextXml.cpp" />
     <ClCompile Include="GXmlAttribute.cpp" />
     <ClCompile Include="GXmlCDataNode.cpp" />
     <ClCompile Include="GXmlClassFactory.cpp" />

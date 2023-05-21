@@ -22,6 +22,9 @@
 
 #include <string.h>
 
+#include <format>;
+
+using   std::format;
 
 #undef HAS_LOGGING
 
@@ -44,7 +47,6 @@ static void schemaParseErrorHandler(void *  /*ctx*/, xmlErrorPtr error)
 	strerror_r(errno, err, 1024);
 	#endif
 	
-	///cerr << __FILE__ << __LINE__ << "ERROR = " << err << endl;
 	
 	fprintf(stderr, "filename: %s\n", error->file );
 
@@ -56,8 +58,8 @@ static void schemaParseErrorHandler(void *  /*ctx*/, xmlErrorPtr error)
 #else
 
 	
-	g_common_xml()->HandleError(  GTextXml( "%s line %d contains error(s)  !!!!!!!!", 
-		                                 __func__, __LINE__  ).str(),   GLocationXml(error->file, error->line,  "" ), DISABLE_EXCEPTION    );
+	g_common_xml()->HandleError(  format( "{} line {} contains error(s)  !!!!!!!!", 
+		                                 __func__, __LINE__  ),   GLocationXml(error->file, error->line,  "" ), DISABLE_EXCEPTION    );
 	
 #endif
 	GXmlValidatorImpl::SetError(true);
@@ -94,7 +96,7 @@ GXmlValidatorImpl::DoExistFile( const string f  )
 
 	if( fp == nullptr)
 	{
-		g_common_xml()->HandleError( GTextXml(  "Cannot find XML-file %s", f.c_str() ).str(), GLOCATION_SRC, THROW_EXCEPTION );
+		g_common_xml()->HandleError( format(  "Cannot find XML-file {}", f.c_str() ), GLOCATION_SRC, THROW_EXCEPTION );
 		return false;
 	}
 	else
@@ -114,8 +116,8 @@ GXmlValidatorImpl::IsValid( string xml ,  string xsd )
 	{
 		GLocationXml location = GLocationXml(__FILE__, __LINE__, __func__);
 
-		XML_ASSERT(  DoExistFile( xml ), GTextXml("could not open file %s", xml.c_str() ).str() , GLOCATION_SRC  ) ;
-		XML_ASSERT(  DoExistFile( xsd ), GTextXml("could not open file %s", xsd.c_str() ).str(), GLOCATION_SRC  ) ;
+		XML_ASSERT(  DoExistFile( xml ), format("could not open file {}", xml) , GLOCATION_SRC  ) ;
+		XML_ASSERT(  DoExistFile( xsd ), format("could not open file {}", xsd), GLOCATION_SRC  ) ;
 
 		::xmlSetGenericErrorFunc(&location, DoError);
 		SETPOS_XML(); xmlSchemaParserCtxtPtr schemaTextParser = ::xmlSchemaNewParserCtxt(xsd.c_str());
@@ -132,7 +134,7 @@ GXmlValidatorImpl::IsValid( string xml ,  string xsd )
 		if( HasError() == true )
 		{
 			SetError(false);
-			g_common_xml()->HandleError( GTextXml(   "XML file %s contains errors", xsd.c_str()  ).str() , GLOCATION_SRC, THROW_EXCEPTION );
+			g_common_xml()->HandleError( format(   "XML file {} contains errors", xsd), GLOCATION_SRC, THROW_EXCEPTION );
 		}
 
 		XML_ASSERT(schema != nullptr, "Could not parse xmlSchemaPtr", GLOCATION_SRC ) ;
@@ -151,17 +153,17 @@ GXmlValidatorImpl::IsValid( string xml ,  string xsd )
 		if( HasError() == true )
 		{
 			SetError(false);
-			g_common_xml()->HandleError( GTextXml( "XML file %s contains errors", xml.c_str()  ).str() , GLOCATION_SRC, THROW_EXCEPTION  );
+			g_common_xml()->HandleError( format( "XML file {} contains errors", xml) , GLOCATION_SRC, THROW_EXCEPTION  );
 		}
 
 		SETPOS_XML(); xmlDocPtr doc = xmlReadFile(xml.c_str(), nullptr, 0);
-		XML_ASSERT(doc != nullptr,  GTextXml( "Could not parse %s", xml.c_str() ).str(), GLOCATION_SRC );
+		XML_ASSERT(doc != nullptr,  format( "Could not parse {}", xml), GLOCATION_SRC );
 		SETPOS_XML(); int ret = xmlSchemaValidateDoc(ctxt, doc);
 		xmlSchemaFreeValidCtxt(ctxt);
 		
 		xmlFreeDoc(doc);
 		
-		XML_ASSERT( ret >= 0,  GTextXml( "%s validation generated an internal error", xml.c_str() ).str(), GLOCATION_SRC  );
+		XML_ASSERT( ret >= 0,  format( "{} validation generated an internal error", xml), GLOCATION_SRC  );
 
 		return(ret == 0);
 	}

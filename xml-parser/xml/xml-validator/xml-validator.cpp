@@ -17,11 +17,13 @@ using std::endl;
 #include <xml/GLocationXml.h>
 #include <xml/GCommonXML.h>
 
+#include <format>
+
+using std::format;
+
+
 bool help(  const string exename );
-/// int LogeLevel2Color(   const eLOGLEVEL level  );
 
-
-/// void PrintMessage( const string msg, const GLocationXml l, const eLOGLEVEL level, bool fileinfo = true );
 void ScanArguments( int argc, const char ** argv, string &xml, string &xsd );
 
 
@@ -39,13 +41,11 @@ int main(int argc, const char **  argv )
     {
         if( validator->IsValid(xml, xsd) ==  true )
         {
-          ///  PrintMessage( GTextXml( "SUCCSESS !!, %s is well formed and validated against %s", xml.c_str(), xsd.c_str() ).str(), GLOCATION_SRC, eLOGLEVEL::LOG_INFO    );
-            g_common_xml()->HandleError(GTextXml("SUCCSESS !!, %s is well formed and validated against %s", xml.c_str(), xsd.c_str()).str(), GLOCATION_SRC, DISABLE_EXCEPTION );
+            g_common_xml()->HandleError(format("SUCCSESS !!, {} is well formed and validated against {}", xml, xsd), GLOCATION_SRC, DISABLE_EXCEPTION );
         }
         else
         {
-            // HandleError(const string message, const GLocationXml  l_xml, const bool   disable_exception)
-            g_common_xml( )->HandleError( GTextXml(  "Failed to validate %s against %s", xml.c_str(), xsd.c_str()).str(), 
+            g_common_xml( )->HandleError( format(  "Failed to validate {} against {}", xml, xsd), 
                 GLOCATION_SRC, DISABLE_EXCEPTION   );
             help( string( argv[0] )  );
             has_error = true;
@@ -103,80 +103,11 @@ ScanArguments( int argc, const char ** argv, string &xml, string &xsd )
 
 
 
-//void 
-//PrintMessage( const string msg, const GLocationXml l, const eLOGLEVEL level, bool fileinfo  )
-//{
-//    int color_code = LogeLevel2Color(level);
-//    #ifdef _WIN32
-//            static HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-//            if (fgEnableColor == true)
-//            {
-//                SetConsoleTextAttribute(hConsole,  color_code );
-//            }
-//            cout << string(msg->fMsg);
-//#else           
-//            string msg_out = "";
-//
-//            if( fileinfo == true )
-//            {
-//                msg_out = l.str() + ":" + msg; 
-//            }
-//            else
-//            {
-//                msg_out = msg;
-//            }
-//            cout << "\033" << "[1;"  << color_code << "m"  <<  msg_out << "\033" << "[0m" << endl;
-//#endif  
-//#ifdef _WIN32            
-//            SetConsoleTextAttribute(hConsole, CONSOLE_DEFAULT);
-//#endif     
-//
-//}
-
-
-//int
-//LogeLevel2Color (  const  eLOGLEVEL level  )
-//{
-//    switch (  level )
-//    {
-//    case  eLOGLEVEL::LOG_FORCE_DEBUG:
-//        return A_ORANGE;      
-//        break;
-//    case  eLOGLEVEL::LOG_DEBUG:
-//        return  A_CYAN ;      
-//        break;    
-//  case  eLOGLEVEL::LOG_INFO:
-//        return  A_GREEN ;      
-//        break;  
-//    case  eLOGLEVEL::LOG_WARNING:
-//        return  A_YELLOW ;      
-//        break;   
-//    case  eLOGLEVEL::LOG_ERROR:
-//        return  A_RED ;      
-//        break;  
-//
-//  case  eLOGLEVEL::LOG_FATAL:
-//        return  A_PURPLE ;      
-//        break;  
-//  case  eLOGLEVEL::LOG_OFF:
-//  case  eLOGLEVEL::LOG_ALL:
-//        return A_GRAY;
-//        break;
-//    default:
-//        break;
-//    }
-//
-//    return 0;
-//}
-
-
-
 bool
 help( const string ex )
 {
     cout << endl;
-    g_common_xml()->HandleError(GTextXml("Usage: %s  [xml-file]  [xsd-file]", ex.c_str()).str(), GLOCATION_SRC, DISABLE_EXCEPTION );
- ///   PrintMessage(  GText( "Usage: %s  [xml-file]  [xsd-file]", ex.c_str() ).str()  ,  GLOCATION, eLOGLEVEL::LOG_INFO, false );
+    g_common_xml()->HandleError(format("Usage: {}  [xml-file]  [xsd-file]", ex), GLOCATION_SRC, DISABLE_EXCEPTION );
     cout << endl;
     return true;
 }

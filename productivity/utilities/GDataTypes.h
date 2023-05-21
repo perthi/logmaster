@@ -231,16 +231,6 @@ inline bool operator  == (const Val_t<T> &lhs, const Val_t<T> &rhs)
 }
 
 
-
-/*
-  template <class T>
-  inline void operator  = (const Val_t<T> &lhs, const Val_t<T> &rhs)
-  {
-   
-  }
-*/
-
-
 template <class T>
 inline Val_t<T> operator  + ( const Val_t<T> &lhs,  const Val_t<T> &rhs)
 {
