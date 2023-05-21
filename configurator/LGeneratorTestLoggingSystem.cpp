@@ -30,7 +30,6 @@ namespace CONFIGURATOR
 	}
 
 
-
 	void
 		LGeneratorTestLoggingSystem::GenerateLocalCommon()
 	{
@@ -46,11 +45,12 @@ namespace CONFIGURATOR
 		GenerateLocalCommon();
 		GenerateString2SystemBin(levels, systems);
 		GenerateString2SystemHex(levels, systems);
-
 		GenerateString2SystemHash(levels, systems);
 		GenerateString2LevelBin(levels, systems);
+		GenerateString2LevelHex(levels, systems);
 		GenerateString2LevelHash(levels, systems);
 	}
+
 
 	auto bitstring24 = [](const int lvl_index, const int sys_index)
 	{
@@ -105,8 +105,7 @@ namespace CONFIGURATOR
 						hextring);
 
 				test_body.push_back(single_test);
-			}
-		}
+			}}
 		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "string2system_hex", test_body));
 	}
 
@@ -117,10 +116,8 @@ namespace CONFIGURATOR
 	{
 		vector<string> test_body;
 
-		for (auto& s : systems)
-		{
-			for (auto l : levels)
-			{
+		for (auto& s : systems){
+			for (auto l : levels){
 				string bitstring = bitstring24(l->fIndex, s->fIndex);
 
 				auto single_test
@@ -130,13 +127,34 @@ namespace CONFIGURATOR
 						bitstring);
 
 				test_body.push_back(single_test);
-			}
-
-		}
+			}}
 
 		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "string2level", test_body));
+	}
+
+	void 
+		LGeneratorTestLoggingSystem::GenerateString2LevelHex(const logentity_vec levels, const sysentity_vec systems)
+	{
+		vector<string> test_body;
+
+		for (auto& s : systems) {
+			for (auto l : levels) {
+				string hexstring = hexstring6(l->fIndex, s->fIndex);
+
+				auto single_test
+					= std::format("EXPECT_EQ({}::LOG_{}, LConversion::String2Level(\"{}\") );",
+						fLevelEnumName,
+						g_utilities()->TabAlign(l->fName, 2),
+						hexstring);
+
+				test_body.push_back(single_test);
+			}
+		}
+
+		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "string2level_hex", test_body));
 
 	}
+
 
 	void
 		LGeneratorTestLoggingSystem::GenerateString2SystemHash(const logentity_vec levels, const sysentity_vec systems)

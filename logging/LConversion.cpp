@@ -135,13 +135,17 @@ namespace LOGMASTER
         {
             return BinaryString2Level(in);
         }
+        else if (g_number_types()->IsHex(in))
+        {
+            return HexString2Level(in);
+        }
         else if ( LHashMaps::IsSubCmdHash( in ) )
         {
             return Hash2Level(in);
         }
         else
         {
-            throw(std::invalid_argument( ("3_invalid argument " + in).c_str() ));    
+            throw(std::invalid_argument( ("invalid argument " + in).c_str() ));    
         }
 
         return eLOGLEVEL::LOG_OFF;
