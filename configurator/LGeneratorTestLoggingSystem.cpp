@@ -45,10 +45,18 @@ namespace CONFIGURATOR
     {
         GenerateLocalCommon( );
         GenerateString2SystemBin(levels, systems);
+       
         GenerateString2SystemHash(levels, systems);
-
+        GenerateString2LevelBin(levels, systems);
     }
 
+    auto bitstring24 = [](const int lvl_index, const int sys_index)
+    {
+        string system_s = std::format("{:016b}", 1 << sys_index);
+        string level_s = std::format("{:08b}", 1 << lvl_index);
+        string bitstring24_s = level_s + system_s;
+        return bitstring24_s;
+    };
 
     void
         LGeneratorTestLoggingSystem::GenerateString2SystemBin(const logentity_vec levels, const sysentity_vec systems)
@@ -58,18 +66,15 @@ namespace CONFIGURATOR
 
         for ( auto& s : systems )
         {
-            /** @todo use defines, not hard coded numbers*/
             for ( auto l : levels )
             {
-                string system_s = std::format("{:016b}", 1 << s->fIndex);
-                string level_s = std::format("{:08b}", 1 << l->fIndex);
-                string bitstring24_s = level_s + system_s;
+                string bitstring = bitstring24(l->fIndex, s->fIndex);
 
                 auto single_test
                     = std::format("EXPECT_EQ({}::SYS_{}, LConversion::String2System(\"{}\") );",
                                   fSystemEnumName,
                                   g_utilities( )->TabAlign(s->fName, 2),
-                                  bitstring24_s);
+                                  bitstring);
 
                 test_body.push_back(single_test);
             }
@@ -81,6 +86,34 @@ namespace CONFIGURATOR
 
     }
 
+   
+
+    void
+        LGeneratorTestLoggingSystem::GenerateString2LevelBin(const logentity_vec levels, const sysentity_vec systems)
+    {
+        vector<string> test_body;
+
+        for ( auto& s : systems )
+        {
+            for ( auto l : levels )
+            {
+                string bitstring = bitstring24(l->fIndex, s->fIndex);
+
+                auto single_test
+                    = std::format("EXPECT_EQ({}::LOG_{}, LConversion::String2Level(\"{}\") );",
+                                  fLevelEnumName,
+                                  g_utilities( )->TabAlign(l->fName, 2),
+                                  bitstring);
+
+                test_body.push_back(single_test);
+            }
+
+        }
+
+
+        fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName( ), "string2level", test_body));
+
+    }
 
     void
         LGeneratorTestLoggingSystem::GenerateString2SystemHash(const logentity_vec levels, const sysentity_vec systems)
