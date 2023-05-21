@@ -90,7 +90,7 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 	{
 		if (node->GetType() == eXML_NODETYPE::ESingleTagNode)
 		{
-			g_common_xml()->HandleError(GTextXml("%s is a single tag node (with no value) !!", tagname.c_str()).str(), l, DISABLE_EXCEPTION);
+			g_common_xml()->HandleError(std::format("{} is a single tag node (with no value) !!", tagname), l, DISABLE_EXCEPTION);
 			vector<GXmlAttribute> tmp = node->GetAttributes();
 			return "";
 		}
