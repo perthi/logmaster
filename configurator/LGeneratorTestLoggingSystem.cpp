@@ -45,6 +45,7 @@ namespace CONFIGURATOR
 	{
 		GenerateLocalCommon();
 		GenerateString2SystemBin(levels, systems);
+		GenerateString2SystemHex(levels, systems);
 
 		GenerateString2SystemHash(levels, systems);
 		GenerateString2LevelBin(levels, systems);
@@ -55,18 +56,23 @@ namespace CONFIGURATOR
 	{
 		string system_s = std::format("{:016b}", 1 << sys_index);
 		string level_s = std::format("{:08b}", 1 << lvl_index);
-		string bitstring24_s = level_s + system_s;
-		return bitstring24_s;
+		string bit24_s = level_s + system_s;
+		return bit24_s;
+	};
+
+	auto hexstring6 = [](const int lvl_index, const int sys_index)
+	{
+		string system_s = std::format("{:04x}", 1 << sys_index);
+		string level_s = std::format("{:02x}", 1 << lvl_index);
+		string hex6_s = "0x" +level_s + system_s;
+		return hex6_s;
 	};
 
 	void
 		LGeneratorTestLoggingSystem::GenerateString2SystemBin(const logentity_vec levels, const sysentity_vec systems)
 	{
-
 		vector<string> test_body;
-
-		for (auto& s : systems)
-		{
+		for (auto& s : systems){
 			for (auto l : levels)
 			{
 				string bitstring = bitstring24(l->fIndex, s->fIndex);
@@ -79,12 +85,29 @@ namespace CONFIGURATOR
 
 				test_body.push_back(single_test);
 			}
-
 		}
-
-
 		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "string2system", test_body));
+	}
 
+	void
+		LGeneratorTestLoggingSystem::GenerateString2SystemHex(const logentity_vec levels, const sysentity_vec systems)
+	{
+		vector<string> test_body;
+		for (auto& s : systems) {
+			for (auto l : levels)
+			{
+				string hextring = hexstring6(l->fIndex, s->fIndex);
+
+				auto single_test
+					= std::format("EXPECT_EQ({}::SYS_{}, LConversion::String2System(\"{}\") );",
+						fSystemEnumName,
+						g_utilities()->TabAlign(s->fName, 2),
+						hextring);
+
+				test_body.push_back(single_test);
+			}
+		}
+		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "string2system_hex", test_body));
 	}
 
 
@@ -110,7 +133,6 @@ namespace CONFIGURATOR
 			}
 
 		}
-
 
 		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "string2level", test_body));
 
