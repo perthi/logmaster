@@ -68,6 +68,8 @@ namespace LOGMASTER
         friend  TestLConversion_SplitByTarget_Test;
 
     public:
+        
+        /** @todo Remove singleton */
         static  LConversion API * Instance();
         
         static eMSGFORMAT API String2Format(   const  string  &in );
