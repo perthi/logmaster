@@ -32,6 +32,10 @@ using std::map;
 #include <vector>
 using std::vector;
 
+#include <format>
+
+//using std::format;
+
 class GXmlEntity;
 
 #ifdef HAS_LOGGING
@@ -100,13 +104,28 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 		return 0;
 	}
 
+
+    string msg = std::format("Unexpected node type {}", (string)node->GetType());
+    
+    /*
+    string msg = std::format("Unexpected node type {} (name = {}, type = {}, value = {})",
+                             node->GetType( ),
+                             node->GetName( ).c_str( ),
+                             ToString(node->GetType( )).c_str( ),
+                             node->GetValue( ).c_str( ));
+                             */
+    
+    
+    /*
 	XML_ASSERT( node->GetType() == eXML_NODETYPE::EOpenTagNode, 
-	GTextXml("Unexpected node type %d (name = %s, type = %s, value = %s)", 
+	
+               std::format("Unexpected node type {} (name = {}, type = {}, value = {})", 
 	                 node->GetType(), 
 					 node->GetName().c_str(),   
 					 ToString(node->GetType() ).c_str() ,  
-					 node->GetValue().c_str() ).str() , l ) ;
-	
+					 node->GetValue().c_str() ) , l ) ;
+	*/
+
 	string name = node->GetName();
 	XML_ASSERT(node->GetName() == tagname, 
 	std::format( "expected {}, got {} (type = {})", tagname, node->GetName(),  ToString( node->GetType())), l );
