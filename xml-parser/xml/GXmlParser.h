@@ -109,7 +109,7 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 	
 	string name = node->GetName();
 	XML_ASSERT(node->GetName() == tagname, 
-	GTextXml( "expected %s, got %s (type = %s)", tagname.c_str(), node->GetName().c_str(),  ToString( node->GetType()).c_str()  ).str(), l );
+	std::format( "expected {}, got {} (type = {})", tagname, node->GetName(),  ToString( node->GetType())), l );
 	
 	node =  xmlReader->ReadNode();
 
