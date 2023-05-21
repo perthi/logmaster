@@ -158,7 +158,7 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 	}
 	else
 	{
-		g_common_xml()->HandleError(  GTextXml(  "unexpected value for boolean %s, expected either \"true\" or \"false\"",  tmp.c_str() ).str(), GLOCATION_SRC, THROW_EXCEPTION  );
+		g_common_xml()->HandleError(  std::format(  "unexpected value for boolean {}, expected either \"true\" or \"false\"",  tmp), GLOCATION_SRC, THROW_EXCEPTION  );
 	}
 
 	return false;
