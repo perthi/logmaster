@@ -39,6 +39,7 @@
 namespace LOGMASTER
 {
 
+    /*
     LConversion *
     LConversion::Instance()
     {
@@ -46,6 +47,7 @@ namespace LOGMASTER
         return instance;
         
     }
+    */
 
     
     eMSGFORMAT 
@@ -112,7 +114,7 @@ namespace LOGMASTER
             else
             {
                 cout  << "Invalid target: " << in << endl;
-                cout  << "Valid targest commands are" << endl;
+                cout  << "Valid target commands are" << endl;
 
                 auto targets =   LHashMaps::GetTargetHash();
                 for(auto it = targets->begin(); it != targets->end(); it ++ )

@@ -24,22 +24,6 @@ using std::string;
 #include <unordered_map>
 #include <map>
 
-/** Forward declarations needed for unit testing */
-class  TestLConversion_HexString2Target_Test;
-class  TestLConversion_HexString2System_Test;
-class  TestLConversion_HexString2Format_Test;
-class  TestLConversion_BinaryString2System_Test;
-class  TestLConversion_BinaryString2Format_Test;
-class  TestLConversion_BinaryString2Target_Test;
-class  TestLConversion_BinaryString2Level_Test;
-class  TestLConversion_Hash2Target_Test;
-class  TestLConversion_Hash2System_Test;
-class  TestLConversion_Hash2Level_Test;
-class  TestLConversion_Hash2Format_Test;
-class  TestLConversion_SplitByTarget_Test;
-
-
-
 
 
 namespace LOGMASTER
@@ -50,28 +34,14 @@ namespace LOGMASTER
     /** Helper class that converts from strings to the
     *  corresponding internal representation eMSGFORMAT, eMSGTARGET, eLOGLEVEL, eMSGSYSTEM enumerators
     *  This class is used by the logging system when converting string values
-    *  apllied either from the code or form the command line to configure
+    *  applied either from the code or form the command line to configure
     *  the logging systems.*/
     class LConversion
     {
-        /** Friend declarations needed for unit testing */
-        friend  TestLConversion_HexString2Target_Test;
-        friend  TestLConversion_HexString2System_Test;
-        friend  TestLConversion_HexString2Format_Test;
-        friend  TestLConversion_BinaryString2System_Test;
-        friend  TestLConversion_BinaryString2Format_Test;
-        friend  TestLConversion_BinaryString2Target_Test;
-        friend  TestLConversion_BinaryString2Level_Test;
-        friend  TestLConversion_Hash2Target_Test;
-        friend  TestLConversion_Hash2System_Test;
-        friend  TestLConversion_Hash2Level_Test;
-        friend  TestLConversion_Hash2Format_Test;
-        friend  TestLConversion_SplitByTarget_Test;
-
     public:
         
         /** @todo Remove singleton */
-        static  LConversion API * Instance();
+        //static  LConversion API * Instance();
         
         static eMSGFORMAT API String2Format(   const  string  &in );
         static eMSGTARGET API String2Target(   const  string  &in );
@@ -84,9 +54,9 @@ namespace LOGMASTER
        static std::map<LOGMASTER::eMSGTARGET, string>  API SplitByTarget(const string in);
 #endif      
 
-    private:
-        LConversion() {};
-        ~LConversion() {};
+    //private:
+    //    LConversion() {};
+     //   ~LConversion() {};
     public:
         static eMSGSYSTEM API Hash2System(  const  string  &in );
         static eLOGLEVEL  API Hash2Level(   const  string  &in );
