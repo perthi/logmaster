@@ -225,24 +225,6 @@ TEST_F(TestLConversion,  String2Level )
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /** @todo this test should be auto-generated from the XML file */
 // TEST_F( TestLConversion, BinaryString2System )
 // {
