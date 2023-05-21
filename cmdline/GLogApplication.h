@@ -112,6 +112,7 @@ private:
     void operator=(GLogApplication &);
     virtual void                 API       ScanArguments(const string cmdline, std::shared_ptr<GArgument> arg);
     virtual void                 API	   ScanArguments(const string cmdline, deque  < std::shared_ptr<GArgument> > args);
+
     virtual      GLogApplication API& ScanArguments(const int argc, const char** argv, deque  < std::shared_ptr<GArgument>  > arg);
 
 

@@ -43,20 +43,22 @@ namespace CONFIGURATOR
     void LGeneratorTestLoggingSystem::GenerateContent(const logentity_vec levels, const sysentity_vec systems)
     {
         GenerateLocalCommon( );
-        GenerateString2System(levels, systems);
+        GenerateString2SystemBin(levels, systems);
+        GenerateString2SystemHash(levels, systems);
+
     }
 
 
     void
-        LGeneratorTestLoggingSystem::GenerateString2System(const logentity_vec levels, const sysentity_vec systems)
+        LGeneratorTestLoggingSystem::GenerateString2SystemBin(const logentity_vec levels, const sysentity_vec systems)
     {
-       
+
         vector<string> test_body;
 
         for ( auto& s : systems )
         {
             /** @todo use defines, not hard coded numbers*/
-            for (auto l: levels)
+            for ( auto l : levels )
             {
                 string system_s = std::format("{:016b}", 1 << s->fIndex);
                 string level_s = std::format("{:08b}", 1 << l->fIndex);
@@ -77,4 +79,19 @@ namespace CONFIGURATOR
         fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName( ), "string2system", test_body));
 
     }
+
+
+    void
+        LGeneratorTestLoggingSystem::GenerateString2SystemHash(const logentity_vec levels, const sysentity_vec systems)
+    {
+        for ( auto& s : systems )
+        {
+            /** @todo use defines, not hard coded numbers*/
+            for ( auto l : levels )
+            {
+                XML_INFO("tag = %s", s->fTag.c_str( ));
+            }
+        }
+    }
+
 }

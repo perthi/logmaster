@@ -1,1 +1,1 @@
-bin\x64_Debug\helloworld.exe -xml config\logging.xml  -xsd config\logging.xsd
+bin\x64_Debug\helloworld.exe -xml config\logging.xml  -xsd config\logging.xsd %*

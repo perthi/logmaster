@@ -20,9 +20,6 @@ namespace CONFIGURATOR
 	{
 	public:
 		static void API ScanArguments(int argc, const char** argv, string& xmlfile, string& xsdfile);
-
-
-	private:
 		static deque< std::shared_ptr<GArgument>  >  API GenerateArgs(string& xmlfile, string& xsdfile);
 
 	};
