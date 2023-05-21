@@ -44,18 +44,11 @@ namespace CONFIGURATOR
 	{
 		GenerateLocalCommon();
 		GenerateString2SystemBin(levels, systems);
-		GenerateBin2System(levels, systems);
 		GenerateString2SystemHex(levels, systems);
 		GenerateString2SystemHash(levels, systems);
-		GenerateHash2System(levels, systems); 
-		GenerateHex2System(levels, systems);
-
 		GenerateString2LevelBin(levels, systems);
-		GenerateBin2Leve(levels, systems);
 		GenerateString2LevelHex(levels, systems);
-		GenerateHex2Level(levels, systems);
-		GenerateString2LevelHash(levels, systems);
-		GenerateHash2Level(levels, systems);
+        GenerateString2LevelHash(levels, systems);
 	}
 
 
@@ -77,271 +70,173 @@ namespace CONFIGURATOR
 
 
 
-	void
-	LGeneratorTestLoggingSystem::GenerateString2SystemBin(const logentity_vec levels, const sysentity_vec systems)
-	{
-		vector<string> test_body;
-		for (auto& s : systems){
-			for (auto l : levels)
-			{
-				string bitstring = bitstring24(l->fIndex, s->fIndex);
+    void
+    LGeneratorTestLoggingSystem::GenerateString2SystemBin(const logentity_vec levels, const sysentity_vec systems)
+    {
+        auto generate = [=](const string funct_name, const string testname)
+        {
+            vector<string> test_body;
+            for ( auto& s : systems ) {
+                for ( auto l : levels )
+                {
+                    string bitstring = bitstring24(l->fIndex, s->fIndex);
 
-				auto single_test
-					= std::format("EXPECT_EQ({}::SYS_{}, LConversion::String2System(\"{}\") );",
-						fSystemEnumName, g_utilities()->TabAlign(s->fName, 2),bitstring);
-				test_body.push_back(single_test);
-			}
-		}
-		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "string2system", test_body));
-	}
+                    auto single_test
+                        = std::format("EXPECT_EQ({}::SYS_{}, LConversion::{}(\"{}\") );",
+                                      fSystemEnumName, g_utilities( )->TabAlign(s->fName, 2), funct_name, bitstring);
 
+                    test_body.push_back(single_test);
+                }
+            }
+            fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName( ), testname, test_body));
+        };
 
-	void 
-		LGeneratorTestLoggingSystem::GenerateBin2System(const logentity_vec levels, const sysentity_vec systems)
-	{
-		vector<string> test_body;
-		for (auto& s : systems) {
-			for (auto l : levels)
-			{
-				string bitstring = bitstring24(l->fIndex, s->fIndex);
+        generate("String2System", "string2system");
+        generate("BinaryString2System", "bin2system");
+    }
 
-				auto single_test
-					= std::format("EXPECT_EQ({}::SYS_{}, LConversion::BinaryString2System(\"{}\") );",
-						fSystemEnumName, g_utilities()->TabAlign(s->fName, 2), bitstring);
-				test_body.push_back(single_test);
-			}
-		}
-		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "bin2system", test_body));
-	
-	}
 
 
 	void
 	LGeneratorTestLoggingSystem::GenerateString2SystemHex(const logentity_vec levels, const sysentity_vec systems)
 	{
-		vector<string> test_body;
-		for (auto& s : systems) {
-			for (auto l : levels) {
-				string hextring = hexstring6(l->fIndex, s->fIndex);
+        auto generate = [=](const string funct_name, const string testname)
+        {
+            vector<string> test_body;
+            for ( auto& s : systems ) {
+                for ( auto l : levels ) {
+                    string hextring = hexstring6(l->fIndex, s->fIndex);
 
-				auto single_test = std::format("EXPECT_EQ({}::SYS_{}, LConversion::String2System(\"{}\") );",
-					fSystemEnumName, g_utilities()->TabAlign(s->fName, 2), hextring);
-				test_body.push_back(single_test);}}
+                    auto single_test = std::format("EXPECT_EQ({}::SYS_{}, LConversion::{}(\"{}\") );",
+                                                   fSystemEnumName, 
+                                                   g_utilities( )->TabAlign(s->fName, 2), funct_name,
+                                                   hextring);
+                    test_body.push_back(single_test);
+                }
+            }
+            fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName( ), testname, test_body));
+        };
 
-		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "string2system_hex", test_body));
-	}
-
-	void  
-		LGeneratorTestLoggingSystem::GenerateHex2System(const logentity_vec levels, const sysentity_vec systems)
-	{
-		vector<string> test_body;
-		for (auto& s : systems) {
-			for (auto l : levels) {
-				string hextring = hexstring6(l->fIndex, s->fIndex);
-
-				auto single_test = std::format("EXPECT_EQ({}::SYS_{}, LConversion::HexString2System(\"{}\") );",
-					fSystemEnumName, g_utilities()->TabAlign(s->fName, 2), hextring);
-				test_body.push_back(single_test);
-			}
-		}
-
-		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "hex2system", test_body));
-	
-	}
-
-
-	void
-		LGeneratorTestLoggingSystem::GenerateString2SystemHash(const logentity_vec levels, const sysentity_vec systems)
-	{
-		vector<string> test_body;
-		auto generate_line = [this](const string& tag, const string& sys, const string& lvl)
-		{
-			auto single_test
-				= std::format("EXPECT_EQ({}::SYS_{}, LConversion::String2System(\"{}-{}\") );",
-					fSystemEnumName, g_utilities()->TabAlign(sys, 2), tag, g_string()->ToLower(lvl));
-
-			return single_test; };
-
-
-		for (auto& s : systems) {
-			for (auto l : levels) {
-				test_body.push_back(generate_line(s->fTag, s->fName, l->fName));
-
-				if (s->fTag != s->fTagShort) {
-					test_body.push_back(generate_line(s->fTagShort, s->fName, l->fName));
-				}
-			}
-		}
-		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "string2system_hash", test_body));
-	}
+        generate("String2System", "string2system_hex");
+        generate("HexString2System", "hex2system");
+    }
 
 
 
-	void  
-	LGeneratorTestLoggingSystem::GenerateHash2System(const logentity_vec levels, const sysentity_vec systems)
-	{
-		vector<string> test_body;
-		auto generate_line = [this](const string& tag, const string& sys, const string& lvl)
-		{
-			auto single_test
-				= std::format("EXPECT_EQ({}::SYS_{}, LConversion::Hash2System(\"{}-{}\") );",
-					fSystemEnumName, g_utilities()->TabAlign(sys, 2), tag, g_string()->ToLower(lvl));
+    void
+    LGeneratorTestLoggingSystem::GenerateString2SystemHash(const logentity_vec levels, const sysentity_vec systems)
+    {
+        auto generate = [=](const string funct_name, const string testname)
+        {
+            vector<string> test_body;
 
-			return single_test; };
+            auto generate_line = [=](const string& tag, const string& sys, const string& lvl)
+            {
+                auto single_test
+                    = std::format("EXPECT_EQ({}::SYS_{}, LConversion::{}(\"{}-{}\") );",
+                                  fSystemEnumName,
+                                  g_utilities( )->TabAlign(sys, 2),
+                                  funct_name,
+                                  tag,
+                                  g_string( )->ToLower(lvl));
 
+                return single_test; };
 
-		for (auto& s : systems) {
-			for (auto l : levels) {
-				test_body.push_back(generate_line(s->fTag, s->fName, l->fName));
+            for ( auto& s : systems ) {
+                for ( auto l : levels ) {
+                    test_body.push_back(generate_line(s->fTag, s->fName, l->fName));
 
-				if (s->fTag != s->fTagShort) {
-					test_body.push_back(generate_line(s->fTagShort, s->fName, l->fName));
-				}
-			}
-		}
-		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "hash2system", test_body));
+                    if ( s->fTag != s->fTagShort ) {
+                        test_body.push_back(generate_line(s->fTagShort, s->fName, l->fName));
+                    }
+                }
+            }
+            fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName( ), testname, test_body));
+        };
 
-
-	}
-
-
-
-
-	/*****************************************************************************************/
-
+        generate("String2System","string2system_hash");
+        generate("Hash2System", "hash2system");
+    }
 
 
 	void
 	LGeneratorTestLoggingSystem::GenerateString2LevelBin(const logentity_vec levels, const sysentity_vec systems)
 	{
-		vector<string> test_body;
-		for (auto& s : systems){
-			for (auto l : levels){
-				string bitstring = bitstring24(l->fIndex, s->fIndex);
+        auto generate = [=](const string funct_name, const string testname)
+        {
+            vector<string> test_body;
+            for ( auto& s : systems ) {
+                for ( auto l : levels ) {
+                    string bitstring = bitstring24(l->fIndex, s->fIndex);
 
-				auto single_test
-					= std::format("EXPECT_EQ({}::LOG_{}, LConversion::String2Level(\"{}\") );",
-						fLevelEnumName, g_utilities()->TabAlign(l->fName, 2),bitstring);
-				test_body.push_back(single_test);}}
+                    auto single_test
+                        = std::format("EXPECT_EQ({}::LOG_{}, LConversion::{}(\"{}\") );",
+                                      fLevelEnumName, g_utilities( )->TabAlign(l->fName, 2), funct_name, bitstring);
+                    test_body.push_back(single_test);
+                }
+            }
 
-		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "string2level", test_body));
-	}
+            fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName( ), testname, test_body));
+        };
 
-
-	void 
-		LGeneratorTestLoggingSystem::GenerateBin2Leve(const logentity_vec levels, const sysentity_vec systems)
-	{
-		vector<string> test_body;
-		for (auto& s : systems) {
-			for (auto l : levels) {
-				string bitstring = bitstring24(l->fIndex, s->fIndex);
-
-				auto single_test
-					= std::format("EXPECT_EQ({}::LOG_{}, LConversion::BinaryString2Level(\"{}\") );",
-						fLevelEnumName, g_utilities()->TabAlign(l->fName, 2), bitstring);
-				test_body.push_back(single_test);
-			}
-		}
-
-		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "bin2level", test_body));
-	
-	}
-
-
+        generate("String2Level", "string2level" );
+        generate("BinaryString2Level", "bin2level");
+    }
 
 
 	void 
-	LGeneratorTestLoggingSystem::GenerateString2LevelHex(const logentity_vec levels, const sysentity_vec systems)
-	{
-		vector<string> test_body;
-		for (auto& s : systems) {
-			for (auto l : levels) {
-				string hexstring = hexstring6(l->fIndex, s->fIndex);
+    LGeneratorTestLoggingSystem::GenerateString2LevelHex(const logentity_vec levels, const sysentity_vec systems)
+    {
+        auto generate = [=](const string funct_name, const string testname)
+        {
+            vector<string> test_body;
+            for ( auto& s : systems ) {
+                for ( auto l : levels ) {
+                    string hexstring = hexstring6(l->fIndex, s->fIndex);
 
-				auto single_test = std::format("EXPECT_EQ({}::LOG_{}, LConversion::String2Level(\"{}\") );",
-					               fLevelEnumName, g_utilities()->TabAlign(l->fName, 2), hexstring);
-				test_body.push_back(single_test);}}
+                    auto single_test = std::format("EXPECT_EQ({}::LOG_{}, LConversion::{}(\"{}\") );",
+                                                   fLevelEnumName, g_utilities( )->TabAlign(l->fName, 2), funct_name, hexstring);
+                    test_body.push_back(single_test);
+                }
+            }
+            fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName( ), testname, test_body));
+        };
 
-		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "string2level_hex", test_body));
-
-	}
-
-	void 
-		LGeneratorTestLoggingSystem::GenerateHex2Level(const logentity_vec levels, const sysentity_vec systems)
-	{
-		vector<string> test_body;
-		for (auto& s : systems) {
-			for (auto l : levels) {
-				string hexstring = hexstring6(l->fIndex, s->fIndex);
-
-				auto single_test = std::format("EXPECT_EQ({}::LOG_{}, LConversion::HexString2Level(\"{}\") );",
-					fLevelEnumName, g_utilities()->TabAlign(l->fName, 2), hexstring);
-				test_body.push_back(single_test);
-			}
-		}
-
-		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "hex2level", test_body));
-
-	}
-
-
-
+        generate("String2Level", "string2level_hex");
+        generate("HexString2Level", "hex2level");
+    }
+        
 
 	void
 	LGeneratorTestLoggingSystem::GenerateString2LevelHash(const logentity_vec levels, const sysentity_vec systems)
 	{
-		vector<string> test_body;
+        auto generate = [=](const string funct_name, const string testname)
+        {
+            vector<string> test_body;
 
-		auto generate_line = [this](const string& tag, const string& sys, const string& lvl)
-		{
-			auto single_test
-				= std::format("EXPECT_EQ(PAD({}::LOG_{}{} (int)LConversion::String2Level(\"{}-{}\") );",
-					fLevelEnumName,lvl,g_utilities()->TabAlign("),", 2),tag,g_string()->ToLower(lvl)
-				);
+            auto generate_line = [=](const string& tag, const string& sys, const string& lvl)
+            {
+                auto single_test
+                    = std::format("EXPECT_EQ(PAD({}::LOG_{}{} (int)LConversion::{}(\"{}-{}\") );",
+                                  fLevelEnumName, lvl, g_utilities( )->TabAlign("),", 2), funct_name,  tag, g_string( )->ToLower(lvl));
 
-			return single_test;
-		};
-
-
-		for (auto& s : systems){
-			for (auto l : levels){
-				test_body.push_back(generate_line(s->fTag, s->fName, l->fName));
-
-				if (s->fTag != s->fTagShort){
-					test_body.push_back(generate_line(s->fTagShort, s->fName, l->fName));}
-			}
-		}
-		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "string2levelhash", test_body));
-	}
+                return single_test;
+            };
 
 
-	void
-		LGeneratorTestLoggingSystem::GenerateHash2Level(const logentity_vec levels, const sysentity_vec systems)
-	{
-		vector<string> test_body;
+            for ( auto& s : systems ) {
+                for ( auto l : levels ) {
+                    test_body.push_back(generate_line(s->fTag, s->fName, l->fName));
 
-		auto generate_line = [this](const string& tag, const string& sys, const string& lvl)
-		{
-			auto single_test
-				= std::format("EXPECT_EQ(PAD({}::LOG_{}{} (int)LConversion::Hash2Level(\"{}-{}\") );",
-					fLevelEnumName, lvl, g_utilities()->TabAlign("),", 2), tag, g_string()->ToLower(lvl)
-				);
-
-			return single_test;
-		};
-
-
-		for (auto& s : systems) {
-			for (auto l : levels) {
-				test_body.push_back(generate_line(s->fTag, s->fName, l->fName));
-
-				if (s->fTag != s->fTagShort) {
-					test_body.push_back(generate_line(s->fTagShort, s->fName, l->fName));
-				}
-			}
-		}
-		fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName(), "hash2Level", test_body));
-	
-	}
-
+                    if ( s->fTag != s->fTagShort ) {
+                        test_body.push_back(generate_line(s->fTagShort, s->fName, l->fName));
+                    }
+                }
+            }
+            fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName( ), testname, test_body));
+        };
+		
+        generate("String2Level", "string2levelhash");
+        generate("Hash2Level", "has2level");
+    }
 }
