@@ -17,7 +17,7 @@
 
 #include <format>
 
-using std::format;
+//std::format;
 
 #undef HAS_LOGGING
 
@@ -93,8 +93,8 @@ GXmlParser::AssertTag(std::shared_ptr<GXmlStreamReader> xmlReader, const string 
 	}
 	else if( node_type != node_type_l )
 	{
-		g_common_xml()->HandleError(   GTextXml(  "Unexpected tag, expected %s, got %s",  ToString(node_type).c_str(), 
-		                                          ToString(node_type_l).c_str()  ).str(), l, THROW_EXCEPTION    );
+		g_common_xml()->HandleError(   std::format(  "Unexpected tag, expected {}, got {}",  ToString(node_type), 
+		                                          ToString(node_type_l) ), l, THROW_EXCEPTION    );
 	}
 
 	#endif
