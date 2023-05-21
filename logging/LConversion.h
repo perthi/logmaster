@@ -41,6 +41,7 @@ class  TestLConversion_SplitByTarget_Test;
 
 
 
+
 namespace LOGMASTER
 {
     class LHashMaps;
@@ -86,7 +87,7 @@ namespace LOGMASTER
     private:
         LConversion() {};
         ~LConversion() {};
-
+    public:
         static eMSGSYSTEM API Hash2System(  const  string  &in );
         static eLOGLEVEL  API Hash2Level(   const  string  &in );
         static eMSGTARGET API Hash2Target(  const  string  &in );
