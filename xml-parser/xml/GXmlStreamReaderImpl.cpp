@@ -188,7 +188,7 @@ GXmlNode* GXmlStreamReaderImpl::CreateNodeFromType(const int nodetype, const cha
 	//case XML_READER_TYPE_XML_DECLARATION: return "xml_declaration";
 	default:
 		// document has a node type which is not implemented.
-		g_common_xml()->HandleError( GTextXml (    "Node with type %i (%s) not found", nodetype, NodeTypeToString(nodetype)    ).str() , GLOCATION_SRC, THROW_EXCEPTION  );
+		g_common_xml()->HandleError( format (    "Node with type {} ({}) not found", nodetype, NodeTypeToString(nodetype)    ) , GLOCATION_SRC, THROW_EXCEPTION  );
 	}
 
 	return node;
