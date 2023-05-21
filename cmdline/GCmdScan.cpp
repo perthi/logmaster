@@ -492,8 +492,10 @@ GCmdScan::IsSubCommand(const string arg) const
 bool
 GCmdScan::CheckMandatory(const vector<GArgumentParsed> v, const deque <  std::shared_ptr<GArgument> >* args) const
 {
-    /** @todo check if  args is nullptr */
+    G_ASSERT_ARGUMENT_EXCEPTION(args != nullptr, "Argument is a ZERO pointer");   
+    
     vector<string> tokens;
+    
 
     for (uint16_t i = 0; i < v.size(); i++)
     {
