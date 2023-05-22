@@ -74,7 +74,7 @@ int main (int argc, const char **argv)
         while( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true  ) 
         {
        
-            COUT << "id = " << msg.fId << "\ttime_int = " << (long)msg.fTimeI << "\ttime_float"<< msg.fTimeD <<"\tcategory = " << (int)msg.fCategory << "\tmsg = " << msg.fJson << endl;
+            COUT << "id = " << msg.fId << "\ttime_int = " << (long)msg.fTimeI << "\ttime_float"<< msg.fTimeD <<"\tcategory = " << (int)msg.fCategory << "\tmsg = " << msg.fJson << ENDL;
         }
 
    }

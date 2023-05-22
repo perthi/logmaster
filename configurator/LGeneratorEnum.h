@@ -26,9 +26,6 @@ namespace CONFIGURATOR
 	private:
 		void  GenerateLevels(logentity_vec levels,   content_vec  &content) const;
 		void  GenerateSystems(sysentity_vec  systems,  content_vec &content) const;
-
-		
-
 	};
 
 }

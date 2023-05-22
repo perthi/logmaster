@@ -84,59 +84,13 @@ enum  ePUBLISH_MODE
          FILE_NAME               =  0x08,     // 00001000    Prefix contains the name of the source file
          FUNCTION_NAME           =  0x04,     // 00000100    Prefix class and function name on the format CLASS::FUNCTION (for global function only the function name is shown)
          LINE_NO                 =  0x02,     // 00000010    Append the line number where the message was generated
-         MESSAGE_BODY            =  0x01,     // 00000001    Wether or not to append the message itself
+         MESSAGE_BODY            =  0x01,     // 00000001    Whether or not to append the message itself
          PREFIX_OFF              =  0x01,     // 00000001    No prefix, only the message body. (same effect as MESSAGE_BODY)
          SHORT_MSG               =  0x4B,     // 01001011    Short message containing just, msg format and function name / line
         // USER_SHORT_MSG          =  0x81,     // 00100001    Short User message containing just, Time Stamp short format and message body
          USER_SHORT_MSG          =  0x21,     // 00100001    Short User message containing just, Time Stamp short format and message body
          PREFIX_ALL              =  0x7f      // 01111111    Prefix contains all options
     };
-
-//#ifdef __cplusplus
-    
-    /*
-    inline eMSGSYSTEM operator | ( const eMSGSYSTEM &lhs, const eMSGSYSTEM &rhs )
-    {
-        return (eMSGSYSTEM)((int)lhs | (int)rhs);
-    }
-
-    inline eLOGLEVEL operator | ( const eLOGLEVEL &lhs, const eLOGLEVEL &rhs )
-    {
-        return (eLOGLEVEL)((int)lhs | (int)rhs);
-    }
-
-    inline eMSGFORMAT operator | ( const eMSGFORMAT &lhs, const eMSGFORMAT &rhs )
-    {
-        return (eMSGFORMAT)((int)lhs | (int)rhs);
-    }
-
-    inline eMSGTARGET operator | ( const eMSGTARGET &lhs, const eMSGTARGET &rhs )
-    {
-        return (eMSGTARGET)((int)lhs | (int)rhs);
-    }
-
-    inline eMSGSYSTEM operator & ( const eMSGSYSTEM &lhs, const eMSGSYSTEM &rhs )
-    {
-        return (eMSGSYSTEM)((int)lhs & (int)rhs);
-    }
-
-    inline eLOGLEVEL operator & ( const eLOGLEVEL &lhs, const eLOGLEVEL &rhs )
-    {
-        return (eLOGLEVEL)((int)lhs & (int)rhs);
-    }
-
-    inline eMSGFORMAT operator & ( const eMSGFORMAT &lhs, const eMSGFORMAT &rhs )
-    {
-        return (eMSGFORMAT)((int)lhs & (int)rhs);
-    }
-
-    inline eMSGTARGET operator & ( const eMSGTARGET &lhs, const eMSGTARGET &rhs )
-    {
-        return (eMSGTARGET)((int)lhs & (int)rhs);
-    }
-    */
-
-
 
 #ifdef __cplusplus
 }

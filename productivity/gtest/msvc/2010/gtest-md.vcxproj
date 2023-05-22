@@ -75,6 +75,7 @@
     <OutDir>$(bindir)</OutDir>
     <IntDir>$(OutDir)$(ProjectName)\</IntDir>
     <TargetName>gtestd</TargetName>
+    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(bindir)</OutDir>

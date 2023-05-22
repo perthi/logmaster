@@ -11,6 +11,7 @@
 #include <configurator/LArgumentScanner.h>
 #include <configurator/LXMLInfo.h>
 #include <logging/LLogApi.h>
+#include <configurator/LUtilities.h>
 #include <utilities/version-info/GMenu.h>
 #include <logging/GException.h>
 
@@ -38,9 +39,19 @@ class file_t : public std::exception
 };
 
 
+/// string line = g_utilities( )->TabAlign("\tSYS_" + sys->fName + " ", 3) + "=  " + 
+/// LUtilities::ToHexString(1 << sys->fIndex) + ",    //  " + LUtilities::ToBinaryString(1 << sys->fIndex);
+
 
 int main(int  argc, const char** argv)
 {
+    string short_name = "SHORT";
+    string long_name = "AVERY_LONG_NAME";
+
+    cout << std::format("ole{:30} blahhhh", short_name) << endl;
+    cout << std::format("doledoff{:30} blahhhh", long_name) << endl;
+    return 0;
+
     GMenu::Instance( )->ScanArguments(argc, argv);
     LPublisher::Instance( )->SetMode(ePUBLISH_MODE::SYNCHRONOUS);    
 
