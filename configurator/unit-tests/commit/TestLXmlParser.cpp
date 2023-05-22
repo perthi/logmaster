@@ -12,6 +12,7 @@ using namespace LOGMASTER;
 #include <configurator/LXmlEntityLogLevel.h>
 #include <configurator/LXmlEntitySubSystem.h>
 #include <configurator/LXmlParser.h>
+#include <configurator/LXMLInfo.h>
 
 using namespace CONFIGURATOR;
 
@@ -24,16 +25,24 @@ using namespace CONFIGURATOR;
 #include <vector>
 using std::vector;
 
-TestLXmlParser::TestLXmlParser()
+
+void 
+TestLXmlParser::SetUp( )
 {
+
 #ifdef _WIN32
-    xml = string(g_system()->GetHomeDir()) + "\\..\\config\\logging.xml";
-    xsd = string(g_system()->GetHomeDir()) + "\\..\\config\\logging.xsd";
+    string xml = string(g_system( )->GetHomeDir( )) + "\\..\\config\\logging.xml";
+    string xsd = string(g_system( )->GetHomeDir( )) + "\\..\\config\\logging.xsd";
+
+    fXMLInfo = std::make_shared<LXMLInfo>(xml, xsd);
+
 #else
     xml = string(CONFIG_DIR) + "/logging.xml";
     xsd = string(CONFIG_DIR) + "/logging.xsd";
 #endif // _WIN32
+
 }
+
 
 
 
@@ -41,8 +50,9 @@ TestLXmlParser::TestLXmlParser()
  TEST_F( TestLXmlParser, check_file )
  {
    GXmlValidator v;
-    v.IsValid(xml, xsd );
-    EXPECT_TRUE( v.IsValid(xml, xsd ) );
+    
+    v.IsValid(fXMLInfo->fXMLFileName, fXMLInfo->fXSDFileName );
+    EXPECT_TRUE( v.IsValid(fXMLInfo->fXMLFileName, fXMLInfo->fXSDFileName) );
     EXPECT_TRUE(true);
  }
 
@@ -53,7 +63,7 @@ TestLXmlParser::TestLXmlParser()
      LXmlParser p;
      vector < std::shared_ptr<LXmlEntityLogLevel> > loglevels;
      vector < std::shared_ptr< LXmlEntitySubSystem > > subsystems; 
-     p.ParseXML(xml, xsd, loglevels, subsystems  );
+     p.ParseXML( *fXMLInfo, loglevels, subsystems);
 
      EXPECT_TRUE ( p.HasElement("DEBUG", loglevels ) );
      EXPECT_TRUE ( p.HasElement("INFO", loglevels ) );
@@ -70,7 +80,7 @@ TestLXmlParser::TestLXmlParser()
     LXmlParser p;
     vector < std::shared_ptr<LXmlEntityLogLevel> > loglevels;
     vector < std::shared_ptr< LXmlEntitySubSystem > > subsystems; 
-    p.ParseXML(xml, xsd, loglevels, subsystems  );
+    p.ParseXML( *fXMLInfo, loglevels, subsystems  );
     EXPECT_TRUE  ( p.HasElement("COM",  subsystems  ) );
     EXPECT_TRUE  ( p.HasElement("XML",       subsystems  ) );
     EXPECT_TRUE  ( p.HasElement("MESSAGE", subsystems  ) );

@@ -77,7 +77,7 @@ TEST_F(TestGNumbers, Hex2DecDec2Hex)
 }
 
 
-
+/*
 TEST_F(TestGNumbers, number2binary)
 {
     auto num_s = g_numbers()->Number2BinaryString(1);
@@ -98,9 +98,9 @@ TEST_F(TestGNumbers, number2binary)
     num_s = g_numbers()->Number2BinaryString(7, 0, 6);
     EXPECT_EQ(num_s, "111000000");
  }
+ */
 
-
-
+/*
 TEST_F(TestGNumbers, number2binary_widt)
 {
     auto num_s = g_numbers()->Number2BinaryString(1, 64);
@@ -132,9 +132,9 @@ TEST_F(TestGNumbers, number2binary_widt)
     num_s = g_numbers( )->Number2BinaryString(17, 8);
     EXPECT_EQ(num_s, "00010001");
 }
+*/
 
-
-
+/*
 TEST_F(TestGNumbers, number2binary_shift_width)
 {
     string num_s = g_numbers( )->Number2BinaryString(7, 32);
@@ -146,7 +146,7 @@ TEST_F(TestGNumbers, number2binary_shift_width)
     num_s = g_numbers( )->Number2BinaryString(7, 32, 10);
     EXPECT_EQ(num_s, "00000000000000000001110000000000");
 }
-
+*/
 
 
 TEST_F(TestGNumbers, binary2number)
@@ -181,8 +181,9 @@ TEST_F(TestGNumbers, ToNumber)
 
 TEST_F(TestGNumbers, ToInteger)
 {
-    // EXPECT_EQ(9223372036854775807,  g_numbers()->ToInteger<long>("9223372036854775807") );
-    // EXPECT_EQ(-9223372036854775807, g_numbers()->ToInteger<long>("-9223372036854775807"));
+    EXPECT_EQ(9223372036854775807,  g_numbers()->ToInteger<long long>("9223372036854775807") );
+    EXPECT_EQ(-9223372036854775807, g_numbers()->ToInteger<long long>("-9223372036854775807"));
+    
     EXPECT_EQ(0xabcdef, g_numbers()->ToInteger<long>("0xabcdef"));
     vector<string> int_array = {"0xa", "0Xb", "0x12bc", "123"};
     vector<long long int> num = g_numbers()->ToInteger< long long int >(int_array);

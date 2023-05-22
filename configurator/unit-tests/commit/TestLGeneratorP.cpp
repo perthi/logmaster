@@ -37,6 +37,7 @@
 #include <configurator/LGeneratorLogTest.h>
 #include <configurator/LFileCreator.h>
 #include <configurator/LFileInfo.h>
+#include <configurator/LXMLInfo.h>
 
 #include <configurator/LXmlParser.h>
 
@@ -67,7 +68,7 @@ void TestLGeneratorP::SetUpTestCase()
 	/** @todo Implement for Linux */
 #endif
     /** @todo this parser should take LXMLInfoStruct as input*/
-    LXmlParser( ).ParseXML( gXMLPath, gXSDPath, fgLogLevels, fgSubSystems);
+    LXmlParser( ).ParseXML( LXMLInfo(gXMLPath, gXSDPath), fgLogLevels, fgSubSystems);
 }
 
 

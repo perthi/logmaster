@@ -34,9 +34,6 @@
 #include <bitset>
 #include <format>
 
-//#ifndef GNUMBERSXXX_CPP
-//#define GNUMBERSXXX_CPP
-
 
 
 GNumbers * g_numbers()
@@ -110,35 +107,12 @@ GNumbers::Dec2Hex(const string  str)
  * @param shift The number will be shifted (to the left) by this number of
  * bits. The default is no shift.
  * @return The binary representation of the string */
- string
-     GNumbers::Number2BinaryString(const uint64_t number, const int width, const int shift)
- {
 
-     auto num_l = (number << shift);
-     /** @todo warn or throw exception if overflow after bit shifting */
-
-     if ( width <= 64 && width > 0 )
-     {
-         std::bitset<64> num(num_l);
-         std::stringstream buffer;
-         buffer << num << std::setfill('0');
-
-         return  buffer.str( ).substr(64 - width);
-     }
-     else
-     {
-         return std::format("{:b}", num_l);
-     }
- }
-
-
- //unsigned char a = -58;
- //std::cout << std::format("{:b}", a);
-
+/*
  string    
- GNumbers::Number2HexString(const uint64_t number, const int width, const int shift)
+ GNumbers::Number2HexString2(const uint64_t number, const int width, const int shift)
  {
-     /** @todo warn or throw exception if overflow after bit shifting */
+     / @todo warn or throw exception if overflow after bit shifting 
      int64_t num = shift > 0 ?  (number << shift) : number;
      std::stringstream buffer;
      if (width > 0)
@@ -150,12 +124,7 @@ GNumbers::Dec2Hex(const string  str)
     
      return buffer.str();
  }
-
- /*
- stream << std::setfill('0') << std::setw(sizeof(your_type) * 2)
-     << std::hex << your_int;
-     */
-
+ */
 
  /**@}
 
@@ -166,11 +135,14 @@ GNumbers::Dec2Hex(const string  str)
 *  @return the corresponding number as a 64 bit int
 *  @exception GException  if the system dependent maximum  number if bits is exceeded, or if the string has wrong format. Ths is,
 *  not valid binary string format containing 0'oes and 1'nes, and/or an optional preceding minus sign. */
- int64_t
+/*
+int64_t
 GNumbers::BinaryString2Number(const string b)
 {
     string s = b;
     g_string()->Trim(s);
+    
+    
     bool negative = g_string()->BeginsWith(s, "-", false);
     int64_t tmp = 0;
     int64_t maxbits = sizeof(long long) * 8;
@@ -178,20 +150,7 @@ GNumbers::BinaryString2Number(const string b)
 
     if (BitWidths > maxbits)
     {
-        char message[512];
-        #ifdef ARM
-        snprintf(message, 512,"Bit-stream contains %lld bits, ( bit-string = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
-#endif
-#ifdef _WIN32
-        SPRINTF(message, 512,"Bit-stream contains %lld bits, ( bit-string = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
-#else
-#ifdef ARM
-
-        SPRINTF(message, 512, "Bit-stream contains %lld bits, ( bit-string = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
-#else
-        SPRINTF(message, 512, "Bit-stream contains %ld bits, ( bit-string = %s ). The max number of bits is: %ld", BitWidths, b.c_str(), maxbits);
-#endif
-#endif
+        string message = std::format("Bit-stream contains {} bits, ( bit-string = {} ). The max number of bits is: {}",s, BitWidths, maxbits);
         GCommon().HandleError(message, GLOCATION, IsDisabledError() );
     }
 
@@ -217,7 +176,64 @@ GNumbers::BinaryString2Number(const string b)
     }
     return negative == true ?  -tmp : tmp;
 }
- 
+ */
+
+
+
+int64_t
+GNumbers::BinaryString2Number(const string b)
+{
+    string s = b;
+    g_string( )->Trim(s);
+    size_t idx = 0;
+    int64_t number = stoll(s, &idx, 2);
+
+    //bool is_negativ = g_string( )->BeginsWith(s, "-") ? true : false;
+    if ( idx != s.size( ) )
+    {
+        GCommon( ).HandleError(std::format("Failed to convert binary string{}", s), GLOCATION, IsDisabledError());
+    }
+
+    return number;
+
+
+    /*
+    bool negative = g_string( )->BeginsWith(s, "-", false);
+    int64_t tmp = 0;
+    int64_t maxbits = sizeof(long long) * 8;
+    int64_t BitWidths = BitWidth(s);
+
+    if ( BitWidths > maxbits )
+    {
+        string message = std::format("Bit-stream contains {} bits, ( bit-string = {} ). The max number of bits is: {}", s, BitWidths, maxbits);
+        GCommon( ).HandleError(message, GLOCATION, IsDisabledError( ));
+    }
+
+    if ( g_number_types( )->IsBinary(s) == true )
+    {
+        size_t n = s.size( );
+        for ( size_t i = 0; i < n; i++ )
+        {
+            if ( s[n - i - 1] == '1' )
+            {
+#ifdef _WIN32
+                tmp = tmp | (1i64 << i);
+#else
+                tmp = tmp | (1 << i);
+#endif
+            }
+        }
+    }
+    else
+    {
+        string message = s + "\t is not a binary number string, the string must contain only ZERO and ONES prefixed by an optional - (minus) sign";
+        GCommon( ).HandleError(message, GLOCATION, IsDisabledError( ));
+    }
+    return negative == true ? -tmp : tmp;
+    */
+}
+
+
 
  int64_t
  GNumbers::HexString2Number(const string num)
@@ -244,15 +260,18 @@ GNumbers::BinaryString2Number(const string b)
 * @param[in] in Must be a binary number, i.e  a string containing only "0" and "1".
 * @exception std::exception if the string "in" is not a valid binary number
 * @return The width in number of bits */
-int64_t
-GNumbers::BitWidth(const char *in)
-{
-    return BitWidth(string(in));
-}
+ int64_t 
+ GNumbers::BitWidth(const char* in)
+ {
+     return BitWidth(string(in));
+ }
+
 
 int64_t
 GNumbers::BitWidth(const string in)
 {
+
+
     int64_t npos = 0;
 
     if (  g_number_types()->IsBinary(in) == false)
@@ -264,6 +283,8 @@ GNumbers::BitWidth(const string in)
     else
     {
         npos = in.size() - in.find_first_of('1');
+
+
         return npos;
     }
 }

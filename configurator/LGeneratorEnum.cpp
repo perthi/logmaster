@@ -2,8 +2,6 @@
 #include "LGeneratorEnum.h"
 #include "LXmlEntitySubSystem.h"
 #include "LXmlEntityLogLevel.h"
-#include "LUtilities.h"
-
 #include <utilities/GUtilities.h>
 
 #include <logging/LLogApi.h>

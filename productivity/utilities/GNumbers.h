@@ -68,14 +68,14 @@ public:
 
     template<typename T>   int64_t  API  PadOnes(const T in);
     template<typename T> int64_t    API  BitWidth(const T in);
-    int64_t                         API  BitWidth(const char* in);
+     int64_t                         API  BitWidth(const char* in);
     int64_t                         API  BitWidth(const string in);
     
   
     int64_t		        API     BinaryString2Number(const string num);
     int64_t             API     HexString2Number(const string num);
-    string              API     Number2BinaryString(const uint64_t, const int width = 0, const int shift = 0);
-    string              API     Number2HexString(const uint64_t, const int width = 0, const int shift = 0);
+    //string              API     Number2BinaryString2(const uint64_t, const int width = 0, const int shift = 0);
+    string              API     Number2HexString2(const uint64_t, const int width = 0, const int shift = 0);
     
     template<typename T >     vector<T> API ToFloat(const vector<string> num);
     template<typename T = long double>    T          API ToFloat(const string num);
@@ -215,6 +215,8 @@ template<typename T>
 int64_t
 GNumbers::BitWidth(const T in)
 {
+
+
     const int BitWidths = sizeof(in) * 8;
     int pos = 0;
 

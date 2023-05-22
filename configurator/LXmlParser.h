@@ -6,6 +6,7 @@
 * @author Per Thomas Hille <pth@embc.no>           *
 ***************************************************/
 
+#include <configurator/LXMLInfo.h>
 #include <xml-parser/xml/GXmlParser.h>
 #include <memory>
 
@@ -25,8 +26,7 @@ namespace CONFIGURATOR
     class  LXmlParser : public GXmlParser
     {
     public:
-        virtual  void API ParseXML(const string  xml,
-            const string  xsd,
+        virtual  void API ParseXML(const LXMLInfo xnlinfo,
             std::vector< std::shared_ptr <LXmlEntityLogLevel> >& loglevlels,
             std::vector< std::shared_ptr <LXmlEntitySubSystem> >& subsystems);
 

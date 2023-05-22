@@ -4,15 +4,17 @@
 
 #include <testlib/TestBase.h>
 #include <xml/GXmlValidator.h>
+#include <configurator/LXMLInfo.h>
+
+#include <memory>
+
+using namespace CONFIGURATOR;
 
 class  TestLXmlParser : public TestBase
 {
-    public:
-      TestLXmlParser();
-
     protected:
-        string xml = "";
-        string xsd = ""; 
+        virtual void SetUp( ) override;
+        std::shared_ptr<LXMLInfo> fXMLInfo;
 };
 
 

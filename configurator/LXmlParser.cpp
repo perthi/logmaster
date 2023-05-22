@@ -12,14 +12,21 @@
 #include <logging/LLogApi.h>
 using namespace LOGMASTER;
 
-#include <logging/GException.h>
-#include <xml/GXmlClassFactory.h>
-#include <xml/GXmlStreamReader.h>
-#include <xml/GXmlValidator.h>
-#include <utilities/GLocation.h>
+
 
 #include <configurator/LXmlEntityLogLevel.h>
 #include <configurator/LXmlEntitySubSystem.h>
+
+
+#include <logging/GException.h>
+#include <utilities/GLocation.h>
+
+#include <xml/GXmlClassFactory.h>
+#include <xml/GXmlStreamReader.h>
+#include <xml/GXmlValidator.h>
+
+
+
 
 #include <vector>
 using std::vector;
@@ -31,15 +38,15 @@ using namespace CONFIGURATOR;
 using std::string;
 
 void
-LXmlParser::ParseXML(const string xml, const string xsd,
+LXmlParser::ParseXML(const LXMLInfo xmlinfo,
                      std::vector<std::shared_ptr<LXmlEntityLogLevel>>& loglevels,
                      std::vector<std::shared_ptr<LXmlEntitySubSystem>>& subsystems)
 {
 
-    XML_ASSERT_EXCEPTION(GXmlValidator::IsValid(xml, xsd), "Failed to validate XML file %s against %s",
-                         xml.c_str( ), xsd.c_str( ));
+    XML_ASSERT_EXCEPTION(GXmlValidator::IsValid(xmlinfo.fXMLFileName, xmlinfo.fXSDFileName), "Failed to validate XML file %s against %s",
+                         xmlinfo.fXMLFileName.c_str( ), xmlinfo.fXSDFileName.c_str( ));
 
-    std::shared_ptr<GXmlStreamReader> xmlReader = GXmlClassFactory::CreateStreamReaderSmartPtr(xml.c_str( ));
+    std::shared_ptr<GXmlStreamReader> xmlReader = GXmlClassFactory::CreateStreamReaderSmartPtr(xmlinfo.fXMLFileName.c_str( ));
     GXmlNode* node = xmlReader->ReadNode( );
 
     while ( node != nullptr )

@@ -72,7 +72,7 @@ int main(int  argc, const char** argv)
         
         logentity_vec  loglevels;
         sysentity_vec  subsystems;
-        LXmlParser().ParseXML(xml, xsd, loglevels, subsystems);
+        LXmlParser().ParseXML(LXMLInfo(xml, xsd), loglevels, subsystems);
         XML_INFO("Successfully validated %s against %s and parsed the XML file", xml.c_str(), xsd.c_str());
         generator_vec  generators  = LCreateDefaultGenerators::CreateAll(LXMLInfo(xml, xsd));
         LFileCreator::GenerateFiles(generators, loglevels, subsystems);
