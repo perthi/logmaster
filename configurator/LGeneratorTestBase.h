@@ -12,6 +12,7 @@ namespace CONFIGURATOR
     {
     protected:
         string GenerateTesCase(const string classname, const string testname, const vector<string> &content );
+        virtual void GenerateLocalCommon( ) = 0;
     };
 
 }
