@@ -46,9 +46,9 @@ class GString
      string    API ReplaceBadChar(string &inputstring, const char delimeter = '_', const char *suspicious = 0);
      string    API Replace(const string original, const string toreplace, const string replacement);
      
-     string    API ToPascalCase( const string  in ) const;
-     string    API ToUpperCase(  const string  in ) const;  
-     string    API ToLowerCase(  const string  in ) const;
+    
+   //  string    API ToUpperCase(  const string  in ) const;  
+   //  string    API ToLowerCase(  const string  in ) const;
 
      string    API Path2ClassName(const string & path);   
 
@@ -89,8 +89,9 @@ class GString
      bool         API  IsAnsi(string &s);
      std::string   API AnsiToUtf8(const std::string &ansiStr);
      string       API &ToLower(const string &s);
-     string       API &ToUpper(const string &s);
+    string       API &ToUpper(const string &s);
      bool API      IsMatch(const string pattern, const string val, bool require_exact_match = false);
+     string    API ToPascalCase(const string  in) const;
 
  private:
      GString(){};

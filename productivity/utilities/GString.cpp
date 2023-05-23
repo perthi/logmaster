@@ -356,7 +356,7 @@ string& GString::ToLower(const string& s)
   *  @return  uppercase of s.  */
 string& GString::ToUpper(const string& s)
 {
-    /** @todo Check if duplicated by ToUpperCase */
+    /// @todo Check if duplicated by ToUpperCase 
     static string str;
     str = s;
     // IF UTF-8, convert to wide char and do to lower on wide char
@@ -723,6 +723,7 @@ GString::ReplaceBadChar(char* inputstring, const char delimeter, const char* sus
 /**@}*/
 
 
+
  string    
  GString::ToPascalCase(const string in) const
  {
@@ -739,8 +740,10 @@ GString::ReplaceBadChar(char* inputstring, const char delimeter, const char* sus
         return in;
     }
  }
+ 
 
 
+ /*
 string    
 GString::ToUpperCase(const string in) const
 {
@@ -757,6 +760,7 @@ GString::ToLowerCase(const string in) const
      std::transform( copy.begin(), copy.end(),  copy.begin(), ::tolower );    
      return copy;   
 }
+*/
 
 
 /**Calculate a class name from a path. The convention that

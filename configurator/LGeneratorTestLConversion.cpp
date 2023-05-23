@@ -1,6 +1,6 @@
 
 
-#include "LGeneratorTestLoggingSystem.h"
+#include "LGeneratorTestLConversion.h"
 #include "LFileInfo.h"
 
 #include "LXmlEntityLogLevel.h"
@@ -23,7 +23,7 @@ using namespace LOGMASTER;
 
 namespace CONFIGURATOR
 {
-	LGeneratorTestLoggingSystem::LGeneratorTestLoggingSystem(const string path, const string classname, const LXMLInfo xmlinfo) : LGenerator(path, classname, xmlinfo)
+	LGeneratorTestLConversion::LGeneratorTestLConversion(const string path, const string classname, const LXMLInfo xmlinfo) : LGenerator(path, classname, xmlinfo)
 	{
 		fDoGenerateHeader = true;
 		fDoGenerateSource = true;
@@ -31,7 +31,7 @@ namespace CONFIGURATOR
 
 
 	void
-		LGeneratorTestLoggingSystem::GenerateLocalCommon()
+		LGeneratorTestLConversion::GenerateLocalCommon()
 	{
 		fFileContentHeader.push_back(commonTestHeader(fFileInfo->GetClassName()));
 		fFileContentSource.push_back(std::format("#include \"{}\"", fFileInfo->GetHeaderName()));
@@ -40,7 +40,7 @@ namespace CONFIGURATOR
 	}
 
 
-	void LGeneratorTestLoggingSystem::GenerateContent(const logentity_vec levels, const sysentity_vec systems)
+	void LGeneratorTestLConversion::GenerateContent(const logentity_vec levels, const sysentity_vec systems)
 	{
 		GenerateLocalCommon();
 		GenerateString2SystemBin(levels, systems);
@@ -71,7 +71,7 @@ namespace CONFIGURATOR
 
 
     void
-    LGeneratorTestLoggingSystem::GenerateString2SystemBin(const logentity_vec levels, const sysentity_vec systems)
+    LGeneratorTestLConversion::GenerateString2SystemBin(const logentity_vec levels, const sysentity_vec systems)
     {
         auto generate = [=](const string funct_name, const string testname)
         {
@@ -98,7 +98,7 @@ namespace CONFIGURATOR
 
 
 	void
-	LGeneratorTestLoggingSystem::GenerateString2SystemHex(const logentity_vec levels, const sysentity_vec systems)
+	LGeneratorTestLConversion::GenerateString2SystemHex(const logentity_vec levels, const sysentity_vec systems)
 	{
         auto generate = [=](const string funct_name, const string testname)
         {
@@ -124,7 +124,7 @@ namespace CONFIGURATOR
 
 
     void
-    LGeneratorTestLoggingSystem::GenerateString2SystemHash(const logentity_vec levels, const sysentity_vec systems)
+    LGeneratorTestLConversion::GenerateString2SystemHash(const logentity_vec levels, const sysentity_vec systems)
     {
         auto generate = [=](const string funct_name, const string testname)
         {
@@ -160,7 +160,7 @@ namespace CONFIGURATOR
 
 
 	void
-	LGeneratorTestLoggingSystem::GenerateString2LevelBin(const logentity_vec levels, const sysentity_vec systems)
+	LGeneratorTestLConversion::GenerateString2LevelBin(const logentity_vec levels, const sysentity_vec systems)
 	{
         auto generate = [=](const string funct_name, const string testname)
         {
@@ -185,7 +185,7 @@ namespace CONFIGURATOR
 
 
 	void 
-    LGeneratorTestLoggingSystem::GenerateString2LevelHex(const logentity_vec levels, const sysentity_vec systems)
+    LGeneratorTestLConversion::GenerateString2LevelHex(const logentity_vec levels, const sysentity_vec systems)
     {
         auto generate = [=](const string funct_name, const string testname)
         {
@@ -208,7 +208,7 @@ namespace CONFIGURATOR
         
 
 	void
-	LGeneratorTestLoggingSystem::GenerateString2LevelHash(const logentity_vec levels, const sysentity_vec systems)
+	LGeneratorTestLConversion::GenerateString2LevelHash(const logentity_vec levels, const sysentity_vec systems)
 	{
         auto generate = [=](const string funct_name, const string testname)
         {
