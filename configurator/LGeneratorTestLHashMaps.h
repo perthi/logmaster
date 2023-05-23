@@ -12,6 +12,11 @@ namespace CONFIGURATOR
 
         virtual void GenerateLocalCommon( );
         virtual void GenerateContent(const logentity_vec levels, const sysentity_vec systems) override;
+    
+    private:
+
+        void  GenerateTestContanEnum(const logentity_vec levels, const sysentity_vec systems);
+        void  GenerateIsSubcmdHash(const logentity_vec levels, const sysentity_vec systems);
     };
 
 }
