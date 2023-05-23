@@ -356,10 +356,9 @@ string& GString::ToLower(const string& s)
   *  @return  uppercase of s.  */
 string& GString::ToUpper(const string& s)
 {
-    /// @todo Check if duplicated by ToUpperCase 
     static string str;
     str = s;
-    // IF UTF-8, convert to wide char and do to lower on wide char
+ 
     if (!IsAnsi(str))
     {
         std::locale loc("");
@@ -402,10 +401,7 @@ string& GString::ToUpper(const string& s)
 }
 
 
-
-
 #define GET_SAFE_CHAR(str,ptr,len) (ptr<len?str[ptr]:'\0')
-
 
 /**  Checks if a string is ANSI/ASCII or UTF-8
 *    @param[in, out] s  String to be check. The content is not altered.
@@ -684,12 +680,9 @@ GString::ReplaceBadChar(string& inputstring, const char delimeter, const char* s
 }
 
 
-
 char*
 GString::ReplaceBadChar(char* inputstring, const char delimeter, const char* suspicious)
 {
-
-
     /// @todo handle the case where the input string contains one or more zeros
     static char souspiciouscharacters[1023];
     if (suspicious == 0)
@@ -722,45 +715,6 @@ GString::ReplaceBadChar(char* inputstring, const char delimeter, const char* sus
 }
 /**@}*/
 
-
-
- string    
- GString::ToPascalCase(const string in) const
- {
-    if(in.size( ) >  1 )
-    {
-      
-      string copy = in;
-      std::transform( copy.begin() +1, copy.end(),  copy.begin() +1, ::tolower );           
-      std::transform( copy.begin(),    copy.begin() + 1,  copy.begin(), ::toupper );        
-      return copy;    
-    }
-    else
-    {
-        return in;
-    }
- }
- 
-
-
- /*
-string    
-GString::ToUpperCase(const string in) const
-{
-   string copy = in;  
-   std::transform( copy.begin(), copy.end(),  copy.begin(), ::toupper );    
-   return copy;
-}
-
-string    
-GString::ToLowerCase(const string in) const
-{
-    
-     string copy = in;  
-     std::transform( copy.begin(), copy.end(),  copy.begin(), ::tolower );    
-     return copy;   
-}
-*/
 
 
 /**Calculate a class name from a path. The convention that

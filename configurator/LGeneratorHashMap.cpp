@@ -8,6 +8,8 @@ using namespace LOGMASTER;
 
 #include  <configurator/LXmlEntityLogLevel.h>
 #include  <configurator/LXmlEntitySubSystem.h> 
+#include  <configurator/LGeneratorCommon.h>
+
 #include  <utilities/GUtilities.h>
 #include  <utilities/GString.h>
 #include  <logging/GException.h>
@@ -123,7 +125,7 @@ namespace CONFIGURATOR
 		for (auto& lvl : levels)
 		{
 			std::stringstream buffer;
-			buffer << "\tLevel2StringHash->emplace(eLOGLEVEL::" << "LOG_" << lvl->fName << ",\t" << "\"" << g_string()->ToPascalCase(lvl->fName) << "\"" ");";
+			buffer << "\tLevel2StringHash->emplace(eLOGLEVEL::" << "LOG_" << lvl->fName << ",\t" << "\"" << toPascalCase(lvl->fName) << "\"" ");";
 			lines.push_back(buffer.str());
 		}
 
@@ -146,7 +148,7 @@ namespace CONFIGURATOR
 		{
 			std::stringstream buffer;
 			buffer << "\t" << "System2StringHash->emplace(eMSGSYSTEM::" << "SYS_" << sys->fName + ", ";
-			buffer << "\t" << "\"" + g_string()->ToPascalCase(sys->fName) + "\");";
+			buffer << "\t" << "\"" +  toPascalCase(sys->fName) + "\");";
 			lines.push_back(buffer.str());
 		}
 

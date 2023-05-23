@@ -6,7 +6,7 @@ using std::string;
 
 namespace CONFIGURATOR
 {
-    string commonTestHeader(const string classname, bool with_closing_bracket = true );
-
+    string  commonTestHeader(const string classname, bool with_closing_bracket = true );
+    string  toPascalCase(const string  in);
 }
 

@@ -5,7 +5,8 @@
 #include "LCopyright.h"
 
 #include <sstream>
-
+#include <string>
+#include <algorithm>
 
 namespace CONFIGURATOR
 {
@@ -26,5 +27,24 @@ namespace CONFIGURATOR
         }
         return buffer.str( );
     } 
+
+    string
+     toPascalCase(const string in)
+    {
+        if ( in.size( ) > 1 )
+        {
+
+            string copy = in;
+            std::transform(copy.begin( ) + 1, copy.end( ), copy.begin( ) + 1, ::tolower);
+            std::transform(copy.begin( ), copy.begin( ) + 1, copy.begin( ), ::toupper);
+            return copy;
+        }
+        else
+        {
+            return in;
+        }
+    }
+
+
 }
 

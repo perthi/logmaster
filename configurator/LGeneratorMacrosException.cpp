@@ -2,6 +2,7 @@
 // -*- mode: c++ -*-
 #include "LGeneratorMacrosException.h"
 #include <configurator/LXmlEntitySubSystem.h>
+#include <configurator/LGeneratorCommon.h>
 
 #include <logging/LLogApi.h>
 #include <utilities/GUtilities.h>
@@ -32,7 +33,7 @@ namespace CONFIGURATOR
     string
         LGeneratorMacrosException::ClassName(  const sysentity_ptr   sys) const
     {
-        return  string("G") + g_string()->ToPascalCase(sys->fName) + "Exception";
+        return  string("G") + toPascalCase(sys->fName) + "Exception";
 
     }
 

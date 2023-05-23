@@ -107,25 +107,6 @@ GNumbers::Dec2Hex(const string  str)
  * @param shift The number will be shifted (to the left) by this number of
  * bits. The default is no shift.
  * @return The binary representation of the string */
-
-/*
- string    
- GNumbers::Number2HexString2(const uint64_t number, const int width, const int shift)
- {
-     / @todo warn or throw exception if overflow after bit shifting 
-     int64_t num = shift > 0 ?  (number << shift) : number;
-     std::stringstream buffer;
-     if (width > 0)
-     {
-         buffer << std::setfill('0') << std::setw(width);
-     }
-
-     buffer << std::hex << num;
-    
-     return buffer.str();
- }
- */
-
  /**@}
 
 
@@ -135,51 +116,6 @@ GNumbers::Dec2Hex(const string  str)
 *  @return the corresponding number as a 64 bit int
 *  @exception GException  if the system dependent maximum  number if bits is exceeded, or if the string has wrong format. Ths is,
 *  not valid binary string format containing 0'oes and 1'nes, and/or an optional preceding minus sign. */
-/*
-int64_t
-GNumbers::BinaryString2Number(const string b)
-{
-    string s = b;
-    g_string()->Trim(s);
-    
-    
-    bool negative = g_string()->BeginsWith(s, "-", false);
-    int64_t tmp = 0;
-    int64_t maxbits = sizeof(long long) * 8;
-    int64_t BitWidths = BitWidth(s);
-
-    if (BitWidths > maxbits)
-    {
-        string message = std::format("Bit-stream contains {} bits, ( bit-string = {} ). The max number of bits is: {}",s, BitWidths, maxbits);
-        GCommon().HandleError(message, GLOCATION, IsDisabledError() );
-    }
-
-    if ( g_number_types()->IsBinary(s) == true)
-    {
-        size_t n = s.size();
-        for (size_t i = 0; i < n; i++)
-        {
-            if (s[n - i - 1] == '1')
-            {
-#ifdef _WIN32
-                tmp = tmp | (1i64 << i);
-#else
-                tmp = tmp | (1 << i);
-#endif
-            }
-        }
-    }
-    else
-    {
-        string message = s + "\t is not a binary number string, the string must contain only ZERO and ONES prefixed by an optional - (minus) sign";
-        GCommon().HandleError( message, GLOCATION, IsDisabledError() );
-    }
-    return negative == true ?  -tmp : tmp;
-}
- */
-
-
-
 int64_t
 GNumbers::BinaryString2Number(const string b)
 {
@@ -195,44 +131,7 @@ GNumbers::BinaryString2Number(const string b)
     }
 
     return number;
-
-
-    /*
-    bool negative = g_string( )->BeginsWith(s, "-", false);
-    int64_t tmp = 0;
-    int64_t maxbits = sizeof(long long) * 8;
-    int64_t BitWidths = BitWidth(s);
-
-    if ( BitWidths > maxbits )
-    {
-        string message = std::format("Bit-stream contains {} bits, ( bit-string = {} ). The max number of bits is: {}", s, BitWidths, maxbits);
-        GCommon( ).HandleError(message, GLOCATION, IsDisabledError( ));
-    }
-
-    if ( g_number_types( )->IsBinary(s) == true )
-    {
-        size_t n = s.size( );
-        for ( size_t i = 0; i < n; i++ )
-        {
-            if ( s[n - i - 1] == '1' )
-            {
-#ifdef _WIN32
-                tmp = tmp | (1i64 << i);
-#else
-                tmp = tmp | (1 << i);
-#endif
-            }
-        }
-    }
-    else
-    {
-        string message = s + "\t is not a binary number string, the string must contain only ZERO and ONES prefixed by an optional - (minus) sign";
-        GCommon( ).HandleError(message, GLOCATION, IsDisabledError( ));
-    }
-    return negative == true ? -tmp : tmp;
-    */
 }
-
 
 
  int64_t
@@ -254,6 +153,7 @@ GNumbers::BinaryString2Number(const string b)
  /**@}
 
 
+
 /**@{
 * Evaluates the width of the binary number "in" represented on string format in number of bits.
 * For example "0010101" is 5 bits wide (discarding proceeding zeros), "111" is 3 bits wide, etc
@@ -270,8 +170,6 @@ GNumbers::BinaryString2Number(const string b)
 int64_t
 GNumbers::BitWidth(const string in)
 {
-
-
     int64_t npos = 0;
 
     if (  g_number_types()->IsBinary(in) == false)
