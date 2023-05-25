@@ -99,7 +99,7 @@ GCmdScan::SetParametersF(std::shared_ptr<GArgument>  a, GArgumentParsed v) const
 
     if (ab != nullptr)
     {
-        if (Verify(a, v) == true)
+     //   if (Verify(a, v) == true)
         {
             T d = 0;
 
@@ -258,10 +258,15 @@ GCmdScan::ScanArguments(const int argc, const char** argv, deque<  std::shared_p
         }
     }
 
+
+
+
     vector<GArgumentParsed> v = SplitCommands(argc, argv);
 
+
+
     CheckValid(v, args);
-    CheckMandatory(v, args);
+   CheckMandatory(v, args);
 
     for (uint16_t i = 0; i < args->size(); i++)
     {
@@ -273,41 +278,45 @@ GCmdScan::ScanArguments(const int argc, const char** argv, deque<  std::shared_p
                 string type = args->at(i)->GetTypeId();
                 string baseType = args->at(i)->GetTypeIdBase();
 
-                //#ifdef _WIN32
-                if (baseType == "Val_t")
+            //    if (Verify(args->at(i), v[j]) == true)
                 {
-                    SetParameterVal_t  < Val_t<double> >(args->at(i), v[j]);
+
+                    if (baseType == "Val_t")
+                    {
+                        SetParameterVal_t  < Val_t<double> >(args->at(i), v[j]);
+                    }
+
+                    if (type == typeid(bool).name()) { SetParametersF  <bool>(args->at(i), v[j]); }
+                    if (type == typeid(string).name()) { SetParametersF  <string>(args->at(i), v[j]); }
+
+                    if (type == typeid(float).name()) { SetParametersF  <float>(args->at(i), v[j]); }
+                    if (type == typeid(double).name()) { SetParametersF  <double>(args->at(i), v[j]); }
+                    if (type == typeid(long double).name()) { SetParametersF  <long double>(args->at(i), v[j]); }
+                    if (type == typeid(short).name()) { SetParametersF  <short>(args->at(i), v[j]); }
+                    if (type == typeid(int).name()) { SetParametersF  <int>(args->at(i), v[j]); }
+                    if (type == typeid(long int).name()) { SetParametersF  <long int>(args->at(i), v[j]); }
+                    if (type == typeid(long long int).name()) { SetParametersF  <long long int>(args->at(i), v[j]); }
+                    if (type == typeid(unsigned short).name()) { SetParametersF  <unsigned short>(args->at(i), v[j]); }
+                    if (type == typeid(unsigned int).name()) { SetParametersF  <unsigned int>(args->at(i), v[j]); }
+                    if (type == typeid(unsigned long int).name()) { SetParametersF  <unsigned long int>(args->at(i), v[j]); }
+                    if (type == typeid(unsigned long long int).name()) { SetParametersF  <unsigned long long int>(args->at(i), v[j]); }
+
+                    if (type == typeid(vector<float>).name()) { SetParametersV  <float>(args->at(i), scanned); }
+                    if (type == typeid(vector<double>).name()) { SetParametersV  <double>(args->at(i), scanned); }
+                    if (type == typeid(vector<long double>).name()) { SetParametersV  <long double>(args->at(i), scanned); }
+                    if (type == typeid(vector<short>).name()) { SetParametersVI <short>(args->at(i), scanned); }
+                    if (type == typeid(vector<int>).name()) { SetParametersVI <int>(args->at(i), scanned); }
+                    if (type == typeid(vector<long int>).name()) { SetParametersVI <long int>(args->at(i), scanned); }
+                    if (type == typeid(vector<long long int>).name()) { SetParametersVI <long long int>(args->at(i), scanned); }
+                    if (type == typeid(vector<unsigned short>).name()) { SetParametersVI <unsigned short>(args->at(i), scanned); }
+                    if (type == typeid(vector<unsigned int>).name()) { SetParametersVI <unsigned int >(args->at(i), scanned); }
+                    if (type == typeid(vector<unsigned long int>).name()) { SetParametersVI <unsigned long int>(args->at(i), scanned); }
+                    if (type == typeid(vector<unsigned long long int>).name()) { SetParametersVI <unsigned long long int>(args->at(i), scanned); }
+                    if (type == typeid(vector<string>).name()) { SetParametersV  <vector<string> >(args->at(i), scanned); }
+
+
                 }
-
-                //#endif
-                if (type == typeid(bool).name()) { SetParametersF  <bool>(args->at(i), v[j]); }
-
-
-                if (type == typeid(string).name()) { SetParametersF  <string>(args->at(i), v[j]); }
-
-                if (type == typeid(float).name()) { SetParametersF  <float>(args->at(i), v[j]); }
-                if (type == typeid(double).name()) { SetParametersF  <double>(args->at(i), v[j]); }
-                if (type == typeid(long double).name()) { SetParametersF  <long double>(args->at(i), v[j]); }
-                if (type == typeid(short).name()) { SetParametersF  <short>(args->at(i), v[j]); }
-                if (type == typeid(int).name()) { SetParametersF  <int>(args->at(i), v[j]); }
-                if (type == typeid(long int).name()) { SetParametersF  <long int>(args->at(i), v[j]); }
-                if (type == typeid(long long int).name()) { SetParametersF  <long long int>(args->at(i), v[j]); }
-                if (type == typeid(unsigned short).name()) { SetParametersF  <unsigned short>(args->at(i), v[j]); }
-                if (type == typeid(unsigned int).name()) { SetParametersF  <unsigned int>(args->at(i), v[j]); }
-                if (type == typeid(unsigned long int).name()) { SetParametersF  <unsigned long int>(args->at(i), v[j]); }
-                if (type == typeid(unsigned long long int).name()) { SetParametersF  <unsigned long long int>(args->at(i), v[j]); }
-                if (type == typeid(vector<float>).name()) { SetParametersV  <float>(args->at(i), scanned); }
-                if (type == typeid(vector<double>).name()) { SetParametersV  <double>(args->at(i), scanned); }
-                if (type == typeid(vector<long double>).name()) { SetParametersV  <long double>(args->at(i), scanned); }
-                if (type == typeid(vector<short>).name()) { SetParametersVI <short>(args->at(i), scanned); }
-                if (type == typeid(vector<int>).name()) { SetParametersVI <int>(args->at(i), scanned); }
-                if (type == typeid(vector<long int>).name()) { SetParametersVI <long int>(args->at(i), scanned); }
-                if (type == typeid(vector<long long int>).name()) { SetParametersVI <long long int>(args->at(i), scanned); }
-                if (type == typeid(vector<unsigned short>).name()) { SetParametersVI <unsigned short>(args->at(i), scanned); }
-                if (type == typeid(vector<unsigned int>).name()) { SetParametersVI <unsigned int >(args->at(i), scanned); }
-                if (type == typeid(vector<unsigned long int>).name()) { SetParametersVI <unsigned long int>(args->at(i), scanned); }
-                if (type == typeid(vector<unsigned long long int>).name()) { SetParametersVI <unsigned long long int>(args->at(i), scanned); }
-                if (type == typeid(vector<string>).name()) { SetParametersV  <vector<string> >(args->at(i), scanned); }
+                 
                 Verify(args->at(i), v[j]);
 
             }
@@ -321,6 +330,7 @@ GCmdScan::ScanArguments(const int argc, const char** argv, deque<  std::shared_p
 bool
 GCmdScan::Verify(std::shared_ptr<GArgument> a, GArgumentParsed v) const
 {
+
     if (a->ValidateCommands != nullptr)
     {
         string args_s = g_string()->Vec2String(v.GetSubCommands(), " ") + " " + g_string()->Vec2String(v.GetArguments(), " ");
@@ -383,7 +393,7 @@ GCmdScan::Verify(std::shared_ptr<GArgument> a, GArgumentParsed v) const
             {
                 if ((v.GetSubCommands().size() != 0) != (v.GetArguments().size() != 0))
                 {
-                    INVALID_ARGUMENT_EXCEPTION("boolean types takes either no arguments (defaults to true) or --true/false. Alternatively the verification function is not set: %s(%s) takes only one argument", v.GetCommand().c_str(), type.c_str());
+                    INVALID_ARGUMENT_EXCEPTION("Boolean types takes either no arguments (defaults to true) or --true/false. Alternatively the verification function is not set: %s(%s) takes only one argument", v.GetCommand().c_str(), type.c_str());
                 }
                 else
                 {

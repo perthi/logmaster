@@ -8,6 +8,7 @@
     <version-exe>$(BinDir)\version-info -rcname  $(TargetName).rc -appname  $(TargetName).exe</version-exe>
     <version-dll>$(BinDir)\version-info -rcname  $(TargetName).rc -appname  $(TargetName).dll</version-dll>
     <gtest-include>$(SolutionDir)\googletest-1.13.0\googletest\include;$(SolutionDir)\googletest-1.13.0\googletest\</gtest-include>
+    <gmock-include>$(gtest-include);$(SolutionDir)\googletest-1.13.0\googlemock;$(SolutionDir)\googletest-1.13.0\googlemock\include;</gmock-include>
   </PropertyGroup>
   <PropertyGroup>
     <OutDir>$(bindir)</OutDir>
@@ -42,6 +43,9 @@
     </BuildMacro>
     <BuildMacro Include="gtest-include">
       <Value>$(gtest-include)</Value>
+    </BuildMacro>
+    <BuildMacro Include="gmock-include">
+      <Value>$(gmock-include)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>

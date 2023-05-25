@@ -107,14 +107,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>HAS_LOGGING;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(include);$(gtest-include)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(include);$(gtest-include);$(gmock-include);</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;utilities.lib;gtest.lib</AdditionalDependencies>
+      <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;utilities.lib;gtest.lib;gmock.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>$(version-exe) </Command>
@@ -169,7 +169,9 @@
     <ClCompile Include="TestGCmdScan.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TestGCmdScanMock.cpp" />
+    <ClCompile Include="TestGCmdScanMock.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="TestGCommandLineArgument.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -182,7 +184,9 @@
     <ClInclude Include="TestGCmdScan.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="TestGCmdScanMock.h" />
+    <ClInclude Include="TestGCmdScanMock.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="TestGCommandLineArgument.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>

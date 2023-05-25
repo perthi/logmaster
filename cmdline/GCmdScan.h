@@ -46,8 +46,8 @@ class  GCmdScan
 
 public:
 	static GCmdScan   API* Instance();
-	GCmdScan();
-	virtual ~GCmdScan();
+	API GCmdScan();
+	virtual API  ~GCmdScan();
 	bool   HasArgument(int argc, const char** argv, const string cmd) const;
 	bool   HasArgument(int argc, const char** argv, vector <string> commands) const;
 	bool   HasArgument(const vector<string> tokens, const string com) const;
@@ -56,11 +56,15 @@ public:
 
 	vector < GArgumentParsed > API ScanArguments(const  int  argc, const char** argv, std::shared_ptr<GArgument> arg) const;
 	vector < GArgumentParsed > API ScanArguments(const  int  argc, const char** argv, deque<  std::shared_ptr<GArgument> >* arg) const;
+	
+	template<typename T> 
+	vector < GArgumentParsed > API ScanArgument(const  uint64_t  argc, const char** argv, std::shared_ptr<GCommandLineArgument<T> > arg) const;
+	
 	vector < GArgumentParsed >  API SplitCommands(const  int argc, const char** argv, const bool skipfirst = true) const;
 	void  SetExecName(deque<  std::shared_ptr<GArgument>  >* arg, const char* name) const;
-	bool  Verify(std::shared_ptr<GArgument>  a, GArgumentParsed v) const;
+	virtual bool API  Verify(std::shared_ptr<GArgument>  a, GArgumentParsed v) const;
 
-	template<typename T> vector < GArgumentParsed > ScanArgument(const  uint64_t  argc, const char** argv, std::shared_ptr<GCommandLineArgument<T> > arg) const;
+
 	template<typename T> void  SetParametersF(std::shared_ptr <GArgument> a, GArgumentParsed v) const;
 	template<typename T> void   SetParametersV(std::shared_ptr <GArgument> a, vector<string> vs) const;
 	template<typename T, typename U = vector<T> > void  SetParametersVI(std::shared_ptr <GArgument> a, vector<string> vs) const;
