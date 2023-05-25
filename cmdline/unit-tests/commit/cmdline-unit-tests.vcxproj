@@ -114,11 +114,14 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;utilities.lib;gtestd.lib</AdditionalDependencies>
+      <AdditionalDependencies>shell32.lib;cmdline.lib;logging.lib;utilities.lib;gtest.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>$(version-exe) </Command>
     </PreBuildEvent>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

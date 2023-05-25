@@ -87,7 +87,7 @@ protected:
 using testing::Types;
 
 /** @todo move to separate file(s) */
-TYPED_TEST_CASE_P(TestGCommandLineArgumentT);
+TYPED_TEST_SUITE_P(TestGCommandLineArgumentT);
 
 
 template <typename T>
@@ -142,9 +142,14 @@ TYPED_TEST_P(TestGCommandLineArgumentT, duplicate_arguemnts_replace)
   }
 
 
-REGISTER_TYPED_TEST_CASE_P(TestGCommandLineArgumentT, duplicate_arguemnts, duplicate_arguemnts_replace );
-INSTANTIATE_TYPED_TEST_CASE_P(pth2, TestGCommandLineArgumentT, impl);
-INSTANTIATE_TYPED_TEST_CASE_P(pth1, TestGCommandLineArgumentT, impl);
+REGISTER_TYPED_TEST_SUITE_P(TestGCommandLineArgumentT, duplicate_arguemnts, duplicate_arguemnts_replace );
+
+INSTANTIATE_TYPED_TEST_SUITE_P(pth2, TestGCommandLineArgumentT, impl);
+INSTANTIATE_TYPED_TEST_SUITE_P(pth1, TestGCommandLineArgumentT, impl);
+
+
+//INSTANTIATE_TYPED_TEST_CASE_P(pth2, TestGCommandLineArgumentT, impl);
+//INSTANTIATE_TYPED_TEST_CASE_P(pth1, TestGCommandLineArgumentT, impl);
 
 
 #endif

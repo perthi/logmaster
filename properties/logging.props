@@ -2,11 +2,12 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <include>$(SolutionDir);$(SolutionDir)\productivity;$(SolutionDir)\productivity\gtest\include;</include>
+    <include>$(SolutionDir);$(SolutionDir)\productivity;</include>
     <bindir>$(SolutionDir)bin\$(PlatformTarget)_$(Configuration)\</bindir>
     <version>$(BinDir)\version-info -rcname  $(TargetName).rc -appname  $(TargetFileName)</version>
     <version-exe>$(BinDir)\version-info -rcname  $(TargetName).rc -appname  $(TargetName).exe</version-exe>
     <version-dll>$(BinDir)\version-info -rcname  $(TargetName).rc -appname  $(TargetName).dll</version-dll>
+    <gtest-include>$(SolutionDir)\googletest-1.13.0\googletest\include;$(SolutionDir)\googletest-1.13.0\googletest\</gtest-include>
   </PropertyGroup>
   <PropertyGroup>
     <OutDir>$(bindir)</OutDir>
@@ -38,6 +39,9 @@
     </BuildMacro>
     <BuildMacro Include="version-dll">
       <Value>$(version-dll)</Value>
+    </BuildMacro>
+    <BuildMacro Include="gtest-include">
+      <Value>$(gtest-include)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>
