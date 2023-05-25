@@ -1,4 +1,0 @@
-
-include ../gmock-embc.mk
-
-

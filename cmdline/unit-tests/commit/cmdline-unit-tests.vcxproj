@@ -166,6 +166,7 @@
     <ClCompile Include="TestGCmdScan.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="TestGCmdScanMock.cpp" />
     <ClCompile Include="TestGCommandLineArgument.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -178,6 +179,7 @@
     <ClInclude Include="TestGCmdScan.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="TestGCmdScanMock.h" />
     <ClInclude Include="TestGCommandLineArgument.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
