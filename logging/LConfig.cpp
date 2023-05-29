@@ -270,6 +270,7 @@ namespace LOGMASTER
         return  fTimeMode;
     }
 
+
     string
     LConfig::DoxygenDoc(const string filename)
     {

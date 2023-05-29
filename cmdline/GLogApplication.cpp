@@ -105,9 +105,9 @@ GLogApplication&
 GLogApplication::InitLogArgs( )
 {
     fHelp = std::make_shared <void_arg >("-help", "-help", "prints help menu", nullptr, fgkOPTIONAL);
-    fLog = std::make_shared <vector_arg >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::Instance( )->LogLevelDoc( ), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
-    fTarget = std::make_shared <vector_arg >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::Instance( )->LogTargetDoc( ), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
-    fFormat = std::make_shared <vector_arg >("-logformat", "-logformat\t\t[subcommands]", LDoc::Instance( )->LogFormatDoc( ), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
+    fLog = std::make_shared <vector_arg >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::LogLevelDoc( ), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
+    fTarget = std::make_shared <vector_arg >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::LogTargetDoc( ), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
+    fFormat = std::make_shared <vector_arg >("-logformat", "-logformat\t\t[subcommands]", LDoc::LogFormatDoc( ), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
     fColor = std::make_shared <bool_arg>("-logcolor", "-logcolor\t\t--true/--false", "Whether or not to use colors when writing log messages to the console", LPublisher::Instance( )->GetEnableColor( ), fgkOPTIONAL, GCmdApi::bool2);
 
     AddArgument(fHelp, eDUP_STRATEGY::IGNORE_DUPLICATE);

@@ -30,10 +30,12 @@
 #include "LConversion.h"
 #include "LHashMaps.h"
 #include "LOperators.h"
+#include "LDoc.h"
 
 #include <utilities/GTokenizer.h>
 #include <utilities/GNumbers.h>
 #include <utilities/GNumberTypes.h>
+
 
 
 namespace LOGMASTER
@@ -101,16 +103,7 @@ namespace LOGMASTER
             }
             else
             {
-                cout  << "Invalid target: " << in << endl;
-                cout  << "Valid target commands are" << endl;
-
-                auto targets =   LHashMaps::GetTargetHash();
-                for(auto it = targets->begin(); it != targets->end(); it ++ )
-                {
-                    cout << it->first << endl;
-                }
-
-                throw(std::invalid_argument( ("invalid argument " + in).c_str() ));
+                throw(std::invalid_argument( ("ERROR: Invalid argument " + in).c_str() ));
             }
         }
 
@@ -135,7 +128,7 @@ namespace LOGMASTER
         }
         else
         {
-            throw(std::invalid_argument( ("invalid argument " + in).c_str() ));    
+            throw(std::invalid_argument( ("ERROR: Invalid argument " + in).c_str() ));    
         }
 
         return eLOGLEVEL::LOG_OFF;
@@ -159,7 +152,7 @@ namespace LOGMASTER
         }
         else
         {
-            throw(std::invalid_argument( ("4_invalid argument " + in).c_str() ));    
+            throw(std::invalid_argument( ("ERROR: invalid argument " + in).c_str() ));    
         }
 
         return eMSGSYSTEM::SYS_NONE;

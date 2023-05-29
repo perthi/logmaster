@@ -45,7 +45,7 @@ namespace LOGMASTER
     {
         std::stringstream buffer;
         buffer << "Invalid/bad combination command/subcommand: " << sub << " To " << cmnd << ".\nValid subcommands are:" << 
-			g_utilities()->Hash2String(&m);
+            g_utilities()->Hash2String(&m);
         buffer << Help();
         return buffer.str();
     }
@@ -88,8 +88,8 @@ Example 1) --all-debug = All subsystem is using loglevel debug\n\t\tExample 2) -
         std::ofstream f;
         f.open("loglevels.txt");
 
-		auto hash = LHashMaps::GetSubCmdHash();
-	
+        auto hash = LHashMaps::GetSubCmdHash();
+    
         for (auto it = hash->begin(); it != hash->end(); it ++ )
         {
             std::bitset<16>  b( (int32_t)std::get<0>(it->second) );

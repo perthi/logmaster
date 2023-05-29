@@ -37,6 +37,8 @@
 #include "LConfig.h"
 #include "LPublisher.h"
 #include "LConversion.h"
+#include "LDoc.h"
+
 #include <utilities/GTime.h>
 
 
@@ -48,6 +50,8 @@ std::mutex log_mutex;
 std::mutex new_mutex;
 #endif
 
+
+#include <exception>
 
 
 string fSource;
@@ -396,20 +400,31 @@ namespace LOGMASTER
     LLogging::SetLogLevel( const string& level_s )
     {
         std::lock_guard<std::mutex> guard( log_mutex );
-        auto m = LConversion::SplitByTarget(level_s);
-
-        for ( auto it_m = m.begin(); it_m != m.end(); it_m++ )
+        
+        try
         {
-            eMSGTARGET target = it_m->first;
+            auto m = LConversion::SplitByTarget(level_s);
 
-            for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
+            for ( auto it_m = m.begin( ); it_m != m.end( ); it_m++ )
             {
-                if ( (it->first & target) != (eMSGTARGET)0 )
+                eMSGTARGET target = it_m->first;
+
+                for ( auto it = fConfig->begin( ); it != fConfig->end( ); it++ )
                 {
-                    it->second.GetConfig()->SetLogLevel( it_m->second );
+                    if ( (it->first & target) != (eMSGTARGET)0 )
+                    {
+                        it->second.GetConfig( )->SetLogLevel(it_m->second);
+                    }
                 }
             }
         }
+        catch( std::exception &e )
+        { 
+        
+            cout << LDoc::Help( ) << endl;
+            CERR << "Exception caught setting log level" << ENDL;
+        }
+
     }
 
 

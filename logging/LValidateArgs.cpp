@@ -36,24 +36,12 @@
 
 namespace LOGMASTER
 {
-    LValidateArgs::LValidateArgs()
-    {
-
-    }
-
-
-    LValidateArgs::~LValidateArgs()
-    {
-
-    }
-
-
     bool
     LValidateArgs::CAPIValidateSubCommands(const string cmd,  const string args_s, const vector<string> sub, const vector<string> par)
     {
         if (sub.size() == 0 && par.size() == 0)
         {
-            throw(std::invalid_argument((cmd + "expects at least one subcommand, a binary, or a hex number to set the loglevel:\n," + LDoc::Instance()->Help()).c_str()));
+            throw(std::invalid_argument((cmd + "expects at least one subcommand, a binary, or a hex number to set the log level:\n," + LDoc::Help()).c_str()));
         }
 
         LLogging::Instance()->SetLogLevel( args_s );
@@ -66,7 +54,7 @@ namespace LOGMASTER
     {
         if (targets.size() == 0 && par.size() == 0)
         {
-            throw(std::invalid_argument(    (cmd +": You must spcify at least eiter one parameter or one subcommand").c_str() )  );
+            throw(std::invalid_argument(    (cmd +": You must specify at least either one parameter or one subcommand").c_str() )  );
         }
         else
         {

@@ -37,27 +37,13 @@ namespace LOGMASTER
     class LDoc
     {
     public:
-        inline static LDoc *  Instance();
-        string      API  LogLevelDoc();
-        string      API  LogTargetDoc();
-        string      API  LogFormatDoc();
-        void        API  PrintLogLevels(bool toconsole = false);
-        string      Help();
-        string      UsageError(const string cmnd, const string sub, map <string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > > m);
-        
- //   private:
-        LDoc() {};  // never used
-        ~LDoc(); // never used
+        static string [[nodiscard]] API  LogLevelDoc();
+        static string [[nodiscard]] API  LogTargetDoc();
+        static string [[nodiscard]] API  LogFormatDoc();
+        static void        API  PrintLogLevels(bool toconsole = false);
+        static string      Help();
+        static string      UsageError(const string cmnd, const string sub, map <string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > > m);
     };
-
-    
-
-    LDoc *
-        LDoc::Instance()
-    {
-        static LDoc *instance = new LDoc();
-        return instance;
-    }
 
      
 }

@@ -42,8 +42,6 @@ namespace LOGMASTER
         friend LLogging;
         
     public:
-        LValidateArgs();
-        ~LValidateArgs();
         static bool        API CAPIValidateSubCommands( const string cmd,  const string args_s,  const vector<string> level,    const vector<string> pars = vector<string>() );
         static bool        API CAPIValidateTargets    ( const string cmd,  const string args_s,  const vector<string> targets,  const vector<string> pars = vector<string>() );
         static bool        API CAPIValidateFormat     ( const string cmd,  const string args_s,  const vector<string> targets,  const vector<string> pars = vector<string>() );

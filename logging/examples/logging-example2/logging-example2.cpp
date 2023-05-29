@@ -15,8 +15,12 @@ int main(int argc, const char **argv)
 
     try
     {
-        GLogApplication( ).InitLogArgs( ).ScanArguments(argc, argv);
+      //  GLogApplication( ).InitLogArgs( ).ScanArguments(argc, argv);
+      //  GLogApplication( ).InitLogArgs( ).ScanArguments("-loglevel --blahhh");
+        GLogApplication( ).InitLogArgs( ).ScanArguments("-loglevel");
+
         FORCE_DEBUG("Hello world!");
+
     }
     catch ( GException& e )
     {
@@ -31,8 +35,6 @@ int main(int argc, const char **argv)
         cout << "Unknown exception caught" << endl;
     }
 
-    
-    //LLogTestAutoGen().WriteMessages( );
 
 }
 
