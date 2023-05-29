@@ -34,7 +34,6 @@
 
 #include  <utilities/GDefinitions.h>
 #include  <utilities/GSystem.h>
-#include <utilities/GFileIOHandler.h>
 #include  <utilities/GConstants.h>
 using namespace GCONSTANTS;
 
@@ -44,9 +43,7 @@ using namespace GCONSTANTS;
 #include <cmdline/GLogHelpers.h>
 
 #include  <logging/LValidateArgs.h>
-#include  <logging/GException.h>
 #include  <logging/LDoc.h>
-#include  <logging/LPublisher.h>
 #include  <logging/LLogApi.h>
 
 
@@ -91,94 +88,15 @@ GLogApplication::GLogApplication( const int argc, const char** argv, arg_deque_p
 
 GLogApplication::GLogApplication(const GFileName_t & tf,  arg_deque *additional_arguments)
 {   
-    
     InitLogArgs();
     
-    string commandline = cmdlineFromFile(tf.str( ));
-
-    ScanArguments(commandline);
-
-    /*
     if( additional_arguments != nullptr )
     {
         AddArguments( *additional_arguments);
     }
 
-    string fname_local = tf.str();
-
-    G_DEBUG("Attempting to read configuration from file \"%s\"", fname_local.c_str());
-    string fname_local_content = g_file()->ReadFirstLine(fname_local);
-    if (fname_local_content != "")
-    {
-        G_INFO("The file \"%s\" was found. The content of first line is: %s", fname_local.c_str(), fname_local_content.c_str());
-    }
-   
-    string fname_full    =  g_system()->GetExeDir()  + fname_local;
-    
-    G_DEBUG("Attempting to read configuration from file: \"%s\"", fname_full.c_str());
-    string fname_full_content    =  g_file()->ReadFirstLine(fname_full);
-
-
-    if (fname_full_content != "")
-    {
-        G_INFO("The file \"%s\" was found. The content of first line is: %s", fname_full.c_str(), fname_full_content.c_str());
-    }
-    
-
-    if (fname_local_content == ""  && fname_full_content == "")
-    {
-        G_ERROR("failed to find file with name \"%s\" \n searched the following directories\n %s \n %s", fname_local.c_str(), g_system()->pwd().c_str(), g_system()->GetExeDir() );
-    }
-
-
-    if ( ( fname_local_content != "" && fname_full_content != "") && ( fname_local_content != fname_full_content ) )
-    {
-        INVALID_ARGUMENT_EXCEPTION("conflicting config files. You have two config files in both the current directory \
-        and the exe directory with the same name, but different content ( \"%s\"  vs  \"%s\" ), please delete one of them",   
-        fname_local.c_str(), fname_full.c_str()  );
-    }
-    else
-    {
-        if ( fname_local_content == "" && fname_full_content == "")
-        {
-            INVALID_ARGUMENT_EXCEPTION("Unable to scan arguments from either  \"%s\"   or \"%s\": Either the file does not exist, or it is empty", 
-            fname_local.c_str(), fname_full.c_str());
-        }
-        else
-        {
-            
-#ifdef _WIN32
-            string cmd = g_system()->GetCommandLineArguments();
-#endif
-
-            string f_content;
-            string f_name;
-
-            if (fname_local_content != "")
-            {
-                f_content = fname_local_content;
-                f_name = fname_local;
-            }
-            else
-            {
-                f_content = fname_full_content;
-                f_name = fname_full;
-            }
-
-            #ifdef _WIN32
-            string temp = f_content + " " + cmd;
-            #else
-            string temp = f_content;
-            #endif
-            
-            G_DEBUG("Message1:%s", temp.c_str());
-            ScanArguments(temp);
-            G_INFO("Init done...");
-        }
-    }
-
-    G_DEBUG("construction finished");
-    */
+    string commandline = cmdlineFromFile(tf.str( ));
+    ScanArguments(commandline);
 }
 
 
@@ -258,7 +176,7 @@ GLogApplication::ScanArguments(const string  cmdline )
 
 
 void
-GLogApplication::ScanArguments(const string cmdline, std::shared_ptr<GArgument>  arg)
+GLogApplication::ScanArguments(const string cmdline, arg_ptr arg)
 {
     arg_deque  args;
     args.push_back(arg);
@@ -268,7 +186,7 @@ GLogApplication::ScanArguments(const string cmdline, std::shared_ptr<GArgument> 
 
 
 void
-GLogApplication::ScanArguments(const string cmdline, deque <  std::shared_ptr<GArgument> > args)
+GLogApplication::ScanArguments(const string cmdline, arg_deque args)
 {
     vector<string> tokens = GTokenizer().TokenizeCommandline(cmdline);
     const size_t argc = tokens.size() + 1;
@@ -286,7 +204,7 @@ GLogApplication::ScanArguments(const string cmdline, deque <  std::shared_ptr<GA
  
 
 GLogApplication &
-GLogApplication::ScanArguments(const int argc, const char ** argv, deque < std::shared_ptr<GArgument> > args)
+GLogApplication::ScanArguments(const int argc, const char ** argv, arg_deque args)
 {
     g_cmdscan()->ScanArguments(argc, argv, &args);
     return *this;
@@ -301,7 +219,7 @@ void GLogApplication::ScanArguments(const int argc, const char ** argv)
 
 
 GLogApplication  &
-GLogApplication::AddArgument( std::shared_ptr<GArgument>  arg, eDUP_STRATEGY strategy )
+GLogApplication::AddArgument( arg_ptr arg, eDUP_STRATEGY strategy )
 {
     if (arg != 0)
     {
@@ -379,7 +297,7 @@ GLogApplication::RemoveArgument( const string cmd )
 }
 
 
-deque< std::shared_ptr<GArgument> >  
+arg_deque  
 GLogApplication::GetArguments()
 {
     return fArgs;
@@ -394,7 +312,7 @@ GLogApplication::Help( const string cmd  ) const
 
 
 string 
-GLogApplication::Help( const deque < std::shared_ptr <GArgument> > args, const string cmd )
+GLogApplication::Help( const arg_deque args, const string cmd )
 {
     std::stringstream buffer;
 
@@ -465,7 +383,7 @@ bool
 
 
  bool
- GLogApplication::HasCommand( deque < std::shared_ptr<GArgument> > args, const string cmd )
+ GLogApplication::HasCommand( arg_deque args, const string cmd )
  {   
     for (uint16_t i = 0; i < args.size(); i++)
     {

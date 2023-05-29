@@ -84,8 +84,6 @@ typedef int errno_t;
 #define EXCECUTION_ERROR -33
 #define ARG_MAX 4096
 
-// #define COUT  cout << __FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":"
-
 
 #undef COUT
 #define COUT  cout <<  std::dec << __FUNCTION__ << ":[" << __LINE__  << "]"

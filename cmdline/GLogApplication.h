@@ -82,13 +82,12 @@ public:
     bool             API   IsMandatory(const string cmd) const;
     bool             API   IsOptional(const string cmd) const;
 
-
 private:
     API GLogApplication(GLogApplication&);
     void operator=(GLogApplication&);
     virtual   void                 API   ScanArguments(const string cmdline, arg_ptr arg);
     virtual   void                 API   ScanArguments(const string cmdline, arg_deque args);
-    virtual   GLogApplication      API& ScanArguments(const int argc, const char** argv, arg_deque  arg);
+    virtual   GLogApplication      API&  ScanArguments(const int argc, const char** argv, arg_deque  arg);
 
     arg_deque        fArgs = arg_deque( );
     void_arg_ptr     fHelp = nullptr;    //!< Command line argument for printing out version information
@@ -96,8 +95,7 @@ private:
     vector_arg_ptr   fTarget = nullptr;  //!< Command line argument for the configuration of the log  target
     vector_arg_ptr   fFormat = nullptr;  //!< Command line argument for the configuration of the log  format
     bool_arg_ptr     fColor = nullptr;   //!< Command line argument for controlling whether or not to use color coding of log messages
-
-    eDUP_STRATEGY fStrategy = eDUP_STRATEGY::THROW_EXEPTION;
+    eDUP_STRATEGY    fStrategy = eDUP_STRATEGY::THROW_EXEPTION;
 
 };
 
