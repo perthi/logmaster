@@ -7,21 +7,33 @@
 
 using namespace LOGMASTER;
 
+#include <cmdline/GCmdWiki.h>
 
 #include <iostream>
 
 int main(int argc, const char **argv)
 {
 
+    ///GLogApplication( ).InitLogArgs( ).ScanArguments("-loglevel");
+
+
     try
     {
       //  GLogApplication( ).InitLogArgs( ).ScanArguments(argc, argv);
-      //  GLogApplication( ).InitLogArgs( ).ScanArguments("-loglevel --blahhh");
-        GLogApplication( ).InitLogArgs( ).ScanArguments("-loglevel");
+     //  GLogApplication( ).InitLogArgs( ).ScanArguments("-loglevel --blahhh");
+         
+        GLogApplication g;
+        g.InitLogArgs( );
+
+        arg_deque args = g.GetArguments( );
+
+        GCmdWiki::GenerateWiki(args, "wiki.h");
+
+        GLogApplication( ).InitLogArgs( ).ScanArguments("-loglevel")  ;
 
         FORCE_DEBUG("Hello world!");
-
     }
+  
     catch ( GException& e )
     {
         cout << e.what( ) << endl;
@@ -34,6 +46,7 @@ int main(int argc, const char **argv)
     {
         cout << "Unknown exception caught" << endl;
     }
+    
 
 
 }

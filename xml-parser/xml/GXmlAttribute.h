@@ -14,17 +14,17 @@
 
 
 /** @brief xml attribute
-	@details implements a simple Node-like class for attributes
+    @details implements a simple Node-like class for attributes
 */
 class GXmlAttribute
 {
 public:
-	API GXmlAttribute(const std::string& name, const std::string& value);
-	API std::string GetName() const;
-	API std::string GetValue() const;
+    API GXmlAttribute(const std::string& name, const std::string& value);
+    API std::string GetName() const;
+    API std::string GetValue() const;
 private:
-	const std::string fName;
-	const std::string fValue;
+    const std::string fName;
+    const std::string fValue;
 };
 
 #endif // !GXMLATTRIBUTE_H

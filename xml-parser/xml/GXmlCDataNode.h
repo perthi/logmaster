@@ -15,7 +15,7 @@ using std::string;
 class GXmlCDataNode : public GXmlNodeImpl
 {
 public:
-	GXmlCDataNode(const string& value);
-	virtual eXML_NODETYPE GetType() const override;
-	virtual string GetTypeS() const override;
+    GXmlCDataNode(const string& value);
+    virtual eXML_NODETYPE GetType() const override;
+    virtual string GetTypeS() const override;
 };

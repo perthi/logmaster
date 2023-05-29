@@ -16,14 +16,14 @@ class LGenerator;
 namespace CONFIGURATOR
 {
 
-	class LCreateDefaultGenerators
-	{
-	public:
-		static generator_vec  CreateAll(const LXMLInfo xmlinfo);
+    class LCreateDefaultGenerators
+    {
+    public:
+        static generator_vec  CreateAll(const LXMLInfo xmlinfo);
 
 
 
-	};
+    };
 
 
 }

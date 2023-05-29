@@ -93,13 +93,13 @@ GException::IsEnabledException()
 void
 GException::EnableException()
 {
-	fIsEnabledException = true;
+    fIsEnabledException = true;
 }
 
 
 void GException::DisableException()
 {
-	fIsEnabledException = false;
+    fIsEnabledException = false;
 }
 /**@}*/
 
@@ -107,7 +107,7 @@ void GException::DisableException()
 bool
 GException::IsEnabledStackTrace()
 {
-	return fIsEnabledStackTrace;
+    return fIsEnabledStackTrace;
 }
 
 
@@ -127,7 +127,7 @@ GException::EnableStackTrace()
 void
 GException::DisableStackTrace()
 {
-	fIsEnabledStackTrace = false;
+    fIsEnabledStackTrace = false;
 }
 /**@}*/
 

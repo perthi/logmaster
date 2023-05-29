@@ -12,18 +12,18 @@
 #include <vector>
 
 GXmlTagNode::GXmlTagNode(const std::string& name) 
-	: GXmlNodeImpl(name, "")
+    : GXmlNodeImpl(name, "")
 {
 }
 
 std::vector<GXmlAttribute> GXmlTagNode::GetAttributes() const
 {
-	return fAttributes;
+    return fAttributes;
 }
 
 void GXmlTagNode::AddAttribute(const GXmlAttribute& attribute)
 {
-	fAttributes.push_back(attribute);
+    fAttributes.push_back(attribute);
 }
 
 GXmlTagNode::~GXmlTagNode()

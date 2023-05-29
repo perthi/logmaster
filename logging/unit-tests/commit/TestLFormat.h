@@ -16,8 +16,8 @@
 class TestLFormat : public TestBase
 {
 public:
-	TestLFormat();
-	virtual ~TestLFormat();
+    TestLFormat();
+    virtual ~TestLFormat();
 
 };
 

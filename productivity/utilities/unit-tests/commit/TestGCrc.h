@@ -11,9 +11,9 @@
 
 class  TestGCrc : public TestBase
 {
-	public:
-		TestGCrc();
-		virtual ~TestGCrc();
+    public:
+        TestGCrc();
+        virtual ~TestGCrc();
 };
 
 #endif

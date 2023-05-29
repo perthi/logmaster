@@ -23,11 +23,11 @@
 #define A_DARK_GREEN 32
 #define A_YELLOW     93
 #define A_ORANGE     33
-#define A_RED		 31
-#define A_BLUE		 34 
+#define A_RED         31
+#define A_BLUE         34 
 #define A_LIGHT_BLUE 36
 #define A_CYAN       96
-#define A_PURPLE	 95
+#define A_PURPLE     95
 #define A_GRAY       37
 
 /* Color defineitions usng RGB format*/
@@ -37,11 +37,11 @@
 #define C_DARK_GREEN 0x256E53
 #define C_YELLOW     0xF0F70C
 #define C_ORANGE     0xEDAF28
-#define C_RED		 0xED3C28
-#define C_BLUE		 0x1313F0 
+#define C_RED         0xED3C28
+#define C_BLUE         0x1313F0 
 #define C_LIGHT_BLUE 0x6ABCE6
 #define C_CYAN       0x28EDE0
-#define C_PURPLE	 0x7E28ED
+#define C_PURPLE     0x7E28ED
 #define C_GRAY       0xCFCFCF
 #define C_LIGHT_GRAY 0xD8D8D8
 
@@ -57,7 +57,7 @@
 #define T_WHITE       ( FOREGROUND_BLUE  | FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY )
 #define T_YELLOW      ( FOREGROUND_GREEN | FOREGROUND_RED |  FOREGROUND_INTENSITY )
 #define T_BLUE        ( FOREGROUND_BLUE  | FOREGROUND_INTENSITY )
-#define T_GRAY		  ( FOREGROUND_INTENSITY )
+#define T_GRAY          ( FOREGROUND_INTENSITY )
 #define T_LIGHT_GRAY  ( FOREGROUND_RED  | FOREGROUND_BLUE | FOREGROUND_GREEN )
 #define T_CYAN        ( FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY )
 #define T_PURPLE      ( FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY )
@@ -70,7 +70,7 @@
 #define T_WHITE      C_WHITE
 #define T_YELLOW     C_YELLOW
 #define T_BLUE       C_BLUE
-#define T_GRAY	     C_GRAY	
+#define T_GRAY         C_GRAY    
 #define T_LIGHT_GRAY C_LIGHT_GRAY 
 #define T_CYAN       C_CYAN
 #define T_PURPLE     C_PURPLE

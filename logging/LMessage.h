@@ -71,7 +71,7 @@ public:
         int fLineNo; //!< The line number where the messaeg was created
 #endif
     char fMsgBody[MAX_MSG_SIZE] = "No MESSAGE YET"; //!< The actual message
-    //        char  fMsg[MAX_G_SIZE];			//!< The complete message including time stamp etc..
+    //        char  fMsg[MAX_G_SIZE];            //!< The complete message including time stamp etc..
     char fMsg[MAX_MSG_TOTAL_SIZE] = {}; //!< The complete message including time stamp etc..
     eLOGLEVEL fLevel = eLOGLEVEL(-1);              //!< The severity level of this message
     eMSGSYSTEM fSystem = eMSGSYSTEM(-1) ;            //!< The subsystem this message applies to

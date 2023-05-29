@@ -84,11 +84,11 @@ GArgument::Verify()
 {
     if(ValidateCommands == 0 )
     {
-	   //G_INFO("Validation function is ZERO");
+       //G_INFO("Validation function is ZERO");
     }
     else
     {
-		return ValidateCommands (fCmd, "", fSubCmds, vector<string> () );
+        return ValidateCommands (fCmd, "", fSubCmds, vector<string> () );
     }
     return false;
 }
@@ -117,10 +117,10 @@ GArgument::str(const bool subcommands ) const
         if(  fSubCmds.size() > 0  && subcommands == true )
         {
             buffer << "*** SUBCOMMANDS ****" << endl;
-	        for(size_t i=0; i < fSubCmds.size(); i++ )
-	        {
-	            buffer << "Subcommand[" << i << "] = " << fSubCmds[i] << endl;
-	        }
+            for(size_t i=0; i < fSubCmds.size(); i++ )
+            {
+                buffer << "Subcommand[" << i << "] = " << fSubCmds[i] << endl;
+            }
         }
     }
     return buffer.str();
@@ -143,12 +143,12 @@ GArgument::SetExcecName(const char *name)
 {
     if(name !=0)
     {
-	    fExecName = string(name);
+        fExecName = string(name);
     }
     else
     {
         throw(std::invalid_argument("ZERO POINTER !!!!"));
-	    ///EXCEPTION("ZERO POINTER !!!!");
+        ///EXCEPTION("ZERO POINTER !!!!");
     }
 }
 

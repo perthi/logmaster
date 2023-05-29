@@ -13,7 +13,7 @@
 class GXmlCloseTagNode : public GXmlTagNode
 {
 public:
-	using GXmlTagNode::GXmlTagNode;
-	virtual eXML_NODETYPE GetType() const override { return eXML_NODETYPE::ECloseTagNode; }
-	virtual string  GetTypeS() const override { return  GXmlEnum2String::Enum2String ( eXML_NODETYPE::ECloseTagNode); }
+    using GXmlTagNode::GXmlTagNode;
+    virtual eXML_NODETYPE GetType() const override { return eXML_NODETYPE::ECloseTagNode; }
+    virtual string  GetTypeS() const override { return  GXmlEnum2String::Enum2String ( eXML_NODETYPE::ECloseTagNode); }
 };

@@ -20,22 +20,22 @@ GUILogger *gui_instance =  new GUILogger(); /// CRAP PTH
 
 void  logger_callback(const std::shared_ptr<LMessage>  m)
 {
-	static int cnt = 0;
-	gui_instance->newMessage(cnt, *m);
-	cnt++;
+    static int cnt = 0;
+    gui_instance->newMessage(cnt, *m);
+    cnt++;
 }
 
 
 GUILogger::GUILogger()
 {
-	LLogging::Instance()->RegisterGuiSubscriber( logger_callback );
-	auto subscribers = LLogging::Instance()->GetGuiSubscribers();
+    LLogging::Instance()->RegisterGuiSubscriber( logger_callback );
+    auto subscribers = LLogging::Instance()->GetGuiSubscribers();
 }
 
 
 void 
 GUILogger::newMessage(int cnt, const LMessage &msg)
 {
-	GUILoggerGui::AddMessage( cnt, msg );
+    GUILoggerGui::AddMessage( cnt, msg );
 }
 

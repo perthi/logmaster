@@ -56,8 +56,8 @@ using std::ifstream;
 
 GFileIOHandler* g_file()
 {
-	static GFileIOHandler* instance = new GFileIOHandler();
-	return instance;
+    static GFileIOHandler* instance = new GFileIOHandler();
+    return instance;
 }
 
 
@@ -71,45 +71,45 @@ GFileIOHandler* g_file()
 bool
 GFileIOHandler::Append(const string fname, const char* fmt, ...)
 {
-	if (fname == "")
-	{
-		CERR << "filename is empty, aborting" << endl;
-		return false;
-	}
+    if (fname == "")
+    {
+        CERR << "filename is empty, aborting" << endl;
+        return false;
+    }
 
-	try
-	{
-		if (CheckFile(fname, "a"))
-		{
-			FILE* fp = OpenFile(fname, "a", GLOCATION);
+    try
+    {
+        if (CheckFile(fname, "a"))
+        {
+            FILE* fp = OpenFile(fname, "a", GLOCATION);
 
-			if (fp == nullptr)
-			{
-				throw(std::runtime_error(std::format("failed to open file {}", fname)));
-			}
+            if (fp == nullptr)
+            {
+                throw(std::runtime_error(std::format("failed to open file {}", fname)));
+            }
 
-			va_list ap;
-			va_start(ap, fmt);
-			static char txt[65536];
-			vsnprintf(txt, sizeof(txt) - 1, fmt, ap);
-			fprintf(fp, "%s", txt);
-			fclose(fp);
-			va_end(ap);
-			//FORCE_DEBUG("returning true");
-			return true;
-		}
-		else
-		{
-			CERR << "filename = " << fname << endl;
-			//EXCEPTION("fopen(%s, %c) failed, please check that the file exists, and that you have write permissions to it", fname.c_str(), 'a');
-			throw(std::runtime_error(std::format("fopen({}, {}) failed, please check that the file exists, and that you have write permissions to it", fname, 'a')));
-		}
-	}
-	catch (std::exception& e)
-	{
-		CERR << "Exception caught appending to file, message:" << e.what() << ENDL;
-		return false;
-	}
+            va_list ap;
+            va_start(ap, fmt);
+            static char txt[65536];
+            vsnprintf(txt, sizeof(txt) - 1, fmt, ap);
+            fprintf(fp, "%s", txt);
+            fclose(fp);
+            va_end(ap);
+            //FORCE_DEBUG("returning true");
+            return true;
+        }
+        else
+        {
+            CERR << "filename = " << fname << endl;
+            //EXCEPTION("fopen(%s, %c) failed, please check that the file exists, and that you have write permissions to it", fname.c_str(), 'a');
+            throw(std::runtime_error(std::format("fopen({}, {}) failed, please check that the file exists, and that you have write permissions to it", fname, 'a')));
+        }
+    }
+    catch (std::exception& e)
+    {
+        CERR << "Exception caught appending to file, message:" << e.what() << ENDL;
+        return false;
+    }
 }
 
 
@@ -124,44 +124,44 @@ GFileIOHandler::Append(const string fname, const char* fmt, ...)
 string
 GFileIOHandler::ReadLastLine(const string fname, const unsigned int offset)
 {
-	string lastline;
+    string lastline;
 
-	if (CheckFile(fname) == false)
-	{
-		GCommon().HandleError(std::format("Cannot open file: {}", fname), GLOCATION, DISABLE_EXCEPTION);
-		return "";
-	}
+    if (CheckFile(fname) == false)
+    {
+        GCommon().HandleError(std::format("Cannot open file: {}", fname), GLOCATION, DISABLE_EXCEPTION);
+        return "";
+    }
 
-	vector<string> content = ReadAll(fname);
+    vector<string> content = ReadAll(fname);
 
-	if (CheckFile(fname) == false)
-	{
-		GCommon().HandleError(std::format("Cannot open file: {}", fname), GLOCATION, DISABLE_EXCEPTION);
-		return "";
-	}
-	if (content.size() == 0)
-	{
-		GCommon().HandleError(std::format("The file \"{}\" is empty", fname), GLOCATION, DISABLE_EXCEPTION);
-		return "";
-	}
-	else
-	{
+    if (CheckFile(fname) == false)
+    {
+        GCommon().HandleError(std::format("Cannot open file: {}", fname), GLOCATION, DISABLE_EXCEPTION);
+        return "";
+    }
+    if (content.size() == 0)
+    {
+        GCommon().HandleError(std::format("The file \"{}\" is empty", fname), GLOCATION, DISABLE_EXCEPTION);
+        return "";
+    }
+    else
+    {
 #ifdef _WIN32
 #pragma warning(suppress: 4018) // in this instance we need to allow comparison between signed and unsigned
 #endif
-		if (offset > content.size())
-		{
-			GCommon().HandleError(std::format("Invalid array subscript, offset = {} lines from the end of the file, \
+        if (offset > content.size())
+        {
+            GCommon().HandleError(std::format("Invalid array subscript, offset = {} lines from the end of the file, \
                                                 but there are only {} lines in the file", offset, content.size()), GLOCATION, DISABLE_EXCEPTION);
 
 
-			return content.at(0);
-		}
-		else
-		{
-			return  content.at(content.size() - 1 - offset);
-		}
-	}
+            return content.at(0);
+        }
+        else
+        {
+            return  content.at(content.size() - 1 - offset);
+        }
+    }
 }
 
 
@@ -173,10 +173,10 @@ GFileIOHandler::ReadLastLine(const string fname, const unsigned int offset)
 string
 GFileIOHandler::GetAbsolutePath(const string fname)
 {
-	string absolutePath;
-	char path[PATH_MAXLENGTH];
-	absolutePath = _fullpath(path, fname.c_str(), PATH_MAXLENGTH);
-	return(absolutePath);
+    string absolutePath;
+    char path[PATH_MAXLENGTH];
+    absolutePath = _fullpath(path, fname.c_str(), PATH_MAXLENGTH);
+    return(absolutePath);
 }
 
 #else
@@ -184,7 +184,7 @@ GFileIOHandler::GetAbsolutePath(const string fname)
 string
 GFileIOHandler::GetAbsolutePath(const string)
 {
-	return "error_not_implement_om_linux_yet";
+    return "error_not_implement_om_linux_yet";
 }
 #endif
 
@@ -202,15 +202,15 @@ GFileIOHandler::GetExtention(const string)
 #endif
 {
 #ifdef _WIN32  
-	char path[PATH_MAXLENGTH];
-	::strcpy_s(path, PATH_MAXLENGTH, fname.c_str());
-	const char* extentionSz = PathFindExtensionA(path);
-	int offset = *extentionSz == '.' ? 1 : 0;
-	string extention = extentionSz + offset;
-	std::transform(extention.begin(), extention.end(), extention.begin(), ::tolower);
-	return(extention);
+    char path[PATH_MAXLENGTH];
+    ::strcpy_s(path, PATH_MAXLENGTH, fname.c_str());
+    const char* extentionSz = PathFindExtensionA(path);
+    int offset = *extentionSz == '.' ? 1 : 0;
+    string extention = extentionSz + offset;
+    std::transform(extention.begin(), extention.end(), extention.begin(), ::tolower);
+    return(extention);
 #else
-	return ""; // on Linux there are no extensions for exefile as the exe permission is set as a file attribute
+    return ""; // on Linux there are no extensions for exefile as the exe permission is set as a file attribute
 #endif
 }
 
@@ -221,24 +221,24 @@ FILE*
 GFileIOHandler::OpenFile(const string fname, const string opt, const GLocation l, const bool print_error)
 {
 
-	FILE* fp = nullptr;
+    FILE* fp = nullptr;
 
 #ifdef _WIN32
-	fopen_s(&fp, fname.c_str(), opt.c_str());
+    fopen_s(&fp, fname.c_str(), opt.c_str());
 #else
-	fp = fopen(fname.c_str(), opt.c_str());
+    fp = fopen(fname.c_str(), opt.c_str());
 #endif
 
-	if (fp == nullptr)
-	{
-		if (print_error == true)
-		{
-			string errmsg = g_system()->Errno2String(errno, fname, opt);
-			GCommon().HandleError(std::format("fopen({}, {}) failed: {}", fname, opt, errmsg), l, DISABLE_EXCEPTION);
-		}
-	}
+    if (fp == nullptr)
+    {
+        if (print_error == true)
+        {
+            string errmsg = g_system()->Errno2String(errno, fname, opt);
+            GCommon().HandleError(std::format("fopen({}, {}) failed: {}", fname, opt, errmsg), l, DISABLE_EXCEPTION);
+        }
+    }
 
-	return fp;
+    return fp;
 }
 
 
@@ -258,65 +258,65 @@ GFileIOHandler::OpenFile(const string fname, const string opt, const GLocation l
 bool
 GFileIOHandler::CheckFile(const string fname, const string opt)
 {
-	if (opt.size() > 2)
-	{
-		GCommon().HandleError( std::format("Too many option flags {}, expected at most 2. opt = {}", fname, opt), GLOCATION, DISABLE_EXCEPTION);
-	}
+    if (opt.size() > 2)
+    {
+        GCommon().HandleError( std::format("Too many option flags {}, expected at most 2. opt = {}", fname, opt), GLOCATION, DISABLE_EXCEPTION);
+    }
 
-	if (!(opt == "w" || opt == "w+" || opt == "a" || opt == "a+" || opt == "r" || opt == "r+"))
-	{
-		GCommon().HandleError( std::format("Invalid option {}", opt), GLOCATION, DISABLE_EXCEPTION);
-		return false;
-	}
-	else
-	{
-		FILE* fp = OpenFile(fname, "r", GLOCATION);
+    if (!(opt == "w" || opt == "w+" || opt == "a" || opt == "a+" || opt == "r" || opt == "r+"))
+    {
+        GCommon().HandleError( std::format("Invalid option {}", opt), GLOCATION, DISABLE_EXCEPTION);
+        return false;
+    }
+    else
+    {
+        FILE* fp = OpenFile(fname, "r", GLOCATION);
 
-		if (fp != nullptr)
-		{
-			//     bool ret = false;
-			if (opt == "w" || opt == "w+")
-			{
-				GCommon().HandleError( std::format("The file {} exists, opening it with the {} option will discard existing content",fname, opt), GLOCATION, DISABLE_EXCEPTION);
-				fclose(fp);
-				return  false;
-			}
-			else if (opt == "a" || opt == "a+" || opt == "r" || opt == "r+")
-			{
-				fclose(fp);
-				fp = OpenFile(fname, opt, GLOCATION);
+        if (fp != nullptr)
+        {
+            //     bool ret = false;
+            if (opt == "w" || opt == "w+")
+            {
+                GCommon().HandleError( std::format("The file {} exists, opening it with the {} option will discard existing content",fname, opt), GLOCATION, DISABLE_EXCEPTION);
+                fclose(fp);
+                return  false;
+            }
+            else if (opt == "a" || opt == "a+" || opt == "r" || opt == "r+")
+            {
+                fclose(fp);
+                fp = OpenFile(fname, opt, GLOCATION);
 
-				if (fp == nullptr)
-				{
+                if (fp == nullptr)
+                {
 
-					return false;
-				}
-				else
-				{
-					fclose(fp);
-					return true;
-				}
-			}
+                    return false;
+                }
+                else
+                {
+                    fclose(fp);
+                    return true;
+                }
+            }
 
-			fclose(fp);
-		}
-		else
-		{
-			GCommon().HandleError( std::format("Opening file: {}  opt = {}", fname, opt), GLOCATION, DISABLE_EXCEPTION);
-			fp = OpenFile(fname, opt, GLOCATION);
-			if (fp == nullptr)
-			{
-				return false;
-			}
-			else
-			{
-				fclose(fp);
-				remove(fname.c_str());
-				return true;
-			}
-		}
-	}
-	return false;
+            fclose(fp);
+        }
+        else
+        {
+            GCommon().HandleError( std::format("Opening file: {}  opt = {}", fname, opt), GLOCATION, DISABLE_EXCEPTION);
+            fp = OpenFile(fname, opt, GLOCATION);
+            if (fp == nullptr)
+            {
+                return false;
+            }
+            else
+            {
+                fclose(fp);
+                remove(fname.c_str());
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 
@@ -325,19 +325,19 @@ GFileIOHandler::CheckFile(const string fname, const string opt)
 inline void
 GFileIOHandler::SetAttribute(const string fname, unsigned long attr)
 {
-	DWORD old_attr = GetFileAttributesA(fname.c_str());
-	// If error, The file does not exists - Can't change attribute
-	if (old_attr == ((DWORD)-1))
-	{
-		return;
-	}
-	DWORD new_attr = old_attr | attr;
-	int ret = SetFileAttributesA(fname.c_str(), new_attr);
+    DWORD old_attr = GetFileAttributesA(fname.c_str());
+    // If error, The file does not exists - Can't change attribute
+    if (old_attr == ((DWORD)-1))
+    {
+        return;
+    }
+    DWORD new_attr = old_attr | attr;
+    int ret = SetFileAttributesA(fname.c_str(), new_attr);
 
-	if (ret != 1)
-	{
-		CERR << "could not set attribute !!" << ENDL;
-	}
+    if (ret != 1)
+    {
+        CERR << "could not set attribute !!" << ENDL;
+    }
 }
 #endif
 
@@ -345,24 +345,24 @@ GFileIOHandler::SetAttribute(const string fname, unsigned long attr)
 string
 GFileIOHandler::ReadFirstLine(const string fname)
 {
-	string firstline;
-	vector<string> content = ReadAll(fname);
-	if (content.size() == 0)
-	{
-		return "";
-	}
-	else
-	{
-		return  content.at(0);
-	}
+    string firstline;
+    vector<string> content = ReadAll(fname);
+    if (content.size() == 0)
+    {
+        return "";
+    }
+    else
+    {
+        return  content.at(0);
+    }
 }
 
 
 bool
 GFileIOHandler::Recreate(const string fname)
 {
-	g_system()->rm(fname);
-	return g_system()->mkfile(fname);
+    g_system()->rm(fname);
+    return g_system()->mkfile(fname);
 }
 
 
@@ -371,19 +371,19 @@ GFileIOHandler::Recreate(const string fname)
 void
 GFileIOHandler::ClearAttribute(const string fname, unsigned long attr)
 {
-	DWORD old_attr = GetFileAttributesA(fname.c_str());
-	// If error, The file does not exists - Can't change attribute
-	if (old_attr == ((DWORD)-1))
-	{
-		return;
-	}
-	DWORD new_attr = old_attr & ~attr;
-	int ret = SetFileAttributesA(fname.c_str(), new_attr);
+    DWORD old_attr = GetFileAttributesA(fname.c_str());
+    // If error, The file does not exists - Can't change attribute
+    if (old_attr == ((DWORD)-1))
+    {
+        return;
+    }
+    DWORD new_attr = old_attr & ~attr;
+    int ret = SetFileAttributesA(fname.c_str(), new_attr);
 
-	if (ret != 1)
-	{
-		CERR << "could not set attribute !!" << ENDL;
-	}
+    if (ret != 1)
+    {
+        CERR << "could not set attribute !!" << ENDL;
+    }
 }
 #endif
 
@@ -395,40 +395,40 @@ GFileIOHandler::ClearAttribute(const string fname, unsigned long attr)
 vector<string>
 GFileIOHandler::ReadAll(const string fname, bool* status)
 {
-	static std::mutex tmp_mutex;
-	std::lock_guard<std::mutex> guard(tmp_mutex);
-	static int cnt = 0;
-	cnt++;
+    static std::mutex tmp_mutex;
+    std::lock_guard<std::mutex> guard(tmp_mutex);
+    static int cnt = 0;
+    cnt++;
 
-	vector<string> ret;
-	std::ifstream fin;
-	string line;
+    vector<string> ret;
+    std::ifstream fin;
+    string line;
 
-	bool l_status = true;
+    bool l_status = true;
 
-	fin.open(fname);
-	if (!fin.good())
-	{
-		//CERR << fname << "  IS NOT GOOD" << ENDL;
-		l_status = false;
-		GCommon().HandleError(fname + ": " + string(strerror(errno)), GLOCATION, true);
+    fin.open(fname);
+    if (!fin.good())
+    {
+        //CERR << fname << "  IS NOT GOOD" << ENDL;
+        l_status = false;
+        GCommon().HandleError(fname + ": " + string(strerror(errno)), GLOCATION, true);
 
-	}
-	else
-	{
-		while (!fin.eof())
-		{
-			getline(fin, line);
-			ret.push_back(line);
-		}
-	}
+    }
+    else
+    {
+        while (!fin.eof())
+        {
+            getline(fin, line);
+            ret.push_back(line);
+        }
+    }
 
-	if (status != nullptr)
-	{
-		*status = l_status;
-	}
+    if (status != nullptr)
+    {
+        *status = l_status;
+    }
 
-	return  ret;
+    return  ret;
 }
 
 

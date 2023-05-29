@@ -23,21 +23,21 @@ using namespace LOGMASTER;
 
 namespace CONFIGURATOR
 {
-	LGeneratorTestLConversion::LGeneratorTestLConversion(const string path, const string classname, const LXMLInfo xmlinfo) : LGenerator(path, classname, xmlinfo)
-	{
-		fDoGenerateHeader = true;
-		fDoGenerateSource = true;
-	}
+    LGeneratorTestLConversion::LGeneratorTestLConversion(const string path, const string classname, const LXMLInfo xmlinfo) : LGenerator(path, classname, xmlinfo)
+    {
+        fDoGenerateHeader = true;
+        fDoGenerateSource = true;
+    }
 
 
-	void
-		LGeneratorTestLConversion::GenerateLocalCommon()
-	{
-		fFileContentHeader.push_back(commonTestHeader(fFileInfo->GetClassName()));
-		fFileContentSource.push_back(std::format("#include \"{}\"", fFileInfo->GetHeaderName()));
-		fFileContentSource.push_back("#include <logging/LConversion.h>");
-		fFileContentSource.push_back("\n\n\n");
-	}
+    void
+        LGeneratorTestLConversion::GenerateLocalCommon()
+    {
+        fFileContentHeader.push_back(commonTestHeader(fFileInfo->GetClassName()));
+        fFileContentSource.push_back(std::format("#include \"{}\"", fFileInfo->GetHeaderName()));
+        fFileContentSource.push_back("#include <logging/LConversion.h>");
+        fFileContentSource.push_back("\n\n\n");
+    }
 
     //FileContentHeader.push_back(commonTestHeader(fFileInfo->GetClassName( )));
     //fFileContentSource.push_back(std::format("#include \"{}\"", fFileInfo->GetHeaderName( )));
@@ -45,33 +45,33 @@ namespace CONFIGURATOR
     //fFileContentSource.push_back("\n\n\n");
 
 
-	void LGeneratorTestLConversion::GenerateContent(const logentity_vec levels, const sysentity_vec systems)
-	{
-		GenerateLocalCommon();
-		GenerateString2SystemBin(levels, systems);
-		GenerateString2SystemHex(levels, systems);
-		GenerateString2SystemHash(levels, systems);
-		GenerateString2LevelBin(levels, systems);
-		GenerateString2LevelHex(levels, systems);
+    void LGeneratorTestLConversion::GenerateContent(const logentity_vec levels, const sysentity_vec systems)
+    {
+        GenerateLocalCommon();
+        GenerateString2SystemBin(levels, systems);
+        GenerateString2SystemHex(levels, systems);
+        GenerateString2SystemHash(levels, systems);
+        GenerateString2LevelBin(levels, systems);
+        GenerateString2LevelHex(levels, systems);
         GenerateString2LevelHash(levels, systems);
-	}
+    }
 
 
-	auto bitstring24 = [](const int lvl_index, const int sys_index)
-	{
-		string system_s = std::format("{:016b}", 1 << sys_index);
-		string level_s = std::format("{:08b}", 1 << lvl_index);
-		string bit24_s = level_s + system_s;
-		return bit24_s;
-	};
+    auto bitstring24 = [](const int lvl_index, const int sys_index)
+    {
+        string system_s = std::format("{:016b}", 1 << sys_index);
+        string level_s = std::format("{:08b}", 1 << lvl_index);
+        string bit24_s = level_s + system_s;
+        return bit24_s;
+    };
 
-	auto hexstring6 = [](const int lvl_index, const int sys_index)
-	{
-		string system_s = std::format("{:04x}", 1 << sys_index);
-		string level_s = std::format("{:02x}", 1 << lvl_index);
-		string hex6_s = "0x" +level_s + system_s;
-		return hex6_s;
-	};
+    auto hexstring6 = [](const int lvl_index, const int sys_index)
+    {
+        string system_s = std::format("{:04x}", 1 << sys_index);
+        string level_s = std::format("{:02x}", 1 << lvl_index);
+        string hex6_s = "0x" +level_s + system_s;
+        return hex6_s;
+    };
 
 
 
@@ -102,9 +102,9 @@ namespace CONFIGURATOR
 
 
 
-	void
-	LGeneratorTestLConversion::GenerateString2SystemHex(const logentity_vec levels, const sysentity_vec systems)
-	{
+    void
+    LGeneratorTestLConversion::GenerateString2SystemHex(const logentity_vec levels, const sysentity_vec systems)
+    {
         auto generate = [=](const string funct_name, const string testname)
         {
             vector<string> test_body;
@@ -164,9 +164,9 @@ namespace CONFIGURATOR
     }
 
 
-	void
-	LGeneratorTestLConversion::GenerateString2LevelBin(const logentity_vec levels, const sysentity_vec systems)
-	{
+    void
+    LGeneratorTestLConversion::GenerateString2LevelBin(const logentity_vec levels, const sysentity_vec systems)
+    {
         auto generate = [=](const string funct_name, const string testname)
         {
             vector<string> test_body;
@@ -189,7 +189,7 @@ namespace CONFIGURATOR
     }
 
 
-	void 
+    void 
     LGeneratorTestLConversion::GenerateString2LevelHex(const logentity_vec levels, const sysentity_vec systems)
     {
         auto generate = [=](const string funct_name, const string testname)
@@ -212,9 +212,9 @@ namespace CONFIGURATOR
     }
         
 
-	void
-	LGeneratorTestLConversion::GenerateString2LevelHash(const logentity_vec levels, const sysentity_vec systems)
-	{
+    void
+    LGeneratorTestLConversion::GenerateString2LevelHash(const logentity_vec levels, const sysentity_vec systems)
+    {
         auto generate = [=](const string funct_name, const string testname)
         {
             vector<string> test_body;
@@ -240,7 +240,7 @@ namespace CONFIGURATOR
             }
             fFileContentSource.push_back(GenerateTesCase(fFileInfo->GetClassName( ), testname, test_body));
         };
-		
+        
         generate("String2Level", "string2levelhash");
         generate("Hash2Level", "has2level");
     }

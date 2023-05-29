@@ -65,24 +65,24 @@ TEST_F(TestGUtilities, IsInRange)
 
 TEST_F(TestGUtilities, ConvertFromBitsToArray)
 {
-	unsigned char AA = 0xaa; //10101010
-	const	std::vector<unsigned char> vConst{ 1, 0, 1, 0, 1, 0, 1, 0 };
-			std::vector<unsigned char> vTest(8);
-	EXPECT_TRUE(g_utilities()->Bits2Array(AA, vTest));
-	EXPECT_EQ(vConst, vTest);
-	vTest.resize(9);
-	EXPECT_FALSE(g_utilities()->Bits2Array(AA, vTest));
+    unsigned char AA = 0xaa; //10101010
+    const    std::vector<unsigned char> vConst{ 1, 0, 1, 0, 1, 0, 1, 0 };
+            std::vector<unsigned char> vTest(8);
+    EXPECT_TRUE(g_utilities()->Bits2Array(AA, vTest));
+    EXPECT_EQ(vConst, vTest);
+    vTest.resize(9);
+    EXPECT_FALSE(g_utilities()->Bits2Array(AA, vTest));
 }
 
 TEST_F(TestGUtilities, ConvertFromArrayToBits)
 {
-	const	unsigned char AA	= 0xaa; //10101010
-			unsigned char test = 0x00;		
-	const std::vector<unsigned char> vConst{ 1, 0, 1, 0, 1, 0, 1, 0 };
-	EXPECT_TRUE(g_utilities()->Array2Bits(test, vConst));
-	EXPECT_EQ(AA, test);
-	const std::vector<unsigned char> vConst1{ 1, 0, 1, 0, 1, 0, 1, 0, 1 };
-	EXPECT_FALSE(g_utilities()->Array2Bits(test, vConst1));
+    const    unsigned char AA    = 0xaa; //10101010
+            unsigned char test = 0x00;        
+    const std::vector<unsigned char> vConst{ 1, 0, 1, 0, 1, 0, 1, 0 };
+    EXPECT_TRUE(g_utilities()->Array2Bits(test, vConst));
+    EXPECT_EQ(AA, test);
+    const std::vector<unsigned char> vConst1{ 1, 0, 1, 0, 1, 0, 1, 0, 1 };
+    EXPECT_FALSE(g_utilities()->Array2Bits(test, vConst1));
 }
 
 TEST_F(TestGUtilities, Contains)
@@ -101,15 +101,15 @@ TEST_F(TestGUtilities, Contains)
 
 TEST_F(TestGUtilities, isemptyNSR1804)
 {
-	EXPECT_FALSE( g_utilities()->IsSpacesOnly("lorem ipsum") );
-	EXPECT_TRUE(  g_utilities()->IsSpacesOnly(" ") );
-	EXPECT_TRUE(g_utilities()->IsSpacesOnly("   ") );
-	EXPECT_TRUE( g_utilities()->IsSpacesOnly("     ") );
-	EXPECT_TRUE(g_utilities()->IsSpacesOnly("\t") );
-	EXPECT_TRUE(g_utilities()->IsSpacesOnly("\t\t") );
-	EXPECT_TRUE(g_utilities()->IsSpacesOnly("\t  \n") );
-	EXPECT_TRUE(g_utilities()->IsSpacesOnly("\n") );
-	EXPECT_TRUE(g_utilities()->IsSpacesOnly("\n\n  \t\t  ") );
+    EXPECT_FALSE( g_utilities()->IsSpacesOnly("lorem ipsum") );
+    EXPECT_TRUE(  g_utilities()->IsSpacesOnly(" ") );
+    EXPECT_TRUE(g_utilities()->IsSpacesOnly("   ") );
+    EXPECT_TRUE( g_utilities()->IsSpacesOnly("     ") );
+    EXPECT_TRUE(g_utilities()->IsSpacesOnly("\t") );
+    EXPECT_TRUE(g_utilities()->IsSpacesOnly("\t\t") );
+    EXPECT_TRUE(g_utilities()->IsSpacesOnly("\t  \n") );
+    EXPECT_TRUE(g_utilities()->IsSpacesOnly("\n") );
+    EXPECT_TRUE(g_utilities()->IsSpacesOnly("\n\n  \t\t  ") );
 }
 
 
@@ -117,27 +117,27 @@ TEST_F(TestGUtilities, isemptyNSR1804)
 #ifndef ARM
 TEST_F(TestGUtilities, containsNSR1838)
 {
-	vector<string> tmp_s =  vector<string>({"ole", "dole", "doff"});
+    vector<string> tmp_s =  vector<string>({"ole", "dole", "doff"});
 
-	EXPECT_TRUE(g_utilities()->Contains(tmp_s, string("ole") ) );
-	EXPECT_TRUE(g_utilities()->Contains(tmp_s, string("dole")));
-	EXPECT_TRUE(g_utilities()->Contains(tmp_s, string("doff")));
-	EXPECT_FALSE(g_utilities()->Contains(tmp_s, string("donald duck")));
+    EXPECT_TRUE(g_utilities()->Contains(tmp_s, string("ole") ) );
+    EXPECT_TRUE(g_utilities()->Contains(tmp_s, string("dole")));
+    EXPECT_TRUE(g_utilities()->Contains(tmp_s, string("doff")));
+    EXPECT_FALSE(g_utilities()->Contains(tmp_s, string("donald duck")));
 
-	vector<int> tmp_i = vector<int>{ 1, 123, 1234 };
+    vector<int> tmp_i = vector<int>{ 1, 123, 1234 };
 
-	EXPECT_TRUE(g_utilities()->Contains(tmp_i, 1 ) );
-	EXPECT_TRUE(g_utilities()->Contains(tmp_i, 123 ) );
-	EXPECT_TRUE(g_utilities()->Contains(tmp_i, 1234 ) );
-	EXPECT_FALSE(g_utilities()->Contains(tmp_i, 123456) );
+    EXPECT_TRUE(g_utilities()->Contains(tmp_i, 1 ) );
+    EXPECT_TRUE(g_utilities()->Contains(tmp_i, 123 ) );
+    EXPECT_TRUE(g_utilities()->Contains(tmp_i, 1234 ) );
+    EXPECT_FALSE(g_utilities()->Contains(tmp_i, 123456) );
 
 
-	vector<double> tmp_f =   vector<double>{3.14, 1.68, 2.345};
+    vector<double> tmp_f =   vector<double>{3.14, 1.68, 2.345};
 
-	EXPECT_TRUE(  g_utilities()->Contains( tmp_f, 3.14));
-	EXPECT_TRUE(  g_utilities()->Contains( tmp_f, 1.68));
-	EXPECT_TRUE(  g_utilities()->Contains( tmp_f, 2.345));
-	EXPECT_FALSE( g_utilities()->Contains( tmp_f, 0.618 ));
+    EXPECT_TRUE(  g_utilities()->Contains( tmp_f, 3.14));
+    EXPECT_TRUE(  g_utilities()->Contains( tmp_f, 1.68));
+    EXPECT_TRUE(  g_utilities()->Contains( tmp_f, 2.345));
+    EXPECT_FALSE( g_utilities()->Contains( tmp_f, 0.618 ));
 
 }
 #endif
@@ -146,29 +146,29 @@ TEST_F(TestGUtilities, containsNSR1838)
 
 TEST_F(TestGUtilities, vec2stringNSR2117)
 {
-	string  original = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam facilisis laoreet nisi,";
-	string  tab_separated = "Lorem\tipsum\tdolor\tsit\tamet,\tconsectetur\tadipiscing\telit.\tNullam\tfacilisis\tlaoreet\tnisi,";
-	string  newline_separated = "Lorem\nipsum\ndolor\nsit\namet,\nconsectetur\nadipiscing\nelit.\nNullam\nfacilisis\nlaoreet\nnisi,";	
-	string abc = "Loremabcipsumabcdolorabcsitabcamet,abcconsecteturabcadipiscingabcelit.abcNullamabcfacilisisabclaoreetabcnisi,";
-	vector<string> splitted = {"Lorem", "ipsum", "dolor", "sit", "amet,", "consectetur", "adipiscing", "elit.", "Nullam", "facilisis", "laoreet", "nisi,"};
+    string  original = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam facilisis laoreet nisi,";
+    string  tab_separated = "Lorem\tipsum\tdolor\tsit\tamet,\tconsectetur\tadipiscing\telit.\tNullam\tfacilisis\tlaoreet\tnisi,";
+    string  newline_separated = "Lorem\nipsum\ndolor\nsit\namet,\nconsectetur\nadipiscing\nelit.\nNullam\nfacilisis\nlaoreet\nnisi,";    
+    string abc = "Loremabcipsumabcdolorabcsitabcamet,abcconsecteturabcadipiscingabcelit.abcNullamabcfacilisisabclaoreetabcnisi,";
+    vector<string> splitted = {"Lorem", "ipsum", "dolor", "sit", "amet,", "consectetur", "adipiscing", "elit.", "Nullam", "facilisis", "laoreet", "nisi,"};
 
-	EXPECT_EQ(original, g_string()->Vec2String(splitted, " ") );
-	EXPECT_EQ(tab_separated, g_string()->Vec2String(splitted, "\t")  );
-	EXPECT_EQ(newline_separated, g_string()->Vec2String(splitted, "\n"));
-	EXPECT_EQ(abc, g_string()->Vec2String(splitted, "abc"));
+    EXPECT_EQ(original, g_string()->Vec2String(splitted, " ") );
+    EXPECT_EQ(tab_separated, g_string()->Vec2String(splitted, "\t")  );
+    EXPECT_EQ(newline_separated, g_string()->Vec2String(splitted, "\n"));
+    EXPECT_EQ(abc, g_string()->Vec2String(splitted, "abc"));
 
-	// check that we can conert back to the original string using the tokenizer
-	vector<string> tokens = GTokenizer().Tokenize(tab_separated, "\t");
-	string res = g_string()->Vec2String(tokens, " ");
-	EXPECT_EQ(original, res);
+    // check that we can conert back to the original string using the tokenizer
+    vector<string> tokens = GTokenizer().Tokenize(tab_separated, "\t");
+    string res = g_string()->Vec2String(tokens, " ");
+    EXPECT_EQ(original, res);
 
-	tokens = GTokenizer().Tokenize(newline_separated, "\n");
-	res = g_string()->Vec2String(tokens, " ");
-	EXPECT_EQ(original, res);
+    tokens = GTokenizer().Tokenize(newline_separated, "\n");
+    res = g_string()->Vec2String(tokens, " ");
+    EXPECT_EQ(original, res);
 
-	tokens = GTokenizer().Tokenize(abc, "abc" );
-	res = g_string()->Vec2String(tokens, " ");
-	EXPECT_EQ(original, res);
+    tokens = GTokenizer().Tokenize(abc, "abc" );
+    res = g_string()->Vec2String(tokens, " ");
+    EXPECT_EQ(original, res);
 
 }
 
@@ -177,71 +177,71 @@ TEST_F(TestGUtilities, vec2stringNSR2117)
 
 TEST_F(TestGUtilities, filter_out)
 {
-	vector<int> int_vec = { 1,2, 34, 55 ,66, 66, 456, 6789 };
-	vector<int> int_vec_filter = { 34, 66, 456 };
+    vector<int> int_vec = { 1,2, 34, 55 ,66, 66, 456, 6789 };
+    vector<int> int_vec_filter = { 34, 66, 456 };
 
-	EXPECT_EQ(8, int_vec.size() );
-	EXPECT_EQ(3, int_vec_filter.size());
+    EXPECT_EQ(8, int_vec.size() );
+    EXPECT_EQ(3, int_vec_filter.size());
 
-	for (size_t i = 0; i < int_vec.size(); i++)
-	{
-		EXPECT_TRUE( g_utilities()->Contains(int_vec, int_vec[i]) );
-	}
+    for (size_t i = 0; i < int_vec.size(); i++)
+    {
+        EXPECT_TRUE( g_utilities()->Contains(int_vec, int_vec[i]) );
+    }
 
-	g_utilities()->FilterOut(int_vec, int_vec_filter);
+    g_utilities()->FilterOut(int_vec, int_vec_filter);
 
 
-	EXPECT_EQ(4, int_vec.size());
-	EXPECT_EQ(3, int_vec_filter.size());
+    EXPECT_EQ(4, int_vec.size());
+    EXPECT_EQ(3, int_vec_filter.size());
 
-	EXPECT_TRUE( g_utilities()->Contains(int_vec, 1 ));
-	EXPECT_TRUE( g_utilities()->Contains(int_vec, 2 ));
-	EXPECT_FALSE( g_utilities()->Contains(int_vec, 34 ));
-	EXPECT_TRUE( g_utilities()->Contains(int_vec, 55 ));
-	EXPECT_FALSE( g_utilities()->Contains(int_vec, 66 ));
-	EXPECT_FALSE( g_utilities()->Contains(int_vec, 456 ));
-	EXPECT_TRUE( g_utilities()->Contains(int_vec, 6789 ));
+    EXPECT_TRUE( g_utilities()->Contains(int_vec, 1 ));
+    EXPECT_TRUE( g_utilities()->Contains(int_vec, 2 ));
+    EXPECT_FALSE( g_utilities()->Contains(int_vec, 34 ));
+    EXPECT_TRUE( g_utilities()->Contains(int_vec, 55 ));
+    EXPECT_FALSE( g_utilities()->Contains(int_vec, 66 ));
+    EXPECT_FALSE( g_utilities()->Contains(int_vec, 456 ));
+    EXPECT_TRUE( g_utilities()->Contains(int_vec, 6789 ));
 
-	
-	vector<string> s_vec			= { "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua" };
-	vector<string> s_vec_filter		= { "ut", "magna", "et", "et"};
+    
+    vector<string> s_vec            = { "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua" };
+    vector<string> s_vec_filter        = { "ut", "magna", "et", "et"};
 
-	EXPECT_EQ(11, s_vec.size());
-	EXPECT_EQ(4, s_vec_filter.size());
+    EXPECT_EQ(11, s_vec.size());
+    EXPECT_EQ(4, s_vec_filter.size());
 
-	for (size_t i = 0; i < s_vec.size(); i++)
-	{
-		EXPECT_TRUE(g_utilities()->Contains(s_vec, s_vec[i]));
-	}
+    for (size_t i = 0; i < s_vec.size(); i++)
+    {
+        EXPECT_TRUE(g_utilities()->Contains(s_vec, s_vec[i]));
+    }
 
-	g_utilities()->FilterOut(s_vec, s_vec_filter);
+    g_utilities()->FilterOut(s_vec, s_vec_filter);
 
-	EXPECT_EQ(8, s_vec.size());
-	EXPECT_EQ(4, s_vec_filter.size());
+    EXPECT_EQ(8, s_vec.size());
+    EXPECT_EQ(4, s_vec_filter.size());
 
-	EXPECT_TRUE(g_utilities()->Contains(s_vec, string("sed") ) );
-	EXPECT_TRUE(g_utilities()->Contains(s_vec, string("do")));
-	EXPECT_TRUE(g_utilities()->Contains(s_vec, string("eiusmod")));
-	EXPECT_TRUE(g_utilities()->Contains(s_vec, string("tempor")));
-	EXPECT_TRUE(g_utilities()->Contains(s_vec, string("incididunt")));
-	EXPECT_FALSE(g_utilities()->Contains(s_vec, string("ut")));
-	EXPECT_TRUE(g_utilities()->Contains(s_vec, string("labore")));
-	EXPECT_FALSE(g_utilities()->Contains(s_vec, string("et")));
-	EXPECT_TRUE(g_utilities()->Contains(s_vec, string("dolore")));
-	EXPECT_FALSE(g_utilities()->Contains(s_vec, string("magna")));
-	EXPECT_TRUE(g_utilities()->Contains(s_vec, string("aliqua")));
+    EXPECT_TRUE(g_utilities()->Contains(s_vec, string("sed") ) );
+    EXPECT_TRUE(g_utilities()->Contains(s_vec, string("do")));
+    EXPECT_TRUE(g_utilities()->Contains(s_vec, string("eiusmod")));
+    EXPECT_TRUE(g_utilities()->Contains(s_vec, string("tempor")));
+    EXPECT_TRUE(g_utilities()->Contains(s_vec, string("incididunt")));
+    EXPECT_FALSE(g_utilities()->Contains(s_vec, string("ut")));
+    EXPECT_TRUE(g_utilities()->Contains(s_vec, string("labore")));
+    EXPECT_FALSE(g_utilities()->Contains(s_vec, string("et")));
+    EXPECT_TRUE(g_utilities()->Contains(s_vec, string("dolore")));
+    EXPECT_FALSE(g_utilities()->Contains(s_vec, string("magna")));
+    EXPECT_TRUE(g_utilities()->Contains(s_vec, string("aliqua")));
 
 }
 
 
 TEST_F(TestGUtilities, ip_address_validation)
 {
-	EXPECT_TRUE(  g_utilities()->IsValidIPV4Address("192.168.1.7") );
-	EXPECT_TRUE(  g_utilities()->IsValidIPV4Address("192.168.1.255"));
-	EXPECT_TRUE(  g_utilities()->IsValidIPV4Address("10.0.11.7"));
-	EXPECT_FALSE( g_utilities()->IsValidIPV4Address("10.0.11.7.2"));
-	EXPECT_FALSE( g_utilities()->IsValidIPV4Address("gibberish"));
-	EXPECT_FALSE( g_utilities()->IsValidIPV4Address("256.0.11.7"));
-	EXPECT_TRUE(  g_utilities()->IsValidIPV4Address("255.0.11.7"));
+    EXPECT_TRUE(  g_utilities()->IsValidIPV4Address("192.168.1.7") );
+    EXPECT_TRUE(  g_utilities()->IsValidIPV4Address("192.168.1.255"));
+    EXPECT_TRUE(  g_utilities()->IsValidIPV4Address("10.0.11.7"));
+    EXPECT_FALSE( g_utilities()->IsValidIPV4Address("10.0.11.7.2"));
+    EXPECT_FALSE( g_utilities()->IsValidIPV4Address("gibberish"));
+    EXPECT_FALSE( g_utilities()->IsValidIPV4Address("256.0.11.7"));
+    EXPECT_TRUE(  g_utilities()->IsValidIPV4Address("255.0.11.7"));
 
 }

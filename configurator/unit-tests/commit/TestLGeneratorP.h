@@ -41,7 +41,7 @@ struct TestParameters
 class  TestLGeneratorP : public ::testing::WithParamInterface<  TestParameters >, public TestBase
 {
 public:
-	static  void  SetUpTestCase();
+    static  void  SetUpTestCase();
     virtual void  SetUp( ) override;
 
 protected:
@@ -54,7 +54,7 @@ protected:
     vector<string> fGeneratedData;
 
     string fTestFileName = "tmp.h"; //<! Filename where temporary test data will be stored
-	static string fgTestDataDir;  //<!
+    static string fgTestDataDir;  //<!
     static sysentity_vec  fgSubSystems;
     static logentity_vec  fgLogLevels;
 

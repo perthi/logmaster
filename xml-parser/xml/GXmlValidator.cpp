@@ -10,5 +10,5 @@
 
 bool GXmlValidator::IsValid(std::string xmlFilename, std::string xsdFilename)
 {
-	return(GXmlValidatorImpl::IsValid(xmlFilename, xsdFilename));
+    return(GXmlValidatorImpl::IsValid(xmlFilename, xsdFilename));
 }

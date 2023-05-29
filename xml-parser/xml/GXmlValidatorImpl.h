@@ -22,18 +22,18 @@ using std::string;
 class GXmlValidatorImpl
 {
 public:
-	static bool  API  IsValid( string xmlFilename,  string xsdFilename);
-	static void  API  SetError(const bool err);
-	static bool  API  HasError();
-	static eLOGLEVEL  ErrorLevel2Loglevel(const int level);
+    static bool  API  IsValid( string xmlFilename,  string xsdFilename);
+    static void  API  SetError(const bool err);
+    static bool  API  HasError();
+    static eLOGLEVEL  ErrorLevel2Loglevel(const int level);
 
 private:
-	static void  DoError(void *ctx, const char *msg, ...);
-	static void  DoWarning(void *ctx, const char *msg, ...);
+    static void  DoError(void *ctx, const char *msg, ...);
+    static void  DoWarning(void *ctx, const char *msg, ...);
 
-	static bool DoExistFile( const string fname );
+    static bool DoExistFile( const string fname );
 
-	static bool fHasError2;
+    static bool fHasError2;
 
 };
 

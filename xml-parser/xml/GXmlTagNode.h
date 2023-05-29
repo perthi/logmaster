@@ -14,11 +14,11 @@
 class GXmlTagNode : public GXmlNodeImpl
 {
 public:
-	GXmlTagNode(const std::string& name);
-	virtual ~GXmlTagNode();
-	virtual std::vector<GXmlAttribute> GetAttributes() const override;
+    GXmlTagNode(const std::string& name);
+    virtual ~GXmlTagNode();
+    virtual std::vector<GXmlAttribute> GetAttributes() const override;
 
-	void AddAttribute(const GXmlAttribute& attribute);
+    void AddAttribute(const GXmlAttribute& attribute);
 private:
-	std::vector<GXmlAttribute> fAttributes =  std::vector<GXmlAttribute>();
+    std::vector<GXmlAttribute> fAttributes =  std::vector<GXmlAttribute>();
 };

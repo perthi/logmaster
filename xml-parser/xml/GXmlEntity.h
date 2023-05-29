@@ -21,9 +21,9 @@ using std::string;
 class  GXmlEntity : public GPrintable
 {
 public:
-	API GXmlEntity();
-	virtual API ~GXmlEntity();
-	virtual  string API str() const override = 0;
+    API GXmlEntity();
+    virtual API ~GXmlEntity();
+    virtual  string API str() const override = 0;
 
 
 };

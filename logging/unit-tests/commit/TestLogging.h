@@ -29,7 +29,7 @@ class TestLogging :public TestBase
 public:
     TestLogging();
     virtual ~TestLogging();
-	static void SetUpTestCase();
+    static void SetUpTestCase();
     virtual void SetUp();
     virtual void TearDown();
 

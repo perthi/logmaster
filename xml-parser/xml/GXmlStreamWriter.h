@@ -13,13 +13,13 @@
 class GXmlStreamWriter
 {
 public:
-	virtual ~GXmlStreamWriter() {}
-	virtual void WriteSingleTag(std::string tag) = 0;
-	virtual void WriteSingleTag(std::string tag, std::vector<GXmlAttribute> attributes) = 0;
-	virtual void WriteStartTag(std::string tag) = 0;
-	virtual void WriteStartTag(std::string tag, std::vector<GXmlAttribute> attributes) = 0;
-	virtual void WriteEndTag() = 0;
-	virtual void WriteValueTag(std::string tag, std::string value) = 0;
-	virtual void WriteValueTag(std::string tag, std::vector<GXmlAttribute> attributes, std::string value) = 0;
-	virtual void WriteComment(std::string comment) = 0;
+    virtual ~GXmlStreamWriter() {}
+    virtual void WriteSingleTag(std::string tag) = 0;
+    virtual void WriteSingleTag(std::string tag, std::vector<GXmlAttribute> attributes) = 0;
+    virtual void WriteStartTag(std::string tag) = 0;
+    virtual void WriteStartTag(std::string tag, std::vector<GXmlAttribute> attributes) = 0;
+    virtual void WriteEndTag() = 0;
+    virtual void WriteValueTag(std::string tag, std::string value) = 0;
+    virtual void WriteValueTag(std::string tag, std::vector<GXmlAttribute> attributes, std::string value) = 0;
+    virtual void WriteComment(std::string comment) = 0;
 };

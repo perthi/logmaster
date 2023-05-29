@@ -66,39 +66,33 @@ public:
     string  API  Dec2Hex(const string s);
     string  API  Hex2Dec(const string s);
 
-    template<typename T>   int64_t  API  PadOnes(const T in);
-    template<typename T> int64_t    API  BitWidth(const T in);
-     int64_t                         API  BitWidth(const char* in);
-    int64_t                         API  BitWidth(const string in);
+    template<typename T> int64_t  API  PadOnes(const T in);
+    template<typename T> int64_t  API  BitWidth(const T in);
+    int64_t                       API  BitWidth(const char* in);
+    int64_t                       API  BitWidth(const string in);
+    int64_t                       API  BinaryString2Number(const string num);
+    int64_t                       API  HexString2Number(const string num);
     
-  
-    int64_t		        API     BinaryString2Number(const string num);
-    int64_t             API     HexString2Number(const string num);
-    
-    template<typename T >     vector<T> API ToFloat(const vector<string> num);
-    template<typename T = long double>    T          API ToFloat(const string num);
-    
-    template<typename T>  T      API    ToInteger(const string num);
-    template<typename T>   vector<T>            API    ToInteger(const vector<string> num);
-    
+    template<typename T >     vector<T>    API  ToFloat(const vector<string> num);
+    template<typename T = long double>  T  API  ToFloat(const string num);
+    template<typename T>  T                API  ToInteger(const string num);
+    template<typename T>   vector<T>       API  ToInteger(const vector<string> num);
     
     template< typename  T >  typename std::enable_if<std::is_integral<T>::value, T>::type 
         API ToNumber(const string num) {return ToInteger<T>(num);}
-    
     template< typename  T >  typename std::enable_if< std::is_floating_point <T>::value, T>::type
-       API    ToNumber(const string num){return ToFloat<T>(num);}
-    
-
-
+        API    ToNumber(const string num){return ToFloat<T>(num);}
     template <typename T> 
-    int API CountBits(const T in);
+    int API   CountBits(const T in);
     
 private:
     GNumbers() : fIsDisabledError(false) {};
     ~GNumbers() {};
+
+    /** @todo rename to IsUnsigned */
     template<typename T>   void    API CheckUnsigned(const string num);
     template<typename T>   void    API CheckUnsigned(const vector<string> num);
-	bool fIsDisabledError = false;
+    bool fIsDisabledError = false;
 };
 
 
@@ -144,9 +138,6 @@ void GNumbers::CheckUnsigned(const vector<string> num)
 /**@}*/
 
 
-
-
-
 template<typename T> T
 GNumbers::ToInteger(const string num)
 {
@@ -158,7 +149,7 @@ GNumbers::ToInteger(const string num)
     {
 
       string message = num + " is NOT an Integer or hex number, aborting, ..";
-	    GCommon().HandleError(message, GLOCATION, IsDisabledError() );
+        GCommon().HandleError(message, GLOCATION, IsDisabledError() );
     }
 
     CheckUnsigned<T>(trimmed);
@@ -175,7 +166,6 @@ GNumbers::ToInteger(const string num)
   }
 
 
-
 template<typename T> vector<T>
 GNumbers::ToInteger(const vector<string> num)
 {
@@ -187,7 +177,6 @@ GNumbers::ToInteger(const vector<string> num)
      }
      return tmp;
 }
-
 
 
 /** Pads the binary representation of "in" with ones, for instance the number 00101101  (0x2d)
@@ -213,14 +202,11 @@ template<typename T>
 int64_t
 GNumbers::BitWidth(const T in)
 {
-
-
     const int BitWidths = sizeof(in) * 8;
     int pos = 0;
 
     for (int i = 0; i < BitWidths; i++)
     {
-    //    if ((  in & (T)1  <<  i )  != 0 )
         if ((  (int64_t)in & ( (int64_t)1  <<  i ) )  != 0 )
         {
             pos = i;
@@ -237,12 +223,12 @@ GNumbers::ToFloat(const string num)
     T ret = (T)-1;
     string trimmed = num;
     trimmed = g_string()->Trim(trimmed, { ' ', '\t', '\n' });
-	trimmed  = g_string()->Replace(trimmed, ",", ".");
+    trimmed  = g_string()->Replace(trimmed, ",", ".");
 
     if (( g_number_types()->IsNumber(trimmed) == true) && ( g_number_types()->IsFloat(trimmed) == true))
     {
-		ret = (T)std::stod(trimmed);
-	}
+        ret = (T)std::stod(trimmed);
+    }
     else
     {
         string message = "The number:" + num + ":is NOT a number, aborting,..";
@@ -287,4 +273,3 @@ GNumbers::CountBits( const T in )
 
 
 #endif
-

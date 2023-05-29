@@ -62,7 +62,7 @@ Val::GeneratStackFrames()
 {
     string stack =  GStackTrace::str();
     std::stringstream msg;
-    msg <<"The allowed range for parameter: "<< fName <<"\tis  [min, max] = "<< "["<< fMinValue <<", "<< fMaxValue <<"]  " << fSubscript;	
+    msg <<"The allowed range for parameter: "<< fName <<"\tis  [min, max] = "<< "["<< fMinValue <<", "<< fMaxValue <<"]  " << fSubscript;    
     msg << ":\tYou attempted to set the value to " << fVal;  
     string s = stack + msg.str() ;
     GCommon().HandleError( s, GLOCATION, THROW_EXCEPTION );
@@ -74,7 +74,7 @@ Val::CheckLimits(const double &t, const double min, const double max)
 {
     if(t > max || t < min)
     {
-	    GeneratStackFrames();
+        GeneratStackFrames();
     }
 }
 

@@ -14,8 +14,8 @@
 class GXmlDocTypeNode : public GXmlNodeImpl
 {
 public:
-	GXmlDocTypeNode(const std::string& name);
+    GXmlDocTypeNode(const std::string& name);
 
-	virtual eXML_NODETYPE GetType() const override;
-	virtual string GetTypeS() const override { return "EDocTypeNode;"; }
+    virtual eXML_NODETYPE GetType() const override;
+    virtual string GetTypeS() const override { return "EDocTypeNode;"; }
 };

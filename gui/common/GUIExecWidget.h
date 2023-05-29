@@ -48,8 +48,8 @@
     *
     *   See the gui-qt-charts-example2 for an example of this.
     */
-	void ExecWidget(QWidget* widget, bool start_timer = true, int milliseconds = 1000)
-	{
+    void ExecWidget(QWidget* widget, bool start_timer = true, int milliseconds = 1000)
+    {
        // MakeQApp();
         QMainWindow* mainWindow = new QMainWindow;
         mainWindow->setCentralWidget(widget);

@@ -18,7 +18,7 @@
 /** @brief unit tests for the GString class */
 class TestGString : public TestBase
 {
-	public:
+    public:
 };
 
 

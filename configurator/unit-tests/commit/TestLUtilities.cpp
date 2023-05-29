@@ -39,5 +39,5 @@ using namespace LOGMASTER;
 
 TEST_F( TestLUtilities, dummy )
 {
-	EXPECT_TRUE(true);
+    EXPECT_TRUE(true);
 }

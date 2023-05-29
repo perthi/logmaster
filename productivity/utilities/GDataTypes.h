@@ -43,7 +43,7 @@ public:
                                                          fSubscript(subscript),
                                                          fHelpText(helpGText)
     { 
-	
+    
     }
     
     virtual ~Val() {}; 
@@ -58,7 +58,7 @@ public:
     virtual void API SetValue(const double  value);
     virtual void API CheckLimits(const double &t, const double min, const double max);
     
-	
+    
     void GeneratStackFrames();
     void CheckIsInteger(double t);
     virtual  Val & operator = (const double rhs) = 0;
@@ -191,7 +191,7 @@ template <class T>
 void
 Val_t<T>::PrintDefaults()
 {
-    printf("\t\tdefault=%0.2G, [min, max] = [%0.2G,%0.2G]\n", (double)fVal, fMinValue, fMaxValue  );	
+    printf("\t\tdefault=%0.2G, [min, max] = [%0.2G,%0.2G]\n", (double)fVal, fMinValue, fMaxValue  );    
 }
 
 

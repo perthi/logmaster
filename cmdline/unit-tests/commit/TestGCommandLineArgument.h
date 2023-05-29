@@ -32,10 +32,10 @@ public:
     virtual void SetUp();
     virtual void TearDown();
     virtual bool ValidateFunct(const string cmnd, const string args_s, const vector<string> subs, const vector<string> args);
-	bool ValidateFunct2( const string /*cmnd*/, const string /*args_s*/ ) { return false;}
+    bool ValidateFunct2( const string /*cmnd*/, const string /*args_s*/ ) { return false;}
 
 protected:
-	float f = 0;
+    float f = 0;
     double d = 0;
     long double ld = 0;
     short si = 0;
@@ -60,7 +60,7 @@ protected:
     std::shared_ptr < GCommandLineArgument <long double>  > ldarg =   std::make_shared <GCommandLineArgument <long double> >("-myldouble", "-myldouble [value]", "This is the documentation", &ld, fgkOPTIONAL, nullptr);
     std::shared_ptr < GCommandLineArgument <short> > siarg =   std::make_shared <GCommandLineArgument <short> > ("-mysint", "-mysint [value]", "This is the documentation", &si, fgkOPTIONAL, nullptr);
     std::shared_ptr < GCommandLineArgument <int> > iarg =   std::make_shared <GCommandLineArgument <int > >("-myint", "-myint [value]", "This is the documentation", &i, fgkOPTIONAL, nullptr );
-	std::shared_ptr < GCommandLineArgument <long int> > liarg =   std::make_shared <GCommandLineArgument <long int> > ("-mylint", "-mylint [value]", "This is the documentation", &li, fgkOPTIONAL, nullptr);
+    std::shared_ptr < GCommandLineArgument <long int> > liarg =   std::make_shared <GCommandLineArgument <long int> > ("-mylint", "-mylint [value]", "This is the documentation", &li, fgkOPTIONAL, nullptr);
     std::shared_ptr < GCommandLineArgument <long long int> > lliarg =   std::make_shared <GCommandLineArgument <long long int> >("-myllint", "-myllint [value]", "This is the documentation", &lli, fgkOPTIONAL, nullptr);
     std::shared_ptr < GCommandLineArgument <unsigned short> > usarg =   std::make_shared <GCommandLineArgument <unsigned short> >("-myusint", "-myusint [value]", "This is the documentation", &us, fgkOPTIONAL, nullptr);
     std::shared_ptr < GCommandLineArgument <unsigned int> > uiarg =   std::make_shared <GCommandLineArgument <unsigned int> > ("-myuint", "-myuint [value]", "This is the documentation", &ui, fgkOPTIONAL, nullptr);

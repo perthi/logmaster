@@ -777,7 +777,8 @@ WARN_LOGFILE           = doxygen_warnings.txt
 # Note: If this tag is empty the current directory is searched.
 
 
-INPUT         =  logging \
+INPUT         =  logmaster.h \
+                 logging \
                  api \ 
                  cmdline \
                  configurator \ 

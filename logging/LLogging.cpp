@@ -178,9 +178,9 @@ namespace LOGMASTER
 
   
 
-    /** Checks the loglevel of a message issued by the user against the current loglevel configured for the logging system*
+    /** Checks the log level of a message issued by the user against the current log level configured for the logging system*
      *  @param system  The subsystem this message applies to
-     *  @param level   The loglevel (severity) of the message
+     *  @param level   The log level (severity) of the message
      *  @param target  Which target (file, stdout, etc..) to check level for
      *   @return true if the message should be generated for this level, false otherwise */
     bool
@@ -422,7 +422,8 @@ namespace LOGMASTER
         { 
         
             cout << LDoc::Help( ) << endl;
-            CERR << "Exception caught setting log level" << ENDL;
+            //CERR << "Exception caught setting log level: " << e.what() << ENDL;
+            throw(e);
         }
 
     }

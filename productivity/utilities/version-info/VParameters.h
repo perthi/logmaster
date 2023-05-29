@@ -10,18 +10,18 @@ using std::string;
 * section of a DLL (Windows only) */
 struct VParameters
 {
-	string fConfiguration = "";//!< Debug vsRelease
-	string fPlatform = ""; //!< 64 vs 32 bit
-	string fYear = "";
-	string fRCFilename = ""; //! (Windows only): Name of the file containing resource information that will be embedded int the details section of the <DLL/exe file
-	string fCompileflags_file = ""; //!< Name of file containing information about what compilation flags was used during code generation
-	string fCompileinfo = "";  //!< Compilation info read from fCompileflags_file
-	string fLinkinfo = "";
-	string fCompany = ""; //!< Organization name
-	string fAppName = ""; //!< Original name of the binary file
-	string fProductname = "";
-	string fDescription = "";
-	string fCopyright = "Embedded Consulting";
-	
-	};
+    string fConfiguration = "";//!< Debug vsRelease
+    string fPlatform = ""; //!< 64 vs 32 bit
+    string fYear = "";
+    string fRCFilename = ""; //! (Windows only): Name of the file containing resource information that will be embedded int the details section of the <DLL/exe file
+    string fCompileflags_file = ""; //!< Name of file containing information about what compilation flags was used during code generation
+    string fCompileinfo = "";  //!< Compilation info read from fCompileflags_file
+    string fLinkinfo = "";
+    string fCompany = ""; //!< Organization name
+    string fAppName = ""; //!< Original name of the binary file
+    string fProductname = "";
+    string fDescription = "";
+    string fCopyright = "Embedded Consulting";
+    
+    };
 

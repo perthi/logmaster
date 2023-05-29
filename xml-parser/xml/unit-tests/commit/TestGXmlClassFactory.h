@@ -20,9 +20,9 @@
 class TestGXmlClassFactory : public testing::Test
 {
 public:
-	virtual void SetUp() override;
-	TestGXmlClassFactory();
-	~TestGXmlClassFactory();
+    virtual void SetUp() override;
+    TestGXmlClassFactory();
+    ~TestGXmlClassFactory();
 };
 
 #endif // !TESTGXMLCLASSFACTORY_H

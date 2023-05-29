@@ -14,16 +14,16 @@
 namespace CONFIGURATOR
 {
 
-	class  LXmlEntity : public GXmlEntity
-	{
-	public:
-		LXmlEntity() = default;
-		virtual ~LXmlEntity() = default;
-		virtual  string API str() const override = 0;
+    class  LXmlEntity : public GXmlEntity
+    {
+    public:
+        LXmlEntity() = default;
+        virtual ~LXmlEntity() = default;
+        virtual  string API str() const override = 0;
 
-		string fName = "";
-		int fIndex = 0; //<!  Used to generate the bit mask
-	};
+        string fName = "";
+        int fIndex = 0; //<!  Used to generate the bit mask
+    };
 
 }
 

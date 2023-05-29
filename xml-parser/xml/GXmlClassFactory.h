@@ -20,10 +20,10 @@ class GXmlStreamReader;
 class GXmlClassFactory
 {
 public:
-	static API GXmlStreamWriter* CreateStreamWriter(std::string fileName);
-	static API GXmlStreamReader* CreateStreamReader(const std::string& fileName);
-	static API std::shared_ptr<GXmlStreamWriter> CreateStreamWriterSmartPtr(std::string fileName);
-	static API std::shared_ptr<GXmlStreamReader> CreateStreamReaderSmartPtr(const std::string& fileName);
+    static API GXmlStreamWriter* CreateStreamWriter(std::string fileName);
+    static API GXmlStreamReader* CreateStreamReader(const std::string& fileName);
+    static API std::shared_ptr<GXmlStreamWriter> CreateStreamWriterSmartPtr(std::string fileName);
+    static API std::shared_ptr<GXmlStreamReader> CreateStreamReaderSmartPtr(const std::string& fileName);
 };
 
 #endif // !GXMLCLASSFACTORY_H

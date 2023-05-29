@@ -16,10 +16,10 @@ GXmlCommentNode::GXmlCommentNode(const std::string& comment) : GXmlNodeImpl("", 
 
 eXML_NODETYPE GXmlCommentNode::GetType() const
 {
-	return eXML_NODETYPE::ECommentNode;
+    return eXML_NODETYPE::ECommentNode;
 }
 
 string GXmlCommentNode::GetTypeS() const
 {
-	return  GXmlEnum2String::Enum2String(eXML_NODETYPE::ECommentNode);
+    return  GXmlEnum2String::Enum2String(eXML_NODETYPE::ECommentNode);
 }

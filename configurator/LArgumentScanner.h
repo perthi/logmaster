@@ -16,12 +16,12 @@ namespace CONFIGURATOR
 {
 
 
-	class LArgumentScanner
-	{
-	public:
-		static void API ScanArguments(int argc, const char** argv, string& xmlfile, string& xsdfile);
-		static deque< std::shared_ptr<GArgument>  >  API GenerateArgs(string& xmlfile, string& xsdfile);
+    class LArgumentScanner
+    {
+    public:
+        static void API ScanArguments(int argc, const char** argv, string& xmlfile, string& xsdfile);
+        static deque< std::shared_ptr<GArgument>  >  API GenerateArgs(string& xmlfile, string& xsdfile);
 
-	};
+    };
 
 }

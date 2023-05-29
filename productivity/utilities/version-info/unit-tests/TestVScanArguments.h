@@ -5,7 +5,7 @@
 class TestVScanArguments : public TestBase
 {
 public:
-	static void SetUpTestCase();
-	static void TearDownTestCase();
+    static void SetUpTestCase();
+    static void TearDownTestCase();
 };
 

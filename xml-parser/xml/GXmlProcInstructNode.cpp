@@ -11,7 +11,7 @@
 
 
 GXmlProcInstructNode::GXmlProcInstructNode(const std::string& target, const std::string& content)
-	: GXmlNodeImpl(target, content)
+    : GXmlNodeImpl(target, content)
 {
 }
 
@@ -19,13 +19,13 @@ GXmlProcInstructNode::GXmlProcInstructNode(const std::string& target, const std:
 eXML_NODETYPE 
 GXmlProcInstructNode::GetType() const
 {
-	return eXML_NODETYPE::EProcInstrNode;
+    return eXML_NODETYPE::EProcInstrNode;
 }
 
 
 string 
 GXmlProcInstructNode::GetTypeS() const
 {
-	return GXmlEnum2String::Enum2String( eXML_NODETYPE::EProcInstrNode);
+    return GXmlEnum2String::Enum2String( eXML_NODETYPE::EProcInstrNode);
 }
 

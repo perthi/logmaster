@@ -26,6 +26,8 @@ using std::string;
 
 
 
+
+
 namespace LOGMASTER
 {
     class LHashMaps;
@@ -53,11 +55,6 @@ namespace LOGMASTER
 #else       
        static std::map<LOGMASTER::eMSGTARGET, string>  API SplitByTarget(const string in);
 #endif      
-
-    //private:
-    //    LConversion() {};
-     //   ~LConversion() {};
-    public:
         static eMSGSYSTEM API Hash2System(  const  string  &in );
         static eLOGLEVEL  API Hash2Level(   const  string  &in );
         static eMSGTARGET API Hash2Target(  const  string  &in );
@@ -73,7 +70,7 @@ namespace LOGMASTER
         static eMSGTARGET API HexString2Target( const string &in );
         static eMSGFORMAT API HexString2Format( const string &in );
 
-		
+        
         static void  CheckWidth( const string &in, const int widt );
 
         template<typename T> T
@@ -88,7 +85,7 @@ namespace LOGMASTER
      * will be discarded, and the bit filed shifted 8 places to the right.
      * @param[in] width The number of bits of the number is a bit field */
     template<typename T>
-	inline T
+    inline T
         LConversion::String2Enum( const string & in, const int pos, const int width )
     {
         int64_t tmp  = 0;
@@ -120,6 +117,6 @@ namespace LOGMASTER
         tmp = tmp & mask;
         return (T)tmp;
     }
-	
+    
 
 }

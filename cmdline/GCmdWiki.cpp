@@ -37,18 +37,6 @@
 using namespace LOGMASTER;
 
 
-GCmdWiki::GCmdWiki()
-{
-
-}
-
-
-GCmdWiki::~GCmdWiki()
-{
-
-}
-
-
 void    
 GCmdWiki::GenerateWiki(  deque< std::shared_ptr<GArgument> > args,  const string  filename  )
 {

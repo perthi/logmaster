@@ -6,7 +6,7 @@
 class TestXMLInfo : public TestBase
 {
 protected:
-	static void SetUpTestCase();
-	static void TearDownTestCase();
+    static void SetUpTestCase();
+    static void TearDownTestCase();
 };
 

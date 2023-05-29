@@ -19,13 +19,13 @@ using namespace LOGMASTER;
  class GUILogger 
    {
    public:
-	   explicit API GUILogger();
-	   virtual ~GUILogger() = default;
-	   virtual void newMessage(int cnt, const LMessage &msg);
+       explicit API GUILogger();
+       virtual ~GUILogger() = default;
+       virtual void newMessage(int cnt, const LMessage &msg);
 
    private: // functions
-	   GUILogger(const GUILogger &rhs);
-	   GUILogger& operator=(const GUILogger &rhs);
+       GUILogger(const GUILogger &rhs);
+       GUILogger& operator=(const GUILogger &rhs);
    };
 
 

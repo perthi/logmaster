@@ -83,56 +83,56 @@ TEST_F(TestGRegexp, ScanNumber )
 
 TEST_F(TestGRegexp, is_match)
 {
-	string input = "Lorem ipsum dolor sit amet";
-	EXPECT_TRUE( g_regexp()->IsMatch(input,  std::regex("Lorem ipsum dolor sit amet") ));
-	EXPECT_TRUE( g_regexp()->IsMatch(input,  std::regex("Lorem(.*)") ));
-	EXPECT_TRUE( g_regexp()->IsMatch(input,  std::regex("(.*)amet") ));
-	EXPECT_TRUE( g_regexp()->IsMatch(input,  std::regex("(.*)ipsum(.*)")));
-	EXPECT_TRUE( g_regexp()->IsMatch(input,  std::regex("(.*)ipsum(.*)sit(.*)") ));
+    string input = "Lorem ipsum dolor sit amet";
+    EXPECT_TRUE( g_regexp()->IsMatch(input,  std::regex("Lorem ipsum dolor sit amet") ));
+    EXPECT_TRUE( g_regexp()->IsMatch(input,  std::regex("Lorem(.*)") ));
+    EXPECT_TRUE( g_regexp()->IsMatch(input,  std::regex("(.*)amet") ));
+    EXPECT_TRUE( g_regexp()->IsMatch(input,  std::regex("(.*)ipsum(.*)")));
+    EXPECT_TRUE( g_regexp()->IsMatch(input,  std::regex("(.*)ipsum(.*)sit(.*)") ));
 
-	EXPECT_FALSE( g_regexp()->IsMatch(input, std::regex("blahh(.*)")));
-	EXPECT_FALSE( g_regexp()->IsMatch(input, std::regex("(.*)blahh")));
-	EXPECT_FALSE( g_regexp()->IsMatch(input, std::regex("(.*)blahh(.*)")));
-	EXPECT_FALSE( g_regexp()->IsMatch(input, std::regex("(.*)blahh(.*)sit(.*)")));
+    EXPECT_FALSE( g_regexp()->IsMatch(input, std::regex("blahh(.*)")));
+    EXPECT_FALSE( g_regexp()->IsMatch(input, std::regex("(.*)blahh")));
+    EXPECT_FALSE( g_regexp()->IsMatch(input, std::regex("(.*)blahh(.*)")));
+    EXPECT_FALSE( g_regexp()->IsMatch(input, std::regex("(.*)blahh(.*)sit(.*)")));
 
-	EXPECT_ANY_THROW(EXPECT_FALSE( g_regexp()->IsMatch(input, std::regex("*blahh*")))); // Expecst an exception since the expression is invalid (* instead of (.*))
+    EXPECT_ANY_THROW(EXPECT_FALSE( g_regexp()->IsMatch(input, std::regex("*blahh*")))); // Expecst an exception since the expression is invalid (* instead of (.*))
 
 }
 
 
 TEST_F(TestGRegexp, is_match_user)
 {
-	string input = "Lorem ipsum dolor sit amet";
-	EXPECT_TRUE( g_regexp()->IsMatch(input, "Lorem ipsum dolor sit amet"));
-	EXPECT_TRUE( g_regexp()->IsMatch(input,  "Lorem*"));
+    string input = "Lorem ipsum dolor sit amet";
+    EXPECT_TRUE( g_regexp()->IsMatch(input, "Lorem ipsum dolor sit amet"));
+    EXPECT_TRUE( g_regexp()->IsMatch(input,  "Lorem*"));
 
-	EXPECT_TRUE( g_regexp()->IsMatch(input,  "*amet" ));
-	EXPECT_TRUE( g_regexp()->IsMatch(input,  "*ipsum*"));
-	EXPECT_TRUE( g_regexp()->IsMatch(input,  "*ipsum*sit*" ));
-	EXPECT_FALSE( g_regexp()->IsMatch(input,  "blahh*"));
-	EXPECT_FALSE( g_regexp()->IsMatch(input,  "*blahh"));
-	EXPECT_FALSE( g_regexp()->IsMatch(input,   "*blahh*"));
-	EXPECT_FALSE( g_regexp()->IsMatch(input,  "*blahh*sit*"));
+    EXPECT_TRUE( g_regexp()->IsMatch(input,  "*amet" ));
+    EXPECT_TRUE( g_regexp()->IsMatch(input,  "*ipsum*"));
+    EXPECT_TRUE( g_regexp()->IsMatch(input,  "*ipsum*sit*" ));
+    EXPECT_FALSE( g_regexp()->IsMatch(input,  "blahh*"));
+    EXPECT_FALSE( g_regexp()->IsMatch(input,  "*blahh"));
+    EXPECT_FALSE( g_regexp()->IsMatch(input,   "*blahh*"));
+    EXPECT_FALSE( g_regexp()->IsMatch(input,  "*blahh*sit*"));
 
-	// Testing a real case that at one time failed.
-	input = "Out-Of-Band Non-Carrier related Spurious 4610.0 MHz (LOx2+2MHz) to 7000.0 MHz Spurious Level Peak [dBm]";
-	EXPECT_FALSE( g_regexp()->IsMatch(input, "Lorem*"));
-//	EXPECT_TRUE( g_regexp()->IsMatch(input, "*(LOx2+2MHz) to 7000.0 MHz*"));
+    // Testing a real case that at one time failed.
+    input = "Out-Of-Band Non-Carrier related Spurious 4610.0 MHz (LOx2+2MHz) to 7000.0 MHz Spurious Level Peak [dBm]";
+    EXPECT_FALSE( g_regexp()->IsMatch(input, "Lorem*"));
+//    EXPECT_TRUE( g_regexp()->IsMatch(input, "*(LOx2+2MHz) to 7000.0 MHz*"));
 }
 
 
 TEST_F(TestGRegexp, filter)
 {
-	vector<string> input = { "Lorem", "ipsum", "dolor", "sit", "amet,", "consectetur", "adipiscing", "elit.", "Atque", "haec", "coniunctio", "confusioque", "virtutum", "tamen", "a", "philosophis", "ratione", "quadam", "distinguitur" };
-	vector<string> filtered_out_expected = { "Lorem", "dolor", "sit", "amet,", "consectetur", "adipiscing", "elit.", "Atque", "haec", "coniunctio", "confusioque", "virtutum", "tamen", "a", "philosophis", "ratione", "quadam", "distinguitur" };
-	vector<string> filtered_out_actual;
-	vector<string> filtered =  g_regexp()->Filter(input, std::regex("ipsum"), &filtered_out_actual);
-	EXPECT_EQ(vector<string>{"ipsum"}, filtered);
-	EXPECT_EQ(filtered_out_expected, filtered_out_actual );
-	filtered_out_actual.erase(filtered_out_actual.begin(), filtered_out_actual.end());
-	filtered =  g_regexp()->Filter(input, std::regex("con(.*)"), &filtered_out_actual);
-	vector<string> filtered_expected = { "consectetur", "coniunctio", "confusioque"};
-	EXPECT_EQ(filtered, filtered_expected);
-	filtered_out_expected = { "Lorem", "ipsum", "dolor", "sit", "amet,", "adipiscing", "elit.", "Atque", "haec", "virtutum", "tamen", "a", "philosophis", "ratione", "quadam", "distinguitur" };
-	EXPECT_EQ(filtered_out_expected, filtered_out_actual);
+    vector<string> input = { "Lorem", "ipsum", "dolor", "sit", "amet,", "consectetur", "adipiscing", "elit.", "Atque", "haec", "coniunctio", "confusioque", "virtutum", "tamen", "a", "philosophis", "ratione", "quadam", "distinguitur" };
+    vector<string> filtered_out_expected = { "Lorem", "dolor", "sit", "amet,", "consectetur", "adipiscing", "elit.", "Atque", "haec", "coniunctio", "confusioque", "virtutum", "tamen", "a", "philosophis", "ratione", "quadam", "distinguitur" };
+    vector<string> filtered_out_actual;
+    vector<string> filtered =  g_regexp()->Filter(input, std::regex("ipsum"), &filtered_out_actual);
+    EXPECT_EQ(vector<string>{"ipsum"}, filtered);
+    EXPECT_EQ(filtered_out_expected, filtered_out_actual );
+    filtered_out_actual.erase(filtered_out_actual.begin(), filtered_out_actual.end());
+    filtered =  g_regexp()->Filter(input, std::regex("con(.*)"), &filtered_out_actual);
+    vector<string> filtered_expected = { "consectetur", "coniunctio", "confusioque"};
+    EXPECT_EQ(filtered, filtered_expected);
+    filtered_out_expected = { "Lorem", "ipsum", "dolor", "sit", "amet,", "adipiscing", "elit.", "Atque", "haec", "virtutum", "tamen", "a", "philosophis", "ratione", "quadam", "distinguitur" };
+    EXPECT_EQ(filtered_out_expected, filtered_out_actual);
 }

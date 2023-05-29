@@ -9,22 +9,22 @@
 namespace CONFIGURATOR
 {
 
-	class  LXmlEntitySubSystem : public LXmlEntity
-	{
-	public:
-		LXmlEntitySubSystem();
-		virtual ~LXmlEntitySubSystem();
-		virtual  string API str() const override;
+    class  LXmlEntitySubSystem : public LXmlEntity
+    {
+    public:
+        LXmlEntitySubSystem();
+        virtual ~LXmlEntitySubSystem();
+        virtual  string API str() const override;
 
-		string fNameShort = "";
-		string fTag = "";
-		string fTagShort = "";
+        string fNameShort = "";
+        string fTag = "";
+        string fTagShort = "";
 
-		string fDefault = "";
-		bool   fCanModify = true;
-		bool   fForceOutput = true;
+        string fDefault = "";
+        bool   fCanModify = true;
+        bool   fForceOutput = true;
 
-	};
+    };
 
 }
 

@@ -34,40 +34,40 @@
 
 int main(int argc, const char** argv)
 {
-	if (g_cmdscan()->HasArgument(argc, argv, "-help"))
-	{
-		VHELPERS::helpMenu();
-		exit(0);
-	}
+    if (g_cmdscan()->HasArgument(argc, argv, "-help"))
+    {
+        VHELPERS::helpMenu();
+        exit(0);
+    }
 
-	try
-	{
-		LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
-		string year = VHELPERS::year();
-		string compileinfo = "not_set";
-		string configuration = VHELPERS::configuration();
-		string path = VHELPERS::path(argc, argv);
-		string version = VGenerateVersionInfo::Version();
-		string branch = VGenerateVersionInfo::Branch();
-		VScanArguments scanner;
-		VParameters p = scanner.Scan(argc, argv);
+    try
+    {
+        LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+        string year = VHELPERS::year();
+        string compileinfo = "not_set";
+        string configuration = VHELPERS::configuration();
+        string path = VHELPERS::path(argc, argv);
+        string version = VGenerateVersionInfo::Version();
+        string branch = VGenerateVersionInfo::Branch();
+        VScanArguments scanner;
+        VParameters p = scanner.Scan(argc, argv);
 
 #ifdef _WIN32
-		VVersionHeader::GenerateFile(version, branch, configuration);
-		VGenerateRCFile::Generate("", p.fRCFilename, p.fCompany, p.fDescription, p.fAppName, p.fCopyright, p.fProductname);
+        VVersionHeader::GenerateFile(version, branch, configuration);
+        VGenerateRCFile::Generate("", p.fRCFilename, p.fCompany, p.fDescription, p.fAppName, p.fCopyright, p.fProductname);
 #endif
-		VGenerateVersionInfo::GenerateClass("GVersion", p.fAppName, p.fCompileflags_file, ".");
-	
-	}
+        VGenerateVersionInfo::GenerateClass("GVersion", p.fAppName, p.fCompileflags_file, ".");
+    
+    }
 
-	catch (std::exception& e)
-	{
-		CERR << "Exception caught: " << e.what() << ENDL;
-	}
-	catch (...)
-	{
-		CERR << "Unknown exception caught" << ENDL;
-	}
-	return 0;
+    catch (std::exception& e)
+    {
+        CERR << "Exception caught: " << e.what() << ENDL;
+    }
+    catch (...)
+    {
+        CERR << "Unknown exception caught" << ENDL;
+    }
+    return 0;
 }
 

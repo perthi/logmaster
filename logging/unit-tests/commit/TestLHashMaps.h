@@ -15,10 +15,10 @@
 class TestLHashMaps : public TestBase
 {
 public:
-	TestLHashMaps();
-	~TestLHashMaps();
-	virtual void SetUp() override;
-	virtual void TearDown() override;
+    TestLHashMaps();
+    ~TestLHashMaps();
+    virtual void SetUp() override;
+    virtual void TearDown() override;
 
 };
 

@@ -15,13 +15,13 @@
 class GXmlNodeImpl : public GXmlNode
 {
 public:
-	GXmlNodeImpl(const std::string& name, const std::string& value);
-	
-	virtual ~GXmlNodeImpl();
-	virtual std::string GetName() const override;
-	virtual std::string GetValue() const override;
-	virtual std::vector<GXmlAttribute> GetAttributes() const;
+    GXmlNodeImpl(const std::string& name, const std::string& value);
+    
+    virtual ~GXmlNodeImpl();
+    virtual std::string GetName() const override;
+    virtual std::string GetValue() const override;
+    virtual std::vector<GXmlAttribute> GetAttributes() const;
 private:
-	const std::string fkName;
-	const std::string fkValue;
+    const std::string fkName;
+    const std::string fkValue;
 };

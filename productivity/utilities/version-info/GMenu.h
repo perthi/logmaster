@@ -55,8 +55,8 @@ private:
 void  
 GMenu::ScanArguments(int argc, const char **argv)
 {
-	auto g =  std::make_shared<GLogApplication>();
-	g->AddArgument(fArgument);
+    auto g =  std::make_shared<GLogApplication>();
+    g->AddArgument(fArgument);
 
     bool scan_mode = g_cmdscan()->GetIgnoreStrayArgument();
 
@@ -71,25 +71,25 @@ GMenu::ScanArguments(int argc, const char **argv)
 inline 
 GMenu::GMenu() : fArgument(nullptr)
 {
-	fArgument = std::make_shared<GCommandLineArgument<void> > ("-version",
-		"-version [\"empty\", --tag, --branch, --gitinfo, --compile-flags, --link-flag]",
-		HelpMenu(),
-		nullptr,  fgkOPTIONAL,  CallBack);
+    fArgument = std::make_shared<GCommandLineArgument<void> > ("-version",
+        "-version [\"empty\", --tag, --branch, --gitinfo, --compile-flags, --link-flag]",
+        HelpMenu(),
+        nullptr,  fgkOPTIONAL,  CallBack);
 }
 
 
 inline GMenu *
 GMenu::Instance()
 {
-	static GMenu *instance = new GMenu();
-	return instance;
+    static GMenu *instance = new GMenu();
+    return instance;
 }
 
 
 inline bool 
 GMenu::CallBack(const string  /*cmd*/, const string /*args_s*/,  const vector<string>  sub, const vector<string>  /*par*/ )
 {
- 	string msg = "";
+     string msg = "";
 
     string option = sub.size() == 1 ? sub[0] : "";
 
@@ -140,4 +140,4 @@ inline string
      buffer <<  g_utilities()->TabAlign("\t\t--compile-flags\t") << "The compilation flags this executabel was compiled with" << endl;
      buffer <<  g_utilities()->TabAlign( "\t\t--link-flags")    << "The compilation flags this executabel was compiled with" << endl;
      return buffer.str();
-}	
+}    

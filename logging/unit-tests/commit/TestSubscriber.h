@@ -24,8 +24,8 @@ protected:
     static void  Subscriber1(  std::shared_ptr<LMessage>  msg );
     static void  Subscriber2(  std::shared_ptr<LMessage>  msg );
    
-	static  std::shared_ptr<LMessage> fMsg1;
-	static  std::shared_ptr<LMessage> fMsg2;
+    static  std::shared_ptr<LMessage> fMsg1;
+    static  std::shared_ptr<LMessage> fMsg2;
 
 };
 

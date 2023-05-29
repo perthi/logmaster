@@ -11,10 +11,10 @@ using std::string;
 
 class  GXmlEnum2String
 {
-	public:
-	   GXmlEnum2String();
-	   virtual ~GXmlEnum2String();
-	   static string  Enum2String( eXML_NODETYPE );
+    public:
+       GXmlEnum2String();
+       virtual ~GXmlEnum2String();
+       static string  Enum2String( eXML_NODETYPE );
 };
 
 #endif

@@ -7,6 +7,6 @@ using std::string;
 class VVersionHeader
 {
 public:
-	static void GenerateFile(const string version, const string branch, const string  configuration);
+    static void GenerateFile(const string version, const string branch, const string  configuration);
 };
 

@@ -19,13 +19,13 @@ using namespace LOGMASTER;
 class TestLConfig  : public TestBase
 {
 public:
-	virtual void SetUp();
-	virtual void TearDown();
+    virtual void SetUp();
+    virtual void TearDown();
 
 protected:
-	vector<eMSGTARGET>   t_v  =  vector<eMSGTARGET>();
-	vector<eMSGSYSTEM>   s_v  =  vector<eMSGSYSTEM>();
-	vector<eLOGLEVEL>    l_v =   vector<eLOGLEVEL>();
-	LConfig *fConfig = nullptr;
+    vector<eMSGTARGET>   t_v  =  vector<eMSGTARGET>();
+    vector<eMSGSYSTEM>   s_v  =  vector<eMSGSYSTEM>();
+    vector<eLOGLEVEL>    l_v =   vector<eLOGLEVEL>();
+    LConfig *fConfig = nullptr;
 };
 

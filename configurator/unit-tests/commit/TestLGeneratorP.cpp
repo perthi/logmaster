@@ -60,12 +60,12 @@ void TestLGeneratorP::SetUpTestCase()
 #ifdef _WIN32
     /** @todo There must be a better way to do this */
     string s = string(EXPAND(LOGMASTER_HOME));
-	s.erase(0,1);
-	s.erase(s.size() -2 );
-	fgTestDataDir = s +  string("reference-data\\");
+    s.erase(0,1);
+    s.erase(s.size() -2 );
+    fgTestDataDir = s +  string("reference-data\\");
 
 #else
-	/** @todo Implement for Linux */
+    /** @todo Implement for Linux */
 #endif
     /** @todo this parser should take LXMLInfoStruct as input*/
     LXmlParser( ).ParseXML( LXMLInfo(gXMLPath, gXSDPath), fgLogLevels, fgSubSystems);

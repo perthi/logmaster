@@ -17,10 +17,10 @@
 
 int main(int argc, char *argv[])
 {
-	GMenu::Instance()->ScanArguments(argc, (const char **)argv);
+    GMenu::Instance()->ScanArguments(argc, (const char **)argv);
 
-	QApplication *app = new QApplication(argc, argv);
-	GUIInitStyles().Init(app);
-	GUILogMasterTab widget;
-	ExecWidget(&widget);
+    QApplication *app = new QApplication(argc, argv);
+    GUIInitStyles().Init(app);
+    GUILogMasterTab widget;
+    ExecWidget(&widget);
 }

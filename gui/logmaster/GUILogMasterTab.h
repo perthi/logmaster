@@ -19,32 +19,32 @@
 
 class GUILogMasterTab : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	// explicit API GUILogMasterTab(QWidget *parent = 0);
-	API GUILogMasterTab(QWidget* parent = 0);
-	API ~GUILogMasterTab();
+    // explicit API GUILogMasterTab(QWidget *parent = 0);
+    API GUILogMasterTab(QWidget* parent = 0);
+    API ~GUILogMasterTab();
 
-	//signals:
+    //signals:
 
 private slots:
-	void CurrentTabChanged(int id);
+    void CurrentTabChanged(int id);
 
 
 private: // functions
-	void InitGui();
-	void RetranslateUi();
-	void LoadTabs();
+    void InitGui();
+    void RetranslateUi();
+    void LoadTabs();
 
 private:
 
-	GUILogMasterTab(const GUILogMasterTab&);
-	GUILogMasterTab operator=(const GUILogMasterTab&);
+    GUILogMasterTab(const GUILogMasterTab&);
+    GUILogMasterTab operator=(const GUILogMasterTab&);
 
-	QTabWidget* fTab = nullptr;
-	QMap<int, APILogmaster*> fLogMasterTarget{}; // first value is index for tab, starting at 0  second value is pointer to correct object
-	APILogMasters* fAPILogMasters = nullptr;
+    QTabWidget* fTab = nullptr;
+    QMap<int, APILogmaster*> fLogMasterTarget{}; // first value is index for tab, starting at 0  second value is pointer to correct object
+    APILogMasters* fAPILogMasters = nullptr;
 };
 
 

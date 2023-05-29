@@ -10,48 +10,48 @@
 
 GXmlNodeSp::GXmlNodeSp(GXmlNode* data)
 {
-	fData.reset(data);
+    fData.reset(data);
 }
 
 GXmlNodeSp::GXmlNodeSp(const GXmlNodeSp& rhs)
 {
-	fData = rhs.fData;
+    fData = rhs.fData;
 }
 
 GXmlNodeSp& GXmlNodeSp::operator=(const GXmlNodeSp& rhs)
 {
-	fData = rhs.fData;
-	return(*this);
+    fData = rhs.fData;
+    return(*this);
 }
 
 eXML_NODETYPE GXmlNodeSp::GetType() const
 {
-	return(fData->GetType());
+    return(fData->GetType());
 }
 
 string GXmlNodeSp::GetTypeS() const
 {
-	return   GXmlEnum2String::Enum2String ( fData->GetType( )) ;
+    return   GXmlEnum2String::Enum2String ( fData->GetType( )) ;
 }
 
 std::string GXmlNodeSp::GetName() const
 {
-	return(fData->GetName());
+    return(fData->GetName());
 }
 
 std::string GXmlNodeSp::GetValue() const
 {
-	return(fData->GetValue());
+    return(fData->GetValue());
 }
 
 std::vector<GXmlAttribute> GXmlNodeSp::GetAttributes() const
 {
-	return(fData->GetAttributes());
+    return(fData->GetAttributes());
 }
 
 GXmlStreamReaderSp::GXmlStreamReaderSp(const std::string& fileName) : fData(nullptr)
 {
-	fData = std::shared_ptr<GXmlStreamReader>(GXmlClassFactory::CreateStreamReader(fileName));
+    fData = std::shared_ptr<GXmlStreamReader>(GXmlClassFactory::CreateStreamReader(fileName));
 }
 
 GXmlStreamReaderSp::~GXmlStreamReaderSp()
@@ -60,6 +60,6 @@ GXmlStreamReaderSp::~GXmlStreamReaderSp()
 
 GXmlNodeSp GXmlStreamReaderSp::ReadNode()
 {
-	GXmlNodeSp node(fData->ReadNode());
-	return(node);
+    GXmlNodeSp node(fData->ReadNode());
+    return(node);
 }

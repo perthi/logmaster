@@ -74,7 +74,7 @@ typedef int errno_t;
 #endif
 
 #ifdef _WIN32
-#define strcasecmp _stricmp	
+#define strcasecmp _stricmp    
 #endif
 
 #define STRINGLIFY(x) #x

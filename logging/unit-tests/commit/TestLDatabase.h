@@ -14,21 +14,21 @@
 
 namespace LOGMASTER
 {
-	class LDatabase;
+    class LDatabase;
 }
 
 class  TestLDatabase : public TestBase
 {
-	public:
-		static void SetUpTestCase();
-		static void TearDownTestCase();
-		virtual void SetUp() override;
-		virtual void TearDown() override;
+    public:
+        static void SetUpTestCase();
+        static void TearDownTestCase();
+        virtual void SetUp() override;
+        virtual void TearDown() override;
 
-	protected:	
-		static  LDatabase * fgDatabase;
+    protected:    
+        static  LDatabase * fgDatabase;
         static  LDatabase * fgRotateDatabase;
-		static  string fgDatabaseBasePath;
+        static  string fgDatabaseBasePath;
         static  string fgDatabaseBaseFile;
         static  string fgDatabaseBaseFileRotate;
 };

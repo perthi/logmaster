@@ -42,41 +42,41 @@ GCmdScan   API* g_cmdscan();
 /** @brief scanning of command line arguments */
 class  GCmdScan
 {
-	friend GCmdScan* g_cmdscan();
+    friend GCmdScan* g_cmdscan();
 
 public:
-	static GCmdScan   API* Instance();
-	API GCmdScan();
-	bool   HasArgument(int argc, const char** argv, const string cmd) const;
-	bool   HasArgument(int argc, const char** argv, vector <string> commands) const;
-	bool   HasArgument(const vector<string> tokens, const string com) const;
-	void   API SetIgnoreStrayArgument(const bool ignore = true);
-	bool   API GetIgnoreStrayArgument() const;
+    static GCmdScan   API* Instance();
+    API GCmdScan();
+    bool   HasArgument(int argc, const char** argv, const string cmd) const;
+    bool   HasArgument(int argc, const char** argv, vector <string> commands) const;
+    bool   HasArgument(const vector<string> tokens, const string com) const;
+    void   API SetIgnoreStrayArgument(const bool ignore = true);
+    bool   API GetIgnoreStrayArgument() const;
 
-	vector < GArgumentParsed > API ScanArguments(const  int  argc, const char** argv, std::shared_ptr<GArgument> arg) const;
-	vector < GArgumentParsed > API ScanArguments(const  int  argc, const char** argv, deque<  std::shared_ptr<GArgument> >* arg) const;
-	
-	template<typename T> 
-	vector < GArgumentParsed > API ScanArgument(const  uint64_t  argc, const char** argv, std::shared_ptr<GCommandLineArgument<T> > arg) const;
-	
-	vector < GArgumentParsed >  API SplitCommands(const  int argc, const char** argv, const bool skipfirst = true) const;
-	void  SetExecName(deque<  std::shared_ptr<GArgument>  >* arg, const char* name) const;
-	virtual bool API  Verify(std::shared_ptr<GArgument>  a, GArgumentParsed v) const;
+    vector < GArgumentParsed > API ScanArguments(const  int  argc, const char** argv, std::shared_ptr<GArgument> arg) const;
+    vector < GArgumentParsed > API ScanArguments(const  int  argc, const char** argv, deque<  std::shared_ptr<GArgument> >* arg) const;
+    
+    template<typename T> 
+    vector < GArgumentParsed > API ScanArgument(const  uint64_t  argc, const char** argv, std::shared_ptr<GCommandLineArgument<T> > arg) const;
+    
+    vector < GArgumentParsed >  API SplitCommands(const  int argc, const char** argv, const bool skipfirst = true) const;
+    void  SetExecName(deque<  std::shared_ptr<GArgument>  >* arg, const char* name) const;
+    virtual bool API  Verify(std::shared_ptr<GArgument>  a, GArgumentParsed v) const;
 
 
-	template<typename T> void  SetParametersF(std::shared_ptr <GArgument> a, GArgumentParsed v) const;
-	template<typename T> void   SetParametersV(std::shared_ptr <GArgument> a, vector<string> vs) const;
-	template<typename T, typename U = vector<T> > void  SetParametersVI(std::shared_ptr <GArgument> a, vector<string> vs) const;
-	template<typename T> void    SetParameterVal_t(std::shared_ptr<GArgument>  a, GArgumentParsed v) const;
+    template<typename T> void  SetParametersF(std::shared_ptr <GArgument> a, GArgumentParsed v) const;
+    template<typename T> void   SetParametersV(std::shared_ptr <GArgument> a, vector<string> vs) const;
+    template<typename T, typename U = vector<T> > void  SetParametersVI(std::shared_ptr <GArgument> a, vector<string> vs) const;
+    template<typename T> void    SetParameterVal_t(std::shared_ptr<GArgument>  a, GArgumentParsed v) const;
 
 
 private:
-	bool fDoIgnoreStrayArguments;
-	bool  IsCommand(const string arg) const;
-	bool  IsSubCommand(const string arg) const;
-	bool  CheckMandatory(const vector<GArgumentParsed> v, const deque < std::shared_ptr<GArgument>  >* args) const;
-	bool  CheckValid(const vector<GArgumentParsed> v, const deque  <  std::shared_ptr < GArgument>  >* args) const;
-	void  CheckDuplicates(deque <  std::shared_ptr<GArgument>  >* args) const;
+    bool fDoIgnoreStrayArguments;
+    bool  IsCommand(const string arg) const;
+    bool  IsSubCommand(const string arg) const;
+    bool  CheckMandatory(const vector<GArgumentParsed> v, const deque < std::shared_ptr<GArgument>  >* args) const;
+    bool  CheckValid(const vector<GArgumentParsed> v, const deque  <  std::shared_ptr < GArgument>  >* args) const;
+    void  CheckDuplicates(deque <  std::shared_ptr<GArgument>  >* args) const;
 };
 
 

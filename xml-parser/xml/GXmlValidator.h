@@ -13,7 +13,7 @@
 class GXmlValidator
 {
 public:
-	static bool API IsValid(std::string xmlFilename, std::string xsdFilename);
+    static bool API IsValid(std::string xmlFilename, std::string xsdFilename);
 };
 
 #endif // !GXMLVALIDATOR_H

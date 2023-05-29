@@ -44,7 +44,7 @@ GArgumentParsed::ParInfo(const vector<string> par )  const
     buffer << "*** PARAMETERS ***" << endl;
     for(uint16_t i=0; i < par.size(); i++ )
     {
-	buffer << "Par[" << i << "] = " << par[i] << endl;
+    buffer << "Par[" << i << "] = " << par[i] << endl;
     }
     
     buffer << "*** NB, parameters must be parsed to their appropriate type ***"  << endl;

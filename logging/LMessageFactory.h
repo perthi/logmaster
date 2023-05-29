@@ -24,17 +24,17 @@ using std::string;
 
 namespace LOGMASTER
 {
-	class  LMessage;
-	class  LConfig;
-	class  LLogging;
+    class  LMessage;
+    class  LConfig;
+    class  LLogging;
 
-	/** @class LMessageFactory
-	* Helper class used by LLogging  */
-	class LMessageFactory
-	{
+    /** @class LMessageFactory
+    * Helper class used by LLogging  */
+    class LMessageFactory
+    {
 
             friend LLogging;
-	public:
+    public:
             LMessageFactory();
             LMessageFactory( const LMessageFactory &gen );
             ~LMessageFactory();
@@ -52,7 +52,7 @@ namespace LOGMASTER
                                                           const int line, const char *func, const string addendum,
                                                           const char *fmt, va_list ap);
 
-	private:
+    private:
             LMessageFactory operator = ( const LMessageFactory &);
             bool fIsEnabled = true;
             std::shared_ptr<LMessage> fMessage = nullptr;

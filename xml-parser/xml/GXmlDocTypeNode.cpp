@@ -8,12 +8,12 @@
 #include "GXmlDocTypeNode.h"
 
 GXmlDocTypeNode::GXmlDocTypeNode(const std::string& name)
-	: GXmlNodeImpl(name, "")
+    : GXmlNodeImpl(name, "")
 {
 }
 
 eXML_NODETYPE 
 GXmlDocTypeNode::GetType() const
 {
-	return eXML_NODETYPE::EDocTypeNode;
+    return eXML_NODETYPE::EDocTypeNode;
 }

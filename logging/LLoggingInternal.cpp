@@ -49,28 +49,28 @@ namespace LOGMASTER
     LLoggingInternal::Log(GLocation local, GLocation caller, GFileName_t fname, const string message )
     {
         string msg;
-		std::stringstream buffer;
-		buffer << local.fFileName + "::" + local.fFunctName + "(line " << local.fLineNo << ")" << endl;
-		buffer << "modified from : " + caller.fFileName + "::" + caller.fFunctName + "(line " << caller.fLineNo << ")" << endl;
-		buffer << "\tsettings applied: " + message << endl;
+        std::stringstream buffer;
+        buffer << local.fFileName + "::" + local.fFunctName + "(line " << local.fLineNo << ")" << endl;
+        buffer << "modified from : " + caller.fFileName + "::" + caller.fFunctName + "(line " << caller.fLineNo << ")" << endl;
+        buffer << "\tsettings applied: " + message << endl;
         FILE *fp;
         
 #ifdef _WIN32
-        int err = fopen_s(&fp, fname.c_str(), "a");	
+        int err = fopen_s(&fp, fname.c_str(), "a");    
         #else
-        fp =  fopen(fname.c_str(), "a");	
+        fp =  fopen(fname.c_str(), "a");    
 #endif
         if (fp != 0)
         {
 #ifdef _WIN32
-			//g_file()->SetAttribute(fname.str(), FILE_ATTRIBUTE_HIDDEN);
+            //g_file()->SetAttribute(fname.str(), FILE_ATTRIBUTE_HIDDEN);
 #endif
-			fprintf(fp, "%s\n", msg.c_str());
-			fclose(fp);
-		}
-		else
+            fprintf(fp, "%s\n", msg.c_str());
+            fclose(fp);
+        }
+        else
         {
-			cerr << "Could not open file:" << fname.str() << "  for writing" << endl;
+            cerr << "Could not open file:" << fname.str() << "  for writing" << endl;
         }      
     }
 

@@ -16,7 +16,7 @@
 class TestCheckLevel : public TestBase
 {
 public:
-	TestCheckLevel();
-	~TestCheckLevel();
+    TestCheckLevel();
+    ~TestCheckLevel();
 };
 

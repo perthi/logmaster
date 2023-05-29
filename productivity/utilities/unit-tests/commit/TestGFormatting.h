@@ -18,8 +18,8 @@
 /** @brief unit tests for the GString class */
 class TestGFormatting : public TestBase
 {
-	public:
-	static void SetUpTestCase();
+    public:
+    static void SetUpTestCase();
 };
 
 

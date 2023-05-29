@@ -8,16 +8,16 @@
 #include "GXmlAttribute.h"
 
 GXmlAttribute::GXmlAttribute(const std::string& name, const std::string& value)
-	: fName(name), fValue(value)	
+    : fName(name), fValue(value)    
 {
 }
 
 std::string GXmlAttribute::GetName() const 
 { 
-	return fName;
+    return fName;
 }
 
 std::string GXmlAttribute::GetValue() const 
 { 
-	return fValue;
+    return fValue;
 }

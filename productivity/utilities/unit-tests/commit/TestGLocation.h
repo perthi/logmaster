@@ -11,12 +11,12 @@
 
 class  TestGLocation : public TestBase
 {
-	public:
-		static void SetUpTestCase();
-		static void TearDownTestCase();
+    public:
+        static void SetUpTestCase();
+        static void TearDownTestCase();
 
-		virtual void SetUp() override;
-		virtual void TearDown() override;
+        virtual void SetUp() override;
+        virtual void TearDown() override;
 };
 
 #endif

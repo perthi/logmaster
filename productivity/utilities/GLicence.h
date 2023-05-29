@@ -11,9 +11,9 @@ using std::endl;
 
 class GLicence
 {
-	public:
+    public:
         static inline string copyright( );
-		static inline string long_version();
+        static inline string long_version();
         static inline string short_version( );
        
 };
@@ -35,7 +35,7 @@ GLicence::copyright( )
 string
 GLicence::long_version()
 {
-	std::stringstream buffer;
+    std::stringstream buffer;
     buffer << copyright( ) << endl;;
 
     buffer << "/********************************************************************************" << endl;

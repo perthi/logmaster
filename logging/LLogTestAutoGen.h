@@ -20,9 +20,9 @@ namespace  LOGMASTER
 class LLogTestAutoGen
 {
 public:
-	LLogTestAutoGen()  {};
-	~LLogTestAutoGen() {};
-	static API void WriteMessages();
+    LLogTestAutoGen()  {};
+    ~LLogTestAutoGen() {};
+    static API void WriteMessages();
 
 
     static API string file()
@@ -32,9 +32,9 @@ public:
 
     static API void test();
 
-private:	
-	static void Header();
-	static void Footer();
+private:    
+    static void Header();
+    static void Footer();
 };
 
 

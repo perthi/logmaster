@@ -14,12 +14,12 @@
 
 class  TestLMessage2Json  : public TestBase
 {
-	public:
-		TestLMessage2Json();
-		virtual ~TestLMessage2Json();
+    public:
+        TestLMessage2Json();
+        virtual ~TestLMessage2Json();
 
-		
-		
+        
+        
 
 };
 

@@ -16,9 +16,9 @@
 class TestLTargets : public TestBase
 {
 public:
-	TestLTargets();
-	~TestLTargets();
-	virtual void SetUp() override;
-	virtual void TearDown() override;
+    TestLTargets();
+    ~TestLTargets();
+    virtual void SetUp() override;
+    virtual void TearDown() override;
 };
 

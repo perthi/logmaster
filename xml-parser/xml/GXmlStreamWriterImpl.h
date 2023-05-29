@@ -16,25 +16,25 @@
 class GXmlStreamWriterImpl :public GXmlStreamWriter
 {
 public:
-	virtual ~GXmlStreamWriterImpl();
-	GXmlStreamWriterImpl(std::string fileName);
+    virtual ~GXmlStreamWriterImpl();
+    GXmlStreamWriterImpl(std::string fileName);
 private:
-	GXmlStreamWriterImpl operator = (const GXmlStreamWriterImpl & );
-	GXmlStreamWriterImpl( const GXmlStreamWriterImpl & );
+    GXmlStreamWriterImpl operator = (const GXmlStreamWriterImpl & );
+    GXmlStreamWriterImpl( const GXmlStreamWriterImpl & );
 
-	
-	// Only the class factory can create this class
-	friend GXmlStreamWriter* GXmlClassFactory::CreateStreamWriter(std::string fileName);
+    
+    // Only the class factory can create this class
+    friend GXmlStreamWriter* GXmlClassFactory::CreateStreamWriter(std::string fileName);
 
-	xmlTextWriterPtr fWriter = nullptr;
+    xmlTextWriterPtr fWriter = nullptr;
 
-	GXmlStreamWriterImpl();
-	virtual void WriteSingleTag(std::string tag) override;
-	virtual void WriteSingleTag(std::string tag, std::vector<GXmlAttribute> attributes) override;
-	virtual void WriteStartTag(std::string tag) override;
-	virtual void WriteStartTag(std::string tag, std::vector<GXmlAttribute> attributes) override;
-	virtual void WriteEndTag() override;
-	virtual void WriteValueTag(std::string tag, std::string value) override;
-	virtual void WriteValueTag(std::string tag, std::vector<GXmlAttribute> attributes, std::string value) override;
-	virtual void WriteComment(std::string comment) override;
+    GXmlStreamWriterImpl();
+    virtual void WriteSingleTag(std::string tag) override;
+    virtual void WriteSingleTag(std::string tag, std::vector<GXmlAttribute> attributes) override;
+    virtual void WriteStartTag(std::string tag) override;
+    virtual void WriteStartTag(std::string tag, std::vector<GXmlAttribute> attributes) override;
+    virtual void WriteEndTag() override;
+    virtual void WriteValueTag(std::string tag, std::string value) override;
+    virtual void WriteValueTag(std::string tag, std::vector<GXmlAttribute> attributes, std::string value) override;
+    virtual void WriteComment(std::string comment) override;
 };

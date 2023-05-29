@@ -9,7 +9,7 @@
 #include "GXmlEnum2String.h"
 
 GXmlCDataNode::GXmlCDataNode(const std::string& value)
-	: GXmlNodeImpl("", value)
+    : GXmlNodeImpl("", value)
 {
 }
 
@@ -17,12 +17,12 @@ GXmlCDataNode::GXmlCDataNode(const std::string& value)
 eXML_NODETYPE  
 GXmlCDataNode::GetType() const
 {
-	return eXML_NODETYPE::ECDataNode;
+    return eXML_NODETYPE::ECDataNode;
 }
 
 
 string  
 GXmlCDataNode::GetTypeS() const
 {
-	return  GXmlEnum2String::Enum2String (eXML_NODETYPE::ECDataNode );
+    return  GXmlEnum2String::Enum2String (eXML_NODETYPE::ECDataNode );
 }

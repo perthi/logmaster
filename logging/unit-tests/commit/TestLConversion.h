@@ -19,11 +19,11 @@
 class TestLConversion : public TestBase
 {
 public:
-	TestLConversion();
-	~TestLConversion();
+    TestLConversion();
+    ~TestLConversion();
 
 
 protected:
-	//LHashMaps *h = nullptr;
+    //LHashMaps *h = nullptr;
 };
 
