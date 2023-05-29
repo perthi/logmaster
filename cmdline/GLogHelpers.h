@@ -1,9 +1,11 @@
 #pragma once
 
-#include <utilities/GDefinitions.h>
+
+#include "GArgumentDefinitions.h"
+
 
 #include <string>
 using std::string;
 
-string API cmdlineFromFile(const string filename);
-
+string  cmdlineFromFile(const string filename);
+ 

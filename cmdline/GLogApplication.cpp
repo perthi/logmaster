@@ -212,7 +212,8 @@ GLogApplication::ScanArguments(const int argc, const char ** argv, arg_deque arg
 
 
 
-void GLogApplication::ScanArguments(const int argc, const char ** argv)
+void 
+GLogApplication::ScanArguments(const int argc, const char ** argv)
 {  
     ScanArguments(argc, argv, fArgs);
 }
@@ -256,6 +257,8 @@ GLogApplication::AddArgument( arg_ptr arg, eDUP_STRATEGY strategy )
 }
 
 
+
+
 GLogApplication &
 GLogApplication::AddArguments(  arg_deque  args)
 {
@@ -268,7 +271,7 @@ GLogApplication::AddArguments(  arg_deque  args)
 
 
 
-std::shared_ptr<GArgument> 
+arg_ptr 
 GLogApplication::GetArgument(const string cmd)
 {
     for (size_t i = 0; i < fArgs.size(); i++)
@@ -301,76 +304,6 @@ arg_deque
 GLogApplication::GetArguments()
 {
     return fArgs;
-}
-
-
-string
-GLogApplication::Help( const string cmd  ) const
-{
-    return Help(fArgs, cmd);
-}
-
-
-string 
-GLogApplication::Help( const arg_deque args, const string cmd )
-{
-    std::stringstream buffer;
-
-    if(cmd == "")
-    {
-        for (uint16_t i = 0; i < args.size(); i++)
-        {
-            buffer <<  args[i]->GetHelpText(false) << endl;
-        }
-    }
-    else
-    {
-        bool found = false;    
-        for (uint16_t i = 0; i < args.size(); i++)
-        {
-            if( args[i]->GetCommand() == cmd )
-            {
-                found = true;
-                buffer <<  args[i]->GetHelpText(true)  << endl;
-            }
-        }
-
-        if(found == false)
-        {
-            G_ERROR("%s: Unrecognized command, please check your spelling", cmd.c_str() );
-        }
-    }
-    return buffer.str();
-}
-
-
-
-string          
-GLogApplication::Help(const char *  exename, const string heading,  const string cmd ) const
-{
-    if (cmd != "")
-    {        
-    
-        return GLogApplication::Help("-" + cmd);
-    }
-    else
-    {
-        std::stringstream buffer;
-        buffer << "\n";
-        buffer << "\t*********************************************************************************************" << "\n";
-        buffer << "\t************************ HELP MENU FOR THE "<< heading << " COMMAND LINE INTERFACE (CLI)******************" << "\n";
-        buffer << "\t**********************************************************************************************" << "\n";
-        buffer << endl;
-        buffer << "\tCOMMAND\t\t\t\t\tUSAGE\t\t" << "\n";
-        buffer << "\t------------------------------------------------------------------------------------------------" << "\n";
-        buffer << GLogApplication::Help();
-        buffer << "\n";
-        buffer << "\t**********************************************************************************************" << "\n";
-        buffer << "\t************* TYPE  " <<  string(exename) <<  "  [command]" << "  TO GET MORE INFO FOR A SPECIFIC COMMAND *******" << "\n";
-        buffer << "\t**********************************************************************************************" << "\n";
-        buffer << "\n";
-        return buffer.str();
-    }
 }
 
 

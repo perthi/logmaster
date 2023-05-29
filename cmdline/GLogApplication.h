@@ -73,9 +73,7 @@ public:
     static bool      API   HasCommand(arg_deque  args, const string cmd);
     bool             API   HasCommand(const string cmd);
     arg_deque        API   GetArguments( );
-    string           API   Help(const string cmd = "") const;
-    static string    API   Help(const deque  <  std::shared_ptr<GArgument>  > args, const string cmd = "");
-    string           API   Help(const char* exename, const string heading, const string cmd = "") const;
+    
     GLogApplication  API & InitLogArgs( );
     int              API   SetMandatory(const string cmd);
     int              API   SetOptional(const string cmd);

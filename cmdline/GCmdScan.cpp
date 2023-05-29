@@ -39,11 +39,6 @@ GCmdScan::GCmdScan() : fDoIgnoreStrayArguments(false)
 }
 
 
-GCmdScan::~GCmdScan()
-{
-
-}
-
 /*
 * Set parameters of fundamental type + strings
 */
@@ -259,11 +254,7 @@ GCmdScan::ScanArguments(const int argc, const char** argv, deque<  std::shared_p
 	}
 
 
-
-
 	vector<GArgumentParsed> v = SplitCommands(argc, argv);
-
-
 
 	CheckValid(v, args);
 	CheckMandatory(v, args);
@@ -371,7 +362,6 @@ GCmdScan::Verify(std::shared_ptr<GArgument> a, GArgumentParsed v) const
 			string arg = v.GetArguments().size() > 0 ? v.GetArguments()[0] : "";
 			string sub = v.GetSubCommands().size() > 0 ? v.GetSubCommands()[0] : "";
 
-			//      if ((v.GetArguments().size() == 1) != (v.GetSubCommands().size() == 1))
 			if ((v.GetArguments().size() == 1) xor (v.GetSubCommands().size() == 1))
 			{
 				if (sub == "--true" || arg == "1")

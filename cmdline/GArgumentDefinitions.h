@@ -5,6 +5,10 @@
 #include <memory>
 #include <deque>
 using std::deque;
+#include <string>
+using std::string;
+#include <vector> 
+using std::vector;
 
 #include <functional>
 

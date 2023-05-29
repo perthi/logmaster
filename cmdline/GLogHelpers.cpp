@@ -9,6 +9,8 @@ using namespace LOGMASTER;
 #include <utilities/GSystem.h>
 
 
+
+
 string cmdlineFromFile(const string filename)
 {
 
