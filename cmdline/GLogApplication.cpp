@@ -31,52 +31,26 @@
 #endif
 
 #include  "GLogApplication.h"
-#include  <logging/LValidateArgs.h>
+
 #include  <utilities/GDefinitions.h>
 #include  <utilities/GSystem.h>
+#include <utilities/GFileIOHandler.h>
 #include  <utilities/GConstants.h>
 using namespace GCONSTANTS;
 
-#include <utilities/GFileIOHandler.h>
 #include  <cmdline/GCmdApi.h>
-#include  <logging/LLogApi.h>
-#include  <logging/LDoc.h>
-#include  <logging/LPublisher.h>
 #include  <cmdline/GCommandLineArgument.h>
 #include  <cmdline/GCmdScan.h>
+#include <cmdline/GLogHelpers.h>
 
-#include <logging/GException.h>
+#include  <logging/LValidateArgs.h>
+#include  <logging/GException.h>
+#include  <logging/LDoc.h>
+#include  <logging/LPublisher.h>
+#include  <logging/LLogApi.h>
 
-#include <logging/LLogApi.h>
 
 using namespace LOGMASTER;
-
-#undef CATCH_EXCEPTION
-
-#define CATCH_EXCEPTION \
- catch (GText &e) \
-{ \
-    G_ERROR("%s",e.what()); \
-    throw(e); \
-} \
-catch (GException &e) \
-{ \
-    static char tmp[8096]; \
-    SPRINTF(tmp, 8096, "%s", e.GetMessageL()->fMsgBody );       \
-    G_ERROR("%s", tmp);\
-    throw(e); \
-} \
-catch (std::exception &e) \
-{ \
-    G_ERROR("%s",e.what()); \
-        throw(e);               \
-} \
-catch (...) \
-{ \
-    G_ERROR("%s","Unknown exception caught"); \
-        throw("Unknown exception caught");        \
-}
-
 
 
 GLogApplication::GLogApplication(const bool init)
@@ -97,7 +71,7 @@ GLogApplication::GLogApplication(const bool init)
 *  @param[in] additional_arguments  additional argument to add to the default list of arguments
 *  @param[in] do_init whether or not to scan command line arguments immediately
 *  @exception GException  If the arguments passed to the LogApplication via the constructor is invalid*/
-GLogApplication::GLogApplication( const int argc, const char** argv, deque < std::shared_ptr<GArgument>   > *additional_arguments, bool do_init) 
+GLogApplication::GLogApplication( const int argc, const char** argv, arg_deque_ptr additional_arguments, bool do_init) 
     
 {
     InitLogArgs();
@@ -115,13 +89,16 @@ GLogApplication::GLogApplication( const int argc, const char** argv, deque < std
 
 
 
-GLogApplication::GLogApplication(const GFileName_t & tf,  arg_deque *additional_arguments) : 
-                                                        fArgs( ), fHelp( nullptr ), fLog( nullptr ), fTarget( nullptr ), fFormat(nullptr), 
-                                                        fColor( nullptr ) 
-{
-    G_DEBUG("construction started");
+GLogApplication::GLogApplication(const GFileName_t & tf,  arg_deque *additional_arguments)
+{   
+    
     InitLogArgs();
     
+    string commandline = cmdlineFromFile(tf.str( ));
+
+    ScanArguments(commandline);
+
+    /*
     if( additional_arguments != nullptr )
     {
         AddArguments( *additional_arguments);
@@ -201,8 +178,27 @@ GLogApplication::GLogApplication(const GFileName_t & tf,  arg_deque *additional_
     }
 
     G_DEBUG("construction finished");
+    */
 }
 
+
+
+GLogApplication&
+GLogApplication::InitLogArgs( )
+{
+    fHelp = std::make_shared <void_arg >("-help", "-help", "prints help menu", nullptr, fgkOPTIONAL);
+    fLog = std::make_shared <vector_arg >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::Instance( )->LogLevelDoc( ), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
+    fTarget = std::make_shared <vector_arg >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::Instance( )->LogTargetDoc( ), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
+    fFormat = std::make_shared <vector_arg >("-logformat", "-logformat\t\t[subcommands]", LDoc::Instance( )->LogFormatDoc( ), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
+    fColor = std::make_shared <bool_arg>("-logcolor", "-logcolor\t\t--true/--false", "Whether or not to use colors when writing log messages to the console", LPublisher::Instance( )->GetEnableColor( ), fgkOPTIONAL, GCmdApi::bool2);
+
+    AddArgument(fHelp, eDUP_STRATEGY::IGNORE_DUPLICATE);
+    AddArgument(fLog, eDUP_STRATEGY::IGNORE_DUPLICATE);
+    AddArgument(fTarget, eDUP_STRATEGY::IGNORE_DUPLICATE);
+    AddArgument(fFormat, eDUP_STRATEGY::IGNORE_DUPLICATE);
+    AddArgument(fColor, eDUP_STRATEGY::IGNORE_DUPLICATE);
+    return *this;
+}
 
 
 void 
@@ -228,23 +224,6 @@ GLogApplication::Purge()
 
 }
 
-
-GLogApplication &
-GLogApplication::InitLogArgs()
-{
-    fHelp  =  std::make_shared <void_arg >("-help", "-help", "prints help menu", nullptr, fgkOPTIONAL);
-    fLog   =  std::make_shared <vector_arg >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::Instance()->LogLevelDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
-    fTarget = std::make_shared <vector_arg >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::Instance()->LogTargetDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
-    fFormat = std::make_shared <vector_arg >("-logformat", "-logformat\t\t[subcommands]", LDoc::Instance()->LogFormatDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
-    fColor =  std::make_shared <bool_arg> ("-logcolor", "-logcolor\t\t--true/--false", "Whether or not to use colors when writing log messages to the console", LPublisher::Instance()->GetEnableColor(), fgkOPTIONAL, GCmdApi::bool2);
-    
-    AddArgument(fHelp, eDUP_STRATEGY::IGNORE_DUPLICATE );
-    AddArgument(fLog, eDUP_STRATEGY::IGNORE_DUPLICATE );
-    AddArgument(fTarget, eDUP_STRATEGY::IGNORE_DUPLICATE);
-    AddArgument(fFormat, eDUP_STRATEGY::IGNORE_DUPLICATE);
-    AddArgument(fColor, eDUP_STRATEGY::IGNORE_DUPLICATE);
-    return *this;
-}
 
 
 #ifdef _WIN32
@@ -287,7 +266,7 @@ GLogApplication::ScanArguments(const string cmdline, std::shared_ptr<GArgument> 
 }
 
 
-#define MAX_ARGS 200
+
 void
 GLogApplication::ScanArguments(const string cmdline, deque <  std::shared_ptr<GArgument> > args)
 {
@@ -295,17 +274,12 @@ GLogApplication::ScanArguments(const string cmdline, deque <  std::shared_ptr<GA
     const size_t argc = tokens.size() + 1;
     const char* argv[MAX_ARGS] = {0};
 
-
-
     G_ASSERT_EXCEPTION( tokens.size() <= MAX_ARGS, "maximum (%d) number of arguments exceeded, got %d arguments", MAX_ARGS,  tokens.size() );
 
     for ( size_t i = 0; i < tokens.size(); i++)
     {    
         argv[i + 1] = tokens[i].c_str();
     }
-
-
-
     ScanArguments((int)argc, argv, args);
 }
  

@@ -10,7 +10,7 @@
 *****************************************************************************/
 
 
-/** @brief Common constants used by the commandline and logging system*/
+/** @brief Common constants used by the command line and logging system*/
 namespace GCONSTANTS
 {
   static const bool fgkMANDATORY = true;

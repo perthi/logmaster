@@ -27,7 +27,7 @@ using vector_arg_ptr = std::shared_ptr<GCommandLineArgument < vector< string > >
 using void_arg_ptr =   std::shared_ptr<GCommandLineArgument <void> >;
 using bool_arg_ptr =  std::shared_ptr<GCommandLineArgument <bool> >;
 
-
+#define MAX_ARGS 200
 
 
 /** What strategy to use if the user tries to add

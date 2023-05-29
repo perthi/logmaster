@@ -52,7 +52,7 @@ class GLogApplication
 {
 public:
     API  GLogApplication(const bool init = false);
-    API  GLogApplication(const int argc, const char** argv, arg_deque* additional_arguments = nullptr, bool do_init = DO_INIT);
+    API  GLogApplication(const int argc, const char** argv, arg_deque_ptr additional_arguments = nullptr, bool do_init = DO_INIT);
     API  GLogApplication(const GFileName_t& t, arg_deque* additional_arguments = nullptr);
 
     void  API  Purge( );
