@@ -44,7 +44,7 @@ namespace LOGMASTER
         static void API InitHashSystem2String(  map<eMSGSYSTEM, string>  *System2StringHash );
         static void API InitHashLevel2String(   map<eLOGLEVEL, string> *Level2StringHash  );
         void        API InitHashLogLevel( );
-        void        API InitPermissions( );
+        void        API InitHashPermissions( map<eMSGSYSTEM, bool> *permHash  );
 
       
 

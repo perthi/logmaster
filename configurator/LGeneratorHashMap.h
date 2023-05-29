@@ -33,10 +33,8 @@ namespace CONFIGURATOR
         void   GenerateInitHashLogLevel( const sysentity_vec  systems, content_vec &content)  const;
         void   GenerateInitHashSystem2String( const sysentity_vec systems, content_vec & content)  const;
         void   GenerateInitHashLevel2String( const logentity_vec  levels, content_vec & content)  const;
-
-        void   GenerateInitHashLogTags( logentity_vec levels,
-            sysentity_vec, vector<string>& in) const;
-
+        void   GenerateInitHashLogTags( logentity_vec levels, sysentity_vec sys, content_vec & content) const;
+        void   GenerateHashPermissions( sysentity_vec sys, content_vec& content ) const;
 
     };
 

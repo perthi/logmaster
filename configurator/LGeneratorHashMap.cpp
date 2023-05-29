@@ -17,8 +17,9 @@ using namespace LOGMASTER;
 #include <configurator/LFileInfo.h>
 
 #include <sstream>
-#include <algorithm>
-#include <algorithm>
+//#include <algorithm>
+
+#include <format>
 
 
 #define MAX_ADDITIONL_SUBSYSTEMS 12
@@ -63,8 +64,29 @@ namespace CONFIGURATOR
         GenerateInitHashSystem2String(systems,   fFileContentSource);
         GenerateInitHashLevel2String(levels,     fFileContentSource);
         GenerateInitHashLogTags(levels, systems, fFileContentSource);
+        GenerateHashPermissions( systems, fFileContentSource);
 
         fFileContentSource.push_back("}");
+    }
+
+
+    void   
+    LGeneratorHashMap::GenerateHashPermissions(sysentity_vec sys, content_vec& content ) const
+    {
+        content.push_back("\n\n");
+        content.push_back("   void");
+        content.push_back("   " + fFileInfo->GetClassName( ) + "::InitHashPermissions( map<eMSGSYSTEM, bool>  *permHash )");
+        content.push_back("   {");
+        
+        for ( auto s : sys )
+        {
+            string boolstring  =  ( s->fCanModify == true ? "true" : "false");
+
+            /** @todo Either use fSystemEnumName consistently in all function or remove this variable */
+            content.push_back(std::format("        permHash->emplace( {}::SYS_{},{});", fSystemEnumName,s->fName, boolstring));
+        }
+        
+        content.push_back("   }");
     }
 
 
@@ -93,9 +115,11 @@ namespace CONFIGURATOR
 
                 lines.push_back(g_utilities()->TabAlign("\tSubCmdHash->emplace(\"" + tag + "-off\"" + ",", 5) + "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + "," + "  eLOGLEVEL::LOG_OFF));");
 
+                /** @todo align output using spaces, not tabs */
                 for (auto& lvl : levels)
                 {
                     string tmptag = tag + "-" + g_string()->ToLower(lvl->fName);
+                    /** @todo use std::format here */
                     lines.push_back(g_utilities()->TabAlign("\tSubCmdHash->emplace(\"" + tmptag + "\"" + ",", 5) + "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + "," + "  eLOGLEVEL::LOG_" + lvl->fName + "));");
                 }
 

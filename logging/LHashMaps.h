@@ -49,7 +49,7 @@ namespace LOGMASTER
             static    map <eMSGSYSTEM, string >        API *    GetSystem2StringHash();
             static    map <eLOGLEVEL, string  >        API    *    GetLevel2StringHash();
 
-            static  eMSGTARGET              API        GetTarget( const string  &hash);
+            static   eMSGTARGET              API        GetTarget( const string  &hash);
             static  eMSGFORMAT              API        GetFormat( const string  &hash );
             static    vector<eMSGTARGET>        API      GetTargetEnums();
             static    vector<eMSGFORMAT>        API      GetFormatEnums();
@@ -62,7 +62,7 @@ namespace LOGMASTER
             static bool                     API     IsTargetHash( const string &target );
             static bool                     API     IsFormatHash( const string &format );
             static bool                     API     IsSubCmdHash( const string &subcmd );
-            static bool                     API IsChangeable(const eMSGSYSTEM system) const;
+            static bool                     API     IsChangeable(const eMSGSYSTEM system);
     };
 
 }

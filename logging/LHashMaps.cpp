@@ -26,7 +26,6 @@
 ******************************************************************************
 ******************************************************************************/
 
-//#pragma once
 
 #include "LHashMaps.h"
 #include <utilities/GNumbers.h>
@@ -231,8 +230,6 @@ namespace LOGMASTER
     }
 
 
-
-
     vector<string>
         LHashMaps::GetLogLevelTags()
     {
@@ -279,6 +276,23 @@ namespace LOGMASTER
         InitHash();
         return fSubCmdHash.count( subcmd ) > 0 ? true : false;
     }
+
+
+    bool
+    LHashMaps::IsChangeable(const eMSGSYSTEM system)
+    {
+        if ( fPermissions.find(system) == fPermissions.end( ) )
+        {
+            return false;
+        }
+        else
+        {
+            return fPermissions.find(system)->second;
+        }
+
+    }
+
+
 
 
     string
@@ -346,7 +360,6 @@ namespace LOGMASTER
         fFormatHash.emplace("--all-off",        eMSGFORMAT::ALL_FIELDS_OFF);
         fFormatHash.emplace("--msg-type",        eMSGFORMAT::MESSAGE_TYPE);
         fFormatHash.emplace("--time-stamp",        eMSGFORMAT::TIME_STAMP);
-       // fFormatHash.emplace("--time-short",        eMSGFORMAT::TIME_STAMP_SHORT);
         fFormatHash.emplace("--file-path",        eMSGFORMAT::FILE_PATH);
         fFormatHash.emplace("--file-name",        eMSGFORMAT::FILE_NAME);
         fFormatHash.emplace("--func-name",        eMSGFORMAT::FUNCTION_NAME);
@@ -428,9 +441,6 @@ namespace LOGMASTER
             eLOGLEVEL l_padded =  (eLOGLEVEL)PAD((int)l);
             std::get<1>(it->second) = l_padded;
         }
-
-  // }
-
 
     }
 }
