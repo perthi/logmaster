@@ -116,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;XML_HOME="$(ProjectDir).";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\xml-parser;$(SolutionDir);$(SolutionDir)\productivity;$(SolutionDir)\productivity\gtest\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\xml-parser;$(SolutionDir);$(SolutionDir)\productivity;$(gtest-include)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -124,7 +124,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>logging.lib;utilities.lib;cmdline.lib;xml.lib;libxml2.lib;gtestd.lib</AdditionalDependencies>
+      <AdditionalDependencies>logging.lib;utilities.lib;cmdline.lib;xml.lib;libxml2.lib;gtest.lib</AdditionalDependencies>
       <TreatLinkerWarningAsErrors>false</TreatLinkerWarningAsErrors>
     </Link>
     <PreBuildEvent>

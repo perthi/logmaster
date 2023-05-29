@@ -73,10 +73,6 @@ namespace LOGMASTER
         logmap API Log(const eLOGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const std::string message) 
         {
             return Log(level, sys, l,  "%s", message.c_str());
-          //  CERR << "MESSAGE = " << message << ENDL;
-          // 
-          // 
-            //return logmap();
         };
 
         template<typename... Args>
@@ -87,12 +83,7 @@ namespace LOGMASTER
         logmap    API     LogVarArgs(const eLOGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
             const char* functionname,
             const bool force_generate, string addendum, const char* fmt, const Args ... args);
-
-            
-        logmap    API     LogVarArgsUnsafe(const eLOGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
-            const char* functionname,
-            const bool force_generate, string addendum, const char* fmt, va_list ap);
-
+        
         void                     API       SetLogFormat(const  string& format, bool enable = true);
         void                     API       SetLogLevel(const  string& level);
         void                     API       SetLogTarget(const  string& target, bool eneable = true);

@@ -100,7 +100,7 @@ TestLGeneratorP::GenerateData(const string filename_ref, std::shared_ptr<LGenera
 }
 
 
-INSTANTIATE_TEST_CASE_P(
+INSTANTIATE_TEST_SUITE_P(
     Compare,
     TestLGeneratorP,
     ::testing::Values(

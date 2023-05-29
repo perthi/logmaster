@@ -31,7 +31,6 @@
 #endif
 
 #include  "GLogApplication.h"
-// #include  "SvnData.h"
 #include  <logging/LValidateArgs.h>
 #include  <utilities/GDefinitions.h>
 #include  <utilities/GSystem.h>
@@ -78,6 +77,15 @@ catch (...) \
         throw("Unknown exception caught");        \
 }
 
+
+
+GLogApplication::GLogApplication(const bool init)
+ {
+    if ( init == true )
+    {
+        InitLogArgs( );
+    }
+};
 
 
 /** @brief Constructor that reads command line parameters passed to the application from the system (instead of using C-style argc **argv) and adds "* additional_argument" to the
@@ -187,7 +195,6 @@ GLogApplication::GLogApplication(const GFileName_t & tf,  arg_deque *additional_
             #endif
             
             G_DEBUG("Message1:%s", temp.c_str());
-          //  GLOG_APPLICATION_INIT(temp);
             ScanArguments(temp);
             G_INFO("Init done...");
         }
@@ -197,15 +204,9 @@ GLogApplication::GLogApplication(const GFileName_t & tf,  arg_deque *additional_
 }
 
 
-GLogApplication::~GLogApplication()
-{
-    //   delete fSvnData;
-}
-
 
 void 
-GLogApplication::SetCallBackFunction(const string cmd,  std::function<bool( const string cmd, const string args_s,
-    const vector<string>sub, const vector<string>par) > funct )
+GLogApplication::SetCallBackFunction(const string cmd, callback_t funct)
 {
     for (size_t i = 0; i < fArgs.size(); i++)
     {
@@ -231,17 +232,17 @@ GLogApplication::Purge()
 GLogApplication &
 GLogApplication::InitLogArgs()
 {
-    fHelp = std::make_shared < GCommandLineArgument < void > >("-help", "-help", "prints help menu", nullptr, fgkOPTIONAL);
-	fLog = std::make_shared < GCommandLineArgument < vector< string > > >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::Instance()->LogLevelDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
-	fTarget = std::make_shared < GCommandLineArgument < vector< string > > >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::Instance()->LogTargetDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
-	fFormat = std::make_shared < GCommandLineArgument < vector< string > > >("-logformat", "-logformat\t\t[subcommands]", LDoc::Instance()->LogFormatDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
-	fColor = std::make_shared<GCommandLineArgument < bool > >("-logcolor", "-logcolor\t\t--true/--false", "Whether or not to use colors when writing log messages to the console", LPublisher::Instance()->GetEnableColor(), fgkOPTIONAL, GCmdApi::bool2);
-	
-    AddArgument(fHelp, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE );
-	AddArgument(fLog, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE );
-	AddArgument(fTarget, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE);
-	AddArgument(fFormat, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE);
-	AddArgument(fColor, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE);
+    fHelp  =  std::make_shared <void_arg >("-help", "-help", "prints help menu", nullptr, fgkOPTIONAL);
+    fLog   =  std::make_shared <vector_arg >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::Instance()->LogLevelDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
+    fTarget = std::make_shared <vector_arg >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::Instance()->LogTargetDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
+    fFormat = std::make_shared <vector_arg >("-logformat", "-logformat\t\t[subcommands]", LDoc::Instance()->LogFormatDoc(), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
+    fColor =  std::make_shared <bool_arg> ("-logcolor", "-logcolor\t\t--true/--false", "Whether or not to use colors when writing log messages to the console", LPublisher::Instance()->GetEnableColor(), fgkOPTIONAL, GCmdApi::bool2);
+    
+    AddArgument(fHelp, eDUP_STRATEGY::IGNORE_DUPLICATE );
+    AddArgument(fLog, eDUP_STRATEGY::IGNORE_DUPLICATE );
+    AddArgument(fTarget, eDUP_STRATEGY::IGNORE_DUPLICATE);
+    AddArgument(fFormat, eDUP_STRATEGY::IGNORE_DUPLICATE);
+    AddArgument(fColor, eDUP_STRATEGY::IGNORE_DUPLICATE);
     return *this;
 }
 
@@ -256,13 +257,13 @@ GLogApplication::ScanArguments( )
 
 
 void 
-GLogApplication::SetDuplicateStrategy(const eDUPLICATE_STRATEGY strategy)
+GLogApplication::SetDuplicateStrategy(const eDUP_STRATEGY strategy)
 {
     fStrategy = strategy;
 }
 
 
-eDUPLICATE_STRATEGY       
+eDUP_STRATEGY       
 GLogApplication::GetDuplicateStrategy() const
 {
     return fStrategy;
@@ -326,7 +327,7 @@ void GLogApplication::ScanArguments(const int argc, const char ** argv)
 
 
 GLogApplication  &
-GLogApplication::AddArgument( std::shared_ptr<GArgument>  arg, eDUPLICATE_STRATEGY strategy )
+GLogApplication::AddArgument( std::shared_ptr<GArgument>  arg, eDUP_STRATEGY strategy )
 {
     if (arg != 0)
     {
@@ -339,16 +340,16 @@ GLogApplication::AddArgument( std::shared_ptr<GArgument>  arg, eDUPLICATE_STRATE
         {
             switch (strategy)
             {
-            case eDUPLICATE_STRATEGY::THROW_EXEPTION:
+            case eDUP_STRATEGY::THROW_EXEPTION:
                 if (HasCommand(arg->GetCommand()) == true)
                 {
                     INVALID_ARGUMENT_EXCEPTION("argument %s already exists", arg->GetCommand().c_str());
                 }
                 break;
-            case eDUPLICATE_STRATEGY::IGNORE_DUPLICATE:
+            case eDUP_STRATEGY::IGNORE_DUPLICATE:
                 G_WARNING("Cannot add argument %s that already exists", arg->GetCommand().c_str());
                 break;
-            case  eDUPLICATE_STRATEGY::REPLACE_DUPLICATE:
+            case  eDUP_STRATEGY::REPLACE_DUPLICATE:
                 G_WARNING("Replacing argument: %s", arg->GetCommand().c_str());
                 RemoveArgument(arg->GetCommand());
                 fArgs.push_back(arg);

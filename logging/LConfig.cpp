@@ -146,9 +146,8 @@ namespace LOGMASTER
             eMSGSYSTEM        e_system = LConversion::String2System( tokens[i] );
             eLOGLEVEL        e_level = LConversion::String2Level( tokens[i] );
 
-            /// We don't let anybody modify the alarm or the exception sub-system, if the user attempt it we just
-            /// masks   of that bit and silently ignore it
-            if( (int)e_system == 0 )
+
+            if(  e_system  == eMSGSYSTEM::SYS_NONE )
             {
                 continue;
             }
@@ -180,7 +179,7 @@ namespace LOGMASTER
         }
 
         fHash.fLogLevelHash[sys] = lv;
-        return void API();
+ 
     }
 
 
@@ -218,7 +217,7 @@ namespace LOGMASTER
         eLOGLEVEL  l_level = level;
         eMSGSYSTEM l_system = system;
        
-        /**  @bugWe should not do any filtering here. Its specified in the XML files what system,s can be changed*/
+        /**  @bug We should not do any filtering here. Its specified in the XML files what system,s can be changed*/
         FilterOut( l_system, {eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EXCEPTION });
 
         if (pad == true)
@@ -231,7 +230,6 @@ namespace LOGMASTER
             int n_bits = g_numbers()->CountBits( it->first );
             int n_bits_in = g_numbers()->CountBits( l_system );
             
-          //  COUT<< i << ": n_bits " << n_bits << "  nbits_in  " << n_bits_in << endl;
 
             if ( n_bits > 1 && n_bits_in == 1 )
             {

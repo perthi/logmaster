@@ -107,13 +107,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>HAS_LOGGING;LOGMASTER_HOME="$(ProjectDir).";_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\productivity;$(SolutionDir)\productivity\gtest\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\productivity;$(gtest-include)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>cmdline.lib;logging.lib;utilities.lib;shell32.lib;gtestd.lib</AdditionalDependencies>
+      <AdditionalDependencies>cmdline.lib;logging.lib;utilities.lib;shell32.lib;gtest.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(bindir)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>

@@ -52,12 +52,8 @@ int
 main(int  argc, const char ** argv)
 {
     GMenu::Instance()->ScanArguments(argc, argv);
-
-   // LLogging::Instance()->SetLogLevel("--off --all-debug");
     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
     LLogging::Instance()->SetLogLevel("--off --all-debug");
- //   std::this_thread::sleep_for(std::chrono::milliseconds(500));
-
   
     try
     {

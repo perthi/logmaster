@@ -118,9 +118,9 @@ TYPED_TEST_P(TestGCommandLineArgumentT, duplicate_arguemnts)
     a.Purge(); // Removing all arguments, size should be 0
     ASSERT_TRUE(a.GetArguments().size() == 0);
 
-    EXPECT_ANY_THROW(a.AddArgument(this->fArg1).AddArgument( this->fArg2, eDUPLICATE_STRATEGY::THROW_EXEPTION));
-    EXPECT_NO_THROW(a.AddArgument(this->fArg1, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE));
-    EXPECT_NO_THROW(a.AddArgument(this->fArg1, eDUPLICATE_STRATEGY::REPLACE_DUPLICATE));
+    EXPECT_ANY_THROW(a.AddArgument(this->fArg1).AddArgument( this->fArg2, eDUP_STRATEGY::THROW_EXEPTION));
+    EXPECT_NO_THROW(a.AddArgument(this->fArg1, eDUP_STRATEGY::IGNORE_DUPLICATE));
+    EXPECT_NO_THROW(a.AddArgument(this->fArg1, eDUP_STRATEGY::REPLACE_DUPLICATE));
 }
 
 
@@ -130,13 +130,13 @@ TYPED_TEST_P(TestGCommandLineArgumentT, duplicate_arguemnts_replace)
     
     ASSERT_NO_THROW(a.AddArgument( this->fArg1));
     uint64_t address1 = (uint64_t)a.GetArgument("-myarg").get();
-    ASSERT_NO_THROW(a.AddArgument( this->fArg2, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE));
+    ASSERT_NO_THROW(a.AddArgument( this->fArg2, eDUP_STRATEGY::IGNORE_DUPLICATE));
   
     uint64_t address2 = (uint64_t)a.GetArgument("-myarg").get();
     EXPECT_EQ(address1, address2);
     
     
-    ASSERT_NO_THROW(a.AddArgument( this->fArg2, eDUPLICATE_STRATEGY::REPLACE_DUPLICATE));
+    ASSERT_NO_THROW(a.AddArgument( this->fArg2, eDUP_STRATEGY::REPLACE_DUPLICATE));
     address2 = (uint64_t)a.GetArgument("-myarg").get();
     EXPECT_NE(address1, address2); // argument should be replaced, so the pointer address must differ   
   }

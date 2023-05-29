@@ -38,18 +38,6 @@
 
 namespace LOGMASTER
 {
-
-    /*
-    LConversion *
-    LConversion::Instance()
-    {
-        static  LConversion *instance  = new  LConversion();
-        return instance;
-        
-    }
-    */
-
-    
     eMSGFORMAT 
     LConversion::String2Format( const string & in )
     {
@@ -125,7 +113,7 @@ namespace LOGMASTER
                 throw(std::invalid_argument( ("invalid argument " + in).c_str() ));
             }
         }
- ///static  map < string, eMSGTARGET>		API *	GetTargetHash();
+
         return e_tmp;
     }
 

@@ -116,11 +116,9 @@ namespace LOGMASTER
         }
     }
 
-    //  std::shared_ptr<std::map<eMSGTARGET,  LMessageFactory  > >  fConfig = nullptr;
     void
     LLogging::Init()
     {
-      //  LPublisher::Instance()->StartDispatcher();
         fConfig    =            std::make_shared<  std::map<eMSGTARGET,  LMessageFactory  > >();
         fDefaultConfig =        std::make_shared< std::map<eMSGTARGET, LMessageFactory > > ();
 
@@ -129,9 +127,7 @@ namespace LOGMASTER
         fConfig->emplace(  eMSGTARGET::TARGET_SUBSCRIBERS, LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_GUI,         LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_EXCEPTION,   LMessageFactory() );
-    //    fConfig->emplace(  eMSGTARGET::TARGET_TESTING,     LMessageFactory() );
         fConfig->emplace(  eMSGTARGET::TARGET_DATABASE,     LMessageFactory() );
-   //     fConfig->emplace(  eMSGTARGET::TARGET_ALL,     LMessageFactory() );
 
         fDefaultConfig = fConfig;
 
@@ -172,55 +168,11 @@ namespace LOGMASTER
         fConfig = fDefaultConfig;
         do
         {
-            //auto c = fConfigurationStack.top();
             fConfigurationStack.pop();
         } while ( fConfigurationStack.size() > 0 );
     }
 
   
-  logmap 
-  LLogging::LogVarArgsUnsafe(const eLOGLEVEL level, const eMSGSYSTEM system, const char *filename,
-                                      const int lineno, const char *funct, const bool force_generate, string addendum,
-                                      const char *fmt, va_list ap)
-    {
-        if(fConfig == nullptr)
-        {
-            CERR << "CONFIG IS A ZERO POINTER" << ENDL;
-            exit(-1);
-        }
-
-        static std::shared_ptr<LMessage> tmp_msg = std::make_shared<LMessage>();
-
-        ClearMessages();
-        va_list ap_l;
-        va_copy(ap_l, ap);
-        for(auto it = fConfig->begin(); it != fConfig->end(); ++it)
-        {
-            if(it->second.IsEnabled() == true)
-            {
-                bool cl = CheckLevel(system, level, it->first);
-
-                if((cl == true) || force_generate == true)
-                {
-                    tmp_msg = it->second.GenerateMessageUnsafe(system, level, filename, lineno, funct, addendum, fmt, ap_l);
-
-                    if(cl == true)
-                    {
-                        QueMessage(tmp_msg, it->second.GetConfig(), it->first);
-                        auto it_msg = fMessages->find(it->first);
-                        if(it_msg != fMessages->end())
-                        {
-                            it_msg->second = tmp_msg;
-                        }
-                    }
-                }
-            }
-        }
-        va_end(ap_l);
-        return fMessages;
-
-    }
-
 
     /** Checks the loglevel of a message issued by the user against the current loglevel configured for the logging system*
      *  @param system  The subsystem this message applies to
@@ -265,7 +217,6 @@ namespace LOGMASTER
         
         if ( it_1 == fConfig->end() )
         {
-            //COUT << "The end" << endl;
             return false;
         }
         else
@@ -447,8 +398,6 @@ namespace LOGMASTER
         std::lock_guard<std::mutex> guard( log_mutex );
         auto m = LConversion::SplitByTarget(level_s);
 
-    //    COUT <<  level_s << endl;   
-
         for ( auto it_m = m.begin(); it_m != m.end(); it_m++ )
         {
             eMSGTARGET target = it_m->first;
@@ -457,7 +406,6 @@ namespace LOGMASTER
             {
                 if ( (it->first & target) != (eMSGTARGET)0 )
                 {
-               //     COUT << "ist->first = "<< (int)it->first <<"setting loglevel for" <<   it_m->second << endl;
                     it->second.GetConfig()->SetLogLevel( it_m->second );
                 }
             }

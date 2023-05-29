@@ -38,8 +38,8 @@ template <typename T> class GCommandLineArgument;
 
 #define DO_INIT true
 #define DONT_INIT false
-#include <functional>
 
+#include <functional>
 #include <memory>
 
 template <typename T> class GCommandLineArgument;
@@ -48,76 +48,56 @@ class GArgument;
 
 #include "GArgumentDefinitions.h"
 
-
-
 class GLogApplication
 {
 public:
-    API GLogApplication( const bool init = false )
-    {
-        if(init == true )
-        {
-            InitLogArgs();
-        }
-    };
- 
-    API  virtual ~GLogApplication();
- 
-    API  GLogApplication(	const int argc, const char** argv,  arg_deque  *additional_arguments = nullptr, bool do_init = DO_INIT);
-    API  GLogApplication(	const GFileName_t &t, arg_deque *additional_arguments = nullptr);
+    API  GLogApplication(const bool init = false);
+    API  GLogApplication(const int argc, const char** argv, arg_deque* additional_arguments = nullptr, bool do_init = DO_INIT);
+    API  GLogApplication(const GFileName_t& t, arg_deque* additional_arguments = nullptr);
 
-    void		API     Purge();
-    void		API		SetCallBackFunction(	const string cmd,
-                                                std::function< bool( const string cmd,  const string args_s,
-                                                                     const vector<string> sub, const	vector<string> par ) > funct ) ;
-    void		API	    RemoveArgument(const string cmd);
-  
-    API     std::shared_ptr<GArgument>	 	GetArgument(const string cmd);
-    virtual void        API     SetDuplicateStrategy(const eDUPLICATE_STRATEGY);
-    virtual eDUPLICATE_STRATEGY  API     GetDuplicateStrategy() const;
-    
-    GLogApplication  API & AddArgument(std::shared_ptr<GArgument>  arg, eDUPLICATE_STRATEGY ignore_duplicates = eDUPLICATE_STRATEGY::THROW_EXEPTION);
-    GLogApplication  API & AddArguments(deque< std::shared_ptr<GArgument> >  args);
+    void  API  Purge( );
+    void  API  SetCallBackFunction(const string cmd, callback_t funct);
+    void  API  RemoveArgument(const string cmd);
 
-
-    virtual void                 API       ScanArguments(const string cmdline);
-    virtual void                 API	   ScanArguments(const int argc, const char** argv);
+    arg_ptr          API   GetArgument(const string cmd);
+    void             API   SetDuplicateStrategy(const eDUP_STRATEGY);
+    eDUP_STRATEGY    API   GetDuplicateStrategy( ) const;
+    GLogApplication  API & AddArgument(arg_ptr  arg, eDUP_STRATEGY s = eDUP_STRATEGY::THROW_EXEPTION);
+    GLogApplication  API & AddArguments(arg_deque  args);
+    virtual void     API   ScanArguments(const string cmdline);
+    virtual void     API   ScanArguments(const int argc, const char** argv);
 #ifdef _WIN32
-    void		                 API       ScanArguments();
+    void             API   ScanArguments( );
 #endif
-    
-    static bool			API		HasCommand( deque < std::shared_ptr<GArgument>  >  args, const string cmd);
-    bool				API		HasCommand( const string cmd);
-    deque< std::shared_ptr<GArgument>  >	API	 	GetArguments();
-    string				API		Help(const string cmd = "" ) const;
-    static string		API		Help(const deque  <  std::shared_ptr<GArgument>  > args, const string cmd = "" );
-    string				API		Help(const char *exename, const string heading,  const string cmd = "" ) const;
-    GLogApplication     API	  &	InitLogArgs();
-	int					API		SetMandatory(const string cmd);
-	int					API		SetOptional(const string cmd);
-	bool				API		IsMandatory(const string cmd) const;
-	bool				API		IsOptional(const string cmd) const;
+
+    static bool      API   HasCommand(arg_deque  args, const string cmd);
+    bool             API   HasCommand(const string cmd);
+    arg_deque        API   GetArguments( );
+    string           API   Help(const string cmd = "") const;
+    static string    API   Help(const deque  <  std::shared_ptr<GArgument>  > args, const string cmd = "");
+    string           API   Help(const char* exename, const string heading, const string cmd = "") const;
+    GLogApplication  API & InitLogArgs( );
+    int              API   SetMandatory(const string cmd);
+    int              API   SetOptional(const string cmd);
+    bool             API   IsMandatory(const string cmd) const;
+    bool             API   IsOptional(const string cmd) const;
 
 
-//protected:
 private:
-    deque  <  std::shared_ptr<GArgument>  >    fArgs  =  deque  <  std::shared_ptr<GArgument>  > ()  ; 
-    std::shared_ptr<GCommandLineArgument < void > > fHelp = nullptr; //!< Command line argument for printing out version information
-    std::shared_ptr<GCommandLineArgument < vector< string > > >  fLog = nullptr;     //!< Command line argument for the configuration of the log  level
-    std::shared_ptr < GCommandLineArgument < vector< string > > > fTarget = nullptr;  //!< Command line argument for the configuration of the log  target
-    std::shared_ptr < GCommandLineArgument < vector< string > > > fFormat = nullptr;  //!< Command line argument for the configuration of the log  format
-    std::shared_ptr < GCommandLineArgument < bool > > fColor = nullptr;   //!< Command line argument for controlling whether or not to use color coding of log messages
+    API GLogApplication(GLogApplication&);
+    void operator=(GLogApplication&);
+    virtual   void                 API   ScanArguments(const string cmdline, arg_ptr arg);
+    virtual   void                 API   ScanArguments(const string cmdline, arg_deque args);
+    virtual   GLogApplication      API& ScanArguments(const int argc, const char** argv, arg_deque  arg);
 
-    API GLogApplication (GLogApplication &);
-    void operator=(GLogApplication &);
-    virtual void                 API       ScanArguments(const string cmdline, std::shared_ptr<GArgument> arg);
-    virtual void                 API	   ScanArguments(const string cmdline, deque  < std::shared_ptr<GArgument> > args);
+    arg_deque        fArgs = arg_deque( );
+    void_arg_ptr     fHelp = nullptr;    //!< Command line argument for printing out version information
+    vector_arg_ptr   fLog = nullptr;     //!< Command line argument for the configuration of the log  level
+    vector_arg_ptr   fTarget = nullptr;  //!< Command line argument for the configuration of the log  target
+    vector_arg_ptr   fFormat = nullptr;  //!< Command line argument for the configuration of the log  format
+    bool_arg_ptr     fColor = nullptr;   //!< Command line argument for controlling whether or not to use color coding of log messages
 
-    virtual      GLogApplication API& ScanArguments(const int argc, const char** argv, deque  < std::shared_ptr<GArgument>  > arg);
-
-
-
-    eDUPLICATE_STRATEGY fStrategy = eDUPLICATE_STRATEGY::THROW_EXEPTION;
+    eDUP_STRATEGY fStrategy = eDUP_STRATEGY::THROW_EXEPTION;
 
 };
 

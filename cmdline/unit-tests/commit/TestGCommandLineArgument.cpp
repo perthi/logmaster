@@ -512,7 +512,7 @@ TEST_F(TestGCommandLineArgument, stringscanBugNSR808)
 
 	try
 	{
-		g->AddArgument(s_arg, eDUPLICATE_STRATEGY::REPLACE_DUPLICATE ).ScanArguments("-mystring2 \"lorem ipsum\"");
+		g->AddArgument(s_arg, eDUP_STRATEGY::REPLACE_DUPLICATE ).ScanArguments("-mystring2 \"lorem ipsum\"");
 	}
 	catch (GException& e)
 	{
@@ -541,13 +541,13 @@ TEST_F(TestGCommandLineArgument, duplicate_arguemnts )
     a.Purge(); // Removing all arguments, size should be 0
 	ASSERT_TRUE(a.GetArguments().size() == 0);
 
-	EXPECT_ANY_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2, eDUPLICATE_STRATEGY::THROW_EXEPTION));
-	EXPECT_NO_THROW(a.AddArgument(s_arg1, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE));
-	EXPECT_NO_THROW(a.AddArgument(s_arg1, eDUPLICATE_STRATEGY::REPLACE_DUPLICATE));
+	EXPECT_ANY_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2, eDUP_STRATEGY::THROW_EXEPTION));
+	EXPECT_NO_THROW(a.AddArgument(s_arg1, eDUP_STRATEGY::IGNORE_DUPLICATE));
+	EXPECT_NO_THROW(a.AddArgument(s_arg1, eDUP_STRATEGY::REPLACE_DUPLICATE));
 
     a.Purge( );
-	EXPECT_NO_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE));
-    EXPECT_NO_THROW(a.AddArgument(s_arg1, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE).AddArgument(s_arg2, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE));
+	EXPECT_NO_THROW(a.AddArgument(s_arg1).AddArgument(s_arg2, eDUP_STRATEGY::IGNORE_DUPLICATE));
+    EXPECT_NO_THROW(a.AddArgument(s_arg1, eDUP_STRATEGY::IGNORE_DUPLICATE).AddArgument(s_arg2, eDUP_STRATEGY::IGNORE_DUPLICATE));
 }
 
 
@@ -564,10 +564,10 @@ TEST_F(TestGCommandLineArgument, duplicate_arguemnts_replace)
 	
 	ASSERT_NO_THROW(a.AddArgument(s_arg1) );
 	uint64_t s_arg1_address = (uint64_t)a.GetArgument("-myarg").get();
-	ASSERT_NO_THROW(a.AddArgument(s_arg2, eDUPLICATE_STRATEGY::IGNORE_DUPLICATE ));
+	ASSERT_NO_THROW(a.AddArgument(s_arg2, eDUP_STRATEGY::IGNORE_DUPLICATE ));
 	uint64_t address = (uint64_t)a.GetArgument("-myarg").get();
 	EXPECT_EQ(s_arg1_address, address);
-    ASSERT_NO_THROW(a.AddArgument(s_arg2, eDUPLICATE_STRATEGY::REPLACE_DUPLICATE));
+    ASSERT_NO_THROW(a.AddArgument(s_arg2, eDUP_STRATEGY::REPLACE_DUPLICATE));
 
 	address = (uint64_t)a.GetArgument("-myarg").get();
 	EXPECT_NE(s_arg1_address, address);
