@@ -182,7 +182,7 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const
         }
     }
 
-    //  fgMsgLast = msg;
+  
     return msg;
 }
 

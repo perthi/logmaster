@@ -32,7 +32,7 @@ using std::string;
 /** @brief custom exceptions that uses the logging system
  *
  *  @details Throws exceptions using printf formatting. The exception handling system uses the logging system so that
- * any exceptions thrown are also written to logfiles or standard output if the log level is ERROR or higher.
+ * any exceptions thrown are also written to log files or standard output if the log level is ERROR or higher.
  * From the point of view of the logging system an exception message is just like any other logging message with the
  * following specifications
  *  - loglevel is ERROR
@@ -42,7 +42,7 @@ using std::string;
  *
  * The exceptions can be disabled for debugging purposes. If disabled then a EX_FATAL exception message is written
  * insted of throwing an exception when calling an exception macro. */
-class  GException
+class  GException : public std::exception
 {
 public:
   API  GException(){};
@@ -66,12 +66,9 @@ public:
     static void API DisableStackTrace();
     string API LogTrace();
     void API SetLogMap();
-    
 
-    const char  API * what() const;
+    virtual const char  API * what() const override;
     static string API ExtractClassname(const char *in);
-
-//protected:
     static  std::shared_ptr< std::map<eMSGTARGET, std::shared_ptr<LMessage > > > fgMessageMap;
     
     mutable std::shared_ptr<LOGMASTER::LMessage>  fgMessage = nullptr;

@@ -46,6 +46,19 @@ class file_t : public std::exception
 
 int main(int  argc, const char** argv)
 {
+
+    try
+    {
+        XML_EXCEPTION("Testing new exception");
+
+    }
+    catch ( std::exception& e )
+    {
+        CERR << e.what( ) << ENDL;
+    }
+
+
+
   /*
     string bin = "111111111111111111111111000001110000111111111111111111111111000001110000";
      
