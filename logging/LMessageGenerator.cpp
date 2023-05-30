@@ -58,12 +58,4 @@ namespace LOGMASTER
 
     }
 
-
-    LMessageGenerator *
-    LMessageGenerator::Instance()
-    {
-        static  LMessageGenerator *instance = new LMessageGenerator();
-        return  instance;
-    }
-
 }

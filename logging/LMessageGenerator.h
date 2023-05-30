@@ -27,35 +27,17 @@ using std::ostringstream;
 
 #include <memory>
 
-
 using namespace LOGMASTER;
 
-class TestLogging_level_to_string_Test;
-class TestLogging_system_to_string_Test;
-class TestLogging_to_string_Test;
 
 namespace LOGMASTER
 {
-    class LMessage;
-    class LLogging;
-    class LMessage2Json;
-    class LDatabase;
-
 
 /** @class  LMessageGenerator
  *  Helper class for the logging system that is responsible for the generation of log messages*/
 class LMessageGenerator
 {
-    friend  LLogging;
-    friend  LMessage2Json;
-    friend  LDatabase;
-
-    friend  TestLogging_level_to_string_Test;
-    friend  TestLogging_system_to_string_Test;
-    friend  TestLogging_to_string_Test;
-
 public:
-    static  LMessageGenerator API * Instance();
     LMessageGenerator();
 
     template<typename... Args>
@@ -72,13 +54,10 @@ public:
 private:
     GTime fTime;
     GTokenizer fTokenizer;
-   
 
 };
-namespace
-{
-    std::mutex G_gen_mutex;
-}
+
+
 
 /**@{*/
 /* Generates a message and stores it in the LMessage struct m. This function is typically called via a macro, an using the
@@ -86,7 +65,7 @@ namespace
 *  @param m[in|out] A pointer to the LMessage struct that will be filled in
 *  @param format[in] Controls which fields in the message  will be filled in
 *  @param l[in] The severity level of this message
-*  @param s[in] The subsystem this messsage applies to
+*  @param s[in] The subsystem this message applies to
 *  @param fname[in]  The name of the files where the message was generated   (stripped form __FILE__ )
 *  @param line  The line number where the message was generated
 *  @param func  The name of the function where the message was generated ( __FUNCTION__)
@@ -97,7 +76,6 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const
                                                          const char *fname, int line, const char *func, string addendum,
                                                          const char *fmt, const Args ... args)
 {
-   // std::lock_guard<std::mutex> guard(G_gen_mutex);
     std::shared_ptr<LMessage> msg = std::make_shared<LMessage>();
 
     msg->ClearContent();
@@ -106,7 +84,6 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const
     if(format == eMSGFORMAT::ALL_FIELDS_OFF)
     {
         SPRINTF(msg->fMsg, MAX_MSG_SIZE, "%s::%s::line[%d] NO MESSAGE WAS GENERATED BECAUSE ALL FIELDS IN LOG FORMAT IS TURNED OFF !!\n", fname, func, line);
-        //return msg;
     }
 
     string lfilepath = string(fname); // The full path to the file, including the filename
@@ -129,10 +106,6 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const
     msg->fWColor = LColorMap::Instance()->GetCColor(l);
 
 
-
-
-    //int snprintf ( char * s, size_t n, const char * format, ... );
-
     if((int)eMSGFORMAT::MESSAGE_TYPE & (int)format)
     {
         string ret = LEnum2String::ToString(s, l);
@@ -144,10 +117,6 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const
         SPRINTF(msg->fTimeStamp, MAX_MSG_TIME_STAMP_SIZE, "%s; ", fTime.TimeStamp().c_str());
     }
 
-    // if((int)eMSGFORMAT::TIME_STAMP_SHORT & (int)format)
-    // {
-    //     SPRINTF(msg->fTimeStamp, MAX_MSG_TIME_STAMP_SIZE, "%s; ", fTime.TimeStampShort().c_str());
-    // }
 
     if(has_filepath)
     {
