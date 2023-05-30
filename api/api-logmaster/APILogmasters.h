@@ -19,6 +19,7 @@ using std::map;
 using namespace LOGMASTER;
 
 
+
 class APILogMasters
 {
 public:

@@ -69,7 +69,7 @@
             <TAG>--xml</TAG>
             <TAG_SHORT>--xml</TAG_SHORT>
             <DEFAULT>WARNING</DEFAULT>
-            <CAN_MODIFY>false</CAN_MODIFY>
+            <CAN_MODIFY>true</CAN_MODIFY>
             <FORCE_OUTPUT>false</FORCE_OUTPUT>
         </SYSTEM>
            <SYSTEM> 

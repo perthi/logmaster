@@ -39,11 +39,6 @@ namespace CONFIGURATOR
         fFileContentSource.push_back("\n\n\n");
     }
 
-    //FileContentHeader.push_back(commonTestHeader(fFileInfo->GetClassName( )));
-    //fFileContentSource.push_back(std::format("#include \"{}\"", fFileInfo->GetHeaderName( )));
-    //fFileContentSource.push_back("#include <logging/LConversion.h>");
-    //fFileContentSource.push_back("\n\n\n");
-
 
     void LGeneratorTestLConversion::GenerateContent(const logentity_vec levels, const sysentity_vec systems)
     {

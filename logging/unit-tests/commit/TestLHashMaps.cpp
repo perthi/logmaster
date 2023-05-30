@@ -61,31 +61,31 @@ TestLHashMaps::TearDown()
 
 TEST_F( TestLHashMaps, IsTargetHash )
 {
-    EXPECT_TRUE(  LHashMaps::Instance()->IsTargetHash("--target-off") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsTargetHash("--target-subscriber") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsTargetHash("--target-file") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsTargetHash("--target-stdout") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsTargetHash("--target-gui") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsTargetHash("--target-all") );
-    EXPECT_FALSE( LHashMaps::Instance()->IsTargetHash( "--gibberish" ) );
-    EXPECT_FALSE( LHashMaps::Instance()->IsTargetHash( "gibberish" ) );
+    EXPECT_TRUE(  LHashMaps::IsTargetHash("--target-off") );
+    EXPECT_TRUE(  LHashMaps::IsTargetHash("--target-subscriber") );
+    EXPECT_TRUE(  LHashMaps::IsTargetHash("--target-file") );
+    EXPECT_TRUE(  LHashMaps::IsTargetHash("--target-stdout") );
+    EXPECT_TRUE(  LHashMaps::IsTargetHash("--target-gui") );
+    EXPECT_TRUE(  LHashMaps::IsTargetHash("--target-all") );
+    EXPECT_FALSE( LHashMaps::IsTargetHash( "--gibberish" ) );
+    EXPECT_FALSE( LHashMaps::IsTargetHash( "gibberish" ) );
 }
 
 
 TEST_F( TestLHashMaps, IsFormatHash )
 {
-    EXPECT_TRUE(  LHashMaps::Instance()->IsFormatHash("--all-off") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsFormatHash("--msg-type") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsFormatHash("--time-stamp") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsFormatHash("--file-path") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsFormatHash("--func-name") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsFormatHash("--line-no") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsFormatHash("--prefix-none") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsFormatHash("--msg-body") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsFormatHash("--short") );
-    EXPECT_TRUE(  LHashMaps::Instance()->IsFormatHash("--prefix-all") );
-    EXPECT_FALSE( LHashMaps::Instance()->IsFormatHash( "--gibberish" ) );
-    EXPECT_FALSE( LHashMaps::Instance()->IsFormatHash( "gibberish" ) );
+    EXPECT_TRUE(  LHashMaps::IsFormatHash("--all-off") );
+    EXPECT_TRUE(  LHashMaps::IsFormatHash("--msg-type") );
+    EXPECT_TRUE(  LHashMaps::IsFormatHash("--time-stamp") );
+    EXPECT_TRUE(  LHashMaps::IsFormatHash("--file-path") );
+    EXPECT_TRUE(  LHashMaps::IsFormatHash("--func-name") );
+    EXPECT_TRUE(  LHashMaps::IsFormatHash("--line-no") );
+    EXPECT_TRUE(  LHashMaps::IsFormatHash("--prefix-none") );
+    EXPECT_TRUE(  LHashMaps::IsFormatHash("--msg-body") );
+    EXPECT_TRUE(  LHashMaps::IsFormatHash("--short") );
+    EXPECT_TRUE(  LHashMaps::IsFormatHash("--prefix-all") );
+    EXPECT_FALSE( LHashMaps::IsFormatHash( "--gibberish" ) );
+    EXPECT_FALSE( LHashMaps::IsFormatHash( "gibberish" ) );
 }
 
 
@@ -96,7 +96,7 @@ TEST_F(TestLHashMaps, contains_targes_enums )
 {
     EXPECT_TRUE(true);
 
-    vector<eMSGTARGET>  targets = LHashMaps::Instance()->GetTargetEnums();
+    vector<eMSGTARGET>  targets = LHashMaps::GetTargetEnums();
 
     EXPECT_TRUE( g_utilities()->Contains( targets, eMSGTARGET::TARGET_FILE) );
     EXPECT_TRUE(g_utilities()->Contains(targets, eMSGTARGET::TARGET_STDOUT));
@@ -123,7 +123,7 @@ TEST_F(TestLHashMaps, contains_targes_enums )
 TEST_F(TestLHashMaps, contains_format_enums)
 {
     EXPECT_TRUE(true);
-    vector<eMSGFORMAT>  formats = LHashMaps::Instance()->GetFormatEnums();
+    vector<eMSGFORMAT>  formats = LHashMaps::GetFormatEnums();
     EXPECT_TRUE(g_utilities()->Contains(formats, eMSGFORMAT::PREFIX_OFF));
     EXPECT_TRUE(g_utilities()->Contains(formats, eMSGFORMAT::MESSAGE_TYPE));
     EXPECT_TRUE(g_utilities()->Contains(formats, eMSGFORMAT::TIME_STAMP));

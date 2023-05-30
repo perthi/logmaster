@@ -19,19 +19,15 @@ int main(int argc, const char **argv)
 
     try
     {
-      //  GLogApplication( ).InitLogArgs( ).ScanArguments(argc, argv);
+        GLogApplication( ).InitLogArgs( ).ScanArguments(argc, argv);
      //  GLogApplication( ).InitLogArgs( ).ScanArguments("-loglevel --blahhh");
-         
-        GLogApplication g;
-        g.InitLogArgs( );
 
-        arg_deque args = g.GetArguments( );
+       // GLogApplication( ).InitLogArgs( ).ScanArguments("-loglevel")  ;
 
-        GCmdWiki::GenerateWiki(args, "wiki.h");
+        FSM_FATAL("A fatal FSM message");
+        ALARM_FATAL("A fatal alarm message");
 
-        GLogApplication( ).InitLogArgs( ).ScanArguments("-loglevel")  ;
-
-        FORCE_DEBUG("Hello world!");
+        //FORCE_DEBUG("Hello world!");
     }
   
     catch ( GException& e )

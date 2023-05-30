@@ -35,7 +35,7 @@
 #include   "LHashMaps.h"
 #include   "LOperators.h"
 
-#include <utilities/GNumberTypes.h>
+#include   <utilities/GNumberTypes.h>
 
 
 namespace LOGMASTER
@@ -60,7 +60,7 @@ namespace LOGMASTER
     }
 
 
-    /** Get the loglevel for a given sub-system
+    /** Get the log level for a given sub-system
      *  @param[in] system
      *  @return The current log level for the given system*/
     eLOGLEVEL
@@ -86,7 +86,7 @@ namespace LOGMASTER
 
     /** Sets the log format using a format string
      *  @param format The logging format to set. The string must be either valid binary string
-     *  @param enable wether to enabel(true) or disable(false) the loglevel specified by format
+     *  @param enable whether to enable (true) or disable(false) the log level specified by format
      *  or a valid Has tag as  defined in LHashMap::fLogFormatHash */
     void
     LConfig::SetLogFormat(const string &format, bool enable)
@@ -217,14 +217,27 @@ namespace LOGMASTER
         eLOGLEVEL  l_level = level;
         eMSGSYSTEM l_system = system;
        
-        /**  @bug We should not do any filtering here. Its specified in the XML files what system,s can be changed*/
-        FilterOut( l_system, {eMSGSYSTEM::SYS_ALARM, eMSGSYSTEM::SYS_EXCEPTION });
-
         if (pad == true)
         {
             l_level = (eLOGLEVEL)(PAD((uint64_t)l_level) );
         }
-
+        
+        auto apply_lelvel = []( const eMSGSYSTEM system, const eLOGLEVEL level_in,  eLOGLEVEL &level )
+        {
+            if ( LHashMaps::Instance( )->IsChangeable(system) == false )
+            {
+                /** @todo Write an internal log message if subsystem cannot be changed*/
+#ifdef DEBUG
+                CERR_HEX << "Cannot change" << (int)system  << ENDL;
+#endif // DEBUG
+            }
+            else
+            {
+                level = level_in;
+            }
+        };
+        
+        
         for ( auto it = fHash.fLogLevelHash.begin(); it != fHash.fLogLevelHash.end(); it++ )
         {
             int n_bits = g_numbers()->CountBits( it->first );
@@ -235,20 +248,18 @@ namespace LOGMASTER
             {
                 if ( l_system == it->first )
                 {
-                    it->second = l_level;
+                    apply_lelvel(it->first, l_level, it->second);
                 }
             }
             else
             {
                 if ( ( l_system & it->first) != (eMSGSYSTEM)0 )
                 {
-                    it->second = l_level;
+                    apply_lelvel(it->first, l_level, it->second);
                 }
             }
         }
     }
-
-
 
 
     LHashMaps *

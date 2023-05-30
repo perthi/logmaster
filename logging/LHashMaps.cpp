@@ -41,18 +41,13 @@ namespace LOGMASTER
     }
 
 
-    LHashMaps::~LHashMaps()
-    {
-    }
-
-
     LHashMaps *
     LHashMaps::Instance()
     {
         static   LHashMaps *instance = new LHashMaps();
         return   instance;
-
     }
+  
  
         
     void
@@ -67,10 +62,12 @@ namespace LOGMASTER
             InitHashLogTags();
             InitHashSystem2String( &fSystem2StringHash );
             InitHashLevel2String( &fLevel2StringHash);
+            InitHashPermissions( &fPermissionsHash );
          
             is_initialized = true;
         }
 
+       /// CERR << "PERMHASH SIZE = " << fPermissionsHash.size() << ENDL;
     }
 
 
@@ -110,6 +107,14 @@ namespace LOGMASTER
     {
         InitHash();
         return &fLevel2StringHash;
+    }
+
+
+    map<eMSGSYSTEM, bool> *
+    LHashMaps::GetPermissionHash( )
+    {
+        InitHash( );
+        return & fPermissionsHash;
     }
 
 
@@ -281,17 +286,16 @@ namespace LOGMASTER
     bool
     LHashMaps::IsChangeable(const eMSGSYSTEM system)
     {
-        if ( fPermissions.find(system) == fPermissions.end( ) )
+        if ( fPermissionsHash.find(system) == fPermissionsHash.end( ) )
         {
             return false;
         }
         else
         {
-            return fPermissions.find(system)->second;
+            return fPermissionsHash.find(system)->second;
         }
 
     }
-
 
 
 

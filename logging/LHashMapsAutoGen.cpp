@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Tue 30 May-2023 00:33:58  ***/
+/*** Generated at: Tue 30 May-2023 02:40:14  ***/
 /*** Generated from config\logging.xml **/
 /*** Validated by config\logging.xsd **/
 
@@ -244,7 +244,7 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
         permHash->emplace( eMSGSYSTEM::SYS_FSM,true);
         permHash->emplace( eMSGSYSTEM::SYS_MESSAGE,true);
         permHash->emplace( eMSGSYSTEM::SYS_COM,true);
-        permHash->emplace( eMSGSYSTEM::SYS_XML,false);
+        permHash->emplace( eMSGSYSTEM::SYS_XML,true);
         permHash->emplace( eMSGSYSTEM::SYS_DATABASE,true);
         permHash->emplace( eMSGSYSTEM::SYS_USER,true);
         permHash->emplace( eMSGSYSTEM::SYS_GENERAL,true);

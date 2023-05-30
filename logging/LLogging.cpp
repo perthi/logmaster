@@ -469,14 +469,13 @@ namespace LOGMASTER
     LLogging::ClearSubscribers()
     {
       ///  std::lock_guard<std::mutex> guard( log_mutex );
-        fSubscribers.clear(); /// TODO, should be erased, nor cleared
+        fSubscribers.clear(); /// @todo , should be erased, not cleared. Fix + make unit tests
     }
 
     vector<void( *)( std::shared_ptr<LMessage>  )> 
     LLogging::GetGuiSubscribers()
     {
         return fGuiSubscribers;
-        // TODO: insert return statement here
     }
 
     void
@@ -490,8 +489,7 @@ namespace LOGMASTER
     void
     LLogging::ClearGuiSubscribers()
     {
-      //  std::lock_guard<std::mutex> guard( log_mutex );
-        fGuiSubscribers.clear();  /// TODO, should be erased, nor cleared
+        fGuiSubscribers.clear();  ///  @todo , should be erased, not cleared. Fix + make unit tests
     }
 
 

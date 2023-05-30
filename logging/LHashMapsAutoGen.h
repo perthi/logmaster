@@ -31,7 +31,7 @@ namespace LOGMASTER
         map<string, eMSGTARGET> fTargetHash;
         map<string, eMSGFORMAT> fFormatHash;
         map<eMSGSYSTEM, string> fSystem2StringHash;
-        map<eMSGSYSTEM, bool> fPermissions;
+        map<eMSGSYSTEM, bool> fPermissionsHash;
     } 
 
     class LHashMapsAutoGen
@@ -40,11 +40,11 @@ namespace LOGMASTER
         API LHashMapsAutoGen();
         API ~LHashMapsAutoGen();
         
-        static void API InitHashLogTags(        map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash );
-        static void API InitHashSystem2String(  map<eMSGSYSTEM, string>  *System2StringHash );
-        static void API InitHashLevel2String(   map<eLOGLEVEL, string> *Level2StringHash  );
-        void        API InitHashLogLevel( );
-        void        API InitHashPermissions( map<eMSGSYSTEM, bool> *permHash  );
+        static void  API InitHashLogTags(        map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash );
+        static void  API InitHashSystem2String(  map<eMSGSYSTEM, string>  *System2StringHash );
+        static void  API InitHashLevel2String(   map<eLOGLEVEL, string> *Level2StringHash  );
+        void         API InitHashLogLevel( );
+        static void  API InitHashPermissions( map<eMSGSYSTEM, bool> *permHash  );
 
       
 

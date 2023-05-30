@@ -13,12 +13,9 @@ using namespace LOGMASTER;
 #include  <utilities/GUtilities.h>
 #include  <utilities/GString.h>
 #include  <logging/GException.h>
-
-#include <configurator/LFileInfo.h>
+#include  <configurator/LFileInfo.h>
 
 #include <sstream>
-//#include <algorithm>
-
 #include <format>
 
 
