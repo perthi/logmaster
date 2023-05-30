@@ -75,7 +75,7 @@ int main(int  argc, const char** argv)
     {
         string xml = "";
         string xsd = "";
-        auto xml_args = LArgumentScanner::GenerateArgs(xml, xsd);
+        auto xml_args = LArgumentScanner().GenerateArgs(xml, xsd);
 
         GLogApplication( ).InitLogArgs( ).AddArguments(xml_args).ScanArguments( argc, argv);
 

@@ -14,7 +14,7 @@ namespace CONFIGURATOR
         LArgumentScanner::ScanArguments(int argc, const char** argv, string& xmlfile, string& xsdfile)
     {
         auto args = GenerateArgs(xmlfile, xsdfile);
-        GLogApplication().AddArguments(args).ScanArguments(argc, argv);
+        InitLogArgs().AddArguments(args).ScanArguments(argc, argv);
 
     }
 

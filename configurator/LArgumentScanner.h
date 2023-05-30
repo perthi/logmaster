@@ -1,6 +1,7 @@
 #pragma once
 
 #include <utilities/GDefinitions.h>
+#include <cmdline/GLogApplication.h>
 
 #include <string>
 using std::string;
@@ -16,11 +17,11 @@ namespace CONFIGURATOR
 {
 
 
-    class LArgumentScanner
+    class LArgumentScanner : public GLogApplication
     {
     public:
-        static void API ScanArguments(int argc, const char** argv, string& xmlfile, string& xsdfile);
-        static deque< std::shared_ptr<GArgument>  >  API GenerateArgs(string& xmlfile, string& xsdfile);
+        void API ScanArguments(int argc, const char** argv, string& xmlfile, string& xsdfile);
+        deque< std::shared_ptr<GArgument>  >  API GenerateArgs(string& xmlfile, string& xsdfile);
 
     };
 

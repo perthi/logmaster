@@ -58,17 +58,10 @@ int main(int  argc, const char** argv)
 {
     GMenu::Instance()->ScanArguments(argc, argv);
    
-
-    SET_LOGLEVEL("--all-off --all-warning");
-    SET_LOGFORMAT("1111111");
-
-    GLogApplication( ).InitLogArgs( ).ScanArguments(argc, argv);
-
-
     string xml = "";
     string xsd = "";
 
-    LArgumentScanner::ScanArguments(argc, argv, xml, xsd);
+    LArgumentScanner().ScanArguments(argc, argv, xml, xsd);
 
     try
     {
