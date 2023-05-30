@@ -48,7 +48,7 @@ TestLConfig::SetUp()
     s_v    =    LHashMaps::Instance()->GetSystemEnums();
     l_v    =    LHashMaps::Instance()->GetLevelEnums();
     t_v =   LHashMaps::Instance()->GetTargetEnums();
-   g_utilities()->FilterOut( s_v, { eMSGSYSTEM::SYS_NONE, eMSGSYSTEM::SYS_ALL, eMSGSYSTEM::SYS_EXCEPTION, eMSGSYSTEM::SYS_ALARM } );
+    g_utilities()->FilterOut( s_v, { eMSGSYSTEM::SYS_NONE, eMSGSYSTEM::SYS_ALL, eMSGSYSTEM::SYS_EXCEPTION, eMSGSYSTEM::SYS_ALARM } );
     g_utilities()->FilterOut( l_v, { eLOGLEVEL::LOG_FORCE_DEBUG  } );
     g_utilities()->FilterOut( t_v, { eMSGTARGET::TARGET_OFF, eMSGTARGET::TARGET_ALL } );
 }
@@ -167,10 +167,15 @@ TEST_F(TestLConfig, apply_get_level_logging_target)
 {
     PUSH();
     LLogging *log = LLogging::Instance();
-    SET_LOGLEVEL( "--all-off  --all-warning ");
-    SET_LOGLEVEL( "--target-gui  --all-debug");
+   
+   SET_LOGLEVEL( "--all-off  --all-warning ");
+   SET_LOGLEVEL( "--target-gui  --all-debug");
 
-   // EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_FILE),         PAD(eLOGLEVEL::LOG_WARNING));
+
+   // SET_LOGLEVEL("--all-off  --all-warning  --target-gui  --all-debug");
+
+
+    //EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_FILE),         PAD(eLOGLEVEL::LOG_WARNING));
     EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EXCEPTION,       eMSGTARGET::TARGET_FILE),         PAD(eLOGLEVEL::LOG_ERROR));
     EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_USER,     eMSGTARGET::TARGET_FILE),         PAD(eLOGLEVEL::LOG_WARNING));
     EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_FSM,      eMSGTARGET::TARGET_FILE),         PAD(eLOGLEVEL::LOG_WARNING));
@@ -183,7 +188,7 @@ TEST_F(TestLConfig, apply_get_level_logging_target)
     EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_GENERAL,  eMSGTARGET::TARGET_STDOUT),       PAD(eLOGLEVEL::LOG_WARNING));
 
   // This test should pass
-   // EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_GUI),          PAD(eLOGLEVEL::LOG_DEBUG));
+  ///  EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_NONE,     eMSGTARGET::TARGET_GUI),          PAD(eLOGLEVEL::LOG_DEBUG));
    
     EXPECT_EQ((int64_t)log->GetLogLevel(  eMSGSYSTEM::SYS_EXCEPTION,       eMSGTARGET::TARGET_GUI),          PAD(eLOGLEVEL::LOG_ERROR));
     

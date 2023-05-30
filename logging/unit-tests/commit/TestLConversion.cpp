@@ -135,12 +135,38 @@ TEST_F(TestLConversion,  String2Target )
     EXPECT_EQ( eMSGTARGET::TARGET_FILE,        LConversion::String2Target( "0001" ) );
     EXPECT_EQ( eMSGTARGET::TARGET_STDOUT,      LConversion::String2Target( "0010" ) );
     EXPECT_EQ( eMSGTARGET::TARGET_GUI,         LConversion::String2Target( "1000" ) );
-    EXPECT_EQ( eMSGTARGET::TARGET_OFF,         LConversion::String2Target( "0x0" ) );
     EXPECT_EQ( eMSGTARGET::TARGET_SUBSCRIBERS, LConversion::String2Target( "0x4" ) );
     EXPECT_EQ( eMSGTARGET::TARGET_FILE,        LConversion::String2Target( "0x1" ) );
+    EXPECT_EQ( eMSGTARGET::TARGET_OFF,         LConversion::String2Target( "0x0" ) );
     EXPECT_EQ( eMSGTARGET::TARGET_STDOUT,      LConversion::String2Target( "0x2" ) );
     EXPECT_EQ( eMSGTARGET::TARGET_GUI,         LConversion::String2Target( "0x8" ) );
     EXPECT_EQ( eMSGTARGET::TARGET_ALL,         LConversion::String2Target( "0xff" ) );
+}
+
+
+TEST_F(TestLConversion, SplitByTarget)
+{
+    auto hash = LHashMaps::Instance( )->GetLogTargetTags( );
+   
+    for ( auto &h : hash )
+    {
+        CERR << "h = " << h << ENDL;
+    }
+
+    string test = "--all-off  --all-warning  --target-gui --all-debug --target-db --all-debug";
+    
+    vector<string> tokens = g_tokenizer( )->Tokenize(test, "--target", false, true);
+    
+    //vector<string> tokens = g_tokenizer( )->Tokenize(test, "--target");
+
+    CERR << "test = " << test << ENDL;
+
+    for ( auto t : tokens )
+    {
+        CERR << "token = " << t << ENDL;
+    }
+
+
 }
 
 

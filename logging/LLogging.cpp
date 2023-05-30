@@ -403,16 +403,20 @@ namespace LOGMASTER
         
         try
         {
+            CERR << "level_s = " << level_s << ENDL;
             auto m = LConversion::SplitByTarget(level_s);
+            CERR << "m.size() = "<< m.size()  << ENDL;
 
             for ( auto it_m = m.begin( ); it_m != m.end( ); it_m++ )
             {
                 eMSGTARGET target = it_m->first;
+                
 
                 for ( auto it = fConfig->begin( ); it != fConfig->end( ); it++ )
                 {
                     if ( (it->first & target) != (eMSGTARGET)0 )
                     {
+                        CERR << "it->second = " << it_m->second << ENDL;
                         it->second.GetConfig( )->SetLogLevel(it_m->second);
                     }
                 }

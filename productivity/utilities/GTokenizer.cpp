@@ -35,28 +35,28 @@
 #include <mutex>
 
 
-GTokenizer* g_tokenizer()
+GTokenizer* g_tokenizer( )
 {
-  static GTokenizer* instance = new GTokenizer();
-  return  instance;
+    static GTokenizer* instance = new GTokenizer( );
+    return  instance;
 }
 
 
 
-void   
-GTokenizer::TokenizeCommandline(const string line,  int *argc, const char **argv, const int max_size )
+void
+GTokenizer::TokenizeCommandline(const string line, int* argc, const char** argv, const int max_size)
 {
-    static  thread_local vector<string> tokens; 
+    static  thread_local vector<string> tokens;
 
     tokens = TokenizeCommandline(line);
-    size_t n = tokens.size() < (size_t)max_size ? tokens.size() : (size_t)max_size;
-    
+    size_t n = tokens.size( ) < (size_t)max_size ? tokens.size( ) : (size_t)max_size;
+
     *argc = (int)(n + 1);
 
-     for ( size_t i = 0; i < n; i++)
-     {    
-          argv[i + 1] = tokens[i].c_str();
-     }
+    for ( size_t i = 0; i < n; i++ )
+    {
+        argv[i + 1] = tokens[i].c_str( );
+    }
 }
 
 
@@ -70,8 +70,8 @@ vector<string>
 GTokenizer::TokenizeCommandline(string line)
 {
     char quote = '"';
-    int n = g_string()->CountOccurrences(line, quote, true);
-    if (n % 2 != 0)
+    int n = g_string( )->CountOccurrences(line, quote, true);
+    if ( n % 2 != 0 )
     {
         throw(std::runtime_error("Undterminated string (closing quote was not found)"));
     }
@@ -82,39 +82,39 @@ GTokenizer::TokenizeCommandline(string line)
     bool qstartfound = false;
     bool qendfound = false;
 
-    for (uint16_t i = 0; i < tokens.size(); i++)
+    for ( uint16_t i = 0; i < tokens.size( ); i++ )
     {
-        long long int length = tokens[i].size();
+        long long int length = tokens[i].size( );
 
-        if (tokens[i].c_str()[0] == '\"')
+        if ( tokens[i].c_str( )[0] == '\"' )
         {
             qstartfound = true;
         }
-        if (tokens[i].c_str()[length - 1] == '\"')
+        if ( tokens[i].c_str( )[length - 1] == '\"' )
         {
             qendfound = true;
         }
 
-        if (qstartfound == false && qendfound == false)
+        if ( qstartfound == false && qendfound == false )
         {
-            if (tokens[i] != "")
+            if ( tokens[i] != "" )
             {
                 tmptokens.push_back(tokens[i]);
             }
         }
 
-        if (qstartfound == true)
+        if ( qstartfound == true )
         {
             tmp += tokens[i] + " ";
         }
 
-        if (qstartfound == true && qendfound == true)
+        if ( qstartfound == true && qendfound == true )
         {
-            string substring = tmp.substr(1, tmp.size() - 3);
+            string substring = tmp.substr(1, tmp.size( ) - 3);
             tmptokens.push_back(substring);
             qstartfound = false;
             qendfound = false;
-            tmp.erase();
+            tmp.erase( );
         }
     }
 
@@ -134,21 +134,21 @@ GTokenizer::StripPath(const string fin, string& dir, string& fout, const bool ke
 {
     vector<string> separators = { "\\", "/" };
     auto tokens = Tokenize(fin, separators, DISCARD_EMPTY, KEEP_SEPARATOR);
-    dir.clear();
-    fout.clear();
+    dir.clear( );
+    fout.clear( );
 
-    dir =  g_string()->Rtrim( dir, '/' );
+    dir = g_string( )->Rtrim(dir, '/');
 
-    size_t n = fin.size();
+    size_t n = fin.size( );
 
 
-    if (fin[n - 1] == '/' || fin[n - 1] == '\\')
+    if ( fin[n - 1] == '/' || fin[n - 1] == '\\' )
     {
         dir = fin;
         fout = "";
         return;
     }
-    else if (tokens.size() == 1)
+    else if ( tokens.size( ) == 1 )
     {
         fout = tokens[0];
         dir = "";
@@ -156,29 +156,29 @@ GTokenizer::StripPath(const string fin, string& dir, string& fout, const bool ke
     }
 
 
-    for (uint16_t i = 0; i < tokens.size() - 1; i++)
+    for ( uint16_t i = 0; i < tokens.size( ) - 1; i++ )
     {
         dir += tokens[i];
     }
 
-    if (tokens.size() > 1)
+    if ( tokens.size( ) > 1 )
     {
-        fout = tokens[tokens.size() - 1];
+        fout = tokens[tokens.size( ) - 1];
     }
 
 
-    if (keep_trailing_slahs == false)
+    if ( keep_trailing_slahs == false )
     {
         tokens = Tokenize(dir, separators, DISCARD_EMPTY, DISCAR_SEPARATOR);
 
-        if (tokens.size() == 1)
+        if ( tokens.size( ) == 1 )
         {
             dir = tokens[0];
-            dir = g_string()->Rtrim(dir, '/');
+            dir = g_string( )->Rtrim(dir, '/');
         }
     }
-
 }
+
 
 
 /**@{
@@ -191,8 +191,8 @@ GTokenizer::StripPath(const string fin, string& dir, string& fout, const bool ke
  *  2) If the keep_empty flag is true then we will get 5 tokens, "a", "b", " "   and 3 empty strings ("", "", "") <br>
  *  @param  keep_sep  whether or not to keep the separator in the tokens after the string has been tokenized.
  *  As an example, consider the string dir1/dir2/dir3/filename. The <br>
- *  1) If the keep_sep flag is false (default) and the separator is "/", the the generated tokens will be  {"dir1", "dir2", "dir3", "filename"}. <br>
- *  1) If the keep_sep flag is true   and the separator is "/", the the generated tokens will be  {"dir1/", "dir2/", "dir3/", "filename"}. <br>
+ *  1) If the keep_sep flag is false (default) and the separator is "/", the generated tokens will be  {"dir1", "dir2", "dir3", "filename"}. <br>
+ *  1) If the keep_sep flag is true   and the separator is "/", the generated tokens will be  {"dir1/", "dir2/", "dir3/", "filename"}. <br>
  *  @return a vector of tokens <br><br>
  *  It is possible to us an array (vector) of tokens. Consider for instance the string   a/b\\c/d . <br>
  *  Tokenizing this string using the vector {"/", "\\"}  will yield the result {"a", "b", "c", "d"} */
@@ -201,15 +201,14 @@ GTokenizer::Tokenize(const vector<string>& source, const string sep, const bool 
 {
     vector<string> tout;
 
-    for (uint16_t i = 0; i < source.size(); i++)
+    for ( uint16_t i = 0; i < source.size( ); i++ )
     {
         vector<string> tmp = Tokenize(source[i], sep, keep_empty, keep_sep);
-        for (uint16_t j = 0; j < tmp.size(); j++)
+        for ( uint16_t j = 0; j < tmp.size( ); j++ )
         {
             tout.push_back(tmp[j]);
         }
     }
-
     return tout;
 }
 
@@ -219,25 +218,24 @@ vector<string>
 GTokenizer::Tokenize(const string source, const string sep, const bool keep_empty, const bool keep_sep)
 {
     std::vector<std::string> results;
-
-    size_t prev = 0;
-    size_t next = 0;
+    size_t pos_prev = 0;
+    size_t pos_cur = 0;
 
     if (sep == "")
     {
-        //    static char tmp[2];
         char tmp[2];
         for (uint16_t i = 0; i < source.size(); i++)
         {
             SPRINTF(tmp, 2, "%c", source[i]);
             results.push_back(tmp);
-
         }
 
         return results;
     }
 
-    while ((next = source.find(sep, prev)) != std::string::npos)
+
+
+    while ((pos_cur = source.find(sep, pos_prev)) != std::string::npos)
     {
         /// We need to check against empty separators, otherwise we get stuck in the while loop
         if (sep == "")
@@ -245,44 +243,87 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
             continue;
         }
 
-        if (keep_empty || (next - prev != 0))
+        if (keep_empty || (pos_cur - pos_prev != 0))
         {
-            string sub = source.substr(prev, next - prev);
-            if (!(g_utilities()->IsSpacesOnly(source.substr(prev, next - prev)) && keep_empty == false))
+            string sub;
+
+            if ( keep_sep == false )
             {
-                if (keep_sep == false)
+                sub = source.substr(pos_prev, pos_cur - pos_prev);
+            }
+            else
+            {
+                /// int tmp = (int)pos_prev - (int)sep.size() > 0 ? pos_prev - sep.size( ) : 0 ;
+
+                int tmp = (int)pos_prev - (int)sep.size( );
+
+                tmp = tmp < 0 ? 0 : tmp;
+
+                CERR << "tmp = " << tmp << ENDL;
+                CERR << "pos_prev = " << pos_prev << ENDL;
+                CERR << "sep_size = " << sep.size( ) << ENDL;
+               
+                if ( tmp == 0 )
                 {
-                    results.push_back(source.substr(prev, next - prev));
+                    sub = source.substr(tmp, pos_cur - pos_prev  );
                 }
                 else
                 {
-                    results.push_back(source.substr(prev, next - prev) + sep);
+                    sub = source.substr(tmp, pos_cur - pos_prev + (int)sep.size( ));
+                }
+                //sub = source.substr(pos_prev - sep.size(), pos_cur - pos_prev + sep.size());
+            }
+
+
+            if (!(g_utilities()->IsSpacesOnly(sub ) && keep_empty == false))
+            {
+                if (keep_sep == false)
+                {
+                    results.push_back(sub );
+                }
+                else
+                {
+                    results.push_back(sub);
+                   // results.push_back ( sep + source.substr(prev, next - prev));
                 }
             }
         }
-        prev = next + sep.size();
+        pos_prev = pos_cur + sep.size();
     }
 
-    if (prev < source.size())
+    
+    
+    if ( pos_prev < source.size())
     {
         if (keep_sep == false)
         {
-            results.push_back(source.substr(prev));
+            results.push_back(source.substr(pos_prev ));
         }
         else
         {
-            results.push_back(source.substr(prev));
+            int tmp = (int)pos_prev - (int)sep.size( );
+
+            tmp = tmp < 0 ? 0 : tmp;
+
+
+            results.push_back(source.substr(tmp));
         }
     }
+  
+
 
     return results;
 }
 
 
+
+
+
+
 vector<string>
 GTokenizer::Tokenize(const string source, const vector<string> sep, bool keep_empty, bool keep_sep)
 {
-    if (sep.size() == 0)
+    if ( sep.size( ) == 0 )
     {
         return Tokenize(source, "\t", keep_empty, keep_sep);
     }
@@ -290,7 +331,7 @@ GTokenizer::Tokenize(const string source, const vector<string> sep, bool keep_em
     vector<string> tokens_out;
     tokens_out = Tokenize(source, sep[0], keep_empty, keep_sep);
 
-    for (uint16_t i = 1; i < sep.size(); i++)
+    for ( uint16_t i = 1; i < sep.size( ); i++ )
     {
         tokens_out = Tokenize(tokens_out, sep[i], keep_empty, keep_sep);
     }
@@ -305,7 +346,7 @@ GTokenizer::Tokenize(const int argc, const char** argv)
 {
     vector<string> tmp;
 
-    for (int i = 0; i < argc; i++)
+    for ( int i = 0; i < argc; i++ )
     {
         tmp.push_back(string(argv[i]));
     }

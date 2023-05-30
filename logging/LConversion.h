@@ -20,18 +20,21 @@
 
 #include  <string>
 using std::string;
- 
+
+#include <vector>
+using std::vector;
+
 #include <unordered_map>
 #include <map>
 
 
+using namespace LOGMASTER;
 
-
+using target_info = vector<std::pair<eMSGTARGET, string> > ;
 
 namespace LOGMASTER
 {
     class LHashMaps;
-
 
     /** Helper class that converts from strings to the
     *  corresponding internal representation eMSGFORMAT, eMSGTARGET, eLOGLEVEL, eMSGSYSTEM enumerators
@@ -40,21 +43,12 @@ namespace LOGMASTER
     *  the logging systems.*/
     class LConversion
     {
-    public:
-        
-        /** @todo Remove singleton */
-        //static  LConversion API * Instance();
-        
+    public:      
         static eMSGFORMAT API String2Format(   const  string  &in );
         static eMSGTARGET API String2Target(   const  string  &in );
         static eLOGLEVEL  API String2Level(    const  string  &in );
         static eMSGSYSTEM API String2System(   const  string  &in );
 
-#ifdef _WIN32
-        static std::unordered_map<LOGMASTER::eMSGTARGET, string>  API SplitByTarget(const string in);
-#else       
-       static std::map<LOGMASTER::eMSGTARGET, string>  API SplitByTarget(const string in);
-#endif      
         static eMSGSYSTEM API Hash2System(  const  string  &in );
         static eLOGLEVEL  API Hash2Level(   const  string  &in );
         static eMSGTARGET API Hash2Target(  const  string  &in );
@@ -70,6 +64,7 @@ namespace LOGMASTER
         static eMSGTARGET API HexString2Target( const string &in );
         static eMSGFORMAT API HexString2Format( const string &in );
 
+        static target_info API SplitByTarget(const string in);
         
         static void  CheckWidth( const string &in, const int widt );
 

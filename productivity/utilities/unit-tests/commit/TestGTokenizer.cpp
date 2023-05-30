@@ -289,6 +289,28 @@ TEST_F(TestGTokenizer, tokenize_commandline2)
 }
 
 
+
+
+
+TEST_F(TestGTokenizer, tokenize_commandline_keep_separator)
+{
+    string test = "--all-offline  --all-warning  --target-gui --all-debug --target-db --all-debug --target-test --all-info -fsm-debug  --target-test2 --all-info ";
+  ///  string test = "--all-off  --all-warning  --target";
+    vector<string> tokens = g_tokenizer( )->Tokenize(test, "--target", false, true);
+    ASSERT_EQ(5, tokens.size());
+
+    for ( auto t : tokens )
+    {
+        CERR << t << ENDL;
+    }
+
+    //EXPECT_EQ(tokens.at(0),"--all-off  --all-warning");
+    //EXPECT_EQ(tokens.at(1), "--target-gui --all-debug");
+    //EXPECT_EQ(tokens.at(2), "--target-db --all-debug");
+}
+
+
+
 #ifdef NDEBUG
 TEST_F(TestGTokenizer, Strip_performance )
 {

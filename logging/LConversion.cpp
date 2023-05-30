@@ -319,18 +319,11 @@ namespace LOGMASTER
         }
     }
     
-    #ifdef _WIN32
-    std::unordered_map<eMSGTARGET, string>
-    #else
-    std::map<eMSGTARGET, string>
-    #endif
+
+    target_info
     LConversion::SplitByTarget( const string in )
     {
-        #ifdef _WIN32
-        std::unordered_map  <eMSGTARGET, string> tmp;
-         #else
-         std::map  <eMSGTARGET, string> tmp;
-        #endif
+        target_info tmp;
 
         vector<string> tokens =  GTokenizer().Tokenize( in, vector<string>{" ", "\t", "\n"} );
 
@@ -358,7 +351,7 @@ namespace LOGMASTER
 
                 if ( s != "" )
                 {
-                    tmp.emplace( t, s );
+                    tmp.push_back(std::make_pair( t, s ));
                 }
             }
 
@@ -366,7 +359,7 @@ namespace LOGMASTER
 
         if ( tmp.size() == 0 && has_target_hash == false  )
         {
-            tmp.emplace( eMSGTARGET::TARGET_ALL, in );
+            tmp.push_back( std::make_pair(eMSGTARGET::TARGET_ALL, in));
         }
 
         return tmp;
