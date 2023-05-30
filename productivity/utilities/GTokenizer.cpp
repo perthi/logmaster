@@ -213,7 +213,7 @@ GTokenizer::Tokenize(const vector<string>& source, const string sep, const bool 
 }
 
 
-
+/*
 vector<string>
 GTokenizer::Tokenize(const string source, const string sep, const bool keep_empty, const bool keep_sep)
 {
@@ -233,8 +233,6 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
         return results;
     }
 
-
-
     while ((pos_cur = source.find(sep, pos_prev)) != std::string::npos)
     {
         /// We need to check against empty separators, otherwise we get stuck in the while loop
@@ -253,15 +251,8 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
             }
             else
             {
-                /// int tmp = (int)pos_prev - (int)sep.size() > 0 ? pos_prev - sep.size( ) : 0 ;
-
                 int tmp = (int)pos_prev - (int)sep.size( );
-
                 tmp = tmp < 0 ? 0 : tmp;
-
-                CERR << "tmp = " << tmp << ENDL;
-                CERR << "pos_prev = " << pos_prev << ENDL;
-                CERR << "sep_size = " << sep.size( ) << ENDL;
                
                 if ( tmp == 0 )
                 {
@@ -271,27 +262,28 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
                 {
                     sub = source.substr(tmp, pos_cur - pos_prev + (int)sep.size( ));
                 }
-                //sub = source.substr(pos_prev - sep.size(), pos_cur - pos_prev + sep.size());
             }
 
+          ///  results.push_back(sub);
 
             if (!(g_utilities()->IsSpacesOnly(sub ) && keep_empty == false))
             {
-                if (keep_sep == false)
-                {
+           //     if (keep_sep == false)
+            //    {
                     results.push_back(sub );
-                }
-                else
-                {
-                    results.push_back(sub);
+             //   }
+             //   else
+             //   {
+              //      results.push_back(sub);
                    // results.push_back ( sep + source.substr(prev, next - prev));
-                }
+             //   }
             }
+           
+
+
         }
         pos_prev = pos_cur + sep.size();
     }
-
-    
     
     if ( pos_prev < source.size())
     {
@@ -309,11 +301,77 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
             results.push_back(source.substr(tmp));
         }
     }
-  
-
 
     return results;
 }
+*/
+
+
+
+vector<string>
+GTokenizer::Tokenize(const string source, const string sep, const bool keep_empty, const bool keep_sep)
+{
+
+    std::vector<std::string> results;
+
+    size_t prev = 0;
+    size_t next = 0;
+
+    if ( sep == "" )
+    {
+        //    static char tmp[2];
+        char tmp[2];
+        for ( uint16_t i = 0; i < source.size( ); i++ )
+        {
+            SPRINTF(tmp, 2, "%c", source[i]);
+            results.push_back(tmp);
+
+        }
+
+        return results;
+    }
+
+    while ( (next = source.find(sep, prev)) != std::string::npos )
+    {
+        /// We need to check against empty separators, othervise we get stuck in the while loop
+        if ( sep == "" )
+        {
+            continue;
+        }
+
+        if ( keep_empty || (next - prev != 0) )
+        {
+            string sub = source.substr(prev, next - prev);
+            if ( !(g_utilities( )->IsSpacesOnly(source.substr(prev, next - prev)) && keep_empty == false) )
+            {
+                if ( keep_sep == false )
+                {
+                    results.push_back(source.substr(prev, next - prev));
+                }
+                else
+                {
+                    results.push_back(source.substr(prev, next - prev) + sep);
+                }
+            }
+        }
+        prev = next + sep.size( );
+    }
+
+    if ( prev < source.size( ) )
+    {
+        if ( keep_sep == false )
+        {
+            results.push_back(source.substr(prev));
+        }
+        else
+        {
+            results.push_back(source.substr(prev));
+        }
+    }
+
+    return results;
+}
+
 
 
 
