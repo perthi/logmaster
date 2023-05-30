@@ -2,6 +2,7 @@
 #include <logging/LLogTestAutoGen.h>
 #include <logging/LLogApi.h>
 #include <logging/GException.h>
+#include <logging/LHashMaps.h>
 
 #include <cmdline/GLogApplication.h>
 
@@ -21,6 +22,8 @@ int main(int argc, const char **argv)
     {
         GLogApplication( ).InitLogArgs( ).ScanArguments(argc, argv);
      //  GLogApplication( ).InitLogArgs( ).ScanArguments("-loglevel --blahhh");
+
+        LHashMaps::Instance( )->DoxygenDoc("logmaster.h");
 
        // GLogApplication( ).InitLogArgs( ).ScanArguments("-loglevel")  ;
 
