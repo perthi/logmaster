@@ -16,8 +16,6 @@
 #include  "GString2Number.h"
 #include  "GXmlParser.h"
 #include  "GXmlMacros.h"
-//#include  "GCommonXML.h"
-//#include  "GLocation.h"
 #include <utilities/GCommon.h>
 #include <utilities/GLocation.h>
 #include <logging/GException.h>
@@ -37,7 +35,6 @@ using std::vector;
 
 #include <format>
 
-//using std::format;
 
 class GXmlEntity;
 
@@ -206,14 +203,14 @@ GXmlParser::GetTagValueOrNothing( std::shared_ptr<GXmlStreamReader> xmlReader, c
 }
 
 
-/*** Takes as input a hasmap and extracts the hash codes into a vector.
+/*** Takes as input a hash map and extracts the hash codes into a vector.
  *   For instance if the input is map<string, int> (i.e the hash code is a string)
  *   then the function returns a string with all the hash entries in the map. The string
- *   is formatted according to the prameters "ncols" and "sep"
+ *   is formatted according to the parameters "ncols" and "sep"
  *   @tparam T1 the type of the hash entries (not used)
  *   @param[in] m The hash map to process
- *   @param[in]  ncols The number of colums printed to the output. 
- *   @param[in] sep   The separator used between each antry in a column. Default is "tab"
+ *   @param[in]  ncols The number of columns printed to the output. 
+ *   @param[in] sep   The separator used between each entry in a column. Default is "tab"
  *   @return a vector of hash codes/entries */
 template <typename T>
 string 

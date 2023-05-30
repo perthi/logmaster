@@ -189,6 +189,7 @@
     <ClInclude Include="LGeneratorTestBase.h" />
     <ClInclude Include="LGeneratorTestLConversion.h" />
     <ClInclude Include="LGeneratorTestLHashMaps.h" />
+    <ClInclude Include="LGlobals.h" />
     <ClInclude Include="LXmlEntity.h" />
     <ClInclude Include="LXmlEntityLogLevel.h" />
     <ClInclude Include="LXmlEntitySubSystem.h" />

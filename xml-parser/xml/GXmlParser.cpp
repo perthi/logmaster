@@ -48,9 +48,8 @@ GXmlParser::AssertTagCloseGroup(std::shared_ptr<GXmlStreamReader> xmlReader, con
 
 void
 GXmlParser::AssertTag(std::shared_ptr<GXmlStreamReader> xmlReader, const string tag, GLocation l, eXML_NODETYPE node_type,  const bool read_node  )
-
 {
-///    LLogging::Instance()->Log(  eLOGLEVEL::LOG_INFO, eMSGSYSTEM::SYS_XML, l,   "tag = %s, node type = %s", tag.c_str(),   *node_type  );
+
     
     GXmlNode *node  = xmlReader->GetCurrentNode();
 

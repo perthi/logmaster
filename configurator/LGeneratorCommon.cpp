@@ -1,8 +1,16 @@
 
 
 #include "LGeneratorCommon.h"
-#include <utilities/GLicence.h>
 #include "LCopyright.h"
+#include "LGlobals.h"
+#include "LXmlEntitySubSystem.h"
+
+#include <utilities/GLicence.h>
+#include <utilities/GUtilities.h>
+
+#include <logging/LLogApi.h>
+#include <logging/GException.h>
+using namespace LOGMASTER;
 
 #include <sstream>
 #include <string>
@@ -29,7 +37,7 @@ namespace CONFIGURATOR
     } 
 
     string
-     toPascalCase(const string in)
+    toPascalCase(const string in)
     {
         if ( in.size( ) > 1 )
         {
@@ -45,6 +53,28 @@ namespace CONFIGURATOR
         }
     }
 
+    bool  
+    checkMandatorySubsystems(const sysentity_vec systems, const vector<string> mandatory)
+    {
+       vector<string> sys_v;
+       
+       for ( auto s : systems )
+       {
+           sys_v.push_back(s->fName);
+       }
+
+       for ( auto m : mandatory )
+       {
+           if ( g_utilities( )->HasElement(m, sys_v) == false )
+           {
+               XML_EXCEPTION("Missing mandatory sub system: %s", m.c_str( ));
+               return false;
+           }
+       };
+
+       return true;
+       
+    }
 
 }
 

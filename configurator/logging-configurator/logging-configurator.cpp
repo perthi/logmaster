@@ -38,12 +38,16 @@
 #include <configurator/LArgumentScanner.h>
 #include <configurator/LDefinitions.h>
 #include <configurator/LXMLInfo.h>
+#include <configurator/LGeneratorCommon.h>
+#include <configurator/LGlobals.h>
+
 #include <utilities/version-info/GMenu.h>
 
 using namespace LOGMASTER;
 using namespace CONFIGURATOR;
 
 #include <utilities/GSystem.h>
+
 
 /** Application that auto generates LOG macros for the logging system. Unit tests,
  *  and a test class used for demonstration and debugging.
@@ -53,11 +57,13 @@ using namespace CONFIGURATOR;
 int main(int  argc, const char** argv)
 {
     GMenu::Instance()->ScanArguments(argc, argv);
-    
+   
+
     SET_LOGLEVEL("--all-off --all-warning");
     SET_LOGFORMAT("1111111");
 
-    CERR << "PWD = " << g_system( )->pwd( ) << endl;
+    GLogApplication( ).InitLogArgs( ).ScanArguments(argc, argv);
+
 
     string xml = "";
     string xsd = "";
@@ -68,12 +74,14 @@ int main(int  argc, const char** argv)
     {
         XML_ASSERT_EXCEPTION(GXmlValidator().IsValid(xml, xsd), "failed to validate %s against %s", xml.c_str(), xsd.c_str());
         
-        
-        
         logentity_vec  loglevels;
         sysentity_vec  subsystems;
         LXmlParser().ParseXML(LXMLInfo(xml, xsd), loglevels, subsystems);
+
         XML_INFO("Successfully validated %s against %s and parsed the XML file", xml.c_str(), xsd.c_str());
+        XML_ASSERT_EXCEPTION(checkMandatorySubsystems(subsystems, gMandatorySystems), "MANDATORY SUBSYSTEMS NOT PRESENT");
+
+
         generator_vec  generators  = LCreateDefaultGenerators::CreateAll(LXMLInfo(xml, xsd));
         LFileCreator::GenerateFiles(generators, loglevels, subsystems);
     }
@@ -93,8 +101,6 @@ int main(int  argc, const char** argv)
     {
         FORCE_DEBUG("Unknown exception caught ....");
     }
-
- //   std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
 }
+
 

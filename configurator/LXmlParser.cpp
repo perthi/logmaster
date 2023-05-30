@@ -12,20 +12,13 @@
 #include <logging/LLogApi.h>
 using namespace LOGMASTER;
 
-
-
 #include <configurator/LXmlEntityLogLevel.h>
 #include <configurator/LXmlEntitySubSystem.h>
-
-
 #include <logging/GException.h>
 #include <utilities/GLocation.h>
-
 #include <xml/GXmlClassFactory.h>
 #include <xml/GXmlStreamReader.h>
 #include <xml/GXmlValidator.h>
-
-
 
 
 #include <vector>
