@@ -197,13 +197,13 @@ GTokenizer::StripPath(const string fin, string& dir, string& fout, const bool ke
  *  It is possible to us an array (vector) of tokens. Consider for instance the string   a/b\\c/d . <br>
  *  Tokenizing this string using the vector {"/", "\\"}  will yield the result {"a", "b", "c", "d"} */
 vector<string>
-GTokenizer::Tokenize(const vector<string>& source, const string sep, const bool keep_empty, const bool keep_sep)
+GTokenizer::Tokenize(const vector<string>& source, const string sep, const bool keep_empty, const bool keep_sep, const bool keep_front)
 {
     vector<string> tout;
 
     for ( uint16_t i = 0; i < source.size( ); i++ )
     {
-        vector<string> tmp = Tokenize(source[i], sep, keep_empty, keep_sep);
+        vector<string> tmp = Tokenize(source[i], sep, keep_empty, keep_sep, keep_front);
         for ( uint16_t j = 0; j < tmp.size( ); j++ )
         {
             tout.push_back(tmp[j]);
@@ -213,9 +213,9 @@ GTokenizer::Tokenize(const vector<string>& source, const string sep, const bool 
 }
 
 
-/*
+
 vector<string>
-GTokenizer::Tokenize(const string source, const string sep, const bool keep_empty, const bool keep_sep)
+GTokenizer::Tokenize(const string source, const string sep, const bool keep_empty, const bool keep_sep, const bool keep_front )
 {
     std::vector<std::string> results;
     size_t pos_prev = 0;
@@ -232,6 +232,9 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
 
         return results;
     }
+
+
+
 
     while ((pos_cur = source.find(sep, pos_prev)) != std::string::npos)
     {
@@ -260,25 +263,34 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
                 }
                 else
                 {
-                    sub = source.substr(tmp, pos_cur - pos_prev + (int)sep.size( ));
-                }
+                    if ( keep_front == true )
+                    {
+                        sub = source.substr(tmp, pos_cur - pos_prev + (int)sep.size( ));
+                    }
+                    else
+                    {
+                        sub = source.substr(pos_prev, pos_cur - pos_prev ) + sep;
+                    }
+                  }
             }
 
           ///  results.push_back(sub);
-
+            /*
             if (!(g_utilities()->IsSpacesOnly(sub ) && keep_empty == false))
             {
-           //     if (keep_sep == false)
-            //    {
+                if (keep_sep == false)
+                {
                     results.push_back(sub );
-             //   }
-             //   else
-             //   {
-              //      results.push_back(sub);
-                   // results.push_back ( sep + source.substr(prev, next - prev));
-             //   }
+                }
+                else
+                {
+                    results.push_back(sub);
+
+
+                    //results.push_back ( sep + source.substr(prev, next - prev));
+                }
             }
-           
+           */
 
 
         }
@@ -294,20 +306,26 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
         else
         {
             int tmp = (int)pos_prev - (int)sep.size( );
-
             tmp = tmp < 0 ? 0 : tmp;
 
-
-            results.push_back(source.substr(tmp));
+            if ( keep_front == true )
+            {
+                results.push_back(source.substr(tmp));
+            }
+            else
+            {
+                results.push_back(source.substr(pos_prev) + sep );
+            }
         }
     }
 
     return results;
 }
-*/
 
 
 
+
+/*
 vector<string>
 GTokenizer::Tokenize(const string source, const string sep, const bool keep_empty, const bool keep_sep)
 {
@@ -371,7 +389,7 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
 
     return results;
 }
-
+*/
 
 
 
@@ -379,19 +397,19 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
 
 
 vector<string>
-GTokenizer::Tokenize(const string source, const vector<string> sep, bool keep_empty, bool keep_sep)
+GTokenizer::Tokenize(const string source, const vector<string> sep, bool keep_empty, bool keep_sep, const bool keep_front )
 {
     if ( sep.size( ) == 0 )
     {
-        return Tokenize(source, "\t", keep_empty, keep_sep);
+        return Tokenize(source, "\t", keep_empty, keep_sep, keep_front);
     }
 
     vector<string> tokens_out;
-    tokens_out = Tokenize(source, sep[0], keep_empty, keep_sep);
+    tokens_out = Tokenize(source, sep[0], keep_empty, keep_sep, keep_front);
 
     for ( uint16_t i = 1; i < sep.size( ); i++ )
     {
-        tokens_out = Tokenize(tokens_out, sep[i], keep_empty, keep_sep);
+        tokens_out = Tokenize(tokens_out, sep[i], keep_empty, keep_sep, keep_front);
     }
     return tokens_out;
 
