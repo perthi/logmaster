@@ -213,7 +213,7 @@ GTokenizer::Tokenize(const vector<string>& source, const string sep, const bool 
 }
 
 
-
+/*
 vector<string>
 GTokenizer::Tokenize(const string source, const string sep, const bool keep_empty, const bool keep_sep, const bool keep_front )
 {
@@ -275,7 +275,7 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
             }
 
           ///  results.push_back(sub);
-            /*
+         ///
             if (!(g_utilities()->IsSpacesOnly(sub ) && keep_empty == false))
             {
                 if (keep_sep == false)
@@ -290,7 +290,7 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
                     //results.push_back ( sep + source.substr(prev, next - prev));
                 }
             }
-           */
+         
 
 
         }
@@ -321,25 +321,25 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
 
     return results;
 }
+*/
 
 
 
 
-/*
+
 vector<string>
-GTokenizer::Tokenize(const string source, const string sep, const bool keep_empty, const bool keep_sep)
+GTokenizer::Tokenize(const string source, const string sep, const bool keep_empty, const bool keep_sep, const bool keep_front)
 {
-
     std::vector<std::string> results;
 
     size_t prev = 0;
     size_t next = 0;
 
-    if ( sep == "" )
+    if (sep == "")
     {
         //    static char tmp[2];
         char tmp[2];
-        for ( uint16_t i = 0; i < source.size( ); i++ )
+        for (uint16_t i = 0; i < source.size(); i++)
         {
             SPRINTF(tmp, 2, "%c", source[i]);
             results.push_back(tmp);
@@ -349,49 +349,67 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
         return results;
     }
 
-    while ( (next = source.find(sep, prev)) != std::string::npos )
+    while ((next = source.find(sep, prev)) != std::string::npos)
     {
-        /// We need to check against empty separators, othervise we get stuck in the while loop
-        if ( sep == "" )
+        /// We need to check against empty separators, otherwise we get stuck in the while loop
+        if (sep == "")
         {
             continue;
         }
 
-        if ( keep_empty || (next - prev != 0) )
+        if (keep_empty || (next - prev != 0))
         {
             string sub = source.substr(prev, next - prev);
-            if ( !(g_utilities( )->IsSpacesOnly(source.substr(prev, next - prev)) && keep_empty == false) )
+            if (!(g_utilities()->IsSpacesOnly(source.substr(prev, next - prev)) && keep_empty == false))
             {
-                if ( keep_sep == false )
+                if (keep_sep == false)
                 {
                     results.push_back(source.substr(prev, next - prev));
                 }
                 else
                 {
-                    results.push_back(source.substr(prev, next - prev) + sep);
+                    if (keep_front == false)
+                    {
+                        results.push_back(source.substr(prev, next - prev) + sep);
+                    }
+                    else
+                    {
+                        int tmp = (int)prev - (int)sep.size();
+                        tmp = tmp < 0 ? 0 : tmp;
+                        results.push_back(source.substr(tmp, next - prev + sep.size() ));
+
+                    }
                 }
             }
         }
-        prev = next + sep.size( );
+        prev = next + sep.size();
     }
 
-    if ( prev < source.size( ) )
+    if (prev < source.size())
     {
-        if ( keep_sep == false )
+        if (keep_sep == false)
         {
             results.push_back(source.substr(prev));
         }
         else
         {
-            results.push_back(source.substr(prev));
-        }
+
+            int tmp = (int)prev - (int)sep.size();
+            tmp = tmp < 0 ? 0 : tmp;
+            if (keep_front == true)
+            {
+                results.push_back(source.substr(tmp));
+            }
+            else
+            {
+
+                results.push_back(source.substr(prev));
+            }
+            }
     }
 
     return results;
 }
-*/
-
-
 
 
 

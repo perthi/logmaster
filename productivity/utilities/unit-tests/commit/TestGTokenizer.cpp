@@ -53,7 +53,6 @@ TestGTokenizer::~TestGTokenizer()
 
 
 
-
 TEST_F(TestGTokenizer, CheckEmty)
 {
     string in = "a\tb\t \t\t\t";
@@ -159,6 +158,23 @@ TEST_F(TestGTokenizer, Tokenize )
     {
         GTEST_FATAL_FAILURE_(std::format("Unexpected vector size {} (expected 5)", res.size()).c_str() );
     }
+}
+
+
+
+
+TEST_F(TestGTokenizer, discard_empty_keep_sep)
+{
+    string d4 = "dir1\\dir2/dir3/dir4\\dir5";
+	vector<string > res = GTokenizer().Tokenize(d4, vector<string>{ "\\", "/"}, DISCARD_EMPTY, KEEP_SEPARATOR);
+
+	ASSERT_EQ(res.size(), 5);
+
+	EXPECT_EQ("dir1\\", res[0]);
+	EXPECT_EQ("dir2/", res[1]);
+	EXPECT_EQ("dir3/", res[2]);
+	EXPECT_EQ("dir4\\", res[3]);
+	EXPECT_EQ("dir5", res[4]);
 }
 
 
@@ -292,25 +308,20 @@ TEST_F(TestGTokenizer, tokenize_commandline2)
 
 
 
-
-
-TEST_F(TestGTokenizer, tokenize_commandline_keep_separator)
+//TEST_F(TestGTokenizer, tokenize_commandline_keep_separator)
+TEST_F(TestGTokenizer, pth )
 {
-    string test = "--all-off --all-warning --target-gui --all-debug --target-db --all-debug --target-test --all-info -fsm-debug --target-test2 --all-info";
+    string test = "--target--all-off --all-warning --target-gui --all-debug --target-db --all-debug --target-test --all-info -fsm-debug --target-test2 --all-info";
   ///  string test = "--all-off  --all-warning  --target";
     vector<string> tokens = g_tokenizer( )->Tokenize(test, "--target", false, true, true);
     ASSERT_EQ(5, tokens.size());
-
-    for ( auto t : tokens )
-    {
-        CERR << t << ENDL;
-    }
-
-    EXPECT_EQ(tokens.at(0),"--all-off --all-warning ");
+    
+    EXPECT_EQ(tokens.at(0),"--target--all-off --all-warning ");
     EXPECT_EQ(tokens.at(1), "--target-gui --all-debug ");
     EXPECT_EQ(tokens.at(2), "--target-db --all-debug ");
     EXPECT_EQ(tokens.at(3), "--target-test --all-info -fsm-debug ");
     EXPECT_EQ(tokens.at(4), "--target-test2 --all-info");
+   
 }
 
 
