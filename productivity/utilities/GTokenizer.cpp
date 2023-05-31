@@ -184,7 +184,9 @@ GTokenizer::StripPath(const string fin, string& dir, string& fout, const bool ke
 /**@{
  *  Tokenizing an input string/vector of strings using  arbitrary separator/vector of separators
  *  @param[in] source The input string(s) to tokenize
- *  @param[in] sep    The separator(s) to use when tokenizing the string, "sep" can be either a single separator or an array (vector) of separators
+ *  @param[in] keep_sep    The separator(s) to use when tokenizing the string, "sep" can be either a single separator or an array (vector) of separators
+ *  @param[in] If the keep front flag is set to true, then the separator will be added to the front of the token instead of to the back (default).
+ *  This flag only have an effect if the kee_sep flag is set to true.
  *  @param[in] keep_empty whether or not to keep empty tokens (tokens with zero length) after tokenizing the string.
  *  For example, consider the string  "a\\tb\t \\t\\t\\t" if this string is tokenized using tab ("\\t") as the separator, then  <br>
  *  1) If the keep_empty flag is false (default) then we will get 3 tokens, namely  "a", "b", " ", whereas the 3 empty strings will be discarded.<br>
@@ -211,117 +213,6 @@ GTokenizer::Tokenize(const vector<string>& source, const string sep, const bool 
     }
     return tout;
 }
-
-
-/*
-vector<string>
-GTokenizer::Tokenize(const string source, const string sep, const bool keep_empty, const bool keep_sep, const bool keep_front )
-{
-    std::vector<std::string> results;
-    size_t pos_prev = 0;
-    size_t pos_cur = 0;
-
-    if (sep == "")
-    {
-        char tmp[2];
-        for (uint16_t i = 0; i < source.size(); i++)
-        {
-            SPRINTF(tmp, 2, "%c", source[i]);
-            results.push_back(tmp);
-        }
-
-        return results;
-    }
-
-
-
-
-    while ((pos_cur = source.find(sep, pos_prev)) != std::string::npos)
-    {
-        /// We need to check against empty separators, otherwise we get stuck in the while loop
-        if (sep == "")
-        {
-            continue;
-        }
-
-        if (keep_empty || (pos_cur - pos_prev != 0))
-        {
-            string sub;
-
-            if ( keep_sep == false )
-            {
-                sub = source.substr(pos_prev, pos_cur - pos_prev);
-            }
-            else
-            {
-                int tmp = (int)pos_prev - (int)sep.size( );
-                tmp = tmp < 0 ? 0 : tmp;
-               
-                if ( tmp == 0 )
-                {
-                    sub = source.substr(tmp, pos_cur - pos_prev  );
-                }
-                else
-                {
-                    if ( keep_front == true )
-                    {
-                        sub = source.substr(tmp, pos_cur - pos_prev + (int)sep.size( ));
-                    }
-                    else
-                    {
-                        sub = source.substr(pos_prev, pos_cur - pos_prev ) + sep;
-                    }
-                  }
-            }
-
-          ///  results.push_back(sub);
-         ///
-            if (!(g_utilities()->IsSpacesOnly(sub ) && keep_empty == false))
-            {
-                if (keep_sep == false)
-                {
-                    results.push_back(sub );
-                }
-                else
-                {
-                    results.push_back(sub);
-
-
-                    //results.push_back ( sep + source.substr(prev, next - prev));
-                }
-            }
-         
-
-
-        }
-        pos_prev = pos_cur + sep.size();
-    }
-    
-    if ( pos_prev < source.size())
-    {
-        if (keep_sep == false)
-        {
-            results.push_back(source.substr(pos_prev ));
-        }
-        else
-        {
-            int tmp = (int)pos_prev - (int)sep.size( );
-            tmp = tmp < 0 ? 0 : tmp;
-
-            if ( keep_front == true )
-            {
-                results.push_back(source.substr(tmp));
-            }
-            else
-            {
-                results.push_back(source.substr(pos_prev) + sep );
-            }
-        }
-    }
-
-    return results;
-}
-*/
 
 
 
@@ -435,6 +326,11 @@ GTokenizer::Tokenize(const string source, const vector<string> sep, bool keep_em
 /**@}*/
 
 
+/**
+* @brief Convert command line parameters to a vector
+* @param[in] argc The number of arguments
+* @param[in] argv C-style vector of argument
+* @return argv on vector form */
 vector<string>
 GTokenizer::Tokenize(const int argc, const char** argv)
 {
