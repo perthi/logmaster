@@ -113,8 +113,9 @@ GString::BeginsWith(const string &str, const string &substring, const bool ignor
  * @param ignore_case whether or not to ignore case
  * @return true if str contains any of the tokens in the vector  substring_v */
 bool       
-GString::BeginsWith(const string& str, const vector<string>& substring_v, const bool ignore_case)
+GString::BeginsWith(const string& str, const vector<string>& substring_v, const bool /*ignore_case*/)
 {
+    ///@todo remove ignore_case as a parameter or use it
     for ( auto& s : substring_v )
     {
         if ( BeginsWith(str, s) == true )

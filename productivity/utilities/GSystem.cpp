@@ -247,6 +247,7 @@ GSystem::exists(const string filepath, struct  stat *sb_in)
     {
         //string err = Errno2String(errno, filepath, "");
         //GCommon( ).HandleError(err, GLOCATION, DISABLE_EXCEPTION);
+        ///@bug handle error properly
     }
     else
     {
@@ -269,10 +270,14 @@ GSystem::exists(const string filepath, struct  stat *sb_in)
  * @return true if the path exists and is a regular file/directory.
  * false otherwise */
 bool     
-GSystem::isdirectory(const string filepath, struct  stat* sb_in)
+GSystem::isdirectory(const string filepath, struct  stat*  /*sb_in*/)
 {
-    struct  stat sb;
-    
+
+    ///@todo use sb_in parameter or remove it
+
+    struct  stat sb;    
+
+
 ///@todo make unit tests for both Linux and Windows
     if ( exists(filepath, &sb) == true )
     {

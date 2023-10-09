@@ -71,7 +71,6 @@ GCommon::HandleError(const string message, const GLocation  l,   const bool   di
     }
     else
     {
-        //FORCE_DEBUG("loc = %s", l.str().c_str());
         G_WARNING( (message + l.str()).c_str());
     }
 }

@@ -62,10 +62,9 @@ GTimeValidate::GTimeValidate() :
 
 
 
-
  /* Checks if a Year is a leap year.
   * @param[in] iYear
-  * @return true if Leap Year othervise false */
+  * @return true if Leap Year otherwise false */
 bool GTimeValidate::IsGregorianLeapYear(int iYear)
 {
 
@@ -237,7 +236,7 @@ GTimeValidate::IsValidFormat(const char *c, string &offender)
         
        static  thread_local  map<string, string> s_format =  fTimeFormat.GetValidFormat();
 
-        for (auto const item : s_format) 
+        for (auto const &item : s_format) 
         {
             if (item.first == tmp)
             {
