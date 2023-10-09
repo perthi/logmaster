@@ -67,7 +67,7 @@ GCommon::HandleError(const string message, const GLocation  l,   const bool   di
 {
     if ( disable_exception == false)
     {
-        throw_exception(   GException(l.fFileName, l.fFunctName, l.fLineNo, eMSGSYSTEM::SYS_EX, "%s", message.c_str( ))  )  ;
+        throw_exception(   GException(l.fFileName, l.fFunctName, l.fLineNo, eMSGSYSTEM::SYS_EXCEPTION, "%s", message.c_str( ))  )  ;
     }
     else
     {

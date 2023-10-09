@@ -67,7 +67,7 @@ public:
     string API LogTrace();
     void API SetLogMap();
 
-    virtual const char  API * what() const override;
+    virtual const char   API * what()  const noexcept override;
     static string API ExtractClassname(const char *in);
     static  std::shared_ptr< std::map<eMSGTARGET, std::shared_ptr<LMessage > > > fgMessageMap;
     

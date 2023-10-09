@@ -97,10 +97,8 @@ GNumbers::Dec2Hex(const string  str)
     return buffer.str();
 }
 
-
-
- /**@{
-/* @brief Converts a binary/hex number string to a 64 bits integer. The string is interpreted assuming radix 2 (i.e binary)
+/**@{
+*  @brief Converts a binary/hex number string to a 64 bits integer. The string is interpreted assuming radix 2 (i.e binary)
 *  @param[in] b  The string to convert
 *  @return the corresponding number as a 64 bit int
 *  @exception GException  if the system dependent maximum  number if bits is exceeded, or if the string has wrong format. Ths is,
@@ -112,7 +110,7 @@ GNumbers::BinaryString2Number(const string b)
     g_string( )->Trim(s);
     size_t idx = 0;
     int64_t number = stoll(s, &idx, 2);
-    
+
     if ( idx != s.size( ) )
     {
         GCommon( ).HandleError(std::format("Failed to convert binary string{}", s), GLOCATION, IsDisabledError());
@@ -138,8 +136,7 @@ GNumbers::BinaryString2Number(const string b)
      }
      return -99999; // Never reached, but just in case
  }
- /**@}
-
+/**@}*/
 
 
 /**@{
@@ -175,4 +172,3 @@ GNumbers::BitWidth(const string in)
     }
 }
 /**@}*/
-

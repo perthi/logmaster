@@ -133,7 +133,7 @@ GException::DisableStackTrace()
 
 
 const char *
-GException::what() const
+GException::what()  const noexcept
 {
     static char  tmp[MAX_MSG_TOTAL_SIZE];
 

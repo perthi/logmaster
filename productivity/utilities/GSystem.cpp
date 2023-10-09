@@ -65,7 +65,7 @@
 
 //#include <ftw.h>
  #include <errno.h>
-
+#include <sys/stat.h>
 
 
 GSystem * g_system()
@@ -260,7 +260,6 @@ GSystem::exists(const string filepath, struct  stat *sb_in)
 }
 
 /**@{
-/*
  * Whether or not a path is a regular file or directory.
  * 
  * @param filepath
@@ -273,9 +272,15 @@ bool
 GSystem::isdirectory(const string filepath, struct  stat* sb_in)
 {
     struct  stat sb;
+    
+///@todo make unit tests for both Linux and Windows
     if ( exists(filepath, &sb) == true )
     {
-        S_ISREG(sb)
+        #ifdef __linux__
+       return S_ISREG(sb.st_mode);
+        #else
+       return  S_ISREG(sb)
+        #endif
     }
     
 
@@ -465,7 +470,8 @@ GSystem::GetExeDir()
     auto ret = readlink("/proc/self/exe", buf, PATH_MAX);
     if(ret < 0 )
     {
-        GCommon().HandleError( GText("Error retriveing exe path (%s)", strerror(errno) ).str(), GLOCATION, DISABLE_EXCEPTION );
+      //  GCommon().HandleError( GText("Error retriveing exe path (%s)", strerror(errno) ).str(), GLOCATION, DISABLE_EXCEPTION );
+        GCommon().HandleError(    std::format("Error retrieving exe path ({})", strerror(errno) ), GLOCATION, DISABLE_EXCEPTION );
     }
     else
     {
