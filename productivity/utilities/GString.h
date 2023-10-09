@@ -27,6 +27,7 @@ using std::vector;
 #include <sstream>
 #include <iomanip>
 #include <locale>
+#include <stdint.h>
 
 
 

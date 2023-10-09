@@ -36,6 +36,7 @@ using std::cout;
 
 #include <ostream>
 #include <sstream>
+#include <stdint.h>
 
 string 
 GArgumentParsed::ParInfo(const vector<string> par )  const

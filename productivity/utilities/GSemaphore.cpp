@@ -32,7 +32,6 @@
 #include "GTime.h"
 #include "GLocation.h"
 #include "GCommon.h"
-
 #include <format>
 
 
@@ -165,7 +164,7 @@ GSemaphore::Post( sem_t *s)
 
     if(val != 0)
     {
-        GCommon().HandleError(  GText("Expected semaphore to be ZERO before call to POST, sem value = %d,  ignoring call", val).str(), GLOCATION, DISABLE_EXCEPTION) ;
+        GCommon().HandleError(  std::format("Expected semaphore to be ZERO before call to POST, sem value = {},  ignoring call", val), GLOCATION, DISABLE_EXCEPTION) ;
         return -1;
     }
     else

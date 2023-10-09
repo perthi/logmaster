@@ -19,7 +19,6 @@ SRCCPP+=GCommon.cpp \
 	GRandom.cpp \
 	GRegexp.cpp \
 	GString.cpp \
-	GText.cpp \
 	GSystem.cpp \
 	GTime.cpp \
 	GTimeFormat.cpp \
@@ -27,14 +26,13 @@ SRCCPP+=GCommon.cpp \
 	GTimeSpan.cpp \
 	GTokenizer.cpp \
 	GUtilities.cpp \
-	GEnumHelper.cpp \
-	GEnumHelperImpl.cpp \
 	GSemaphore.cpp \
 	GCrc.cpp \
 	GStackTrace.cpp \
 	GDataBaseIF.cpp \
-	GFormatting.cpp \
-	GMenu.cpp
+	GFormatting.cpp
+	
+#GMenu.cpp
 
 
 include ../../common.mk

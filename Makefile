@@ -65,14 +65,14 @@ LIBS= -L $(PWD)/build/$(TARGET)/lib  -lm
 export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster 
 export UNIT_TEST_LIBS:= $(SUPPORT_LIBS) -lgtest-embc -lpthread 
 
-version-info:=           productivity/utilities/version-info/$(TARGET)
+#version-info:=           productivity/utilities/version-info/$(TARGET)
 #gtest-embc:=             productivity/gtest-embc/$(TARGET)
 utilities:=              utilities/$(TARGET)
 #utilities-unittest:=     utilities/unit-tests/commit/$(TARGET)
 #logging:=                logging/$(TARGET)
 #logging-example1:=       logging/examples/logging-example1/$(TARGET)
 #logging-unittest:=       logging/unit-tests/commit/$(TARGET)
-#cmdline:=                cmdline/$(TARGET)
+cmdline:=                cmdline/$(TARGET)
 #cmdline-example1:=       cmdline/examples/cmdline-example1/$(TARGET)
 #cmdline-unittest:=       cmdline/unit-tests/commit/$(TARGET)
 #xml:=                    xml-parser/xml/$(TARGET)
