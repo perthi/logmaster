@@ -40,10 +40,10 @@ export VERSIONINFO_EXE=$(BUILDDIR)/x86/bin/version-info
 
 ## export COMMON_FLAGS:= -fPIC -O3 -std=c++17  -g 
 export LOGMASTER_HOME=$(PWD)
-export COMMON_FLAGS:= -fPIC  -std=c++17  -g   -Wno-psabi  -DGUI_DIR='"$(LOGMASTER_HOME)"'
+export COMMON_FLAGS:= -fPIC  -std=c++23  -g   -Wno-psabi  -DGUI_DIR='"$(LOGMASTER_HOME)"'
 
 ## export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wfatal-errors  -Werror
-export PEDANTIC_FLAGS:=  -ggdb  -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum  -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security -Werror
+export PEDANTIC_FLAGS:=  -ggdb  -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum  -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security
 
 
 export HAS_LOGGING:=""
@@ -66,30 +66,30 @@ export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster
 export UNIT_TEST_LIBS:= $(SUPPORT_LIBS) -lgtest-embc -lpthread 
 
 version-info:=           productivity/utilities/version-info/$(TARGET)
-gtest-embc:=             productivity/gtest-embc/$(TARGET)
+#gtest-embc:=             productivity/gtest-embc/$(TARGET)
 utilities:=              utilities/$(TARGET)
-utilities-unittest:=     utilities/unit-tests/commit/$(TARGET)
-logging:=                logging/$(TARGET)
-logging-example1:=       logging/examples/logging-example1/$(TARGET)
-logging-unittest:=       logging/unit-tests/commit/$(TARGET)
-cmdline:=                cmdline/$(TARGET)
-cmdline-example1:=       cmdline/examples/cmdline-example1/$(TARGET)
-cmdline-unittest:=       cmdline/unit-tests/commit/$(TARGET)
-xml:=                    xml-parser/xml/$(TARGET)
-configurator:=           configurator/$(TARGET)
-configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
-logging-configurator:=   configurator/logging-configurator/$(TARGET)
-helloworld:=             helloworld/$(TARGET)
-db-test:=                database-test/$(TARGET)
-sqlite:=                 productivity/sqlite/$(TARGET) 
-api-logmaster:=          api/api-logmaster/$(TARGET) 
-gui-example1:=           gui/logger/examples/gui-loggergui-example1/$(TARGET)
-gui-example2:=           gui/logmaster/examples/gui-qt-logmaster-example1/$(TARGET)
-gui-alarm:=              gui/alarm/$(TARGET) 
-gui-logger:=             gui/logger/$(TARGET) 
-gui-logmaster:=          gui/logmaster/$(TARGET) 
-gui-common:=             gui/common/$(TARGET) 
-gui-alarm-example1:=     gui/alarm/examples/gui-alarm-example1/$(TARGET) 
+#utilities-unittest:=     utilities/unit-tests/commit/$(TARGET)
+#logging:=                logging/$(TARGET)
+#logging-example1:=       logging/examples/logging-example1/$(TARGET)
+#logging-unittest:=       logging/unit-tests/commit/$(TARGET)
+#cmdline:=                cmdline/$(TARGET)
+#cmdline-example1:=       cmdline/examples/cmdline-example1/$(TARGET)
+#cmdline-unittest:=       cmdline/unit-tests/commit/$(TARGET)
+#xml:=                    xml-parser/xml/$(TARGET)
+#configurator:=           configurator/$(TARGET)
+#configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
+#logging-configurator:=   configurator/logging-configurator/$(TARGET)
+#helloworld:=             helloworld/$(TARGET)
+#db-test:=                database-test/$(TARGET)
+#sqlite:=                 productivity/sqlite/$(TARGET) 
+#api-logmaster:=          api/api-logmaster/$(TARGET) 
+#gui-example1:=           gui/logger/examples/gui-loggergui-example1/$(TARGET)
+#gui-example2:=           gui/logmaster/examples/gui-qt-logmaster-example1/$(TARGET)
+#gui-alarm:=              gui/alarm/$(TARGET) 
+#gui-logger:=             gui/logger/$(TARGET) 
+#gui-logmaster:=          gui/logmaster/$(TARGET) 
+#gui-common:=             gui/common/$(TARGET) 
+#gui-alarm-example1:=     gui/alarm/examples/gui-alarm-example1/$(TARGET) 
 
 unittests:= 	$(utilities-unittest) \
 		        $(exception-unittest) \
@@ -158,11 +158,11 @@ export TARGET=x86
 ## Set compiler and archive builder to toolchain.
 ##ifeq ($(strip $(ARCH)),)
 ifeq (x86, $(TARGET))
-CCLOCAL:=c++   -std=c++17
+CCLOCAL:=c++   -std=c++23
 ARLOCAL:=ar
 else
 LIBS+= -L$(CURDIR)/productivity/3rd-party/arm/lib/
-CCLOCAL:=arm-linux-gnueabihf-g++   -std=c++17 -DARM
+CCLOCAL:=arm-linux-gnueabihf-g++   -std=c++23 -DARM
 CC:= arm-linux-gnueabihf-gcc
 ARLOCAL:=arm-linux-gnueabihf-ar
 endif

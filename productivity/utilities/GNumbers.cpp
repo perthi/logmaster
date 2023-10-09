@@ -99,17 +99,6 @@ GNumbers::Dec2Hex(const string  str)
 
 
 
-/**@{
- /** Converts a number to a binary/hex string representation
- * @param number The number that will be represented as a binary/hex string
- * @widt The number of digits in the string, regardless of the value of "num".
- * The string will be padded with zeros. The default width is 64 bits.
- * @param shift The number will be shifted (to the left) by this number of
- * bits. The default is no shift.
- * @return The binary representation of the string */
- /**@}
-
-
  /**@{
 /* @brief Converts a binary/hex number string to a 64 bits integer. The string is interpreted assuming radix 2 (i.e binary)
 *  @param[in] b  The string to convert
@@ -123,8 +112,7 @@ GNumbers::BinaryString2Number(const string b)
     g_string( )->Trim(s);
     size_t idx = 0;
     int64_t number = stoll(s, &idx, 2);
-
-    //bool is_negativ = g_string( )->BeginsWith(s, "-") ? true : false;
+    
     if ( idx != s.size( ) )
     {
         GCommon( ).HandleError(std::format("Failed to convert binary string{}", s), GLOCATION, IsDisabledError());

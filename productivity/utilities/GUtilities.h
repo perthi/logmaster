@@ -21,7 +21,7 @@
 #include <map>
 #include <iostream>
 #include <stdio.h>
-//#include <string.h>
+#include <string.h>
 #include <string>
 #include <sstream>
 #include <stdint.h>
@@ -230,7 +230,7 @@ GUtilities::Vec2String(const vector<T> data, const string sep) const
 
 
 
-/** Takes as input a hasmap and extracts the hash codes into a vector.
+/** Takes as input a hashmap and extracts the hash codes into a vector.
  *   For instance if the input is map<string, int> (i.e the hash code is a string)
  *   then the function returns a string with all the hash entries in the map. The string
  *   is formatted according to the parameters "ncols" and "sep"
@@ -277,7 +277,7 @@ GUtilities::Hash2String(const map<string, T>  *m, const int ncols, const string 
 
 
 
-/** Takes as input a hasmap and extracts the
+/** Takes as input a hashmap and extracts the
  *  hash codes into a vector. For instance if the input is map<string, int> (i.e the hash code is a string)
  *  then the return value is vector<string> with all entries in the map.
  *  @tparam T1 the hash code of the map

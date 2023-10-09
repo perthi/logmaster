@@ -260,16 +260,15 @@ GSystem::exists(const string filepath, struct  stat *sb_in)
 }
 
 /**@{
-/**
+/*
  * Whether or not a path is a regular file or directory.
  * 
  * @param filepath
- * @param sb An optional stat sruct if the user code wants to know more details
+ * @param sb An optional stat struct if the user code wants to know more details
  * about the file. I could be that the file exists, but is a special file like
  * a socket or similar.
  * @return true if the path exists and is a regular file/directory.
  * false otherwise */
-/*
 bool     
 GSystem::isdirectory(const string filepath, struct  stat* sb_in)
 {
@@ -285,12 +284,12 @@ GSystem::isdirectory(const string filepath, struct  stat* sb_in)
 }
 
 
-bool      
-GSystem::isfile(const string filepath, struct  stat* sb)
-{
+// bool      
+// GSystem::isfile(const string filepath, struct  stat* sb)
+//{
+//
+//}
 
-}
-*/
 
 /**@} */
 
