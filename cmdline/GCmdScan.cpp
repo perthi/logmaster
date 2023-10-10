@@ -347,8 +347,8 @@ GCmdScan::Verify(std::shared_ptr<GArgument> a, GArgumentParsed v) const
                 INVALID_ARGUMENT_EXCEPTION("GArguments of type void does not take any subcommands or parameters,%s(%s), You have given these GArgument (%s) and these subcommands (%s)",
                     v.GetCommand().c_str(),
                     type.c_str(),
-                    g_string()->ToString(v.GetArguments()).c_str(),
-                    g_string()->ToString(v.GetSubCommands()).c_str());
+                    g_string()->Vec2String(v.GetArguments()).c_str(),
+                    g_string()->Vec2String(v.GetSubCommands()).c_str());
             }
             else
             {
