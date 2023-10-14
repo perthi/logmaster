@@ -7,7 +7,7 @@
 ***************************************************/
 
 #include <configurator/LXMLInfo.h>
-#include <xml-parser/xml/GXmlParser.h>
+#include <xml/GXmlParser.h>
 #include <memory>
 
 #include <vector>

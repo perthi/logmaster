@@ -22,9 +22,6 @@ SRCCPP+= GXmlAttribute.cpp \
 	GXmlStreamWriterImpl.cpp \
 	GXmlTextNode.cpp \
 	GXmlValidatorImpl.cpp \
-	GTextXml.cpp \
-	GPrintable.cpp \
-	GCommonXML.cpp \
 	GXmlParser.cpp \
 	GString2Number.cpp \
 	GXmlEntity.cpp \

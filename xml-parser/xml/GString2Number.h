@@ -7,6 +7,7 @@
 using std::string;
 
 
+
 class  GString2Number
 {
 	public:	
@@ -16,5 +17,6 @@ class  GString2Number
 		double ToNumber( const string num );
 
 };
+
 
 #endif

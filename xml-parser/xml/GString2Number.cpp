@@ -3,13 +3,17 @@
 
 #include "GString2Number.h"
 #include "GXmlMacros.h"
-#include "GLocationXml.h"
+//#include "GLocationXml.h"
 
 #include <iostream> 
 #include <string>
 
+#include <utilities/GCommon.h>
+
 #include <format>
 using std::format;
+
+
 
 GString2Number::GString2Number()
 {
@@ -49,7 +53,7 @@ GString2Number::ToNumber( const string num )
     }
     catch (const std::exception &e)
     {
-        g_common_xml()->HandleError(format("exception caught ( {} )trying to convert \"{}\" to a number ", e.what(), num), GLOCATION_SRC, THROW_EXCEPTION);
+        GCommon().HandleError(format("exception caught ( {} )trying to convert \"{}\" to a number ", e.what(), num), GLOCATION, THROW_EXCEPTION);
         return d;
     
     }

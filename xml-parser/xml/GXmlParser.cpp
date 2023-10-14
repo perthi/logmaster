@@ -97,11 +97,11 @@ GXmlParser::AssertTag(std::shared_ptr<GXmlStreamReader> xmlReader, const string 
 
 
 void
-GXmlParser::PrinttAttributes( const GXmlNode * const node,  GLocation  /*l*/ )
+GXmlParser::PrinttAttributes( const GXmlNode * const node,  GLocation  l )
 {
     vector<GXmlAttribute> a =  node->GetAttributes();
     string name = node->GetName();
-    //auto type = node->GetType();
+    auto type = node->GetType();
     
     #ifdef HAS_LOGGING
     GLocation ll =  GLocation( l.fFileName, l.fLineNo , l.fFunctName );

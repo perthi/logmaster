@@ -100,7 +100,7 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
     }
     else
     {
-        return 0;
+        return T();
     }
 
     XML_ASSERT( node->GetType() == eXML_NODETYPE::EOpenTagNode, 
