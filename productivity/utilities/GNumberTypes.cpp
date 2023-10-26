@@ -1,15 +1,8 @@
-#include "GNumberTypes.h"
 
+#include "GNumberTypes.h"
 #include "GString.h"
 
-/*
-GNumberTypes* g_numbers_types( )
-{
-    static GNumberTypes* instance = new GNumberTypes( );
-    return instance;
-}
-*/
-
+#include <limits>
 
 
 bool

@@ -10,7 +10,8 @@ SRCCPP+= GArgument.cpp \
 	GCmdScan.cpp \
 	GCommandLineArgument.cpp \
 	GLogApplication.cpp \
-	GCmdWiki.cpp
+	GCmdWiki.cpp \
+	GLogHelpers.cpp 
 
 
 include ../../common.mk

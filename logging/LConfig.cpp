@@ -222,9 +222,9 @@ namespace LOGMASTER
             l_level = (eLOGLEVEL)(PAD((uint64_t)l_level) );
         }
         
-        auto apply_lelvel = []( const eMSGSYSTEM system, const eLOGLEVEL level_in,  eLOGLEVEL &level )
+        auto apply_lelvel = []( const eMSGSYSTEM sys, const eLOGLEVEL level_in,  eLOGLEVEL &lvl )
         {
-            if ( LHashMaps::Instance( )->IsChangeable(system) == false )
+            if ( LHashMaps::Instance( )->IsChangeable(sys) == false )
             {
                 /** @todo Write an internal log message if subsystem cannot be changed*/
 #ifdef DEBUG
@@ -233,7 +233,7 @@ namespace LOGMASTER
             }
             else
             {
-                level = level_in;
+                lvl = level_in;
             }
         };
         

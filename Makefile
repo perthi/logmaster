@@ -63,7 +63,7 @@ GTEST_INCLUDES:= -isystem $(PWD)/productivity/
 LIBS= -L $(PWD)/build/$(TARGET)/lib  -lm
 
 export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster 
-export UNIT_TEST_LIBS:= $(SUPPORT_LIBS) -lgtest-embc -lpthread 
+export UNIT_TEST_LIBS:= $(SUPPORT_LIBS) -lgtest -lpthread 
 
 version-info:=           productivity/utilities/version-info/$(TARGET)
 #gtest-embc:=             productivity/gtest-embc/$(TARGET)
@@ -71,7 +71,7 @@ utilities:=              utilities/$(TARGET)
 #utilities-unittest:=     utilities/unit-tests/commit/$(TARGET)
 logging:=                logging/$(TARGET)
 #logging-example1:=       logging/examples/logging-example1/$(TARGET)
-#logging-unittest:=       logging/unit-tests/commit/$(TARGET)
+logging-unittest:=       logging/unit-tests/commit/$(TARGET)
 cmdline:=                cmdline/$(TARGET)
 #cmdline-example1:=       cmdline/examples/cmdline-example1/$(TARGET)
 #cmdline-unittest:=       cmdline/unit-tests/commit/$(TARGET)
@@ -119,8 +119,10 @@ src-exe:=$(helloworld) \
 	$(unittests) \
 	$(logging-example1) \
 	$(cmdline-example1) \
-	$(db-test) \
-	$(version-info)
+	$(db-test)
+
+
+#	$(version-info)
 
 
 
@@ -188,7 +190,8 @@ all: $(all-src)
 $(src-exe) : $(src-lib)
 
 
-$(all-src): $(version-info)
+#$(all-src): $(version-info)
+$(all-src):
 	$(MAKE) --directory=$@ all
 
 
@@ -210,6 +213,17 @@ x86:    $(INSTALLDIRS)
 
 arm:    $(INSTALLDIRS)
 	@$(MAKE) TARGET=arm
+
+$(unittests) : gtest
+
+
+.PHONY : gtest
+gtest:
+	cd gtest ;\
+	cmake googletest-1.13.0 ;\
+	make ;\
+	cd .. ;\
+	cp gtest/lib/* build/$(TARGET)/lib
 
 
 .PHONY : rcc
@@ -245,12 +259,12 @@ clean-arm:
 	done
 	@rm -rf build/x86
 
-.PHONY: clean-logs
+#.PHONY: clean-logs
 clean-logs:
 	rm -f *.log*  *.db
 
 
-.PHONY: distclean
+#.PHONY: distclean
 distclean: clean clean-logs
 	@-$(RM) -r build
 	@-$(RM) `find -name "SvnInfo*" | grep -v .svn`

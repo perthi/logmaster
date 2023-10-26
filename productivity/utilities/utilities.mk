@@ -15,6 +15,7 @@ SRCCPP+=GCommon.cpp \
 	GLocation.cpp \
 	GMath.cpp \
 	GNumbers.cpp \
+	GNumberTypes.cpp \
 	GPrintable.cpp \
 	GRandom.cpp \
 	GRegexp.cpp \

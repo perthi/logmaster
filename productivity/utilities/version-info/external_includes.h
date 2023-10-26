@@ -15,8 +15,8 @@
 #include <utilities/GUtilities.cpp>
 #include <utilities/GCommon.cpp>
 
-//#include <utilities/GNumberTypes.h>
-//#include <utilities/GNumberTypes.cpp>
+#include <utilities/GNumberTypes.h>
+#include <utilities/GNumberTypes.cpp>
 #include <utilities/GNumbers.h>
 #include <utilities/GNumbers.cpp>
 
