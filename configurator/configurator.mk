@@ -8,6 +8,8 @@ LIBNAME_A=libconfigurator.a
 
 SRCCPP:= LArgumentScanner.cpp \
          LCreateDefaultGenerators.cpp \
+         LGeneratorTestBase.cpp \
+         LGeneratorTestLConversion.cpp \
          LGenerator.cpp \
          LGeneratorHashMap.cpp \
          LGeneratorMacrosException.cpp \
@@ -20,7 +22,10 @@ SRCCPP:= LArgumentScanner.cpp \
          LGeneratorLogTest.cpp \
          LGeneratorMacrosLogging.cpp \
          LXmlEntityLogLevel.cpp \
-         LXMLInfo.cpp
+         LXMLInfo.cpp \
+         LFileInfo.cpp \
+         LGeneratorCommon.cpp \
+         LGeneratorTestLHashMaps.cpp
 
 include ../../common.mk
 

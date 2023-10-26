@@ -3,7 +3,7 @@
 
 
 #include <configurator/LXmlParser.h>
-#include <xml-parser/xml/GXmlValidator.h>
+#include <xml/GXmlValidator.h>
 #include <configurator/LXmlEntityLogLevel.h>
 #include <configurator/LXmlEntitySubSystem.h>
 #include <configurator/LGeneratorTestLConversion.h>

@@ -89,12 +89,12 @@ TestLGeneratorP::SetUp( )
 * will be compared
  with the reference data */
 void
-TestLGeneratorP::GenerateData(const string filename_ref, std::shared_ptr<LGenerator> g)
+TestLGeneratorP::GenerateData(const string filename_ref, std::shared_ptr<LGenerator> gen)
 {
     string fname = fgTestDataDir + filename_ref;
     ASSERT_TRUE(g_system( )->exists(fname));
     fReferenceData = g_file( )->ReadAll(fname);
-    LFileCreator::GenerateSingleFile(g, fgLogLevels, fgSubSystems);
+    LFileCreator::GenerateSingleFile(gen, fgLogLevels, fgSubSystems);
     fGeneratedData = g_file( )->ReadAll(".tmp");
 
 }

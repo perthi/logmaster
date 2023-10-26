@@ -225,10 +225,7 @@ TEST_F(TestGTokenizer, GTokenizerNSR246)
         EXPECT_EQ("dir2", wtokens.at(1));
         EXPECT_EQ("file.txt", wtokens.at(3));
     }
-    catch (std::exception &e)
-    {
-        GCommon().HandleError( std::format( "STD Exception caught:\t {}", e.what() ),GLOCATION, DISABLE_EXCEPTION  );
-    }
+ 
     #ifdef HAS_LOGGING
     catch (GException &e)
     {
@@ -236,6 +233,11 @@ TEST_F(TestGTokenizer, GTokenizerNSR246)
         G_ERROR("STD Exception caught:\t %s", e.what());
     }
     #endif
+    
+    catch (std::exception &e)
+    {
+        GCommon().HandleError( std::format( "STD Exception caught:\t {}", e.what() ),GLOCATION, DISABLE_EXCEPTION  );
+    }
 
     catch (...)
     {

@@ -72,11 +72,7 @@ TEST_F(TestGSystem, mkfile)
 
         // g_system()->mkfile("bla1/bla2/testfile2.txt");
     }
-    catch (std::exception& e)
-    {
-        GCommon().HandleError(e.what(), GLOCATION, DISABLE_EXCEPTION);
-        FAIL();
-    }
+
 #ifdef HAS_LOGGING
     catch (GException& e)
     {
@@ -84,6 +80,11 @@ TEST_F(TestGSystem, mkfile)
         FAIL();
     }
 #endif
+    catch (std::exception& e)
+    {
+        GCommon().HandleError(e.what(), GLOCATION, DISABLE_EXCEPTION);
+        FAIL();
+    }
     catch (...)
     {
         GCommon().HandleError("Unknown exception caught", GLOCATION, DISABLE_EXCEPTION);

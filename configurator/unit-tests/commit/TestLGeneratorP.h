@@ -48,8 +48,6 @@ protected:
     void GenerateData(const string filename_ref, std::shared_ptr<LGenerator> g);
     void Compare(const int max_errors = 3);
 
-   // string fTestFileName = "tmp.h";
-
     vector<string> fReferenceData;
     vector<string> fGeneratedData;
 

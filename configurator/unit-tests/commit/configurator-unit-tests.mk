@@ -4,9 +4,13 @@
 PROGRAM=configurator-unit-tests
 
 SRCCPP:=configurator-unit-tests.cpp \
-		TestLConfigurator.cpp \
+		TestLGeneratorP.cpp \
 		TestLXmlParser.cpp \
+		TestLFileInfo.cpp \
+		TestLUtilities.cpp \
+		TestXMLInfo.cpp \
 		GVersion.cpp
+
 
 include  ../../../../common.mk
 include ../../../../unittest-common.mk

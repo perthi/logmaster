@@ -37,8 +37,9 @@ TestLXmlParser::SetUp( )
     fXMLInfo = std::make_shared<LXMLInfo>(xml, xsd);
 
 #else
-    xml = string(CONFIG_DIR) + "/logging.xml";
-    xsd = string(CONFIG_DIR) + "/logging.xsd";
+///@bug check that CONFIG_DIR exists
+    string xml = string(CONFIG_DIR) + "/logging.xml";
+    string xsd = string(CONFIG_DIR) + "/logging.xsd";
 #endif // _WIN32
 
 }

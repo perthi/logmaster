@@ -403,9 +403,9 @@ namespace LOGMASTER
         
         try
         {
-            CERR << "level_s = " << level_s << ENDL;
+//            CERR << "level_s = " << level_s << ENDL;
             auto m = LConversion::SplitByTarget(level_s);
-            CERR << "m.size() = "<< m.size()  << ENDL;
+  //          CERR << "m.size() = "<< m.size()  << ENDL;
 
             for ( auto it_m = m.begin( ); it_m != m.end( ); it_m++ )
             {
@@ -416,7 +416,7 @@ namespace LOGMASTER
                 {
                     if ( (it->first & target) != (eMSGTARGET)0 )
                     {
-                        CERR << "it->second = " << it_m->second << ENDL;
+                       // CERR << "it->second = " << it_m->second << ENDL;
                         it->second.GetConfig( )->SetLogLevel(it_m->second);
                     }
                 }
