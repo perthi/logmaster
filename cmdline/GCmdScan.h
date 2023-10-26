@@ -47,6 +47,7 @@ class  GCmdScan
 public:
     static GCmdScan   API* Instance();
     API GCmdScan();
+    virtual API ~GCmdScan() {};
     bool   HasArgument(int argc, const char** argv, const string cmd) const;
     bool   HasArgument(int argc, const char** argv, vector <string> commands) const;
     bool   HasArgument(const vector<string> tokens, const string com) const;

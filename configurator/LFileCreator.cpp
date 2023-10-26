@@ -73,7 +73,9 @@ namespace CONFIGURATOR
 #ifdef _WIN32
         fopen_s(&fp, filepath.c_str( ), "w");
 #else // 
-        fp = fopen(gen->GetFilePath( ).c_str( ), "w");
+      //  fp = fopen(gen->GetFilePath( ).c_str( ), "w");
+        fp = fopen(filepath.c_str( ), "w");
+
 #endif
         XML_ASSERT_EXCEPTION(fp !=nullptr, std::format("Could not open: {}, fp = nullptr", filepath).c_str() );
         

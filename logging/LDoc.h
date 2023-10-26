@@ -37,9 +37,9 @@ namespace LOGMASTER
     class LDoc
     {
     public:
-        static string [[nodiscard]] API  LogLevelDoc();
-        static string [[nodiscard]] API  LogTargetDoc();
-        static string [[nodiscard]] API  LogFormatDoc();
+        static string API  LogLevelDoc();
+        static string API  LogTargetDoc();
+        static string API  LogFormatDoc();
         static void        API  PrintLogLevels(bool toconsole = false);
         static string      Help();
         static string      UsageError(const string cmnd, const string sub, map <string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > > m);

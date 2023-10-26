@@ -54,6 +54,7 @@ public:
     API  GLogApplication(const bool init = false);
     API  GLogApplication(const int argc, const char** argv, arg_deque_ptr additional_arguments = nullptr, bool do_init = DO_INIT);
     API  GLogApplication(const GFileName_t& t, arg_deque* additional_arguments = nullptr);
+    virtual API ~GLogApplication() {};
 
     void  API  Purge( );
     void  API  SetCallBackFunction(const string cmd, callback_t funct);
@@ -64,8 +65,8 @@ public:
     eDUP_STRATEGY    API   GetDuplicateStrategy( ) const;
     GLogApplication  API & AddArgument(arg_ptr  arg, eDUP_STRATEGY s = eDUP_STRATEGY::THROW_EXEPTION);
     GLogApplication  API & AddArguments(arg_deque  args);
-    virtual void     API   ScanArguments(const string cmdline);
-    virtual void     API   ScanArguments(const int argc, const char** argv);
+    void     API   ScanArguments(const string cmdline);
+    void     API   ScanArguments(const int argc, const char** argv);
 #ifdef _WIN32
     void             API   ScanArguments( );
 #endif
@@ -83,9 +84,9 @@ public:
 private:
     API GLogApplication(GLogApplication&);
     void operator=(GLogApplication&);
-    virtual   void                 API   ScanArguments(const string cmdline, arg_ptr arg);
-    virtual   void                 API   ScanArguments(const string cmdline, arg_deque args);
-    virtual   GLogApplication      API&  ScanArguments(const int argc, const char** argv, arg_deque  arg);
+    void                 API   ScanArguments(const string cmdline, arg_ptr arg);
+    void                 API   ScanArguments(const string cmdline, arg_deque args);
+    GLogApplication      API&  ScanArguments(const int argc, const char** argv, arg_deque  arg);
 
     arg_deque        fArgs = arg_deque( );
     void_arg_ptr     fHelp = nullptr;    //!< Command line argument for printing out version information
