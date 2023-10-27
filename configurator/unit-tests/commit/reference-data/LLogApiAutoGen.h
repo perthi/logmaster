@@ -1,16 +1,16 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sat 20 May-2023 15:31:30  ***/
-/*** Generated from config\logging.xml **/
-/*** Validated by config\logging.xsd **/
+/*** Generated at: Fri 27 October-2023 22:53:13  ***/
+/*** Generated from config/logging.xml **/
+/*** Validated by config/logging.xsd **/
 
 /****************************************************************************
 *** Copyright(C) 2023  Per Thomas Hille, pth@embc.no                  ***
 *** This file is part of logmaster.logmaster is free software : you can   ***
 *** redistribute it and / or modify it under the terms of the Lesser GNU  ***
 *** General Public License(LGPL) V3 or later. See.cpp file for details    ***
-*****************************************************************************
+*****************************************************************************/
 
 #define EXCEPTION_FATAL(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_EXCEPTION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 #define EXCEPTION_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_EXCEPTION, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)

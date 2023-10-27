@@ -31,25 +31,25 @@ namespace LOGMASTER
         map<string, eMSGTARGET> fTargetHash;
         map<string, eMSGFORMAT> fFormatHash;
         map<eMSGSYSTEM, string> fSystem2StringHash;
-    } // namespace
+        map<eMSGSYSTEM, bool> fPermissionsHash;
+    } 
 
     class LHashMapsAutoGen
-	{
+    {
     protected:
         API LHashMapsAutoGen();
-     //   API LHashMapsBase( const eLOGLEVEL  level );
         API ~LHashMapsAutoGen();
         
-        static void API InitHashLogTags(        map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash );
-        static void API InitHashSystem2String(  map<eMSGSYSTEM, string>  *System2StringHash );
-        static void API InitHashLevel2String(   map<eLOGLEVEL, string> *Level2StringHash  );
-        
-        void API InitHashLogLevel(  );
-        map<eMSGSYSTEM, eLOGLEVEL> fLogLevelHash;
-     //   eLOGLEVEL fDefaultLevel;
-        bool fIsInitialized = false;
+        static void  API InitHashLogTags(        map<string, std::tuple<eMSGSYSTEM, eLOGLEVEL>>  *SubCmdHash );
+        static void  API InitHashSystem2String(  map<eMSGSYSTEM, string>  *System2StringHash );
+        static void  API InitHashLevel2String(   map<eLOGLEVEL, string> *Level2StringHash  );
+        void         API InitHashLogLevel( );
+        static void  API InitHashPermissions( map<eMSGSYSTEM, bool> *permHash  );
 
-     
+      
+
+        map<eMSGSYSTEM, eLOGLEVEL> fLogLevelHash;
+        bool fIsInitialized = false;
     };
 
 }

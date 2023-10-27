@@ -1,9 +1,9 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Sat 20 May-2023 15:31:30  ***/
-/*** Generated from config\logging.xml **/
-/*** Validated by config\logging.xsd **/
+/*** Generated at: Fri 27 October-2023 22:53:13  ***/
+/*** Generated from config/logging.xml **/
+/*** Validated by config/logging.xsd **/
 
 /***************************************************
 * @copyright Embedded Consulting AS    2023        *
@@ -11,9 +11,9 @@
 ***************************************************/
 
 /********************************************************************************
-**********************************************************************************
+*********************************************************************************
 *** This file is part of logmaster.                                           ***
-*** Copyright (C)2023Per Thomas Hille <pth@embc.no>  http:///www.embc.no     ***
+*** Copyright (C) 2023 Per Thomas Hille <pth@embc.no>  http:///www.embc.no    ***
 *** all rights reserved                                                       ***
 ***                                                                           ***
 *** logmaster is free software: you can redistribute it and/or modify         ***
@@ -233,5 +233,21 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
 	SubCmdHash->emplace("--alarm-all",		std::make_pair(eMSGSYSTEM::SYS_ALARM,  eLOGLEVEL::LOG_ALL));
 
 
+   }
+
+
+
+   void
+   LHashMapsAutoGen::InitHashPermissions( map<eMSGSYSTEM, bool>  *permHash )
+   {
+        permHash->emplace( eMSGSYSTEM::SYS_EXCEPTION,false);
+        permHash->emplace( eMSGSYSTEM::SYS_FSM,true);
+        permHash->emplace( eMSGSYSTEM::SYS_MESSAGE,true);
+        permHash->emplace( eMSGSYSTEM::SYS_COM,true);
+        permHash->emplace( eMSGSYSTEM::SYS_XML,true);
+        permHash->emplace( eMSGSYSTEM::SYS_DATABASE,true);
+        permHash->emplace( eMSGSYSTEM::SYS_USER,true);
+        permHash->emplace( eMSGSYSTEM::SYS_GENERAL,true);
+        permHash->emplace( eMSGSYSTEM::SYS_ALARM,false);
    }
 }
