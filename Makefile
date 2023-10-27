@@ -259,7 +259,8 @@ clean-arm:
 
 #.PHONY: clean-logs
 clean-logs:
-	rm -f *.log*  *.db
+	@rm -f *.log*  *.db
+	@find -name  *.log* | xargs rm -f   
 
 
 #.PHONY: distclean

@@ -27,6 +27,8 @@ SRCCPP:= LArgumentScanner.cpp \
          LGeneratorCommon.cpp \
          LGeneratorTestLHashMaps.cpp
 
+CPPFLAGS+= -DLOGMASTER_HOME='"$(LOGMASTER_HOME)"'
+
 include ../../common.mk
 
 

@@ -63,6 +63,7 @@ int main(int  argc, const char** argv)
 
     LArgumentScanner().ScanArguments(argc, argv, xml, xsd);
 
+
     try
     {
         XML_ASSERT_EXCEPTION(GXmlValidator().IsValid(xml, xsd), "failed to validate %s against %s", xml.c_str(), xsd.c_str());

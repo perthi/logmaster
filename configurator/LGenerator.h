@@ -60,7 +60,7 @@ namespace CONFIGURATOR
         
         static LXMLInfo fXMLFileNames;                        // XML and XSD file used to generate files
         
-        /**@todo use these variabls evewrywhere instead of hardcoding  eLOGLEVEL & eMSGSYSTEM*/
+        /** @todo use these variables everywhere instead of hardcoding  eLOGLEVEL & eMSGSYSTEM*/
         string fLevelEnumName = "eLOGLEVEL";                //!< enum identifier for log level in generated files
         string fSystemEnumName = "eMSGSYSTEM";                //!< enum identifier for subsystem in generated files
         

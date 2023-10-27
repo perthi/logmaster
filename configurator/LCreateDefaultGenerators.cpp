@@ -20,8 +20,14 @@ namespace CONFIGURATOR
     {
         vector< std::shared_ptr< LGenerator >  > generators;
 
+
+
+        #ifdef __WIN32
         /** @bug Remove hard coded path*/
         string b = "C:/work/logmaster/";
+        #else
+        string b = string(LOGMASTER_HOME) + "/"; 
+        #endif
 
         generators.push_back(std::make_shared < LGeneratorEnum >(b + "logging/", "LEnumAutoGen", xmlinfo));
         generators.push_back(std::make_shared < LGeneratorMacrosLogging >(b + "logging/", "LLogApiAutoGen", xmlinfo));

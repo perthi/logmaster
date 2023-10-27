@@ -1,9 +1,9 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Tue 30 May-2023 02:40:14  ***/
-/*** Generated from config\logging.xml **/
-/*** Validated by config\logging.xsd **/
+/*** Generated at: Fri 27 October-2023 22:37:20  ***/
+/*** Generated from config/logging.xml **/
+/*** Validated by config/logging.xsd **/
 
 /****************************************************************************
 *** Copyright(C) 2023  Per Thomas Hille, pth@embc.no                  ***
