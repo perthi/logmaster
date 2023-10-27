@@ -59,12 +59,15 @@ VGenerateVersionInfo::Branch()
 #else
     tmp = g_system()->exec("git branch | grep \"*\"");
 #endif
-
+    COUT << "tmp =" << tmp;
     vector<string> tokens = g_tokenizer()->Tokenize(tmp, " ");
 
     if (tokens.size() == 2)
     {
         g_string()->Trim(tokens[1], '\n');
+        
+        COUT << "return" << tokens[1] << endl;
+        
         return tokens[1];
     }
     else
@@ -170,7 +173,6 @@ VGenerateVersionInfo::GenerateClass(const string class_name, const string exenam
         fprintf(fp, "using std::string; \n\n");
         fprintf(fp, "#include <utilities/version-info/%s>\n\n", filename_h.c_str());
         fprintf(fp, "const string %s::fGitBranch = \"%s\";\n", class_name.c_str(), Branch().c_str());
-        
         fprintf(fp, "const string %s::fGitTag = \"%s\";\n", class_name.c_str(), Version().c_str());
         
         //fprintf(fp, "const string %s::fCompileFlags = \"%s\";\n", class_name.c_str(), CompileInfo(info_file).c_str());
