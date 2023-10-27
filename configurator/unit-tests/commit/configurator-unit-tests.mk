@@ -21,8 +21,7 @@ include ../../../../unittest-common.mk
 
 LIBS+=  -lconfigurator -lxml-embc  -lxml2  -llogmaster  -lcmdline  -lutilities -lreadline -lhistory -lncurses -lsqlite-embc -ldl
 
-LIBS+=  -lm
-
+CPP+=  -lmLOGMASTER_HOME=$(PW
 
 INCLUDES+=$(GTEST_INCLUDES)
-CPPFLAGS+= -DCONFIG_DIR='"$(CONFIG_DIR)"' 
+CPPFLAGS+= -DCONFIG_DIR='"$(CONFIG_DIR)"' -DLOGMASTER_HOME='"$(LOGMASTER_HOME)"'

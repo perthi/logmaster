@@ -59,6 +59,8 @@ namespace CONFIGURATOR
         std::shared_ptr<LFileInfo> fFileInfo = nullptr;
         
         static LXMLInfo fXMLFileNames;                        // XML and XSD file used to generate files
+        
+        /**@todo use these variabls evewrywhere instead of hardcoding  eLOGLEVEL & eMSGSYSTEM*/
         string fLevelEnumName = "eLOGLEVEL";                //!< enum identifier for log level in generated files
         string fSystemEnumName = "eMSGSYSTEM";                //!< enum identifier for subsystem in generated files
         

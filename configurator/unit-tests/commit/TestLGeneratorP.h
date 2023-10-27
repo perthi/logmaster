@@ -21,9 +21,14 @@ using namespace CONFIGURATOR;
 #include <vector>
 using std::vector;
 
-
+#ifdef __WIN32
+/// @bug Hard coded paths 
 string gXMLPath = "C:\\work\\logmaster\\config\\logging.xml";
 string gXSDPath = "C:\\work\\logmaster\\config\\logging.xsd";
+#else
+string gXMLPath = string(CONFIG_DIR) + "/logging.xml";
+string gXSDPath = string(CONFIG_DIR) + "/logging.xsd";
+#endif
 
 LXMLInfo gXMLInfo(gXMLPath, gXSDPath);
 

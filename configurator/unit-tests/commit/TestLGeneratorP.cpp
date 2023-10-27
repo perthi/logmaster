@@ -41,6 +41,7 @@
 
 #include <configurator/LXmlParser.h>
 
+
 #include <utilities/GSystem.h>
 #include <utilities/GFileIOHandler.h>
 
@@ -66,6 +67,8 @@ void TestLGeneratorP::SetUpTestCase()
 
 #else
     /** @todo Implement for Linux */
+    fgTestDataDir = string(LOGMASTER_HOME) + string("/configurator/unit-tests/commit/reference-data/");
+    CERR << "fgTestDataDirXXXXXX = " << fgTestDataDir << ENDL; 
 #endif
     /** @todo this parser should take LXMLInfoStruct as input*/
     LXmlParser( ).ParseXML( LXMLInfo(gXMLPath, gXSDPath), fgLogLevels, fgSubSystems);
@@ -92,6 +95,7 @@ void
 TestLGeneratorP::GenerateData(const string filename_ref, std::shared_ptr<LGenerator> gen)
 {
     string fname = fgTestDataDir + filename_ref;
+    CERR << "fname = " << fname << ENDL;
     ASSERT_TRUE(g_system( )->exists(fname));
     fReferenceData = g_file( )->ReadAll(fname);
     LFileCreator::GenerateSingleFile(gen, fgLogLevels, fgSubSystems);
@@ -113,12 +117,14 @@ INSTANTIATE_TEST_SUITE_P(
 
 TEST_P(TestLGeneratorP, exists_xml)
 {
+    CERR << "XML PATH =" <<  gXMLPath << ENDL;
     ASSERT_TRUE(g_system( )->exists(gXMLPath)) << gXMLPath;
 }
 
 
 TEST_P(TestLGeneratorP, exists_xsd)
 {
+    CERR << "XSD PATH =" <<  gXSDPath << ENDL;
     ASSERT_TRUE(g_system( )->exists(gXSDPath)) << gXSDPath;
 }
 
@@ -150,10 +156,13 @@ TestLGeneratorP::Compare(const int max_errors)
         }
         else {
             n_neq++;
+               CERR << fGeneratedData.at(i) << ENDL;
+            CERR << fReferenceData.at(i) << ENDL;
+            cout << endl;
         }
     }
 
-    EXPECT_TRUE( n_neq <= max_errors);
+    EXPECT_TRUE( n_neq <= max_errors) <<  n_neq;
 
 };
 
@@ -175,11 +184,14 @@ TEST_P(TestLGeneratorP, Compare)
         }
         else 
         {
+            CERR << fGeneratedData.at(i) << ENDL;
+            CERR << fReferenceData.at(i) << ENDL;
+            cout << endl;
             n_neq++;
         }
     }
     
-    EXPECT_TRUE(n_neq <= t.fMaxErrors );
+    EXPECT_TRUE(n_neq <= t.fMaxErrors ) << n_neq;
 }
 
 
