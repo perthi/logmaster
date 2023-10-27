@@ -55,16 +55,16 @@ TestLDatabase::SetUpTestCase()
     fgDatabase =  LDatabase::Instance( fgDatabaseBaseFile  );
     
     }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-        FAIL( );
-    }
     catch(GException &e)
     {
         CERR << e.what() << ENDL;
         FAIL( );
     }
+      catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        FAIL( );
+    }   
     catch(...)
     {
         CERR << "Unknown exception caught" << ENDL;

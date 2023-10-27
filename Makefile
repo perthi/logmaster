@@ -43,7 +43,7 @@ export LOGMASTER_HOME=$(PWD)
 export COMMON_FLAGS:= -fPIC  -std=c++23  -g   -Wno-psabi  -DGUI_DIR='"$(LOGMASTER_HOME)"'
 
 ## export PEDANTIC_FLAGS:= -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wswitch-enum -Wimplicit-fallthrough -Wignored-qualifiers -Wfatal-errors  -Werror
-export PEDANTIC_FLAGS:=  -ggdb  -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum  -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security
+export PEDANTIC_FLAGS:=  -ggdb  -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum  -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security -Werror
 
 
 export HAS_LOGGING:=""
@@ -266,9 +266,9 @@ clean-logs:
 distclean: clean clean-logs
 	@-$(RM) -r build
 	@-$(RM) `find -name "SvnInfo*" | grep -v .svn`
-	@find -name *.so    |  egrep  -v  3rd-party  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |  egrep -v   '^\./arm-lib-dep/' |  xargs rm -f
-	@find -name *.so.*  |  egrep  -v  3rd-party  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |  egrep -v   '^\./arm-lib-dep/' |  xargs rm -f
-	@find -name *.a     |  egrep  -v  3rd-party  |  egrep  -v  '^\./boost_1_66_0/'  |  egrep -v  '^\./googletest/'  |   egrep -v   '^\./linux-imx6sx-2.3.2/'   |   xargs rm -f
+	@find -name *.so    |  egrep  -v  3rd-party   |  egrep -v  '^\./googletest/'    |  egrep -v   '^\./arm-lib-dep/' |  xargs rm -f
+	@find -name *.so.*  |  egrep  -v  3rd-party   |  egrep -v  '^\./googletest/'    |  egrep -v   '^\./arm-lib-dep/' |  xargs rm -f
+	@find -name *.a     |  egrep  -v  3rd-party   |  egrep -v  '^\./googletest/'    |  xargs rm -f
 	@find -name *~ -exec rm {} \;
 	@find -name GVersion.cpp | xargs rm -f;
 	@find -name tmp.cpp | xargs rm -f;

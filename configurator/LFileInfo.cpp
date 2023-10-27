@@ -15,7 +15,7 @@ using  std::format;
 
 namespace CONFIGURATOR
 {
-    LFileInfo::LFileInfo(const string filepath, const string classname, bool with_suffix)
+    LFileInfo::LFileInfo(const string filepath, const string classname)
     {
         SetPath(filepath);
         SetClassName(classname);

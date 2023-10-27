@@ -73,7 +73,7 @@ namespace CONFIGURATOR
     void
     LGeneratorTestLConversion::GenerateString2SystemBin(const logentity_vec levels, const sysentity_vec systems)
     {
-        auto generate = [=](const string funct_name, const string testname)
+        auto generate = [=, this](const string funct_name, const string testname)
         {
             vector<string> test_body;
             for ( auto& s : systems ) {
@@ -100,7 +100,7 @@ namespace CONFIGURATOR
     void
     LGeneratorTestLConversion::GenerateString2SystemHex(const logentity_vec levels, const sysentity_vec systems)
     {
-        auto generate = [=](const string funct_name, const string testname)
+        auto generate = [=, this](const string funct_name, const string testname)
         {
             vector<string> test_body;
             for ( auto& s : systems ) {
@@ -126,11 +126,11 @@ namespace CONFIGURATOR
     void
     LGeneratorTestLConversion::GenerateString2SystemHash(const logentity_vec levels, const sysentity_vec systems)
     {
-        auto generate = [=](const string funct_name, const string testname)
+        auto generate = [=, this](const string funct_name, const string testname)
         {
             vector<string> test_body;
 
-            auto generate_line = [=](const string& tag, const string& sys, const string& lvl)
+            auto generate_line = [=,this](const string& tag, const string& sys, const string& lvl)
             {
                 auto single_test
                     = std::format("EXPECT_EQ({}::SYS_{}, LConversion::{}(\"{}-{}\") );",
@@ -162,7 +162,7 @@ namespace CONFIGURATOR
     void
     LGeneratorTestLConversion::GenerateString2LevelBin(const logentity_vec levels, const sysentity_vec systems)
     {
-        auto generate = [=](const string funct_name, const string testname)
+        auto generate = [=, this](const string funct_name, const string testname)
         {
             vector<string> test_body;
             for ( auto& s : systems ) {
@@ -187,7 +187,7 @@ namespace CONFIGURATOR
     void 
     LGeneratorTestLConversion::GenerateString2LevelHex(const logentity_vec levels, const sysentity_vec systems)
     {
-        auto generate = [=](const string funct_name, const string testname)
+        auto generate = [=, this](const string funct_name, const string testname)
         {
             vector<string> test_body;
             for ( auto& s : systems ) {
@@ -210,11 +210,11 @@ namespace CONFIGURATOR
     void
     LGeneratorTestLConversion::GenerateString2LevelHash(const logentity_vec levels, const sysentity_vec systems)
     {
-        auto generate = [=](const string funct_name, const string testname)
+        auto generate = [=, this](const string funct_name, const string testname)
         {
             vector<string> test_body;
 
-            auto generate_line = [=](const string& tag, const string& sys, const string& lvl)
+            auto generate_line = [=, this](const string& tag, const string& lvl)
             {
                 auto single_test
                     = std::format("EXPECT_EQ(PAD({}::LOG_{}{} (int)LConversion::{}(\"{}-{}\") );",
@@ -226,10 +226,10 @@ namespace CONFIGURATOR
 
             for ( auto& s : systems ) {
                 for ( auto l : levels ) {
-                    test_body.push_back(generate_line(s->fTag, s->fName, l->fName));
+                    test_body.push_back(generate_line(s->fTag, l->fName));
 
                     if ( s->fTag != s->fTagShort ) {
-                        test_body.push_back(generate_line(s->fTagShort, s->fName, l->fName));
+                        test_body.push_back(generate_line(s->fTagShort, l->fName));
                     }
                 }
             }

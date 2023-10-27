@@ -41,13 +41,13 @@ namespace CONFIGURATOR
     LGeneratorTestLHashMaps::GenerateContent(const logentity_vec levels, const sysentity_vec systems)
     {
         GenerateLocalCommon( );
-        GenerateTestContanEnum(levels, systems);
+        GenerateTestContainEnum(systems);
         GenerateIsSubcmdHash(levels, systems);
     }
 
 
     void
-        LGeneratorTestLHashMaps::GenerateTestContanEnum(const logentity_vec levels, const sysentity_vec systems)
+        LGeneratorTestLHashMaps::GenerateTestContainEnum(const sysentity_vec systems)
     {
         vector<string> test_body;
         test_body.push_back("vector<eMSGSYSTEM>  systems = LHashMaps::GetSystemEnums();");

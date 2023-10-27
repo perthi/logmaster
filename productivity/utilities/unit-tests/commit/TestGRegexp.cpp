@@ -60,11 +60,7 @@ TEST_F(TestGRegexp, ScanNumber )
             EXPECT_EQ(numbers.at(0), "123456789");
         }
     }
-    catch (std::exception &e)
-    {
-        CERR << e.what( ) << ENDL;
-        FAIL( );
-    }
+  
     #ifdef HAS_LOGGING
     catch (GException &e)
     {
@@ -72,6 +68,12 @@ TEST_F(TestGRegexp, ScanNumber )
         FAIL( );
     }
     #endif
+    catch (std::exception &e)
+    {
+        CERR << e.what( ) << ENDL;
+        FAIL( );
+    }
+    
     catch (...)
     {
         CERR << "UNKNOWN EXCEPTION !!!!" << ENDL;

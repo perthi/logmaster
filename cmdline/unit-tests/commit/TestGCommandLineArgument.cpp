@@ -456,17 +456,25 @@ TEST_F(TestGCommandLineArgument,  duplicatesNSR247)
 
 TEST_F(TestGCommandLineArgument, simpleconstructorNSR216)
 {
-    struct Test_t : public Val_t <double >
-    {
-        Test_t(double n = 0) : Val_t<double>::Val_t(n, -100, 100) {};
-        virtual   Test_t& operator = (const Val_t rhs)
+   // struct Test_t : public Val_t <double >
+   // {
+   //     Test_t(double n = 0) : Val_t<double>::Val_t(n, -100, 100) {};
+        
+        /*
+        virtual Test_t& operator = (const Val_t &rhs) override
         {
             SetValue(rhs.GetValue());
             return *this;
         }
-    };
 
-    Test_t* t = new  Test_t();
+       */
+        
+   // };
+
+   /// Test_t* t = new  Test_t();
+   
+    auto t = new Val_t<double>(0, -100, 100);
+
     std::shared_ptr<GCommandLineArgument<int>  >  a_arg = std::make_shared < GCommandLineArgument<int> >("-ival", &i);
 
 

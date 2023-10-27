@@ -61,7 +61,7 @@ public:
     
     void GeneratStackFrames();
     void CheckIsInteger(double t);
-    virtual  Val & operator = (const double rhs) = 0;
+    virtual  Val & operator = (const double &rhs) = 0;
   
 protected:
     
@@ -99,7 +99,7 @@ public:
     void PrintParameter( bool details = false );
     void PrintParameterUsage();
     virtual void PrintDefaults(); 
-    virtual  Val_t & operator = (const double rhs);
+    virtual Val_t & operator = (const double &rhs);
 };
 
 
@@ -201,7 +201,7 @@ Val_t<T>::PrintDefaults()
 ostream& operator<<(ostream& os, const Val  &o);
 
 template <class T>
-Val_t<T> & Val_t<T>::operator = (const double rhs)
+Val_t<T> & Val_t<T>::operator = (const double &rhs)
 {
     SetValue(rhs);
     return *this;

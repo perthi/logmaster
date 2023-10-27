@@ -9,7 +9,7 @@ namespace CONFIGURATOR
     class LFileInfo
     {
     public:
-        LFileInfo(const string filepath, const string classname, bool with_suffix = true);
+        LFileInfo(const string filepath, const string classname);
 
         string  API GetPath( ) const { return fFilePath; };
         string  API GetClassName( ) const { return fClassName; };

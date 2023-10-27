@@ -15,7 +15,7 @@ namespace CONFIGURATOR
     
     private:
 
-        void  GenerateTestContanEnum(const logentity_vec levels, const sysentity_vec systems);
+        void  GenerateTestContainEnum(const sysentity_vec systems);
         void  GenerateIsSubcmdHash(const logentity_vec levels, const sysentity_vec systems);
     };
 

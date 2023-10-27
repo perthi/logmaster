@@ -14,7 +14,7 @@ class  TestLXmlParser : public TestBase
 {
     protected:
         virtual void SetUp( ) override;
-        std::shared_ptr<LXMLInfo> fXMLInfo;
+        std::shared_ptr<LXMLInfo> fXMLInfo = nullptr;
 };
 
 
