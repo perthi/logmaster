@@ -171,6 +171,7 @@ namespace LOGMASTER
     {
         std::vector< LLogEntrySQL >  msg_v;
         LLogEntrySQL msg;
+        
         while(  ( LDatabase::Instance()->ReadEntriesGetEntry( msg ) == true )   ) 
         {
             msg_v.push_back( msg );
@@ -180,7 +181,7 @@ namespace LOGMASTER
 
 
 
-    /** @name Querey
+    /** @name Query
     * @brief   Query the database
     * @details Query the database for all entries matching the search criteria. These functions comprises the high level interface.
     * The query is performed in two steps. First
@@ -188,7 +189,7 @@ namespace LOGMASTER
     * @param[in] time Unix epoch time
     * @param[in] time_min Unix epoch time
     * @param[in] time_max Unix epoch time
-    * @param[in] opt  For time search this specfifes wether to return 
+    * @param[in] opt  For time search this specifies wether to return 
     * log entries with either larger, lower or equal time stamp than "time"
     * @param[in] max_cnt The maximum number of entries to return
     * @param[in] sy  subsystem/category ( return the messages matching sub system )
@@ -203,7 +204,7 @@ namespace LOGMASTER
         return FetchAll();
     }
 
-    /** Retiurn all log entries from the dtabase without any filter. max_cnt represnts the */   
+    /** Return all log entries from the database without any filter. max_cnt represents the */   
     vector<  LLogEntrySQL >  
     LDatabase::Query(const int max_cnt )
     {
@@ -214,8 +215,8 @@ namespace LOGMASTER
   
     /** Returns all log entries matching a given time stamp (time). The time si Unix epoch time with
      * a resolution of seconds. 
-     *  The search option "opt" search option  can be one of the follwing 
-     *    -  eTIME_SEARCH_OPTION::EXACTLY Return enties that matches "time" exactly.
+     *  The search option "opt" search option  can be one of the following 
+     *    -  eTIME_SEARCH_OPTION::EXACTLY Return entities that matches "time" exactly.
      *    -  eTIME_SEARCH_OPTION::INCLUDING_AND_ABOVE Return entries that are newer than "time" 
      *    -  eTIME_SEARCH_OPTION::INCLUDING_AND_BELOW Return entries that are older than "time" 
      * */
@@ -269,12 +270,12 @@ namespace LOGMASTER
     * @param[in] time Unix epoch time
     * @param[in] time_min Unix epoch time
     * @param[in] time_max Unix epoch time
-    * @param[in] opt  For time search this specfifes wether to return 
+    * @param[in] opt  For time search this specifies wether to return 
     * log entries with either larger, lower or equal time stamp than "time"
     * @param[in] max_cnt The maximum number of entries to return
     * @param[in] sy  subsystem/category ( return the messages matching sub system )
     * @param[in] lvl subsystem/category ( return the messages for a given log level )
-    @return true if a valid SQL search string could be generated, false othervise */
+    @return true if a valid SQL search string could be generated, false otherwise */
  /**@{ */
     bool  
     LDatabase::InitSQLQuery( const eLOGLEVEL level,  const int max_cnt )

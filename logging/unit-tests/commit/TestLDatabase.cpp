@@ -49,10 +49,16 @@ TestLDatabase::SetUpTestCase()
     fgDatabaseBaseFile = s + "\\test-data\\logmaster-test.db";
     fgDatabaseBaseFileRotate = s+  "\\test-data\\logmaster-test-rotate.db";
 #else
-     fgDatabaseBasePath = LOGMASTER_HOME + string("/logging/unit-tests/commit/test-data/logmaster-test.db"); 
+///@todo check that LOGMASTER_HOME is defined
+     fgDatabaseBasePath = LOGMASTER_HOME + string("/logging/unit-tests/commit/test-data/"); 
+     fgDatabaseBaseFile = fgDatabaseBasePath + "/logmaster-test.db";
+     fgDatabaseBaseFileRotate = fgDatabaseBasePath + "/logmaster-test-rotate.db";
 
 #endif
-    fgDatabase =  LDatabase::Instance( fgDatabaseBaseFile  );
+     
+     fgDatabase =  LDatabase::Instance( fgDatabaseBaseFile );
+
+   // fgDatabase =  LDatabase::Instance("/home/perthi/work/logmaster/logging/unit-tests/commit/test-data/logmaster-test.db");
     
     }
     catch(GException &e)
@@ -98,11 +104,13 @@ TestLDatabase::TearDown()
 }
 
 
+
 TEST_F( TestLDatabase , all_entries )
 {   
     ASSERT_NE(nullptr,fgDatabase );
     auto db = fgDatabase;
     auto entries = db->Query( ALL_ENTRIES );
+  //  auto entries = db->Query( 100 );
     size_t entries_max = entries.size();
     EXPECT_EQ(entries_max , 3285 );
 
