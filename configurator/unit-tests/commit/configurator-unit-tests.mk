@@ -3,13 +3,17 @@
 
 PROGRAM=configurator-unit-tests
 
-SRCCPP:=configurator-unit-tests.cpp \
+#SRCCPP:=configurator-unit-tests.cpp \
 		TestLGeneratorP.cpp \
 		TestLXmlParser.cpp \
 		TestLFileInfo.cpp \
 		TestLUtilities.cpp \
 		TestXMLInfo.cpp \
 		GVersion.cpp
+
+
+SRCCPP:=configurator-unit-tests.cpp \
+        TestLGeneratorP.cpp
 
 
 include  ../../../../common.mk

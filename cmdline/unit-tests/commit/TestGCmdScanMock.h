@@ -10,7 +10,7 @@
 class TestGCmdScanMock : public GCmdScan
 {
 public:
-    MOCK_METHOD(bool API, Verify, (std::shared_ptr<GArgument>, GArgumentParsed), (const override) );
+    MOCK_METHOD(bool API, Verify, (std::shared_ptr<GArgument>, GArgumentParsed), (const override) ) {};
 
 };
 

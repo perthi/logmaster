@@ -22,6 +22,7 @@ using namespace CONFIGURATOR;
 #include <utilities/GSystem.h>
 
 
+
 #include <vector>
 using std::vector;
 
@@ -34,14 +35,20 @@ TestLXmlParser::SetUp( )
     string xml = string(g_system( )->GetHomeDir( )) + "\\..\\config\\logging.xml";
     string xsd = string(g_system( )->GetHomeDir( )) + "\\..\\config\\logging.xsd";
 
-    fXMLInfo = std::make_shared<LXMLInfo>(xml, xsd);
+  //  fXMLInfo = std::make_shared<LXMLInfo>(xml, xsd);
 
 #else
 ///@bug check that CONFIG_DIR exists
+    #ifdef CONFIG_DIR
     string xml = string(CONFIG_DIR) + "/logging.xml";
     string xsd = string(CONFIG_DIR) + "/logging.xsd";
+     CERR << "CONFIG_DIR = "  CONFIG_DIR << ENDL;
+    #else
+     CERR << "CONFIG_DIR does not exist. aborting" << ENDL;
+    exit(-1);
+    #endif
 #endif // _WIN32
-
+ fXMLInfo = std::make_shared<LXMLInfo>(xml, xsd);
 }
 
 

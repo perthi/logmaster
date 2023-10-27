@@ -7,12 +7,13 @@ PROGRAM:= cmdline-unit-tests
 SRCCPP+= cmdline-dll-test.cpp \
 	TestGCommandLineArgument.cpp \
 	TestGLogApplication.cpp \
-	TestGCmdScan.cpp
+	TestGCmdScan.cpp \
+	TestGCmdScanMock.cpp
 
 include  ../../../../common.mk
 include ../../../../unittest-common.mk
 
-LIBS+=  -llogmaster  -lcmdline   -lutilities -lreadline -lhistory -lncurses -lsqlite-embc -ldl
+LIBS+=  -llogmaster  -lcmdline   -lutilities -lreadline -lhistory -lncurses -lgmock -lsqlite-embc -ldl
 
 LIBS+=  -lm
 
