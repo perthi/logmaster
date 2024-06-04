@@ -89,3 +89,11 @@ doxysearch.cgi.exe
 doxywizard.exe
 libclang.dll
 html
+**/CMakeFiles/*
+gtest/CMake*
+gtest/googletest/cmake_install.cmake
+gtest/CTestTestfile.cmake
+gtest/cmake_install.cmake
+gtest/googletest/CTestTestfile.cmake
+gtest/googletest/cmake_install.cmake
+gtest/googletest/generated/GTestConfigVersion.cmake
