@@ -1,5 +1,9 @@
 #!/bin/bash
 
+cd docker-cross
+./create-image.sh
+cd ..
+
 if ! command -v docker /dev/null
 then
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
