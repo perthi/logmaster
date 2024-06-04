@@ -1,4 +1,3 @@
-
 FROM ubuntu:22.04
 #FROM dockcross/linux-arm64
 
@@ -54,6 +53,22 @@ RUN apt-get -y install qemu qemu-system
 RUN ln -s -f /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/ld-linux-armhf.so.3;\
 export LD_LIBRARY_PATH=/usr/local/lib/;\
 LD_LIBRARY_PATH=/usr/arm-linux-gnueabihf/lib/:$LD_LIBRARY_PATH
+
+FROM gcc:13.3.0
+
+WORKDIR /root
+RUN mkdir temp
+WORKDIR /root/temp
+RUN curl -OL https://github.com/Kitware/CMake/releases/download/v3.27.4/cmake-3.27.4.tar.gz
+RUN tar -xzvf cmake-3.27.4.tar.gz
+
+WORKDIR /root/temp/cmake-3.27.4
+RUN ./bootstrap -- -DCMAKE_BUILD_TYPE:STRING=Release
+RUN make -j4
+RUN make install
+
+WORKDIR /root
+RUN rm -rf temp
 
 
 WORKDIR /home/root/
