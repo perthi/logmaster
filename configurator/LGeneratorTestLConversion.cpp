@@ -1,5 +1,3 @@
-
-
 #include "LGeneratorTestLConversion.h"
 #include "LFileInfo.h"
 
@@ -13,7 +11,7 @@
 #include <utilities/GString.h>
 
 
-#include <format>
+#include <format.h>
 
 
 using namespace LOGMASTER;
@@ -34,7 +32,7 @@ namespace CONFIGURATOR
         LGeneratorTestLConversion::GenerateLocalCommon()
     {
         fFileContentHeader.push_back(commonTestHeader(fFileInfo->GetClassName()));
-        fFileContentSource.push_back(std::format("#include \"{}\"", fFileInfo->GetHeaderName()));
+        fFileContentSource.push_back(fmt::format("#include \"{}\"", fFileInfo->GetHeaderName()));
         fFileContentSource.push_back("#include <logging/LConversion.h>");
         fFileContentSource.push_back("\n\n\n");
     }
@@ -54,16 +52,16 @@ namespace CONFIGURATOR
 
     auto bitstring24 = [](const int lvl_index, const int sys_index)
     {
-        string system_s = std::format("{:016b}", 1 << sys_index);
-        string level_s = std::format("{:08b}", 1 << lvl_index);
+        string system_s = fmt::format("{:016b}", 1 << sys_index);
+        string level_s = fmt::format("{:08b}", 1 << lvl_index);
         string bit24_s = level_s + system_s;
         return bit24_s;
     };
 
     auto hexstring6 = [](const int lvl_index, const int sys_index)
     {
-        string system_s = std::format("{:04x}", 1 << sys_index);
-        string level_s = std::format("{:02x}", 1 << lvl_index);
+        string system_s = fmt::format("{:04x}", 1 << sys_index);
+        string level_s = fmt::format("{:02x}", 1 << lvl_index);
         string hex6_s = "0x" +level_s + system_s;
         return hex6_s;
     };
@@ -82,7 +80,7 @@ namespace CONFIGURATOR
                     string bitstring = bitstring24(l->fIndex, s->fIndex);
 
                     auto single_test
-                        = std::format("EXPECT_EQ({}::SYS_{}, LConversion::{}(\"{}\") );",
+                        = fmt::format("EXPECT_EQ({}::SYS_{}, LConversion::{}(\"{}\") );",
                                       fSystemEnumName, g_utilities( )->TabAlign(s->fName, 2), funct_name, bitstring);
 
                     test_body.push_back(single_test);
@@ -107,7 +105,7 @@ namespace CONFIGURATOR
                 for ( auto l : levels ) {
                     string hextring = hexstring6(l->fIndex, s->fIndex);
 
-                    auto single_test = std::format("EXPECT_EQ({}::SYS_{}, LConversion::{}(\"{}\") );",
+                    auto single_test = fmt::format("EXPECT_EQ({}::SYS_{}, LConversion::{}(\"{}\") );",
                                                    fSystemEnumName, 
                                                    g_utilities( )->TabAlign(s->fName, 2), funct_name,
                                                    hextring);
@@ -133,7 +131,7 @@ namespace CONFIGURATOR
             auto generate_line = [=,this](const string& tag, const string& sys, const string& lvl)
             {
                 auto single_test
-                    = std::format("EXPECT_EQ({}::SYS_{}, LConversion::{}(\"{}-{}\") );",
+                    = fmt::format("EXPECT_EQ({}::SYS_{}, LConversion::{}(\"{}-{}\") );",
                                   fSystemEnumName,
                                   g_utilities( )->TabAlign(sys, 2),
                                   funct_name,
@@ -170,7 +168,7 @@ namespace CONFIGURATOR
                     string bitstring = bitstring24(l->fIndex, s->fIndex);
 
                     auto single_test
-                        = std::format("EXPECT_EQ({}::LOG_{}, LConversion::{}(\"{}\") );",
+                        = fmt::format("EXPECT_EQ({}::LOG_{}, LConversion::{}(\"{}\") );",
                                       fLevelEnumName, g_utilities( )->TabAlign(l->fName, 2), funct_name, bitstring);
                     test_body.push_back(single_test);
                 }
@@ -194,7 +192,7 @@ namespace CONFIGURATOR
                 for ( auto l : levels ) {
                     string hexstring = hexstring6(l->fIndex, s->fIndex);
 
-                    auto single_test = std::format("EXPECT_EQ({}::LOG_{}, LConversion::{}(\"{}\") );",
+                    auto single_test = fmt::format("EXPECT_EQ({}::LOG_{}, LConversion::{}(\"{}\") );",
                                                    fLevelEnumName, g_utilities( )->TabAlign(l->fName, 2), funct_name, hexstring);
                     test_body.push_back(single_test);
                 }
@@ -217,7 +215,7 @@ namespace CONFIGURATOR
             auto generate_line = [=, this](const string& tag, const string& lvl)
             {
                 auto single_test
-                    = std::format("EXPECT_EQ(PAD({}::LOG_{}{} (int)LConversion::{}(\"{}-{}\") );",
+                    = fmt::format("EXPECT_EQ(PAD({}::LOG_{}{} (int)LConversion::{}(\"{}-{}\") );",
                                   fLevelEnumName, lvl, g_utilities( )->TabAlign("),", 2), funct_name,  tag, g_string( )->ToLower(lvl));
 
                 return single_test;

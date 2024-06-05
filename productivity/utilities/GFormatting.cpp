@@ -1,6 +1,3 @@
-
-
-
 #include "GFormatting.h"
 
 
@@ -13,10 +10,9 @@ class GMissingArgumentException;
 #endif
 #include <iostream>
 #include <sstream>
-#include <format>
+#include <format.h>
 #include <cstdint>
 
-using std::format;
 
 
 
@@ -50,7 +46,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                 if(currentArg >= numArgs)
                 {
                   
-                     ThrowException<GMissingArgumentException>(   std::format("Too few arguments, got {}, expected at least {}", 
+                     ThrowException<GMissingArgumentException>(   fmt::format("Too few arguments, got {}, expected at least {}", 
                      numArgs, numArgs+1 ).c_str(),  file, func, line  ); 
                     
                     return false;
@@ -71,7 +67,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                     case 'X':
                     if(args[currentArg].type != Arg::Type::INT)
                     {
-                       ThrowException<GInvalidArgumentException> ( format("Expected integer argument as argument {}", currentArg+1 ).c_str(),  
+                       ThrowException<GInvalidArgumentException> ( fmt::format("Expected integer argument as argument {}", currentArg+1 ).c_str(),  
                         file,  func, line );
                         return false;
                     }
@@ -79,7 +75,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                     ++currentArg;
                     return true;
                     default:
-                        ThrowException<GInvalidArgumentException> ( format( "Invalid format specifier at position {}", currentArg+1).c_str(),  
+                        ThrowException<GInvalidArgumentException> ( fmt::format( "Invalid format specifier at position {}", currentArg+1).c_str(),  
                          file, func, line   );
                         return false;
                     }
@@ -114,7 +110,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                 case 'X':
                     if(args[currentArg].type != Arg::Type::INT)
                     {
-                        ThrowException<GInvalidArgumentException>  ( format("Expected integer argument as argument {}  )", 
+                        ThrowException<GInvalidArgumentException>  ( fmt::format("Expected integer argument as argument {}  )", 
                         currentArg+1 ).c_str(),  file, func, line );
                         return false;
                     }
@@ -133,7 +129,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                 case 'A':
                     if(args[currentArg].type != Arg::Type::FLOAT)
                     {
-                        ThrowException<GInvalidArgumentException> ( format("Expected floating point argument as argument {}", 
+                        ThrowException<GInvalidArgumentException> ( fmt::format("Expected floating point argument as argument {}", 
                         currentArg+1).c_str(), file, func, line );
                         return false;
                     }
@@ -142,7 +138,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                 case 'c':
                     if(args[currentArg].type != Arg::Type::CHAR)
                     {
-                        ThrowException<GInvalidArgumentException> ( format("Expected char argument as argument {}", 
+                        ThrowException<GInvalidArgumentException> ( fmt::format("Expected char argument as argument {}", 
                         currentArg+1 ).c_str(),  file, func, line );
                         return false;
                     }
@@ -151,7 +147,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                 case 's':
                     if(args[currentArg].type != Arg::Type::STRING)
                     {
-                        ThrowException<GInvalidArgumentException> ( format("Expected string argument as argument {}", 
+                        ThrowException<GInvalidArgumentException> ( fmt::format("Expected string argument as argument {}", 
                         currentArg+1 ).c_str(),  file, func, line );
                         return false;
                     }
@@ -160,7 +156,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                 case 'p':
                     if(args[currentArg].type != Arg::Type::POINTER)
                     {
-                        ThrowException<GInvalidArgumentException> ( format("Expected pointer argument as argument {}", 
+                        ThrowException<GInvalidArgumentException> ( fmt::format("Expected pointer argument as argument {}", 
                         currentArg+1 ).c_str(),  file, func, line  );
                         return false;
                     }
@@ -168,7 +164,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
                     return true;
                 case '%': ++currentArg; break;
                 default:
-                      ThrowException<GInvalidArgumentException> ( format("Unspecified invalid argument(s) (n args = {})", 
+                      ThrowException<GInvalidArgumentException> ( fmt::format("Unspecified invalid argument(s) (n args = {})", 
                         currentArg+1 ).c_str(),  file, func, line  );   
                 return false;
                 }
@@ -180,7 +176,7 @@ bool actuallyCheckFormat( const char *file, int line, const char *func, const ch
     }
     if(currentArg < numArgs)
     {
-         ThrowException<GInvalidArgumentException>  ( format("Too many arguments specified (currentArg = {}, numArgs = {})", currentArg,  numArgs).c_str(),  
+         ThrowException<GInvalidArgumentException>  ( fmt::format("Too many arguments specified (currentArg = {}, numArgs = {})", currentArg,  numArgs).c_str(),  
           file, func, line );
         return false;
     }

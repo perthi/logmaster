@@ -52,7 +52,7 @@
 using std::ifstream;
 #include <cstdarg>
 #include <algorithm>
-#include <format>
+#include <format.h>
 
 GFileIOHandler* g_file()
 {
@@ -85,7 +85,7 @@ GFileIOHandler::Append(const string fname, const char* fmt, ...)
 
             if (fp == nullptr)
             {
-                throw(std::runtime_error(std::format("failed to open file {}", fname)));
+                throw(std::runtime_error(fmt::format("failed to open file {}", fname)));
             }
 
             va_list ap;
@@ -102,7 +102,7 @@ GFileIOHandler::Append(const string fname, const char* fmt, ...)
         {
             CERR << "filename = " << fname << endl;
             //EXCEPTION("fopen(%s, %c) failed, please check that the file exists, and that you have write permissions to it", fname.c_str(), 'a');
-            throw(std::runtime_error(std::format("fopen({}, {}) failed, please check that the file exists, and that you have write permissions to it", fname, 'a')));
+            throw(std::runtime_error(fmt::format("fopen({}, {}) failed, please check that the file exists, and that you have write permissions to it", fname, 'a')));
         }
     }
     catch (std::exception& e)
@@ -128,7 +128,7 @@ GFileIOHandler::ReadLastLine(const string fname, const unsigned int offset)
 
     if (CheckFile(fname) == false)
     {
-        GCommon().HandleError(std::format("Cannot open file: {}", fname), GLOCATION, DISABLE_EXCEPTION);
+        GCommon().HandleError(fmt::format("Cannot open file: {}", fname), GLOCATION, DISABLE_EXCEPTION);
         return "";
     }
 
@@ -136,12 +136,12 @@ GFileIOHandler::ReadLastLine(const string fname, const unsigned int offset)
 
     if (CheckFile(fname) == false)
     {
-        GCommon().HandleError(std::format("Cannot open file: {}", fname), GLOCATION, DISABLE_EXCEPTION);
+        GCommon().HandleError(fmt::format("Cannot open file: {}", fname), GLOCATION, DISABLE_EXCEPTION);
         return "";
     }
     if (content.size() == 0)
     {
-        GCommon().HandleError(std::format("The file \"{}\" is empty", fname), GLOCATION, DISABLE_EXCEPTION);
+        GCommon().HandleError(fmt::format("The file \"{}\" is empty", fname), GLOCATION, DISABLE_EXCEPTION);
         return "";
     }
     else
@@ -151,7 +151,7 @@ GFileIOHandler::ReadLastLine(const string fname, const unsigned int offset)
 #endif
         if (offset > content.size())
         {
-            GCommon().HandleError(std::format("Invalid array subscript, offset = {} lines from the end of the file, \
+            GCommon().HandleError(fmt::format("Invalid array subscript, offset = {} lines from the end of the file, \
                                                 but there are only {} lines in the file", offset, content.size()), GLOCATION, DISABLE_EXCEPTION);
 
 
@@ -234,7 +234,7 @@ GFileIOHandler::OpenFile(const string fname, const string opt, const GLocation l
         if (print_error == true)
         {
             string errmsg = g_system()->Errno2String(errno, fname, opt);
-            GCommon().HandleError(std::format("fopen({}, {}) failed: {}", fname, opt, errmsg), l, DISABLE_EXCEPTION);
+            GCommon().HandleError(fmt::format("fopen({}, {}) failed: {}", fname, opt, errmsg), l, DISABLE_EXCEPTION);
         }
     }
 
@@ -260,12 +260,12 @@ GFileIOHandler::CheckFile(const string fname, const string opt)
 {
     if (opt.size() > 2)
     {
-        GCommon().HandleError( std::format("Too many option flags {}, expected at most 2. opt = {}", fname, opt), GLOCATION, DISABLE_EXCEPTION);
+        GCommon().HandleError( fmt::format("Too many option flags {}, expected at most 2. opt = {}", fname, opt), GLOCATION, DISABLE_EXCEPTION);
     }
 
     if (!(opt == "w" || opt == "w+" || opt == "a" || opt == "a+" || opt == "r" || opt == "r+"))
     {
-        GCommon().HandleError( std::format("Invalid option {}", opt), GLOCATION, DISABLE_EXCEPTION);
+        GCommon().HandleError( fmt::format("Invalid option {}", opt), GLOCATION, DISABLE_EXCEPTION);
         return false;
     }
     else
@@ -277,7 +277,7 @@ GFileIOHandler::CheckFile(const string fname, const string opt)
             //     bool ret = false;
             if (opt == "w" || opt == "w+")
             {
-                GCommon().HandleError( std::format("The file {} exists, opening it with the {} option will discard existing content",fname, opt), GLOCATION, DISABLE_EXCEPTION);
+                GCommon().HandleError( fmt::format("The file {} exists, opening it with the {} option will discard existing content",fname, opt), GLOCATION, DISABLE_EXCEPTION);
                 fclose(fp);
                 return  false;
             }
@@ -302,7 +302,7 @@ GFileIOHandler::CheckFile(const string fname, const string opt)
         }
         else
         {
-            GCommon().HandleError( std::format("Opening file: {}  opt = {}", fname, opt), GLOCATION, DISABLE_EXCEPTION);
+            GCommon().HandleError( fmt::format("Opening file: {}  opt = {}", fname, opt), GLOCATION, DISABLE_EXCEPTION);
             fp = OpenFile(fname, opt, GLOCATION);
             if (fp == nullptr)
             {

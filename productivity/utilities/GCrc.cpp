@@ -30,7 +30,7 @@
 #include "GCrc.h"
 #include "GCommon.h"
 #include "GLocation.h"
-#include <format>
+#include <format.h>
 
 
 uint32_t GCrc::icrctb[256];
@@ -80,7 +80,7 @@ GCrc::AddCrc16( string &  in  )
     /** @bug magic number */
     if( in.size() > 1024)
     {
-        GCommon().HandleError(  std::format("input buffer too large {}", in.size()), GLOCATION, THROW_EXCEPTION  );
+        GCommon().HandleError(  fmt::format("input buffer too large {}", in.size()), GLOCATION, THROW_EXCEPTION  );
     }
 
     uint8_t buf[1024];

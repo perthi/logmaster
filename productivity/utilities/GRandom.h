@@ -23,7 +23,9 @@
 #include <limits.h>
 
 #include <iostream>
-//#include <format>
+
+#include <format.h>
+
 #include </usr/local/include/fmt/format.h>
 
 
@@ -57,7 +59,7 @@ public:
     template<typename T>  T
     inline  Binominal(T n, double /*p*/, typename std::enable_if<std::is_floating_point<T>::value>::type* = 0)
     {
-        GCommon().HandleError(  std::format( "The parameter n mus be an integral value, n is of type {}", typeid(n).name()), GLOCATION, THROW_EXCEPTION  );
+        GCommon().HandleError(  fmt::format( "The parameter n mus be an integral value, n is of type {}", typeid(n).name()), GLOCATION, THROW_EXCEPTION  );
         return 0;
     }
   
@@ -68,7 +70,7 @@ public:
     {
         if (min > max)
         {
-            GCommon().HandleError( std::format(  "Min value must be lower than max value, you have entered  min = {} and max = {}", min, max  ), GLOCATION, THROW_EXCEPTION  );
+            GCommon().HandleError( fmt::format(  "Min value must be lower than max value, you have entered  min = {} and max = {}", min, max  ), GLOCATION, THROW_EXCEPTION  );
             return -1;
         }
         else
@@ -88,7 +90,7 @@ public:
     {
         if (  (min) > (max)  )
         {
-            GCommon().HandleError(   std::format( "Min value must be lower than max value, you have entered  min = {} and max = {}", min, max  ), GLOCATION, false  );
+            GCommon().HandleError(   fmt::format( "Min value must be lower than max value, you have entered  min = {} and max = {}", min, max  ), GLOCATION, false  );
             return -1;
         }
         else
@@ -107,7 +109,7 @@ public:
         T num = -9999;
         if (sigma < 0)
         {
-            GCommon().HandleError(  std::format( "Invalid sigma value {}, sigma must be positive", num ), GLOCATION, THROW_EXCEPTION  );
+            GCommon().HandleError(  fmt::format( "Invalid sigma value {}, sigma must be positive", num ), GLOCATION, THROW_EXCEPTION  );
         }
         else
         {
@@ -122,7 +124,7 @@ public:
     template<typename T>  T
     inline  Gauss(T /*mean*/, T /*sigma*/, typename std::enable_if<std::is_integral<T>::value>::type* = 0)
     {
-        GCommon().HandleError(  std::format( "You cannot use the Gauss random generator with an integral type. \
+        GCommon().HandleError(  fmt::format( "You cannot use the Gauss random generator with an integral type. \
                                            {} Is an integral type, use a binomial generator instead", typeid(T).name()), GLOCATION,   THROW_EXCEPTION  );
         return 0;
     }

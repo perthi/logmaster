@@ -32,7 +32,7 @@
 
 #include <sstream>
 #include <bitset>
-#include <format>
+#include <format.h>
 
 
 
@@ -113,7 +113,7 @@ GNumbers::BinaryString2Number(const string b)
 
     if ( idx != s.size( ) )
     {
-        GCommon( ).HandleError(std::format("Failed to convert binary string{}", s), GLOCATION, IsDisabledError());
+        GCommon( ).HandleError(fmt::format("Failed to convert binary string{}", s), GLOCATION, IsDisabledError());
     }
 
     return number;

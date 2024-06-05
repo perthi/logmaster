@@ -36,7 +36,7 @@
 
 #include <ctime>
 
-#include <format>
+#include <format.h>
 
 TestGTokenizer::TestGTokenizer() : TestBase()
 {
@@ -99,7 +99,7 @@ TEST_F(TestGTokenizer, Tokenize )
     }
     else
     {
-        GTEST_FATAL_FAILURE_( std::format( "Unexpected vector size {} (expected 12)", res.size() ).c_str() );
+        GTEST_FATAL_FAILURE_( fmt::format( "Unexpected vector size {} (expected 12)", res.size() ).c_str() );
     }
    
     string d1 = "dir1\\dir2\\dir3";
@@ -123,7 +123,7 @@ TEST_F(TestGTokenizer, Tokenize )
     }
     else
     {
-        GTEST_FATAL_FAILURE_(std::format("Unexpected vector size {} (expected 9)", res.size()).c_str());
+        GTEST_FATAL_FAILURE_(fmt::format("Unexpected vector size {} (expected 9)", res.size()).c_str());
     }
 
      string d4 = "dir1\\dir2/dir3/dir4\\dir5";
@@ -140,7 +140,7 @@ TEST_F(TestGTokenizer, Tokenize )
     }
     else
     {
-        GTEST_FATAL_FAILURE_(std::format("Unexpected vector size {} (expected 5)", res.size()).c_str());
+        GTEST_FATAL_FAILURE_(fmt::format("Unexpected vector size {} (expected 5)", res.size()).c_str());
     }
 
     d4 = "dir1\\dir2/dir3/dir4\\dir5";
@@ -156,7 +156,7 @@ TEST_F(TestGTokenizer, Tokenize )
     }
     else
     {
-        GTEST_FATAL_FAILURE_(std::format("Unexpected vector size {} (expected 5)", res.size()).c_str() );
+        GTEST_FATAL_FAILURE_(fmt::format("Unexpected vector size {} (expected 5)", res.size()).c_str() );
     }
 }
 
@@ -236,7 +236,7 @@ TEST_F(TestGTokenizer, GTokenizerNSR246)
     
     catch (std::exception &e)
     {
-        GCommon().HandleError( std::format( "STD Exception caught:\t {}", e.what() ),GLOCATION, DISABLE_EXCEPTION  );
+        GCommon().HandleError( fmt::format( "STD Exception caught:\t {}", e.what() ),GLOCATION, DISABLE_EXCEPTION  );
     }
 
     catch (...)

@@ -7,7 +7,7 @@
 #include <logging/LLogApi.h>
 using namespace LOGMASTER;
 
-#include <format>
+#include <format.h>
 
 
 
@@ -55,12 +55,7 @@ namespace CONFIGURATOR
 
         for (auto& lvl : levels)
         {
-            //hex_s = LUtilities::ToHexString(1 << i, 2)
-           // string line = g_utilities()->TabAlign("\tLOG_" + lvl->fName + " ", 3) + "=  " + LUtilities::ToHexString(1 << i, 2) + ",    //  " +  LUtilities::ToBinaryString(1 << i, 8);
-            
-            string line2 = std::format("    LOG_{:12} = 0x{:02x},    ", lvl->fName, (1 << lvl->fIndex));
-
-            
+            string line2 = fmt::format("    LOG_{:12} = 0x{:02x},    ", lvl->fName, (1 << lvl->fIndex));
             content.push_back(line2);
             i++;
         }
@@ -78,7 +73,6 @@ namespace CONFIGURATOR
     void
     LGeneratorEnum::GenerateSystems( sysentity_vec systems,  content_vec & content) const
     {
-       // lines.push_back("// -*- mode: c++ -*-/n/n");
         content.push_back("#pragma once\n\n");
         content.push_back(" #ifdef __cplusplus");
         content.push_back("enum class " + fSystemEnumName);
@@ -87,17 +81,8 @@ namespace CONFIGURATOR
         content.push_back("#endif");
         content.push_back(" {");
         content.push_back("\tSYS_NONE\t\t=  0x0000,    //  00000000 00000000    No sub system");
-        
-        //content.push_back("\tSYS_EX\t\t\t=  0x0001,    //  00000000 00000001    The exception handling sub system");
-
         int i2 = 1;
         
-      //  string short_name = "SHORT";
-      //  string long_name = "AVERY_LONG_NAME";
-      //  cout << std::format("ole{:30} blahhhh", short_name) << endl;
-      //  cout << std::format("doledoff{:30} blahhhh", long_name) << endl;
-
-
 
         for (auto& sys : systems)
         {

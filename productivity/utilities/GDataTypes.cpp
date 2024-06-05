@@ -35,7 +35,7 @@
 #include "GLocation.h"
 #include "GStackTrace.h"
 
-#include <format>
+#include <format.h>
 
 ostream& operator<<(ostream& os, const Val  &o)
 {
@@ -51,7 +51,7 @@ Val::CheckIsInteger(double t)
     if( g_number_types()->IsInteger((long double )t) == false )
     {
         /** @bug magic number */
-        GCommon().HandleError(  std::format("Number ({}) is NOT an integer, the sensor ID must be an integer between ZERO and {}", t, 16), 
+        GCommon().HandleError(  fmt::format("Number ({}) is NOT an integer, the sensor ID must be an integer between ZERO and {}", t, 16), 
                                          GLOCATION, THROW_EXCEPTION  );
     }
 }

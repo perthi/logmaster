@@ -28,7 +28,8 @@ using std::ostream;
 using std::endl;
 using std::cout;
 
-#include <format>
+#include <format.h>
+
 
 class Val
 {
@@ -152,7 +153,7 @@ void Val_t<T>::SetLimits(const T min, const T max)
     {
         std::stringstream buffer;
         buffer << "min cannot be bigger than max, you tried to set  min=" << min << " and max = " << max << ",.. aborting" << endl;
-        GCommon().HandleError(  std::format( "{}", buffer.str()  ) , GLOCATION, THROW_EXCEPTION ) ;
+        GCommon().HandleError(  fmt::format( "{}", buffer.str()  ) , GLOCATION, THROW_EXCEPTION ) ;
     }
     else
     {
@@ -237,7 +238,7 @@ inline Val_t<T> operator  + ( const Val_t<T> &lhs,  const Val_t<T> &rhs)
     Val_t<T> tmp = lhs;
     if ( ! ( lhs.GetName() == rhs.GetName() )  )
     {
-       GCommon().HandleError(std::format(   "You cannot add to variables of different types, you have tried to add {} ({} = {}) and {} ( {} = {}) which is forbidden", 
+       GCommon().HandleError(fmt::format(   "You cannot add to variables of different types, you have tried to add {} ({} = {}) and {} ( {} = {}) which is forbidden", 
                   lhs.GetName(), lhs.GetSubscript(), 
                   lhs.GetValue(), rhs.GetName(), rhs.GetSubscript(), rhs.GetValue() ).str(), GLOCATION, THROW_EXCEPTION  ); 
 
@@ -333,6 +334,7 @@ inline double operator /  (const Val_t<T> &lhs, const Val_t<T2> & rhs)
 {
     if (rhs.GetValue() == 0)
     {
+        ///  @todo replace with fmt::format
         GCommon().HandleError(GText(   "Attempt to divide by ZERO !  %f / %f = inf", lhs.GetValue(), rhs.GetValue()).str(),   GLOCATION, THROW_EXCEPTION  ); 
     }
 
@@ -346,6 +348,7 @@ inline double operator /  (int lhs, const Val_t<T> & rhs)
 {
     if (rhs.GetValue() == 0)
     {
+        ///  @todo replace with fmt::format
         GCommon().HandleError(GText(   "Attempt to divide by ZERO !  %d / %f = inf", lhs, rhs.GetValue()).str() , GLOCATION, THROW_EXCEPTION  ); 
     }
     return (double)lhs / (double)rhs.GetValue();

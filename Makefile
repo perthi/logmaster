@@ -167,7 +167,7 @@ ARLOCAL:=ar
 else
 LIBS+= -L$(CURDIR)/productivity/3rd-party/arm/lib/
 #CCLOCAL:=arm-none-eabi-g++  -std=c++23 -DARM
-CCLOCAL:=arm-linux-gnueabihf-g++ -v -std=c++23 -DARM
+CCLOCAL:=arm-linux-gnueabihf-g++  -std=c++23 -DARM
 #CCLOCAL:=arm-none-linux-gnueabihf-gcc -std=c++23 -DARM
 CC:= arm-linux-gnueabihf-gcc
 ARLOCAL:=arm-linux-gnueabihf-ar

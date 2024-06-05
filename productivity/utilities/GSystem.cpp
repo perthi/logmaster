@@ -57,7 +57,7 @@
 
 #include <cstdlib>
 #include <filesystem>
-#include <format>
+#include <format.h>
 
 #ifndef _WIN32
 #include <libgen.h>
@@ -164,7 +164,7 @@ GSystem::mkdir(const string dirname, const bool print_error)
         string errmsg = Errno2String(errno, dirname, "");
        if( print_error == true)
        {
-            GCommon().HandleError(  std::format(  "The directory \"{}\" could not be created ({}),.. please check that you have write + exec permissions to the directory", \
+            GCommon().HandleError(  fmt::format(  "The directory \"{}\" could not be created ({}),.. please check that you have write + exec permissions to the directory", \
                                            dirname.c_str( ), errmsg.c_str() ), GLOCATION,  DISABLE_EXCEPTION  );  
        }
 
@@ -215,7 +215,7 @@ GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
     case ENOSPC:       // No space left on device
     case ENOTDIR:      // Path is not (or cannot be) a directory
     case EROFS:        // The parent directory is read only
-          GCommon().HandleError(std::format("non recoverable error encountered creating directory {} ( errno {}; {} )",
+          GCommon().HandleError(fmt::format("non recoverable error encountered creating directory {} ( errno {}; {} )",
                                          dirname,errno,err ),l);
         return false;
         break;
@@ -226,7 +226,7 @@ GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
         }
         else
         {
-            GCommon().HandleError(std::format("directory {} already exists and you are not allowed to overwrite it ( errno {}; {})",
+            GCommon().HandleError(fmt::format("directory {} already exists and you are not allowed to overwrite it ( errno {}; {})",
                                              dirname,errno,err ),l);
             return false;
         }
@@ -476,7 +476,7 @@ GSystem::GetExeDir()
     if(ret < 0 )
     {
       //  GCommon().HandleError( GText("Error retriveing exe path (%s)", strerror(errno) ).str(), GLOCATION, DISABLE_EXCEPTION );
-        GCommon().HandleError(    std::format("Error retrieving exe path ({})", strerror(errno) ), GLOCATION, DISABLE_EXCEPTION );
+        GCommon().HandleError(    fmt::format("Error retrieving exe path ({})", strerror(errno) ), GLOCATION, DISABLE_EXCEPTION );
     }
     else
     {
@@ -599,7 +599,7 @@ GSystem::mkfile(const string filepath,const bool print_error )
     {
         if(print_error == true )
         {
-          GCommon().HandleError( std::format("File \"{}\" already exists, will not be recreated", filepath), GLOCATION, DISABLE_EXCEPTION ) ;
+          GCommon().HandleError( fmt::format("File \"{}\" already exists, will not be recreated", filepath), GLOCATION, DISABLE_EXCEPTION ) ;
         }
         fclose(fp);
        // return false;
@@ -618,7 +618,7 @@ GSystem::mkfile(const string filepath,const bool print_error )
         {
             if(print_error == true )
             {
-              GCommon().HandleError(  std::format(  "Could not create file \"{}\" Please check your write permissions for this directory", \
+              GCommon().HandleError(  fmt::format(  "Could not create file \"{}\" Please check your write permissions for this directory", \
                                                filepath), GLOCATION,  DISABLE_EXCEPTION  );
             }
             
@@ -642,7 +642,7 @@ GSystem::rm(const string filename, bool recursive)
 
     auto errorhandling = [=](GLocation l, errno_t err, const char *exception_msg) 
     {
-        GCommon().HandleError( std::format("could not remove file:{}:  {}", filename, exception_msg), l, DISABLE_EXCEPTION);
+        GCommon().HandleError( fmt::format("could not remove file:{}:  {}", filename, exception_msg), l, DISABLE_EXCEPTION);
 
         if(err !=0)
         {
@@ -659,7 +659,7 @@ GSystem::rm(const string filename, bool recursive)
             if (ret == false)
             {
                 errorhandling(GLOCATION, errno,
-                    std::format("removal of file {} resulted in an error", filename ).c_str() ); /// "todo simplify
+                    fmt::format("removal of file {} resulted in an error", filename ).c_str() ); /// "todo simplify
             }
 
             return ret;
