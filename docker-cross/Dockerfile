@@ -1,10 +1,6 @@
 FROM ubuntu:22.04
-#FROM dockcross/linux-arm64
-
 MAINTAINER Per Thomas Hille  pth@embc.no
-#dockcross/linux-arm64
 
-#USER kts
 
 # Replace dash with bash
 RUN rm /bin/sh && ln -s bash /bin/sh
@@ -17,19 +13,14 @@ RUN apt update --fix-missing
 RUN apt-get install -y  apt-utils gawk wget git git-core diffstat unzip \
 gcc-multilib build-essential chrpath socat xterm curl parted python3 \
 python3 xz-utils debianutils iputils-ping libsdl1.2-dev \
-net-tools cpio  uuid-dev sudo vim libssl-dev  libreadline-dev libxml2-dev
-
-RUN apt-get install -y locate   libc6-armel-cross libc6-dev-armel-cross \
+net-tools cpio  uuid-dev sudo vim libssl-dev  libreadline-dev libxml2-dev \
+apt-get install -y locate   libc6-armel-cross libc6-dev-armel-cross \
 binutils-arm-linux-gnueabi libncurses5-dev \
-gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
+gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf \
+autoconf libtool  python3-pip python3-protobuf setuptools \
+qemu qemu-system
 
-RUN apt update
-RUN apt-get install -y  autoconf
-RUN apt-get install -y  libtool
-RUN apt-get install -y  python3-pip
-RUN apt-get install -y  python3-protobuf
-
-RUN pip3 install setuptools
+#RUN export UID=$GUID
 
 WORKDIR /tmp
 RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v3.13.0/protobuf-all-3.13.0.tar.gz
@@ -45,11 +36,8 @@ RUN python3 setup.py build
 RUN mkdir -p  /home/root
 ENV HOME /home/root
 
-
 WORKDIR /home/root/
 
-RUN apt-get -y install qemu qemu-system
- 
 RUN ln -s -f /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/ld-linux-armhf.so.3;\
 export LD_LIBRARY_PATH=/usr/local/lib/;\
 LD_LIBRARY_PATH=/usr/arm-linux-gnueabihf/lib/:$LD_LIBRARY_PATH
@@ -61,10 +49,9 @@ RUN mkdir temp
 WORKDIR /root/temp
 RUN curl -OL https://github.com/Kitware/CMake/releases/download/v3.27.4/cmake-3.27.4.tar.gz
 RUN tar -xzvf cmake-3.27.4.tar.gz
-
 WORKDIR /root/temp/cmake-3.27.4
 RUN ./bootstrap -- -DCMAKE_BUILD_TYPE:STRING=Release
-RUN make -j4
+RUN make -j16
 RUN make install
 
 WORKDIR /root

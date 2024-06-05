@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker build --network=host --tag cpp-cross-compiler .
+docker build --build-arg username=$USER  --network=host --tag cpp-cross-compiler .
 
 ret=$?
 
