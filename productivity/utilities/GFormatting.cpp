@@ -25,7 +25,7 @@ template<typename T>
 void 
 ThrowException( const char * msg,  const char *file, const char *func, const int line )
 {   
-    throw(std::invalid_argument( format("{}\nFormatting error at: {}::{}[line {}]", msg, file, func, line).c_str()));
+    throw(std::invalid_argument( fmt::format("{}\nFormatting error at: {}::{}[line {}]", msg, file, func, line).c_str()));
 }
 
 

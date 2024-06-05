@@ -64,10 +64,10 @@ INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system   -isystem $(PWD)/
 ## GTEST_INCLUDES:= -isystem $(PWD)/
 GTEST_INCLUDES:= -isystem $(PWD)/productivity/
 
-LIBS= -L $(PWD)/build/$(TARGET)/lib  -lm
+LIBS= -L $(PWD)/build/$(TARGET)/lib  -lm  -lfmt
 
-export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster 
-export UNIT_TEST_LIBS:= $(SUPPORT_LIBS) -lgtest -lpthread 
+export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster  
+export UNIT_TEST_LIBS:= $(SUPPORT_LIBS) -lgtest -lpthread  -lfmt
 
 version-info:=           productivity/utilities/version-info/$(TARGET)
 #gtest-embc:=             productivity/gtest-embc/$(TARGET)
