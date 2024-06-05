@@ -72,6 +72,7 @@ $(LIBNAME_A): $(OBJS) $(OBJSCPP)
 	@$(ARLOCAL) -cr  $(LIBNAME_A) $(OBJS) $(OBJSCPP)
 	@ranlib $(LIBNAME_A)	
 	@rm -f !  $(LIBLOCAL)/$(LIBNAME_A) 
+	@echo COPYING   $(LIBNAME_SO) TO  $(LIBLOCAL)  !!!!!!!!
 	@cp -p $(LIBNAME_A) $(LIBLOCAL)
 
 
@@ -81,6 +82,7 @@ else
 $(LIBNAME_SO): $(OBJS) $(OBJSCPP) $(INSTALLDIRS)
 	@$(CCLOCAL) $(LIBFLAGS) -fPIC  -shared  -o $(LIBNAME_SO) $(OBJS) $(OBJSCPP) $(LIBS)
 	@rm -f !  $(LIBLOCAL)/$(LIBNAME_SO) 
+	@echo COPYING   $(LIBNAME_SO) TO  $(LIBLOCAL)  !!!!!!!!
 	@cp -p $(LIBNAME_SO) $(LIBLOCAL)
 
 $(LIBNAME_A): $(OBJS) $(OBJSCPP) 

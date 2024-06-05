@@ -222,8 +222,9 @@ arm:    $(INSTALLDIRS)
 $(unittests) : gtest
 
 
+
 .PHONY : gtest
-gtest:
+#gtest:
 	cd gtest ;\
 	cmake googletest-1.13.0 ;\
 	make ;\
