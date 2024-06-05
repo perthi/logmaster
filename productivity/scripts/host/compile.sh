@@ -23,8 +23,10 @@ then
 fi
 
 
-if [ $# -ne 1 ];then
-    echo "Usage:" $0 "[target] wher target is either x86, arm or clean"
+#if [ $# -ne 1 ] && [ $# -ne 2 ] ;then
+if [ $# -lt 1 ]; then
+    echo "NUM ARGS = " $# 
+    echo "Usage:" $0 "[target] where target is either x86, arm or clean"
     exit -1
 fi
 
@@ -35,7 +37,7 @@ export CURRENT_UID=$(id -u):$(id -g)
 
 if [ $1 = "x86" ] || [ $1 = "arm" ] || [ $1 = "clean" ]; then
 #    docker run --user $UID:$GID --rm  -v  ${PWD}:/home/root/ --workdir    /home/root/ $image_name "./scripts/docker/build.sh" $1
-    docker run --user $CURRENT_UID --rm  -v  ${PWD}:/home/root/ --workdir    /home/root/ $image_name "./scripts/docker/build.sh" $1
+    docker run --user $CURRENT_UID --rm  -v  ${PWD}:/home/root/ --workdir    /home/root/ $image_name "./scripts/docker/build.sh" $1 $2
     exit $?;    
 else
     echo "Unknown target " $1  "! Aborting build.."

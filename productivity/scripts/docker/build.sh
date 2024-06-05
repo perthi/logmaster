@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-if [ $# -ne 1 ];then
+if [ $# -lt 1 ];then
     echo "Usage:" $0 "[target] wher target is either x86, arm or clean"
     exit -1
 fi
@@ -16,7 +16,8 @@ reopdir=`basename $PWD`
 function build()
 {
    echo "Compiling for " $1  
-   make $1 -j16
+#   make $1 -j16
+   make $1 $2
    ret=$?;
 
    if [  $ret -eq  0 ]; then
@@ -30,12 +31,13 @@ function build()
 }
 
 
+
 if [ $1 = "x86" ] || [ $1 = "arm"  ]; then
     if [ !e /usr/include/gtest ]; then
         cp -R gtest/gtest-kts /usr/include/gtest
     fi
 
-    build $1 
+    build $1 $2 
     exit 0;    
 elif  [ $1 = "clean" ]; then
     echo "cleaning up, outdir = " $OUTDIR

@@ -44,6 +44,15 @@ LD_LIBRARY_PATH=/usr/arm-linux-gnueabihf/lib/:$LD_LIBRARY_PATH
 
 FROM gcc:13.3.0
 
+#RUN apt-get install -y gcc-arm-none-eabi
+RUN apt update
+RUN apt install gcc-arm-none-eabi -y
+RUN apt install gcc-arm-linux-gnueabihf -y
+RUN apt install gcc-aarch64-linux-gnu -y
+RUN apt-get update
+RUN apt-get install --reinstall build-essential -y
+
+
 WORKDIR /root
 RUN mkdir temp
 WORKDIR /root/temp
@@ -53,6 +62,9 @@ WORKDIR /root/temp/cmake-3.27.4
 RUN ./bootstrap -- -DCMAKE_BUILD_TYPE:STRING=Release
 RUN make -j16
 RUN make install
+
+
+
 
 WORKDIR /root
 RUN rm -rf temp
