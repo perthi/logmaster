@@ -97,3 +97,4 @@ gtest/cmake_install.cmake
 gtest/googletest/CTestTestfile.cmake
 gtest/googletest/cmake_install.cmake
 gtest/googletest/generated/GTestConfigVersion.cmake
+!docker-cross/files/fmt-10.2.1.tar.gz
