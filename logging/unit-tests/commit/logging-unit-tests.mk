@@ -26,7 +26,7 @@ include ../../../../unittest-common.mk
 CPPFLAGS+= -DLOGMASTER_HOME='"$(LOGMASTER_HOME)"'
 
 LIBS+= -llogmaster  -lutilities  -lsqlite-embc -ldl -lgtest -lpthread -lcmdline -llogmaster -lutilities \
--lreadline -lhistory -lncurses -ldl
+-lreadline -lhistory -lncurses -ldl -lfmt
 
 
 INCLUDES+=$(GTEST_INCLUDES)

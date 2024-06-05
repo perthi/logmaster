@@ -18,7 +18,7 @@ LIBS+=  -ldl -lpthread
 LIBS+=  -lsqlite-embc  -ldl -lpthread
 
 # ifneq (arm, $(TARGET))
-LIBS+=   -lreadline -lhistory -lncurses
+LIBS+=   -lreadline -lhistory -lncurses -lfmt
 # endif
 
 

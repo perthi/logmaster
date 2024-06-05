@@ -3,6 +3,7 @@
 
 PROGRAM=configurator-unit-tests
 
+## @todo comment back in tests
 #SRCCPP:=configurator-unit-tests.cpp \
 		TestLGeneratorP.cpp \
 		TestLXmlParser.cpp \
@@ -19,7 +20,7 @@ SRCCPP:=configurator-unit-tests.cpp \
 include  ../../../../common.mk
 include ../../../../unittest-common.mk
 
-LIBS+=  -lconfigurator -lxml-embc  -lxml2  -llogmaster  -lcmdline  -lutilities -lreadline -lhistory -lncurses -lsqlite-embc -ldl
+LIBS+=  -lconfigurator -lxml-embc  -lxml2  -llogmaster  -lcmdline  -lutilities -lreadline -lhistory -lncurses -lsqlite-embc -ldl -lfmt
 
 CPP+=  -lmLOGMASTER_HOME=$(PW
 

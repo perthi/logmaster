@@ -29,6 +29,6 @@ ifdef HAS_LOGGING
 LIBS+=  -llogmaster	  -lsqlite-embc -ldl -lpthread  
 endif
 
-LIBS+= -lreadline -lhistory -lncurses 
+LIBS+= -lreadline -lhistory -lncurses -lfmt
 
 INCLUDES+=$(GTEST_INCLUDES)
