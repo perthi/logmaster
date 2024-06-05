@@ -46,7 +46,7 @@
 #include <memory>
 #include <json/json.hpp>
 #include "../json/LJson.hpp"
-
+#include <mutex>
 
 using namespace LOGMASTER;
 

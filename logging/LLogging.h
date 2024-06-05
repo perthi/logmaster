@@ -131,7 +131,7 @@ namespace LOGMASTER
         std::shared_ptr<std::map<eMSGTARGET, LMessageFactory > >   fDefaultConfig = nullptr;
         logmap fMessages = nullptr;
         std::stack<   std::shared_ptr<  std::map<eMSGTARGET, LMessageFactory   >  >     >  fConfigurationStack;
-        std::recursive_mutex fLoggingMutex{};
+        std::recursive_mutex fLoggingMutex;
         bool fFormatCheckAll = true; //!< Wether or not to perform format check on all messages 
         bool fFormatCheck = true;
     };

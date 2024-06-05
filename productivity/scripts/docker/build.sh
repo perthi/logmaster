@@ -33,11 +33,11 @@ function build()
 
 
 if [ $1 = "x86" ] || [ $1 = "arm"  ]; then
-    if [ !e /usr/include/gtest ]; then
-        cp -R gtest/gtest-kts /usr/include/gtest
-    fi
+    #if [ ! -e /usr/include/gtest ]; then
+    #    cp -R gtest/gtest-kts /usr/include/gtest
+    #fi
 
-    build $1 $2 
+    build $1 $2 $3 $4
     exit 0;    
 elif  [ $1 = "clean" ]; then
     echo "cleaning up, outdir = " $OUTDIR

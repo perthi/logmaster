@@ -20,7 +20,7 @@
 using std::string;
 
 #include <memory>
-
+#include <stdarg.h>
 
 namespace LOGMASTER
 {

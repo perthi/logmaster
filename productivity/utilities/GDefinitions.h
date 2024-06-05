@@ -89,7 +89,8 @@ typedef int errno_t;
 #define COUT  cout <<  std::dec << __FUNCTION__ << ":[" << __LINE__  << "]"
 #define COUT_HEX  cout <<  std::dec << __FUNCTION__ << ":[" << __LINE__  << "]" << std::hex
 
-#if defined(__unix__)
+//#if defined(__unix__)
+#if defined(__linux__) ||  defined(ARM) 
 #define CERR   cerr << "\033[7;1;34m" <<__FILE__ << ":" <<__LINE__ <<":" << __FUNCTION__ <<":" 
 #define ENDL   "\033[0m" << endl;
 #endif
