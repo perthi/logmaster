@@ -51,6 +51,7 @@ RUN apt install gcc-arm-linux-gnueabihf -y
 RUN apt install gcc-aarch64-linux-gnu -y
 RUN apt-get update
 RUN apt-get install --reinstall build-essential -y
+RUN apt-get install g++-arm-linux-gnueabihf -y
 
 
 WORKDIR /root
@@ -71,3 +72,9 @@ RUN rm -rf temp
 
 
 WORKDIR /home/root/
+
+COPY files/fmt-10.2.1.tar.gz .
+RUN gunzip   fmt-10.2.1.tar.gz 
+RUN tar -xvf fmt-10.2.1.tar
+RUN cd  fmt-10.2.1 && cmake CMakeLists.txt && make -j16 && make install && cd  ..
+

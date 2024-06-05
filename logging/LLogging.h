@@ -131,7 +131,13 @@ namespace LOGMASTER
         std::shared_ptr<std::map<eMSGTARGET, LMessageFactory > >   fDefaultConfig = nullptr;
         logmap fMessages = nullptr;
         std::stack<   std::shared_ptr<  std::map<eMSGTARGET, LMessageFactory   >  >     >  fConfigurationStack;
+        
+        #ifdef ARM
+        std::mutex fLoggingMutex;
+        #else
         std::recursive_mutex fLoggingMutex;
+        #endif
+        
         bool fFormatCheckAll = true; //!< Wether or not to perform format check on all messages 
         bool fFormatCheck = true;
     };
@@ -178,9 +184,19 @@ namespace LOGMASTER
             const bool force_generate, string addendum, const char* fmt, const Args ... args)
     {
     /** @todo Refactor this function */
+
+//        const std::lock_guard<std::mutex> lock(fLoggingMutex);
+
+/*
 #ifdef THREAD_SAFE
+#ifndef ARM
         const std::lock_guard<std::recursive_mutex> lock(fLoggingMutex);
+#else
+        const std::lock_guard<std::mutex> lock(fLoggingMutex);
 #endif
+#endif
+*/
+
         if (fConfig == nullptr)
         {
             CERR << "CONFIG IS A ZERO POINTER" << ENDL;

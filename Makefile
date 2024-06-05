@@ -57,7 +57,10 @@ export LIBFLAGS:= -shared
 export CONFIG_DIR:=$(PWD)/config
 
 
-INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system   -isystem $(PWD)/xml/xml/3rd-party
+#INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system   -isystem $(PWD)/xml/xml/3rd-party  -I /usr/include/c++/13
+INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system   -isystem $(PWD)/xml/xml/3rd-party   -isystem /usr/local/include/fmt
+
+
 ## GTEST_INCLUDES:= -isystem $(PWD)/
 GTEST_INCLUDES:= -isystem $(PWD)/productivity/
 
@@ -163,7 +166,9 @@ CCLOCAL:=c++   -std=c++23
 ARLOCAL:=ar
 else
 LIBS+= -L$(CURDIR)/productivity/3rd-party/arm/lib/
-CCLOCAL:=arm-none-eabi-g++  -std=c++23 -DARM
+#CCLOCAL:=arm-none-eabi-g++  -std=c++23 -DARM
+CCLOCAL:=arm-linux-gnueabihf-g++ -v -std=c++23 -DARM
+#CCLOCAL:=arm-none-linux-gnueabihf-gcc -std=c++23 -DARM
 CC:= arm-linux-gnueabihf-gcc
 ARLOCAL:=arm-linux-gnueabihf-ar
 endif
