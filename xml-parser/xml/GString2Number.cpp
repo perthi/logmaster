@@ -10,8 +10,7 @@
 
 #include <utilities/GCommon.h>
 
-#include <format>
-using std::format;
+#include <format.h>
 
 
 
@@ -53,7 +52,7 @@ GString2Number::ToNumber( const string num )
     }
     catch (const std::exception &e)
     {
-        GCommon().HandleError(format("exception caught ( {} )trying to convert \"{}\" to a number ", e.what(), num), GLOCATION, THROW_EXCEPTION);
+        GCommon().HandleError( fmt::format("exception caught ( {} )trying to convert \"{}\" to a number ", e.what(), num), GLOCATION, THROW_EXCEPTION);
         return d;
     
     }

@@ -1,7 +1,6 @@
-#include "TestLFileInfo.h"
 
+#include "TestLFileInfo.h"
 #include <configurator/LFileInfo.h>
-#include <format>
 #include <exception>
 
 #include <filesystem>

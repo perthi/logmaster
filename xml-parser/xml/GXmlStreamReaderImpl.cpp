@@ -19,14 +19,12 @@
 
 #include  <utilities/GCommon.h>
 #include  <utilities/GLocation.h>
-
-#include <libxml/xmlreader.h>
+#include  <libxml/xmlreader.h>
 
 #include <vector>
-#include <algorithm>
 
-#include <format>
-using std::format;
+#include <algorithm>
+#include <format.h>
 
 #define XML_SUCCESS_ASSERT(returnvalue, ...) DATA_ASSERT((returnvalue) == NULL, __VA_ARGS__);
 
@@ -56,7 +54,7 @@ std::string NodeTypeToString(const int t)
     case XML_READER_TYPE_XML_DECLARATION: return "xml_declaration";
     }
 
-    GCommon().HandleError( format( "error determining xml node type for type {}", t) , GLOCATION, THROW_EXCEPTION  );
+    GCommon().HandleError( fmt::format( "error determining xml node type for type {}", t) , GLOCATION, THROW_EXCEPTION  );
     return "ERROR_TYPE";
 }
 
@@ -71,7 +69,7 @@ GXmlStreamReaderImpl::GXmlStreamReaderImpl(const std::string& filename)
     
     if( fReader == nullptr  )
     {
-        GCommon().HandleError( format(  "xml open failed: {}", filename) , GLOCATION, THROW_EXCEPTION  );
+        GCommon().HandleError( fmt::format(  "xml open failed: {}", filename) , GLOCATION, THROW_EXCEPTION  );
     }
 
 }
@@ -188,7 +186,7 @@ GXmlNode* GXmlStreamReaderImpl::CreateNodeFromType(const int nodetype, const cha
     //case XML_READER_TYPE_XML_DECLARATION: return "xml_declaration";
     default:
         // document has a node type which is not implemented.
-        GCommon().HandleError( format (    "Node with type {} ({}) not found", nodetype, NodeTypeToString(nodetype)    ) , GLOCATION, THROW_EXCEPTION  );
+        GCommon().HandleError( fmt::format (    "Node with type {} ({}) not found", nodetype, NodeTypeToString(nodetype)    ) , GLOCATION, THROW_EXCEPTION  );
     }
 
     return node;
@@ -229,5 +227,5 @@ GXmlStreamReaderImpl::DoError(void *ctx, const char *msg, ...)
     vsnprintf (buff, sizeof(buff), msg, ap);
     #endif
     va_end(ap);
-   GCommon().HandleError( format ("{}",   buff), location, DISABLE_EXCEPTION);
+   GCommon().HandleError( fmt::format ("{}",   buff), location, DISABLE_EXCEPTION);
 }

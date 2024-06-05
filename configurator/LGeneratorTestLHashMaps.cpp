@@ -7,9 +7,8 @@
 
 #include <utilities/GString.h>
 
-#include <format>
+#include <format.h>
 
-using std::format;
 
 namespace CONFIGURATOR
 {
@@ -24,7 +23,7 @@ namespace CONFIGURATOR
         fFileContentHeader.push_back(commonTestHeader(fFileInfo->GetClassName( )));
 
         fFileContentSource.push_back("#include \"TestLHashMaps.h\"");
-        fFileContentSource.push_back( format("#include \"{}\"", fFileInfo->GetHeaderName( )));
+        fFileContentSource.push_back( fmt::format("#include \"{}\"", fFileInfo->GetHeaderName( )));
         fFileContentSource.push_back("#include <utilities/GUtilities.h>");
 
         fFileContentSource.push_back("#include <logging/LHashMaps.h>");
@@ -55,7 +54,7 @@ namespace CONFIGURATOR
         for ( auto s : systems )
         {
             string line = "";
-            line = format("EXPECT_TRUE(g_utilities()->Contains(systems,{}::SYS_{}));", fSystemEnumName, s->fName);
+            line = fmt::format("EXPECT_TRUE(g_utilities()->Contains(systems,{}::SYS_{}));", fSystemEnumName, s->fName);
             test_body.push_back(line);
         }
 
@@ -84,7 +83,7 @@ namespace CONFIGURATOR
                 {
                     string tmptag = tag + "-" + g_string( )->ToLower(l->fName);
                     string line = "";
-                    line = std::format("EXPECT_TRUE(LHashMaps::IsSubCmdHash(\"{}\"));", tmptag);
+                    line = fmt::format("EXPECT_TRUE(LHashMaps::IsSubCmdHash(\"{}\"));", tmptag);
                     test_body.push_back(line);
                 }
             }

@@ -5,7 +5,7 @@
 #include "LGenerator.h"
 #include "LFileInfo.h"
 #include <logging/GException.h>
-#include <format>
+#include <format.h>
 
 namespace CONFIGURATOR
 {
@@ -32,9 +32,6 @@ namespace CONFIGURATOR
     void
     LFileCreator::GenerateSingleFile(const generator_ptr& gen, const logentity_vec  loglevels, const sysentity_vec subsystems)
     {
-       // PUSH();
-       // SET_LOGFORMAT("1100111");
-      //  SET_LOGLEVEL("--all-info");
         gen->GenerateContent(loglevels, subsystems); /// Generating the file content
 
         string basepath = gen->GetFileInfo()->GetPath();
@@ -58,8 +55,6 @@ namespace CONFIGURATOR
             XML_INFO("Writing source to: %s", filename.c_str());
             WriteFile(gen->GetContentSource( ), filename );
         }
-
-     //   POP();
     }
 
 
@@ -77,7 +72,7 @@ namespace CONFIGURATOR
         fp = fopen(filepath.c_str( ), "w");
 
 #endif
-        XML_ASSERT_EXCEPTION(fp !=nullptr, std::format("Could not open: {}, fp = nullptr", filepath).c_str() );
+        XML_ASSERT_EXCEPTION(fp !=nullptr, fmt::format("Could not open: {}, fp = nullptr", filepath).c_str() );
         
         if ( fp != nullptr )
         {

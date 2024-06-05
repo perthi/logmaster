@@ -14,7 +14,7 @@
 #include "GXmlParser.h"
 #include "GXmlEnum2String.h"
 
-#include <format>
+#include <format.h>
 
 #include <utilities/GLocation.h>
 
@@ -81,12 +81,12 @@ GXmlParser::AssertTag(std::shared_ptr<GXmlStreamReader> xmlReader, const string 
     #else
     if( tag_l != tag )
     {
-        GCommon().HandleError(   std::format( "Unexpected node type({}), expected {}, got {}",  
+        GCommon().HandleError(   fmt::format( "Unexpected node type({}), expected {}, got {}",  
                                                  ToString(node_type) ,  tag,  tag_l ), l, THROW_EXCEPTION    );
     }
     else if( node_type != node_type_l )
     {
-        GCommon().HandleError(   std::format(  "Unexpected tag, expected {}, got {}",  ToString(node_type), 
+        GCommon().HandleError(   fmt::format(  "Unexpected tag, expected {}, got {}",  ToString(node_type), 
                                                   ToString(node_type_l) ), l, THROW_EXCEPTION    );
     }
 
@@ -116,8 +116,6 @@ GXmlParser::PrinttAttributes( const GXmlNode * const node,  GLocation  l )
 
 
     #else
-    //COUT << l.str() << ":" << GTextXml(   "tag = %s, type = %s, attributes.size() = %d", name.c_str(),  ToString(type).c_str() , a.size()  ).str()  << endl;    
-    
     for(size_t i =0; i < a.size(); i++ )
     {
         //COUT << l.str() << ":" << GTextXml(   "Attribute[%d]: name = %s, value = %s", i, a.at(i).GetName().c_str(), a.at(i).GetValue().c_str()    ).str()  << endl;    

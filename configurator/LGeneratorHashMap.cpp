@@ -16,7 +16,7 @@ using namespace LOGMASTER;
 #include  <configurator/LFileInfo.h>
 
 #include <sstream>
-#include <format>
+#include <format.h>
 
 
 #define MAX_ADDITIONL_SUBSYSTEMS 12
@@ -80,7 +80,7 @@ namespace CONFIGURATOR
             string boolstring  =  ( s->fCanModify == true ? "true" : "false");
 
             /** @todo Either use fSystemEnumName consistently in all function or remove this variable */
-            content.push_back(std::format("        permHash->emplace( {}::SYS_{},{});", fSystemEnumName,s->fName, boolstring));
+            content.push_back(fmt::format("        permHash->emplace( {}::SYS_{},{});", fSystemEnumName,s->fName, boolstring));
         }
         
         content.push_back("   }");
@@ -116,7 +116,7 @@ namespace CONFIGURATOR
                 for (auto& lvl : levels)
                 {
                     string tmptag = tag + "-" + g_string()->ToLower(lvl->fName);
-                    /** @todo use std::format here */
+                    /** @todo use fmt::format here */
                     lines.push_back(g_utilities()->TabAlign("\tSubCmdHash->emplace(\"" + tmptag + "\"" + ",", 5) + "\tstd::make_pair(eMSGSYSTEM::SYS_" + sys->fName + "," + "  eLOGLEVEL::LOG_" + lvl->fName + "));");
                 }
 

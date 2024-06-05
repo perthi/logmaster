@@ -32,7 +32,7 @@ using std::map;
 #include <vector>
 using std::vector;
 
-#include <format>
+#include <format.h>
 
 
 class GXmlEntity;
@@ -92,7 +92,7 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
     {
         if (node->GetType() == eXML_NODETYPE::ESingleTagNode)
         {
-            GCommon().HandleError(std::format("{} is a single tag node (with no value) !!", tagname), l, DISABLE_EXCEPTION);
+            GCommon().HandleError(fmt::format("{} is a single tag node (with no value) !!", tagname), l, DISABLE_EXCEPTION);
             vector<GXmlAttribute> tmp = node->GetAttributes();
             return "";
         }
@@ -104,7 +104,7 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 
     XML_ASSERT( node->GetType() == eXML_NODETYPE::EOpenTagNode, 
     
-               std::format("Unexpected node type {} (name = {}, type = {}, value = {})", 
+               fmt::format("Unexpected node type {} (name = {}, type = {}, value = {})", 
                      (int)node->GetType(), 
                      node->GetName(),   
                      ToString(node->GetType() ),  
@@ -113,7 +113,7 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
 
     string name = node->GetName();
     XML_ASSERT(node->GetName() == tagname, 
-    std::format( "expected {}, got {} (type = {})", tagname, node->GetName(),  ToString( node->GetType())), l);
+    fmt::format( "expected {}, got {} (type = {})", tagname, node->GetName(),  ToString( node->GetType())), l);
     
     node =  xmlReader->ReadNode();
 
@@ -163,7 +163,7 @@ GXmlParser::GetTagValue( std::shared_ptr<GXmlStreamReader> xmlReader, const stri
     else
     {
       
-        GCommon().HandleError(  std::format(  "unexpected value for boolean {}, expected either \"true\" or \"false\"",  tmp), GLOCATION, THROW_EXCEPTION  );
+        GCommon().HandleError(  fmt::format(  "unexpected value for boolean {}, expected either \"true\" or \"false\"",  tmp), GLOCATION, THROW_EXCEPTION  );
     }
 
     return false;

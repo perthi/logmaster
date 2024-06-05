@@ -9,15 +9,14 @@
 #define GXMLVALIDATORIMPL_H
 
 #include  <utilities/GDefinitions.h>
-//#include  "LEnums.h"
 #include <logging/LEnums.h>
 
 using namespace LOGMASTER;
 
 #include <string>
 using std::string;
-
 #include <libxml/xmlerror.h>
+
 
 class GXmlValidatorImpl
 {

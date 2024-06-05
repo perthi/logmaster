@@ -17,13 +17,10 @@ using std::endl;
 #include  <utilities/GLocation.h>
 #include   <utilities/GCommon.h>
 
-#include <format>
-
-using std::format;
+#include <format.h>
 
 
 bool help(  const string exename );
-
 void ScanArguments( int argc, const char ** argv, string &xml, string &xsd );
 
 
@@ -41,11 +38,11 @@ int main(int argc, const char **  argv )
     {
         if( validator->IsValid(xml, xsd) ==  true )
         {
-            GCommon().HandleError(format("SUCCSESS !!, {} is well formed and validated against {}", xml, xsd), GLOCATION, DISABLE_EXCEPTION );
+            GCommon().HandleError( fmt::format("SUCCSESS !!, {} is well formed and validated against {}", xml, xsd), GLOCATION, DISABLE_EXCEPTION );
         }
         else
         {
-            GCommon().HandleError( format(  "Failed to validate {} against {}", xml, xsd), 
+            GCommon().HandleError( fmt::format(  "Failed to validate {} against {}", xml, xsd), 
                 GLOCATION, DISABLE_EXCEPTION   );
             help( string( argv[0] )  );
             has_error = true;
@@ -107,7 +104,7 @@ bool
 help( const string ex )
 {
     cout << endl;
-    GCommon().HandleError(format("Usage: {}  [xml-file]  [xsd-file]", ex), GLOCATION, DISABLE_EXCEPTION );
+    GCommon().HandleError(fmt::format("Usage: {}  [xml-file]  [xsd-file]", ex), GLOCATION, DISABLE_EXCEPTION );
     cout << endl;
     return true;
 }

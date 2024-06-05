@@ -28,10 +28,7 @@ using namespace LOGMASTER;
 using namespace CONFIGURATOR;
 
 
-#include <format>
-
-
-#include <format>
+#include <format.h>
 
 
 class file_t : public std::exception
@@ -39,9 +36,6 @@ class file_t : public std::exception
 
 };
 
-
-/// string line = g_utilities( )->TabAlign("\tSYS_" + sys->fName + " ", 3) + "=  " + 
-/// LUtilities::ToHexString(1 << sys->fIndex) + ",    //  " + LUtilities::ToBinaryString(1 << sys->fIndex);
 
 
 int main(int  argc, const char** argv)

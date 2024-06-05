@@ -4,7 +4,7 @@
 
 
 /** @class LOGMASTER::LLogging
- *  @brief The main logging class providing interfaces for generation of logmessages. This class is tyically called via the interfaces defined in LLogApi.h/CPP */
+ *  @brief The main logging class providing interfaces for generation of log messages. This class is typically called via the interfaces defined in LLogApi.h/CPP */
 
 #define G_STANDALONE
 #define THREAD_SAFE

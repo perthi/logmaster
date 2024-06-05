@@ -27,7 +27,6 @@ namespace CONFIGURATOR
     */
     void LGeneratorEnum::GenerateContent(logentity_vec levels, sysentity_vec systems)
     {
-
         GenerateSystems(systems, fFileContentHeader);
         fFileContentHeader.push_back("\n\n");
         GenerateLevels(levels, fFileContentHeader);
@@ -87,7 +86,7 @@ namespace CONFIGURATOR
         for (auto& sys : systems)
         {
 //            string line = g_utilities()->TabAlign("\tSYS_" + sys->fName + " ", 3) + "=  " + LUtilities::ToHexString(1 << sys->fIndex ) + ",    //  " +  LUtilities::ToBinaryString(1 << sys->fIndex );
-            string line = std::format("    SYS_{:12} = 0x{:04x},    ", sys->fName, (1 << sys->fIndex) );
+            string line = fmt::format("    SYS_{:12} = 0x{:04x},    ", sys->fName, (1 << sys->fIndex) );
             content.push_back(line);
             i2++;
         }
