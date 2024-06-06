@@ -36,5 +36,5 @@ SRCCPP+=GCommon.cpp \
 #GMenu.cpp
 
 
-include ../../common.mk
+include ../../../common.mk
 LIBS+=   -lcmdline

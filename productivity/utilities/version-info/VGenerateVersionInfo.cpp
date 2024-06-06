@@ -43,7 +43,7 @@ VGenerateVersionInfo::GitInfo()
 #ifdef _WIN32
     return "git info is not avilable for Windows yet";
 #else
-    auto tmp = g_system()->exec("git-info");
+    auto tmp = g_system()->exec("git info");
     auto tmp2 = g_string()->Replace(tmp, "\"", " ");
     return tmp2;
 #endif

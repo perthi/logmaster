@@ -22,4 +22,4 @@ LIBS+=   -lreadline -lhistory -lncurses -lfmt
 # endif
 
 
-include ../../../common.mk
+include ../../../../common.mk

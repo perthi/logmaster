@@ -20,7 +20,7 @@ SRCCPP += utilities-unit-tests.cpp \
 
 
 
-include ../../../../common.mk
+include ../../../../../common.mk
 include ../../../../unittest-common.mk
 
 LIBS+=   -lutilities  -lsqlite-embc

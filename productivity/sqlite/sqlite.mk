@@ -10,5 +10,5 @@ CFLAGS+=-DSQLITE_ENABLE_JSON1  -DSQLITE_THREADSAFE=1 -fPIC -lpthread
 SRC+=sqlite3.c 
 
 
-include ../../common.mk
+include ../../../common.mk
 

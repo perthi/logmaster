@@ -29,4 +29,4 @@ SRCCPP+= GXmlAttribute.cpp \
 
 
 INCLUDES+=$(XML_INCLUDES)
-include ../../common.mk
+include ../../../common.mk
