@@ -10,6 +10,6 @@ include ../../../../../common.mk
 include ../../../../../unittest-common.mk
 
 #LIBS+=  -lreadline -lxml-embc  -lxml2
-LIBS+=  -lxml-embc  -lxml2
+LIBS+=  -lxml-embc  -lxml2 -lfmt -lutilities -llogmaster -lsqlite-embc -lutilities -lreadline
 
 INCLUDES+=$(GTEST_INCLUDES)
