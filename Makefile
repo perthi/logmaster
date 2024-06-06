@@ -57,7 +57,10 @@ export LIBFLAGS:= -shared
 export CONFIG_DIR:=$(PWD)/config
 
 
+#INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system   -isystem $(PWD)/xml/xml/3rd-party  -isystem /usr/local/include/fmt
+
 INCLUDES:= -I $(PWD)/include/  -isystem $(PWD)/include/system   -isystem $(PWD)/xml/xml/3rd-party  -isystem /usr/local/include/fmt
+
 ## GTEST_INCLUDES:= -isystem $(PWD)/
 GTEST_INCLUDES:= -isystem $(PWD)/productivity/
 
