@@ -79,7 +79,10 @@ logging-unittest:=       logging/unit-tests/commit/$(TARGET)
 cmdline:=                cmdline/$(TARGET)
 cmdline-example1:=       cmdline/examples/cmdline-example1/$(TARGET)
 cmdline-unittest:=       cmdline/unit-tests/commit/$(TARGET)
-xml:=                    xml-parser/xml/$(TARGET)
+xml-parser:=             xml-parser/xml/$(TARGET)
+xml-validator:=          xml-parser/xml/xml-validator/$(TARGET)
+xml-example1:=           xml-parser/xml/exmples/xml-example1
+xml-unittest:=           xml-paser/unit-tests/commit/$(TARGET) 
 configurator:=           configurator/$(TARGET)
 configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
 logging-configurator:=   configurator/logging-configurator/$(TARGET)
@@ -99,31 +102,27 @@ gui-alarm-example1:=     gui/alarm/examples/gui-alarm-example1/$(TARGET)
 unittests:= 	$(utilities-unittest) \
 		        $(exception-unittest) \
                 $(logging-unittest) \
-		        $(cmdline-unittest)
+		        $(cmdline-unittest) \
+				$(xml-unittest)  
 
 
 support-modules:= 	$(utilities) \
 			$(logging) \
 			$(cmdline)
 
+
 gui-lib+=$(gui-logger) $(gui-logmaster) $(gui-common) $(gui-alarm)
 gui-exe+=$(gui-example1)   $(gui-alarm-example1) $(gui-example2)  
+
 
 src-lib:= $(support-modules) \
 	$(gtest-embc) \
 	$(testlib) \
-	$(xml) \
+	$(xml-parser) \
 	$(common) \
     $(exception) \
 	$(sqlite)
 
-
-#src-exe:=$(helloworld) \
-	$(unittests) \
-	$(logging-example1) \
-	$(cmdline-example1) \
-	$(db-test) \
-	$(version-info)
 
 
 src-exe:=$(helloworld) \

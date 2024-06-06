@@ -7,5 +7,5 @@ LIBS+=  -lxml-embc   -lxml2
 INCLUDES+=$(XML_INCLUDES)
 
 
-include ../../../../common.mk
+include ../../../../../common.mk
 
