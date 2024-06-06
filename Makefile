@@ -80,7 +80,7 @@ xml:=                    xml-parser/xml/$(TARGET)
 configurator:=           configurator/$(TARGET)
 configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
 logging-configurator:=   configurator/logging-configurator/$(TARGET)
-helloworld:=             helloworld/$(TARGET)
+#helloworld:=             helloworld/$(TARGET)
 db-test:=                database-test/$(TARGET)
 sqlite:=                 productivity/sqlite/$(TARGET) 
 api-logmaster:=          api/api-logmaster/$(TARGET) 
@@ -91,6 +91,7 @@ gui-logger:=             gui/logger/$(TARGET)
 gui-logmaster:=          gui/logmaster/$(TARGET) 
 gui-common:=             gui/common/$(TARGET) 
 gui-alarm-example1:=     gui/alarm/examples/gui-alarm-example1/$(TARGET) 
+
 
 unittests:= 	$(utilities-unittest) \
 		        $(exception-unittest) \
@@ -114,15 +115,19 @@ src-lib:= $(support-modules) \
 	$(sqlite)
 
 
-
-
-src-exe:=$(helloworld) \
+#src-exe:=$(helloworld) \
 	$(unittests) \
 	$(logging-example1) \
 	$(cmdline-example1) \
 	$(db-test) \
 	$(version-info)
 
+
+src-exe:=$(helloworld) \
+	$(logging-example1) \
+	$(cmdline-example1) \
+	$(db-test) \
+	$(version-info)
 
 
 arm-src:=$(src-lib) $(src-exe)
@@ -133,7 +138,7 @@ all-clean:= $(src-lib)  $(x86-src) $(configurator-unittest) $(configurator)  $(a
 ifeq (x86, $(TARGET))
 #unittests+= $(configurator-unittest)
 src-lib+= $(configurator)  $(api-logmaster)
-src-exe+= $(xml-validator) $(configurator-example1) $(logging-configurator) $(configurator-unittest)
+src-exe+= $(xml-validator) $(configurator-example1) $(logging-configurator) $(configurator-unittest)  $(unittests) 
 x86-src:= $(src-lib) $(src-exe)
 all-src:=$(x86-src)
 all-clean:=$(all-src)
@@ -141,7 +146,7 @@ endif
 
 
 ifeq (arm, $(TARGET))
-LIBS+=-L  $(CURDIR)/arm-extras
+#LIBS+=-L  $(CURDIR)/arm-extras
 all-src:=$(arm-src)
 endif
 
@@ -162,7 +167,7 @@ ifeq (x86, $(TARGET))
 CCLOCAL:=c++   -std=c++23
 ARLOCAL:=ar
 else
-LIBS+= -L$(CURDIR)/productivity/3rd-party/arm/lib/
+LIBS+= -L$(CURDIR)/productivity/3rd-party/arm/lib/ -lfmt
 CCLOCAL:=arm-linux-gnueabihf-g++  -std=c++23 -DARM
 #CCLOCAL:=arm-none-eabi-g++  -std=c++23 -DARM
 CC:= arm-linux-gnueabihf-gcc
@@ -177,12 +182,6 @@ endif
 
 export
 
-#$(all-src) : $(version-info)
-
-#$(version-info) :
-#	$(MAKE) --directory=$@ all
-
-
 
 .PHONY: all $(all-src)
 all: $(all-src)
@@ -195,9 +194,6 @@ $(all-src): $(version-info)
 #$(all-src):
 	$(MAKE) --directory=$@ all
 
-
-# $(version-info) :
-#	$(MAKE) --directory=$@ all
 
 .PHONY: check-compiler
 check-compiler:
