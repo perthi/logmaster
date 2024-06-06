@@ -1,0 +1,7 @@
+Makefile
+googlemock/CTestTestfile.cmake
+googlemock/Makefile
+googlemock/cmake_install.cmake
+googletest/Makefile
+googletest/cmake_install.cmake
+googletest/generated/GTestConfigVersion.cmake
