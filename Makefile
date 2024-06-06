@@ -190,10 +190,20 @@ export
 all: $(all-src)
 
 
-$(src-exe) : $(src-lib)
+.PHONY : gtest
+gtest:
+	cd gtest ;\
+	cmake googletest-1.13.0 ;\
+	make ;\
+	cd .. ;\
+	cp gtest/lib/* build/$(TARGET)/lib
 
 
-$(all-src): $(version-info)
+$(version-info) : $(sqlite)
+$(unittests) : gtest
+$(src-exe) : $(src-lib) $(version-info)
+#$(unittests) : gtest
+$(all-src):
 #$(all-src):
 	$(MAKE) --directory=$@ all
 
@@ -214,16 +224,10 @@ x86:    $(INSTALLDIRS)
 arm:    $(INSTALLDIRS)
 	@$(MAKE) TARGET=arm
 
-$(unittests) : gtest
 
 
-.PHONY : gtest
-gtest:
-	cd gtest ;\
-	cmake googletest-1.13.0 ;\
-	make ;\
-	cd .. ;\
-	cp gtest/lib/* build/$(TARGET)/lib
+
+
 
 
 .PHONY : rcc

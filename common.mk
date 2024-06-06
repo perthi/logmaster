@@ -73,7 +73,7 @@ $(LIBNAME_A): $(OBJS) $(OBJSCPP)
 	@ranlib $(LIBNAME_A)	
 	@rm -f !  $(LIBLOCAL)/$(LIBNAME_A) 
 	@echo COPYING   $(LIBNAME_A) TO  $(LIBLOCAL)  !!!!!!!!
-	@cp -p $(LIBNAME_A) $(LIBLOCAL)
+	@mv $(LIBNAME_A) $(LIBLOCAL)
 
 
 $(LIBNAME_SO): $(OBJS) $(OBJSCPP) 
@@ -83,7 +83,7 @@ $(LIBNAME_SO): $(OBJS) $(OBJSCPP) $(INSTALLDIRS)
 	@$(CCLOCAL) $(LIBFLAGS) -fPIC  -shared  -o $(LIBNAME_SO) $(OBJS) $(OBJSCPP) $(LIBS)
 	@rm -f !  $(LIBLOCAL)/$(LIBNAME_SO) 
 	@echo COPYING   $(LIBNAME_SO) TO  $(LIBLOCAL)  !!!!!!!!
-	@cp -p $(LIBNAME_SO) $(LIBLOCAL)
+	@mv $(LIBNAME_SO) $(LIBLOCAL)
 
 $(LIBNAME_A): $(OBJS) $(OBJSCPP) 
 	@echo hello world  > /dev/null
@@ -106,7 +106,7 @@ $(PROGRAM):: $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC) compileinfo_dir
 	$(MAKE) install 
 
 
-define generate-version-info
+define generate-version-info 
 	@if [ "$(PROGRAM)" !=  "version-info" ]; then \
 		$(VERSIONINFO_EXE) -appname  $(PROGRAM) -flagfile $(CURDIR)/../..//.compileinfo-$(TARGET)/$(PROGRAM)_flags.txt $(CURDIR); \
 		mv GVersion.cpp  tmp.cpp; \
