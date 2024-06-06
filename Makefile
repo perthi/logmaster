@@ -267,6 +267,7 @@ clean-logs:
 
 #.PHONY: distclean
 distclean: clean clean-logs
+	@-$(RM) -r gtest/CMakeCache.txt
 	@-$(RM) -r build
 	@-$(RM) `find -name "SvnInfo*" | grep -v .svn`
 	@find -name *.so    |  egrep  -v  3rd-party   |  egrep -v  '^\./googletest/'    |  egrep -v   '^\./arm-lib-dep/' |  xargs rm -f

@@ -73,7 +73,7 @@ $(LIBNAME_A): $(OBJS) $(OBJSCPP)
 	@ranlib $(LIBNAME_A)	
 	@rm -f !  $(LIBLOCAL)/$(LIBNAME_A) 
 	@echo COPYING   $(LIBNAME_A) TO  $(LIBLOCAL)  !!!!!!!!
-	@sudo cp -p $(LIBNAME_A) $(LIBLOCAL)
+	@cp -p $(LIBNAME_A) $(LIBLOCAL)
 
 
 $(LIBNAME_SO): $(OBJS) $(OBJSCPP) 
@@ -83,7 +83,7 @@ $(LIBNAME_SO): $(OBJS) $(OBJSCPP) $(INSTALLDIRS)
 	@$(CCLOCAL) $(LIBFLAGS) -fPIC  -shared  -o $(LIBNAME_SO) $(OBJS) $(OBJSCPP) $(LIBS)
 	@rm -f !  $(LIBLOCAL)/$(LIBNAME_SO) 
 	@echo COPYING   $(LIBNAME_SO) TO  $(LIBLOCAL)  !!!!!!!!
-	@sudo cp -p $(LIBNAME_SO) $(LIBLOCAL)
+	@cp -p $(LIBNAME_SO) $(LIBLOCAL)
 
 $(LIBNAME_A): $(OBJS) $(OBJSCPP) 
 	@echo hello world  > /dev/null
@@ -176,5 +176,5 @@ endif
 
 install: $(INSTALLDIRS)
    ifdef PROGRAM
-	@sudo cp -f -p $(CURDIR)/$(PROGRAM) $(BINDIR)/$(PROGRAM);
+	@cp -f -p $(CURDIR)/$(PROGRAM) $(BINDIR)/$(PROGRAM);
    endif
