@@ -29,10 +29,9 @@
 #include <string>
 using std::string;
 
-#include "GVersion.h"
-
-//#define G GVersion
-
+//include "GVersion.h"
+#include <utilities/GVersion.h>
+///#include  "GVersion.h"
 
 #include <memory>
 
