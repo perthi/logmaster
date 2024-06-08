@@ -133,9 +133,10 @@ namespace LOGMASTER
         std::stack<   std::shared_ptr<  std::map<eMSGTARGET, LMessageFactory   >  >     >  fConfigurationStack;
         
         #ifdef ARM
-        std::mutex fLoggingMutex;
+        std::mutex fLoggingMutex2;
         #else
-        std::recursive_mutex fLoggingMutex;
+       // std::recursive_mutex fLoggingMutex;
+        std::mutex fLoggingMutex2;
         #endif
         
         bool fFormatCheckAll = true; //!< Wether or not to perform format check on all messages 
@@ -196,7 +197,9 @@ namespace LOGMASTER
 #endif
 #endif
 */
-
+    //     static std::mutex mtx;
+//        std::lock_guard<std::mutex> guard( fLoggingMutex2  );
+    //    std::lock_guard<std::mutex> guard2( fLoggingMutex2  );
         if (fConfig == nullptr)
         {
             CERR << "CONFIG IS A ZERO POINTER" << ENDL;
@@ -247,8 +250,8 @@ namespace LOGMASTER
 
                     if (formatCheck.first == true)
                     {
-                        tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, functionname, addendum, fmt,
-                          args...);
+                        std::lock_guard<std::mutex> guard2( fLoggingMutex2  );
+                        tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, functionname, addendum, fmt, args...);
                     }
                     else
                     {
@@ -258,7 +261,7 @@ namespace LOGMASTER
 
                     if (cl == true)
                     {
-
+                      //  std::lock_guard<std::recursive_mutex> lock(fLoggingMutex);
                         QueMessage(tmp_msg, it->second.GetConfig(), it->first);
 
                         auto it_msg = fMessages->find(it->first);
