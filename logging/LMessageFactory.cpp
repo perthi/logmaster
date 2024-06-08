@@ -120,6 +120,8 @@ namespace LOGMASTER
                                                                      const char *func, const std::string addendum,
                                                                      const char *fmt, va_list ap)
     {
+     
+        
         if (fConfig == nullptr)
         {
             CERR << "fConfig is a zero pointer !!!" << ENDL;
@@ -129,6 +131,8 @@ namespace LOGMASTER
         eMSGFORMAT f = fConfig->GetLogFormat();
 
         // fMessage =  fGenerator->GenerateMsg(fMessage,  f, l, s, file, line, func, fmt, ap, ad );
+        
+        std::lock_guard<std::mutex> guard( fMutex  );
         fMessage = fGenerator->GenerateMsg(f, l, s, file, line, func, addendum, fmt, ap);
 
         return fMessage;

@@ -58,6 +58,7 @@ namespace LOGMASTER
             std::shared_ptr<LMessage> fMessage = nullptr;
             std::shared_ptr<LMessageGenerator> fGenerator = nullptr;
             std::shared_ptr<LConfig> fConfig = nullptr;
+            std::mutex fMutex;
         };
 
         template<typename... Args>

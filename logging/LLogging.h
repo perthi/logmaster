@@ -135,8 +135,8 @@ namespace LOGMASTER
         #ifdef ARM
         std::mutex fLoggingMutex2;
         #else
-       // std::recursive_mutex fLoggingMutex;
         std::mutex fLoggingMutex2;
+        //std::mutex fLoggingMutex2;
         #endif
         
         bool fFormatCheckAll = true; //!< Wether or not to perform format check on all messages 
@@ -184,9 +184,13 @@ namespace LOGMASTER
             const char* functionname,
             const bool force_generate, string addendum, const char* fmt, const Args ... args)
     {
+    //    static std::mutex mtx;
+    //    std::lock_guard<std::mutex> lock(mtx);
+    
+    
     /** @todo Refactor this function */
 
-//        const std::lock_guard<std::mutex> lock(fLoggingMutex);
+        std::lock_guard<std::mutex> lock(fLoggingMutex2);
 
 /*
 #ifdef THREAD_SAFE
@@ -230,8 +234,18 @@ namespace LOGMASTER
             formatCheck = std::make_pair<bool, string>(true, ""); 
         }
         
+        //std::lock_guard<std::recursive_mutex> lock(fLoggingMutex2);
+      //  static std::recursive_mutex mtx;
 
-        for (auto it = fConfig->begin(); it != fConfig->end(); ++it)
+       // printf("Grabbing mutext");
+       // std::lock_guard<std::recursive_mutex> lock(mtx);
+       // printf("Done");
+
+        auto start =  fConfig->begin();
+        auto end =  fConfig->end();
+
+      //  for (auto it = fConfig->begin(); it != fConfig->end(); ++it)
+        for (auto it = start; it != end; ++it)
         {
             if (it->second.IsEnabled() == true)
             {
@@ -250,7 +264,7 @@ namespace LOGMASTER
 
                     if (formatCheck.first == true)
                     {
-                        std::lock_guard<std::mutex> guard2( fLoggingMutex2  );
+                      //  std::lock_guard<std::mutex> guard2( fLoggingMutex2  );
                         tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, functionname, addendum, fmt, args...);
                     }
                     else
