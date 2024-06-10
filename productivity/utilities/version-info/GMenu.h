@@ -35,8 +35,6 @@ using std::string;
 
 //#define G GVersion
 
->>>>>>> Stashed changes
-
 #include <memory>
 
 class GMenu
