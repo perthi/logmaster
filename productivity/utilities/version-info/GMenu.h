@@ -29,9 +29,13 @@
 #include <string>
 using std::string;
 
-//include "GVersion.h"
-#include <utilities/GVersion.h>
-///#include  "GVersion.h"
+
+//#include "GVersion.h"
+#include <utilities/version-info/GVersion.h>
+
+//#define G GVersion
+
+>>>>>>> Stashed changes
 
 #include <memory>
 
