@@ -98,3 +98,8 @@ gtest/googletest/CTestTestfile.cmake
 gtest/googletest/cmake_install.cmake
 gtest/googletest/generated/GTestConfigVersion.cmake
 !docker-cross/files/fmt-10.2.1.tar.gz
+gtest/Makefile
+gtest/googlemock/CTestTestfile.cmake
+gtest/googlemock/Makefile
+gtest/googlemock/cmake_install.cmake
+gtest/googletest/Makefile
