@@ -55,14 +55,41 @@
             <FORCE_OUTPUT>false</FORCE_OUTPUT>
         </SYSTEM>
         <SYSTEM>
-            <NAME>COM</NAME>
-            <SHORT_NAME>COM</SHORT_NAME>
-            <TAG>--com</TAG>
-            <TAG_SHORT>--com</TAG_SHORT>
+            <NAME>EMS</NAME>
+            <SHORT_NAME>EMS</SHORT_NAME>
+            <TAG>--ems</TAG>
+            <TAG_SHORT>--ems</TAG_SHORT>
             <DEFAULT>WARNING</DEFAULT>
             <CAN_MODIFY>true</CAN_MODIFY>
             <FORCE_OUTPUT>false</FORCE_OUTPUT>
         </SYSTEM>        
+         <SYSTEM>
+            <NAME>MBMS</NAME>
+            <SHORT_NAME>MBMS</SHORT_NAME>
+            <TAG>--mbms</TAG>
+            <TAG_SHORT>--mbms</TAG_SHORT>
+            <DEFAULT>WARNING</DEFAULT>
+            <CAN_MODIFY>true</CAN_MODIFY>
+            <FORCE_OUTPUT>false</FORCE_OUTPUT>
+        </SYSTEM>
+         <SYSTEM>
+            <NAME>BIU</NAME>
+            <SHORT_NAME>BIU</SHORT_NAME>
+            <TAG>--biu</TAG>
+            <TAG_SHORT>--biu</TAG_SHORT>
+            <DEFAULT>WARNING</DEFAULT>
+            <CAN_MODIFY>true</CAN_MODIFY>
+            <FORCE_OUTPUT>false</FORCE_OUTPUT>
+        </SYSTEM>      
+         <SYSTEM>
+            <NAME>RESTAPI</NAME>
+            <SHORT_NAME>REST</SHORT_NAME>
+            <TAG>--restapi</TAG>
+            <TAG_SHORT>--rest</TAG_SHORT>
+            <DEFAULT>WARNING</DEFAULT>
+            <CAN_MODIFY>true</CAN_MODIFY>
+            <FORCE_OUTPUT>false</FORCE_OUTPUT>
+        </SYSTEM>                
         <SYSTEM> 
             <NAME>XML</NAME>
             <SHORT_NAME>XML</SHORT_NAME>

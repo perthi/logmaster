@@ -1,12 +1,12 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 27 October-2023 22:53:13  ***/
+/*** Generated at: Tue 11 June-2024 19:07:51  ***/
 /*** Generated from config/logging.xml **/
 /*** Validated by config/logging.xsd **/
 
 /****************************************************************************
-*** Copyright(C) 2023  Per Thomas Hille, pth@embc.no                  ***
+*** Copyright(C) 2024  Per Thomas Hille, pth@embc.no                  ***
 *** This file is part of logmaster.logmaster is free software : you can   ***
 *** redistribute it and / or modify it under the terms of the Lesser GNU  ***
 *** General Public License(LGPL) V3 or later. See.cpp file for details    ***
@@ -150,34 +150,154 @@
 
 
 
-#define COM_FATAL(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define COM_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define COM_FATAL_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_COM | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_FATAL(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_EMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_EMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_FATAL_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_EMS | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
-#define COM_ERROR(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define COM_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define COM_ERROR_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_COM | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_ERROR(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_EMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_EMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_ERROR_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_EMS | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
-#define COM_WARNING(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define COM_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define COM_WARNING_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_COM | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_WARNING(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_EMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_EMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_WARNING_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_EMS | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
-#define COM_INFO(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define COM_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define COM_INFO_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_COM | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_INFO(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_EMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_EMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_INFO_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_EMS | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
-#define COM_DEBUG(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define COM_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define COM_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_COM | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_DEBUG(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_EMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_EMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_EMS | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
-#define COM_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define COM_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_COM, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
-#define COM_FORCE_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_COM | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_EMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_EMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define EMS_FORCE_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_EMS | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define MBMS_FATAL(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_MBMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MBMS_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_MBMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MBMS_FATAL_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_MBMS | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define MBMS_ERROR(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_MBMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MBMS_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_MBMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MBMS_ERROR_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_MBMS | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define MBMS_WARNING(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_MBMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MBMS_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_MBMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MBMS_WARNING_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_MBMS | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define MBMS_INFO(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_MBMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MBMS_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_MBMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MBMS_INFO_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_MBMS | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define MBMS_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_MBMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MBMS_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_MBMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MBMS_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_MBMS | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define MBMS_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_MBMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MBMS_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_MBMS, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define MBMS_FORCE_DEBUG_U(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_MBMS | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define BIU_FATAL(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_BIU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define BIU_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_BIU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define BIU_FATAL_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_BIU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define BIU_ERROR(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_BIU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define BIU_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_BIU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define BIU_ERROR_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_BIU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define BIU_WARNING(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_BIU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define BIU_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_BIU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define BIU_WARNING_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_BIU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define BIU_INFO(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_BIU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define BIU_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_BIU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define BIU_INFO_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_BIU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define BIU_DEBUG(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_BIU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define BIU_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_BIU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define BIU_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_BIU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define BIU_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_BIU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define BIU_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_BIU, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define BIU_FORCE_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_BIU | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+
+
+
+
+#define RESTAPI_FATAL(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define RESTAPI_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_FATAL(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_ASSERT_FATAL(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define RESTAPI_FATAL_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_RESTAPI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_FATAL_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FATAL,    eMSGSYSTEM::SYS_RESTAPI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define RESTAPI_ERROR(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define RESTAPI_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_ERROR(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_ASSERT_ERROR(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define RESTAPI_ERROR_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_RESTAPI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_ERROR_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_ERROR,    eMSGSYSTEM::SYS_RESTAPI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define RESTAPI_WARNING(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define RESTAPI_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_WARNING(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_ASSERT_WARNING(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define RESTAPI_WARNING_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_RESTAPI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_WARNING_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_WARNING,    eMSGSYSTEM::SYS_RESTAPI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define RESTAPI_INFO(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define RESTAPI_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_INFO(...) 						LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_ASSERT_INFO(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define RESTAPI_INFO_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_RESTAPI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_INFO_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_INFO,    eMSGSYSTEM::SYS_RESTAPI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define RESTAPI_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define RESTAPI_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_ASSERT_DEBUG(expr, ...) 	if ( ! (expr) )		LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define RESTAPI_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_RESTAPI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_DEBUG_U(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_DEBUG,    eMSGSYSTEM::SYS_RESTAPI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+
+
+#define RESTAPI_FORCE_DEBUG(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define RESTAPI_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_FORCE_DEBUG(...) 					LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_ASSERT_FORCE_DEBUG(expr, ...) 	if ( ! (expr) )	LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_RESTAPI, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define RESTAPI_FORCE_DEBUG_U(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_RESTAPI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
+#define REST_FORCE_DEBUG_U(...) 				LLogging::Instance()->Log( eLOGLEVEL::LOG_FORCE_DEBUG,    eMSGSYSTEM::SYS_RESTAPI | eMSGSYSTEM::SYS_USER, GLocation( __FILE__, __LINE__, __func__ ),   __VA_ARGS__)
 
 
 

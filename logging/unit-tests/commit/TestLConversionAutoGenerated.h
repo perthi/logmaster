@@ -1,12 +1,12 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 27 October-2023 22:53:13  ***/
+/*** Generated at: Tue 11 June-2024 19:07:51  ***/
 /*** Generated from config/logging.xml **/
 /*** Validated by config/logging.xsd **/
 
 /****************************************************************************
-*** Copyright(C) 2023  Per Thomas Hille, pth@embc.no                  ***
+*** Copyright(C) 2024  Per Thomas Hille, pth@embc.no                  ***
 *** This file is part of logmaster.logmaster is free software : you can   ***
 *** redistribute it and / or modify it under the terms of the Lesser GNU  ***
 *** General Public License(LGPL) V3 or later. See.cpp file for details    ***

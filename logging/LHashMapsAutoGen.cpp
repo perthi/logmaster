@@ -1,19 +1,19 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 27 October-2023 22:53:13  ***/
+/*** Generated at: Tue 11 June-2024 19:07:51  ***/
 /*** Generated from config/logging.xml **/
 /*** Validated by config/logging.xsd **/
 
 /***************************************************
-* @copyright Embedded Consulting AS    2023        *
+* @copyright Embedded Consulting AS    2024        *
 * @author Per Thomas Hille <pth@embc.no>           *
 ***************************************************/
 
 /********************************************************************************
 *********************************************************************************
 *** This file is part of logmaster.                                           ***
-*** Copyright (C) 2023 Per Thomas Hille <pth@embc.no>  http:///www.embc.no    ***
+*** Copyright (C) 2024 Per Thomas Hille <pth@embc.no>  http:///www.embc.no    ***
 *** all rights reserved                                                       ***
 ***                                                                           ***
 *** logmaster is free software: you can redistribute it and/or modify         ***
@@ -57,7 +57,10 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_EXCEPTION, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_ERROR) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_FSM, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_MESSAGE, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
-	fLogLevelHash.emplace(eMSGSYSTEM::SYS_COM, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_EMS, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_MBMS, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_BIU, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_RESTAPI, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_XML, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_DATABASE, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
@@ -74,7 +77,10 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
 	System2StringHash->emplace(eMSGSYSTEM::SYS_EXCEPTION, 	"Exception");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_FSM, 	"Fsm");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_MESSAGE, 	"Message");
-	System2StringHash->emplace(eMSGSYSTEM::SYS_COM, 	"Com");
+	System2StringHash->emplace(eMSGSYSTEM::SYS_EMS, 	"Ems");
+	System2StringHash->emplace(eMSGSYSTEM::SYS_MBMS, 	"Mbms");
+	System2StringHash->emplace(eMSGSYSTEM::SYS_BIU, 	"Biu");
+	System2StringHash->emplace(eMSGSYSTEM::SYS_RESTAPI, 	"Restapi");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_XML, 	"Xml");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_DATABASE, 	"Database");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_USER, 	"User");
@@ -149,14 +155,52 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
 	SubCmdHash->emplace("--msg-all",		std::make_pair(eMSGSYSTEM::SYS_MESSAGE,  eLOGLEVEL::LOG_ALL));
 
 
-	SubCmdHash->emplace("--com-off",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_OFF));
-	SubCmdHash->emplace("--com-fatal",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_FATAL));
-	SubCmdHash->emplace("--com-error",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_ERROR));
-	SubCmdHash->emplace("--com-warning",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_WARNING));
-	SubCmdHash->emplace("--com-info",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_INFO));
-	SubCmdHash->emplace("--com-debug",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_DEBUG));
-	SubCmdHash->emplace("--com-force_debug",	std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_FORCE_DEBUG));
-	SubCmdHash->emplace("--com-all",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_ALL));
+	SubCmdHash->emplace("--ems-off",		std::make_pair(eMSGSYSTEM::SYS_EMS,  eLOGLEVEL::LOG_OFF));
+	SubCmdHash->emplace("--ems-fatal",		std::make_pair(eMSGSYSTEM::SYS_EMS,  eLOGLEVEL::LOG_FATAL));
+	SubCmdHash->emplace("--ems-error",		std::make_pair(eMSGSYSTEM::SYS_EMS,  eLOGLEVEL::LOG_ERROR));
+	SubCmdHash->emplace("--ems-warning",		std::make_pair(eMSGSYSTEM::SYS_EMS,  eLOGLEVEL::LOG_WARNING));
+	SubCmdHash->emplace("--ems-info",		std::make_pair(eMSGSYSTEM::SYS_EMS,  eLOGLEVEL::LOG_INFO));
+	SubCmdHash->emplace("--ems-debug",		std::make_pair(eMSGSYSTEM::SYS_EMS,  eLOGLEVEL::LOG_DEBUG));
+	SubCmdHash->emplace("--ems-force_debug",	std::make_pair(eMSGSYSTEM::SYS_EMS,  eLOGLEVEL::LOG_FORCE_DEBUG));
+	SubCmdHash->emplace("--ems-all",		std::make_pair(eMSGSYSTEM::SYS_EMS,  eLOGLEVEL::LOG_ALL));
+
+
+	SubCmdHash->emplace("--mbms-off",		std::make_pair(eMSGSYSTEM::SYS_MBMS,  eLOGLEVEL::LOG_OFF));
+	SubCmdHash->emplace("--mbms-fatal",		std::make_pair(eMSGSYSTEM::SYS_MBMS,  eLOGLEVEL::LOG_FATAL));
+	SubCmdHash->emplace("--mbms-error",		std::make_pair(eMSGSYSTEM::SYS_MBMS,  eLOGLEVEL::LOG_ERROR));
+	SubCmdHash->emplace("--mbms-warning",		std::make_pair(eMSGSYSTEM::SYS_MBMS,  eLOGLEVEL::LOG_WARNING));
+	SubCmdHash->emplace("--mbms-info",		std::make_pair(eMSGSYSTEM::SYS_MBMS,  eLOGLEVEL::LOG_INFO));
+	SubCmdHash->emplace("--mbms-debug",		std::make_pair(eMSGSYSTEM::SYS_MBMS,  eLOGLEVEL::LOG_DEBUG));
+	SubCmdHash->emplace("--mbms-force_debug",	std::make_pair(eMSGSYSTEM::SYS_MBMS,  eLOGLEVEL::LOG_FORCE_DEBUG));
+	SubCmdHash->emplace("--mbms-all",		std::make_pair(eMSGSYSTEM::SYS_MBMS,  eLOGLEVEL::LOG_ALL));
+
+
+	SubCmdHash->emplace("--biu-off",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_OFF));
+	SubCmdHash->emplace("--biu-fatal",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_FATAL));
+	SubCmdHash->emplace("--biu-error",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_ERROR));
+	SubCmdHash->emplace("--biu-warning",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_WARNING));
+	SubCmdHash->emplace("--biu-info",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_INFO));
+	SubCmdHash->emplace("--biu-debug",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_DEBUG));
+	SubCmdHash->emplace("--biu-force_debug",	std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_FORCE_DEBUG));
+	SubCmdHash->emplace("--biu-all",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_ALL));
+
+
+	SubCmdHash->emplace("--restapi-off",		std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_OFF));
+	SubCmdHash->emplace("--restapi-fatal",		std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_FATAL));
+	SubCmdHash->emplace("--restapi-error",		std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_ERROR));
+	SubCmdHash->emplace("--restapi-warning",	std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_WARNING));
+	SubCmdHash->emplace("--restapi-info",		std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_INFO));
+	SubCmdHash->emplace("--restapi-debug",		std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_DEBUG));
+	SubCmdHash->emplace("--restapi-force_debug",	std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_FORCE_DEBUG));
+	SubCmdHash->emplace("--restapi-all",		std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_ALL));
+	SubCmdHash->emplace("--rest-off",		std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_OFF));
+	SubCmdHash->emplace("--rest-fatal",		std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_FATAL));
+	SubCmdHash->emplace("--rest-error",		std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_ERROR));
+	SubCmdHash->emplace("--rest-warning",		std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_WARNING));
+	SubCmdHash->emplace("--rest-info",		std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_INFO));
+	SubCmdHash->emplace("--rest-debug",		std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_DEBUG));
+	SubCmdHash->emplace("--rest-force_debug",	std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_FORCE_DEBUG));
+	SubCmdHash->emplace("--rest-all",		std::make_pair(eMSGSYSTEM::SYS_RESTAPI,  eLOGLEVEL::LOG_ALL));
 
 
 	SubCmdHash->emplace("--xml-off",		std::make_pair(eMSGSYSTEM::SYS_XML,  eLOGLEVEL::LOG_OFF));
@@ -243,7 +287,10 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
         permHash->emplace( eMSGSYSTEM::SYS_EXCEPTION,false);
         permHash->emplace( eMSGSYSTEM::SYS_FSM,true);
         permHash->emplace( eMSGSYSTEM::SYS_MESSAGE,true);
-        permHash->emplace( eMSGSYSTEM::SYS_COM,true);
+        permHash->emplace( eMSGSYSTEM::SYS_EMS,true);
+        permHash->emplace( eMSGSYSTEM::SYS_MBMS,true);
+        permHash->emplace( eMSGSYSTEM::SYS_BIU,true);
+        permHash->emplace( eMSGSYSTEM::SYS_RESTAPI,true);
         permHash->emplace( eMSGSYSTEM::SYS_XML,true);
         permHash->emplace( eMSGSYSTEM::SYS_DATABASE,true);
         permHash->emplace( eMSGSYSTEM::SYS_USER,true);

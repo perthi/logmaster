@@ -1,19 +1,19 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 27 October-2023 22:53:13  ***/
+/*** Generated at: Tue 11 June-2024 19:07:51  ***/
 /*** Generated from config/logging.xml **/
 /*** Validated by config/logging.xsd **/
 
 /***************************************************
-* @copyright Embedded Consulting AS    2023        *
+* @copyright Embedded Consulting AS    2024        *
 * @author Per Thomas Hille <pth@embc.no>           *
 ***************************************************/
 
 /********************************************************************************
 *********************************************************************************
 *** This file is part of logmaster.                                           ***
-*** Copyright (C) 2023 Per Thomas Hille <pth@embc.no>  http:///www.embc.no    ***
+*** Copyright (C) 2024 Per Thomas Hille <pth@embc.no>  http:///www.embc.no    ***
 *** all rights reserved                                                       ***
 ***                                                                           ***
 *** logmaster is free software: you can redistribute it and/or modify         ***
@@ -88,12 +88,42 @@ LLogTestAutoGen::WriteMessages()
 
         fval = g_random()->Uniform<float>(-10, 100);
         ival = g_random()->Uniform<int>(-10, 1000);
-        COM_FATAL("This is a COM_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
-        COM_ERROR("This is a COM_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
-        COM_WARNING("This is a COM_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
-        COM_INFO("This is a COM_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
-        COM_DEBUG("This is a COM_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
-        COM_FORCE_DEBUG("This is a COM_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EMS_FATAL("This is a EMS_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EMS_ERROR("This is a EMS_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EMS_WARNING("This is a EMS_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EMS_INFO("This is a EMS_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EMS_DEBUG("This is a EMS_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        EMS_FORCE_DEBUG("This is a EMS_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+
+
+        fval = g_random()->Uniform<float>(-10, 100);
+        ival = g_random()->Uniform<int>(-10, 1000);
+        MBMS_FATAL("This is a MBMS_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MBMS_ERROR("This is a MBMS_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MBMS_WARNING("This is a MBMS_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MBMS_INFO("This is a MBMS_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MBMS_DEBUG("This is a MBMS_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MBMS_FORCE_DEBUG("This is a MBMS_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+
+
+        fval = g_random()->Uniform<float>(-10, 100);
+        ival = g_random()->Uniform<int>(-10, 1000);
+        BIU_FATAL("This is a BIU_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        BIU_ERROR("This is a BIU_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        BIU_WARNING("This is a BIU_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        BIU_INFO("This is a BIU_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        BIU_DEBUG("This is a BIU_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        BIU_FORCE_DEBUG("This is a BIU_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+
+
+        fval = g_random()->Uniform<float>(-10, 100);
+        ival = g_random()->Uniform<int>(-10, 1000);
+        RESTAPI_FATAL("This is a RESTAPI_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        RESTAPI_ERROR("This is a RESTAPI_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        RESTAPI_WARNING("This is a RESTAPI_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        RESTAPI_INFO("This is a RESTAPI_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        RESTAPI_DEBUG("This is a RESTAPI_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        RESTAPI_FORCE_DEBUG("This is a RESTAPI_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);
