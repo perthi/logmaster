@@ -135,7 +135,7 @@ namespace LOGMASTER
         #ifdef ARM
         std::mutex fLoggingMutex2;
         #else
-        std::mutex fLoggingMutex2;
+        std::mutex fLoggingMutex2{};
         //std::mutex fLoggingMutex2;
         #endif
         

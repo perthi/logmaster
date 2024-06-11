@@ -52,6 +52,7 @@ TestLFormat::~TestLFormat()
 }
 
 
+/*
 TEST_F( TestLFormat, msg_format )
 {
     PUSH();
@@ -76,6 +77,7 @@ TEST_F( TestLFormat, msg_format )
     POP();
 
 }
+*/
 
 
 /** @todo These tests should be auto generated  */

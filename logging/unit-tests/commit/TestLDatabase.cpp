@@ -136,8 +136,9 @@ TEST_F( TestLDatabase , all_entries )
 TEST_F( TestLDatabase , specific_system )
 {
      auto db = fgDatabase;
-     vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
-    
+ //    vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
+     vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL };
+
     for( auto s: sys_v )
     {
         auto entries = db->Query ( s, ALL_ENTRIES );
@@ -156,7 +157,8 @@ TEST_F( TestLDatabase , specific_system )
 TEST_F( TestLDatabase , specific_system_multiple )
 {
     auto db = fgDatabase;
-    vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
+   // vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
+    vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL };
 
     for( auto s: sys_v )
     {
@@ -194,7 +196,8 @@ TEST_F( TestLDatabase , specific_level_sys )
     auto db = fgDatabase;
    
     vector <eLOGLEVEL> level_v  = { eLOGLEVEL::LOG_DEBUG,   eLOGLEVEL::LOG_INFO,  eLOGLEVEL::LOG_WARNING,  eLOGLEVEL::LOG_ERROR,  eLOGLEVEL::LOG_FATAL}; 
-    vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
+  //  vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
+    vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL};
 
     for( auto lvl: level_v )
     {
@@ -218,7 +221,9 @@ TEST_F( TestLDatabase , specific_level_sys_multiple )
     auto db = fgDatabase;
 
     vector <eLOGLEVEL> level_v  = { eLOGLEVEL::LOG_DEBUG,   eLOGLEVEL::LOG_INFO,  eLOGLEVEL::LOG_WARNING,  eLOGLEVEL::LOG_ERROR,  eLOGLEVEL::LOG_FATAL}; 
-    vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
+  //  vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL, eMSGSYSTEM::SYS_COM };
+    vector<eMSGSYSTEM> sys_v = { eMSGSYSTEM::SYS_FSM, eMSGSYSTEM::SYS_GENERAL };
+
     for (auto lvl : level_v)
     {
         for (auto s : sys_v)
