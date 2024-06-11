@@ -16,6 +16,9 @@ PROGRAM=configurator-unit-tests
 SRCCPP:=configurator-unit-tests.cpp \
         TestLGeneratorP.cpp
 
+RCCPP:=configurator-unit-tests.cpp
+
+
 
 include  ../../../../common.mk
 include ../../../../unittest-common.mk

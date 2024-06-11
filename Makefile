@@ -1,1 +1,1 @@
-Makefile_full
+Makefile_minimal
