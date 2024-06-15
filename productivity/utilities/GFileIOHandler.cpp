@@ -62,7 +62,7 @@ GFileIOHandler* g_file()
 
 
 
-/* Append an input to the file if it exists, otherwise create it first, then writhe the append to the file
+/** Append an input to the file if it exists, otherwise create it first, then writhe the append to the file
  * @param  fname The file to write to
  * @param  fmt Format string for the input
  * @param ...  Variable GArgument list

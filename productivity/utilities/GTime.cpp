@@ -154,7 +154,7 @@ long double  GTime::AccessDate(const string date)
 
 
 
-/*  Converts a date on string format to the number of seconds since January 1st 1970. Optionally generates std:tm struct 
+/**  Converts a date on string format to the number of seconds since January 1st 1970. Optionally generates std:tm struct 
  *  and calculates the number of microseconds 
  *  by optional in/out parameters if the date string is on the ISO8601 format.    
  *  @param[in]  date  The date that should be converted

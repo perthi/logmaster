@@ -86,11 +86,11 @@ GNumberTypes::IsDecNumber(const string  num)
 
 
 
-/* Whether or not the string "num" is digit in base given by "base". For base 10
-*  The digits shall be 0-9, for base 16 0-F  etc..
-*  @param num  The string representation of the digit
-*  @param base the base, or radix of the number "num"
-*  @return  true if the number given by "num" is a valid digit in the base "base", false othervise */
+/** @brief Whether or not the string "num" is digit in base given by "base". For base 10
+*   @details The digits shall be 0-9, for base 16 0-F  etc..
+*   @param num  The string representation of the digit
+*   @param base the base, or radix of the number "num"
+*   @return  true if the number given by "num" is a valid digit in the base "base", false othervise */
 bool
 GNumberTypes::IsDigit(const string num, const int base)
 {
