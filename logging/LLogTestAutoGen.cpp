@@ -1,8 +1,8 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Tue 11 June-2024 20:09:30  ***/
-/*** Generated from config/logging.xml **/
+/*** Generated at: Fri 16 August-2024 18:42:12  ***/
+/*** Generated from config/logging-ucw.xml **/
 /*** Validated by config/logging.xsd **/
 
 /***************************************************
@@ -78,32 +78,32 @@ LLogTestAutoGen::WriteMessages()
 
         fval = g_random()->Uniform<float>(-10, 100);
         ival = g_random()->Uniform<int>(-10, 1000);
-        MESSAGE_FATAL("This is a MESSAGE_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
-        MESSAGE_ERROR("This is a MESSAGE_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
-        MESSAGE_WARNING("This is a MESSAGE_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
-        MESSAGE_INFO("This is a MESSAGE_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
-        MESSAGE_DEBUG("This is a MESSAGE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
-        MESSAGE_FORCE_DEBUG("This is a MESSAGE_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MEASUREMENT_FATAL("This is a MEASUREMENT_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MEASUREMENT_ERROR("This is a MEASUREMENT_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MEASUREMENT_WARNING("This is a MEASUREMENT_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MEASUREMENT_INFO("This is a MEASUREMENT_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MEASUREMENT_DEBUG("This is a MEASUREMENT_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        MEASUREMENT_FORCE_DEBUG("This is a MEASUREMENT_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);
         ival = g_random()->Uniform<int>(-10, 1000);
-        EMS_FATAL("This is a EMS_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
-        EMS_ERROR("This is a EMS_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
-        EMS_WARNING("This is a EMS_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
-        EMS_INFO("This is a EMS_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
-        EMS_DEBUG("This is a EMS_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
-        EMS_FORCE_DEBUG("This is a EMS_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        CLI_FATAL("This is a CLI_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        CLI_ERROR("This is a CLI_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        CLI_WARNING("This is a CLI_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        CLI_INFO("This is a CLI_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        CLI_DEBUG("This is a CLI_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        CLI_FORCE_DEBUG("This is a CLI_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);
         ival = g_random()->Uniform<int>(-10, 1000);
-        MBMS_FATAL("This is a MBMS_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
-        MBMS_ERROR("This is a MBMS_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
-        MBMS_WARNING("This is a MBMS_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
-        MBMS_INFO("This is a MBMS_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
-        MBMS_DEBUG("This is a MBMS_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
-        MBMS_FORCE_DEBUG("This is a MBMS_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        FOC_FATAL("This is a FOC_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        FOC_ERROR("This is a FOC_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        FOC_WARNING("This is a FOC_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        FOC_INFO("This is a FOC_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        FOC_DEBUG("This is a FOC_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        FOC_FORCE_DEBUG("This is a FOC_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);
@@ -114,16 +114,6 @@ LLogTestAutoGen::WriteMessages()
         BIU_INFO("This is a BIU_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
         BIU_DEBUG("This is a BIU_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
         BIU_FORCE_DEBUG("This is a BIU_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
-
-
-        fval = g_random()->Uniform<float>(-10, 100);
-        ival = g_random()->Uniform<int>(-10, 1000);
-        RESTAPI_FATAL("This is a RESTAPI_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
-        RESTAPI_ERROR("This is a RESTAPI_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
-        RESTAPI_WARNING("This is a RESTAPI_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
-        RESTAPI_INFO("This is a RESTAPI_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
-        RESTAPI_DEBUG("This is a RESTAPI_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
-        RESTAPI_FORCE_DEBUG("This is a RESTAPI_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);
