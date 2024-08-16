@@ -516,7 +516,8 @@ GCmdScan::CheckMandatory(const vector<GArgumentParsed> v, const deque <  std::sh
 }
 
 
-inline bool
+/*
+bool
 GCmdScan::HasArgument(int argc, const char** argv, vector<string> commands) const
 {
     for (size_t i = 0; i < commands.size(); i++)
@@ -550,7 +551,7 @@ GCmdScan::HasArgument(int argc, const char** argv, const string cmd) const
 
 
 
-inline bool
+bool
 GCmdScan::HasArgument(const vector<string> tokens, const string command) const
 {
     for (uint16_t i = 0; i < tokens.size(); i++)
@@ -562,6 +563,7 @@ GCmdScan::HasArgument(const vector<string> tokens, const string command) const
     }
     return false;
 }
+*/
 
 
 bool

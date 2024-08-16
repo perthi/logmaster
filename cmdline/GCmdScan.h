@@ -48,9 +48,11 @@ public:
     static GCmdScan   API* Instance();
     API GCmdScan();
     virtual API ~GCmdScan() {};
-    bool   HasArgument(int argc, const char** argv, const string cmd) const;
-    bool   HasArgument(int argc, const char** argv, vector <string> commands) const;
-    bool   HasArgument(const vector<string> tokens, const string com) const;
+    inline bool   HasArgument(int argc, const char** argv, const string cmd) const;
+    inline bool   HasArgument(int argc, const char** argv, vector <string> commands) const;
+    inline bool   HasArgument(const vector<string> tokens, const string com) const;
+
+ 
     void   API SetIgnoreStrayArgument(const bool ignore = true);
     bool   API GetIgnoreStrayArgument() const;
 
@@ -79,6 +81,54 @@ private:
     bool  CheckValid(const vector<GArgumentParsed> v, const deque  <  std::shared_ptr < GArgument>  >* args) const;
     void  CheckDuplicates(deque <  std::shared_ptr<GArgument>  >* args) const;
 };
+
+
+inline bool
+GCmdScan::HasArgument(int argc, const char** argv, vector<string> commands) const
+{
+    for (size_t i = 0; i < commands.size(); i++)
+    {
+        if (HasArgument(argc, argv, commands[i]) == true)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+inline bool
+GCmdScan::HasArgument(int argc, const char** argv, const string cmd) const
+{
+    string s1;
+
+    for (int i = 1; i < argc; i++)
+    {
+        s1.assign(argv[i]);
+
+        if (s1 == cmd)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+inline bool
+GCmdScan::HasArgument(const vector<string> tokens, const string command) const
+{
+    for (uint16_t i = 0; i < tokens.size(); i++)
+    {
+        if (tokens[i] == command)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 
 
