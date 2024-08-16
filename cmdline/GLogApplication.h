@@ -84,7 +84,7 @@ public:
     bool             API   IsMandatory(const string cmd) const;
     bool             API   IsOptional(const string cmd) const;
 
-private:
+//private:
     API      GLogApplication(GLogApplication&);
     void     operator=(GLogApplication&);
     void                 API    ScanArguments(const string cmdline, arg_ptr arg);
