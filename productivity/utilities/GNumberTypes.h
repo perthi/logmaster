@@ -15,30 +15,30 @@ public:
 
     template<typename T>   bool   API  IsBinary(T num);
 
-    bool            API            IsDecNumber(const string num);
-    bool            API            IsDigit(const char* num, const int base = 10) { return IsDigit(string(num), base); };
-    bool            API            IsDigit(const string num, const int base = 10);
-    template<typename T>   bool  API   IsDigit(T num, const int base = 10);
+    bool            API               IsDecNumber(const string num);
+    bool            API               IsDigit(const char* num, const int base = 10) { return IsDigit(string(num), base); };
+    bool            API               IsDigit(const string num, const int base = 10);
+    template<typename T>   bool  API  IsDigit(T num, const int base = 10);
     template<typename T>   bool  API  IsFloat(T num);
-    bool          API              IsFloat(const char* num);
-    bool          API              IsFloat(const string num);
-    bool           API             IsHex(const string num);
+    bool            API               IsFloat(const char* num);
+    bool            API               IsFloat(const string num);
+    bool            API               IsHex(const string num);
     template<typename T>   bool  API  IsHex(const T num);
-    bool           API             IsHex(const char* num) { return IsHex(string(num)); };
-    bool           API             IsInteger(const string num);
+    bool            API               IsHex(const char* num) { return IsHex(string(num)); };
+    bool            API               IsInteger(const string num);
     template<typename T>   bool  API  IsInteger(T num);
-    bool           API             IsNumber(const string num);
-    bool          API              IsNumber(const double num);
+    bool            API               IsNumber(const string num);
+    bool            API               IsNumber(const double num);
 
 
     template<typename T>  bool API IsIntegerVType(T) { return IsIntegerVTypeS(typeid(T).name( )); }
     bool           API     IsIntegerVTypeS(string type);
 
     template<typename T>  bool API IsFundamentalVType(T) { return  IsFundamentalVTypeS(typeid(T).name( )); }
-    bool                      API IsFundamentalVTypeS(string type);
+    bool                       API IsFundamentalVTypeS(string type);
 
     template<typename T> bool API IsFloatVType(T) { return  IsFloatVTypeS(typeid(T).name( )); }
-    bool                     API  IsFloatVTypeS(string type);
+    bool                      API  IsFloatVTypeS(string type);
 
     template<typename T>  bool API IsFundamentalType(T) { return  IsFundamentalTypeS(typeid(T).name( )); }
     bool             API IsFundamentalTypeS(string type);
@@ -47,9 +47,7 @@ public:
     bool             API IsUnsignedTypeS(string type);
 
     template<typename T>  bool API IsIntegerType(T) { return  IsIntegerTypeS(typeid(T).name( )); }
-
-    bool             API IsIntegerTypeS(string type);
-
+    bool                       API  IsIntegerTypeS(string type);
     template<typename T>  bool API IsFloatType(T) { return IsFloatTypeS(typeid(T).name( )); }
     bool             API IsFloatTypeS(string type);
 
