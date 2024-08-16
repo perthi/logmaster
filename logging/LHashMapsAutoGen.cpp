@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 16 August-2024 18:42:12  ***/
+/*** Generated at: Fri 16 August-2024 18:59:12  ***/
 /*** Generated from config/logging-ucw.xml **/
 /*** Validated by config/logging.xsd **/
 
@@ -59,7 +59,7 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_MEASUREMENT, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_CLI, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_FOC, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
-	fLogLevelHash.emplace(eMSGSYSTEM::SYS_BIU, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
+	fLogLevelHash.emplace(eMSGSYSTEM::SYS_COM, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_XML, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_DATABASE, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
 	fLogLevelHash.emplace(eMSGSYSTEM::SYS_USER, (eLOGLEVEL)PAD( (int)eLOGLEVEL::LOG_WARNING) );
@@ -78,7 +78,7 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
 	System2StringHash->emplace(eMSGSYSTEM::SYS_MEASUREMENT, 	"Measurement");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_CLI, 	"Cli");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_FOC, 	"Foc");
-	System2StringHash->emplace(eMSGSYSTEM::SYS_BIU, 	"Biu");
+	System2StringHash->emplace(eMSGSYSTEM::SYS_COM, 	"Com");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_XML, 	"Xml");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_DATABASE, 	"Database");
 	System2StringHash->emplace(eMSGSYSTEM::SYS_USER, 	"User");
@@ -173,14 +173,14 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
 	SubCmdHash->emplace("--foc-all",		std::make_pair(eMSGSYSTEM::SYS_FOC,  eLOGLEVEL::LOG_ALL));
 
 
-	SubCmdHash->emplace("--biu-off",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_OFF));
-	SubCmdHash->emplace("--biu-fatal",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_FATAL));
-	SubCmdHash->emplace("--biu-error",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_ERROR));
-	SubCmdHash->emplace("--biu-warning",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_WARNING));
-	SubCmdHash->emplace("--biu-info",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_INFO));
-	SubCmdHash->emplace("--biu-debug",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_DEBUG));
-	SubCmdHash->emplace("--biu-force_debug",	std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_FORCE_DEBUG));
-	SubCmdHash->emplace("--biu-all",		std::make_pair(eMSGSYSTEM::SYS_BIU,  eLOGLEVEL::LOG_ALL));
+	SubCmdHash->emplace("--com-off",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_OFF));
+	SubCmdHash->emplace("--com-fatal",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_FATAL));
+	SubCmdHash->emplace("--com-error",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_ERROR));
+	SubCmdHash->emplace("--com-warning",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_WARNING));
+	SubCmdHash->emplace("--com-info",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_INFO));
+	SubCmdHash->emplace("--com-debug",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_DEBUG));
+	SubCmdHash->emplace("--com-force_debug",	std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_FORCE_DEBUG));
+	SubCmdHash->emplace("--com-all",		std::make_pair(eMSGSYSTEM::SYS_COM,  eLOGLEVEL::LOG_ALL));
 
 
 	SubCmdHash->emplace("--xml-off",		std::make_pair(eMSGSYSTEM::SYS_XML,  eLOGLEVEL::LOG_OFF));
@@ -269,7 +269,7 @@ LHashMapsAutoGen::~LHashMapsAutoGen(){ }
         permHash->emplace( eMSGSYSTEM::SYS_MEASUREMENT,true);
         permHash->emplace( eMSGSYSTEM::SYS_CLI,true);
         permHash->emplace( eMSGSYSTEM::SYS_FOC,true);
-        permHash->emplace( eMSGSYSTEM::SYS_BIU,true);
+        permHash->emplace( eMSGSYSTEM::SYS_COM,true);
         permHash->emplace( eMSGSYSTEM::SYS_XML,true);
         permHash->emplace( eMSGSYSTEM::SYS_DATABASE,true);
         permHash->emplace( eMSGSYSTEM::SYS_USER,true);

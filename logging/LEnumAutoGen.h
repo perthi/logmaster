@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 16 August-2024 18:42:12  ***/
+/*** Generated at: Fri 16 August-2024 18:59:12  ***/
 /*** Generated from config/logging-ucw.xml **/
 /*** Validated by config/logging.xsd **/
 
@@ -27,7 +27,7 @@ enum  eMSGSYSTEM
     SYS_MEASUREMENT  = 0x0004,    
     SYS_CLI          = 0x0008,    
     SYS_FOC          = 0x0010,    
-    SYS_BIU          = 0x0020,    
+    SYS_COM          = 0x0020,    
     SYS_XML          = 0x0040,    
     SYS_DATABASE     = 0x0080,    
     SYS_USER         = 0x0100,    

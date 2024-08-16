@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 16 August-2024 18:42:12  ***/
+/*** Generated at: Fri 16 August-2024 18:59:12  ***/
 /*** Generated from config/logging-ucw.xml **/
 /*** Validated by config/logging.xsd **/
 
@@ -22,8 +22,8 @@ EXCEPTION_CLASS_H	(GCliException)
 EXCEPTION_CLASS_CPP	(GCliException)
 EXCEPTION_CLASS_H	(GFocException)
 EXCEPTION_CLASS_CPP	(GFocException)
-EXCEPTION_CLASS_H	(GBiuException)
-EXCEPTION_CLASS_CPP	(GBiuException)
+EXCEPTION_CLASS_H	(GComException)
+EXCEPTION_CLASS_CPP	(GComException)
 EXCEPTION_CLASS_H	(GXmlException)
 EXCEPTION_CLASS_CPP	(GXmlException)
 EXCEPTION_CLASS_H	(GDatabaseException)
@@ -44,7 +44,7 @@ EXCEPTION_CLASS_CPP	(GAlarmException)
 #define MEAS_EXCEPTION(...)			throw_exception( GMeasurementException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_MEASUREMENT,	__VA_ARGS__ ) )
 #define CLI_EXCEPTION(...)			throw_exception( GCliException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_CLI,	__VA_ARGS__ ) )
 #define FOC_EXCEPTION(...)			throw_exception( GFocException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_FOC,	__VA_ARGS__ ) )
-#define BIU_EXCEPTION(...)			throw_exception( GBiuException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_BIU,	__VA_ARGS__ ) )
+#define COM_EXCEPTION(...)			throw_exception( GComException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_COM,	__VA_ARGS__ ) )
 #define XML_EXCEPTION(...)			throw_exception( GXmlException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_XML,	__VA_ARGS__ ) )
 #define DATABASE_EXCEPTION(...)			throw_exception( GDatabaseException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_DATABASE,	__VA_ARGS__ ) )
 #define DB_EXCEPTION(...)			throw_exception( GDatabaseException(	__FILE__,  __func__, __LINE__ , eMSGSYSTEM::SYS_DATABASE,	__VA_ARGS__ ) )
@@ -62,7 +62,7 @@ EXCEPTION_CLASS_CPP	(GAlarmException)
 #define MEAS_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GMeasurementException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_MEASUREMENT),	__VA_ARGS__ ) )
 #define CLI_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GCliException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_CLI),	__VA_ARGS__ ) )
 #define FOC_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GFocException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_FOC),	__VA_ARGS__ ) )
-#define BIU_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GBiuException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_BIU),	__VA_ARGS__ ) )
+#define COM_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GComException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_COM),	__VA_ARGS__ ) )
 #define XML_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GXmlException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_XML),	__VA_ARGS__ ) )
 #define DATABASE_ASSERT_EXCEPTION(expr,  ...)	 if(!(expr)) throw_exception( GDatabaseException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_DATABASE),	__VA_ARGS__ ) )
 #define DB_ASSERT_EXCEPTION(expr,  ...)		 if(!(expr)) throw_exception( GDatabaseException(	__FILE__,  __func__, __LINE__ , (eMSGSYSTEM)(eMSGSYSTEM::SYS_EXCEPTION | eMSGSYSTEM::SYS_DATABASE),	__VA_ARGS__ ) )

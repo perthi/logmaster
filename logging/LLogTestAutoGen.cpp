@@ -1,7 +1,7 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 16 August-2024 18:42:12  ***/
+/*** Generated at: Fri 16 August-2024 18:59:12  ***/
 /*** Generated from config/logging-ucw.xml **/
 /*** Validated by config/logging.xsd **/
 
@@ -108,12 +108,12 @@ LLogTestAutoGen::WriteMessages()
 
         fval = g_random()->Uniform<float>(-10, 100);
         ival = g_random()->Uniform<int>(-10, 1000);
-        BIU_FATAL("This is a BIU_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
-        BIU_ERROR("This is a BIU_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
-        BIU_WARNING("This is a BIU_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
-        BIU_INFO("This is a BIU_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
-        BIU_DEBUG("This is a BIU_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
-        BIU_FORCE_DEBUG("This is a BIU_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        COM_FATAL("This is a COM_FATAL  test message with parameter: ival = %d, fval = %f", ival, fval );
+        COM_ERROR("This is a COM_ERROR  test message with parameter: ival = %d, fval = %f", ival, fval );
+        COM_WARNING("This is a COM_WARNING  test message with parameter: ival = %d, fval = %f", ival, fval );
+        COM_INFO("This is a COM_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
+        COM_DEBUG("This is a COM_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
+        COM_FORCE_DEBUG("This is a COM_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
 
 
         fval = g_random()->Uniform<float>(-10, 100);
