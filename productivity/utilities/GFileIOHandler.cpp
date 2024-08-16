@@ -530,3 +530,9 @@ GFileIOHandler::ReadConfigFile(int argc, const char** argv, const string path)
     }
 }
 
+
+bool
+GFileIOHandler::CreateFolder(const string fname,  const bool print_error)
+{
+    return g_system()->mkdir(fname, print_error);
+}

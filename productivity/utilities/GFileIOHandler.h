@@ -61,6 +61,8 @@ public:
     bool             API  DoExists(const string fname, const char* opt = "r");    // checking if file exists
     bool             API  Delete(const string fname);
     bool             API  CreateFileLocal(const string fname, const bool print_error= true );
+    bool             API  CreateFolder(const string fname, const bool print_error= true );
+
 
 #ifdef _WIN32
     void         SetAttribute(const string fname, unsigned long attr);
