@@ -67,6 +67,7 @@ public:
     GLogApplication  API & AddArguments(arg_deque  args);
     void     API   ScanArguments(const string cmdline);
     void     API   ScanArguments(const int argc, const char** argv);
+
 #ifdef _WIN32
     void             API   ScanArguments( );
 #endif
