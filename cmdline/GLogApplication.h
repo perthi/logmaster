@@ -22,8 +22,7 @@
 *   that when issued on the command line prints out SVN revision and tag information for this application. That is, which source code
 *   revision, branch (trunk, tag, or release) an release tag (v-x-y-z) the application was compiled from.
 *   The SVN information is contained in the object pointed to by SvnData fSvnData. The SvnData class is auto generated based on the current SVN
-*   Information. The auto generation tool is svninfo.exe.
-*/
+*   Information. */
 
 #include <utilities/GDefinitions.h>
 #include <utilities/GFileName_t.h>
@@ -71,7 +70,10 @@ public:
 #ifdef _WIN32
     void             API   ScanArguments( );
 #endif
-
+    string              API        Help(const string cmd = "" ) const;
+    static string       API        Help(const deque  <  std::shared_ptr<GArgument>  > args, const string cmd = "" );
+    string              API        Help(const char *exename, const string heading,  const string cmd = "" ) const;
+    
     static bool      API   HasCommand(arg_deque  args, const string cmd);
     bool             API   HasCommand(const string cmd);
     arg_deque        API   GetArguments( );
@@ -83,11 +85,11 @@ public:
     bool             API   IsOptional(const string cmd) const;
 
 private:
-    API GLogApplication(GLogApplication&);
-    void operator=(GLogApplication&);
-    void                 API   ScanArguments(const string cmdline, arg_ptr arg);
-    void                 API   ScanArguments(const string cmdline, arg_deque args);
-    GLogApplication      API&  ScanArguments(const int argc, const char** argv, arg_deque  arg);
+    API      GLogApplication(GLogApplication&);
+    void     operator=(GLogApplication&);
+    void                 API    ScanArguments(const string cmdline, arg_ptr arg);
+    void                 API    ScanArguments(const string cmdline, arg_deque args);
+    GLogApplication      API &  ScanArguments(const int argc, const char** argv, arg_deque  arg);
 
     arg_deque        fArgs = arg_deque( );
     void_arg_ptr     fHelp = nullptr;    //!< Command line argument for printing out version information

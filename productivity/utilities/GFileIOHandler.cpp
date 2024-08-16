@@ -114,6 +114,12 @@ GFileIOHandler::Append(const string fname, const char* fmt, ...)
 
 
 
+bool
+GFileIOHandler::DoExists(const string fname, const char* opt)
+{
+    return CheckFile(fname, opt);
+}
+
 /** Read the last line of the file.
  *  @param[in] fname The file to read from
  *  @param[in] offset The line number, counting from the end, of the line to return. For example offset = 1 return the second last line, offset = 2 the third last etc.
@@ -387,6 +393,13 @@ GFileIOHandler::ClearAttribute(const string fname, unsigned long attr)
 }
 #endif
 
+bool
+GFileIOHandler::CreateFileLocal(const string fname, const bool print_error)
+{
+
+    return g_system()->mkfile(fname, print_error );
+}
+
 
 /** Read the content of a file into a vector
 *  @param fname  The file to read
@@ -433,4 +446,87 @@ GFileIOHandler::ReadAll(const string fname, bool* status)
 
 
 
+bool 
+GFileIOHandler::Delete(const string fname)
+{
+    FILE* fp = OpenFile(fname, "r", GLOCATION);
+
+    if (fp == nullptr)
+    {
+//        GCommon().HandleError(GText("could not remove file: \"%s\"", fname.c_str()).str(), GLOCATION, true);
+        return false;
+    }
+    else
+    {
+        fclose(fp);
+        int ret = std::remove(fname.c_str());
+
+        if (ret != 0)
+        {
+  //          string errmsg = Errno2String(errno, fname, "r");
+    //        GCommon().HandleError(GText("could not remove file: \"%s\"", errmsg.c_str()).str(), GLOCATION, true);
+            return false;
+        }
+
+    }
+
+    return true;
+}
+
+
+/** @todo move somewhere else */
+string
+GFileIOHandler::ReadConfigFile(int argc, const char** argv, const string path)
+{
+
+    vector<string> tokens = GTokenizer().Tokenize(string(argv[0]), ".");
+    string fname = "";
+    string dir = "";
+
+    GTokenizer().StripPath(tokens.at(0), dir, fname, false);
+
+    if (tokens.size() > 0)
+    {
+        fname = path + "/" + fname + ".cfg";
+    }
+
+    if (  DoExists( fname ) == false )
+    {
+        GCommon().HandleError(fmt::format("The file \"%s\" does not exist", fname.c_str()), GLOCATION, THROW_EXCEPTION);
+        return "";
+    }
+
+    COUT << "fname = " << fname << endl;
+
+    if (argc != 1 && argc != 3)
+    {
+        GCommon().HandleError( fmt::format("When reading command line arguments from file you must specify either no arguments,\
+            or exactly two arguments.\ncase1: If no arguments are given, the command line arguments are read from\
+             %s\ncase: the arguments must be on the form -file [filename] in which case the command line is read from [filename]"), GLOCATION, THROW_EXCEPTION);
+
+    }
+
+    if (argc == 3)
+    {
+        if (string(argv[1]) != "-file")
+        {
+            GCommon().HandleError(fmt::format("Expected the first argument to be  \"-file\""), GLOCATION, THROW_EXCEPTION);
+            return "";
+        }
+        else
+        {
+            fname = string(argv[2]);
+        }
+    }
+
+    if (DoExists(fname) == false)
+    {
+        GCommon().HandleError(fmt::format("The file \"%s\" does not exist", fname.c_str()), GLOCATION, THROW_EXCEPTION);
+        return "";
+    }
+    else
+    {
+        return ReadFirstLine(fname);
+    }
+}
 

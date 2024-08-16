@@ -84,7 +84,9 @@ public:
         API    ToNumber(const string num){return ToFloat<T>(num);}
     template <typename T> 
     int API   CountBits(const T in);
-    
+    int64_t		        API      ToBinary(const string num);
+
+
 private:
     GNumbers() : fIsDisabledError(false) {};
     ~GNumbers() {};

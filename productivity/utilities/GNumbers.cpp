@@ -172,3 +172,74 @@ GNumbers::BitWidth(const string in)
     }
 }
 /**@}*/
+
+
+/* @brief Converts a binary number string to a 64 bits integer. The string is interpreted assuming radix 2 (i.e binary)
+*  @param[in] b  The string to convert
+*  @return the corresponding number as a 64 bit int
+*  @exception GException  if the system dependent maximum  number if bits is exceed, or if the string has wrong format. Ths is,
+*  not valid binary string format contain 0'oes nad 1'nes, and/or an optional preceding minus sign. */
+ int64_t
+GNumbers::ToBinary(const string b)
+{
+    string s = b;
+    g_string()->Trim(s);
+    bool negative = g_string()->BeginsWith(s, "-", false);
+    int64_t tmp = 0;
+    int64_t maxbits = sizeof(long long) * 8;
+    int64_t BitWidths = BitWidth(s);
+
+    if (BitWidths > maxbits)
+    {
+        char message[512];
+        #ifdef ARM
+        snprintf(message, 512,"Bitstream constains %lld bits, ( bitstring = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
+#endif
+		
+
+
+		//   #else
+#ifdef _WIN32
+		SPRINTF(message, 512,"Bitstream constains %lld bits, ( bitstring = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
+#else
+#ifdef ARM
+
+        SPRINTF(message, 512, "Bitstream constains %lld bits, ( bitstring = %s ). The max number of bits is: %lld", BitWidths, b.c_str(), maxbits);
+#else
+        SPRINTF(message, 512, "Bitstream constains %ld bits, ( bitstring = %s ). The max number of bits is: %ld", BitWidths, b.c_str(), maxbits);
+
+#endif
+
+#endif
+
+// #ifndef G_STANDALONE
+        GCommon().HandleError(message, GLOCATION, IsDisabledError() );
+// #endif
+    }
+
+    if ( g_number_types()->IsBinary(s) == true)
+    {
+        size_t n = s.size();
+        for (size_t i = 0; i < n; i++)
+        {
+            if (s[n - i - 1] == '1')
+            {
+#ifdef _WIN32
+                tmp = tmp | (1i64 << i);
+#else
+                tmp = tmp | (1 << i);
+#endif
+            }
+        }
+    }
+    else
+    {
+        string message = s + "\t is not a binary number string, the string must contain only ZERO and ONES prefixed by an optional - (minus) sign";
+// #ifndef G_STANDALONE
+       GCommon().HandleError( message, GLOCATION, IsDisabledError() );
+// #endif
+    }
+    return negative == true ?  -tmp : tmp;
+}
+
+
