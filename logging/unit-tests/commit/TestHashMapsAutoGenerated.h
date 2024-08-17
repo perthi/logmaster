@@ -1,8 +1,8 @@
 // -*- mode: c++ -*-
 
 /***** Auto generated file: DO NOT EDIT !!!!!! *****/
-/*** Generated at: Fri 16 August-2024 18:59:12  ***/
-/*** Generated from config/logging-ucw.xml **/
+/*** Generated at: Sat 17 August-2024 02:36:27  ***/
+/*** Generated from config/logging-ecostor.xml **/
 /*** Validated by config/logging.xsd **/
 
 /****************************************************************************
