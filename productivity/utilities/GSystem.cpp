@@ -339,11 +339,18 @@ GSystem::GetProcessID()
 }
 
 
-
+/**@{ 
 /** Executes a system command.
 *   @param cmd The command to execute
 *   @return  The output of the command, i.e what would have been written on the command line if the
 *   the command was executed in a console. */
+string
+GSystem::exec(const string cmd)
+{
+    return GSystem::exec(cmd.c_str() );
+}
+
+
 string
 GSystem::exec(const char* cmd)
 {
@@ -373,6 +380,7 @@ GSystem::exec(const char* cmd)
     return result;
 }
 
+/**@} */
 
 
 #ifdef _WIN32
@@ -475,7 +483,7 @@ GSystem::GetExeDir()
     auto ret = readlink("/proc/self/exe", buf, PATH_MAX);
     if(ret < 0 )
     {
-      //  GCommon().HandleError( GText("Error retriveing exe path (%s)", strerror(errno) ).str(), GLOCATION, DISABLE_EXCEPTION );
+      //  GCommon().HandleError( GText("Error retrieving exe path (%s)", strerror(errno) ).str(), GLOCATION, DISABLE_EXCEPTION );
         GCommon().HandleError(    fmt::format("Error retrieving exe path ({})", strerror(errno) ), GLOCATION, DISABLE_EXCEPTION );
     }
     else

@@ -19,10 +19,10 @@ using std::ostream;
 
 
 /** @brief    Base class for "printable" classes (to stdout) 
- *  @details  All classes that dervies from this class
+ *  @details  All classes that derives from this class
  * is printable with cout using the << operator. The user must 
  * implement the str() functions. The return value of this functions
- * is what will be printed when using cout etc.. on the obaject. */
+ * is what will be printed when using cout etc.. on the object. */
 class  GPrintable
 {
 public:

@@ -52,7 +52,10 @@ public:
     static bool           API      rm(const string filename, bool recursive = false);
     static bool           API      rmdir(const string filename);
     static void           API      mv(const string src, const string dest);
+    
+    static string         API      exec(const string cmd);
     static string         API      exec(const char *cmd);
+    
     static string         API      GetProcessID();
     static string         API      getenv(const string var);
     static bool           API      exists(const string filepath, struct  stat* sb = nullptr);
