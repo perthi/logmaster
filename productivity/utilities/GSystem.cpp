@@ -340,7 +340,7 @@ GSystem::GetProcessID()
 
 
 /**@{ 
-/** Executes a system command.
+* Executes a system command.
 *   @param cmd The command to execute
 *   @return  The output of the command, i.e what would have been written on the command line if the
 *   the command was executed in a console. */
