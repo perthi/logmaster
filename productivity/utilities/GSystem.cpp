@@ -366,12 +366,12 @@ GSystem::exec(const char* cmd)
         return "ERROR";
     }
 
-    char buffer[256];
+    char buffer[1024];
     std::string result = "";
 
     while (!feof(pipe.get()))
     {
-        if (fgets(buffer, 256, pipe.get()) != NULL)
+        if (fgets(buffer, 1024, pipe.get()) != NULL)
         {
             result += buffer;
         }
@@ -379,7 +379,6 @@ GSystem::exec(const char* cmd)
 
     return result;
 }
-
 /**@} */
 
 
