@@ -58,7 +58,7 @@ public:
     char fOrigin[1024] = {0};
     char fMsgType[MAX_MSG_TYPE_SIZE] = {0};         //!< Message type and subsystem, e.eg <Error|Database>, <Driver|Debug> etc..
     char fTimeStamp[MAX_MSG_TIME_STAMP_SIZE] = {0}; //!< The date and time the message was created
-    char fPath[MAX_MSG_PATH_SIZE] = {0};            //!< File path to the source code file where the messagee was created
+    char fPath[MAX_MSG_PATH_SIZE] = {0};            //!< File path to the source code file where the message was created
     char fFileName[MAX_MSG_FNAME_SIZE] = {0};       //!< The name of the file where the message was created
     char fFunction[MAX_MSG_FUNC_NAME_SIZE] = {0};   //!< The name of the function where the message was created
     int fRgBColor = -1;                            //!< Message color in RGB color format ( 0x000000 - 0xFFFFFF)
@@ -75,8 +75,8 @@ public:
     char fMsg[MAX_MSG_TOTAL_SIZE] = {}; //!< The complete message including time stamp etc..
     eLOGLEVEL fLevel = eLOGLEVEL(-1);              //!< The severity level of this message
     eMSGSYSTEM fSystem = eMSGSYSTEM(-1) ;            //!< The subsystem this message applies to
-    eMSGTARGET fTarget = eMSGTARGET(-1);            //!< The intended log target(s), (This varialble can be safely ignored by obsever functions)
-    eMSGFORMAT fFormat = eMSGFORMAT(-1) ;            //!< The format of the log message, i.e which files should be dislayed (This varialble can be safely ignored by obsever functions)
+    eMSGTARGET fTarget = eMSGTARGET(-1);            //!< The intended log target(s), (This variable can be safely ignored by observer functions)
+    eMSGFORMAT fFormat = eMSGFORMAT(-1) ;            //!< The format of the log message, i.e which files should be disabled (This varialble can be safely ignored by obsever functions)
 
     double fEpochTime = -1;
 

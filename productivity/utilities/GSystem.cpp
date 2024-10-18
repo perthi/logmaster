@@ -180,7 +180,7 @@ GSystem::mkdir(const string dirname, const bool print_error)
 *   @param    dirname The directory to create
 *   @param    l The location  where this function was called from
 *   @param    opt Access settings (typically 755)
-*   @param    overwrite whether or not tor overwrite/replace existing directory of it already exists 
+*   @param    overwrite whether or not to overwrite/replace existing directory of it already exists 
 *   @return   true if the directory exists, or if it doesn't already exists, but was
 *   successfully created
 *   @return false if the directory doesn't exist, and it also cannot be created (for instance if
@@ -193,6 +193,7 @@ GSystem::mkdir(const string dirname, GLocation l, const int  opt, bool overwrite
 GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
 #endif // !_WIN32
 {
+    /** @bug  magic number */
     char err[1024]; /// @todo check for buffer size
 
 #ifdef _WIN32
@@ -200,7 +201,9 @@ GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
     strerror_s(err, 1024, errno);
 #else
      int status = ::mkdir(dirname.c_str(),  opt );
-      strerror_r(errno, err,  1024);
+     
+     /** @bug  magic number */
+     strerror_r(errno, err,  1024);
 
 #endif // _WIN32
 

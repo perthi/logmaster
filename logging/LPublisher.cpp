@@ -213,7 +213,7 @@ namespace LOGMASTER
     }
 
  /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently
-     *   than any other log levels and is always written to all targets (provided that the tagtet os enabled) regardless of the configuration of the logging system.
+     *   than any other log levels and is always written to all targets (provided that the target os is enabled) regardless of the configuration of the logging system.
      *   @param[in] msg  The message to publish
      *   @param[in] cfg The current configuration of the logging system. 
      *   This configuration determins what is written and where it is written to (file, console or subscribers )
@@ -263,7 +263,7 @@ namespace LOGMASTER
     }
 
 
-    /**  Publish messages via the publisher/subscriber interface. The function iterates thrugh an
+    /**  Publish messages via the publisher/subscriber interface. The function iterates though an
      *   array of registered subscribers (if any), and  calls each callback function with the message, 
      *   subsystem and level as arguments
      *   @param msg  The message to publish */

@@ -14,9 +14,9 @@
 /** @class LOGMASTER::LValidateArgs 
 *   @brief Functions for validation of commandline arguments for the logging system.
 *
-*   This class provide functions that verifies that sub-parameters and sub-commands used with te 3 main swicthces "-loglevel",  "-logtarget" and "-logformat"
+*   This class provide functions that verifies that sub-parameters and sub-commands used with te 3 main switches "-loglevel",  "-logtarget" and "-logformat"
 *   are legal ones. For instance, if the command line is -loglevel \<subcommand\> then it is checked that \<subcommand\>  is present in the hash table of valid
-*   subcommands. These functins are called automatically by the command line handling system*/
+*   subcommands. These functions are called automatically by the command line handling system*/
 
 
 
