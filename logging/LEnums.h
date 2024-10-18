@@ -65,7 +65,7 @@ enum  ePUBLISH_MODE
         TARGET_EXCEPTION        =   0x10,    // 00010000     The exception system, always ON, not configurable
      //   TARGET_TESTING          =   0x20,    // 00100000     Dedicated targe for debugging
         TARGET_DATABASE         =   0x20,    // 01000000     Dedicated targe t for database
-        TARGET_ALL              =   0xff     // 01111111     Write log messages to all availabel log targets.
+        TARGET_ALL              =   0xff     // 01111111     Write log messages to all available log targets.
     };
 
 

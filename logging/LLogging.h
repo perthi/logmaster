@@ -148,7 +148,7 @@ namespace LOGMASTER
      *  type and the location in the source file where the message was generated.
      *   @param  level  the loglevel/severity of the message
      *   @param  sys    the subsystem the message applies to
-     *   @param  l    The location of the log  message in the code (filenam, function name line number etc.. )
+     *   @param  l    The location of the log  message in the code (filename, function name line number etc.. )
      *   @param  fmt The formatting for the message (same as the  C style printf formatting)
      *   @param  args  Variable argument list
      *   @return  The generated log messages */

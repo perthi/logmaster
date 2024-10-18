@@ -569,7 +569,7 @@ namespace LOGMASTER
     *  that is above a given log level.
     *  @details In a production system the performance can be significantly improved by only performing a format check
     *  on messages that will actually be written to any of the log targets. However this has the drawback that
-    *  formatting errors for DEBUG, INFO etch will not be detected if the log level is for instance WARNING, so one can get a suprise
+    *  formatting errors for DEBUG, INFO etch will not be detected if the log level is for instance WARNING, so one can get a surprise
     *  if the log level is changed.
     *  @param val[in] true/false. TRUE: all messages are checked, FALSE: Only messages matching the log level will be checked. */ 
    void  

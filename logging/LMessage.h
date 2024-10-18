@@ -76,7 +76,7 @@ public:
     eLOGLEVEL fLevel = eLOGLEVEL(-1);              //!< The severity level of this message
     eMSGSYSTEM fSystem = eMSGSYSTEM(-1) ;            //!< The subsystem this message applies to
     eMSGTARGET fTarget = eMSGTARGET(-1);            //!< The intended log target(s), (This variable can be safely ignored by observer functions)
-    eMSGFORMAT fFormat = eMSGFORMAT(-1) ;            //!< The format of the log message, i.e which files should be disabled (This varialble can be safely ignored by obsever functions)
+    eMSGFORMAT fFormat = eMSGFORMAT(-1) ;            //!< The format of the log message, i.e which files should be disabled (This variable can be safely ignored by observer functions)
 
     double fEpochTime = -1;
 

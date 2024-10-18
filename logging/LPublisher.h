@@ -35,7 +35,7 @@ namespace LOGMASTER
 
     /** @class LPublisher
     * class that is responsible for writing ( publishing) messages to various targets. Available targets
-    * for the moment is  File, subscribere functions, or standard output (i.e the console). Targets soon to
+    * for the moment is  File, subscriber functions, or standard output (i.e the console). Targets soon to
     * be added is GUI, and TCP/IP port */
     class LPublisher
     {

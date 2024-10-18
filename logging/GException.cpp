@@ -87,9 +87,9 @@ GException::IsEnabledException()
 /**@{
 * @brief wether or not to enable exception
 *
-* If disabled, then the exeption handling system will write
+* If disabled, then the exertion handling system will write
 * a fatal log message instead of actually throwing an exception
-* which can be usefull for debugging* */
+* which can be useful for debugging* */
 void
 GException::EnableException()
 {
@@ -116,7 +116,7 @@ GException::IsEnabledStackTrace()
   * @brief wether or not to enable stack trace
   *
   * If enabled, then a stack trace is added to the exception befor its logged/published vi the
-  * logging system. This can be usefull for debugging. By default the stack trace is turned off */
+  * logging system. This can be useful for debugging. By default the stack trace is turned off */
 void
 GException::EnableStackTrace()
 {

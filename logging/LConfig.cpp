@@ -330,7 +330,7 @@ namespace LOGMASTER
             fprintf(fp, "%s", "*/");
             fclose(fp);
         }
-        return "not impledmented";
+        return "not implemented";
     }
 
 

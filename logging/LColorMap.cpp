@@ -51,7 +51,7 @@ LColorMap* LColorMap::Instance()
 /** Get the color in RGB (Red, Green, Blue) format for a given loglevel
 *   level l[in] The level to get the color for
 *   @return the RGB color code if a color code exists for this loglevel 
-*   othervise the default color which is CYAN*/
+*   otherwise the default color which is CYAN*/
 int
 LColorMap::GetRGB( const eLOGLEVEL l)
 {
@@ -72,7 +72,7 @@ LColorMap::GetRGB( const eLOGLEVEL l)
 /** Get the color in Windows Console Color (CC)  format for a given loglevel
 *   level l[in] The level to get the color for
 *   @return the CC color code if a color code exists for this loglevel 
-*   othervise the default color which is T_CYAN*/
+*   otherwise the default color which is T_CYAN*/
 int
 LColorMap::GetCColor( const eLOGLEVEL l)
 {
