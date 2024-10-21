@@ -27,14 +27,9 @@ class  GPrintable
 {
 public:
     inline   GPrintable() {};
-
     inline   virtual ~GPrintable( ) {};
-   // virtual  string str() const = 0;
-   // virtual string str() const { return "not implemented"; };
     virtual string str() const = 0;
-
 };
-
 
 
 inline
