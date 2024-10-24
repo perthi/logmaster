@@ -112,7 +112,7 @@ TEST_F(TestSubscriber, functionRegistration)
 
 /// Here we want check that we can set the log targets correctly. So that if we specify just an 
 /// Subscriber, then the message only ends up there etc, and not to the logfile or standard output.
-/// We also want to check that we can set any other combiantions of log targets.
+/// We also want to check that we can set any other combinations of log targets.
 TEST_F(TestSubscriber, setTargetTest )
 {
     LPublisher::Instance()->DisableColor();
