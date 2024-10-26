@@ -370,7 +370,7 @@ GSystem::exec(const char* cmd)
     }
 
     /** @bug magic number */
-    char buffer[4096];
+    char buffer[8192] = {0};
     std::string result = "";
 
     while (!feof(pipe.get()))
