@@ -160,7 +160,6 @@ namespace LOGMASTER
     }
 
 
-
     /**@{*/
     /** Helper function for the main logging (Log) function. The severity("level")
      *  and subsystem  ("system") of the message is checked against the configuration
@@ -170,7 +169,7 @@ namespace LOGMASTER
      *   @param  system the subsystem the message applies to
      *   @param  filename The name of the source code file where the message i created
      *   @param  linenumber  The line number where the message is generated
-     *   @param  functionname The name of the function that generated the message
+     *   @param  function_name The name of the function that generated the message
      *   @param  force_generate Force the generation of message, regardless of the
      *             loglevel and subsystem. This feature is used by the exception handling system
      *             where one wants the message to be generated regardless (because you want to
@@ -181,29 +180,14 @@ namespace LOGMASTER
     template<typename... Args>
     logmap
         LLogging::LogVarArgs(const eLOGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
-            const char* functionname,
+            const char* function_name,
             const bool force_generate, string addendum, const char* fmt, const Args ... args)
     {
-    //    static std::mutex mtx;
-    //    std::lock_guard<std::mutex> lock(mtx);
+         /** @todo Refactor this function */
+        static std::mutex mtx;
+        std::lock_guard<std::mutex> lock(mtx);
     
-    
-    /** @todo Refactor this function */
 
-        std::lock_guard<std::mutex> lock(fLoggingMutex2);
-
-/*
-#ifdef THREAD_SAFE
-#ifndef ARM
-        const std::lock_guard<std::recursive_mutex> lock(fLoggingMutex);
-#else
-        const std::lock_guard<std::mutex> lock(fLoggingMutex);
-#endif
-#endif
-*/
-    //     static std::mutex mtx;
-//        std::lock_guard<std::mutex> guard( fLoggingMutex2  );
-    //    std::lock_guard<std::mutex> guard2( fLoggingMutex2  );
         if (fConfig == nullptr)
         {
             CERR << "CONFIG IS A ZERO POINTER" << ENDL;
@@ -211,12 +195,13 @@ namespace LOGMASTER
             //exit(-1);
         }
 
+
         std::shared_ptr<LMessage>  tmp_msg =  nullptr;
         std::pair<bool, string>  formatCheck;
 
-        auto format_check = [ &addendum, &filename, &linenumber, &functionname, fmt, args...](  )
+        auto format_check = [ &addendum, &filename, &linenumber, &function_name, fmt, args...](  )
         {
-            std::pair<bool, string>  f = GFormatting::checkFormat(filename, linenumber, functionname, fmt, args...);
+            std::pair<bool, string>  f = GFormatting::checkFormat(filename, linenumber, function_name, fmt, args...);
             if (f.first == false)
             {
                 addendum += " (" + f.second + ")";
@@ -234,18 +219,10 @@ namespace LOGMASTER
             formatCheck = std::make_pair<bool, string>(true, ""); 
         }
         
-        //std::lock_guard<std::recursive_mutex> lock(fLoggingMutex2);
-      //  static std::recursive_mutex mtx;
+       ///  CERR << "address = " << fConfig << ENDL;
 
-       // printf("Grabbing mutext");
-       // std::lock_guard<std::recursive_mutex> lock(mtx);
-       // printf("Done");
-
-        auto start =  fConfig->begin();
-        auto end =  fConfig->end();
-
-      //  for (auto it = fConfig->begin(); it != fConfig->end(); ++it)
-        for (auto it = start; it != end; ++it)
+       for (auto it = fConfig->begin(); it != fConfig->end(); it++ )
+      //  for (auto &it = start; it != end; ++it)
         {
             if (it->second.IsEnabled() == true)
             {
@@ -265,12 +242,12 @@ namespace LOGMASTER
                     if (formatCheck.first == true)
                     {
                       //  std::lock_guard<std::mutex> guard2( fLoggingMutex2  );
-                        tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, functionname, addendum, fmt, args...);
+                        tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, function_name, addendum, fmt, args...);
                     }
                     else
                     {
-                        /// CERR << "FORMAT ERROR" << ENDL;
-                        tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, functionname, addendum, fmt);
+                        CERR << "FORMAT ERROR" << ENDL;
+                        tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, function_name, addendum, fmt);
                     }
 
                     if (cl == true)

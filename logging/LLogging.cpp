@@ -89,6 +89,7 @@ namespace LOGMASTER
         LPublisher::Instance()->SetMode( mode ); 
     }
 
+
     void 
     LLogging::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
     {
@@ -120,30 +121,42 @@ namespace LOGMASTER
         }
     }
 
+
     void
     LLogging::Init()
     {
-        fConfig    =            std::make_shared<  std::map<eMSGTARGET,  LMessageFactory  > >();
-        fDefaultConfig =        std::make_shared< std::map<eMSGTARGET, LMessageFactory > > ();
+        static bool is_initialized = false;
 
-        fConfig->emplace(  eMSGTARGET::TARGET_FILE,        LMessageFactory()  ) ;
-        fConfig->emplace(  eMSGTARGET::TARGET_STDOUT,      LMessageFactory());
-        fConfig->emplace(  eMSGTARGET::TARGET_SUBSCRIBERS, LMessageFactory() );
-        fConfig->emplace(  eMSGTARGET::TARGET_GUI,         LMessageFactory() );
-        fConfig->emplace(  eMSGTARGET::TARGET_EXCEPTION,   LMessageFactory() );
-        fConfig->emplace(  eMSGTARGET::TARGET_DATABASE,     LMessageFactory() );
-
-        fDefaultConfig = fConfig;
-
-        SetLogTarget( "--target-off --target-file --target-subscriber --target-stdout --target-gui --target-db" );
-        SetLogLevel("--all-warning");
-        SetLogFormat("--target-gui --all-off --short-user");
-
-        fMessages =  std::make_shared< std::map<eMSGTARGET,  std::shared_ptr<LMessage>   > >();
-
-        for ( auto it = fConfig->begin(); it != fConfig->end(); it ++ )
+        if( is_initialized == false )
         {
-            fMessages->emplace( it->first, new LMessage() );
+          fConfig    =            std::make_shared<  std::map<eMSGTARGET,  LMessageFactory  > >();
+          fDefaultConfig =        std::make_shared< std::map<eMSGTARGET, LMessageFactory > > ();
+
+          fConfig->emplace(  eMSGTARGET::TARGET_FILE,        LMessageFactory()  ) ;
+          fConfig->emplace(  eMSGTARGET::TARGET_STDOUT,      LMessageFactory());
+          fConfig->emplace(  eMSGTARGET::TARGET_SUBSCRIBERS, LMessageFactory() );
+          fConfig->emplace(  eMSGTARGET::TARGET_GUI,         LMessageFactory() );
+          fConfig->emplace(  eMSGTARGET::TARGET_EXCEPTION,   LMessageFactory() );
+          fConfig->emplace(  eMSGTARGET::TARGET_DATABASE,     LMessageFactory() );
+
+          fDefaultConfig = fConfig;
+
+          SetLogTarget( "--target-off --target-file --target-subscriber --target-stdout --target-gui --target-db" );
+          SetLogLevel("--all-warning");
+          SetLogFormat("--target-gui --all-off --short-user");
+
+          fMessages =  std::make_shared< std::map<eMSGTARGET,  std::shared_ptr<LMessage>   > >();
+
+          for ( auto it = fConfig->begin(); it != fConfig->end(); it ++ )
+          {
+              fMessages->emplace( it->first, new LMessage() );
+          }
+            is_initialized = true;
+        }
+        else
+        {
+            // CERR << "Allreadyinitialized !!!" << ENDL;
+            //exit(-1);
         }
     }
 
@@ -175,7 +188,6 @@ namespace LOGMASTER
             fConfigurationStack.pop();
         } while ( fConfigurationStack.size() > 0 );
     }
-
   
 
     /** Checks the log level of a message issued by the user against the current log level configured for the logging system*
@@ -242,7 +254,9 @@ namespace LOGMASTER
         }
     }
 
-    void LLogging::Flush()
+
+    void
+    LLogging::Flush()
     {
         LPublisher::Instance()->Flush();
     }

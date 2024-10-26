@@ -90,6 +90,7 @@ namespace LOGMASTER
         fDispatcher = new std::thread( &::LPublisher::RunDispatcher, this );
     }
 
+
     void
     LPublisher::StopDispatcher()
     {
@@ -131,6 +132,7 @@ namespace LOGMASTER
        fDoRun = false;  
     }
     
+
     void  
     LPublisher::ResumeDispatcher()
     {
@@ -185,6 +187,7 @@ namespace LOGMASTER
     
     }
 
+
     void
     LPublisher::QueMessage(std::shared_ptr<LMessage> msg, std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
     {
@@ -211,6 +214,7 @@ namespace LOGMASTER
             }
         }
     }
+
 
  /** Publish the message to all targets that is enabled.  Enabled targets are stored in the cfg parameter. The loglevel FORCE_DEBUG is handled differently
      *   than any other log levels and is always written to all targets (provided that the target os is enabled) regardless of the configuration of the logging system.
@@ -345,8 +349,6 @@ namespace LOGMASTER
         if (logFile)
         {
             static char buffer[ 11650];
-//#define SPRINTF_S(buffer, input) snprintf(buffer, sizeof(buffer) -1, "%s", input.c_str() ) 
-
             snprintf(buffer,  sizeof(buffer) -1, "\033[1;%dm%s\33[0m", msg->fAColor, msg->fMsg);
 
             if(  msg->fMsg[0] == 0 )
@@ -372,7 +374,6 @@ namespace LOGMASTER
              PublishToFileJson( filename , msg );
         }
     }
-
 
 
     void     
@@ -436,17 +437,20 @@ namespace LOGMASTER
         fgEnableJson = true;
     }
 
+
     void   
     LPublisher::DisableJson()
     {
         fgEnableJson = false;
     }
-    
+
+
     bool   *
     LPublisher::GetEnableJson()
     {
         return &fgEnableJson;
     }  
+
 
    void 
    LPublisher::SetMode( const ePUBLISH_MODE mode )
@@ -466,7 +470,9 @@ namespace LOGMASTER
 
    }
 
-   void LPublisher::Flush()
+
+   void 
+   LPublisher::Flush()
    {
        while ( fMessageQeueTmp.size()  > 0 || fMessageQeue.size() > 0)
        {
