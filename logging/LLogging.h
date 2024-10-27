@@ -135,7 +135,7 @@ namespace LOGMASTER
         #ifdef ARM
         std::mutex fLoggingMutex2{};
         #else
-        std::mutex fLoggingMutex2{};
+        std::mutex fLoggingMutex{};
         //std::mutex fLoggingMutex2;
         #endif
         
@@ -220,7 +220,13 @@ namespace LOGMASTER
         }
         
        ///  CERR << "address = " << fConfig << ENDL;
+       
 
+
+       
+       
+       std::lock_guard<std::mutex> guard( fLoggingMutex );
+       
        for (auto it = fConfig->begin(); it != fConfig->end(); it++ )
       //  for (auto &it = start; it != end; ++it)
         {
@@ -241,7 +247,7 @@ namespace LOGMASTER
 
                     if (formatCheck.first == true)
                     {
-                      //  std::lock_guard<std::mutex> guard2( fLoggingMutex2  );
+                     //   std::lock_guard<std::mutex> guard2( fLoggingMutex  );
                         tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, function_name, addendum, fmt, args...);
                     }
                     else

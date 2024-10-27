@@ -413,13 +413,14 @@ namespace LOGMASTER
     void
     LLogging::SetLogLevel( const string& level_s )
     {
-        std::lock_guard<std::mutex> guard( log_mutex );
+      //  std::lock_guard<std::mutex> guard( log_mutex );
         
         try
         {
 //            CERR << "level_s = " << level_s << ENDL;
             auto m = LConversion::SplitByTarget(level_s);
   //          CERR << "m.size() = "<< m.size()  << ENDL;
+            std::lock_guard<std::mutex> lock(fLoggingMutex);
 
             for ( auto it_m = m.begin( ); it_m != m.end( ); it_m++ )
             {
@@ -434,11 +435,12 @@ namespace LOGMASTER
                         it->second.GetConfig( )->SetLogLevel(it_m->second);
                     }
                 }
+                fLoggingMutex.unlock();
             }
         }
         catch( std::exception &e )
         { 
-        
+            
             cout << LDoc::Help( ) << endl;
             //CERR << "Exception caught setting log level: " << e.what() << ENDL;
             throw(e);
@@ -516,27 +518,38 @@ namespace LOGMASTER
     LLogging::Push( )
     {
       ///  static std::mutex m;
-        std::lock_guard<std::mutex> guard( log_mutex );
+        //std::lock_guard<std::mutex> guard( log_mutex );
        // return 0;
+        
+//        fLoggingMutex.lock();
+        std::lock_guard<std::mutex> guard( fLoggingMutex );
+
+        int iret = 0;
         if ( fConfigurationStack.size() >= MAX_STACK_DEPTH )
         {
             CERR << "stack is full (size = " << fConfigurationStack.size() << ")" << ENDL;
-            return -1;
+            iret =  -1;
         }
         else
         {   
             fConfigurationStack.push( fConfig );
             fConfig =  std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
-            return 0;
+            iret =  0;
         }
-        return 0;
+
+        fLoggingMutex.unlock();
+
+        return iret;
     }
 
 
     int
     LLogging::Pop(  )
     {
-       std::lock_guard<std::mutex> guard( log_mutex );
+       std::lock_guard<std::mutex> guard( fLoggingMutex );
+
+    
+
         if ( fConfigurationStack.size() > 0 )
         {
             fConfig = fConfigurationStack.top();
