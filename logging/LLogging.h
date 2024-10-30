@@ -133,7 +133,7 @@ namespace LOGMASTER
         std::stack<   std::shared_ptr<  std::map<eMSGTARGET, LMessageFactory   >  >     >  fConfigurationStack;
         
         #ifdef ARM
-        std::mutex fLoggingMutex2{};
+        std::mutex fLoggingMutex{};
         #else
         std::mutex fLoggingMutex{};
         //std::mutex fLoggingMutex2;
