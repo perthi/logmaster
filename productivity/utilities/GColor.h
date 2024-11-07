@@ -17,33 +17,33 @@
 *****************************************************************************/
 
 /*Color Definitions using Ansi colors*/
-#define A_WHITE      97
-#define A_BLACK      30
-#define A_GREEN      92
-#define A_DARK_GREEN 32
-#define A_YELLOW     93
-#define A_ORANGE     33
-#define A_RED         31
+#define A_WHITE        97
+#define A_BLACK        30
+#define A_GREEN        92
+#define A_DARK_GREEN   32
+#define A_YELLOW       93
+#define A_ORANGE       33
+#define A_RED          31
 #define A_BLUE         34 
-#define A_LIGHT_BLUE 36
-#define A_CYAN       96
-#define A_PURPLE     95
-#define A_GRAY       37
+#define A_LIGHT_BLUE   36
+#define A_CYAN         96
+#define A_PURPLE       95
+#define A_GRAY         37
 
-/* Color defineitions usng RGB format*/
-#define C_WHITE      0xFFFFFF
-#define C_BLACK      0x000000
-#define C_GREEN      0x28ED4D
-#define C_DARK_GREEN 0x256E53
-#define C_YELLOW     0xF0F70C
-#define C_ORANGE     0xEDAF28
-#define C_RED         0xED3C28
+/* Color definitions using RGB format*/
+#define C_WHITE        0xFFFFFF
+#define C_BLACK        0x000000
+#define C_GREEN        0x28ED4D
+#define C_DARK_GREEN   0x256E53
+#define C_YELLOW       0xF0F70C
+#define C_ORANGE       0xEDAF28
+#define C_RED          0xED3C28
 #define C_BLUE         0x1313F0 
-#define C_LIGHT_BLUE 0x6ABCE6
-#define C_CYAN       0x28EDE0
-#define C_PURPLE     0x7E28ED
-#define C_GRAY       0xCFCFCF
-#define C_LIGHT_GRAY 0xD8D8D8
+#define C_LIGHT_BLUE   0x6ABCE6
+#define C_CYAN         0x28EDE0
+#define C_PURPLE       0x7E28ED
+#define C_GRAY         0xCFCFCF
+#define C_LIGHT_GRAY   0xD8D8D8
 
 /*color definitions for the windows terminal/console
 * Here we dont have much resolution/bits to play with, but lets give it a try */
