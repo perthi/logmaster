@@ -16,6 +16,9 @@
 *** General Public License(LGPL) V3 or later.See.cpp file for details     ***
 *****************************************************************************/
 
+
+/** @todo the color definitions should be enumerators */
+
 /*Color Definitions using Ansi colors*/
 #define A_WHITE        97
 #define A_BLACK        30
@@ -79,4 +82,99 @@
 
 
 #define CONSOLE_DEFAULT T_LIGHT_GRAY
+
+
+inline int 
+Rgb2Ansi(int rgb_code)
+{
+    switch (rgb_code)
+    {
+    case C_WHITE :
+        return A_WHITE;
+    case C_BLACK:    
+        return  A_BLACK;
+        break;
+    case C_GREEN:
+        return   A_GREEN;
+        break;
+    case C_DARK_GREEN:
+        return   A_DARK_GREEN;
+        break; 
+    case C_YELLOW:
+        return   A_YELLOW;
+        break; 
+    case C_ORANGE:
+        return   A_ORANGE;
+        break; 
+    case C_RED:
+        return   A_RED;
+        break; 
+    case C_BLUE:
+        return   A_BLUE;
+        break; 
+    case C_LIGHT_BLUE:
+        return   A_LIGHT_BLUE;
+        break; 
+    case C_CYAN:
+        return   A_CYAN;
+        break; 
+    case C_PURPLE:
+        return   A_PURPLE;
+        break; 
+    case C_GRAY:
+        return   A_GRAY;
+        break; 
+    default:
+        return 0;
+        break;
+    }
+
+}
+
+inline int 
+Ansi2Rgb(int rgb_code)
+{
+    switch (rgb_code)
+    {
+    case A_WHITE :
+        return C_WHITE;
+    case A_BLACK:    
+        return  C_BLACK;
+        break;
+    case A_GREEN:
+        return   C_GREEN;
+        break;
+    case A_DARK_GREEN:
+        return   C_DARK_GREEN;
+        break; 
+    case A_YELLOW:
+        return   C_YELLOW;
+        break; 
+    case A_ORANGE:
+        return   C_ORANGE;
+        break; 
+    case A_RED:
+        return   C_RED;
+        break; 
+    case A_BLUE:
+        return   C_BLUE;
+        break; 
+    case A_LIGHT_BLUE:
+        return   C_LIGHT_BLUE;
+        break; 
+    case A_CYAN:
+        return   C_CYAN;
+        break; 
+    case A_PURPLE:
+        return   C_PURPLE;
+        break; 
+    case A_GRAY:
+        return   C_GRAY;
+        break; 
+    default:
+        return 0;
+        break;
+    }
+
+}
 
