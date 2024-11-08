@@ -378,3 +378,12 @@ GTime::TimeStamp(struct std::tm *tout, const char *format, struct std::tm *tin, 
 }
 
 
+/** Calculates the tme interval between a start time and an end time
+ *  @param start_time The start time in seconds since since 1.January 1970 (epoch time)
+ *  @param start_time The end time in seconds tine since 1.January 1970 (epoch time)
+ */
+ double    
+ GTime::CalculateTmeInterval( double start_time, double end_time)
+ {
+    return (end_time - start_time);
+ }
