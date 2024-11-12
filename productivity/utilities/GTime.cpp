@@ -383,7 +383,7 @@ GTime::TimeStamp(struct std::tm *tout, const char *format, struct std::tm *tin, 
  *  @param start_time The end time in seconds tine since 1.January 1970 (epoch time)
  */
  double    
- GTime::CalculateTmeInterval( double start_time, double end_time)
+ GTime::CalculateTimeInterval( double start_time, double end_time)
  {
     return (end_time - start_time);
  }

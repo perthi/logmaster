@@ -53,7 +53,7 @@ public:
     time_t           API   DateString2Time(const string date, const string format, std::tm *t = 0, int64_t *us = 0);
     string           API   TimeStampShort(struct std::tm *tout = 0, struct std::tm *tin = 0, int64_t *us = 0);
     static  void     API   SetExternalTimeSource(  std::function<double()>  funct ); 
-    double           API   CalculateTmeInterval( double start_time, double end_time); 
+    double           API   CalculateTimeInterval( double start_time, double end_time); 
 
 
 #ifdef _WIN32
