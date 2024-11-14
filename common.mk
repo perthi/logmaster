@@ -99,7 +99,7 @@ compileinfo_dir:
 	fi
 
 
-$(PROGRAM):: $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC) compileinfo_dir
+$(PROGRAM): $(OBJS) $(OBJSCPP) $(SRCCPP) $(SRC)
 	@echo $(LIBS) > $(CURDIR)/../..//.compileinfo-$(TARGET)/$(PROGRAM)_flags.txt
 	@echo $(CPPFLAGS) >> $(CURDIR)/../..//.compileinfo-$(TARGET)/$(PROGRAM)_flags.txt
 	$(CCLOCAL) $(CPPFLAGS) -o  $(PROGRAM) $(OBJS) $(OBJSCPP) $(LIBS) 
@@ -131,8 +131,9 @@ define generate-version-info
 endef
 
 
-$(PROGRAM)::  compileinfo_dir
-	$(call generate-version-info )
+#$(PROGRAM)::  compileinfo_dir
+#	$(call generate-version-info )
+
 
 VPATH=../
 
