@@ -34,6 +34,8 @@
 #include "GString.h"
 #include "GCommon.h"
 #include "GLocation.h"
+#include "GDefinitions.h"
+#include <fmt/format.h>
 //#include <logging/GException.h> 
 
 
@@ -273,7 +275,7 @@ GSystem::exists(const string filepath, struct  stat *sb_in)
  * @return true if the path exists and is a regular file/directory.
  * false otherwise */
 bool     
-GSystem::isdirectory(const string filepath, struct  stat*  /*sb_in*/)
+GSystem::IsDirectory(const string filepath, struct  stat*  /*sb_in*/)
 {
 
     ///@todo use sb_in parameter or remove it
@@ -345,23 +347,38 @@ GSystem::GetProcessID()
 /**@{ 
 * Executes a system command.
 *   @param cmd The command to execute
+*   @param timeout The call will abort with an exception if no return value was obtained within thew timeout
 *   @return  The output of the command, i.e what would have been written on the command line if the
+*   @exception std::exception if no return value was obtained within "timeout"
 *   the command was executed in a console. */
 string
-GSystem::exec(const string cmd)
+GSystem::exec(const string cmd, const float timeout)
 {
-    return GSystem::exec(cmd.c_str() );
+    return GSystem::exec(cmd.c_str(), timeout );
 }
 
 
 string
-GSystem::exec(const char* cmd)
+GSystem::exec(const char* cmd, const float timeout)
 {
+    char cmd_buffer[8192] = {0};
+    if( timeout < 0)
+    {
+        CERR << "Timeout cannot be negative, ignoring paramater" << ENDL;
+    }
+    else if(timeout > 0)
+    {
+        snprintf(cmd_buffer, sizeof(cmd_buffer) -1, "timeout %f  %s", timeout,  cmd ); 
+    }
+    else
+    {
+        snprintf(cmd_buffer, sizeof(cmd_buffer) -1, "%s", cmd ); 
+    }
 
 #ifdef _WIN32
-    std::shared_ptr<FILE> pipe(_popen(cmd, "r"), _pclose);
+    std::shared_ptr<FILE> pipe(_popen(cmd_buffer, "r"), _pclose);
 #else
-    std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
+    std::shared_ptr<FILE> pipe(popen(cmd_buffer, "r"), pclose);
 #endif
 
     if (!pipe)
@@ -370,17 +387,25 @@ GSystem::exec(const char* cmd)
     }
 
     /** @bug magic number */
-    char buffer[8192] = {0};
+    char result_buffer[8192] = {0};
     std::string result = "";
 
     while (!feof(pipe.get()))
     {
         /** @bug magic number */
-        if (fgets(buffer, 4096, pipe.get()) != NULL)
+        if (fgets(result_buffer, 8192, pipe.get()) != NULL)
         {
-            result += buffer;
+            result += result_buffer;
         }
     }
+    
+    /** @todo Check the return value in bash, some commands might return no results */
+    if(result.size() == 0 && timeout > 0)
+    {
+        throw(std::runtime_error( fmt::format("Command {} did not return anything within {} seconds", cmd_buffer, timeout).c_str() ));
+    }
+
+
 
     return result;
 }
