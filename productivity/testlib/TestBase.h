@@ -52,6 +52,7 @@ class Environment : public ::testing::Environment {
   // Override this to define how to set up the environment.
   void SetUp() override 
   {
+	CERR << "CALLING SETUP" << ENDL;
 	PUSH();
     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 	SET_LOGTARGET("--target-off --target-file");
