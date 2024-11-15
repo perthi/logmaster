@@ -21,8 +21,11 @@ extern char **argv_;
 #include <cmdline/GCmdScan.h>
 #include <utilities/GFileIOHandler.h>
 #include <logging/LLogApi.h> 
+#include <logging/LPublisher.h>
 using namespace LOGMASTER;
 #endif
+
+
 
 #include <utilities/version-info/GMenu.h>
 
@@ -35,15 +38,39 @@ using std::string;
 #include <gtest-embc/gtest.h>
 #endif
 
+// #define HAS_LOGGING
 
 // Temp fix for ESCORE-1327, argc has been hardcoded to 1
 #ifdef HAS_LOGGING
 #include <cmdline/GLogApplication.h>
+
+
+class Environment : public ::testing::Environment {
+ public:
+  ~Environment() override {}
+
+  // Override this to define how to set up the environment.
+  void SetUp() override 
+  {
+	PUSH();
+    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+	SET_LOGTARGET("--target-off --target-file");
+  }
+
+  // Override this to define how to tear down the environment.
+  void TearDown() override 
+  {
+	POP();
+  }
+};
+
+
 #define MAIN_UNITTEST() \
 int argc_ = 0; \
 char** argv_ = nullptr; \
 int  main(int argc, char** argv) \
 { \
+ testing::AddGlobalTestEnvironment(new Environment()); \
  /* GMenu::Instance()->ScanArguments(argc, (const char** )argv); */ \
 argc_ = argc; \
     argv_ = argv; \
@@ -71,13 +98,10 @@ int  main(int argc, char** argv) \
 #endif
 
 
-
-
-
 #define CATCH_GTEST_EXEPTION                                  \
 	catch (GException & e)                                    \
 	{                                                         \
-		CERR  << e.what() <<  endl;                             \
+		CERR  << e.what() <<  endl;                           \
 		FAIL();                                               \
 	}                                                         \
 	catch (testing::internal::GoogleTestFailureException & e) \
@@ -87,17 +111,17 @@ int  main(int argc, char** argv) \
 	}                                                         \
 	catch (const std::exception &e)                           \
 	{                                                         \
-		CERR  << e.what() << '\n';                             \
+		CERR  << e.what() << '\n';                            \
 		FAIL();                                               \
 	}                                                         \
-	catch (std::string & e)                                 \
+	catch (std::string & e)                                   \
 	{                                                         \
-		CERR  << e << endl;                                    \
+		CERR  << e << endl;                                   \
 		FAIL();                                               \
 	}                                                         \
 	catch (...)                                               \
 	{                                                         \
-		CERR << "Unknown exception caught" << endl;          \
+		CERR << "Unknown exception caught" << endl;           \
 		FAIL();                                               \
 	}
 
@@ -154,5 +178,9 @@ TestBase::FileIOTest(const string fname)
 	string last = g_file()->ReadLastLine(fname_local, 1);
 	return last;
 }
+
+
+
+
 
 #endif
