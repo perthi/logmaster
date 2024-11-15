@@ -265,9 +265,9 @@ namespace LOGMASTER
     void
     LLogging::SetLogTarget( const string& target_s, bool eneable )
     {
-#ifdef THREAD_SAFE
+//#ifdef THREAD_SAFE
         std::lock_guard<std::mutex> guard( log_mutex );
-#endif
+//#endif
         vector<eMSGTARGET> e_targets;
         vector<string> tokens  =  GTokenizer().Tokenize( target_s, vector<string>{" ", "\n","\t" } );
 
