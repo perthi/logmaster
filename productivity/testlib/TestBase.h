@@ -14,6 +14,7 @@
 
 #include <utilities/GDefinitions.h>
 
+
 #ifdef HAS_LOGGING
 extern int argc_;
 extern char **argv_;
@@ -41,6 +42,8 @@ using std::string;
 // #define HAS_LOGGING
 
 // Temp fix for ESCORE-1327, argc has been hardcoded to 1
+
+
 #ifdef HAS_LOGGING
 #include <cmdline/GLogApplication.h>
 
@@ -52,7 +55,6 @@ class Environment : public ::testing::Environment {
   // Override this to define how to set up the environment.
   void SetUp() override 
   {
-	CERR << "CALLING SETUP" << ENDL;
 	PUSH();
     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 	SET_LOGTARGET("--target-off --target-file");
