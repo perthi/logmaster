@@ -27,7 +27,8 @@ using namespace LOGMASTER;
 #endif
 
 
-
+#include <thread>
+#include <chrono>
 #include <utilities/version-info/GMenu.h>
 
 #include <string>
@@ -56,7 +57,7 @@ class Environment : public ::testing::Environment {
   // Override this to define how to set up the environment.
   void SetUp() override 
   {
-	PUSH();
+	//PUSH();
     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 	SET_LOGTARGET("--target-off --target-file");
   }
@@ -64,7 +65,8 @@ class Environment : public ::testing::Environment {
   // Override this to define how to tear down the environment.
   void TearDown() override 
   {
-	POP();
+	std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	//POP();
   }
 };
 
