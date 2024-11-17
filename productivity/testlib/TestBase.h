@@ -37,6 +37,7 @@ using std::string;
 #include <gtest/gtest.h>
 #else
 #include <gtest-embc/gtest.h>
+#include <gmock-embc/gmock.h>
 #endif
 
 // #define HAS_LOGGING
