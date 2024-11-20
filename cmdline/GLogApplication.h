@@ -64,8 +64,11 @@ public:
     eDUP_STRATEGY    API   GetDuplicateStrategy( ) const;
     GLogApplication  API & AddArgument(arg_ptr  arg, eDUP_STRATEGY s = eDUP_STRATEGY::THROW_EXEPTION);
     GLogApplication  API & AddArguments(arg_deque  args);
-    void     API   ScanArguments(const string cmdline);
-    void     API   ScanArguments(const int argc, const char** argv);
+    void             API   ScanArguments(const string cmdline);
+    void             API   ScanArguments(const int argc, const char** argv);
+    void             API   ScanArguments(const string cmdline, arg_ptr arg);
+    void             API   ScanArguments(const string cmdline, arg_deque args);
+    GLogApplication  API & ScanArguments(const int argc, const char** argv, arg_deque  arg);
 
 #ifdef _WIN32
     void             API   ScanArguments( );
@@ -87,9 +90,7 @@ public:
 //private:
     API      GLogApplication(GLogApplication&);
     void     operator=(GLogApplication&);
-    void                 API    ScanArguments(const string cmdline, arg_ptr arg);
-    void                 API    ScanArguments(const string cmdline, arg_deque args);
-    GLogApplication      API &  ScanArguments(const int argc, const char** argv, arg_deque  arg);
+   
 
     arg_deque        fArgs = arg_deque( );
     void_arg_ptr     fHelp = nullptr;    //!< Command line argument for printing out version information
