@@ -8,7 +8,7 @@ SRCCPP+=cmdline-example1.cpp \
 
 
 
-LIBS+= -lcmdline  -llogmaster -lutilities  -lpthread    -lsqlite-embc -lreadline -lhistory -lncurses -ldl -lpthread -lfmt
+LIBS+= -lcmdline  -llogmaster -lutilities  -lpthread    -lsqlite-embc -lreadline -lhistory -lncurses -ldl -lpthread
 
 ifneq (arm, $(TARGET))
 LIBS+=   -lreadline

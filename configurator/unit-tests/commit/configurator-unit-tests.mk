@@ -23,7 +23,7 @@ RCCPP:=configurator-unit-tests.cpp
 include  ../../../../common.mk
 include ../../../../unittest-common.mk
 
-LIBS+=  -lconfigurator -lxml-embc  -lxml2  -llogmaster  -lcmdline  -lutilities -lreadline -lhistory -lncurses -lsqlite-embc -ldl -lfmt
+LIBS+=  -lconfigurator -lxml-embc  -lxml2  -llogmaster  -lcmdline  -lutilities -lreadline -lhistory -lncurses -lsqlite-embc -ldl
 
 CPP+=  -lmLOGMASTER_HOME=$(PW
 

@@ -26,9 +26,9 @@ include ../../../../unittest-common.mk
 LIBS+=   -lutilities  -lsqlite-embc
 
 ifdef HAS_LOGGING
-LIBS+=  -llogmaster	  -lsqlite-embc -ldl -lpthread  
+LIBS+=  -llogmaster -lsqlite-embc -ldl -lpthread  
 endif
 
-LIBS+= -lreadline -lhistory -lncurses -lfmt
+LIBS+= -lreadline -lhistory -lncurses
 
 INCLUDES+=$(GTEST_INCLUDES)

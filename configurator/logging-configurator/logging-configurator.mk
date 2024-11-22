@@ -7,7 +7,7 @@ SRCCPP+=logging-configurator.cpp \
 
 
 
-LIBS+=  -lconfigurator  -lxml-embc  -lxml2  -lcmdline  -llogmaster  -lutilities   -lpthread   -lreadline   -lsqlite-embc -ldl -lpthread -lfmt
+LIBS+=  -lconfigurator  -lxml-embc  -lxml2  -lcmdline  -llogmaster  -lutilities   -lpthread   -lreadline   -lsqlite-embc -ldl -lpthread
 
 CPPFLAGS+= -DLOGMASTER_HOME='"(LOGMASTER_HOME)"'
 

@@ -13,9 +13,9 @@ SRCCPP+= cmdline-dll-test.cpp \
 include  ../../../../common.mk
 include ../../../../unittest-common.mk
 
-LIBS+=  -llogmaster  -lcmdline   -lutilities -lreadline -lhistory -lncurses -lgmock -lsqlite-embc -ldl  -lfmt
+LIBS+=  -llogmaster  -lcmdline   -lutilities -lreadline -lhistory -lncurses -lgmock -lsqlite-embc -ldl
 
-LIBS+=  -lm -lfmt
+LIBS+=  -lm
 
 
 INCLUDES+=$(GTEST_INCLUDES)

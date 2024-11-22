@@ -10,15 +10,12 @@ SRCCPP+=	version-info.cpp \
                 VVersionHeader.cpp
 
 
-
-# LIBS+= -llogmaster -lutilities -lcmdline -lsqlite-embc  -ldl -lpthread -lreadline -lhistory -lncurses
-
 LIBS+=  -ldl -lpthread
 
 LIBS+=  -lsqlite-embc  -ldl -lpthread
 
 # ifneq (arm, $(TARGET))
-LIBS+=   -lreadline -lhistory -lncurses -lfmt
+LIBS+=   -lreadline -lhistory -lncurses
 # endif
 
 
