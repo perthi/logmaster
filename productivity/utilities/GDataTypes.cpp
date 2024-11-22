@@ -35,7 +35,7 @@
 #include "GLocation.h"
 #include "GStackTrace.h"
 
-#include <format.h>
+#include <fmt/format.h>
 
 ostream& operator<<(ostream& os, const Val  &o)
 {
