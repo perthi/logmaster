@@ -23,7 +23,6 @@ version-info/x86/version-info
 **/testlist_x64.txt
 **/testlist_x86.txt
 **/z.xml
-**/.compileinfo-x86
 helloworld/x86/helloworld
 cmdline/examples/cmdline-example1/x86/cmdline-example1
 cmdline/unit-tests/commit/x86/cmdline-unit-tests
