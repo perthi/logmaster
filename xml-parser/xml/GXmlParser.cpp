@@ -14,7 +14,7 @@
 #include "GXmlParser.h"
 #include "GXmlEnum2String.h"
 
-#include <format.h>
+#include <fmt/format.h>
 
 #include <utilities/GLocation.h>
 

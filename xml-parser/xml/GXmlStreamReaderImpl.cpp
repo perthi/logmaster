@@ -24,7 +24,7 @@
 #include <vector>
 
 #include <algorithm>
-#include <format.h>
+#include <fmt/format.h>
 
 #define XML_SUCCESS_ASSERT(returnvalue, ...) DATA_ASSERT((returnvalue) == NULL, __VA_ARGS__);
 

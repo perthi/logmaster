@@ -16,7 +16,7 @@ using namespace LOGMASTER;
 #include  <configurator/LFileInfo.h>
 
 #include <sstream>
-#include <format.h>
+#include <fmt/format.h>
 
 
 #define MAX_ADDITIONL_SUBSYSTEMS 12

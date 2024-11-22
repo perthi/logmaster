@@ -24,9 +24,7 @@
 
 #include <iostream>
 
-#include <format.h>
-
-#include </usr/local/include/fmt/format.h>
+#include <fmt/format.h>
 
 
 using std::random_device;

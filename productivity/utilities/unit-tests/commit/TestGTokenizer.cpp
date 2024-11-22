@@ -35,8 +35,8 @@
 #include <utilities/GLocation.h>
 
 #include <ctime>
+#include <fmt/format.h>
 
-#include <format.h>
 
 TestGTokenizer::TestGTokenizer() : TestBase()
 {

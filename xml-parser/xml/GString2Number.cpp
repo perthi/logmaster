@@ -10,7 +10,7 @@
 
 #include <utilities/GCommon.h>
 
-#include <format.h>
+#include <fmt/format.h>
 
 
 
@@ -25,6 +25,7 @@ GString2Number::~GString2Number()
 }
 
 
+/// @todo move to utilities
 double 
 GString2Number::ToNumber( const string num )
 {

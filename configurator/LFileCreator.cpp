@@ -5,7 +5,7 @@
 #include "LGenerator.h"
 #include "LFileInfo.h"
 #include <logging/GException.h>
-#include <format.h>
+#include <fmt/format.h>
 
 namespace CONFIGURATOR
 {
