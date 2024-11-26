@@ -64,7 +64,7 @@ GNumbers::EnableError()
 * with a valid sequence of hex digits (0-F) otherwise and exception will be thrown.
 * @return The input number on decimal base 10 format. */
  string
-GNumbers::Hex2Dec(const string  str)
+GNumbers::Hex2Dec(const string  &str)
 {
     std::stringstream buffer;
     long long int     num = HexString2Number(str);
@@ -80,7 +80,7 @@ GNumbers::Hex2Dec(const string  str)
 * with a valid sequence of hex digits (0-F) otherwise and exception will be thrown.
 * @return The input number on hexadecimal form. */
 string
-GNumbers::Dec2Hex(const string  str)
+GNumbers::Dec2Hex(const string  &str)
 {
     std::stringstream buffer;
     if ( g_number_types( )->IsHex(str) == true)
@@ -104,7 +104,7 @@ GNumbers::Dec2Hex(const string  str)
 *  @exception GException  if the system dependent maximum  number if bits is exceeded, or if the string has wrong format. Ths is,
 *  not valid binary string format containing 0'oes and 1'nes, and/or an optional preceding minus sign. */
 int64_t
-GNumbers::BinaryString2Number(const string b)
+GNumbers::BinaryString2Number(const string &b)
 {
     string s = b;
     g_string( )->Trim(s);
@@ -121,7 +121,7 @@ GNumbers::BinaryString2Number(const string b)
 
 
  int64_t
- GNumbers::HexString2Number(const string num)
+ GNumbers::HexString2Number(const string &num)
  {
      string s = num;
      g_string()->Trim(s);
@@ -153,7 +153,7 @@ GNumbers::BinaryString2Number(const string b)
 
 
 int64_t
-GNumbers::BitWidth(const string in)
+GNumbers::BitWidth(const string &in)
 {
     int64_t npos = 0;
 
@@ -180,7 +180,7 @@ GNumbers::BitWidth(const string in)
 *  @exception GException  if the system dependent maximum  number if bits is exceed, or if the string has wrong format. Ths is,
 *  not valid binary string format contain 0'oes nad 1'nes, and/or an optional preceding minus sign. */
  int64_t
-GNumbers::ToBinary(const string b)
+GNumbers::ToBinary(const string &b)
 {
     string s = b;
     g_string()->Trim(s);

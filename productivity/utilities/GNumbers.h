@@ -63,28 +63,28 @@ public:
     void    API  DisableError();
     void    API  EnableError();
     bool    API  IsDisabledError() { return fIsDisabledError; };
-    string  API  Dec2Hex(const string s);
-    string  API  Hex2Dec(const string s);
+    string  API  Dec2Hex(const string &s);
+    string  API  Hex2Dec(const string &s);
 
-    template<typename T> int64_t  API  PadOnes(const T in);
-    template<typename T> int64_t  API  BitWidth(const T in);
+    template<typename T> int64_t  API  PadOnes(const T &in);
+    template<typename T> int64_t  API  BitWidth(const T &in);
     int64_t                       API  BitWidth(const char* in);
-    int64_t                       API  BitWidth(const string in);
-    int64_t                       API  BinaryString2Number(const string num);
-    int64_t                       API  HexString2Number(const string num);
+    int64_t                       API  BitWidth(const string &in);
+    int64_t                       API  BinaryString2Number(const string &num);
+    int64_t                       API  HexString2Number(const string &num);
     
-    template<typename T >     vector<T>    API  ToFloat(const vector<string> num);
-    template<typename T = long double>  T  API  ToFloat(const string num);
-    template<typename T>  T                API  ToInteger(const string num);
-    template<typename T>   vector<T>       API  ToInteger(const vector<string> num);
+    template<typename T >     vector<T>    API  ToFloat(const vector<string> &num);
+    template<typename T = long double>  T  API  ToFloat(const string &num);
+    template<typename T>  T                API  ToInteger(const string &num);
+    template<typename T>   vector<T>       API  ToInteger(const vector<string> &num);
     
     template< typename  T >  typename std::enable_if<std::is_integral<T>::value, T>::type 
-        API ToNumber(const string num) {return ToInteger<T>(num);}
+        API ToNumber(const string &num) {return ToInteger<T>(num);}
     template< typename  T >  typename std::enable_if< std::is_floating_point <T>::value, T>::type
-        API    ToNumber(const string num){return ToFloat<T>(num);}
+        API    ToNumber(const string &num){return ToFloat<T>(num);}
     template <typename T> 
-    int API   CountBits(const T in);
-    int64_t		        API      ToBinary(const string num);
+    int API   CountBits(const T &in);
+    int64_t		        API      ToBinary(const string &num);
 
 
 private:
@@ -92,8 +92,8 @@ private:
     ~GNumbers() {};
 
     /** @todo rename to IsUnsigned */
-    template<typename T>   void    API CheckUnsigned(const string num);
-    template<typename T>   void    API CheckUnsigned(const vector<string> num);
+    template<typename T>   void    API CheckUnsigned(const string &num);
+    template<typename T>   void    API CheckUnsigned(const vector<string> &num);
     bool fIsDisabledError = false;
 };
 
@@ -108,7 +108,7 @@ private:
  * @exception std::out_of_range T is an unsigned type, and the number represented by num is negative
  * @exception std::invalid_argument num does not represent a valid number*/
 template<typename T>
-void GNumbers::CheckUnsigned(const string num)
+void GNumbers::CheckUnsigned(const string &num)
 {
     string message;
 
@@ -130,7 +130,7 @@ void GNumbers::CheckUnsigned(const string num)
 
 
 template<typename T>
-void GNumbers::CheckUnsigned(const vector<string> num)
+void GNumbers::CheckUnsigned(const vector<string> &num)
 {
     for (uint16_t i = 0; i < num.size(); i++)
     {
@@ -141,7 +141,7 @@ void GNumbers::CheckUnsigned(const vector<string> num)
 
 
 template<typename T> T
-GNumbers::ToInteger(const string num)
+GNumbers::ToInteger(const string &num)
 {
 
     string trimmed = num;
@@ -169,7 +169,7 @@ GNumbers::ToInteger(const string num)
 
 
 template<typename T> vector<T>
-GNumbers::ToInteger(const vector<string> num)
+GNumbers::ToInteger(const vector<string> &num)
 {
      CheckUnsigned<T>(num);
      vector<T> tmp;
@@ -187,7 +187,7 @@ GNumbers::ToInteger(const vector<string> num)
  *  @return The padded number */
 template <typename T>
 int64_t
-GNumbers::PadOnes(const T in)
+GNumbers::PadOnes(const T &in)
 {
     int64_t n = BitWidth(in);
     int64_t tmp = (int64_t)in;
@@ -202,7 +202,7 @@ GNumbers::PadOnes(const T in)
 
 template<typename T>
 int64_t
-GNumbers::BitWidth(const T in)
+GNumbers::BitWidth(const T &in)
 {
     const int BitWidths = sizeof(in) * 8;
     int pos = 0;
@@ -220,7 +220,7 @@ GNumbers::BitWidth(const T in)
 
 template<typename T>
 T
-GNumbers::ToFloat(const string num)
+GNumbers::ToFloat(const string &num)
 {
     T ret = (T)-1;
     string trimmed = num;
@@ -242,7 +242,7 @@ GNumbers::ToFloat(const string num)
 
 template<typename T>
 vector<T>
-GNumbers::ToFloat(const vector<string> num)
+GNumbers::ToFloat(const vector<string> &num)
 {
     vector<T> tmp;
 
@@ -255,7 +255,7 @@ GNumbers::ToFloat(const vector<string> num)
 
 
 template <typename T> int 
-GNumbers::CountBits( const T in )
+GNumbers::CountBits( const T &in )
 {
     int64_t tmp = (int64_t)in;
     int cnt = 0;
