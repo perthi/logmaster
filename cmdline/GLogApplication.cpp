@@ -222,13 +222,12 @@ GLogApplication::ScanArguments(const int argc, const char ** argv)
 GLogApplication  &
 GLogApplication::AddArgument( arg_ptr arg, eDUP_STRATEGY strategy )
 {
-    if (arg != 0)
+    if (arg != nullptr)
     {
         if (HasCommand(arg->GetCommand()) == false)
         {
             fArgs.push_back(arg);
         }
-        
         else
         {
             switch (strategy)
