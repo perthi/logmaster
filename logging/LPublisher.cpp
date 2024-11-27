@@ -349,7 +349,17 @@ namespace LOGMASTER
         if (logFile)
         {
             static char buffer[ 11650];
-            snprintf(buffer,  sizeof(buffer) -1, "\033[1;%dm%s\33[0m", msg->fAColor, msg->fMsg);
+
+
+            if( fgEnableColor == true  )
+            {
+               snprintf(buffer,  sizeof(buffer) -1, "\033[1;%dm%s\33[0m", msg->fAColor, msg->fMsg);
+            }
+            else
+            {
+               snprintf(buffer,  sizeof(buffer) -1, "%s", msg->fMsg);  
+            }    
+
 
             if(  msg->fMsg[0] == 0 )
             {
