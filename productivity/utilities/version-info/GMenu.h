@@ -29,13 +29,9 @@
 #include <string>
 using std::string;
 
-
-//#include "GVersion.h"
 #include <utilities/version-info/GVersion.h>
-
-//#define G GVersion
-
 #include <memory>
+
 
 class GMenu
 {
@@ -44,11 +40,13 @@ public:
     static inline string HelpMenu();
     inline void API  ScanArguments(int argc, const char **argv );
     std::shared_ptr<GArgument>  inline API  GetArgument() { return fArgument; };
+    static inline void DoExitAtCallback(const bool do_exit ) { fDoExitAtCallback = do_exit ;} ;
 
 private:    
     inline API GMenu ();
     static inline bool CallBack(  const string  cmd, const string args_s, const vector<string>  sub, const vector<string>  par ); 
     std::shared_ptr<GArgument> fArgument = nullptr;
+    static bool fDoExitAtCallback;
 };
 
 
@@ -122,7 +120,12 @@ GMenu::CallBack(const string  /*cmd*/, const string /*args_s*/,  const vector<st
     {
         cout << HelpMenu();
     }
-     exit(0);   
+    
+    if(fDoExitAtCallback == true)
+    {
+        exit(0);   
+    }
+
     return true;
 }
 
@@ -136,9 +139,11 @@ inline string
      buffer << "\tsubcommand can be, either empty or one of the following:" << endl;
      buffer <<  g_utilities()->TabAlign("\t\t--branch") << "The GIT branch this code was compiled from" << endl;
      buffer <<  g_utilities()->TabAlign("\t\t--tag")           <<  "The GIT  tag / version. If the version is not a tag then the closest" << endl; 
-     buffer <<  g_utilities()->TabAlign( "\t\t")                << "tag is indicated, please refer to the GIT documenation for further details" << endl;
+     buffer <<  g_utilities()->TabAlign( "\t\t")                << "tag is indicated, please refer to the GIT documentation for further details" << endl;
      buffer <<  g_utilities()->TabAlign("\t\t--gitinfo")       <<  "The output of the command \"git-info at the time the code was compiled" << endl;
-     buffer <<  g_utilities()->TabAlign("\t\t--compile-flags\t") << "The compilation flags this executabel was compiled with" << endl;
-     buffer <<  g_utilities()->TabAlign( "\t\t--link-flags")    << "The compilation flags this executabel was compiled with" << endl;
+     buffer <<  g_utilities()->TabAlign("\t\t--compile-flags\t") << "The compilation flags this executable was compiled with" << endl;
+     buffer <<  g_utilities()->TabAlign( "\t\t--link-flags")    << "The compilation flags this executable was compiled with" << endl;
      return buffer.str();
-}    
+}   
+
+//bool GMenu::fDoExitAtCallback = true;
