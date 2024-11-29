@@ -212,7 +212,7 @@ inline Val_t<T> operator  + ( const Val_t<T> &lhs,  const Val_t<T> &rhs)
     {
        GCommon().HandleError(fmt::format(   "You cannot add to variables of different types, you have tried to add {} ({} = {}) and {} ( {} = {}) which is forbidden", 
                   lhs.GetName(), lhs.GetSubscript(), 
-                  lhs.GetValue(), rhs.GetName(), rhs.GetSubscript(), rhs.GetValue() ).str(), GLOCATION, THROW_EXCEPTION  ); 
+                  lhs.GetValue(), rhs.GetName(), rhs.GetSubscript(), rhs.GetValue() ), GLOCATION, THROW_EXCEPTION  ); 
 
     }
     else
@@ -288,6 +288,23 @@ bool  operator <  ( const T &lhs, const  Val_t<T2> & rhs)
 
 
 template <class T, class T2>  
+bool  operator <=  ( const T &lhs, const  Val_t<T2> & rhs) 
+{
+    if( lhs <= rhs.GetValue() ) { return true; }
+    else { return false;}
+}
+
+
+template <class T, class T2>  
+bool  operator >=  ( const T &lhs, const  Val_t<T2> & rhs) 
+{
+    if( lhs >= rhs.GetValue() ) { return true; }
+    else { return false;}
+}
+
+
+
+template <class T, class T2>  
 inline double operator *  ( const Val_t<T> &lhs, const Val_t<T2> & rhs) 
 {
     return (double)lhs.GetValue()*(double)rhs.GetValue();
@@ -300,6 +317,17 @@ inline double operator *  (int lhs, const Val_t<T> & rhs)
     return (double)lhs*(double)rhs.GetValue();
 }
 
+template <class T>  
+inline double operator *  (double lhs, const Val_t<T> & rhs) 
+{
+    return (double)lhs*(double)rhs.GetValue();
+}
+
+template <class T>  
+inline double operator *  (const Val_t<T> & lhs, double rhs ) 
+{
+    return (double)rhs*(double)lhs.GetValue();
+}
 
 template <class T, class T2>
 inline double operator /  (const Val_t<T> &lhs, const Val_t<T2> & rhs)
@@ -307,7 +335,8 @@ inline double operator /  (const Val_t<T> &lhs, const Val_t<T2> & rhs)
     if (rhs.GetValue() == 0)
     {
         ///  @todo replace with fmt::format
-        GCommon().HandleError(GText(   "Attempt to divide by ZERO !  %f / %f = inf", lhs.GetValue(), rhs.GetValue()).str(),   GLOCATION, THROW_EXCEPTION  ); 
+        GCommon().HandleError(fmt::format( "Attempt to divide by ZERO !  {} /{} = inf", lhs.GetValue(), rhs.GetValue()),   GLOCATION, THROW_EXCEPTION  ); 
+        //GCommon().HandleError(GText(   "Attempt to divide by ZERO !  %f / %f = inf", lhs.GetValue(), rhs.GetValue()).str(),   GLOCATION, THROW_EXCEPTION  ); 
     }
 
 
@@ -320,8 +349,9 @@ inline double operator /  (int lhs, const Val_t<T> & rhs)
 {
     if (rhs.GetValue() == 0)
     {
-        ///  @todo replace with fmt::format
-        GCommon().HandleError(GText(   "Attempt to divide by ZERO !  %d / %f = inf", lhs, rhs.GetValue()).str() , GLOCATION, THROW_EXCEPTION  ); 
+        ///  @todo replace with fmt::for
+        GCommon().HandleError(fmt::format( "Attempt to divide by ZERO !  {} /{} = inf", lhs, rhs.GetValue()),   GLOCATION, THROW_EXCEPTION  ); 
+        // GCommon().HandleError(GText(   "Attempt to divide by ZERO !  %d / %f = inf", lhs, rhs.GetValue()).str() , GLOCATION, THROW_EXCEPTION  ); 
     }
     return (double)lhs / (double)rhs.GetValue();
 }

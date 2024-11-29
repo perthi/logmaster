@@ -116,7 +116,7 @@ GStackTrace::str()
 string
 GStackTrace::str()
 {
-#define BT_BUF_SIZE 100
+#define BT_BUF_SIZE 1024
 
     int j = 0;
     int nptrs = 0;
