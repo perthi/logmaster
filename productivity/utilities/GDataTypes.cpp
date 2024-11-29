@@ -34,7 +34,6 @@
 #include "GCommon.h"
 #include "GLocation.h"
 #include "GStackTrace.h"
-
 #include <fmt/format.h>
 
 ostream& operator<<(ostream& os, const Val  &o)
@@ -58,7 +57,7 @@ Val::CheckIsInteger(double t)
 
 
 void 
-Val::GeneratStackFrames()
+Val::GenerateStackFrames()
 {
     string stack =  GStackTrace::str();
     std::stringstream msg;
@@ -74,7 +73,7 @@ Val::CheckLimits(const double &t, const double min, const double max)
 {
     if(t > max || t < min)
     {
-        GeneratStackFrames();
+        GenerateStackFrames();
     }
 }
 
@@ -84,4 +83,70 @@ Val::SetValue(const double value)
 { 
     fVal = value; 
     CheckLimits( value, fMinValue, fMaxValue );
+}
+
+
+string 
+Val::ParameterInfo() const
+{
+    std::stringstream buffer;
+    buffer << "*******************" << endl;
+    buffer << "Name:\t"  << fName << "*****" << endl;
+    buffer << "Min:\t"   << fMinValue << endl;
+    buffer << "Max:\t"   << fMaxValue << endl;
+    buffer << "Value:\t" << fVal << endl;
+    buffer   << "*******************" << endl;
+    return buffer.str();
+}
+
+
+string 
+Val::ParameterUsage() const
+{
+    std::stringstream buffer;
+    buffer << "\t\t\t" << fName << ":" << (fName.size() < 6 ? "\t" : "") << "\t(" << fSubscript << ")"
+         << "\t" << fHelpText;
+    buffer << endl << "\t\t\t" << (fName.size() < 6 ? "\t" : "");
+    return buffer.str();
+}
+
+
+string 
+Val::Defaults() const
+{ 
+    return fmt::format( "\t\tdefault = {}, [{},{}]", (double)fVal, fMinValue, fMaxValue );
+}
+
+string 
+Val::str() const
+{
+    std::stringstream buffer;
+    buffer << ParameterInfo();
+    buffer << Defaults();
+    buffer << ParameterUsage();
+    return buffer.str();
+} 
+
+
+void
+Val::PrintParameterInfo() const
+{
+    cout << ParameterInfo() << endl;
+}
+
+
+void 
+Val::PrintParameterUsage() const
+{
+    cout << ParameterUsage << endl;
+    PrintDefaults();
+}
+
+
+void
+Val::PrintDefaults() const
+{
+///    fmt::format( "\t\tdefault = {}, [{},{}]", (double)fVal, fMinValue, fMaxValue );
+    // printf("\t\tdefault=%0.2G, [min, max] = [%0.2G,%0.2G]\n", (double)fVal, fMinValue, fMaxValue  );    
+    cout << Defaults() << endl;
 }

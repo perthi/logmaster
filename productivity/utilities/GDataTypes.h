@@ -13,6 +13,7 @@
 #include "GDefinitions.h"
 #include "GCommon.h"
 #include "GLocation.h"
+#include "GPrintable.h"
 
 #include <ostream>
 using std::ostream;
@@ -31,7 +32,7 @@ using std::cout;
 #include <fmt/format.h>
 
 
-class Val
+class Val : public GPrintable
 {
 public:
     Val(const double t, const double min, 
@@ -49,19 +50,22 @@ public:
     
     virtual ~Val() {}; 
     
-    
-    virtual double GetValue( ) const
-    {
-        return fVal;
-    }
-    
-
+    virtual double GetValue( ) const { return fVal;}
     virtual void API SetValue(const double  value);
     virtual void API CheckLimits(const double &t, const double min, const double max);
     
-    
-    void GeneratStackFrames();
+    void GenerateStackFrames();
     void CheckIsInteger(double t);
+    
+    string ParameterInfo() const;
+    string ParameterUsage() const;
+    string Defaults() const; 
+
+    void PrintParameterInfo() const;
+    void PrintParameterUsage() const;
+    virtual void PrintDefaults() const; 
+    virtual string str() const override;
+
     virtual  Val & operator = (const double &rhs) = 0;
   
 protected:
@@ -96,10 +100,11 @@ public:
     virtual string GetValueString();
     virtual void Set(const T value, const T min, const T max );
     virtual void SetLimits(const T min, const T max);
-    void Print();
-    void PrintParameter( bool details = false );
-    void PrintParameterUsage();
-    virtual void PrintDefaults(); 
+    
+ //   void Print();
+ //   void PrintParameterUsage();
+ //   virtual void PrintDefaults(); 
+    
     virtual Val_t & operator = (const double &rhs);
 };
 
@@ -163,6 +168,7 @@ void Val_t<T>::SetLimits(const T min, const T max)
 }
 
 
+/*
 template <class T>
 void 
 Val_t<T>::Print()
@@ -194,6 +200,7 @@ Val_t<T>::PrintDefaults()
 {
     printf("\t\tdefault=%0.2G, [min, max] = [%0.2G,%0.2G]\n", (double)fVal, fMinValue, fMaxValue  );    
 }
+*/
 
 
 /*********************************************************
