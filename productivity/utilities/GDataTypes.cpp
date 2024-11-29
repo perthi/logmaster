@@ -117,6 +117,7 @@ Val::Defaults() const
     return fmt::format( "\t\tdefault = {}, [{},{}]", (double)fVal, fMinValue, fMaxValue );
 }
 
+
 string 
 Val::str() const
 {
@@ -138,7 +139,7 @@ Val::PrintParameterInfo() const
 void 
 Val::PrintParameterUsage() const
 {
-    cout << ParameterUsage << endl;
+    cout << ParameterUsage() << endl;
     PrintDefaults();
 }
 

@@ -168,41 +168,6 @@ void Val_t<T>::SetLimits(const T min, const T max)
 }
 
 
-/*
-template <class T>
-void 
-Val_t<T>::Print()
-{
-    cout << "*******************" << endl;
-    cout << "Name:\t"  << fName << "*****" << endl;
-    cout << "Min:\t"   << fMinValue << endl;
-    cout << "Max:\t"   << fMaxValue << endl;
-    cout << "Value:\t" << fVal << endl;
-    cout << "*******************" << endl;
-}
-
-
-template <class T>
-void 
-Val_t<T>::PrintParameterUsage()
-{
-    cout << "\t\t\t" << fName << ":" << (fName.size() < 6 ? "\t" : "") << "\t(" << fSubscript << ")"
-         << "\t" << fHelpText;
-    cout << endl
-         << "\t\t\t" << (fName.size() < 6 ? "\t" : "");
-    PrintDefaults();
-}
-
-
-template <class T>
-void
-Val_t<T>::PrintDefaults()
-{
-    printf("\t\tdefault=%0.2G, [min, max] = [%0.2G,%0.2G]\n", (double)fVal, fMinValue, fMaxValue  );    
-}
-*/
-
-
 /*********************************************************
  ****************** OPERATORS ****************************
  ********************************************************/
