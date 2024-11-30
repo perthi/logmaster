@@ -59,8 +59,8 @@ class Environment : public ::testing::Environment {
   {
 	//PUSH();
     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
-	SET_LOGTARGET("--target-off");
-	SET_LOGLEVEL("--all-off");
+	SET_LOGTARGET("--target-off --target-file");
+	SET_LOGLEVEL("--all-off --all-warning");
 	LLogging::Instance()->SetFormatCheckAll(  false );   
 	LLogging::Instance()->DisableFormatCheck();  
   }
