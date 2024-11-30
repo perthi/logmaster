@@ -67,7 +67,7 @@ endif
 
 
 
-ifndef KTS_SHARED
+ifndef SHARED
 $(LIBNAME_A): $(OBJS) $(OBJSCPP) 
 	@$(ARLOCAL) -cr  $(LIBNAME_A) $(OBJS) $(OBJSCPP)
 	@ranlib $(LIBNAME_A)	
