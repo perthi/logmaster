@@ -22,14 +22,18 @@
 
 
 
+
 #include "LLogApi.h"
 #include <utilities/GDefinitions.h>
-
+#include <utilities/GUtilities.h>
 
 #include <string>
 using std::string;
 #include <map>
 using std::map;
+#include <bitset>
+#include <fstream>
+using std::ofstream;
 
 
 namespace LOGMASTER
@@ -37,13 +41,121 @@ namespace LOGMASTER
     class LDoc
     {
     public:
-        static string API  LogLevelDoc();
-        static string API  LogTargetDoc();
-        static string API  LogFormatDoc();
-        static void        API  PrintLogLevels(bool toconsole = false);
-        static string      Help();
-        static string      UsageError(const string cmnd, const string sub, map <string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > > m);
+        inline  static  string    API  LogLevelDoc();
+        inline  static  string    API  LogTargetDoc();
+        inline  static  string    API  LogFormatDoc();
+        inline  static  void      API  PrintLogLevels(bool toconsole = false);
+        inline  static  string    API  Help();
+        static string             API UsageError(const string cmnd, const string sub, map <string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > > m);
     };
+}
 
-     
+
+
+namespace LOGMASTER
+{
+    inline string
+    LDoc::UsageError(const string cmnd, const string sub, map <string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > >  m)
+    {
+        std::stringstream buffer;
+        buffer << "Invalid/bad combination command/subcommand: " << sub << " To " << cmnd << ".\nValid subcommands are:" << 
+            g_utilities()->Hash2String(&m);
+        buffer << Help();
+        return buffer.str();
+    }
+
+
+    inline string
+    LDoc::LogTargetDoc()
+    {
+       // CERR << "TP0xxxYYYAAAA, size = " <<   LHashMaps::Instance()->GetTargetHash( )->size()  << ENDL;
+        /** @bug filed is more than 4 bits, make unit tests */
+        return string("[logtarget]\n")
+            + string("\t\tLogtarget can be either a field with 3 bits or any of the following\n\t\t")
+            + g_utilities()->Hash2String ( LHashMaps::GetTargetHash( ) );
+    }
+
+
+    inline string
+    LDoc::LogLevelDoc()
+    {
+        return string("[loglevel]\n")
+            + string("\t\tLoglevel can be any of the following\n\t\t")
+            + g_utilities()->Hash2String(LHashMaps::GetSubCmdHash())
+            + "\t\tThe loglevel to use,the subcommand (starting with --) has two terms,\
+the first one denotes the\n\t\tsubsystem the second one the loglevel for that subsystem.\n\t\t \
+Example 1) --all-debug = All subsystem is using loglevel debug\n\t\tExample 2) --ana-error Error messages from the QA subsystem system, etc..";
+    }
+
+
+    inline string
+    LDoc::LogFormatDoc()
+    {
+        return string("[logformat]\n")
+            + string("\t\tlogformat can be any of the following\n\t\t")
+            + g_utilities()->Hash2String(LHashMaps::GetFormatHash());
+    }
+
+
+    inline void 
+    LDoc::PrintLogLevels(bool toconsole)
+    {
+        ostringstream s;
+        std::ofstream f;
+        f.open("loglevels.txt");
+
+        auto hash = LHashMaps::GetSubCmdHash();
+    
+        for (auto it = hash->begin(); it != hash->end(); it ++ )
+        {
+            std::bitset<16>  b( (int32_t)std::get<0>(it->second) );
+
+            if (it->first.size() < 8)
+            {
+                s << it->first  <<  "\t\t\t" <<  b  <<  "\t0x"  <<  std::hex << (int32_t)std::get<0>(it->second) << endl;
+            }
+            else if (it->first.size() < 16)
+            {
+                s << it->first  <<  "\t\t"   <<  b  <<  "\t0x"  <<  std::hex <<  (int32_t)std::get<0>(it->second)  << endl;
+            }
+            else
+            {
+                s << it->first << "\t" << b << "\t0x" << std::hex << std::hex << (int32_t)std::get<0>(it->second)  << endl;
+            }
+        }
+        if (toconsole == true)
+        {
+            cout << s.str() << endl;
+        }
+        f << s.str();
+        f.close();
+    }
+
+
+    inline string
+    LDoc::Help()
+    {
+        std::stringstream buffer;
+        buffer << "*** USAGE ***" << endl;
+        buffer << "1) Either Use any number of subcommands ( starting with --)" << endl;
+        buffer << "2) OR: Specify a number indicating the log level" << endl;
+        buffer << "3) If on number form the number must be either a string of  ZERO and ONES containing exactly 16 bits" << endl;
+        buffer << "\tOr a hex number starting with 0x and  having exactly 4 fields" << endl;
+        
+        buffer  << "****  SUB COMMANDS CONTROLLING THE LOGLEVEL ***** " << endl;
+
+        buffer  << g_utilities()->Hash2String (LHashMaps::GetSubCmdHash() ) << endl;
+        buffer << "           ****   DONE *****                        "    << endl;    
+         
+        buffer  << "****  SUB COMMANDS CONTROLLING THE FORMAT ***** " << endl;
+        buffer  << g_utilities()->Hash2String(LHashMaps::GetFormatHash());
+        buffer << "           ****   DONE *****                        "    << endl;    
+        buffer  << "****  SUB COMMANDS LOG TARGETS ***** " << endl;
+        buffer << g_utilities()->Hash2String (LHashMaps::GetTargetHash( )) << endl;
+
+        buffer << "           ****   DONE *****                        "    << endl;  
+
+        return buffer.str();
+    }
+
 }

@@ -11,7 +11,6 @@ SRCCPP:= LColorMap.cpp \
 	LMessageFactory.cpp \
 	LValidateArgs.cpp \
 	LConfig.cpp \
-	LDoc.cpp \
 	LLogApi.cpp \
 	LMessage.cpp \
 	LMessageGenerator.cpp \

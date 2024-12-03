@@ -25,7 +25,10 @@
 ******************************************************************************
 ******************************************************************************/
 
+
 #include "LDoc.h"
+
+/*
 #include "LLogging.h"
 #include "LConfig.h"
 #include  "LHashMaps.h"
@@ -34,113 +37,4 @@
 using std::ofstream;
 
 #include <bitset>
-
-
-namespace LOGMASTER
-{
- 
-    
-    string
-    LDoc::UsageError(const string cmnd, const string sub, map <string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > >  m)
-    {
-        std::stringstream buffer;
-        buffer << "Invalid/bad combination command/subcommand: " << sub << " To " << cmnd << ".\nValid subcommands are:" << 
-            g_utilities()->Hash2String(&m);
-        buffer << Help();
-        return buffer.str();
-    }
-
-
-    string
-    LDoc::LogTargetDoc()
-    {
-        return string("[logtarget]\n")
-            + string("\t\tLogtarget can be either a field with 3 bits or any of the following\n\t\t")
-            + g_utilities()->Hash2String (LHashMaps::GetTargetHash( ));
-    }
-
-
-    string
-    LDoc::LogLevelDoc()
-    {
-        return string("[loglevel]\n")
-            + string("\t\tLoglevel can be any of the following\n\t\t")
-            + g_utilities()->Hash2String(LHashMaps::GetSubCmdHash())
-            + "\t\tThe loglevel to use,the subcommand (starting with --) has two terms,\
-the first one denotes the\n\t\tsubsystem the second one the loglevel for that subsystem.\n\t\t \
-Example 1) --all-debug = All subsystem is using loglevel debug\n\t\tExample 2) --ana-error Error messages form the QA subsystem system, etc..";
-    }
-
-
-    string
-    LDoc::LogFormatDoc()
-    {
-        return string("[logformat]\n")
-            + string("\t\tlogformat can be any of the following\n\t\t")
-            + g_utilities()->Hash2String(LHashMaps::GetFormatHash());
-    }
-
-
-    void 
-    LDoc::PrintLogLevels(bool toconsole)
-    {
-        ostringstream s;
-        std::ofstream f;
-        f.open("loglevels.txt");
-
-        auto hash = LHashMaps::GetSubCmdHash();
-    
-        for (auto it = hash->begin(); it != hash->end(); it ++ )
-        {
-            std::bitset<16>  b( (int32_t)std::get<0>(it->second) );
-
-            if (it->first.size() < 8)
-            {
-                s << it->first  <<  "\t\t\t" <<  b  <<  "\t0x"  <<  std::hex << (int32_t)std::get<0>(it->second) << endl;
-            }
-            else if (it->first.size() < 16)
-            {
-                s << it->first  <<  "\t\t"   <<  b  <<  "\t0x"  <<  std::hex <<  (int32_t)std::get<0>(it->second)  << endl;
-            }
-            else
-            {
-                s << it->first << "\t" << b << "\t0x" << std::hex << std::hex << (int32_t)std::get<0>(it->second)  << endl;
-            }
-        }
-        if (toconsole == true)
-        {
-            cout << s.str() << endl;
-        }
-        f << s.str();
-        f.close();
-    }
-
-
-    string
-    LDoc::Help()
-    {
-        std::stringstream buffer;
-        buffer << "*** USAGE ***" << endl;
-        buffer << "1) Either Use any number of subcommands ( starting with --)" << endl;
-        buffer << "2) OR: Specify a number indicating the log level" << endl;
-        buffer << "3) If on number form the number must be either a string of  ZERO and ONES containing exactly 16 bits" << endl;
-        buffer << "\tOr a hex number starting with 0x and  having exactly 4 fields" << endl;
-        
-        buffer  << "****  SUB COMMANDS CONTROLLING THE LOGLEVEL ***** " << endl;
-
-        buffer  << g_utilities()->Hash2String (LHashMaps::GetSubCmdHash() ) << endl;
-        buffer << "           ****   DONE *****                        "    << endl;    
-         
-        buffer  << "****  SUB COMMANDS CONTROLLING THE FORMAT ***** " << endl;
-        buffer  << g_utilities()->Hash2String(LHashMaps::GetFormatHash());
-        buffer << "           ****   DONE *****                        "    << endl;    
-        buffer  << "****  SUB COMMANDS LOG TARGETS ***** " << endl;
-        buffer << g_utilities()->Hash2String (LHashMaps::GetTargetHash( )) << endl;
-
-        buffer << "           ****   DONE *****                        "    << endl;  
-
-        return buffer.str();
-    }
-
-
-}
+*/

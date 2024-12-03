@@ -263,39 +263,62 @@ namespace LOGMASTER
 
 
     void
-    LLogging::SetLogTarget( const string& target_s, bool eneable )
+    LLogging::SetLogTarget( const string& target_s, bool enable )
     {
+      //  CERR << "SETTING LOGTARGET" << ENDL;
+
 //#ifdef THREAD_SAFE
         std::lock_guard<std::mutex> guard( log_mutex );
 //#endif
         vector<eMSGTARGET> e_targets;
         vector<string> tokens  =  GTokenizer().Tokenize( target_s, vector<string>{" ", "\n","\t" } );
-
-        for ( size_t i = 0; i < tokens.size(); i++ )
+        try
         {
-            eMSGTARGET e_tmp = LConversion::String2Target(  tokens[i]);
-
-            if ( e_tmp == eMSGTARGET::TARGET_OFF )
+            for ( size_t i = 0; i < tokens.size(); i++ )
             {
-                TurnOffAllTargets();
-                continue;
-            }
-
-            for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
-            {
-                if ( (e_tmp & it->first) != eMSGTARGET::TARGET_OFF )
+                eMSGTARGET e_tmp = LConversion::String2Target(  tokens[i]);
+    
+                if ( e_tmp == eMSGTARGET::TARGET_OFF )
                 {
-                    if(eneable)
+                    TurnOffAllTargets();
+                    continue;
+                }
+    
+                for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
+                {
+                    if ( (e_tmp & it->first) != eMSGTARGET::TARGET_OFF )
                     {
-                        it->second.Enable();
-                    }
-                    else
-                    {
-                        it->second.Disable();
+                        if(enable)
+                        {
+                            it->second.Enable();
+                        }
+                        else
+                        {
+                            it->second.Disable();
+                        }
                     }
                 }
-            }
+            } 
         }
+        catch(const std::invalid_argument & e)
+        {
+            //CERR << "HELP = " << LDoc::Help() << ENDL;
+            cout << LDoc::Help( ) << endl;
+            ///std::cerr << e.what() << '\n';
+            throw(e);
+        }
+        catch(const std::exception& e)
+        {
+            // CERR << "HELP = " << LDoc::Help() << ENDL;
+            cout << LDoc::Help( ) << endl;
+            ///std::cerr << e.what() << '\n';
+            throw(e);
+        }
+        catch(...)
+        {
+            CERR << "UNKNOWN EXCEPTION CAUGHT" << ENDL; 
+        }
+
     }
 
 
