@@ -83,4 +83,4 @@ RUN gunzip   fmt-10.2.1.tar.gz
 RUN tar -xvf fmt-10.2.1.tar
 RUN cd  fmt-10.2.1 && cmake CMakeLists.txt && make -j16 && make install && cd  ..
 
-
+RUN apt-get install -y qemu-system-arm
