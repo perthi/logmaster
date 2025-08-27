@@ -26,7 +26,7 @@ pipeline
 		
 			stages
 			{	
-				stage("Build compiler docker image")
+				stage("Create docker image")
 				{
 					steps
 					{
@@ -37,7 +37,7 @@ pipeline
 						}
 					}
 				}
-				stage("X86")
+				stage("X86-compile")
 				{							
 					steps
 					{
@@ -45,7 +45,7 @@ pipeline
 						sh   './scripts/host/compile.sh x86'
 					}
 				}
-				stage("ARM")
+				stage("ARM-compile")
 				{							
 					steps
 					{
@@ -54,18 +54,18 @@ pipeline
 				}
 			}
 		}
-		stage("Unit tests")
+		stage("Running tests")
 		{
 			stages
 			{
-			stage("X86")
+			stage("X86-unittests")
 			{							
 				steps
 				{
 					sh './scripts/host/run-tests.sh x86'
 				}
 			}
-			stage("ARM")
+			stage("ARM-unittests")
 			{							
 				steps
 				{
