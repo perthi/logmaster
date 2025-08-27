@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## Todo: refactor this script
+
 image_name=cpp-cross-compiler
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/
