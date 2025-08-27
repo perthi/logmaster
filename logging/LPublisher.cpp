@@ -45,7 +45,7 @@
 
 #include <memory>
 #include <json/json.hpp>
-#include "../json/LJson.hpp"
+#include "../json/LJson.hpp" /** @bug Dont use relative includes*/
 #include <mutex>
 
 using namespace LOGMASTER;
@@ -72,7 +72,6 @@ namespace LOGMASTER
     LPublisher::~LPublisher()
     {
     }
-
 
 
     void 

@@ -20,9 +20,14 @@ TestException::SetUp()
 {
     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
     TestBase::SetUp();
+    LPublisher::Instance()->DisableColor();   
 }
 
-
+void 
+TestException::TearDown()
+{
+    LPublisher::Instance()->EnableColor();
+}
 
 
 TEST_F( TestException, simple)
@@ -46,14 +51,9 @@ TEST_F(TestException, fileIO)
      SET_LOGFILENAME(f1);
      SET_LOGTARGET("0000 --target-file");
      SET_LOGFORMAT("0000001");
-
      EXPECT_ANY_THROW(EXCEPTION("a simple exception"));
-
      EXPECT_EQ(g_file()->ReadFirstLine(f1),  "\ta simple exception (class GException)");
-     
      SET_LOGFORMAT("1000001");
-     
-     
      SET_LOGFILENAME(f2);
 
      string f = "dontexist.txt";

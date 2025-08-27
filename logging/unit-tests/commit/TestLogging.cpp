@@ -71,10 +71,12 @@ TestLogging::SetUpTestCase()
 }
 
 
+
 void 
 TestLogging::SetUp() 
 {
     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+    LPublisher::Instance()->DisableColor();
     GCmdScan::Instance()->SetIgnoreStrayArgument(false);
     g = new GLogApplication();
     g->InitLogArgs();
@@ -83,16 +85,13 @@ TestLogging::SetUp()
     fOldBuf = cout.rdbuf();
     cout.rdbuf( fStrCout.rdbuf() );
     fStrCout.str( "" );
-    
 }
-
 
 void TestLogging::TearDown()
 {
-
    TestBase::TearDown();
    cout.rdbuf(fOldBuf);
-
+   LPublisher::Instance()->EnableColor();
 }
 
 
