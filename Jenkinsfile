@@ -72,10 +72,11 @@ pipeline
     }
      post {  
          always {  
-             echo 'This will always run' 
-             sendMail();    
-         }  
-         success {  
+             echo 'This will always run'
+             sendMail();
+		}  
+         success {
+			 sendMail(); 
              echo 'This will run only if successful'  
          }  
          failure {
@@ -85,10 +86,11 @@ pipeline
              echo 'This will run only if the run was marked as unstable'  
          }  
          changed {  
-             echo 'This will run only if the state of the Pipeline has changed'  
+             sendMail();
+			 echo 'This will run only if the state of the Pipeline has changed'  
              echo 'For example, if the Pipeline was previously failing but is now successful'  
          }  
-     }  
+ }  
 
 
 }
