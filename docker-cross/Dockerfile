@@ -45,7 +45,8 @@ RUN ln -s -f /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/ld-linux-armh
 export LD_LIBRARY_PATH=/usr/local/lib/;\
 LD_LIBRARY_PATH=/usr/arm-linux-gnueabihf/lib/:$LD_LIBRARY_PATH
 
-FROM gcc:13.3.0
+#FROM gcc:13.3.0
+FROM  gcc:14.2.0
 
 #RUN apt-get install -y gcc-arm-none-eabi
 RUN apt update
