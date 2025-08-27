@@ -30,6 +30,7 @@
 #include "TestLConversion.h"
 
 #include <logging/LEnums.h>
+#include <logging/LEnum2String.h>
 #include <logging/LConversion.h>
 #include <logging/LHashMaps.h>
 
@@ -146,27 +147,20 @@ TEST_F(TestLConversion,  String2Target )
 
 TEST_F(TestLConversion, SplitByTarget)
 {
-    auto hash = LHashMaps::Instance( )->GetLogTargetTags( );
-   
-    for ( auto &h : hash )
-    {
-        CERR << "h = " << h << ENDL;
-    }
-
-    string test = "--all-off  --all-warning  --target-gui --all-debug --target-db --all-debug";
-    
+    string test = "--all-off  --all-warning  --target-stdout --all-fatal --target-gui --all-debug --target-db --all-error";
     vector<string> tokens = g_tokenizer( )->Tokenize(test, "--target", false, true);
-    
-    //vector<string> tokens = g_tokenizer( )->Tokenize(test, "--target");
 
-    CERR << "test = " << test << ENDL;
+    auto targets = LConversion::SplitByTarget(test);
+    ASSERT_EQ(targets.size(), 3);
 
-    for ( auto t : tokens )
-    {
-        CERR << "token = " << t << ENDL;
-    }
+    EXPECT_EQ(eMSGTARGET::TARGET_STDOUT, targets.at(0).first);
+    EXPECT_EQ(" --all-fatal", targets.at(0).second);
 
+    EXPECT_EQ(eMSGTARGET::TARGET_GUI, targets.at(1).first);
+    EXPECT_EQ(" --all-debug", targets.at(1).second);
 
+    EXPECT_EQ(eMSGTARGET::TARGET_DATABASE, targets.at(2).first);
+    EXPECT_EQ(" --all-error", targets.at(2).second);
 }
 
 
