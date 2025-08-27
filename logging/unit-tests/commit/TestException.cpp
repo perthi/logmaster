@@ -83,6 +83,7 @@ TEST_F(TestException, assert_macro)
   
  /// @todo Fix this test 
  TEST_F(TestException, DISABLED_buffer_overwrite_NSR1737)
+ //TEST_F(TestException, buffer_overwrite_NSR1737)
  {
     PUSH();
     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
@@ -91,20 +92,17 @@ TEST_F(TestException, assert_macro)
 
     char  *msg = nullptr;
 
-     try
-     {
+    try
+    {
          EXCEPTION("lorem ipsum");
-     }
-     catch(GException &e)
-     {
+    }
+    catch(GException &e)
+    {
          msg = G_ERROR( "The exception message is:%s",  e.what( ) )->at(eMSGTARGET::TARGET_EXCEPTION)->fMsgBody;
     }
      
-    /// CERR << "msg = " << msg << ENDL;
-     //EXPECT_STREQ("blahhh", msg );
      EXPECT_STREQ("The exception message is:\tlorem ipsum (class GException)\n", msg );
-    
-    POP();
+     POP();
  }
 
 
