@@ -193,7 +193,6 @@ namespace LOGMASTER
         {
             CERR << "CONFIG IS A ZERO POINTER" << ENDL;
             throw( std::invalid_argument("CONFIG IS A ZERO POINTER") );
-            //exit(-1);
         }
 
 
@@ -220,12 +219,6 @@ namespace LOGMASTER
             formatCheck = std::make_pair<bool, string>(true, ""); 
         }
         
-       ///  CERR << "address = " << fConfig << ENDL;
-       
-
-
-       
-       
        std::lock_guard<std::mutex> guard( fLoggingMutex );
        
        for (auto it = fConfig->begin(); it != fConfig->end(); it++ )
