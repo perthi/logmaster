@@ -63,7 +63,7 @@ namespace CONFIGURATOR
         }
 
 
-        fFileContentSource.push_back("    cout << endl;");
+        //      fFileContentSource.push_back("    cout << endl;");
         fFileContentSource.push_back("}");
         fFileContentSource.push_back("}");
     }
