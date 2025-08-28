@@ -23,12 +23,20 @@ logthread(const int nloops, const int sleeptime)
     for(int i=0; i < nloops; i++)
     { 
         std::this_thread::sleep_for( std::chrono::milliseconds(sleeptime) );    
+        SET_LOGTARGET("--target-off --target-file --target-db");
         LLogTestAutoGen::WriteMessages();
+        ALL_INFO("THIS IS A TEST MESSAGE");
+        
         PUSH();
         SET_LOGLEVEL("--all-off --db-debug");
         POP();
         PUSH();
         SET_LOGLEVEL("--all-off --all-info");
+        POP();
+        float percent = 100*(float)i/nloops;
+        PUSH();
+        SET_LOGLEVEL("--all-info");
+        G_INFO("progress = %f", percent);
         POP();
     }
 }
