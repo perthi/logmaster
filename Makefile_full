@@ -113,12 +113,9 @@ src-lib:= $(support-modules) \
 	$(sqlite)
 
 
-
-src-exe:=$(helloworld) \
-	$(logging-example1) \
-	$(cmdline-example1) \
-	$(db-test) \
-	$(version-info)
+src-exe:=$(cmdline-example1) \
+	     $(db-test) \
+	     $(version-info)
 
 
 arm-src:=$(src-lib) $(src-exe)
@@ -129,14 +126,15 @@ all-clean:= $(src-lib)  $(x86-src) $(configurator-unittest) $(configurator)  $(a
 ifeq (x86, $(TARGET))
 unittests+= $(configurator-unittest)
 src-lib+= $(configurator)  $(api-logmaster)
-src-exe+= $(xml-validator) $(configurator-example1) $(logging-configurator) $(configurator-unittest)  $(unittests) 
-x86-src:= $(src-lib) $(src-exe)
+src-exe+= $(logging-example1)$(xml-validator) $(helloworld) $(configurator-example1) $(logging-configurator) $(configurator-unittest)  $(unittests) 
+x86-src:= $(src-lib) $(src-exe) 
 all-src:=$(x86-src)
 all-clean:=$(all-src)
 endif
 
 ifeq (arm, $(TARGET))
 all-src:=$(arm-src)
+#src-exe+=$(unittests) 
 endif
 
 ifdef GUI
