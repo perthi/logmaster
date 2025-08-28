@@ -101,3 +101,5 @@ gtest/googlemock/CTestTestfile.cmake
 gtest/googlemock/Makefile
 gtest/googlemock/cmake_install.cmake
 gtest/googletest/Makefile
+bugs/issue-133/x86/issue-133
+bugs/issue-133/arm/issue-133
