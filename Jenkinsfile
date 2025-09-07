@@ -73,6 +73,7 @@ pipeline
      post {  
          always {  
              echo 'This will always run'
+             step([$class: 'CordellWalkerRecorder'])
              sendMail();
 		}  
          success {
