@@ -102,6 +102,10 @@ TestLogging::Subscriber(const   std::shared_ptr<LOGMASTER::LMessage>  msg  )
 }
 
 
+TEST_F(TestLogging, dummy)
+{
+    EXPECT_TRUE(false);
+}
 
 TEST_F(TestLogging, set_logtarget_g_logapplication)
 {
