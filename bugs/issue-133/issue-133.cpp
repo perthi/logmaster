@@ -18,6 +18,8 @@ using namespace LOGMASTER;
 
 
 
+
+
 void 
 logthread(const int nloops, const int /*sleeptime*/)
 {
