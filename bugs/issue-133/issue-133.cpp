@@ -17,6 +17,7 @@ using namespace LOGMASTER;
 #include <chrono>
 
 
+
 void 
 logthread(const int nloops, const int /*sleeptime*/)
 {
