@@ -62,7 +62,7 @@ namespace LOGMASTER
 
     public:
         ~LLogging();
-        static LLogging            API* Instance();
+        static LLogging            API* Instance()  noexcept;
         
         void            SetExternalTimeSource(  std::function<double()>  funct ); 
         void API        SetPublishingMode( const ePUBLISH_MODE mode );

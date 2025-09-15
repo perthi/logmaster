@@ -59,12 +59,14 @@ string fSource;
 namespace LOGMASTER
 {
     LLogging *
-    LLogging::Instance()
+    LLogging::Instance() noexcept
     {
-        static LLogging* instance = new LLogging();
-        return instance;
+         
+        {
+             static LLogging inst; // no dynamic allocation
+             return &inst;
+        }
     }
-
 
     LLogging::LLogging() : fSubscribers(),
                            fGuiSubscribers(),
@@ -97,23 +99,15 @@ namespace LOGMASTER
     }
 
 
-    LLogging::~LLogging()
-    {
-        try
-        {
-            do
-            {
-                if ( fConfigurationStack.size() > 0 )
-                {
-                    delete &fConfigurationStack.top();
-                    fConfigurationStack.pop();
-                }
-            } while ( fConfigurationStack.size() > 0 );
-        }
-        catch ( std::exception& e )
+    LLogging::~LLogging() noexcept {
+        try {
+            while (!fConfigurationStack.empty()) {
+                fConfigurationStack.pop(); // shared_ptr cleanup
+            }
+        } 
+        catch (const std::exception& e) 
         {
             CERR << ":" << e.what() << ENDL;
-
         }
         catch ( ... )
         {
@@ -531,11 +525,6 @@ namespace LOGMASTER
     int
     LLogging::Push( )
     {
-      ///  static std::mutex m;
-        //std::lock_guard<std::mutex> guard( log_mutex );
-       // return 0;
-        
-//        fLoggingMutex.lock();
         std::lock_guard<std::mutex> guard( fLoggingMutex );
 
         int iret = 0;
@@ -550,9 +539,6 @@ namespace LOGMASTER
             fConfig =  std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
             iret =  0;
         }
-
-        fLoggingMutex.unlock();
-
         return iret;
     }
 
@@ -562,15 +548,11 @@ namespace LOGMASTER
     {
        std::lock_guard<std::mutex> guard( fLoggingMutex );
 
-    
-
         if ( fConfigurationStack.size() > 0 )
         {
             fConfig = fConfigurationStack.top();
             fConfigurationStack.pop();
-
             return 0;
-
         }
         else
         {
@@ -585,9 +567,7 @@ namespace LOGMASTER
     //    std::lock_guard<std::mutex> guard( log_mutex );
         for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
         {
-
-         //   if ( it->first != eMSGTARGET::TARGET_EXCEPTION  && it->first != eMSGTARGET::TARGET_TESTING )
-                if (it->first != eMSGTARGET::TARGET_EXCEPTION )
+            if (it->first != eMSGTARGET::TARGET_EXCEPTION )
             {
                 it->second.Disable();
             }
