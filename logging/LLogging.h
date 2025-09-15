@@ -29,10 +29,6 @@
 #include <memory>
 #include <mutex>
 
-using std::string;
-using std::vector;
-using std::map;
-
 
 class TestLConfig_target_all_Test;
 class TestLConfig_default_setting_Test;
@@ -83,25 +79,25 @@ namespace LOGMASTER
         template<typename... Args>
         logmap    API     LogVarArgs(const eLOGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
             const char* functionname,
-            const bool force_generate, string addendum, const char* fmt, const Args ... args);
+            const bool force_generate, std::string addendum, const char* fmt, const Args ... args);
         
-        void                     API       SetLogFormat(const  string& format, bool enable = true);
-        void                     API       SetLogLevel(const  string& level);
-        void                     API       SetLogTarget(const  string& target, bool eneable = true);
-        void                     API       SetLogFileName(const string& filename);
+        void                     API       SetLogFormat(const  std::string& format, bool enable = true);
+        void                     API       SetLogLevel(const   std::string& level);
+        void                     API       SetLogTarget(const  std::string& target, bool eneable = true);
+        void                     API       SetLogFileName(const std::string& filename);
 
         eMSGTARGET               API       GetLogTarget()  const;
         eMSGFORMAT               API       GetLogFormat(const eMSGTARGET target) const;
         std::shared_ptr<LConfig> API       GetConfig(const eMSGTARGET target);
         eLOGLEVEL                API       GetLogLevel(const eMSGSYSTEM system, const eMSGTARGET  target) const;
-        string                   API       GetLogFileName(const eMSGTARGET  target = eMSGTARGET::TARGET_FILE) const;
+        std::string                   API       GetLogFileName(const eMSGTARGET  target = eMSGTARGET::TARGET_FILE) const;
         std::shared_ptr<std::map<eMSGTARGET, std::shared_ptr<LMessage> > >  GetLastMessages() { return  fMessages; };
 
-        vector< void(*)( std::shared_ptr<LMessage> ) >  API GetSubscribers();
+        std::vector< void(*)( std::shared_ptr<LMessage> ) >  API GetSubscribers();
         void                    API        RegisterSubscriber(void(*funct)(  std::shared_ptr<LMessage> ));
         void                    API        ClearSubscribers();
 
-        vector< void(*)( std::shared_ptr<LMessage> ) >  API GetGuiSubscribers();
+        std::vector< void(*)( std::shared_ptr<LMessage> ) >  API GetGuiSubscribers();
         void                    API     RegisterGuiSubscriber(void(*funct)( std::shared_ptr<LMessage> ));
         void                    API     ClearGuiSubscribers();
         void                    API     Reset();
@@ -126,19 +122,13 @@ namespace LOGMASTER
         void    TurnOnfAllTargets();
         void    operator=(LLogging&);
 
-        vector< void(*)( std::shared_ptr<LMessage> ) > fSubscribers;
-        vector< void(*)( std::shared_ptr<LMessage> ) > fGuiSubscribers;
+        std::vector< void(*)( std::shared_ptr<LMessage> ) > fSubscribers;
+        std::vector< void(*)( std::shared_ptr<LMessage> ) > fGuiSubscribers;
         std::shared_ptr<std::map<eMSGTARGET, LMessageFactory  > >  fConfig = nullptr;
         std::shared_ptr<std::map<eMSGTARGET, LMessageFactory > >   fDefaultConfig = nullptr;
         logmap fMessages = nullptr;
-        std::stack<   std::shared_ptr<  std::map<eMSGTARGET, LMessageFactory   >  >     >  fConfigurationStack;
-        
-        #ifdef ARM
+        std::stack<   std::shared_ptr<std::map<eMSGTARGET, LMessageFactory   >  >     >  fConfigurationStack;
         std::mutex fLoggingMutex{};
-        #else
-        std::mutex fLoggingMutex{};
-        //std::mutex fLoggingMutex2;
-        #endif
         
         bool fFormatCheckAll = true; //!< Wether or not to perform format check on all messages 
         bool fFormatCheck = true;
@@ -157,14 +147,14 @@ namespace LOGMASTER
     logmap LLogging::Log(const eLOGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt,
         const Args ... args)
     {
-        return LogVarArgs(level, sys, l.fFileName.c_str(),  l.fLineNo, l.fFunctName.c_str(), false, string(""), fmt, args...);
+        return LogVarArgs(level, sys, l.fFileName.c_str(),  l.fLineNo, l.fFunctName.c_str(), false, std::string(""), fmt, args...);
     }
 
 
     /**@{*/
     /** Helper function for the main logging (Log) function. The severity("level")
      *  and subsystem  ("system") of the message is checked against the configuration
-     *  of the  logging system as given by the associated hash maps. If logging
+     *  of the  logging system as given by the associated hash std::maps. If logging
      *  is enabled for this level and system., then the message is generated and published.
      *   @param  level the loglevel/severity of the message
      *   @param  system the subsystem the message applies to
@@ -175,14 +165,14 @@ namespace LOGMASTER
      *             loglevel and subsystem. This feature is used by the exception handling system
      *             where one wants the message to be generated regardless (because you want to
      *            catch the exception with an exception handler). This flag is also useful for debugging
-     *   @param  addendum  optional string to attach to the message
+     *   @param  addendum  optional std::string to attach to the message
      *   @param  fmt The formatting for the message (same as the  C style printf formatting)
      *   @param  args  The list of arguments */
     template<typename... Args>
     logmap
         LLogging::LogVarArgs(const eLOGLEVEL level, const eMSGSYSTEM system, const char* filename, const int linenumber,
             const char* function_name,
-            const bool force_generate, string addendum, const char* fmt, const Args ... args)
+            const bool force_generate, std::string addendum, const char* fmt, const Args ... args)
     {
          /** @todo Refactor this function */
         static std::mutex mtx;
@@ -197,11 +187,11 @@ namespace LOGMASTER
 
 
         std::shared_ptr<LMessage>  tmp_msg =  nullptr;
-        std::pair<bool, string>  formatCheck;
+        std::pair<bool, std::string>  formatCheck;
 
         auto format_check = [ &addendum, &filename, &linenumber, &function_name, fmt, args...](  )
         {
-            std::pair<bool, string>  f = GFormatting::checkFormat(filename, linenumber, function_name, fmt, args...);
+            std::pair<bool, std::string>  f = GFormatting::checkFormat(filename, linenumber, function_name, fmt, args...);
             if (f.first == false)
             {
                 addendum += " (" + f.second + ")";
@@ -216,7 +206,7 @@ namespace LOGMASTER
         }
         else
         {
-            formatCheck = std::make_pair<bool, string>(true, ""); 
+            formatCheck = std::make_pair<bool, std::string>(true, ""); 
         }
         
        std::lock_guard<std::mutex> guard( fLoggingMutex );
@@ -235,7 +225,7 @@ namespace LOGMASTER
                     }
                     else
                     {
-                        formatCheck = std::make_pair<bool, string>(true, ""); 
+                        formatCheck = std::make_pair<bool, std::string>(true, ""); 
                     }
                     
 

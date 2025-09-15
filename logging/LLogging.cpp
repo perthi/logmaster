@@ -46,27 +46,31 @@
 
 #ifdef THREAD_SAFE
 #include <mutex>
-std::mutex log_mutex;
-std::mutex new_mutex;
+namespace
+{
+   std::mutex log_mutex;
+   std::mutex new_mutex;
+}
 #endif
 
 
 #include <exception>
 
+namespace
+{
+   string fSource;
+}
 
-string fSource;
 
 namespace LOGMASTER
 {
     LLogging *
     LLogging::Instance() noexcept
     {
-         
-        {
-             static LLogging inst; // no dynamic allocation
-             return &inst;
-        }
+        static LLogging inst; // no dynamic allocation
+        return &inst;
     }
+
 
     LLogging::LLogging() : fSubscribers(),
                            fGuiSubscribers(),
@@ -132,7 +136,7 @@ namespace LOGMASTER
           fConfig->emplace(  eMSGTARGET::TARGET_EXCEPTION,   LMessageFactory() );
           fConfig->emplace(  eMSGTARGET::TARGET_DATABASE,     LMessageFactory() );
 
-          fDefaultConfig = fConfig;
+          fDefaultConfig = std::make_shared<std::map<eMSGTARGET, LMessageFactory>>(*fConfig);
 
           SetLogTarget( "--target-off --target-file --target-subscriber --target-stdout --target-gui --target-db" );
           SetLogLevel("--all-warning");
@@ -169,10 +173,13 @@ namespace LOGMASTER
     }
 
      void 
-     LLogging::Reset() {
+     LLogging::Reset() 
+     {
         std::lock_guard<std::mutex> g(fLoggingMutex);
         fConfig = std::make_shared< std::map<eMSGTARGET, LMessageFactory  > >(*fDefaultConfig); // deep copy
-        while (!fConfigurationStack.empty()) {
+        
+        while (!fConfigurationStack.empty()) 
+        {
             fConfigurationStack.pop();
         }
     }
@@ -319,7 +326,6 @@ namespace LOGMASTER
     eMSGTARGET
     LLogging::GetLogTarget() const
     {
-
         eMSGTARGET tmp = eMSGTARGET::TARGET_OFF;
 
         for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
@@ -429,7 +435,6 @@ namespace LOGMASTER
                         it->second.GetConfig( )->SetLogLevel(it_m->second);
                     }
                 }
-                fLoggingMutex.unlock();
             }
         }
         catch( std::exception &e )
