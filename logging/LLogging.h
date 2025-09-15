@@ -38,7 +38,7 @@ class TestCheckLevel_check_level_Test;
 
 namespace
 {
-   std::mutex config_mutex2;
+   std::mutex config_mutex2; /** @todo Change name of this mutex
 }
 
 namespace LOGMASTER
