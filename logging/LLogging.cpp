@@ -77,6 +77,22 @@ namespace LOGMASTER
         Init();
     }
 
+    LLogging::~LLogging() noexcept {
+        try {
+            while (!fConfigurationStack.empty()) {
+                fConfigurationStack.pop(); // shared_ptr cleanup
+            }
+        } 
+        catch (const std::exception& e) 
+        {
+            CERR << ":" << e.what() << ENDL;
+        }
+        catch ( ... )
+        {
+            CERR << ": Unknown exception !!" << ENDL;
+        }
+    }
+
 
     void            
     LLogging::SetExternalTimeSource(  std::function<double()>  funct )
@@ -96,23 +112,6 @@ namespace LOGMASTER
     LLogging::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
     {
          LPublisher::Instance()->QueMessage( msg,   cfg,  target);
-    }
-
-
-    LLogging::~LLogging() noexcept {
-        try {
-            while (!fConfigurationStack.empty()) {
-                fConfigurationStack.pop(); // shared_ptr cleanup
-            }
-        } 
-        catch (const std::exception& e) 
-        {
-            CERR << ":" << e.what() << ENDL;
-        }
-        catch ( ... )
-        {
-            CERR << ": Unknown exception !!" << ENDL;
-        }
     }
 
 
@@ -169,7 +168,16 @@ namespace LOGMASTER
         }
     }
 
+     void 
+     LLogging::Reset() {
+        std::lock_guard<std::mutex> g(fLoggingMutex);
+        fConfig = std::make_shared< std::map<eMSGTARGET, LMessageFactory  > >(*fDefaultConfig); // deep copy
+        while (!fConfigurationStack.empty()) {
+            fConfigurationStack.pop();
+        }
+    }
 
+    /*
     void
     LLogging::Reset()
     {
@@ -182,6 +190,7 @@ namespace LOGMASTER
             fConfigurationStack.pop();
         } while ( fConfigurationStack.size() > 0 );
     }
+    */
   
 
     /** Checks the log level of a message issued by the user against the current log level configured for the logging system*

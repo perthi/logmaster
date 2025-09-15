@@ -61,7 +61,7 @@ namespace LOGMASTER
         friend TestCheckLevel_check_level_Test;
 
     public:
-        ~LLogging();
+        ~LLogging() noexcept;
         static LLogging            API* Instance()  noexcept;
         
         void            SetExternalTimeSource(  std::function<double()>  funct ); 
