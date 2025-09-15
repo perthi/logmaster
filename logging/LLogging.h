@@ -212,8 +212,7 @@ namespace LOGMASTER
        std::lock_guard<std::mutex> guard( fLoggingMutex );
        
        for (auto it = fConfig->begin(); it != fConfig->end(); it++ )
-      //  for (auto &it = start; it != end; ++it)
-        {
+       {
             if (it->second.IsEnabled() == true)
             {
                 bool cl = CheckLevel(system, level, it->first);
@@ -231,7 +230,6 @@ namespace LOGMASTER
 
                     if (formatCheck.first == true)
                     {
-                     //   std::lock_guard<std::mutex> guard2( fLoggingMutex  );
                         tmp_msg = it->second.GenerateMessage(system, level, filename, linenumber, function_name, addendum, fmt, args...);
                     }
                     else
@@ -242,7 +240,6 @@ namespace LOGMASTER
 
                     if (cl == true)
                     {
-                      //  std::lock_guard<std::recursive_mutex> lock(fLoggingMutex);
                         QueMessage(tmp_msg, it->second.GetConfig(), it->first);
 
                         auto it_msg = fMessages->find(it->first);
