@@ -36,6 +36,10 @@ class TestLConfig_default_setting_Test;
 class TestLogging_levels_Test;
 class TestCheckLevel_check_level_Test;
 
+namespace
+{
+   std::mutex config_mutex2;
+}
 
 namespace LOGMASTER
 {
@@ -220,6 +224,7 @@ namespace LOGMASTER
        {
             if (it->second.IsEnabled() == true)
             {
+                std::lock_guard<std::mutex> guard_config( config_mutex2);
                 bool cl = CheckLevel(system, level, it->first);
                 if ((cl == true) || force_generate == true)
                 {

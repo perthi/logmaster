@@ -44,6 +44,7 @@ logthread(const int nloops, const int sleeptime_us, const std::string &message)
     
 }
 
+
 void run_threads( const ePUBLISH_MODE mode )
 {
     LPublisher::Instance( )->SetMode(mode);   
@@ -57,6 +58,7 @@ void run_threads( const ePUBLISH_MODE mode )
     th3.join();
     G_INFO("DONE joining threads"); 
 }
+
 
 void turn_on_targets(const int n)
 {

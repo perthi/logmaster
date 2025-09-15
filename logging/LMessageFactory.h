@@ -12,12 +12,8 @@
 #include "LEnums.h"
 #include "LMessageGenerator.h"
 #include "LConfig.h"
-
 #include <utilities/GDefinitions.h>
-
 #include <string>
-
-using std::string;
 
 #include <memory>
 #include <stdarg.h>
@@ -31,8 +27,8 @@ namespace LOGMASTER
     * Helper class used by LLogging  */
     class LMessageFactory
     {
-
             friend LLogging;
+
     public:
             LMessageFactory();
             LMessageFactory( const LMessageFactory &gen );
@@ -68,15 +64,12 @@ namespace LOGMASTER
         {
             if(fConfig == nullptr)
             {
-               // CERR << "fConfig is a zero pointer !!!" << ENDL;
                 std::shared_ptr<LMessage> m = std::make_shared<LMessage>();
                 return m;
             }
             eMSGFORMAT f = fConfig->GetLogFormat();
-
             // fMessage =  fGenerator->GenerateMsg(fMessage,  f, l, s, file, line, func, fmt, ap, ad );
             fMessage = fGenerator->GenerateMsg(f, l, s, file, line, func, ad, fmt, args...);
-
             return fMessage;
         }
 

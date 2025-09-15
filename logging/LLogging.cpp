@@ -102,7 +102,7 @@ namespace LOGMASTER
 
     void 
     LLogging::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
-    {
+    {    std::lock_guard<std::mutex> guard( config_mutex );
          LPublisher::Instance()->QueMessage( msg,   cfg,  target);
     }
 
@@ -181,7 +181,7 @@ namespace LOGMASTER
     bool
     LLogging::CheckLevel( const eMSGSYSTEM system, const eLOGLEVEL level, const eMSGTARGET target )
     {
-       // std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::mutex> guard( config_mutex );
         static eLOGLEVEL zero_l = (eLOGLEVEL)0;
         static eMSGSYSTEM zero_s = (eMSGSYSTEM)0;
 
@@ -192,7 +192,8 @@ namespace LOGMASTER
   
         if(target == eMSGTARGET::TARGET_ALL )
         {
-          
+            {
+         //   std::lock_guard<std::mutex> guard( config_mutex );
             for(auto it = fConfig->begin(); it != fConfig->end(); it ++ )
             {
                 auto & hash = it->second.GetConfig()->GetHash()->fLogLevelHash;
@@ -210,6 +211,7 @@ namespace LOGMASTER
                 }
 
                 return false;
+            }
             }
         }
 
@@ -307,7 +309,7 @@ namespace LOGMASTER
     std::shared_ptr<LConfig>
     LLogging::GetConfig( const eMSGTARGET target )
     {
-       // std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::mutex> guard( config_mutex );
         auto it = fConfig->find( target );
 
         if ( it != fConfig->end() )
@@ -324,7 +326,7 @@ namespace LOGMASTER
     eMSGTARGET
     LLogging::GetLogTarget() const
     {
-       // std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::mutex> guard( config_mutex );
         eMSGTARGET tmp = eMSGTARGET::TARGET_OFF;
 
         for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
@@ -344,7 +346,7 @@ namespace LOGMASTER
     eMSGFORMAT
     LLogging::GetLogFormat( const eMSGTARGET target ) const
     {
-       // std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::mutex> guard( config_mutex );
         auto it = fConfig->find( target );
 
         if ( it != fConfig->end() )
@@ -383,7 +385,7 @@ namespace LOGMASTER
     eLOGLEVEL
     LLogging::GetLogLevel( const eMSGSYSTEM system, const eMSGTARGET target ) const
     {
-      //  std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::mutex> guard( config_mutex );
         auto it = fConfig->find( target );
 
         if ( it != fConfig->end() )
@@ -398,7 +400,7 @@ namespace LOGMASTER
     string
     LLogging::GetLogFileName( const eMSGTARGET target ) const
     {
-     //   std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::mutex> guard( config_mutex );
         auto it = fConfig->find( target );
 
         if ( it != fConfig->end() )
@@ -430,14 +432,17 @@ namespace LOGMASTER
             for ( auto it_m = m.begin( ); it_m != m.end( ); it_m++ )
             {
                 eMSGTARGET target = it_m->first;
-              //  std::lock_guard<std::mutex> guard_config( config_mutex );
-                for ( auto it = fConfig->begin( ); it != fConfig->end( ); it++ )
                 {
-                    if ( (it->first & target) != (eMSGTARGET)0 )
-                    {
-                        it->second.GetConfig( )->SetLogLevel(it_m->second);
-                    }
+                  std::lock_guard<std::mutex> guard_config( config_mutex );
+                  for ( auto it = fConfig->begin( ); it != fConfig->end( ); it++ )
+                  {
+                      if ( (it->first & target) != (eMSGTARGET)0 )
+                      {
+                          it->second.GetConfig( )->SetLogLevel(it_m->second);
+                      }
+                  }
                 }
+                
             }
         }
         catch( std::exception &e )
@@ -460,6 +465,7 @@ namespace LOGMASTER
         {
             eMSGTARGET target = it_m->first;
             
+            {
             std::lock_guard<std::mutex> guard_config( config_mutex );
 
             for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
@@ -470,6 +476,7 @@ namespace LOGMASTER
                     cfg->SetLogFormat( it_m->second, enable);
                 }
             }
+           }
         }
     }
 
@@ -539,6 +546,7 @@ namespace LOGMASTER
 
         if ( fConfigurationStack.size() > 0 )
         {
+            std::lock_guard<std::mutex> guard_config( config_mutex );
             fConfig = fConfigurationStack.top();
             fConfigurationStack.pop();
             return 0;
