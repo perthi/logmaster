@@ -9,15 +9,10 @@
 *** General Public License (LGPL) V3 or later. See .cpp file for details ***
 *****************************************************************************/
 
-
-//#include  "LDefinitions.h"
 #include  "LEnums.h"
 #include  "LHashMaps.h"
-
 #include  <utilities/GDefinitions.h>
-
-#include <string>
-using std::string;
+#include  <string>
 
 
 class TestLConfig_apply_get_level_Test;
@@ -45,17 +40,17 @@ namespace LOGMASTER
    public:
         API LConfig();
         void API InitHash(  );
-        string API DoxygenDoc(const string filename) ;
-        string          API     GetFilename();
+        std::string API DoxygenDoc(const string filename) ;
+        std::string          API     GetFilename();
         eMSGFORMAT      API     GetLogFormat()  const  { return fLogFormat; };
         eLOGLEVEL       API     GetLogLevel(const eMSGSYSTEM system) const;
         LHashMaps       API *   GetHash();
         static string   API     GetTimeMode();
         
-        void            API     SetLogFormat(const string &format, bool enable);
-        void            API     SetLogLevel(const  string  &level );
-        void            API     SetLogFileName(const string &filename );
-        static void     API     SetTimeMode(const string mode);
+        void            API     SetLogFormat(const   std::string &format, bool enable);
+        void            API     SetLogLevel(const    std::string  &level );
+        void            API     SetLogFileName(const std::string &filename );
+        static void     API     SetTimeMode(const    std::string mode);
         bool            API     IsInitialized() const { return fIsInitialized; };
         void            API     FilterOut( eMSGSYSTEM &sys,  vector<eMSGSYSTEM>  systems);
 
@@ -66,7 +61,7 @@ namespace LOGMASTER
         void            API     ApplyLevel(const eMSGSYSTEM s, const eLOGLEVEL l, const bool pad = true);
         bool fIsInitialized  = false;
         eMSGFORMAT             fLogFormat = eMSGFORMAT::PREFIX_ALL; // 11111111 i.e all fields enabled
-        string                 fLogFilename = "mylogfile.log";
+        std::string                 fLogFilename = "mylogfile.log";
         LHashMaps              fHash;
     
         static string fTimeMode;

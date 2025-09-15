@@ -30,36 +30,24 @@
 #define EXT_DEBUG
 #define MAX_STACK_DEPTH 20
 
-#define THREAD_SAFE
-
 #include "LLogging.h"
 #include "LMessage.h"
 #include "LConfig.h"
 #include "LPublisher.h"
 #include "LConversion.h"
 #include "LDoc.h"
-
 #include <utilities/GTime.h>
-
-
 #include <cstdarg>
 
-#ifdef THREAD_SAFE
 #include <mutex>
 namespace
 {
    std::mutex log_mutex;
    std::mutex new_mutex;
 }
-#endif
 
 
 #include <exception>
-
-namespace
-{
-   string fSource;
-}
 
 
 namespace LOGMASTER
@@ -188,11 +176,10 @@ namespace LOGMASTER
      *  @param system  The subsystem this message applies to
      *  @param level   The log level (severity) of the message
      *  @param target  Which target (file, stdout, etc..) to check level for
-     *   @return true if the message should be generated for this level, false otherwise */
+     *  @return true if the message should be generated for this level, false otherwise */
     bool
     LLogging::CheckLevel( const eMSGSYSTEM system, const eLOGLEVEL level, const eMSGTARGET target )
     {
-
         static eLOGLEVEL zero_l = (eLOGLEVEL)0;
         static eMSGSYSTEM zero_s = (eMSGSYSTEM)0;
 
@@ -257,7 +244,7 @@ namespace LOGMASTER
 
 
     void
-    LLogging::SetLogTarget( const string& target_s, bool enable )
+    LLogging::SetLogTarget( const std::string& target_s, bool enable )
     {
         std::lock_guard<std::mutex> guard( log_mutex );
         vector<eMSGTARGET> e_targets;
@@ -417,7 +404,7 @@ namespace LOGMASTER
 
 
     void
-    LLogging::SetLogLevel( const string& level_s )
+    LLogging::SetLogLevel( const std::string& level_s )
     {
         try
         {
@@ -549,7 +536,7 @@ namespace LOGMASTER
     void
     LLogging::TurnOffAllTargets()
     {
-    //    std::lock_guard<std::mutex> guard( log_mutex );
+        //std::lock_guard<std::mutex> guard( log_mutex ); 
         for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
         {
             if (it->first != eMSGTARGET::TARGET_EXCEPTION )
@@ -563,7 +550,7 @@ namespace LOGMASTER
     void
     LLogging::TurnOnfAllTargets()
     {
-  //     std::lock_guard<std::mutex> guard( log_mutex );
+        //std::lock_guard<std::mutex> guard( log_mutex );
         for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
         {
             it->second.Enable();

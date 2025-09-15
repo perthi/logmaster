@@ -43,14 +43,9 @@ logthread(const int nloops, const int sleeptime_us)
     }
 }
 
-
-
-int 
-main(int  /*argc*/, const char** /*argv*/)
+void run_threads( const ePUBLISH_MODE mode )
 {
-    SET_LOGLEVEL("--all-info");
-    LPublisher::Instance( )->SetMode(ePUBLISH_MODE::SYNCHRONOUS);   
-  //  LPublisher::Instance( )->SetMode(ePUBLISH_MODE::ASYNCHRONOUS);   
+    LPublisher::Instance( )->SetMode(mode);   
     G_INFO("starting threads");
     std::thread th1(logthread, 1000, 1);
     std::thread th2(logthread, 2000, 2);
@@ -59,7 +54,20 @@ main(int  /*argc*/, const char** /*argv*/)
     th1.join();
     th2.join();
     th3.join();
-    G_INFO("DONE");
+    G_INFO("DONE joining threads"); 
+}
+
+
+int 
+main(int  /*argc*/, const char** /*argv*/)
+{
+    SET_LOGLEVEL("--all-info");
+    FORCE_DEBUG("Running test in asynchronous mode");
+    run_threads(ePUBLISH_MODE::ASYNCHRONOUS);
+    FORCE_DEBUG("Done running tests in asynch mode");
+    FORCE_DEBUG("Now running test in synchronous mode");
+    run_threads(ePUBLISH_MODE::SYNCHRONOUS);
+    FORCE_DEBUG("Done running tests in synch mode");
     return 0;
 }
 
