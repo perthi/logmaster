@@ -10,6 +10,7 @@
 #define THREAD_SAFE
 
 
+
  /****************************************************************************
  *** Copyright(C) 2015  Per Thomas Hille, pth@embc.no                     ***
  *** This file is part of logmaster. logmaster is free software : you can ***
@@ -118,8 +119,12 @@ namespace LOGMASTER
 
         void    Init();
         void    ClearMessages();
+        
+        public:
         void    TurnOffAllTargets();
         void    TurnOnfAllTargets();
+        private:
+
         void    operator=(LLogging&);
 
         std::vector< void(*)( std::shared_ptr<LMessage> ) > fSubscribers;

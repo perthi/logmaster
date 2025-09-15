@@ -25,7 +25,6 @@ using std::string;
 namespace LOGMASTER
 {
     class  LMessage;
-    class  LConfig;
     class  LLogging;
 
     /** @class LMessageFactory

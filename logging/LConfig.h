@@ -55,6 +55,7 @@ namespace LOGMASTER
         void            API     FilterOut( eMSGSYSTEM &sys,  vector<eMSGSYSTEM>  systems);
 
     private:
+        //API LConfig();
         void            API     SetLogFormat(const eMSGFORMAT);
         void            API     SetLogLevel( const eMSGSYSTEM  sys, const eLOGLEVEL level );
         void            API     ApplyLevel( const eLOGLEVEL l, const bool pad = true );
