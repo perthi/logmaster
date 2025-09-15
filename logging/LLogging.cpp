@@ -412,7 +412,6 @@ namespace LOGMASTER
     string
     LLogging::GetLogFileName( const eMSGTARGET target ) const
     {
-     //   std::lock_guard<std::mutex> guard( log_mutex );
         auto it = fConfig->find( target );
 
         if ( it != fConfig->end() )
@@ -436,25 +435,19 @@ namespace LOGMASTER
     void
     LLogging::SetLogLevel( const string& level_s )
     {
-      //  std::lock_guard<std::mutex> guard( log_mutex );
-        
         try
         {
-//            CERR << "level_s = " << level_s << ENDL;
             auto m = LConversion::SplitByTarget(level_s);
-  //          CERR << "m.size() = "<< m.size()  << ENDL;
             std::lock_guard<std::mutex> lock(fLoggingMutex);
 
             for ( auto it_m = m.begin( ); it_m != m.end( ); it_m++ )
             {
                 eMSGTARGET target = it_m->first;
-                
 
                 for ( auto it = fConfig->begin( ); it != fConfig->end( ); it++ )
                 {
                     if ( (it->first & target) != (eMSGTARGET)0 )
                     {
-                       // CERR << "it->second = " << it_m->second << ENDL;
                         it->second.GetConfig( )->SetLogLevel(it_m->second);
                     }
                 }
@@ -463,9 +456,7 @@ namespace LOGMASTER
         }
         catch( std::exception &e )
         { 
-            
             cout << LDoc::Help( ) << endl;
-            //CERR << "Exception caught setting log level: " << e.what() << ENDL;
             throw(e);
         }
 
