@@ -177,22 +177,6 @@ namespace LOGMASTER
         }
     }
 
-    /*
-    void
-    LLogging::Reset()
-    {
-#ifdef THREAD_SAFE
-        std::lock_guard<std::mutex> guard( log_mutex );
-#endif
-        fConfig = fDefaultConfig;
-        do
-        {
-            fConfigurationStack.pop();
-        } while ( fConfigurationStack.size() > 0 );
-    }
-    */
-  
-
     /** Checks the log level of a message issued by the user against the current log level configured for the logging system*
      *  @param system  The subsystem this message applies to
      *  @param level   The log level (severity) of the message
@@ -268,11 +252,7 @@ namespace LOGMASTER
     void
     LLogging::SetLogTarget( const string& target_s, bool enable )
     {
-      //  CERR << "SETTING LOGTARGET" << ENDL;
-
-//#ifdef THREAD_SAFE
         std::lock_guard<std::mutex> guard( log_mutex );
-//#endif
         vector<eMSGTARGET> e_targets;
         vector<string> tokens  =  GTokenizer().Tokenize( target_s, vector<string>{" ", "\n","\t" } );
         try
@@ -305,23 +285,18 @@ namespace LOGMASTER
         }
         catch(const std::invalid_argument & e)
         {
-            //CERR << "HELP = " << LDoc::Help() << ENDL;
             cout << LDoc::Help( ) << endl;
-            ///std::cerr << e.what() << '\n';
             throw(e);
         }
         catch(const std::exception& e)
         {
-            // CERR << "HELP = " << LDoc::Help() << ENDL;
             cout << LDoc::Help( ) << endl;
-            ///std::cerr << e.what() << '\n';
             throw(e);
         }
         catch(...)
         {
             CERR << "UNKNOWN EXCEPTION CAUGHT" << ENDL; 
         }
-
     }
 
 
@@ -497,7 +472,6 @@ namespace LOGMASTER
     void
     LLogging::RegisterSubscriber( void( *funct )(  std::shared_ptr<LMessage>   ) )
     {
-      //  std::lock_guard<std::mutex> guard( log_mutex );
         fSubscribers.push_back( funct );
     }
 
@@ -505,7 +479,6 @@ namespace LOGMASTER
     void
     LLogging::ClearSubscribers()
     {
-      ///  std::lock_guard<std::mutex> guard( log_mutex );
         fSubscribers.clear(); /// @todo , should be erased, not cleared. Fix + make unit tests
     }
 
@@ -518,7 +491,6 @@ namespace LOGMASTER
     void
     LLogging::RegisterGuiSubscriber( void( *funct )( std::shared_ptr <LMessage>  ) )
     {
-      //  std::lock_guard<std::mutex> guard( log_mutex );
         fGuiSubscribers.push_back(funct);
     }
 
@@ -528,7 +500,6 @@ namespace LOGMASTER
     {
         fGuiSubscribers.clear();  ///  @todo , should be erased, not cleared. Fix + make unit tests
     }
-
 
 
     int
