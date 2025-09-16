@@ -39,6 +39,7 @@ class TestCheckLevel_check_level_Test;
 namespace
 {
    std::mutex config_mutex2; /** @todo Change name of this mutex */
+   std::mutex config_mutex;
 }
 
 namespace LOGMASTER
@@ -220,6 +221,7 @@ namespace LOGMASTER
         
        std::lock_guard<std::mutex> guard( fLoggingMutex );
        
+       //std::lock_guard<std::mutex> guard_config1( config_mutex );
        for (auto it = fConfig->begin(); it != fConfig->end(); it++ )
        {
             if (it->second.IsEnabled() == true)

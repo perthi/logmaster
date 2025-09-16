@@ -82,7 +82,7 @@ TEST_F(TestException, assert_macro)
 
   
  /// @todo Fix this test 
- TEST_F(TestException, DISABLED_buffer_overwrite_NSR1737)
+ TEST_F(TestException, buffer_overwrite_NSR1737)
  //TEST_F(TestException, buffer_overwrite_NSR1737)
  {
     PUSH();

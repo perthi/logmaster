@@ -43,7 +43,7 @@
 namespace
 {
    std::mutex log_mutex;
-   std::mutex config_mutex;
+   //std::mutex config_mutex;
 }
 
 
@@ -102,7 +102,7 @@ namespace LOGMASTER
 
     void 
     LLogging::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
-    {    std::lock_guard<std::mutex> guard( config_mutex );
+    {    //std::lock_guard<std::mutex> guard( config_mutex );
          LPublisher::Instance()->QueMessage( msg,   cfg,  target);
     }
 
@@ -530,9 +530,14 @@ namespace LOGMASTER
         }
         else
         {   
-            fConfigurationStack.push( fConfig );
-            fConfig =  std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
+            {
+                std::lock_guard<std::mutex> guard_config( config_mutex );
+                fConfigurationStack.push( fConfig );
+                fConfig =  std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
+            }
+
             iret =  0;
+        
         }
         return iret;
     }

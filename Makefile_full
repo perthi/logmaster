@@ -78,6 +78,7 @@ helloworld:=             helloworld/$(TARGET)
 
 # bug exposure start
 issue-133:=              bugs/issue-133/$(TARGET) 
+issue-141:=              bugs/issue-141/$(TARGET) 
 # bug exposure end
 
 db-test:=                database-test/$(TARGET)
@@ -131,7 +132,7 @@ ifeq (x86, $(TARGET))
 unittests+= $(configurator-unittest)
 src-lib+= $(configurator)  $(api-logmaster)
 src-exe+= $(logging-example1)$(xml-validator) $(helloworld) $(configurator-example1) $(logging-configurator) $(configurator-unittest)  $(unittests) 
-src-exe+= $(issue-133) 
+src-exe+= $(issue-133) $(issue-141)
 x86-src:= $(src-lib) $(src-exe) 
 all-src:=$(x86-src)
 all-clean:=$(all-src)
