@@ -55,7 +55,7 @@ void exception_thread(const std::string &message, const std::string name, const 
             CERR << "name:" << name << " Expected:" << expected_message << ENDL;
             CERR << "name:" << name << " Got     :" << msg << ENDL;
             cout << "**********" << endl;
-         }
+          }
 
           G_ASSERT_EXCEPTION(strcmp(msg, expected_message) == 0, "\nExpected\t%s, \ngot\t%s", expected_message, msg );
           //FORCE_DEBUG("msg = %s", msg);    

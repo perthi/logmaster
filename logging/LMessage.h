@@ -40,7 +40,7 @@ namespace LOGMASTER
 
 #define MAX_MSG_TOTAL_SIZE MAX_MSG_SIZE + MAX_MSG_TYPE_SIZE + MAX_MSG_TIME_STAMP_SIZE + MAX_MSG_PATH_SIZE + MAX_MSG_FNAME_SIZE + MAX_MSG_FUNC_NAME_SIZE + 16
 
-    /**@brief Logging message. All messages is an instance of this struct */
+    /**@brief Logging message. All messages is an instance of this class */
     class LMessage
 #endif
 {
@@ -52,9 +52,6 @@ public:
         ClearContent();
     };
 #endif
-
-
-    char fOrigin[1024] = {0}; /** @bug magic number */
     char fMsgType[MAX_MSG_TYPE_SIZE] = {0};         //!< Message type and subsystem, e.eg <Error|Database>, <Driver|Debug> etc..
     char fTimeStamp[MAX_MSG_TIME_STAMP_SIZE] = {0}; //!< The date and time the message was created
     char fPath[MAX_MSG_PATH_SIZE] = {0};            //!< File path to the source code file where the message was created
@@ -80,7 +77,6 @@ public:
 //#ifdef __cplusplus
     inline void ClearContent()
     {
-        fOrigin[0] = 0;
         fMsgType[0] = 0;
         fTimeStamp[0] = 0;
         fPath[0] = 0;
@@ -89,7 +85,7 @@ public:
         fMsgBody[0] = 0;
         fMsg[0] = 0;
 
-        std::fill(fOrigin, fOrigin + 1024, 0);;     
+        /*
         std::fill(fMsgType, fMsgType +MAX_MSG_TYPE_SIZE, 0);
         std::fill(fTimeStamp, fTimeStamp + MAX_MSG_TIME_STAMP_SIZE, 0);
         std::fill(fPath, fPath + MAX_MSG_PATH_SIZE, 0);
@@ -97,6 +93,7 @@ public:
         std::fill(fFunction, fFunction + MAX_MSG_FUNC_NAME_SIZE, 0);
         std::fill(fMsgBody, fMsgBody + MAX_MSG_SIZE, 0); 
         std::fill(fMsg, fMsg + MAX_MSG_TOTAL_SIZE, 0);
+        */
 
         fRgBColor = -1;   
         fWColor = -1;  
