@@ -19,7 +19,7 @@ using namespace LOGMASTER;
 
 
 void 
-logthread(const int nloops, const int sleeptime_us, const std::string &message)
+logthread(const int nloops, const int sleeptime_us, const std::string &name)
 {
     for(int i=0; i < nloops; i++)
     { 
@@ -27,7 +27,7 @@ logthread(const int nloops, const int sleeptime_us, const std::string &message)
         SET_LOGTARGET("--target-off --target-file --target-db");
         //LLogTestAutoGen::WriteMessages();
        // ALL_INFO("THIS IS A TEST MESSAGE");
-        ALL_INFO(message);
+        ALL_INFO(name);
 
         PUSH();
         SET_LOGLEVEL("--all-off --db-debug");
@@ -38,25 +38,46 @@ logthread(const int nloops, const int sleeptime_us, const std::string &message)
         float percent = 100*(float)i/nloops;
         PUSH();
         SET_LOGLEVEL("--all-info");
-        G_INFO("progress = %f", percent);
+        G_INFO("i = %d of %d, progress = %f", i, nloops, percent);
         POP();
     }
     
 }
-
+ 
+void join_thread( std::thread *th, const string &name)
+{
+      if(th->joinable() == true)
+      {
+         th->join();
+         printf("JOINED %s\n", name.c_str()); 
+      }
+      else
+      {
+         printf("%s is not joinable", name.c_str() );   
+      }
+      
+     
+}
 
 void run_threads( const ePUBLISH_MODE mode )
 {
     LPublisher::Instance( )->SetMode(mode);   
     G_INFO("starting threads");
-    std::thread th1(logthread, 1000, 1, "Message from thread one");
-    std::thread th2(logthread, 2000, 2, "Message from thread two");
-    std::thread th3(logthread, 3000, 3, "Message from thread three"  ) ;
+    std::thread th1(logthread, 1000, 100, "thread one");
+    std::thread th2(logthread, 2000, 200, "thread two");
+    std::thread th3(logthread, 3000, 300, "thread three"  ) ;
     G_INFO("joining threads");
-    th1.join();
-    th2.join();
-    th3.join();
-    G_INFO("DONE joining threads"); 
+    
+    join_thread(&th1, "thread one");
+    join_thread(&th2, "thread two");
+    join_thread(&th3, "thread three");
+
+   // th2.join();
+   // printf("JOINED THREAD TWO\n");
+   // th3.join();
+    G_INFO("DONE joining threads\n"); 
+   // printf("JOINED THREAD THREE\n");
+    std::this_thread::sleep_for( std::chrono::milliseconds(200) );   
 }
 
 
@@ -99,6 +120,8 @@ main(int  /*argc*/, const char** /*argv*/)
     run_threads(ePUBLISH_MODE::SYNCHRONOUS);
     FORCE_DEBUG("Done running tests in synch mode");
     */
+    printf("DONE !!!!!!\n");   
+    std::this_thread::sleep_for( std::chrono::milliseconds(500) );   
 
     return 0;
 }

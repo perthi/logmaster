@@ -42,7 +42,7 @@
 #include <mutex>
 namespace
 {
-   std::mutex log_mutex;
+  // std::mutex log_mutex;
    //std::mutex config_mutex;
 }
 
@@ -103,6 +103,7 @@ namespace LOGMASTER
     void 
     LLogging::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
     {    //std::lock_guard<std::mutex> guard( config_mutex );
+         ///("queue size = %ld\n", LPublisher::Instance()->fMessageQeue.size());
          LPublisher::Instance()->QueMessage( msg,   cfg,  target);
     }
 

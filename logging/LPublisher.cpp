@@ -347,7 +347,7 @@ namespace LOGMASTER
 
         if (logFile)
         {
-            static char buffer[ 11650];
+            static char buffer[ 11650]; /** @bug magic number */
 
 
             if( fgEnableColor == true  )

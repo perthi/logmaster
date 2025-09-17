@@ -63,6 +63,7 @@ namespace LOGMASTER
         void  API   RunDispatcher();
         void  API   SetMode( const ePUBLISH_MODE mode );
         void  API   Flush();
+        
         static void AtExit();     
 
     private:
@@ -91,7 +92,7 @@ namespace LOGMASTER
          void     API PublishToDatabase( std::shared_ptr<LMessage>  msg); 
 
          std::queue<  std::shared_ptr<Message> >  fMessageQeue      =  std::queue<  std::shared_ptr<Message> >();        
-        std::queue<  std::shared_ptr<Message> >   fMessageQeueTmp   =  std::queue<  std::shared_ptr<Message> >();        
+         std::queue<  std::shared_ptr<Message> >   fMessageQeueTmp   =  std::queue<  std::shared_ptr<Message> >();        
 
 #ifdef _WIN32
          std::mutex                             fMessageQeueMutext;

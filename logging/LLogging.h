@@ -40,6 +40,7 @@ namespace
 {
    std::recursive_mutex config_mutex2; /** @todo Change name of this mutex */
    std::recursive_mutex config_mutex;
+   std::mutex log_mutex;
 }
 
 namespace LOGMASTER
@@ -187,7 +188,7 @@ namespace LOGMASTER
          /** @todo Refactor this function */
         static std::mutex mtx;
         std::lock_guard<std::mutex> lock(mtx);
-    
+        std::lock_guard<std::mutex> guard( fLoggingMutex );
 
         if (fConfig == nullptr)
         {
@@ -219,7 +220,7 @@ namespace LOGMASTER
             formatCheck = std::make_pair<bool, std::string>(true, ""); 
         }
         
-       std::lock_guard<std::mutex> guard( fLoggingMutex );
+      // std::lock_guard<std::mutex> guard( fLoggingMutex );
        
        std::lock_guard<std::recursive_mutex> guard_config1( config_mutex );
        
