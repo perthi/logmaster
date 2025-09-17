@@ -31,6 +31,7 @@ void exception_thread(const std::string &message)
     int i=0;
     CERR << "TP2" << ENDL;
 
+    
     try
     {
     
@@ -64,7 +65,7 @@ void exception_thread(const std::string &message)
         G_FATAL("%s, i = %d", e.what(), i );
         G_FATAL("exiting now");
         POP();
-        exit(-1);
+        return;
     }
     POP();  
 
@@ -75,26 +76,39 @@ int
 main(int  /*argc*/, const char** /*argv*/)
 {
 
-    
+
    // std::string msg = "lorem ipsum";
     //exception_thread(msg);
-    LPublisher::Instance( )->SetMode(ePUBLISH_MODE::ASYNCHRONOUS);   
-    G_FATAL("starting threads");
-    std::this_thread::sleep_for( std::chrono::milliseconds(1000) );  
-    //return 0;
-    std::this_thread::sleep_for( std::chrono::milliseconds(100) );  
-    std::string msg1 =  "Message from thread one";
-    std::string msg2 =  "Message from thread two";
-    std::string msg3 =  "Message from thread three";
+    try
+    {
+        LPublisher::Instance( )->SetMode(ePUBLISH_MODE::ASYNCHRONOUS);   
+        G_FATAL("starting threads");
+        std::this_thread::sleep_for( std::chrono::milliseconds(200) );  
+        //return 0;
+        std::this_thread::sleep_for( std::chrono::milliseconds(100) );  
+        std::string msg1 =  "Message from thread one";
+        std::string msg2 =  "Message from thread two";
+        std::string msg3 =  "Message from thread three";
+        std::thread th1(exception_thread, msg1);
+        std::thread th2(exception_thread, msg2);
+        std::thread th3(exception_thread, msg3 ) ;
+        G_INFO("joining threads");
+        th1.join();
+        th2.join();
+        th3.join();
+        G_INFO("DONE joining threads"); 
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    catch(...)
+    {
+      CERR << "UNKNOWN EXCEPTION CAUGHT" << ENDL;
+    } 
+
+    std::this_thread::sleep_for( std::chrono::milliseconds(500) ); 
     
-    std::thread th1(exception_thread, msg1);
-    std::thread th2(exception_thread, msg2);
-    std::thread th3(exception_thread, msg3 ) ;
-    G_INFO("joining threads");
-    th1.join();
-    th2.join();
-    th3.join();
-    G_INFO("DONE joining threads"); 
     return 0;
 }
 

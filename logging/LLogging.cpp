@@ -181,7 +181,8 @@ namespace LOGMASTER
     bool
     LLogging::CheckLevel( const eMSGSYSTEM system, const eLOGLEVEL level, const eMSGTARGET target )
     {
-        std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::recursive_mutex> guard( config_mutex );
+    
         static eLOGLEVEL zero_l = (eLOGLEVEL)0;
         static eMSGSYSTEM zero_s = (eMSGSYSTEM)0;
 
@@ -269,7 +270,7 @@ namespace LOGMASTER
                 
                 {
                     {
-                    std::lock_guard<std::mutex> guard_config( config_mutex );
+                    std::lock_guard<std::recursive_mutex> guard_config( config_mutex );
                     for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
                     {
                     
@@ -309,7 +310,7 @@ namespace LOGMASTER
     std::shared_ptr<LConfig>
     LLogging::GetConfig( const eMSGTARGET target )
     {
-        std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::recursive_mutex> guard( config_mutex );
         auto it = fConfig->find( target );
 
         if ( it != fConfig->end() )
@@ -326,7 +327,7 @@ namespace LOGMASTER
     eMSGTARGET
     LLogging::GetLogTarget() const
     {
-        std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::recursive_mutex> guard( config_mutex );
         eMSGTARGET tmp = eMSGTARGET::TARGET_OFF;
 
         for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
@@ -346,7 +347,7 @@ namespace LOGMASTER
     eMSGFORMAT
     LLogging::GetLogFormat( const eMSGTARGET target ) const
     {
-        std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::recursive_mutex> guard( config_mutex );
         auto it = fConfig->find( target );
 
         if ( it != fConfig->end() )
@@ -370,7 +371,7 @@ namespace LOGMASTER
         for ( auto it = m.begin(); it != m.end(); it++ )
         {
             eMSGTARGET target = it->first;
-            std::lock_guard<std::mutex> guard_config( config_mutex );
+            std::lock_guard<std::recursive_mutex> guard_config( config_mutex );
             for ( auto it2 = fConfig->begin(); it2 != fConfig->end(); it2++ )
             {
                 if ( (it2->first & target) != eMSGTARGET::TARGET_OFF )
@@ -385,7 +386,7 @@ namespace LOGMASTER
     eLOGLEVEL
     LLogging::GetLogLevel( const eMSGSYSTEM system, const eMSGTARGET target ) const
     {
-        std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::recursive_mutex> guard( config_mutex );
         auto it = fConfig->find( target );
 
         if ( it != fConfig->end() )
@@ -400,7 +401,7 @@ namespace LOGMASTER
     string
     LLogging::GetLogFileName( const eMSGTARGET target ) const
     {
-        std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::recursive_mutex> guard( config_mutex );
         auto it = fConfig->find( target );
 
         if ( it != fConfig->end() )
@@ -433,7 +434,7 @@ namespace LOGMASTER
             {
                 eMSGTARGET target = it_m->first;
                 {
-                  std::lock_guard<std::mutex> guard_config( config_mutex );
+                  std::lock_guard<std::recursive_mutex> guard_config( config_mutex );
                   for ( auto it = fConfig->begin( ); it != fConfig->end( ); it++ )
                   {
                       if ( (it->first & target) != (eMSGTARGET)0 )
@@ -466,7 +467,7 @@ namespace LOGMASTER
             eMSGTARGET target = it_m->first;
             
             {
-            std::lock_guard<std::mutex> guard_config( config_mutex );
+            std::lock_guard<std::recursive_mutex> guard_config( config_mutex );
 
             for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
             {
@@ -522,6 +523,7 @@ namespace LOGMASTER
         std::lock_guard<std::mutex> guard( fLoggingMutex );
       //  std::lock_guard<std::mutex> guard_config( config_mutex );
 
+
         int iret = 0;
         if ( fConfigurationStack.size() >= MAX_STACK_DEPTH )
         {
@@ -531,9 +533,14 @@ namespace LOGMASTER
         else
         {   
             {
-                std::lock_guard<std::mutex> guard_config( config_mutex );
+                std::lock_guard<std::recursive_mutex> guard_config( config_mutex );
                 fConfigurationStack.push( fConfig );
-                fConfig =  std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
+                //fConfig =  std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
+                auto tmp = std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
+                fConfigurationStack.push( tmp );
+                //fConfig = tmp;
+
+
             }
 
             iret =  0;
@@ -551,7 +558,7 @@ namespace LOGMASTER
 
         if ( fConfigurationStack.size() > 0 )
         {
-            std::lock_guard<std::mutex> guard_config( config_mutex );
+            std::lock_guard<std::recursive_mutex> guard_config( config_mutex );
             fConfig = fConfigurationStack.top();
             fConfigurationStack.pop();
             return 0;
@@ -567,7 +574,7 @@ namespace LOGMASTER
     LLogging::TurnOffAllTargets()
     {
         //std::lock_guard<std::mutex> guard( log_mutex ); 
-        std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::recursive_mutex> guard( config_mutex );
         for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
         {
             if (it->first != eMSGTARGET::TARGET_EXCEPTION )
@@ -582,7 +589,7 @@ namespace LOGMASTER
     LLogging::TurnOnfAllTargets()
     {
         //std::lock_guard<std::mutex> guard( log_mutex );
-        std::lock_guard<std::mutex> guard( config_mutex );
+        std::lock_guard<std::recursive_mutex> guard( config_mutex );
         for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
         {
             it->second.Enable();
