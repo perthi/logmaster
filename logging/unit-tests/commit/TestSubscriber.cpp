@@ -156,8 +156,10 @@ TEST_F(TestSubscriber, setTargetFileTest)
     SET_LOGTARGET( "--target-file" ) ;
     SET_LOGLEVEL("--all-warning");
     fStrCout.str("");
-    fMsg1->fMsg[0] = 0;
-    fMsg2->fMsg[0] = 0;
+    fMsg1->ClearContent();
+    fMsg2->ClearContent();
+    //fMsg1->fMsg[0] = 0;
+    //fMsg2->fMsg[0] = 0;
 
     G_WARNING("Dunbars Number is between %d and %d", 50, 200);
     
