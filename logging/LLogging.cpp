@@ -535,20 +535,8 @@ namespace LOGMASTER
         {   
             {
                 std::lock_guard<std::recursive_mutex> guard_config( config_mutex );
-                //fConfigurationStack.push( fConfig );
-                //fConfig =  std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
-                
-                ///auto tmp = std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
-                ///fConfigurationStack.push( tmp );
-                ///fConfig = tmp;
-
-                //fConfigurationStack.push( fConfig );
-                //auto tmp = std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
-                //fConfig = tmp;
                 auto tmp = std::make_shared< std::map<eMSGTARGET, LMessageFactory > >( *fConfig );
                 fConfigurationStack.push( tmp );
-                
-
             }
 
             iret =  0;
@@ -562,7 +550,6 @@ namespace LOGMASTER
     LLogging::Pop(  )
     {
        std::lock_guard<std::mutex> guard( fLoggingMutex );
-   //    std::lock_guard<std::mutex> guard_config( config_mutex );
 
         if ( fConfigurationStack.size() > 0 )
         {
@@ -581,7 +568,6 @@ namespace LOGMASTER
     void
     LLogging::TurnOffAllTargets()
     {
-        //std::lock_guard<std::mutex> guard( log_mutex ); 
         std::lock_guard<std::recursive_mutex> guard( config_mutex );
         for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
         {
@@ -596,7 +582,6 @@ namespace LOGMASTER
     void
     LLogging::TurnOnfAllTargets()
     {
-        //std::lock_guard<std::mutex> guard( log_mutex );
         std::lock_guard<std::recursive_mutex> guard( config_mutex );
         for ( auto it = fConfig->begin(); it != fConfig->end(); it++ )
         {
