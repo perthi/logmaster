@@ -47,7 +47,7 @@ class  GException : public std::exception
 public:
   API  GException(){};
   template<typename... Args>
-  API  GException(const string file, const string function, const int line, const eMSGSYSTEM system,
+  API  GException(const string &file, const string &function, const int line, const eMSGSYSTEM system,
                         const char *fmt, const Args ... args);
 
     virtual API inline  ~GException()
@@ -85,14 +85,14 @@ public:
  public:                                                               \
      inline classname() { };                                                \
      template<typename... Args>    \
-     API inline classname(const string file, const string function, const int line, const eMSGSYSTEM system, const char * fmt, const Args ... args ); \
+     API inline classname(const string &file, const string &function, const int line, const eMSGSYSTEM system, const char * fmt, const Args ... args ); \
    virtual inline ~classname() override { };                                      \
 };
 
 
 
-#define EXCEPTION_CLASS_CPP(classname) template<typename... Args>  classname::classname (const string file, \
-                          const string function,    \
+#define EXCEPTION_CLASS_CPP(classname) template<typename... Args>  classname::classname (const string &file, \
+                          const string &function,    \
                           const int line, \
                           const eMSGSYSTEM system,  \
                                               const char * fmt, const Args ... args)\
