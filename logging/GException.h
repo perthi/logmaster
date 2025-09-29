@@ -86,7 +86,7 @@ public:
      inline classname() { };                                                \
      template<typename... Args>    \
      API inline classname(const string file, const string function, const int line, const eMSGSYSTEM system, const char * fmt, const Args ... args ); \
-   virtual inline ~classname() { };                                      \
+   virtual inline ~classname() override { };                                      \
 };
 
 

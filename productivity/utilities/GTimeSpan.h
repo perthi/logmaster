@@ -20,7 +20,7 @@
 class GTimeSpan
 {
 public:
-    GTimeSpan(const int64_t usTimeSpan) : fTimespan(usTimeSpan)  {  }
+    explicit GTimeSpan(const int64_t usTimeSpan) : fTimespan(usTimeSpan)  {  }
     int64_t GetMicroSeconds() { return(fTimespan); }
     int64_t GetMilliSeconds() { return(fTimespan / 1000); }
     int64_t GetSeconds() { return(fTimespan / 1000000); }
