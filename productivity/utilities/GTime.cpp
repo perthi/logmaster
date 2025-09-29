@@ -89,7 +89,7 @@ long double GTime::AccessDate()
  *  single number (double) as the number of days since 1 Jan 1900 on decimal form (that is, for instance 0.5 days = 12 hours )
  *  @param date on string format which assumes the format yyyy:mm:dd:hh:mm:ss  The separator is insignificant
  *  @return The date on Access format */
-long double  GTime::AccessDate(const string date)
+long double  GTime::AccessDate(const string &date)
 {
     int mdays[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     long double DAYS_1900_TO_2000 = 36526.0;
@@ -165,7 +165,7 @@ long double  GTime::AccessDate(const string date)
      format = "%Y-%b-%d %H:%M:%S",
  *  @return The number of seconds between January 1st 00:00 1970  and the date represented by the "date" input parameter   */
 time_t
-GTime::DateString2Time(const string date, const string format, std::tm *t, int64_t *us )
+GTime::DateString2Time(const string &date, const string &format, std::tm *t, int64_t *us )
 {
     std::istringstream ss(date);
     std::tm s_t_l;

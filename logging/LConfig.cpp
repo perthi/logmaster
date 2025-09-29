@@ -283,7 +283,7 @@ namespace LOGMASTER
 
 
     string
-    LConfig::DoxygenDoc(const string filename)
+    LConfig::DoxygenDoc(const string &filename)
     {
         FILE *fp;
 

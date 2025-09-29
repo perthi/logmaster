@@ -89,7 +89,7 @@ bool GTimeValidate::IsGregorianLeapYear(int iYear)
 
 
 
-bool GTimeValidate::IsValidDayS(string day)
+bool GTimeValidate::IsValidDayS(const string &day)
 {
     auto s_validDays = fTimeFormat.GetValidDays();
     return ValidateV2(   ValidDayFunct, day, &s_validDays );
@@ -105,7 +105,7 @@ GTimeValidate::IsValidDay(const int day)
 
 
 bool 
-GTimeValidate::IsValidDateS(const string date)
+GTimeValidate::IsValidDateS(const string &date)
 {
     return ValidateV2( ValidDateFunct , date);
 }
@@ -120,7 +120,7 @@ GTimeValidate::IsValidDate(const int date)
 
 
 
-bool GTimeValidate::IsValidMonthS(const string month)
+bool GTimeValidate::IsValidMonthS(const string &month)
 {
     auto  s_validMonths =  fTimeFormat.GetValidMonths();
     return ValidateV2(  ValidMonthFunct , month,  &s_validMonths );
@@ -135,7 +135,7 @@ GTimeValidate::IsValidMonth(const int month)
 
 
 bool 
-GTimeValidate::IsValidYearS(const string year)
+GTimeValidate::IsValidYearS(const string &year)
 {
     return  ValidateV2( ValidYearFunct, year);
 }
@@ -147,7 +147,7 @@ bool  GTimeValidate::IsValidYear(const int year)
 }
 
 
-bool GTimeValidate::IsValidHourS(const string hour)
+bool GTimeValidate::IsValidHourS(const string &hour)
 {
     return ValidateV2( ValidHourFunct, hour);
 }
@@ -160,7 +160,7 @@ bool  GTimeValidate::IsValidHour(const int hour)
 
 
 bool  
-GTimeValidate::IsValidMinuteS(const string m)
+GTimeValidate::IsValidMinuteS(const string &m)
 {
     return ValidateV2( ValidMinuteFunct, m);
 }
@@ -180,7 +180,7 @@ GTimeValidate::IsValidSecond(const int s)
 }
 
 
-bool GTimeValidate::IsValidSecondS(const string s)
+bool GTimeValidate::IsValidSecondS(const string &s)
 {
     std::function<bool( const int )>  funct( std::bind( &GTimeValidate::IsValidSecond, this, std::placeholders::_1 ) );  
     return ValidateV2(  ValidSecondFunct, s); 

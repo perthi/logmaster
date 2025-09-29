@@ -40,31 +40,31 @@ public:
   
     bool            API   IsGregorianLeapYear(int iYear);
     
-    bool            API   IsValidDayS(    string  day );
+    bool            API   IsValidDayS(    const string  &day );
     bool            API   IsValidDay(   const int  day);
     std::function<bool( const int )>    ValidDayFunct; 
 
-    bool            API   IsValidDateS(  const string  date); 
+    bool            API   IsValidDateS(  const string  &date); 
     bool            API   IsValidDate(  const int  date);
     std::function<bool( const int )>    ValidDateFunct; 
 
-    bool            API   IsValidMonthS( const string  month);
+    bool            API   IsValidMonthS( const string  &month);
     bool            API   IsValidMonth( const int     month);
     std::function<bool( const int )>    ValidMonthFunct; 
 
-    bool            API   IsValidYearS(  const string  year);
+    bool            API   IsValidYearS(  const string  &year);
     bool            API   IsValidYear(  const int     year);
     std::function<bool( const int )>    ValidYearFunct; 
 
-    bool            API   IsValidHourS(  const string  hour);
+    bool            API   IsValidHourS(  const string  &hour);
     bool            API   IsValidHour(  const int     hour);
     std::function<bool( const int )>    ValidHourFunct; 
 
-    bool            API   IsValidMinuteS( const string  m);
+    bool            API   IsValidMinuteS( const string  &m);
     bool            API   IsValidMinute( const int     h);
     std::function<bool( const int )>    ValidMinuteFunct; 
 
-    bool            API   IsValidSecondS( const string  s);
+    bool            API   IsValidSecondS( const string  &s);
     bool            API   IsValidSecond( const int     s);
     std::function<bool( const int )>    ValidSecondFunct; 
 

@@ -47,7 +47,7 @@ namespace LOGMASTER
    public:
         API LConfig();
         void API InitHash(  );
-        std::string API DoxygenDoc(const string filename) ;
+        std::string API DoxygenDoc(const string &filename) ;
         std::string          API     GetFilename();
         eMSGFORMAT      API     GetLogFormat()  const  { return fLogFormat; };
         eLOGLEVEL       API     GetLogLevel(const eMSGSYSTEM system) const;
