@@ -29,7 +29,7 @@ class GLocation
 {
 public:
     inline GLocation() {};
-    inline GLocation(const string fname, const int lineno, const string funct ) : fFileName(fname), fLineNo(lineno), fFunctName(funct) {}
+    inline GLocation(const string &fname, const int lineno, const string &funct ) : fFileName(fname), fLineNo(lineno), fFunctName(funct) {}
     string fFileName = "";
     int   fLineNo = -1;
     string fFunctName = "";

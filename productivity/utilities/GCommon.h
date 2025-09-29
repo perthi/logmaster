@@ -32,7 +32,7 @@ class GCommon
 public:
     API GCommon() = default;
     API ~GCommon() = default;
-    void  API  HandleError(const string message, const GLocation l, const bool disable_error = false );
+    void  API  HandleError(const string &message, const GLocation &l, const bool disable_error = false );
     void  API  DisableOutput();
     void  API  EnableOutput();
 
