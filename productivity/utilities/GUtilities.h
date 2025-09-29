@@ -127,7 +127,6 @@ GUtilities::CheckLimits(const T val, const T low, const T up,
                         const char *varname, const char *filename, const int linenumber, const char *functionname, bool *status) const
 {
     std::ostringstream l_msg;
-    bool ret = false;
 
     if (val < low || val > up)
     {
@@ -135,7 +134,7 @@ GUtilities::CheckLimits(const T val, const T low, const T up,
 
         if (status != nullptr)
         {
-            *status = ret;
+            *status = false;
         }
 
         GCommon().HandleError(l_msg.str(), GLocation(filename, linenumber, functionname), IsDisabledError());
