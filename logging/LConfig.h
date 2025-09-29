@@ -57,7 +57,7 @@ namespace LOGMASTER
         void            API     SetLogFormat(const   std::string &format, bool enable);
         void            API     SetLogLevel(const    std::string  &level );
         void            API     SetLogFileName(const std::string &filename );
-        static void     API     SetTimeMode(const    std::string mode);
+        static void     API     SetTimeMode(const    std::string &mode);
         bool            API     IsInitialized() const { return fIsInitialized; };
         void            API     FilterOut( eMSGSYSTEM &sys,  vector<eMSGSYSTEM>  systems);
 

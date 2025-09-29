@@ -270,7 +270,7 @@ namespace LOGMASTER
 
 
     void
-    LConfig::SetTimeMode( const string mode )
+    LConfig::SetTimeMode( const string &mode )
     {
         fTimeMode = mode;
     }
