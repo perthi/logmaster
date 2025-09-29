@@ -57,8 +57,8 @@ class  GUtilities
     friend GUtilities * g_utilities();
 public:
     string              API     CopyToString (const char *buffer, const int length, string *in = nullptr);  
-    string              API     QueryInput( const string prompt);
-    string              API     AutoClause(string addendum = "", FILE *fp  = nullptr);
+    string              API     QueryInput( const string &prompt);
+    string              API     AutoClause(const string &addendum = "", FILE *fp  = nullptr);
     bool                API     IsLittleEndian() const;
     bool                API     IsBigEndian() const;       
     void                API     Sizes() const;
@@ -68,18 +68,18 @@ public:
     bool                API     IsSpacesOnly(const string &in) const;
     string              API     TrueOrFalse( const bool val ) const;
     string              API     TabAlign(const string &in,  int max_tabs = 4, int *n_tabs = nullptr ) const;
-    bool                API     IsValidIPV4Address(const string ipv4_address) const;
-    bool                API     StopThread( std::thread *th, GLocation l );    
+    bool                API     IsValidIPV4Address(const string &ipv4_address) const;
+    bool                API     StopThread( std::thread *th, const GLocation &l );    
     
     template <typename T >   void   ResetArray( T *arr, const size_t size ) const;
-    template < typename T >  void   Print(const T &array, const string file, const string func, const int line ) const;
+    template < typename T >  void   Print(const T &array, const string &file, const string &func, const int line ) const;
     template < typename T >  void   Print(vector<T> in) const;
     template < typename T >  bool   IsInRange(const T value, const T lower, const T upper) const;
     template < typename T1, typename T2> bool    Contains( const std::map<T1, T2> * const, T1) const;
     template < typename T1, typename T2> bool    Contains( const std::map<T1, T2> * const, T2) const;
     template < typename T>    bool               Contains(const vector<T> vect, const T element) const;
-    template < typename T >   string             Vec2String(const vector<T>, const string sep =  "\n") const;
-    template < typename T>    string                  Hash2String( const map< string, T>   *m, const int ncols = 8, const string sep = "") const;
+    template < typename T >   string             Vec2String(const vector<T> &data, const string sep =  "\n") const;
+    template < typename T>    string                  Hash2String( const map< string, T>   *m, const int ncols = 8, const string &sep = "") const;
     template < typename T1, typename T2> vector< T1>  Hash2StringV(const map< T1, T2>  *m) const;
     template < typename T1, typename T2> vector< T2>  Hash2SContentV(const map< T1, T2>* m) const;
     template < typename T >   bool                    HasElement(const T element, const vector<T> &in) const;
@@ -98,7 +98,6 @@ public:
 
 private:
     bool fIsDisabledError = false;
-    char fCurDir[1024] = "";
 };
 
 
@@ -210,7 +209,7 @@ GUtilities::Contains( const  map<T1, T2> *const m , T2 name) const
 
 template <typename T>
 string
-GUtilities::Vec2String(const vector<T> data, const string sep) const
+GUtilities::Vec2String(const vector<T> &data, const string sep) const
 {
     ostringstream buffer;
     unsigned int n = (unsigned int)data.size();
@@ -240,7 +239,7 @@ GUtilities::Vec2String(const vector<T> data, const string sep) const
  *   @return a vector of hash codes/entries */
 template <typename T>
 string 
-GUtilities::Hash2String(const map<string, T>  *m, const int ncols, const string sep) const
+GUtilities::Hash2String(const map<string, T>  *m, const int ncols, const string &sep) const
 {
 
     if( m == nullptr )
@@ -413,7 +412,7 @@ GUtilities::FilterOut(vector<T>& in, const vector<T> &filter) const
 
 
 template<typename T>
-inline void GUtilities::Print(const T &array, const string file, const string func, const int line) const
+inline void GUtilities::Print(const T &array, const string &file, const string &func, const int line) const
 {
     cout << file << ":" << line << ": " << func << ":  Printing array " << endl;
 
@@ -538,11 +537,9 @@ inline vector<T1> operator *  (const vector<T1> &lhs,  const T2 &rhs )
 template<typename T>
 inline ostream& operator << ( ostream& os,  const vector<T> &in ) 
 {
-    std::stringstream buffer;
-    
     for(size_t i=0; i < in.size(); i++)
     {
-    os << in[i] << endl;
+        os << in[i] << endl;
     }
     
     return os;
@@ -551,12 +548,11 @@ inline ostream& operator << ( ostream& os,  const vector<T> &in )
 
 template<typename T>
 inline ostream& operator << ( ostream& os,  const vector<T *> &in )
-{ const
-    std::stringstream buffer;
+{ 
     
     for(int i=0; i < in.size(); i++)
     {
-    os << *in[i] << endl;
+       os << *in[i] << endl;
     }
     
     return os;

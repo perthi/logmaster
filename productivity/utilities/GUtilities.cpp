@@ -134,7 +134,7 @@ GUtilities::QueryInput( const string prompt)
 //#ifndef ARM
 #ifdef __linux__
 string  
-GUtilities::QueryInput(const string prompt)
+GUtilities::QueryInput(const string &prompt)
 {
     string option;
     const char *line;
@@ -154,7 +154,7 @@ GUtilities::QueryInput(const string prompt)
 
 
 bool 
-GUtilities::IsValidIPV4Address(const string ipv4_address) const
+GUtilities::IsValidIPV4Address(const string &ipv4_address) const
 {
     std::regex pattern("^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
     return std::regex_match(ipv4_address, pattern);
@@ -189,7 +189,7 @@ GUtilities::CopyToString(const char *buffer, const int length, string *in)
 
 
 string 
-GUtilities::AutoClause( string addendum, FILE *fp)
+GUtilities::AutoClause( const string &addendum, FILE *fp)
 {
     std::stringstream buffer;
     buffer <<  endl <<  "/***** Auto generated file: DO NOT EDIT !!!!!! *****/" << endl;
@@ -224,7 +224,7 @@ GUtilities::TrueOrFalse( const bool val ) const
 
 
 bool 
-GUtilities::StopThread(std::thread *th, GLocation l )
+GUtilities::StopThread(std::thread *th, const GLocation &l )
 {
     if (th->joinable() == false)
     {

@@ -130,7 +130,7 @@ GTokenizer::TokenizeCommandline(const string &line)
  *  @param[in,out]  fout   The resulting filename, without the directory is stored in this variable
  *  @param[in]      keep_trailing_slash whether or not to keep the trailing slash on the directory path after the path has been stripped */
 void
-GTokenizer::StripPath(const string fin, string& dir, string& fout, const bool keep_trailing_slahs)
+GTokenizer::StripPath(const string &fin, string& dir, string& fout, const bool keep_trailing_slahs)
 {
     vector<string> separators = { "\\", "/" };
     auto tokens = Tokenize(fin, separators, DISCARD_EMPTY, KEEP_SEPARATOR);

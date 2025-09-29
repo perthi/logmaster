@@ -58,7 +58,7 @@ class GTokenizer
 public: 
     API GTokenizer() {};
     virtual API ~GTokenizer() {};
-     void              API   StripPath(const string fin, string &dir, string &fout, const bool keep_trailing_slash = KEEP_TRAILING_SEPARATOR );  
+     void              API   StripPath(const string &fin, string &dir, string &fout, const bool keep_trailing_slash = KEEP_TRAILING_SEPARATOR );  
      vector<string>    API   Tokenize(const string &source,  const string &sep = "\t",   const bool keep_empty = DISCARD_EMPTY,  const bool keep_sep = DISCAR_SEPARATOR,  const bool keep_front = false );
      vector<string>    API   Tokenize(const string &source,  const vector<string> &sep,  const bool keep_empty = DISCARD_EMPTY,  const bool keep_sep = DISCAR_SEPARATOR , const bool keep_front = false );
      vector<string>    API   Tokenize(const int argc, const char** argv);

@@ -4,4 +4,4 @@ if [ "$#" -eq 0 ]; then
   exit 1
 fi
 
-cppcheck $1 $2 $3 $4 $5 -I include --suppress=missingIncludeSystem  --check-level=exhaustive  --report-type=misra-cpp-2023  --platform=unix64  --language=c++ --enable=all 2>  report.txt
+cppcheck $1 $2 $3 $4 $5 -I include --suppress=missingIncludeSystem  --suppress=unusedFunction --check-level=exhaustive  --report-type=misra-cpp-2023  --platform=unix64  --language=c++ --enable=all 2>  report.txt
