@@ -72,24 +72,22 @@ pipeline
     }
      post {  
          always {  
-             echo 'This will always run'
+             //echo 'This will always run'
              step([$class: 'CordellWalkerRecorder'])
-             sendMail();
+             //sendMail();
 		}  
          success {
-			 sendMail(); 
+	     //		 sendMail(); 
              echo 'This will run only if successful'  
          }  
          failure {
              sendMail();   
          }  
          unstable {  
-             echo 'This will run only if the run was marked as unstable'  
-         }  
+                       sendMail();
+             }  
          changed {  
              sendMail();
-			 echo 'This will run only if the state of the Pipeline has changed'  
-             echo 'For example, if the Pipeline was previously failing but is now successful'  
          }  
  }  
 
