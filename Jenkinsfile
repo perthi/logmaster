@@ -81,13 +81,16 @@ pipeline
              echo 'This will run only if successful'  
          }  
          failure {
+             echo 'This will run only if unstable'      
              sendMail();   
          }  
          unstable {  
-                       sendMail();
+                  echo 'This will run only if unstable'  
+                  sendMail();
              }  
          changed {  
-             sendMail();
+              echo 'This will run only if  changed'  
+              sendMail();
          }  
  }  
 
