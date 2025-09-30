@@ -1,28 +1,71 @@
 // -*- mode: c++ -*-
 
-#include <configurator/LXmlParser.h>
-#include <xml/GXmlValidator.h>
-#include <configurator/LFileCreator.h>
-#include <configurator/LArgumentScanner.h>
-#include <logging/LLogApi.h>
-#include <utilities/version-info/GMenu.h>
-#include <logging/GException.h>
-#include <configurator/LGeneratorTestLHashMaps.h>
-#include <logging/LPublisher.h>
+// #include <configurator/LXmlParser.h>
+// #include <xml/GXmlValidator.h>
+// #include <configurator/LFileCreator.h>
+/// #include <configurator/LArgumentScanner.h>
+// #include <logging/LLogApi.h>
+// #include <utilities/version-info/GMenu.h>
+// #include <logging/GException.h>
+// #include <configurator/LGeneratorTestLHashMaps.h>
+//#include <logging/LPublisher.h>
+#include <utilities/GFormatting.h>
 
-#include <fmt/format.h>
+using namespace GFormatting;
+
+//#include <fmt/format.h>
 
 #ifdef _W_IN32
 #include <Windows.h>
 #endif
 
-#include <string>
-using std::string;
-using namespace LOGMASTER;
-using namespace CONFIGURATOR;
+//#include <string>
+//using std::string;
+//using namespace LOGMASTER;
+//using namespace CONFIGURATOR;
+
+template<typename...  Args>
+void print_values(const Args&... args) 
+{
+    // This lambda is a common way to expand and process parameter packs
+     const Arg argArray[] = {args...};
+     printf("size = %ld\n", sizeof ...(Args) );
+    // printf((int)argArray.type); 
+    for (int i=0; i  <  sizeof ...(Args) ; i++)
+    {
+        printf("type = %d\n", (int)argArray[i].type);
+    }  
+
+
+     /*
+     ([&](const auto& arg){
+        std::cout << arg << " ";
+    }(args), ...); // The comma operator combined with pack expansion
+    std::cout << std::endl;
+   */
+}
+
+int main() {
+    int i = 10;
+    std::string s = "hello";
+    double d = 3.14;
+ //    print_values("i = %d", i);
+    xxprint_values("i = %d, i2 = %d, s= %s, d = %f", i, i, s.c_str(), d);
+  //  print_values(i, s, d); // Pass by const reference
+  //  print_values(5, "world"); // Literals can also be passed
+    
+    // Attempting to modify 'i' within print_values would result in a compile-time error
+    // (e.g., if print_values tried to do `arg = 20;` for an int)
+
+    return 0;
+}
 
 
 
+
+
+
+/*
 int main(int  argc, const char** argv)
 {
 
@@ -75,4 +118,4 @@ int main(int  argc, const char** argv)
     }
 
 }
-
+*/
