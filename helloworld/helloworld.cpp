@@ -50,7 +50,7 @@ int main() {
     std::string s = "hello";
     double d = 3.14;
  //    print_values("i = %d", i);
-    print_values("i = %d, i2 = %d, s= %s, d = %f", i, i, s.c_str(), d);
+    xxprint_values("i = %d, i2 = %d, s= %s, d = %f", i, i, s.c_str(), d);
   //  print_values(i, s, d); // Pass by const reference
   //  print_values(5, "world"); // Literals can also be passed
     
