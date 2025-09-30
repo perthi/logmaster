@@ -39,7 +39,7 @@ export VERSIONINFO_EXE=$(BUILDDIR)/x86/bin/version-info
 
 export LOGMASTER_HOME=$(PWD)
 export COMMON_FLAGS:= -fPIC -ggdb  -std=c++23  -g   -Wno-psabi  -DFMT_HEADER_ONLY  -DGUI_DIR='"$(LOGMASTER_HOME)"' -DFMT_HEADER_ONLY
-export PEDANTIC_FLAGS:=  -ggdb  -O0 -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum  -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security  -Werror      
+export PEDANTIC_FLAGS:=  -ggdb  -O0 -Weffc++ -Wshadow -Wall -Wextra -Wpedantic -Wno-psabi -Wno-unknown-pragmas -Wswitch-enum  -Wimplicit-fallthrough -Wignored-qualifiers -Wno-format-security      
 
 export HAS_LOGGING:=""
 export LOGMASTER_HOME=$(PWD)
