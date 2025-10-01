@@ -73,7 +73,7 @@ TEST_F( TestLConfig, set_get_filename )
 
 TEST_F( TestLConfig, set_get_filename_empty )
 {
-   EXPECT_ANY_THROW( LConfig().SetLogFileName("unittest.log") );
+   EXPECT_ANY_THROW( LConfig().SetLogFileName("") );
 }
 
 
@@ -83,7 +83,7 @@ TEST_F( TestLConfig, doxygen_doc )
    LConfig().DoxygenDoc(filename);
    EXPECT_TRUE(g_file()->DoExists(filename));
    EXPECT_TRUE(g_file()->Delete(filename));
-   EXPECT_TRUE(g_file()->DoExists(filename));
+   EXPECT_FALSE(g_file()->DoExists(filename));
 }
 
 

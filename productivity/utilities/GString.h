@@ -45,7 +45,7 @@ class GString
  public:
      char      API *  ReplaceBadChar(char *inputstring, const char delimeter = '_', const char *suspicious = 0);
      string    API  ReplaceBadChar(string &inputstring, const char delimeter = '_', const char *suspicious = 0);
-     string    API  Replace(const string original, const string toreplace, const string replacement);
+     string    API  Replace(const string &original, const string &toreplace, const string &replacement);
      string    API  Path2ClassName(const string & path);   
 
      template <typename T>
@@ -54,15 +54,15 @@ class GString
      template <typename T>
      string    API  ToString(const T in, const int w = -1, const char pad = '0');
      
-     int       API  CountOccurrences(const string input, const char c, const bool ignore_case);
-     bool      API  Contains(const vector<string> &str, const string &substring, const bool ignore_case = true, long long int *pos = 0);
-     bool      API  Contains(const string &str, const string &substring, const bool ignore_case = true, long long int *pos = 0);
-     bool      API  BeginsWith(const string &str, const string &substring, const bool ignore_case = true);
-     bool      API  BeginsWith(const string& str, const vector<string>& substring, const bool ignore_case = true);
-     bool      API  BeginsWith(const vector<string> * const arr, const string token, const bool ignore_case = true);
-     bool      API EndsWith(const string &str, const string &substring, const bool ignore_case = true);
-     bool      API EndsWith(const string& str, const vector <string>   substrings, const bool ignore_case = true);
-     bool         API CompareNoCase(string lhs, string rhs) { return (ToUpper(lhs) == ToUpper(rhs)); }
+     int          API  CountOccurrences(const string &input, const char c, const bool ignore_case);
+     bool         API  Contains(const vector<string> &str, const string &substring, const bool ignore_case = true, long long int *pos = 0);
+     bool         API  Contains(const string &str, const string &substring, const bool ignore_case = true, long long int *pos = 0);
+     bool         API  BeginsWith(const string &str, const string &substring, const bool ignore_case = true);
+     bool         API  BeginsWith(const string& str, const vector<string>& substring, const bool ignore_case = true);
+     bool         API  BeginsWith(const vector<string> * const arr, const string &token, const bool ignore_case = true);
+     bool         API  EndsWith(const string &str, const string &substring, const bool ignore_case = true);
+     bool         API  EndsWith(const string& str, const vector <string>   substrings, const bool ignore_case = true);
+     bool         API  CompareNoCase(const string &lhs, const string &rhs) { return (ToUpper(lhs) == ToUpper(rhs)); }
  
      string       API & Ltrim(string &s, const char c = ' ');
      string       API & Rtrim(string &s, const char c = ' ');
@@ -71,13 +71,13 @@ class GString
      vector<string> API Trim(vector<string> &s, const char c = ' ');
      vector<string> API Trim(vector<string> &s, const vector<char> tokens);
 
-     string       API &Utf8ToAnsi(string &s);
-     char         API *Utf8ToAnsi(char *s);
-     bool         API  IsAnsi(string &s);
+     string        API &Utf8ToAnsi(string &s);
+     char          API *Utf8ToAnsi(char *s);
+     bool          API  IsAnsi(string &s);
      std::string   API AnsiToUtf8(const std::string &ansiStr);
-     string       API &ToLower(const string &s);
-    string       API &ToUpper(const string &s);
-     bool API      IsMatch(const string pattern, const string val, bool require_exact_match = false);
+     string        API &ToLower(const string &s);
+     string        API &ToUpper(const string &s);
+     bool          API IsMatch(const string &pattern, const string &val, bool require_exact_match = false);
 
  private:
      GString(){};

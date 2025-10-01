@@ -65,7 +65,7 @@ GNumberTypes::IsBinary(string num)
 
 
 bool
-GNumberTypes::IsDecNumber(const string  num)
+GNumberTypes::IsDecNumber(const string  &num)
 {
     if ( IsDigit(num) || IsFloat(num) )
     {
@@ -92,7 +92,7 @@ GNumberTypes::IsDecNumber(const string  num)
 *   @param base the base, or radix of the number "num"
 *   @return  true if the number given by "num" is a valid digit in the base "base", false othervise */
 bool
-GNumberTypes::IsDigit(const string num, const int base)
+GNumberTypes::IsDigit(const string &num, const int base)
 {
     string tmp = num;
     g_string( )->Trim(tmp, ' ');
@@ -121,7 +121,7 @@ GNumberTypes::IsDigit(const string num, const int base)
 
 
 bool
-GNumberTypes::IsHex(const string in)
+GNumberTypes::IsHex(const string &in)
 {
     string s = in;
     g_string( )->Trim(s);
@@ -147,7 +147,7 @@ GNumberTypes::IsHex(const string in)
 
 
 bool
-GNumberTypes::IsInteger(const string num)
+GNumberTypes::IsInteger(const string &num)
 {
     string tmp = num;
     g_string( )->Trim(tmp, { ' ', '\t', '\n' });

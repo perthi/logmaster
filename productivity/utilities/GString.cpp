@@ -62,7 +62,7 @@ GString  * g_string()
 *  A-Z for all other characters the flag is ignored.
 *  @return  The number of times "c" occurs in "str" */
 int
-GString::CountOccurrences(const string str, const char c, const bool ignore_case)
+GString::CountOccurrences(const string &str, const char c, const bool ignore_case)
 {
     int cnt = 0;
     string l_str = str;
@@ -132,7 +132,7 @@ GString::BeginsWith(const string& str, const vector<string>& substring_v, const 
 *   @param[in] token   The token to search for in the vector "arr"
 *   @param[in] ignore_case whether or not the text search should be case sensitive.
 *   @return true if "arr" has any element that begins with "token, false otherwise" */
-bool GString::BeginsWith(const vector<string> *const arr, const string token, const bool ignore_case)
+bool GString::BeginsWith(const vector<string> *const arr, const string &token, const bool ignore_case)
 {
     if (arr == nullptr)
     {
@@ -553,7 +553,7 @@ GString::AnsiToUtf8(const std::string& ansiStr)
 
 
 bool  
-GString::IsMatch(const string pattern, const string val, bool require_exact_match  ) 
+GString::IsMatch(const string &pattern, const string &val, bool require_exact_match  ) 
 {
     if (require_exact_match == true)
     {
@@ -638,7 +638,7 @@ GString::Contains(const string& str, const string& substring, const bool  ignore
   * @param[in] replacement  The string that will replace "to replace"
   * @return    The modified string */
 string
-GString::Replace(const string original, const string substring, const string replacement)
+GString::Replace(const string &original, const string &substring, const string &replacement)
 {
     string tmp = original;
     

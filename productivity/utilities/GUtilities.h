@@ -78,7 +78,7 @@ public:
     template < typename T1, typename T2> bool    Contains( const std::map<T1, T2> * const, T1) const;
     template < typename T1, typename T2> bool    Contains( const std::map<T1, T2> * const, T2) const;
     template < typename T>    bool               Contains(const vector<T> vect, const T element) const;
-    template < typename T >   string             Vec2String(const vector<T> &data, const string sep =  "\n") const;
+    template < typename T >   string             Vec2String(const vector<T> &data, const string &sep =  "\n") const;
     template < typename T>    string                  Hash2String( const map< string, T>   *m, const int ncols = 8, const string &sep = "") const;
     template < typename T1, typename T2> vector< T1>  Hash2StringV(const map< T1, T2>  *m) const;
     template < typename T1, typename T2> vector< T2>  Hash2SContentV(const map< T1, T2>* m) const;
@@ -209,7 +209,7 @@ GUtilities::Contains( const  map<T1, T2> *const m , T2 name) const
 
 template <typename T>
 string
-GUtilities::Vec2String(const vector<T> &data, const string sep) const
+GUtilities::Vec2String(const vector<T> &data, const string &sep) const
 {
     ostringstream buffer;
     unsigned int n = (unsigned int)data.size();

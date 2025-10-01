@@ -48,11 +48,11 @@ namespace LOGMASTER
         API LConfig();
         void API InitHash(  );
         std::string API DoxygenDoc(const string &filename) ;
-        std::string          API     GetLogFileName();
+        const std::string          API     & GetLogFileName() const;
         eMSGFORMAT      API     GetLogFormat()  const  { return fLogFormat; };
         eLOGLEVEL       API     GetLogLevel(const eMSGSYSTEM system) const;
         LHashMaps       API *   GetHash();
-        static string   API     GetTimeMode();
+        const static string   API   &  GetTimeMode();
         
         void            API     SetLogFormat(const   std::string &format, bool enable);
         void            API     SetLogLevel(const    std::string  &level );

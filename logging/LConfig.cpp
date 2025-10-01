@@ -53,8 +53,8 @@ namespace LOGMASTER
     }
 
 
-    std::string
-    LConfig::GetLogFileName()
+    const std::string &
+    LConfig::GetLogFileName() const
     {
         return  fLogFilename;
     }
@@ -275,7 +275,7 @@ namespace LOGMASTER
         fTimeMode = mode;
     }
 
-    string
+    const  string &
     LConfig::GetTimeMode(  )
     {
         return  fTimeMode;
