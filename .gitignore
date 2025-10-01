@@ -106,3 +106,7 @@ bugs/issue-133/arm/issue-133
 bugs/issue-141/x86/issue-141
 bugs/issue-141/arm/issue-141
 logmaster.db-journal
+h
+coverage-report
+coverage.cleaned.info
+coverage.info
