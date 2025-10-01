@@ -1,4 +1,11 @@
 #!/bin/bash
+#!/bin/bash
+if [ "$#" -eq 0 ]; then
+  echo "You must specify an executable" >&2
+  exit 1
+fi
+
+$1
 
 files=`find . -name "*.gcno*" -o -name "*.gcda*"`
 
