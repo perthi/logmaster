@@ -59,82 +59,90 @@ LIBS= -L $(PWD)/build/$(TARGET)/lib  -lm
 export SUPPORT_LIBS:= -lcmdline -lutilities   -llogmaster 
 export UNIT_TEST_LIBS:= $(SUPPORT_LIBS) -lgtest -lpthread 
 
-version-info:=           productivity/utilities/version-info/$(TARGET)
+version-info-exe:=           productivity/utilities/version-info/$(TARGET)
 #gtest-embc:=             productivity/gtest-embc/$(TARGET)
-utilities:=              utilities/$(TARGET)
-utilities-unittest:=     utilities/unit-tests/commit/$(TARGET)
-logging:=                logging/$(TARGET)
+utilities-lib:=              utilities/$(TARGET)
+utilities-unittest-exe:=     utilities/unit-tests/commit/$(TARGET)
+logging-lib:=                logging/$(TARGET)
 #logging-example1:=       logging/examples/logging-example1/$(TARGET)
-logging-unittest:=       logging/unit-tests/commit/$(TARGET)
-cmdline:=                cmdline/$(TARGET)
-cmdline-example1:=       cmdline/examples/cmdline-example1/$(TARGET)
-cmdline-unittest:=       cmdline/unit-tests/commit/$(TARGET)
-xml-parser:=             xml-parser/xml/$(TARGET)
-xml-validator:=          xml-parser/xml/xml-validator/$(TARGET)
-xml-example1:=           xml-parser/xml/exmples/xml-example1/$(TARGET)
-xml-unittest:=           xml-parser/xml/unit-tests/commit/$(TARGET) 
-configurator:=           configurator/$(TARGET)
-configurator-unittest:=  configurator/unit-tests/commit/$(TARGET)
-logging-configurator:=   configurator/logging-configurator/$(TARGET)
-helloworld:=             helloworld/$(TARGET)
+logging-unittest-exe:=       logging/unit-tests/commit/$(TARGET)
+cmdline-lib:=                cmdline/$(TARGET)
+cmdline-example1-exe:=       cmdline/examples/cmdline-example1/$(TARGET)
+cmdline-unittest-exe:=       cmdline/unit-tests/commit/$(TARGET)
+xml-parser-lib:=             xml-parser/xml/$(TARGET)
+xml-validator-exe:=          xml-parser/xml/xml-validator/$(TARGET)
+xml-example1-exe:=           xml-parser/xml/exmples/xml-example1/$(TARGET)
+xml-unittest-exe:=           xml-parser/xml/unit-tests/commit/$(TARGET) 
+configurator-lib:=           configurator/$(TARGET)
+configurator-unittest-exe:=  configurator/unit-tests/commit/$(TARGET)
+logging-configurator-exe:=   configurator/logging-configurator/$(TARGET)
+helloworld-exe:=             helloworld/$(TARGET)
 
 # bug exposure start
-issue-133:=              bugs/issue-133/$(TARGET) 
-issue-141:=              bugs/issue-141/$(TARGET) 
+issue-133-exe:=              bugs/issue-133/$(TARGET) 
+issue-141-exe:=              bugs/issue-141/$(TARGET) 
 # bug exposure end
 
-db-test:=                database-test/$(TARGET)
-sqlite:=                 productivity/sqlite/$(TARGET) 
-api-logmaster:=          api/api-logmaster/$(TARGET) 
-gui-example1:=           gui/logger/examples/gui-loggergui-example1/$(TARGET)
-gui-example2:=           gui/logmaster/examples/gui-qt-logmaster-example1/$(TARGET)
-gui-alarm:=              gui/alarm/$(TARGET) 
-gui-logger:=             gui/logger/$(TARGET) 
-gui-logmaster:=          gui/logmaster/$(TARGET) 
-gui-common:=             gui/common/$(TARGET) 
-gui-alarm-example1:=     gui/alarm/examples/gui-alarm-example1/$(TARGET) 
+db-test-exe:=                database-test/$(TARGET)
+sqlite-lib:=                 productivity/sqlite/$(TARGET) 
+api-logmaster-lib:=          api/api-logmaster/$(TARGET) 
+gui-example1-exe:=           gui/logger/examples/gui-loggergui-example1/$(TARGET)
+gui-example2-exe:=           gui/logmaster/examples/gui-qt-logmaster-example1/$(TARGET)
+gui-alarm-lib:=              gui/alarm/$(TARGET) 
+gui-logger-lib:=             gui/logger/$(TARGET) 
+gui-logmaster-lib:=          gui/logmaster/$(TARGET) 
+gui-common-lib:=             gui/common/$(TARGET) 
+gui-alarm-example1-exe:=     gui/alarm/examples/gui-alarm-example1/$(TARGET) 
 
 
-unittests:= 	$(utilities-unittest) \
-		        $(exception-unittest) \
-                $(logging-unittest) \
-		        $(cmdline-unittest) \
-				$(xml-unittest)  
+unittests:= 	$(utilities-unittest-exe) \
+		        $(exception-unittest-exe) \
+                $(logging-unittest-exe) \
+		        $(cmdline-unittest-exe) \
+				$(xml-unittest-exe)  
 
 
-support-modules:= 	$(utilities) \
-			$(logging) \
-			$(cmdline)
+support-modules:= 	$(utilities-lib) \
+			$(logging-lib) \
+			$(cmdline-lib)
 
 
-gui-lib+=$(gui-logger) $(gui-logmaster) $(gui-common) $(gui-alarm)
-gui-exe+=$(gui-example1)   $(gui-alarm-example1) $(gui-example2)  
+gui-lib+=$(gui-logger-lib) $(gui-logmaster-lib) $(gui-common-lib) $(gui-alarm-lib)
+gui-exe+=$(gui-example1-exe)   $(gui-alarm-example1-exe) $(gui-example2-exe)  
 
 
 src-lib:= $(support-modules) \
 	$(gtest-embc) \
 	$(testlib) \
-	$(xml-parser) \
-	$(common) \
-    $(exception) \
-	$(sqlite)
+	$(xml-parser-lib) \
+	$(common-lib) \
+    $(exception-lib) \
+	$(sqlite-lib)
 
 
-src-exe:=$(cmdline-example1) \
-	     $(db-test) \
-	     $(version-info)
+src-exe:=$(cmdline-example1-exe) \
+	     $(db-test-exe) \
+	     $(version-info-exe)
 
 
 arm-src:=$(src-lib) $(src-exe)
 x86-src:=$(src-lib) $(src-exe)
 
-all-clean:= $(src-lib)  $(x86-src) $(configurator-unittest) $(configurator)  $(api-logmaster)  $(xml-validator) $(configurator-example1) $(logging-configurator)  $(gui-lib)  $(gui-exe)
+all-clean:= $(src-lib)  $(x86-src) $(configurator-unittest-exe) $(configurator-exe) \
+            $(api-logmaster-lib)  $(xml-validator-exe) $(configurator-example1-exe) $(logging-configurator-exe)  $(gui-lib)  $(gui-exe)
 
 ifeq (x86, $(TARGET))
-unittests+= $(configurator-unittest)
-src-lib+= $(configurator)  $(api-logmaster)
-src-exe+= $(logging-example1)$(xml-validator) $(helloworld) $(configurator-example1) $(logging-configurator) $(configurator-unittest)  $(unittests) 
-src-exe+= $(issue-133) $(issue-141)
+unittests+= $(configurator-unittest-exe)
+src-lib+= $(configurator-lib)  $(api-logmaster-lib)
+
+src-exe+= $(logging-example1-exe) $(xml-validator-exe) \
+          $(helloworld-exe) $(configurator-example1-exe) \
+		  $(logging-configurator-exe) \
+		  $(configurator-unittest-exe) \
+		  $(unittests) 
+
+src-exe+= $(issue-133-exe) $(issue-141-exe)
+
 x86-src:= $(src-lib) $(src-exe) 
 all-src:=$(x86-src)
 all-clean:=$(all-src)
@@ -203,7 +211,8 @@ check-compiler:
 $(INSTALLDIRS):
 	mkdir -p $@
 
-$(src-exe): $(version-info)
+$(src-exe): $(version-info-exe)
+
 
 x86:    $(INSTALLDIRS)
 	$(MAKE) TARGET=x86
