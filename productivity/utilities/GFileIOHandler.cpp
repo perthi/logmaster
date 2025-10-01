@@ -54,6 +54,7 @@ using std::ifstream;
 #include <algorithm>
 #include <fmt/format.h>
 
+/** @todo remove singleton */
 GFileIOHandler* g_file()
 {
     static GFileIOHandler* instance = new GFileIOHandler();

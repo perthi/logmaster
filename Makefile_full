@@ -132,14 +132,13 @@ all-clean:= $(src-lib-x86)  $(x86-src) $(configurator-unittest-exe) $(configurat
 
 ifeq (x86, $(TARGET))
 unittests+= $(configurator-unittest-exe)
-src-lib+= $(configurator-lib)  $(api-logmaster-lib)
+src-lib+= $(src-lib-x86) $(configurator-lib)  $(api-logmaster-lib)
 
 src-exe+= $(xml-validator-exe) \
           $(logging-example1-exe) \
 		  $(logging-example2-exe) \
           $(helloworld-exe) $(configurator-example1-exe) \
 		  $(logging-configurator-exe) \
-		  $(configurator-unittest-exe) \
 		  $(unittests) $(version-info-exe) 
 
 src-exe+= $(issue-133-exe) $(issue-141-exe)

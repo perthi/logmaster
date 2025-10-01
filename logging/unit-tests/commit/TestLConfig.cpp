@@ -30,6 +30,7 @@
 #include <logging/LHashMaps.h>
 #include <utilities/GUtilities.h>
 #include <utilities/GNumbers.h>
+#include <utilities/GFileIOHandler.h>
 #include <logging/LLogApi.h>
 #include <logging/LPublisher.h>
 
@@ -61,6 +62,29 @@ TestLConfig::TearDown()
 
 }
 
+
+TEST_F( TestLConfig, set_get_filename )
+{
+    auto cfg = LConfig();
+    cfg.SetLogFileName("unittest.log");
+    EXPECT_EQ(cfg.GetLogFileName(), "unittest.log");
+}
+
+
+TEST_F( TestLConfig, set_get_filename_empty )
+{
+   EXPECT_ANY_THROW( LConfig().SetLogFileName("unittest.log") );
+}
+
+
+TEST_F( TestLConfig, doxygen_doc )
+{
+   string filename = "doxygen_doc.md";
+   LConfig().DoxygenDoc(filename);
+   EXPECT_TRUE(g_file()->DoExists(filename));
+   EXPECT_TRUE(g_file()->Delete(filename));
+   EXPECT_TRUE(g_file()->DoExists(filename));
+}
 
 
 TEST_F( TestLConfig, target_all )

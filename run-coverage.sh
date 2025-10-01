@@ -22,4 +22,4 @@ lcov --remove coverage.info '/usr/*' 'tests/*' 'Test*' '*3rd-party*' '*logmaster
 genhtml coverage.cleaned.info --output-directory coverage-report
 rm  coverage.info overage.cleaned.info
 
-firefox coverage-report/index.html
+firefox coverage-report/index.html &

@@ -17,6 +17,9 @@ LIBS+=  -lsqlite-embc  -ldl -lpthread
 # ifneq (arm, $(TARGET))
 LIBS+=   -lreadline -lhistory -lncurses
 # endif
+CPPFLAGS := $(filter-out -fprofile-arcs,  $(CPPFLAGS))
+CPPFLAGS := $(filter-out -ftest-coverage, $(CPPFLAGS))
 
 
 include ../../../../common.mk
+

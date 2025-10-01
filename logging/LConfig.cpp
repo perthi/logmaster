@@ -54,7 +54,7 @@ namespace LOGMASTER
 
 
     std::string
-    LConfig::GetFilename()
+    LConfig::GetLogFileName()
     {
         return  fLogFilename;
     }
