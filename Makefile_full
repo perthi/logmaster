@@ -104,20 +104,17 @@ unittests:= 	$(utilities-unittest-exe) \
 
 support-modules:= 	$(utilities-lib) \
 			$(logging-lib) \
-			$(cmdline-lib)
+			$(cmdline-lib) \
+			$(sqlite-lib) 
 
 
 gui-lib+=$(gui-logger-lib) $(gui-logmaster-lib) $(gui-common-lib) $(gui-alarm-lib)
 gui-exe+=$(gui-example1-exe)   $(gui-alarm-example1-exe) $(gui-example2-exe)  
 
 
-src-lib:= $(support-modules) \
-	$(gtest-embc) \
-	$(testlib) \
-	$(xml-parser-lib) \
-	$(common-lib) \
-    $(exception-lib) \
-	$(sqlite-lib)
+src-lib-arm:= $(support-modules)
+
+src-lib-x86:= $(src-lib-arm) $(xml-lib) $(support-modules) $(xml-parser-lib)
 
 
 src-exe:=$(cmdline-example1-exe) \
@@ -128,12 +125,12 @@ src-exe:=$(cmdline-example1-exe) \
 arm-src:=$(src-lib) $(src-exe)
 x86-src:=$(src-lib) $(src-exe)
 
-all-clean:= $(src-lib)  $(x86-src) $(configurator-unittest-exe) $(configurator-exe) \
+all-clean:= $(src-lib-x86)  $(x86-src) $(configurator-unittest-exe) $(configurator-exe) \
             $(api-logmaster-lib)  $(xml-validator-exe) $(configurator-example1-exe) $(logging-configurator-exe)  $(gui-lib)  $(gui-exe)
 
 ifeq (x86, $(TARGET))
 unittests+= $(configurator-unittest-exe)
-src-lib+= $(configurator-lib)  $(api-logmaster-lib)
+src-lib-x86+= $(configurator-lib)  $(api-logmaster-lib)
 
 src-exe+= $(logging-example1-exe) $(xml-validator-exe) \
           $(helloworld-exe) $(configurator-example1-exe) \
@@ -143,7 +140,7 @@ src-exe+= $(logging-example1-exe) $(xml-validator-exe) \
 
 src-exe+= $(issue-133-exe) $(issue-141-exe)
 
-x86-src:= $(src-lib) $(src-exe) 
+x86-src:= $(src-lib-x86) $(src-exe) 
 all-src:=$(x86-src)
 all-clean:=$(all-src)
 endif
@@ -156,7 +153,7 @@ endif
 ifdef GUI
 src-lib+=$(gui-lib)
 src-exe+=$(gui-exe)
-x86-src:= $(src-lib) $(src-exe)
+x86-src:= $(src-lib-x86) $(src-exe)
 all-src:=$(x86-src)
 endif
 
@@ -199,7 +196,7 @@ gtest:
 
 $(version-info) : $(sqlite)
 $(unittests) : gtest
-$(src-exe) : $(src-lib) $(version-info)
+$(src-exe) : $(src-lib-x86) $(version-info)
 $(all-src):
 	$(MAKE) --directory=$@ all
 
