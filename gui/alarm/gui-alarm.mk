@@ -1,7 +1,7 @@
 
 
 
-#LIBNAME_SO=libgui-alarm.so
+LIBNAME_SO=libgui-alarm.so
 LIBNAME_A=libgui-alarm.a
 
 
