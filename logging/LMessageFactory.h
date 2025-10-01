@@ -41,7 +41,7 @@ namespace LOGMASTER
             void      API    Disable();
             template<typename... Args>
             std::shared_ptr<LMessage> API GenerateMessage(const eMSGSYSTEM s, const eLOGLEVEL l, const char *file,
-                                                          const int line, const char *func, const string addendum,
+                                                          const int line, const char *func, const string &addendum,
                                                           const char *fmt, const Args ... args);
             std::shared_ptr<LMessage> API GenerateMessageUnsafe(const eMSGSYSTEM s, const eLOGLEVEL l, const char *file,
                                                           const int line, const char *func, const string addendum,
@@ -58,8 +58,9 @@ namespace LOGMASTER
 
         template<typename... Args>
         std::shared_ptr<LMessage> LMessageFactory::GenerateMessage(const eMSGSYSTEM s, const eLOGLEVEL l,
-                                                                   const char *file, const int line, const char *func,
-                                                                   const std::string ad, const char *fmt,
+                                                                   const char *file, const int line, 
+                                                                   const char *func,
+                                                                   const std::string &ad, const char *fmt,
                                                                    const Args ... args)
         {
             if(fConfig == nullptr)
