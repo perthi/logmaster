@@ -77,12 +77,8 @@ configurator-lib:=           configurator/$(TARGET)
 configurator-unittest-exe:=  configurator/unit-tests/commit/$(TARGET)
 logging-configurator-exe:=   configurator/logging-configurator/$(TARGET)
 helloworld-exe:=             helloworld/$(TARGET)
-
-# bug exposure start
 issue-133-exe:=              bugs/issue-133/$(TARGET) 
 issue-141-exe:=              bugs/issue-141/$(TARGET) 
-# bug exposure end
-
 db-test-exe:=                database-test/$(TARGET)
 sqlite-lib:=                 productivity/sqlite/$(TARGET) 
 api-logmaster-lib:=          api/api-logmaster/$(TARGET) 
@@ -114,7 +110,8 @@ gui-exe+=$(gui-example1-exe)   $(gui-alarm-example1-exe) $(gui-example2-exe)
 
 src-lib-arm:= $(support-modules)
 
-src-lib-x86:= $(src-lib-arm) $(xml-lib) $(support-modules) $(xml-parser-lib)
+src-lib-x86:= $(src-lib-arm) $(xml-lib) $(support-modules) $(xml-parser-lib) $(configurator-lib)  $(api-logmaster-lib)
+
 
 
 src-exe:=$(cmdline-example1-exe) \
@@ -130,7 +127,7 @@ all-clean:= $(src-lib-x86)  $(x86-src) $(configurator-unittest-exe) $(configurat
 
 ifeq (x86, $(TARGET))
 unittests+= $(configurator-unittest-exe)
-src-lib-x86+= $(configurator-lib)  $(api-logmaster-lib)
+#src-lib-x86+= $(configurator-lib)  $(api-logmaster-lib)
 
 src-exe+= $(logging-example1-exe) $(xml-validator-exe) \
           $(helloworld-exe) $(configurator-example1-exe) \
@@ -194,7 +191,7 @@ gtest:
 	cp gtest/lib/* build/$(TARGET)/lib
 
 
-$(version-info) : $(sqlite)
+$(version-info) : $(sqlite-lib)
 $(unittests) : gtest
 $(src-exe) : $(src-lib-x86) $(version-info)
 $(all-src):
