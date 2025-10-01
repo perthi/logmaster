@@ -3,7 +3,7 @@
 #include <logging/LLogApi.h>
 #include <logging/GException.h>
 #include <logging/LHashMaps.h>
-
+#include <utilities/version-info/GMenu.h>
 #include <cmdline/GLogApplication.h>
 
 using namespace LOGMASTER;
