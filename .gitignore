@@ -112,4 +112,6 @@ coverage.cleaned.info
 coverage.info
 *.gcno*
 *.gcda*
-
+logging/examples/logging-example2/x86/logging-example2
+logging/examples/logging-example2/arm/logging-example2
+logging/examples/logging-example2/x86/logging-example2
