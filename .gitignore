@@ -110,3 +110,6 @@ h
 coverage-report
 coverage.cleaned.info
 coverage.info
+*.gcno*
+*.gcda*
+
