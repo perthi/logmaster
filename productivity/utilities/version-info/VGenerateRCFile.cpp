@@ -32,16 +32,10 @@
 
 
 void
-VGenerateRCFile::Generate(string outdir, const string rc_filename, const string company, const string desc, const string dllname, const string copyright, const string prod_name)
+VGenerateRCFile::Generate(const string &outdir, const string &rc_filename, const string &company, const string &desc, 
+    const string &dllname, const string &copyright, const string &prod_name)
 {
     FILE* fp = 0;
-
-    /*
-    CERR << "RC filename = " << rc_filename << "\t out dir = " << rc_filename << "\tcompany: " << company << ENDL;
-    CERR << "filename:" << dllname << ENDL;
-    CERR << "desc: " << desc << ENDL;
-    CERR << "Copyright:" << copyright << ENDL;
-    */
 
 #ifdef _WIN32
     fopen_s(&fp, rc_filename.c_str(), "w"); /// @todo check on return value 
@@ -58,12 +52,10 @@ VGenerateRCFile::Generate(string outdir, const string rc_filename, const string 
 
     if (outdir == "")
     {
-     //   fprintf(fp, "#include \"resource.h\"\n");
         fprintf(fp, "#include \"Version.h\"\n");
     }
     else
     {
-     //   fprintf(fp, "#include <%s\\resource.h>\n", outdir.c_str());
         fprintf(fp, "#include <%s\\Version.h>\n", outdir.c_str());
     }
 
@@ -144,9 +136,6 @@ VGenerateRCFile::Generate(string outdir, const string rc_filename, const string 
 
     fprintf(fp, "END\n");
     fprintf(fp, "END\n\n\n");
-   // fprintf(fp, "////#endif  // // Norwegian, Bokmål (Norway) resources\n\n");
-   // fprintf(fp, "/////#ifndef APSTUDIO_INVOKED\n\n");
-   // fprintf(fp, "/////#endif //not APSTUDIO_INVOKED\n\n");
     fclose(fp);
 }
 

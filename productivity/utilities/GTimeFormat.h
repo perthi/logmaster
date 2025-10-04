@@ -32,7 +32,7 @@ class GTimeFormat;
 //GTimeFormat * g_time_format();
 
 
-/** @brief various utility for access to system time which is can be availabel on a user specifed format
+/** @brief various utility for access to system time which is can be available on a user specifed format
  *  @details Also contains function for leap-year checks and validity check for days, months etc.. */
 class GTimeFormat 
 {

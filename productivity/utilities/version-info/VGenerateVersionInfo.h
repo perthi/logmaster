@@ -29,9 +29,9 @@ public:
     static string  API GitInfo();
     static string  API Branch();
     static string  API Version();
-    static string  API CompileInfo(const string info_file);
-    static string  API LinkInfo( const string info_file );
-    static void    API GenerateClass( const string classname, const string exename, const string info_file, const string target_directory );
+    static string  API CompileInfo(const string &info_file);
+    static string  API LinkInfo( const string &info_file );
+    static void    API GenerateClass( const string &classname, const string &exename, const string &info_file, const string &target_directory );
 
 private:
     static string API  ReadCompileInfo( const unsigned int idx, const string &fname);

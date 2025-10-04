@@ -20,7 +20,8 @@ using std::string;
 class VGenerateRCFile
 {
 public:
-    static void Generate(string outdir, const string rc_filename, const string company, const string desc, const string dllname, const string copyright, const string prod_name);
+    static void Generate(const string &outdir, const string &rc_filename, const string &company, const string &desc, 
+        const string &dllname, const string &copyright, const string &prod_name);
 
 
 };
