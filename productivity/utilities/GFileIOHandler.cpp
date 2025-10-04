@@ -62,7 +62,6 @@ GFileIOHandler* g_file()
 }
 
 
-
 /** Append an input to the file if it exists, otherwise create it first, then writhe the append to the file
  * @param  fname The file to write to
  * @param  fmt Format string for the input
@@ -102,7 +101,6 @@ GFileIOHandler::Append(const string &fname, const char* fmt, ...)
         else
         {
             CERR << "filename = " << fname << endl;
-            //EXCEPTION("fopen(%s, %c) failed, please check that the file exists, and that you have write permissions to it", fname.c_str(), 'a');
             throw(std::runtime_error(fmt::format("fopen({}, {}) failed, please check that the file exists, and that you have write permissions to it", fname, 'a')));
         }
     }
@@ -131,8 +129,6 @@ GFileIOHandler::DoExists(const string &fname, const char* opt)
 string
 GFileIOHandler::ReadLastLine(const string &fname, const unsigned int offset)
 {
-    string lastline;
-
     if (CheckFile(fname) == false)
     {
         GCommon().HandleError(fmt::format("Cannot open file: {}", fname), GLOCATION, DISABLE_EXCEPTION);
@@ -188,14 +184,14 @@ GFileIOHandler::GetAbsolutePath(const string fname)
 
 #else
 
+
+/** @todo implement this function */
 string
 GFileIOHandler::GetAbsolutePath(const string &)
 {
     return "error_not_implement_om_linux_yet";
 }
 #endif
-
-
 
 
 /** Get the extension of a filename
@@ -220,8 +216,6 @@ GFileIOHandler::GetExtention(const string &)
     return ""; // on Linux there are no extensions for exefile as the exe permission is set as a file attribute
 #endif
 }
-
-
 
 
 FILE*

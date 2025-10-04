@@ -11,9 +11,7 @@
 *** General Public License(LGPL) V3 or later.See.cpp file for details     ***
 *****************************************************************************/
 
-
 #include <string>
-
 using std::string;
 
 
@@ -25,9 +23,9 @@ public:
     /** @todo simplify or remove */
     GFileName_t(const string &fname) : fFileName(fname){};
     virtual ~GFileName_t() {};
-    void Set(string fname) { fFileName = fname; }
-    string Get() const {  return fFileName ; };
-    string str() const { return fFileName; };
+    void Set(const string &fname) { fFileName = fname; }
+    const string Get() const & {  return fFileName ; };
+    const string str() const & { return fFileName; };
     const char * c_str() { return fFileName.c_str(); };
 
 private:
