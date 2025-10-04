@@ -6,7 +6,7 @@
 
 
 bool
-GNumberTypes::IsFloatTypeS(string type)
+GNumberTypes::IsFloatTypeS(const string &type)
 {
     const string t = string(type);
 
@@ -24,8 +24,9 @@ GNumberTypes::IsFloatTypeS(string type)
 
 
 bool
-GNumberTypes::IsAlphaNumber(string num)
+GNumberTypes::IsAlphaNumber(const string &n)
 {
+    string num = n;
     num = g_string( )->Trim(num, { ' ', '\t', '\n' });
 
     for ( uint16_t i = 0; i < num.size( ); i++ )
@@ -48,8 +49,9 @@ GNumberTypes::IsAlphaNumber(string num)
 
 
 bool
-GNumberTypes::IsBinary(string num)
+GNumberTypes::IsBinary(const string &n)
 {
+    string num = n;
     g_string( )->Trim(num);
     g_string( )->Ltrim(num, '-');
     for ( uint16_t i = 0; i < num.size( ); i++ )
@@ -186,7 +188,7 @@ GNumberTypes::IsNumber(const string  num)
 }
 
 bool
-GNumberTypes::IsFundamentalTypeS(string type)
+GNumberTypes::IsFundamentalTypeS(const string &type)
 {
     if ( string(type) == typeid(bool).name( ) ||
         IsFloatTypeS(string(type)) ||
@@ -203,7 +205,7 @@ GNumberTypes::IsFundamentalTypeS(string type)
 
 
 bool
-GNumberTypes::IsUnsignedTypeS(string type)
+GNumberTypes::IsUnsignedTypeS(const string &type)
 {
     const string  t = string(type);
     if (
@@ -223,7 +225,7 @@ GNumberTypes::IsUnsignedTypeS(string type)
 
 
 bool
-GNumberTypes::IsFundamentalVTypeS(string type)
+GNumberTypes::IsFundamentalVTypeS(const string &type)
 {
     if ( type == typeid(vector<bool>).name( ) ||
         IsFloatVTypeS(type) ||
@@ -240,9 +242,8 @@ GNumberTypes::IsFundamentalVTypeS(string type)
 
 
 
-
 bool
-GNumberTypes::IsFloatVTypeS(string type)
+GNumberTypes::IsFloatVTypeS(const string &type)
 {
     //    string type = typeid(T).name();
     if ( type == typeid(vector<float>).name( ) ||
@@ -259,7 +260,7 @@ GNumberTypes::IsFloatVTypeS(string type)
 
 
 bool
-GNumberTypes::IsIntegerVTypeS(string type)
+GNumberTypes::IsIntegerVTypeS(const string &type)
 {
     if ( type == typeid(vector<char>).name( ) ||
         type == typeid(vector<short>).name( ) ||
@@ -284,7 +285,7 @@ GNumberTypes::IsIntegerVTypeS(string type)
 
 
 bool
-GNumberTypes::IsIntegerTypeS(string t)
+GNumberTypes::IsIntegerTypeS(const string &t)
 {
     int cnt = 0;
 
@@ -319,8 +320,9 @@ GNumberTypes::IsFloat(const char* num)
 
 
 bool
-GNumberTypes::IsFloat(string num)
+GNumberTypes::IsFloat(const string &n)
 {
+    string num  = n;
     num = g_string( )->Trim(num, { ' ', '\t', '\n' });
 
     // Exceptions is a pain, so lets remove some common causes.

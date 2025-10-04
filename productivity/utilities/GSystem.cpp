@@ -67,11 +67,10 @@
 #include <libgen.h>
 #endif // !_WIN32
 
-//#include <ftw.h>
- #include <errno.h>
+#include <errno.h>
 #include <sys/stat.h>
 
-
+/** @todo remove singleton */
 GSystem * g_system()
 {
     static GSystem *instance = new GSystem();
@@ -80,12 +79,9 @@ GSystem * g_system()
 
 
 
-
-
-
 /** @todo return std::optional here*/
 string
-GSystem::getenv(const string  var  )
+GSystem::getenv(const string  &var )
 {
 #ifdef _WIN32
     size_t sz = 0;
@@ -126,7 +122,7 @@ GSystem::Errno2String(const  errno_t code, const string fname, const string  opt
 }
 #else
 string
-GSystem::Errno2String(const int code, const string fname, const string  opt)
+GSystem::Errno2String(const int code, const string &fname, const string  &opt)
 {
     char* errmsg = strerror(code);;
     if (errmsg != nullptr)
@@ -151,7 +147,7 @@ GSystem::Errno2String(const int code, const string fname, const string  opt)
 *   the program is running under a user that doesn't have write access to the current directory)
 *   @throw Exception if the directory doesn't exist and it cannot be created.*/
 bool
-GSystem::mkdir(const string dirname, const bool print_error)
+GSystem::mkdir(const string &dirname, const bool print_error)
 {
 #ifdef _WIN32
     int status = ::_mkdir(dirname.c_str() );
@@ -192,7 +188,7 @@ GSystem::mkdir(const string dirname, const bool print_error)
 *   @throw Exception if the directory doesn't exist and it cannot be created.*/
 bool
 #ifndef _WIN32
-GSystem::mkdir(const string dirname, GLocation l, const int  opt, bool overwrite)
+GSystem::mkdir(const string &dirname, const GLocation &l, const int  opt, bool overwrite)
 #else
 GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
 #endif // !_WIN32
@@ -245,7 +241,7 @@ GSystem::mkdir(const string dirname, GLocation l, const int opt, bool overwrite)
 
 
 bool
-GSystem::exists(const string filepath, struct  stat *sb_in)
+GSystem::exists(const string &filepath, struct  stat *sb_in)
 {
     struct  stat sb;
     int ret = stat( filepath.c_str(), &sb );
@@ -277,7 +273,7 @@ GSystem::exists(const string filepath, struct  stat *sb_in)
  * @return true if the path exists and is a regular file/directory.
  * false otherwise */
 bool     
-GSystem::IsDirectory(const string filepath, struct  stat*  /*sb_in*/)
+GSystem::IsDirectory(const string &filepath, struct  stat*  /*sb_in*/)
 {
 
     ///@todo use sb_in parameter or remove it
@@ -299,20 +295,11 @@ GSystem::IsDirectory(const string filepath, struct  stat*  /*sb_in*/)
     return false;
     
 }
-
-
-// bool      
-// GSystem::isfile(const string filepath, struct  stat* sb)
-//{
-//
-//}
-
-
 /**@} */
 
 
 string
-GSystem::GetDirectory(const string filepath)
+GSystem::GetDirectory(const string &filepath)
 {
     const char* filepathCp = filepath.c_str();
     const char* charPtr = filepathCp + filepath.length() - 1;
@@ -354,7 +341,7 @@ GSystem::GetProcessID()
 *   @exception std::exception if no return value was obtained within "timeout"
 *   the command was executed in a console. */
 string
-GSystem::exec(const string cmd, const float timeout)
+GSystem::exec(const string &cmd, const float timeout)
 {
     return GSystem::exec(cmd.c_str(), timeout );
 }
@@ -584,7 +571,7 @@ GSystem::pwd(const bool print)
 *  @param dir  The directory to list (default is current directory)
 *  @return A vector of files matching the search pattern (default is that all files in "dir" are listed ). */
 vector<string>
-GSystem::ls(const string dir)
+GSystem::ls(const string &dir)
 {
     vector<string> tmp;
 #ifndef _WIN32
@@ -606,7 +593,7 @@ GSystem::ls(const string dir)
 
 
 void
-GSystem::cp(string source, string dest)
+GSystem::cp(const string &source, const string &dest)
 {
     mkfile(dest);
     vector<string> content = g_file()->ReadAll(source);
@@ -622,7 +609,7 @@ GSystem::cp(string source, string dest)
 
 
 bool
-GSystem::mkfile(const string filepath,const bool print_error )
+GSystem::mkfile(const string &filepath,const bool print_error )
 {
     string dir, file;
     GTokenizer().StripPath(filepath, dir, file, false);
@@ -669,14 +656,14 @@ GSystem::mkfile(const string filepath,const bool print_error )
 
 
 bool
-GSystem::rmdir(const string filename)
+GSystem::rmdir(const string &filename)
 {
     return rm(filename, true);
 }
 
 
 bool
-GSystem::rm(const string filename, bool recursive)
+GSystem::rm(const string &filename, bool recursive)
 {
 
     auto errorhandling = [=](GLocation l, errno_t err, const char *exception_msg) 
@@ -727,7 +714,7 @@ GSystem::rm(const string filename, bool recursive)
 
 
 void
-GSystem::mv(const string src, const string dest)
+GSystem::mv(const string &src, const string &dest)
 {
     cp(src, dest);
     rm(src);

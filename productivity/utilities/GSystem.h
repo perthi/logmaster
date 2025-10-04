@@ -27,6 +27,7 @@ using std::string;
 
 class GSystem;
 
+/** @todo remove singleton */
 GSystem API * g_system();
 
 //#define  g_system()- ##> GSystem::
@@ -40,31 +41,27 @@ public:
     GSystem(){};
     ~GSystem(){};
     static string         API      pwd(const bool print = false);
-    static vector<string> API      ls(const string dir = ".");
-    static bool           API      mkdir(const string dirname, const bool print_error = true);
+    static vector<string> API      ls(const string &dir = ".");
+    static bool           API      mkdir(const string &dirname, const bool print_error = true);
 #ifndef _WIN32
-    static bool           API      mkdir(const string dirname, const GLocation l,  const int opt = S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH, bool overwrite = true);
+    static bool           API      mkdir(const string &dirname, const GLocation &l,  const int opt = S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH, bool overwrite = true);
 #else
-    static bool           API      mkdir(const string dirname, const GLocation l, const int opt, bool overwrite = true);
+    static bool           API      mkdir(const string &dirname, const GLocation &l, const int opt, bool overwrite = true);
 #endif // !_WIN32
-    static bool           API      mkfile(const string filepath,  const bool print_error = true );
-    static void           API      cp(string src, string dest);
-    static bool           API      rm(const string filename, bool recursive = false);
-    static bool           API      rmdir(const string filename);
-    static void           API      mv(const string src, const string dest);
+    static bool           API      mkfile(const string &filepath,  const bool print_error = true );
+    static void           API      cp(const string &src, const string &dest);
+    static bool           API      rm(const string &filename, bool recursive = false);
+    static bool           API      rmdir(const string &filename);
+    static void           API      mv(const string &src, const string &dest);
     
-    static string         API      exec(const string cmd, const float timeout = 0);
+    static string         API      exec(const string &cmd, const float timeout = 0);
     static string         API      exec(const char *cmd,  const float timeout = 0);
     
     static string         API      GetProcessID();
-    static string         API      getenv(const string var);
-    static bool           API      exists(const string filepath, struct  stat* sb = nullptr);
-    static bool           API      IsDirectory(const string filepath, struct  stat* sb = nullptr);
-    //static bool           API      isfile(const string filepath, struct  stat* sb = nullptr);
-    
-    static string         API      Errno2String(const  int code, const string fname, const string  opt);
-
-
+    static string         API      getenv(const string &var);
+    static bool           API      exists(const string &filepath, struct  stat* sb = nullptr);
+    static bool           API      IsDirectory(const string &filepath, struct  stat* sb = nullptr);
+    static string         API      Errno2String(const  int code, const string &fname, const string  &opt);
 
 
 #ifdef _WIN32
@@ -73,23 +70,18 @@ public:
 #endif
 
     static char  API *  GetExePath();
-    static char  API * GetExeDir();
-    static char  API * GetExeName();
-    static string API  GetHostName();
+    static char  API *  GetExeDir();
+    static char  API *  GetExeName();
+    static string API   GetHostName();
 
    
-    static string API GetDirectory(const string filepath);
+    static string API GetDirectory(const string &filepath);
 
  
 #ifdef _WIN32
     /// @todo Remove
     static char API *GetHomeDir();
 #endif
-
-
-    private:
-   //   GSystem(){};
-   //  ~GSystem(){};
 };
 
 #endif
