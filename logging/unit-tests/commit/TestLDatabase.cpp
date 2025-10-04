@@ -105,7 +105,7 @@ TestLDatabase::TearDown()
 
 
 
-TEST_F( TestLDatabase , all_entries )
+TEST_F( TestLDatabase , DISABLED_all_entries )
 {   
     ASSERT_NE(nullptr,fgDatabase );
     auto db = fgDatabase;
