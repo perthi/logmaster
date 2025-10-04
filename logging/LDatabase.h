@@ -84,12 +84,12 @@ namespace LOGMASTER
     class LDatabase : public GDataBaseIF
     {
         public:
-        static LDatabase API * Instance ( const string &db_path = "" );
+        static LDatabase API * Instance ( const string db_path = "" );
             
-            static void API SetDatabase(  const string &db_path  );
+            static void API SetDatabase(  const string db_path  );
             static void API SetDatabaseDefault(    );
             API LDatabase(  );
-            virtual ~LDatabase() override {};
+            virtual ~LDatabase() {};
             virtual bool API CreateTables()  override ;
 
             void API AddLogEntry (  std::shared_ptr<LMessage>  msg  );
@@ -103,7 +103,7 @@ namespace LOGMASTER
             bool API InitSQLQuery(const int cnt);
             bool API InitSQLQuery(const string sql);
             
-            vector< LLogEntrySQL>  API Query( const   string &sql );
+            vector< LLogEntrySQL>  API Query( const   string sql );
             vector< LLogEntrySQL>  API Query( const   int max_cnt);         
             vector< LLogEntrySQL>  API Query( const   uint64_t time,  const eTIME_SEARCH_OPTION  opt, const int max_cnt);
             vector< LLogEntrySQL>  API Query( const   uint64_t time_min,        const int time_max,  const int max_cnt );
@@ -118,7 +118,7 @@ namespace LOGMASTER
             vector< LLogEntrySQL> FetchAll(   ); 
             LDatabase( const LDatabase & );
             LDatabase operator = ( const LDatabase & );
-            bool InitQuery( const string &query, const int limit  );
+            bool InitQuery( string query, const int limit  );
             bool DeleteOldestEntries(int nEntries = 10);
         
             static string  fDBPath;
