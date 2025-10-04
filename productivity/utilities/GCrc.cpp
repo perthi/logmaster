@@ -73,7 +73,7 @@ GCrc::Crc(const uint8_t *in, const size_t len )
 
 #if defined( __unix__ )  || defined (_WIN32 )
 void
-GCrc::AddCrc16( string &  in  )
+GCrc::AddCrc16(string &  in  )
 {
     size_t size_out = 0;
 
@@ -119,7 +119,7 @@ GCrc::AddCrc16( uint8_t * in, const size_t input_size, size_t *output_size )
 
 #if defined( __unix__ )  || defined (_WIN32 )
 bool
-GCrc::CheckCrc( string &in )
+GCrc::CheckCrc( const string &in )
 {
     return CheckCrc( (const uint8_t *)in.c_str(), in.size() );
 }
