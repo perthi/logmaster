@@ -71,7 +71,7 @@ public:
     }
 
 
-    virtual ~GCommandLineArgument();
+    virtual ~GCommandLineArgument() override;
     virtual void * GetParameter() { return fParameter; }
     void    SetTypeId();
     void    SetParameter (T *par);

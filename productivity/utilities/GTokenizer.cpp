@@ -35,6 +35,7 @@
 #include <mutex>
 
 
+/** @todo remove singleton */
 GTokenizer* g_tokenizer( )
 {
     static GTokenizer* instance = new GTokenizer( );
@@ -250,7 +251,6 @@ GTokenizer::Tokenize(const string &source, const string &sep, const bool keep_em
 
         if (keep_empty || (next - prev != 0))
         {
-            string sub = source.substr(prev, next - prev);
             if (!(g_utilities()->IsSpacesOnly(source.substr(prev, next - prev)) && keep_empty == false))
             {
                 if (keep_sep == false)

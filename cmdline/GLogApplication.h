@@ -62,8 +62,8 @@ public:
     arg_ptr          API   GetArgument(const string &cmd);
     void             API   SetDuplicateStrategy(const eDUP_STRATEGY);
     eDUP_STRATEGY    API   GetDuplicateStrategy( ) const;
-    GLogApplication  API & AddArgument(arg_ptr  arg, eDUP_STRATEGY s = eDUP_STRATEGY::THROW_EXEPTION);
-    GLogApplication  API & AddArguments(arg_deque  args);
+    GLogApplication  API & AddArgument(const arg_ptr  &arg, eDUP_STRATEGY s = eDUP_STRATEGY::THROW_EXEPTION);
+    GLogApplication  API & AddArguments(const arg_deque  &args);
     void             API   ScanArguments(const string &cmdline);
     void             API   ScanArguments(const int argc, const char** argv);
     void             API   ScanArguments(const string &cmdline, arg_ptr arg);
@@ -74,10 +74,10 @@ public:
     void             API   ScanArguments( );
 #endif
     string              API        Help(const string &cmd = "" ) const;
-    static string       API        Help(const deque  <  std::shared_ptr<GArgument>  > args, const string &cmd = "" );
+    static string       API        Help(const deque  <  std::shared_ptr<GArgument>  > &args, const string &cmd = "" );
     string              API        Help(const char *exename, const string &heading,  const string &cmd = "" ) const;
     
-    static bool      API   HasCommand(arg_deque  args, const string &cmd);
+    static bool      API   HasCommand(const arg_deque  &args, const string &cmd);
     bool             API   HasCommand(const string &cmd);
     arg_deque        API   GetArguments( );
     

@@ -51,7 +51,7 @@ GCmdApi::~GCmdApi()
 * boolean GArguments, nevertheless the GArgument must be present in order to match the function
 * pointer signature for the command line API ( and since its already present we might as well check the size ). */
 bool
-GCmdApi::bool2( const string cmnd, const string /*args_s*/, const vector<string> subs, const vector<string> args)
+GCmdApi::bool2( const string &cmnd, const string &/*args_s*/, const vector<string> &subs, const vector<string> &args)
 {
     if (subs.size() == 0 && args.size() == 0)
     {

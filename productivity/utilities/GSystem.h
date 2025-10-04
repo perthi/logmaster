@@ -30,7 +30,6 @@ class GSystem;
 /** @todo remove singleton */
 GSystem API * g_system();
 
-//#define  g_system()- ##> GSystem::
 
 /** @brief Simplified interface for various system call for Linux and Windows */
 class GSystem

@@ -31,14 +31,14 @@ namespace VHELPERS
     
 
     string
-        year()
+    year()
     {
         return GTime( ).GetYear( );
     }
 
 
     string
-        platform()
+    platform()
     {
         string platform;
 #ifdef _WIN64
@@ -50,7 +50,7 @@ namespace VHELPERS
     }
 
     string
-        versionString(string version)
+    versionString(const string &version)
     {
         vector<int> version_numbers;
         vector<string> num = g_regexp()->ScanNumber(version, "1,4");
@@ -67,7 +67,7 @@ namespace VHELPERS
     }
 
 
-    FILE* file(const string directory, const string fname)
+    FILE* file(const string &directory, const string &fname)
     {
         FILE* fp_h = 0;
         string filepath = directory + "\\" + fname;

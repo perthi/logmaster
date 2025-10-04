@@ -27,14 +27,3 @@
 
 
 #include "LDoc.h"
-
-/*
-#include "LLogging.h"
-#include "LConfig.h"
-#include  "LHashMaps.h"
-#include <utilities/GUtilities.h>
-#include <fstream>
-using std::ofstream;
-
-#include <bitset>
-*/

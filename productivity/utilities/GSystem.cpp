@@ -666,7 +666,7 @@ bool
 GSystem::rm(const string &filename, bool recursive)
 {
 
-    auto errorhandling = [=](GLocation l, errno_t err, const char *exception_msg) 
+    auto errorhandling = [=](const GLocation &l, errno_t err, const char *exception_msg) 
     {
         GCommon().HandleError( fmt::format("could not remove file:{}:  {}", filename, exception_msg), l, DISABLE_EXCEPTION);
 

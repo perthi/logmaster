@@ -220,7 +220,7 @@ GLogApplication::ScanArguments(const int argc, const char ** argv)
 
 
 GLogApplication  &
-GLogApplication::AddArgument( arg_ptr arg, eDUP_STRATEGY strategy )
+GLogApplication::AddArgument( const arg_ptr &arg, eDUP_STRATEGY strategy )
 {
     if (arg != nullptr)
     {
@@ -259,7 +259,7 @@ GLogApplication::AddArgument( arg_ptr arg, eDUP_STRATEGY strategy )
 
 
 GLogApplication &
-GLogApplication::AddArguments(  arg_deque  args)
+GLogApplication::AddArguments( const arg_deque  &args)
 {
     for (uint16_t i = 0; i < args.size(); i++)
     {
@@ -315,7 +315,7 @@ bool
 
 
  bool
- GLogApplication::HasCommand( arg_deque args, const string &cmd )
+ GLogApplication::HasCommand( const arg_deque &args, const string &cmd )
  {   
     for (uint16_t i = 0; i < args.size(); i++)
     {
@@ -390,7 +390,7 @@ GLogApplication::Help( const string &cmd) const
 
 
 string 
-GLogApplication::Help( const deque < std::shared_ptr <GArgument> > args, const string &cmd )
+GLogApplication::Help( const deque < std::shared_ptr <GArgument> > &args, const string &cmd )
 {
     std::stringstream buffer;
 

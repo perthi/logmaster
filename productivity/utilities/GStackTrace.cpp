@@ -121,7 +121,7 @@ GStackTrace::str()
     int j = 0;
     int nptrs = 0;
 
-    void *buffer[BT_BUF_SIZE];
+    static void *buffer[BT_BUF_SIZE];
     char **strings;
 
     nptrs = backtrace(buffer, BT_BUF_SIZE);

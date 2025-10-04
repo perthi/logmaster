@@ -26,6 +26,6 @@ class GCmdApi
 public:
     GCmdApi();
     virtual ~GCmdApi();
-    static bool API bool2( const string cmnd, const string args_s, const vector<string> subs, const vector<string> args);
+    static bool API bool2( const string &cmnd, const string &args_s, const vector<string> &subs, const vector<string> &args);
 };
 

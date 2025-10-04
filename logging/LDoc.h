@@ -46,7 +46,7 @@ namespace LOGMASTER
         inline  static  string    API  LogFormatDoc();
         inline  static  void      API  PrintLogLevels(bool toconsole = false);
         inline  static  string    API  Help();
-        static string             API UsageError(const string cmnd, const string sub, map <string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > > m);
+        static string             API UsageError(const string &cmnd, const string &sub, const map <string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > > &m);
     };
 }
 
@@ -55,11 +55,10 @@ namespace LOGMASTER
 namespace LOGMASTER
 {
     inline string
-    LDoc::UsageError(const string cmnd, const string sub, map <string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > >  m)
+    LDoc::UsageError(const string &cmnd, const string &sub, const map <string, std::tuple<  eMSGSYSTEM, eLOGLEVEL > >  &m)
     {
         std::stringstream buffer;
-        buffer << "Invalid/bad combination command/subcommand: " << sub << " To " << cmnd << ".\nValid subcommands are:" << 
-            g_utilities()->Hash2String(&m);
+        buffer << "Invalid/bad combination command/subcommand: " << sub << " To " << cmnd << ".\nValid subcommands are:" <<  g_utilities()->Hash2String(&m);
         buffer << Help();
         return buffer.str();
     }
@@ -68,8 +67,6 @@ namespace LOGMASTER
     inline string
     LDoc::LogTargetDoc()
     {
-       // CERR << "TP0xxxYYYAAAA, size = " <<   LHashMaps::Instance()->GetTargetHash( )->size()  << ENDL;
-        /** @bug filed is more than 4 bits, make unit tests */
         return string("[logtarget]\n")
             + string("\t\tLogtarget can be either a field with 3 bits or any of the following\n\t\t")
             + g_utilities()->Hash2String ( LHashMaps::GetTargetHash( ) );

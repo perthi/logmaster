@@ -37,7 +37,7 @@
 namespace LOGMASTER
 {
     bool
-    LValidateArgs::CAPIValidateSubCommands(const string cmd,  const string args_s, const vector<string> sub, const vector<string> par)
+    LValidateArgs::CAPIValidateSubCommands(const string &cmd,  const string &args_s, const vector<string> &sub, const vector<string> &par)
     {
         if (sub.size() == 0 && par.size() == 0)
         {
@@ -50,7 +50,7 @@ namespace LOGMASTER
 
 
     bool 
-    LValidateArgs::CAPIValidateTargets(const string cmd,  const string args_s, const vector<string> targets, const vector<string> par)
+    LValidateArgs::CAPIValidateTargets(const string &cmd,  const string &args_s, const vector<string> &targets, const vector<string> &par)
     {
         if (targets.size() == 0 && par.size() == 0)
         {
@@ -66,7 +66,7 @@ namespace LOGMASTER
         
         
     bool
-    LValidateArgs::CAPIValidateFormat(const string /*cmd*/,  const string  args_s,  const vector<string> /*sub*/, const vector<string> /*par*/ )
+    LValidateArgs::CAPIValidateFormat(const string &/*cmd*/,  const string  &args_s,  const vector<string> &/*sub*/, const vector<string> &/*par*/ )
     {
         LLogging::Instance()->SetLogFormat( args_s );
         return true;
