@@ -42,15 +42,16 @@ GCmdScan   API* g_cmdscan();
 /** @brief scanning of command line arguments */
 class  GCmdScan
 {
+    /** @todo remove singleton */
     friend GCmdScan* g_cmdscan();
 
 public:
     static GCmdScan   API* Instance();
     API GCmdScan();
     virtual API ~GCmdScan() {};
-    inline bool   HasArgument(int argc, const char** argv, const string cmd) const;
-    inline bool   HasArgument(int argc, const char** argv, vector <string> commands) const;
-    inline bool   HasArgument(const vector<string> tokens, const string com) const;
+    inline bool   HasArgument(int argc, const char** argv, const string &cmd) const;
+    inline bool   HasArgument(int argc, const char** argv, const vector <string> &commands) const;
+    inline bool   HasArgument(const vector<string> &tokens, const string &com) const;
 
  
     void   API SetIgnoreStrayArgument(const bool ignore = true);
@@ -67,10 +68,10 @@ public:
     virtual bool API  Verify(std::shared_ptr<GArgument>  a, GArgumentParsed v) const;
 
 
-    template<typename T> void  SetParametersF(std::shared_ptr <GArgument> a, GArgumentParsed v) const;
-    template<typename T> void   SetParametersV(std::shared_ptr <GArgument> a, vector<string> vs) const;
+    template<typename T> void     SetParametersF(std::shared_ptr <GArgument> a, GArgumentParsed v) const;
+    template<typename T> void     SetParametersV(std::shared_ptr <GArgument> a, vector<string> vs) const;
     template<typename T, typename U = vector<T> > void  SetParametersVI(std::shared_ptr <GArgument> a, vector<string> vs) const;
-    template<typename T> void    SetParameterVal_t(std::shared_ptr<GArgument>  a, GArgumentParsed v) const;
+    template<typename T> void     SetParameterVal_t(std::shared_ptr<GArgument>  a, GArgumentParsed v) const;
 
 
 private:
@@ -78,13 +79,13 @@ private:
     bool  IsCommand(const string arg) const;
     bool  IsSubCommand(const string arg) const;
     bool  CheckMandatory(const vector<GArgumentParsed> v, const deque < std::shared_ptr<GArgument>  >* args) const;
-    bool  CheckValid(const vector<GArgumentParsed> v, const deque  <  std::shared_ptr < GArgument>  >* args) const;
+    bool  CheckValid(const vector<GArgumentParsed> &v, const deque  <  std::shared_ptr < GArgument>  >* args) const;
     void  CheckDuplicates(deque <  std::shared_ptr<GArgument>  >* args) const;
 };
 
 
 inline bool
-GCmdScan::HasArgument(int argc, const char** argv, vector<string> commands) const
+GCmdScan::HasArgument(int argc, const char** argv, const vector<string> &commands) const
 {
     for (size_t i = 0; i < commands.size(); i++)
     {
@@ -98,7 +99,7 @@ GCmdScan::HasArgument(int argc, const char** argv, vector<string> commands) cons
 
 
 inline bool
-GCmdScan::HasArgument(int argc, const char** argv, const string cmd) const
+GCmdScan::HasArgument(int argc, const char** argv, const string &cmd) const
 {
     string s1;
 
@@ -117,7 +118,7 @@ GCmdScan::HasArgument(int argc, const char** argv, const string cmd) const
 
 
 inline bool
-GCmdScan::HasArgument(const vector<string> tokens, const string command) const
+GCmdScan::HasArgument(const vector<string> &tokens, const string &command) const
 {
     for (uint16_t i = 0; i < tokens.size(); i++)
     {

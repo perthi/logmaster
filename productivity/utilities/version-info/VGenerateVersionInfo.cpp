@@ -25,8 +25,6 @@
 
 
 #include "VGenerateVersionInfo.h"
-
-
 #include   <utilities/GTokenizer.h>
 #include   <utilities/GSystem.h>
 #include   <utilities/GFileIOHandler.h>
@@ -109,10 +107,8 @@ VGenerateVersionInfo::LinkInfo(const string fname)
 
 
 string
-VGenerateVersionInfo::ReadCompileInfo(const unsigned int idx, const string fname)
+VGenerateVersionInfo::ReadCompileInfo(const unsigned int idx, const string &fname)
 {
-   // auto test = g_file()->ReadAll(fname.c_str());
-
     vector<string> cont = g_file()->ReadAll(fname.c_str());
     string ret;
 

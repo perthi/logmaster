@@ -15,8 +15,8 @@ class GHelpMenu
 {
 public:
     //static string    API   Help(const string cmd = "");
-    static string    API   Help(const arg_deque args, const string cmd = "");
-    static string    API   Help(const arg_deque args, const char* exename, const string heading, const string cmd = "");
+    static string    API   Help(const arg_deque args, const string &cmd = "");
+    static string    API   Help(const arg_deque args, const char* exename, const string &heading, const string &cmd = "");
     
 };
 

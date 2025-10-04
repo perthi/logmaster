@@ -37,8 +37,8 @@ class  GArgument
   friend class GCmdScan;
 
 public:
-  API GArgument(const string name, const string usage, const string helptext, const bool ismandatory,
-                std::function<bool(const string cmnd, const string args_s, const vector<string> sub, const vector<string> par)> funct);
+  API GArgument(const string &name, const string &usage, const string &helptext, const bool ismandatory,
+                std::function<bool(const string &cmnd, const string &args_s, const vector<string> &sub, vector<string> par)> funct);
   API GArgument();
   virtual API ~GArgument() {}
 
@@ -47,7 +47,7 @@ public:
   inline bool IsOptional() const { return !IsMandatory(); }
   void API SetMandatory() { fIsMandatory = fgkMANDATORY; };
   void API SetOptional() { fIsMandatory = fgkOPTIONAL; };
-  void API SetUsage(const string usage) { fUsage = usage; }
+  void API SetUsage(const string &usage) { fUsage = usage; }
 
   const string API & GetUsage() const { return fUsage; };
   const string API & GetHelpText() const { return fHelpText; };

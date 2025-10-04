@@ -34,8 +34,8 @@ class GArgumentParsed : public GArgument
 {
 public:
     GArgumentParsed() : fArguments() { }
-    void AddParameter( const string par) {   fArguments.push_back(par); } ;
-    string ParInfo( const vector<string> par ) const;
+    void AddParameter( const string &par) {   fArguments.push_back(par); } ;
+    string ParInfo( const vector<string> &par ) const;
     virtual string    API str()   const;
     vector<string> GetArguments() const { return fArguments; } ;
   

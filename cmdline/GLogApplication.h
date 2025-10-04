@@ -56,40 +56,40 @@ public:
     virtual API ~GLogApplication() {};
 
     void  API  Purge( );
-    void  API  SetCallBackFunction(const string cmd, callback_t funct);
-    void  API  RemoveArgument(const string cmd);
+    void  API  SetCallBackFunction(const string &cmd, callback_t funct);
+    void  API  RemoveArgument(const string &cmd);
 
-    arg_ptr          API   GetArgument(const string cmd);
+    arg_ptr          API   GetArgument(const string &cmd);
     void             API   SetDuplicateStrategy(const eDUP_STRATEGY);
     eDUP_STRATEGY    API   GetDuplicateStrategy( ) const;
     GLogApplication  API & AddArgument(arg_ptr  arg, eDUP_STRATEGY s = eDUP_STRATEGY::THROW_EXEPTION);
     GLogApplication  API & AddArguments(arg_deque  args);
-    void             API   ScanArguments(const string cmdline);
+    void             API   ScanArguments(const string &cmdline);
     void             API   ScanArguments(const int argc, const char** argv);
-    void             API   ScanArguments(const string cmdline, arg_ptr arg);
-    void             API   ScanArguments(const string cmdline, arg_deque args);
+    void             API   ScanArguments(const string &cmdline, arg_ptr arg);
+    void             API   ScanArguments(const string &cmdline, arg_deque args);
     GLogApplication  API & ScanArguments(const int argc, const char** argv, arg_deque  arg);
 
 #ifdef _WIN32
     void             API   ScanArguments( );
 #endif
-    string              API        Help(const string cmd = "" ) const;
-    static string       API        Help(const deque  <  std::shared_ptr<GArgument>  > args, const string cmd = "" );
-    string              API        Help(const char *exename, const string heading,  const string cmd = "" ) const;
+    string              API        Help(const string &cmd = "" ) const;
+    static string       API        Help(const deque  <  std::shared_ptr<GArgument>  > args, const string &cmd = "" );
+    string              API        Help(const char *exename, const string &heading,  const string &cmd = "" ) const;
     
-    static bool      API   HasCommand(arg_deque  args, const string cmd);
-    bool             API   HasCommand(const string cmd);
+    static bool      API   HasCommand(arg_deque  args, const string &cmd);
+    bool             API   HasCommand(const string &cmd);
     arg_deque        API   GetArguments( );
     
     GLogApplication  API & InitLogArgs( );
-    int              API   SetMandatory(const string cmd);
-    int              API   SetOptional(const string cmd);
-    bool             API   IsMandatory(const string cmd) const;
-    bool             API   IsOptional(const string cmd) const;
+    int              API   SetMandatory(const string &cmd);
+    int              API   SetOptional(const string &cmd);
+    bool             API   IsMandatory(const string &cmd) const;
+    bool             API   IsOptional(const string &cmd) const;
 
-//private:
-    API      GLogApplication(GLogApplication&);
-    void     operator=(GLogApplication&);
+private:
+    API      GLogApplication(const GLogApplication&);
+    void     operator=(const GLogApplication&);
    
 
     arg_deque        fArgs = arg_deque( );

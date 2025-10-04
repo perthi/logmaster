@@ -11,7 +11,7 @@ using namespace LOGMASTER;
 
 
 string
-GHelpMenu::Help(const arg_deque args, const string cmd)
+GHelpMenu::Help(const arg_deque args, const string &cmd)
 {
     std::stringstream buffer;
 
@@ -45,7 +45,7 @@ GHelpMenu::Help(const arg_deque args, const string cmd)
 
 
 string
-GHelpMenu::Help(const arg_deque args, const char* exename, const string heading, const string cmd)
+GHelpMenu::Help(const arg_deque args, const char* exename, const string &heading, const string &cmd)
 {
     if ( cmd != "" )
     {

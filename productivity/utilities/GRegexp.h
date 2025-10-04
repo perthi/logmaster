@@ -27,6 +27,7 @@ using std::string;
 
 class GRegexp;
 
+/** @todo remove singleton */
 inline  GRegexp * g_regexp();
 
 /** @brief Parsing of strings using simplified regular expressions, or just plain strings */
@@ -36,13 +37,13 @@ public:
     API GRegexp() {};
     API ~GRegexp() {};
 
-    inline  vector <string>  API  ScanNumber ( const string fname, const string digits = "1,99");
-    inline  bool                 IsMatch(const string input, const std::regex e);
-    inline bool                 IsMatch(const string input, const string to_match);
-    inline vector<string>     API  Filter( const vector<string> input, const std::regex e, vector<string> *removed = 0);
+    inline  vector <string>  API  ScanNumber ( const string &fname, const string &digits = "1,99");
+    inline  bool             API  IsMatch(const string &input, const std::regex &e);
+    inline bool              API  IsMatch(const string &input, const string &to_match);
+    inline vector<string>    API  Filter( const vector<string> &input, const std::regex &e, vector<string> *removed = 0);
 
 private:
-    inline bool CheckFormat(const string format);
+    inline bool CheckFormat(const string &format);
 };
 
 
@@ -75,7 +76,7 @@ GRegexp * g_regexp()
 *   @return a vector of numbers written out on string format.
 *   @throw A "boost::exception_detail" if the regular expression is invalid */
 vector <string>
-GRegexp::ScanNumber(const string input, const string digits)
+GRegexp::ScanNumber(const string &input, const string &digits)
 {
     if (CheckFormat(digits) == false)
     {
@@ -100,7 +101,7 @@ GRegexp::ScanNumber(const string input, const string digits)
 
 
 /*  Checks whether or not a string matches a pattern where pattern must be a valid regular expression. It is possible to
-*  use wildcars (*). For instance "lorem ipsum" will match the pattern "(.*)psum"
+*  use wildcard (*). For instance "lorem ipsum" will match the pattern "(.*)psum"
 *  and the pattern lor(.*) or the pattern (.*)em ips(.*). Furthermore the pattern l(.*)sum wil also match "lorem ipsum".
 *    If the pattern string does not contain any wildcards then an exact match between the input string and the pattern is
 *  required.
@@ -109,7 +110,7 @@ GRegexp::ScanNumber(const string input, const string digits)
 *  @return true if the input matches pattern, false otherwise
 *  @exception std::regex_error if the regular expression is not well formed*/
 inline bool
-GRegexp::IsMatch(const string input, const std::regex e)
+GRegexp::IsMatch(const string &input, const std::regex &e)
 {
     std::cmatch cm;
     std::regex_match(input.c_str(), cm, e);
@@ -126,7 +127,7 @@ GRegexp::IsMatch(const string input, const std::regex e)
 
 
 bool
-inline GRegexp::IsMatch(const string input, const string to_match)
+inline GRegexp::IsMatch(const string &input, const string &to_match)
 {
     string expression = g_string()->Replace(g_string()->Replace(g_string()->Replace(to_match, "*", "(.*)"), "[", "\\["), "]", "\\]");
     return IsMatch(input, std::regex(expression));
@@ -140,7 +141,7 @@ inline GRegexp::IsMatch(const string input, const string to_match)
 * @param removed[in|out]  The vector of entries that was removed
 * @return the resulting vector after the filter has been applied*/
 vector<string>
-inline GRegexp::Filter(const vector<string> input, const std::regex e, vector<string>* removed)
+inline GRegexp::Filter(const vector<string> &input, const std::regex &e, vector<string>* removed)
 {
     vector<string> filtered_in;
 
@@ -167,7 +168,7 @@ inline GRegexp::Filter(const vector<string> input, const std::regex e, vector<st
 *  @param format The format string to validate
 *  @return true if "format" is on the form "a,b"  where a and b are positive integers, false otherwise */
 bool
-GRegexp::CheckFormat(const string format)
+GRegexp::CheckFormat(const string &format)
 {
     for (unsigned int i = 0; i < format.size(); i++)
     {

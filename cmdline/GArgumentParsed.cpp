@@ -39,7 +39,7 @@ using std::cout;
 #include <stdint.h>
 
 string 
-GArgumentParsed::ParInfo(const vector<string> par )  const
+GArgumentParsed::ParInfo(const vector<string> &par )  const
 {
     std::stringstream buffer;  
     buffer << "*** PARAMETERS ***" << endl;
