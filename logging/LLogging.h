@@ -71,10 +71,10 @@ namespace LOGMASTER
         void API        SetPublishingMode( const ePUBLISH_MODE mode );
 
         template<typename... Args>
-        logmap API Log(const eLOGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt,
+        logmap API Log(const eLOGLEVEL level, const eMSGSYSTEM sys, const GLocation &l, const char* fmt,
             const Args ... args);
         
-        logmap API Log(const eLOGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const std::string message) 
+        logmap API Log(const eLOGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const std::string &message) 
         {
             return Log(level, sys, l,  "%s", message.c_str());
         };
@@ -155,7 +155,7 @@ namespace LOGMASTER
      *   @param  args  Variable argument list
      *   @return  The generated log messages */
     template<typename... Args>
-    logmap LLogging::Log(const eLOGLEVEL level, const eMSGSYSTEM sys, const GLocation l, const char* fmt,
+    logmap LLogging::Log(const eLOGLEVEL level, const eMSGSYSTEM sys, const GLocation &l, const char* fmt,
         const Args ... args)
     {
         return LogVarArgs(level, sys, l.fFileName.c_str(),  l.fLineNo, l.fFunctName.c_str(), false, std::string(""), fmt, args...);

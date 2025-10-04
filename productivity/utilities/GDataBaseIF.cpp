@@ -146,7 +146,7 @@ GDataBaseIF::CloseDatabase()
 }
 
 string
-GDataBaseIF::ReadText(sqlite3_stmt *stmt, const int idx, const string colname, const int sql_type, const GLocation l)
+GDataBaseIF::ReadText(sqlite3_stmt *stmt, const int idx, const string &colname, const int sql_type, const GLocation &l)
 {
     string tmp = "";
     
@@ -173,7 +173,7 @@ GDataBaseIF::ReadText(sqlite3_stmt *stmt, const int idx, const string colname, c
 
 
 double
-GDataBaseIF::ReadFloat(sqlite3_stmt *stmt, const int idx, const string colname, const int sql_type, const GLocation l)
+GDataBaseIF::ReadFloat(sqlite3_stmt *stmt, const int idx, const string &colname, const int sql_type, const GLocation &l)
 {
     double tmp = -1;
     if (strcasecmp(sqlite3_column_name(stmt, idx), colname.c_str()) == 0)
@@ -199,7 +199,7 @@ GDataBaseIF::ReadFloat(sqlite3_stmt *stmt, const int idx, const string colname, 
     return tmp;
 }
 
-int GDataBaseIF::ReadInteger(sqlite3_stmt *stmt, const int idx, const string colname, const int sql_type, const GLocation l)
+int GDataBaseIF::ReadInteger(sqlite3_stmt *stmt, const int idx, const string &colname, const int sql_type, const GLocation &l)
 {
     int tmp = -1;
     if (strcasecmp(sqlite3_column_name(stmt, idx), colname.c_str()) == 0)
@@ -236,7 +236,7 @@ GDataBaseIF::LimitString(const int limit)
 
 
 bool 
-GDataBaseIF::DeleteEntries( const string tablename )
+GDataBaseIF::DeleteEntries( const string &tablename )
 {
     int rc;
     char sql[200];

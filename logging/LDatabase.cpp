@@ -41,7 +41,7 @@ namespace LOGMASTER
      *  The default path is used  ( "logmaster.db" ) in the current directory
      *  @return The database singleton */
     LDatabase  * 
-    LDatabase::Instance( const  string  path  )
+    LDatabase::Instance( const  string  &path  )
     {
         if( path != "" )
         {
@@ -71,7 +71,7 @@ namespace LOGMASTER
 
 
     void 
-    LDatabase::SetDatabase(  const  string  db_path  )
+    LDatabase::SetDatabase(  const  string  &db_path  )
     {
         if( db_path != "" )
         {
@@ -154,7 +154,7 @@ namespace LOGMASTER
 
 
     /** @brief  Delete all log entries from the database 
-     *  @return true if the deletion was successful, false othervise */
+     *  @return true if the deletion was successful, false otherwise */
     bool
     LDatabase::DeleteEntries()
     {
@@ -198,7 +198,7 @@ namespace LOGMASTER
     /**@{ */
      /** Queries the database using a user defined SQL query string */   
     vector<  LLogEntrySQL >  
-    LDatabase::Query( const string sql )
+    LDatabase::Query( const string &sql )
     {
         InitSQLQuery(sql  );
         return FetchAll();
@@ -323,8 +323,9 @@ namespace LOGMASTER
 
 
     bool
-    LDatabase::InitQuery( string sql_query,  const int limit  )
+    LDatabase::InitQuery( const string &sql_query,  const int limit  )
     {
+        string sql_query_copy = sql_query;
         if( fDataBase == nullptr )
         {
 #ifdef HAS_LOGGING
@@ -338,11 +339,11 @@ namespace LOGMASTER
 
         if(limit > 0)
         {
-          sql_query += LimitString(limit);  
+          sql_query_copy += LimitString(limit);  
         }
 
     
-        int rc = sqlite3_prepare(fDataBase, sql_query.c_str(), (int)sql_query.length(), &fStmt, nullptr);    
+        int rc = sqlite3_prepare(fDataBase, sql_query_copy.c_str(), (int)sql_query.length(), &fStmt, nullptr);    
 
         if (rc != SQLITE_OK)
         {

@@ -65,7 +65,7 @@ namespace LOGMASTER
             static  bool                API   IsFormatHash( const string &format );
             static  bool                API   IsSubCmdHash( const string &subcmd );
             static  bool                API   IsChangeable(const eMSGSYSTEM system);
-            static  string              API   DoxygenDoc(const string filename);
+            static  string              API   DoxygenDoc(const string &filename);
 
     };
 

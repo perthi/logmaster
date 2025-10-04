@@ -48,11 +48,11 @@ class  GDataBaseIF
     virtual bool   CreateTables() = 0;
     void     API   CloseDatabase();
     bool     API   OpenDatabase( const char *db_path );
-    int      API   ReadInteger (  sqlite3_stmt *stmt,  const int idx, const string colname, const int sql_type, const GLocation l);
-    double   API   ReadFloat   (  sqlite3_stmt *stmt, const int idx, const string colname, const int sql_type, const GLocation l);
-    string   API   ReadText    (  sqlite3_stmt *stmt, const int idx, const string colname, const int sql_type, const GLocation l);
+    int      API   ReadInteger (  sqlite3_stmt *stmt,  const int idx, const string &colname, const int sql_type, const GLocation &l);
+    double   API   ReadFloat   (  sqlite3_stmt *stmt, const int idx, const string  &colname, const int sql_type, const GLocation &l);
+    string   API   ReadText    (  sqlite3_stmt *stmt, const int idx, const string  &colname, const int sql_type, const GLocation &l);
 
-    bool API DeleteEntries( const string tablename );
+    bool API DeleteEntries( const string &tablename );
 
     string  API SQLType2String(const int sql_type) const;
 
@@ -61,7 +61,7 @@ class  GDataBaseIF
                 #ifdef HAS_LOGGING
                 void API HandleError( const GLocation l,   eLOGLEVEL lvl,  const bool throw_ex,   const char * fmt, const Args... args);
                 #else
-                void API HandleError(const GLocation l, const bool throw_ex, const char *fmt, const Args... args);
+                void API HandleError(const GLocation &l, const bool throw_ex, const char *fmt, const Args... args);
         #endif
         
        
@@ -81,12 +81,14 @@ void
 #ifdef HAS_LOGGING
 GDataBaseIF::HandleError(const GLocation  l, eLOGLEVEL  lvl,  const bool  throw_ex, const char *  fmt, const Args... args)
 #else
-GDataBaseIF::HandleError(const GLocation  l,  const bool  throw_ex, const char *  fmt,  const Args... args)
+GDataBaseIF::HandleError(const GLocation  &l,  const bool  throw_ex, const char *  fmt,  const Args... args)
 #endif
 {
     auto formatCheck = GFormatting::checkFormat(l.fFileName.c_str(), l.fLineNo, l.fFunctName.c_str(), fmt, args...);
-    static char formatted_message[4096] = {0};
+    
+    static char formatted_message[4096] = {0}; /** @bug magic number */
     formatted_message[0] = 0;
+    
     if(formatCheck.first == true)
     {
         if(sizeof...(args) > 0)

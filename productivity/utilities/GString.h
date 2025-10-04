@@ -49,7 +49,7 @@ class GString
      string    API  Path2ClassName(const string & path);   
 
      template <typename T>
-     string    API  Vec2String(const vector<T> in, const string sep = "\n");
+     string    API  Vec2String(const vector<T> &in, const string &sep = "\n");
      
      template <typename T>
      string    API  ToString(const T in, const int w = -1, const char pad = '0');
@@ -89,7 +89,7 @@ class GString
 
 template<typename T>
 string
-GString::Vec2String(const vector<T> in, const string sep)
+GString::Vec2String(const vector<T> &in, const string &sep)
 {
     std::stringstream buffer;
     buffer.str("");

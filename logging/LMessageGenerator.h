@@ -94,8 +94,8 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const
     string ldir; // Only the directory part of the path
     string lfilename; // Only the filename part of the full path
 
-    bool has_filepath = (int)eMSGFORMAT::FILE_PATH & (int)format ? true : false;
-    bool has_filename = (int)eMSGFORMAT::FILE_NAME & (int)format ? true : false;
+    bool has_filepath = (int)eMSGFORMAT::FILE_PATH & ((int)format ? true : false);
+    bool has_filename = (int)eMSGFORMAT::FILE_NAME & ((int)format ? true : false);
 
     if((has_filepath || has_filename) == true)
     {
@@ -142,15 +142,14 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const
         msg->fLineNo = line;
     }
 
-    char formatted_message[MAX_MSG_SIZE] = {0};
-
     if(((int)eMSGFORMAT::MESSAGE_BODY & (int)format) || l == eLOGLEVEL::LOG_FORCE_DEBUG)
     {
         if(fmt != 0)
         {
             if(sizeof...(args) > 0)
             {
-                 SPRINTF(formatted_message, sizeof(formatted_message) - 1, fmt, args... );
+                char formatted_message[MAX_MSG_SIZE] = {0};
+                SPRINTF(formatted_message, sizeof(formatted_message) - 1, fmt, args... );
                 SPRINTF(msg->fMsgBody, MAX_MSG_SIZE, "%s%s", formatted_message, addendum.c_str());
             }
             else

@@ -300,7 +300,7 @@ namespace LOGMASTER
 
 
     string
-    LHashMaps::DoxygenDoc(const string filename)
+    LHashMaps::DoxygenDoc(const string &filename)
     {
         InitHash();
         FILE *fp;

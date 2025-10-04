@@ -36,8 +36,8 @@ class Val : public GPrintable
 {
 public:
     Val(const double t, const double min, 
-        const double max, const string name, 
-        const string subscript, const string helpGText): fVal(t), 
+        const double max, const string &name, 
+        const string &subscript, const string &helpGText): fVal(t), 
                                                          fMinValue(min), 
                                                          fMaxValue(max), 
                                                          fTypeId("NOT SET"),  
@@ -86,12 +86,12 @@ template <class T>
 class Val_t : public Val
 {
 public:
-    Val_t(T  t, T min, T max, const string name = "", const string subscript = "", const string helpGText = "");
+    Val_t(T  t, T min, T max, const string &name = "", const string &subscript = "", const string &helpGText = "");
     virtual ~Val_t() override  {};
-    string GetName() const  {return fName; }
+    const string GetName() const & {return fName; }
     const char *  GetValueCString();
-    string GetSubscript() const { return fSubscript; }
-    string GetHelpText() const { return fHelpText;}
+    const  string GetSubscript() const & { return fSubscript; }
+    const  string GetHelpText() const  & { return fHelpText;}
     double GetMin() const { return fMinValue; }
     double GetMax() const { return fMaxValue; }
     void   SetName( const string name ){ fName = name;}
@@ -100,19 +100,14 @@ public:
     virtual string GetValueString();
     virtual void Set(const T value, const T min, const T max );
     virtual void SetLimits(const T min, const T max);
-    
- //   void Print();
- //   void PrintParameterUsage();
- //   virtual void PrintDefaults(); 
-    
     virtual Val_t & operator = (const double &rhs);
 };
 
 
 
 template <class T>
-Val_t<T>::Val_t(T  t, T min, T max, const string name,
-                const string subscript, const string helpGText) : Val(t, min, max, name, subscript, helpGText)
+Val_t<T>::Val_t(T  t, T min, T max, const string &name,
+                const string &subscript, const string &helpGText) : Val(t, min, max, name, subscript, helpGText)
 {
     fTypeId = typeid(T).name();
     CheckLimits(t, min, max);
@@ -171,7 +166,7 @@ void Val_t<T>::SetLimits(const T min, const T max)
 /*********************************************************
  ****************** OPERATORS ****************************
  ********************************************************/
-ostream& operator<<(ostream& os, const Val  &o);
+ostream& operator<<(const  ostream& os, const Val  &o);
 
 template <class T>
 Val_t<T> & Val_t<T>::operator = (const double &rhs)
@@ -182,7 +177,7 @@ Val_t<T> & Val_t<T>::operator = (const double &rhs)
 
 
 template<class T>  
-ostream& operator<<(ostream& os, Val_t<T>  &o)
+ostream& operator<<( ostream& os, Val_t<T>  &o)
 {
     os << o.GetValue(  ) << o.GetSubscript();   
     return os;
@@ -226,7 +221,7 @@ inline Val_t<T> operator  + ( const Val_t<T> &lhs,  const Val_t<T> &rhs)
 
 
 template <typename T, typename T2>
-inline double operator  + (double &lhs, const Val_t<T2> &rhs)
+inline double operator  + (const  double &lhs, const Val_t<T2> &rhs)
 {
     return  lhs + (double)rhs.GetValue();
 }
