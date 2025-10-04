@@ -63,7 +63,7 @@ GCommon::EnableOutput()
 #ifdef HAS_LOGGING
 #include <logging/GException.h>
 void
-GCommon::HandleError(const string message, const GLocation  l,   const bool   disable_exception  )
+GCommon::HandleError(const string &message, const GLocation  &l,   const bool   disable_exception  )
 {
     if ( disable_exception == false)
     {
@@ -78,7 +78,7 @@ GCommon::HandleError(const string message, const GLocation  l,   const bool   di
 
 
 void
-GCommon::HandleError(const string message, const GLocation l, const bool   disable_exception  )
+GCommon::HandleError(const string &message, const GLocation &l, const bool   disable_exception  )
 {
 
     if ( disable_exception == false)

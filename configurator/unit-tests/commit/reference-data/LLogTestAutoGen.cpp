@@ -144,6 +144,6 @@ LLogTestAutoGen::WriteMessages()
         ALARM_INFO("This is a ALARM_INFO  test message with parameter: ival = %d, fval = %f", ival, fval );
         ALARM_DEBUG("This is a ALARM_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
         ALARM_FORCE_DEBUG("This is a ALARM_FORCE_DEBUG  test message with parameter: ival = %d, fval = %f", ival, fval );
-    cout << endl;
+    //cout << endl;
 }
 }

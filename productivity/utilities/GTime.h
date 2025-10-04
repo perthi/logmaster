@@ -43,14 +43,14 @@ public:
 
    // void            API   SetTime(int year, int month, int dayInMonth, int hour24 = 0, int minute = 0, int second = 0, int us = 0);
     long double      API   AccessDate();
-    long double      API   AccessDate(const string date);
+    long double      API   AccessDate(const string &date);
     string           API   TimeStamp(struct std::tm *tout = 0, const char * format = 0, struct std::tm *tin = 0, int64_t *us = 0);
     string           API   TimeStamp(const char * format, int64_t *us = 0 );
     string           API   GetYear(int *year = nullptr);
 
     double           API   GetEpochTime( time_t * sec = nullptr, int64_t * us = nullptr );
     string           API   GetTime_ISO8601( bool use_microseconds = true );
-    time_t           API   DateString2Time(const string date, const string format, std::tm *t = 0, int64_t *us = 0);
+    time_t           API   DateString2Time(const string &date, const string &format, std::tm *t = 0, int64_t *us = 0);
     string           API   TimeStampShort(struct std::tm *tout = 0, struct std::tm *tin = 0, int64_t *us = 0);
     static  void     API   SetExternalTimeSource(  std::function<double()>  funct ); 
     double           API   CalculateTimeInterval( double start_time, double end_time); 
@@ -62,14 +62,14 @@ public:
 
     int64_t API GetBaseUsTime() { return(fTimeVal); }
   
-    bool operator!=(GTime& o) { return(fTimeVal != o.fTimeVal); }
-    bool operator==(GTime& o) { return(fTimeVal == o.fTimeVal); }
-    bool operator>(GTime& o) { return(fTimeVal > o.fTimeVal); }
-    bool operator>=(GTime& o) { return(fTimeVal >= o.fTimeVal); }
-    bool operator<(GTime& o) { return(fTimeVal < o.fTimeVal); }
-    bool operator<=(GTime& o) { return(fTimeVal <= o.fTimeVal); }
+    bool operator!=( const GTime& o) { return(fTimeVal != o.fTimeVal); }
+    bool operator==( const GTime& o) { return(fTimeVal == o.fTimeVal); }
+    bool operator>(  const GTime& o) { return(fTimeVal > o.fTimeVal); }
+    bool operator>=( const GTime& o) { return(fTimeVal >= o.fTimeVal); }
+    bool operator<(  const GTime& o) { return(fTimeVal < o.fTimeVal); }
+    bool operator<=( const GTime& o) { return(fTimeVal <= o.fTimeVal); }
     
-    GTimeSpan API operator-(GTime& o) { return(GTimeSpan(fTimeVal - o.fTimeVal)); }
+    GTimeSpan API operator-(const GTime& o) { return(GTimeSpan(fTimeVal - o.fTimeVal)); }
 
 private:
     bool  API  ValidateV2(  std::function<bool(  const int ) > funct, const string &s, const vector<string> * const arr = nullptr );

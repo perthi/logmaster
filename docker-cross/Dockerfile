@@ -1,4 +1,5 @@
-FROM ubuntu:22.04
+#FROM ubuntu:22.04
+FROM ubuntu:24.10
 MAINTAINER Per Thomas Hille  pth@embc.no
 
 
@@ -10,15 +11,17 @@ RUN sed -i -e 's|disco|eoan|g' /etc/apt/sources.list
 RUN apt update --fix-missing
 
 
-RUN apt-get install -y  apt-utils gawk wget git git-core diffstat unzip \
-gcc-multilib build-essential chrpath socat xterm curl parted python3 \
-python3 xz-utils debianutils iputils-ping libsdl1.2-dev \
-net-tools cpio  uuid-dev sudo vim libssl-dev  libreadline-dev libxml2-dev \
-apt-get install -y locate   libc6-armel-cross libc6-dev-armel-cross \
-binutils-arm-linux-gnueabi libncurses5-dev \
+RUN apt-get install -y  apt-utils gawk wget git git-core diffstat unzip
+RUN apt-get install -y  gcc-multilib build-essential chrpath socat xterm curl parted python3
+RUN apt-get install -y  python3 xz-utils debianutils iputils-ping libsdl1.2-dev
+RUN apt-get install -y  net-tools cpio  uuid-dev sudo vim libssl-dev  libreadline-dev libxml2-dev
+RUN apt-get install -y  locate   libc6-armel-cross libc6-dev-armel-cross
+RUN apt-get install -y binutils-arm-linux-gnueabi libncurses5-dev \
 gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf \
-autoconf libtool  python3-pip python3-protobuf setuptools \
-qemu qemu-system
+autoconf libtool  python3-pip python3-protobuf
+# RUN apt-get install -y qemu qemu-system
+# setuptools \
+# qemu qemu-system
 
 #RUN export UID=$GUID
 
@@ -31,7 +34,7 @@ RUN make -j8
 RUN make install
 RUN ldconfig
 WORKDIR /tmp/protobuf-3.13.0/python
-RUN python3 setup.py build
+#RUN python3 setup.py build
 
 RUN mkdir -p  /home/root
 ENV HOME /home/root
@@ -42,7 +45,8 @@ RUN ln -s -f /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3 /lib/ld-linux-armh
 export LD_LIBRARY_PATH=/usr/local/lib/;\
 LD_LIBRARY_PATH=/usr/arm-linux-gnueabihf/lib/:$LD_LIBRARY_PATH
 
-FROM gcc:13.3.0
+#FROM gcc:13.3.0
+FROM  gcc:14.2.0
 
 #RUN apt-get install -y gcc-arm-none-eabi
 RUN apt update
@@ -79,4 +83,4 @@ RUN gunzip   fmt-10.2.1.tar.gz
 RUN tar -xvf fmt-10.2.1.tar
 RUN cd  fmt-10.2.1 && cmake CMakeLists.txt && make -j16 && make install && cd  ..
 
-
+RUN apt-get install -y qemu-system-arm

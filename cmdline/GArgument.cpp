@@ -95,7 +95,7 @@ GArgument::Verify()
 
 
 void   
-GArgument::AddSubCommand(const string cmd)
+GArgument::AddSubCommand(const string &cmd)
 {
     fSubCmds.push_back(cmd); 
 }
@@ -127,8 +127,7 @@ GArgument::str(const bool subcommands ) const
 }
 
 
-
-string   
+string
 GArgument::GetHelpText(const bool subcommands) const
 {
     string msg =  str(subcommands);

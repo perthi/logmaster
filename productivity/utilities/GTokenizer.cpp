@@ -44,7 +44,7 @@ GTokenizer* g_tokenizer( )
 
 
 void
-GTokenizer::TokenizeCommandline(const string line, int* argc, const char** argv, const int max_size)
+GTokenizer::TokenizeCommandline(const string &line, int* argc, const char** argv, const int max_size)
 {
     static  thread_local vector<string> tokens;
 
@@ -67,13 +67,13 @@ GTokenizer::TokenizeCommandline(const string line, int* argc, const char** argv,
  *   @param line The input command line string to tokenize
  *   @return a vector of command line tokens. */
 vector<string>
-GTokenizer::TokenizeCommandline(string line)
+GTokenizer::TokenizeCommandline(const string &line)
 {
     char quote = '"';
     int n = g_string( )->CountOccurrences(line, quote, true);
     if ( n % 2 != 0 )
     {
-        throw(std::runtime_error("Undterminated string (closing quote was not found)"));
+        throw(std::runtime_error("Unterminated string (closing quote was not found)"));
     }
 
     const vector<string> tokens = Tokenize(line, " ", fgkIGNORE_CASE);
@@ -130,7 +130,7 @@ GTokenizer::TokenizeCommandline(string line)
  *  @param[in,out]  fout   The resulting filename, without the directory is stored in this variable
  *  @param[in]      keep_trailing_slash whether or not to keep the trailing slash on the directory path after the path has been stripped */
 void
-GTokenizer::StripPath(const string fin, string& dir, string& fout, const bool keep_trailing_slahs)
+GTokenizer::StripPath(const string &fin, string& dir, string& fout, const bool keep_trailing_slahs)
 {
     vector<string> separators = { "\\", "/" };
     auto tokens = Tokenize(fin, separators, DISCARD_EMPTY, KEEP_SEPARATOR);
@@ -199,7 +199,7 @@ GTokenizer::StripPath(const string fin, string& dir, string& fout, const bool ke
  *  It is possible to us an array (vector) of tokens. Consider for instance the string   a/b\\c/d . <br>
  *  Tokenizing this string using the vector {"/", "\\"}  will yield the result {"a", "b", "c", "d"} */
 vector<string>
-GTokenizer::Tokenize(const vector<string>& source, const string sep, const bool keep_empty, const bool keep_sep, const bool keep_front)
+GTokenizer::Tokenize(const vector<string>& source, const string &sep, const bool keep_empty, const bool keep_sep, const bool keep_front)
 {
     vector<string> tout;
 
@@ -219,7 +219,7 @@ GTokenizer::Tokenize(const vector<string>& source, const string sep, const bool 
 
 
 vector<string>
-GTokenizer::Tokenize(const string source, const string sep, const bool keep_empty, const bool keep_sep, const bool keep_front)
+GTokenizer::Tokenize(const string &source, const string &sep, const bool keep_empty, const bool keep_sep, const bool keep_front)
 {
     std::vector<std::string> results;
 
@@ -306,7 +306,7 @@ GTokenizer::Tokenize(const string source, const string sep, const bool keep_empt
 
 
 vector<string>
-GTokenizer::Tokenize(const string source, const vector<string> sep, bool keep_empty, bool keep_sep, const bool keep_front )
+GTokenizer::Tokenize(const string &source, const vector<string> &sep, bool keep_empty, bool keep_sep, const bool keep_front )
 {
     if ( sep.size( ) == 0 )
     {

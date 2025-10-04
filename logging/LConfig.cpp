@@ -41,7 +41,7 @@
 namespace LOGMASTER
 {
 
-    string  LConfig::fTimeMode = "";
+    std::string  LConfig::fTimeMode = "";
 
 
     LConfig::LConfig() : fHash()
@@ -53,8 +53,8 @@ namespace LOGMASTER
     }
 
 
-    string
-    LConfig::GetFilename()
+    const std::string &
+    LConfig::GetLogFileName() const
     {
         return  fLogFilename;
     }
@@ -89,7 +89,7 @@ namespace LOGMASTER
      *  @param enable whether to enable (true) or disable(false) the log level specified by format
      *  or a valid Has tag as  defined in LHashMap::fLogFormatHash */
     void
-    LConfig::SetLogFormat(const string &format, bool enable)
+    LConfig::SetLogFormat(const std::string &format, bool enable)
     {
         vector<string> tokens =  GTokenizer().Tokenize( format, vector <string>{" ","\n", "\t"} );
 
@@ -270,12 +270,12 @@ namespace LOGMASTER
 
 
     void
-    LConfig::SetTimeMode( const string mode )
+    LConfig::SetTimeMode( const string &mode )
     {
         fTimeMode = mode;
     }
 
-    string
+    const  string &
     LConfig::GetTimeMode(  )
     {
         return  fTimeMode;
@@ -283,7 +283,7 @@ namespace LOGMASTER
 
 
     string
-    LConfig::DoxygenDoc(const string filename)
+    LConfig::DoxygenDoc(const string &filename)
     {
         FILE *fp;
 

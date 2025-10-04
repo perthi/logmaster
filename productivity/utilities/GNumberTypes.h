@@ -15,17 +15,17 @@ public:
 
     template<typename T>   bool   API  IsBinary(T num);
 
-    bool            API               IsDecNumber(const string num);
+    bool            API               IsDecNumber(const string &num);
     bool            API               IsDigit(const char* num, const int base = 10) { return IsDigit(string(num), base); };
-    bool            API               IsDigit(const string num, const int base = 10);
+    bool            API               IsDigit(const string &num, const int base = 10);
     template<typename T>   bool  API  IsDigit(T num, const int base = 10);
     template<typename T>   bool  API  IsFloat(T num);
     bool            API               IsFloat(const char* num);
-    bool            API               IsFloat(const string num);
-    bool            API               IsHex(const string num);
+    bool            API               IsFloat(string num);
+    bool            API               IsHex(const string &num);
     template<typename T>   bool  API  IsHex(const T num);
     bool            API               IsHex(const char* num) { return IsHex(string(num)); };
-    bool            API               IsInteger(const string num);
+    bool            API               IsInteger(const string &num);
     template<typename T>   bool  API  IsInteger(T num);
     bool            API               IsNumber(const string num);
     bool            API               IsNumber(const double num);

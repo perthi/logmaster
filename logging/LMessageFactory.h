@@ -12,12 +12,8 @@
 #include "LEnums.h"
 #include "LMessageGenerator.h"
 #include "LConfig.h"
-
 #include <utilities/GDefinitions.h>
-
 #include <string>
-
-using std::string;
 
 #include <memory>
 #include <stdarg.h>
@@ -25,15 +21,14 @@ using std::string;
 namespace LOGMASTER
 {
     class  LMessage;
-    class  LConfig;
     class  LLogging;
 
     /** @class LMessageFactory
     * Helper class used by LLogging  */
     class LMessageFactory
     {
-
             friend LLogging;
+
     public:
             LMessageFactory();
             LMessageFactory( const LMessageFactory &gen );
@@ -46,7 +41,7 @@ namespace LOGMASTER
             void      API    Disable();
             template<typename... Args>
             std::shared_ptr<LMessage> API GenerateMessage(const eMSGSYSTEM s, const eLOGLEVEL l, const char *file,
-                                                          const int line, const char *func, const string addendum,
+                                                          const int line, const char *func, const string &addendum,
                                                           const char *fmt, const Args ... args);
             std::shared_ptr<LMessage> API GenerateMessageUnsafe(const eMSGSYSTEM s, const eLOGLEVEL l, const char *file,
                                                           const int line, const char *func, const string addendum,
@@ -63,21 +58,19 @@ namespace LOGMASTER
 
         template<typename... Args>
         std::shared_ptr<LMessage> LMessageFactory::GenerateMessage(const eMSGSYSTEM s, const eLOGLEVEL l,
-                                                                   const char *file, const int line, const char *func,
-                                                                   const std::string ad, const char *fmt,
+                                                                   const char *file, const int line, 
+                                                                   const char *func,
+                                                                   const std::string &ad, const char *fmt,
                                                                    const Args ... args)
         {
             if(fConfig == nullptr)
             {
-               // CERR << "fConfig is a zero pointer !!!" << ENDL;
                 std::shared_ptr<LMessage> m = std::make_shared<LMessage>();
                 return m;
             }
             eMSGFORMAT f = fConfig->GetLogFormat();
-
             // fMessage =  fGenerator->GenerateMsg(fMessage,  f, l, s, file, line, func, fmt, ap, ad );
             fMessage = fGenerator->GenerateMsg(f, l, s, file, line, func, ad, fmt, args...);
-
             return fMessage;
         }
 

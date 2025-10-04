@@ -1,0 +1,7 @@
+
+PROGRAM:=issue-141
+SRCCPP+=issue-141.cpp
+
+LIBS+=     -Wl,--start-group -lcmdline -llogmaster  -lutilities -lconfigurator -lsqlite-embc -lxml-embc -Wl,--end-group  -lxml2 -lreadline -lhistory -lncurses -ldl -lpthread
+
+include ../../../common.mk

@@ -49,22 +49,22 @@ public:
   void API SetOptional() { fIsMandatory = fgkOPTIONAL; };
   void API SetUsage(const string usage) { fUsage = usage; }
 
-  string API GetUsage() const { return fUsage; };
-  string API GetHelpText() const { return fHelpText; };
-  string API GetHelpText(const bool subcommands) const;
-  void   API SetHelpText(const string help) { fHelpText = help; };
+  const string API & GetUsage() const { return fUsage; };
+  const string API & GetHelpText() const { return fHelpText; };
+  string API  GetHelpText(const bool subcommands) const;
+  void   API SetHelpText(const string &help) { fHelpText = help; };
 
   string API str(const bool subcommands = false) const;
   bool API Verify();
   
-  void API AddSubCommand(const string cmd);
+  void API AddSubCommand(const string &cmd);
   
-  void API SetCommand(const string cmd) { fCmd = cmd; };
-  void API SetSubCommands(const vector<string> sub) { fSubCmds = sub; };
-  string API GetCommand() const { return fCmd; };
+  void API SetCommand(const string &cmd) { fCmd = cmd; };
+  void API SetSubCommands(const vector<string> &sub) { fSubCmds = sub; };
+  const  string API &GetCommand() const { return fCmd; };
 // string API GetCommand() const { return ""; };
 
-  vector<string> &GetSubCommands() { return fSubCmds; };
+  const vector<string> &GetSubCommands() { return fSubCmds; };
   string API GetSubCommandsS();
   string GetTypeId() const { return fTypeId; }
   string GetTypeIdBase() const { return fTypeIdBase; }

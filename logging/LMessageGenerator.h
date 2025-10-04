@@ -29,6 +29,10 @@ using std::ostringstream;
 
 using namespace LOGMASTER;
 
+namespace
+{
+    std::mutex msg_generator_mutex;
+}
 
 namespace LOGMASTER
 {
@@ -41,12 +45,12 @@ public:
     LMessageGenerator();
 
     template<typename... Args>
-    std::shared_ptr<LMessage> API GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const eMSGSYSTEM s,
+    std::unique_ptr<LMessage> API GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const eMSGSYSTEM s,
                                               const char *fname, int line, const char *func, const char *fmt,
                                               const Args ... args);
 
     template<typename... Args>
-    std::shared_ptr<LMessage> API GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const eMSGSYSTEM s,
+    std::unique_ptr<LMessage> API GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const eMSGSYSTEM s,
                                               const char *fname, int line, const char *func, string addendum,
                                               const char *fmt, const Args ... args);
     
@@ -61,7 +65,7 @@ private:
 
 /**@{*/
 /* Generates a message and stores it in the LMessage struct m. This function is typically called via a macro, an using the
-* build in preprocessor directives __FILE__, __FUNCTION__, __LINE__
+*  build in preprocessor directives __FILE__, __FUNCTION__, __LINE__
 *  @param m[in|out] A pointer to the LMessage struct that will be filled in
 *  @param format[in] Controls which fields in the message  will be filled in
 *  @param l[in] The severity level of this message
@@ -71,14 +75,14 @@ private:
 *  @param func  The name of the function where the message was generated ( __FUNCTION__)
 *  @param fmt[in] */
 template<typename... Args>
-std::shared_ptr<LMessage> 
+std::unique_ptr<LMessage> 
 LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const eMSGSYSTEM s,
                                                          const char *fname, int line, const char *func, string addendum,
                                                          const char *fmt, const Args ... args)
 {
-    std::shared_ptr<LMessage> msg = std::make_shared<LMessage>();
-
-    msg->ClearContent();
+    std::lock_guard<std::mutex> guard( msg_generator_mutex );
+    std::unique_ptr<LMessage> msg = std::make_unique<LMessage>();
+    
     msg->fEpochTime = fTime.GetEpochTime();
 
     if(format == eMSGFORMAT::ALL_FIELDS_OFF)
@@ -189,7 +193,7 @@ LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const
 
 
 template<typename... Args>
-std::shared_ptr<LMessage> 
+std::unique_ptr<LMessage> 
 LMessageGenerator::GenerateMsg(const eMSGFORMAT format, const eLOGLEVEL l, const eMSGSYSTEM s,
                                                          const char *fname, int line, const char *func, const char *fmt,
                                                          const Args ... args)

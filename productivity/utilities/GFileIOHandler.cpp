@@ -54,6 +54,7 @@ using std::ifstream;
 #include <algorithm>
 #include <fmt/format.h>
 
+/** @todo remove singleton */
 GFileIOHandler* g_file()
 {
     static GFileIOHandler* instance = new GFileIOHandler();
@@ -69,7 +70,7 @@ GFileIOHandler* g_file()
  * The input is on the same format as when using printf/sprintf/fprintf
  * @return true if the input string was successfully written to the file, false otherwise */
 bool
-GFileIOHandler::Append(const string fname, const char* fmt, ...)
+GFileIOHandler::Append(const string &fname, const char* fmt, ...)
 {
     if (fname == "")
     {
@@ -115,7 +116,7 @@ GFileIOHandler::Append(const string fname, const char* fmt, ...)
 
 
 bool
-GFileIOHandler::DoExists(const string fname, const char* opt)
+GFileIOHandler::DoExists(const string &fname, const char* opt)
 {
     return CheckFile(fname, opt);
 }
@@ -128,7 +129,7 @@ GFileIOHandler::DoExists(const string fname, const char* opt)
  *  Also an error message is written to the logging system in this case. If the file does not exist then an empty string is returned, and a message written to the logging system
  *  @exception GException offset must be between zero and the array size. If the offset value is negative, then an exception is thrown  */
 string
-GFileIOHandler::ReadLastLine(const string fname, const unsigned int offset)
+GFileIOHandler::ReadLastLine(const string &fname, const unsigned int offset)
 {
     string lastline;
 
@@ -188,7 +189,7 @@ GFileIOHandler::GetAbsolutePath(const string fname)
 #else
 
 string
-GFileIOHandler::GetAbsolutePath(const string)
+GFileIOHandler::GetAbsolutePath(const string &)
 {
     return "error_not_implement_om_linux_yet";
 }
@@ -202,9 +203,9 @@ GFileIOHandler::GetAbsolutePath(const string)
 *  @return The extension part of fname, excluding the dot, in lowercase. */
 string
 #ifdef _WIN32 
-GFileIOHandler::GetExtention(const string fname)
+GFileIOHandler::GetExtention(const string &fname)
 #else
-GFileIOHandler::GetExtention(const string)
+GFileIOHandler::GetExtention(const string &)
 #endif
 {
 #ifdef _WIN32  
@@ -224,7 +225,7 @@ GFileIOHandler::GetExtention(const string)
 
 
 FILE*
-GFileIOHandler::OpenFile(const string fname, const string opt, const GLocation l, const bool print_error)
+GFileIOHandler::OpenFile(const string &fname, const string &opt, const GLocation &l, const bool print_error)
 {
 
     FILE* fp = nullptr;
@@ -262,7 +263,7 @@ GFileIOHandler::OpenFile(const string fname, const string opt, const GLocation l
  *   @return true: If 1) the file does not exists and can be successfully opened with the w or w+ option.
  *                    2) the file exists and can be successfully opened with the a, a+, r, r+ options */
 bool
-GFileIOHandler::CheckFile(const string fname, const string opt)
+GFileIOHandler::CheckFile(const string &fname, const string &opt)
 {
     if (opt.size() > 2)
     {
@@ -329,7 +330,7 @@ GFileIOHandler::CheckFile(const string fname, const string opt)
 
 #ifdef _WIN32
 inline void
-GFileIOHandler::SetAttribute(const string fname, unsigned long attr)
+GFileIOHandler::SetAttribute(const string &fname, unsigned long attr)
 {
     DWORD old_attr = GetFileAttributesA(fname.c_str());
     // If error, The file does not exists - Can't change attribute
@@ -349,7 +350,7 @@ GFileIOHandler::SetAttribute(const string fname, unsigned long attr)
 
 
 string
-GFileIOHandler::ReadFirstLine(const string fname)
+GFileIOHandler::ReadFirstLine(const string &fname)
 {
     string firstline;
     vector<string> content = ReadAll(fname);
@@ -365,7 +366,7 @@ GFileIOHandler::ReadFirstLine(const string fname)
 
 
 bool
-GFileIOHandler::Recreate(const string fname)
+GFileIOHandler::Recreate(const string &fname)
 {
     g_system()->rm(fname);
     return g_system()->mkfile(fname);
@@ -375,7 +376,7 @@ GFileIOHandler::Recreate(const string fname)
 
 #ifdef _WIN32
 void
-GFileIOHandler::ClearAttribute(const string fname, unsigned long attr)
+GFileIOHandler::ClearAttribute(const string &fname, unsigned long attr)
 {
     DWORD old_attr = GetFileAttributesA(fname.c_str());
     // If error, The file does not exists - Can't change attribute
@@ -394,7 +395,7 @@ GFileIOHandler::ClearAttribute(const string fname, unsigned long attr)
 #endif
 
 bool
-GFileIOHandler::CreateFileLocal(const string fname, const bool print_error)
+GFileIOHandler::CreateFileLocal(const string &fname, const bool print_error)
 {
 
     return g_system()->mkfile(fname, print_error );
@@ -406,7 +407,7 @@ GFileIOHandler::CreateFileLocal(const string fname, const bool print_error)
 *  @param[in,out] status: whether or not the file was successfully read. ZERO = OK, ONE = NOT_OK
 *  @return A vector of data, with on element for each line in the file */
 vector<string>
-GFileIOHandler::ReadAll(const string fname, bool* status)
+GFileIOHandler::ReadAll(const string &fname, bool* status)
 {
     static std::mutex tmp_mutex;
     std::lock_guard<std::mutex> guard(tmp_mutex);
@@ -447,7 +448,7 @@ GFileIOHandler::ReadAll(const string fname, bool* status)
 
 
 bool 
-GFileIOHandler::Delete(const string fname)
+GFileIOHandler::Delete(const string &fname)
 {
     FILE* fp = OpenFile(fname, "r", GLOCATION);
 
@@ -476,7 +477,7 @@ GFileIOHandler::Delete(const string fname)
 
 /** @todo move somewhere else */
 string
-GFileIOHandler::ReadConfigFile(int argc, const char** argv, const string path)
+GFileIOHandler::ReadConfigFile(int argc, const char** argv, const string &path)
 {
 
     vector<string> tokens = GTokenizer().Tokenize(string(argv[0]), ".");
@@ -532,7 +533,7 @@ GFileIOHandler::ReadConfigFile(int argc, const char** argv, const string path)
 
 
 bool
-GFileIOHandler::CreateFolder(const string fname,  const bool print_error)
+GFileIOHandler::CreateFolder(const string &fname,  const bool print_error)
 {
     return g_system()->mkdir(fname, print_error);
 }

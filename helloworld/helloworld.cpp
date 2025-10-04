@@ -1,43 +1,71 @@
 // -*- mode: c++ -*-
 
+// #include <configurator/LXmlParser.h>
+// #include <xml/GXmlValidator.h>
+// #include <configurator/LFileCreator.h>
+/// #include <configurator/LArgumentScanner.h>
+// #include <logging/LLogApi.h>
+// #include <utilities/version-info/GMenu.h>
+// #include <logging/GException.h>
+// #include <configurator/LGeneratorTestLHashMaps.h>
+//#include <logging/LPublisher.h>
+#include <utilities/GFormatting.h>
 
+using namespace GFormatting;
 
-#include <configurator/LXmlParser.h>
-#include <xml/GXmlValidator.h>
-#include <configurator/LXmlEntityLogLevel.h>
-#include <configurator/LXmlEntitySubSystem.h>
-#include <configurator/LGeneratorTestLConversion.h>
-#include <configurator/LFileCreator.h>
-#include <configurator/LArgumentScanner.h>
-#include <configurator/LXMLInfo.h>
-#include <logging/LLogApi.h>
-#include <utilities/version-info/GMenu.h>
-#include <logging/GException.h>
-
-#include <configurator/LGeneratorTestLHashMaps.h>
-
-#include <logging/LPublisher.h>
+//#include <fmt/format.h>
 
 #ifdef _W_IN32
 #include <Windows.h>
 #endif
 
-#include <string>
-using std::string;
-using namespace LOGMASTER;
-using namespace CONFIGURATOR;
+//#include <string>
+//using std::string;
+//using namespace LOGMASTER;
+//using namespace CONFIGURATOR;
 
-
-#include <format.h>
-
-
-class file_t : public std::exception
+template<typename...  Args>
+void print_values(const Args&... args) 
 {
+    // This lambda is a common way to expand and process parameter packs
+     const Arg argArray[] = {args...};
+     printf("size = %ld\n", sizeof ...(Args) );
+    // printf((int)argArray.type); 
+    for (uint64_t i=0; i  <  sizeof ...(Args) ; i++)
+    {
+        printf("type = %d\n", (int)argArray[i].type);
+    }  
 
-};
+
+     /*
+     ([&](const auto& arg){
+        std::cout << arg << " ";
+    }(args), ...); // The comma operator combined with pack expansion
+    std::cout << std::endl;
+   */
+}
+
+int main() {
+    int i = 10;
+    std::string s = "hello";
+    double d = 3.14;
+ //    print_values("i = %d", i);
+    print_values("i = %d, i2 = %d, s= %s, d = %f", i, i, s.c_str(), d);
+  //  print_values(i, s, d); // Pass by const reference
+  //  print_values(5, "world"); // Literals can also be passed
+    
+    // Attempting to modify 'i' within print_values would result in a compile-time error
+    // (e.g., if print_values tried to do `arg = 20;` for an int)
+
+    return 0;
+}
 
 
 
+
+
+
+/*
 int main(int  argc, const char** argv)
 {
 
@@ -51,29 +79,6 @@ int main(int  argc, const char** argv)
         CERR << e.what( ) << ENDL;
     }
 
-
-
-  /*
-    string bin = "111111111111111111111111000001110000111111111111111111111111000001110000";
-     
-    try
-    {
-        size_t idx = 0;
-        int tall = stoll(bin, &idx, 2);
-
-        CERR << "num = " << tall << "\tidx = "<< idx << "\tstrlen ="<< bin.size() << ENDL;
-    }
-    catch(std::exception &e)
-    { 
-        cout << e.what( ) << endl;
-    }
-    catch ( ... )
-    {
-        cout << "unknown exception caught" << endl;
-    }
-    */
-
-  //  return 0;
 
     GMenu::Instance( )->ScanArguments(argc, argv);
     LPublisher::Instance( )->SetMode(ePUBLISH_MODE::SYNCHRONOUS);    
@@ -112,7 +117,5 @@ int main(int  argc, const char** argv)
         FORCE_DEBUG("Unknown exception caught ....");
     }
 
-    //   std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
 }
-
+*/

@@ -83,7 +83,7 @@ main(int  argc, const char ** argv)
         LLogTestAutoGen::WriteMessages();
         
         
-        // Pushing an popping coinfigurations on/off the stack 
+        // Pushing an popping configurations on/off the stack 
         PUSH();
         SET_LOGLEVEL("--all-off --fsm-info");
         SET_LOGFORMAT("--short-user");

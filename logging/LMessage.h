@@ -25,23 +25,22 @@ typedef struct LMessage
 
 
 #include <utilities/GDefinitions.h>
+#include <algorithm> // For std::fill
 
 
 namespace LOGMASTER
 {
 
 #define MAX_MSG_TYPE_SIZE 256
-//#define MAX_TIME_STAMP_SIZE   256
 #define MAX_MSG_TIME_STAMP_SIZE 64
 #define MAX_MSG_PATH_SIZE 1024
 #define MAX_MSG_FNAME_SIZE 1024
 #define MAX_MSG_FUNC_NAME_SIZE 1024
-////#define MAX_MSG_SIZE 65536
 #define MAX_MSG_SIZE 8192
 
 #define MAX_MSG_TOTAL_SIZE MAX_MSG_SIZE + MAX_MSG_TYPE_SIZE + MAX_MSG_TIME_STAMP_SIZE + MAX_MSG_PATH_SIZE + MAX_MSG_FNAME_SIZE + MAX_MSG_FUNC_NAME_SIZE + 16
 
-    /**@brief Logging message. All messages is an instance of this struct */
+    /**@brief Logging message. All messages is an instance of this class */
     class LMessage
 #endif
 {
@@ -53,9 +52,6 @@ public:
         ClearContent();
     };
 #endif
-
-
-    char fOrigin[1024] = {0};
     char fMsgType[MAX_MSG_TYPE_SIZE] = {0};         //!< Message type and subsystem, e.eg <Error|Database>, <Driver|Debug> etc..
     char fTimeStamp[MAX_MSG_TIME_STAMP_SIZE] = {0}; //!< The date and time the message was created
     char fPath[MAX_MSG_PATH_SIZE] = {0};            //!< File path to the source code file where the message was created
@@ -66,24 +62,21 @@ public:
     int fAColor = -1;                              //!< Message color in ANSI format ( 30 -97 )
 
 #ifdef __cplusplus
-    int fLineNo = -1; //!< The line number where the messaeg was created
+    int fLineNo = -1; //!< The line number where the message was created
 #else
-        int fLineNo; //!< The line number where the messaeg was created
+        int fLineNo; //!< The line number where the message was created
 #endif
     char fMsgBody[MAX_MSG_SIZE] = "No MESSAGE YET"; //!< The actual message
-    //        char  fMsg[MAX_G_SIZE];            //!< The complete message including time stamp etc..
-    char fMsg[MAX_MSG_TOTAL_SIZE] = {}; //!< The complete message including time stamp etc..
+    char fMsg[MAX_MSG_TOTAL_SIZE] = {0}; //!< The complete message including time stamp etc..
     eLOGLEVEL fLevel = eLOGLEVEL(-1);              //!< The severity level of this message
     eMSGSYSTEM fSystem = eMSGSYSTEM(-1) ;            //!< The subsystem this message applies to
     eMSGTARGET fTarget = eMSGTARGET(-1);            //!< The intended log target(s), (This variable can be safely ignored by observer functions)
     eMSGFORMAT fFormat = eMSGFORMAT(-1) ;            //!< The format of the log message, i.e which files should be disabled (This variable can be safely ignored by observer functions)
-
     double fEpochTime = -1;
 
-#ifdef __cplusplus
+//#ifdef __cplusplus
     inline void ClearContent()
     {
-        fOrigin[0] = 0;
         fMsgType[0] = 0;
         fTimeStamp[0] = 0;
         fPath[0] = 0;
@@ -91,10 +84,28 @@ public:
         fFunction[0] = 0;
         fMsgBody[0] = 0;
         fMsg[0] = 0;
+
+        /*
+        std::fill(fMsgType, fMsgType +MAX_MSG_TYPE_SIZE, 0);
+        std::fill(fTimeStamp, fTimeStamp + MAX_MSG_TIME_STAMP_SIZE, 0);
+        std::fill(fPath, fPath + MAX_MSG_PATH_SIZE, 0);
+        std::fill(fFileName, fFileName + MAX_MSG_FNAME_SIZE, 0);
+        std::fill(fFunction, fFunction + MAX_MSG_FUNC_NAME_SIZE, 0);
+        std::fill(fMsgBody, fMsgBody + MAX_MSG_SIZE, 0); 
+        std::fill(fMsg, fMsg + MAX_MSG_TOTAL_SIZE, 0);
+        */
+
+        fRgBColor = -1;   
+        fWColor = -1;  
+        fAColor = -1;     
         fLineNo = -1;
         fEpochTime = -1;
+        fLevel = eLOGLEVEL(-1);              
+        fSystem = eMSGSYSTEM(-1) ;           
+        fTarget = eMSGTARGET(-1); 
+        fFormat = eMSGFORMAT(-1) ;  
     }
-#endif
+//#endif
     API LMessage( const LMessage & );
     API LMessage & operator = ( const LMessage & );
 

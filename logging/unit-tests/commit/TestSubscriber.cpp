@@ -47,6 +47,7 @@ std::shared_ptr<LMessage>   TestSubscriber::fMsg2 =  std::make_shared<LMessage>(
 void TestSubscriber::SetUp()
 {
     TestLogging::SetUp();
+    LPublisher::Instance()->DisableColor();
     l->RegisterSubscriber(TestSubscriber::Subscriber1);
     l->RegisterSubscriber(TestSubscriber::Subscriber2);
 }
@@ -56,6 +57,7 @@ void TestSubscriber::TearDown()
 {
     TestLogging::TearDown();
     l->ClearSubscribers();
+    LPublisher::Instance()->EnableColor();
 }
 
 
@@ -126,7 +128,7 @@ TEST_F(TestSubscriber, setTargetTest )
 
     G_WARNING("\tThe answer to the UNivers is NOT %d but %d", 43, 42);
 
-     std::this_thread::sleep_for( std::chrono::milliseconds(100) );
+    std::this_thread::sleep_for( std::chrono::milliseconds(100) );
 
     EXPECT_STREQ(fMsg1->fMsg, "<Warning:General>        \t\tThe answer to the UNivers is NOT 43 but 42\n");
     EXPECT_STREQ(fMsg2->fMsg, "<Warning:General>        \t\tThe answer to the UNivers is NOT 43 but 42\n");
@@ -154,10 +156,15 @@ TEST_F(TestSubscriber, setTargetFileTest)
     SET_LOGTARGET( "--target-file" ) ;
     SET_LOGLEVEL("--all-warning");
     fStrCout.str("");
-    fMsg1->fMsg[0] = 0;
-    fMsg2->fMsg[0] = 0;
+    fMsg1->ClearContent();
+    fMsg2->ClearContent();
+    //fMsg1->fMsg[0] = 0;
+    //fMsg2->fMsg[0] = 0;
+
     G_WARNING("Dunbars Number is between %d and %d", 50, 200);
+    
     std::this_thread::sleep_for( std::chrono::milliseconds(100) );
+  
     EXPECT_EQ(FileIOTest(), string("<Warning:General>        \tDunbars Number is between 50 and 200") );
     EXPECT_STREQ(fMsg1->fMsg, "");
     EXPECT_STREQ(fMsg2->fMsg, "");

@@ -87,7 +87,7 @@ class Val_t : public Val
 {
 public:
     Val_t(T  t, T min, T max, const string name = "", const string subscript = "", const string helpGText = "");
-    virtual ~Val_t() {};
+    virtual ~Val_t() override  {};
     string GetName() const  {return fName; }
     const char *  GetValueCString();
     string GetSubscript() const { return fSubscript; }

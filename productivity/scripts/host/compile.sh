@@ -34,10 +34,17 @@ image_name=cpp-cross-compiler
 
 export CURRENT_UID=$(id -u):$(id -g)
 
+n_cpus=`nproc`
 
 if [ $1 = "x86" ] || [ $1 = "arm" ] || [ $1 = "clean" ]; then
 #    docker run --user $UID:$GID --rm  -v  ${PWD}:/home/root/ --workdir    /home/root/ $image_name "./scripts/docker/build.sh" $1
-    docker run --user $CURRENT_UID --rm  -v  ${PWD}:/home/root/ --workdir    /home/root/ $image_name "./scripts/docker/build.sh" $1 $2 $3 $4
+    if [ "$#" -eq 1 ]; then
+        n_threads=-j$((n_cpus*2))
+    else
+        n_threads=-j$2
+    fi
+    
+    docker run --user $CURRENT_UID --rm  -v  ${PWD}:/home/root/ --workdir    /home/root/ $image_name "./scripts/docker/build.sh" $1 $n_threads $3 $4
     exit $?;    
 else
     echo "Unknown target " $1  "! Aborting build.."
