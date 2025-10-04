@@ -155,8 +155,6 @@ GNumbers::BinaryString2Number(const string &b)
 int64_t
 GNumbers::BitWidth(const string &in)
 {
-    int64_t npos = 0;
-
     if (  g_number_types()->IsBinary(in) == false)
     {
         string message = in + "%is not a valid binary number: The string must contain only zeros and ones, and start with a b";
@@ -165,10 +163,7 @@ GNumbers::BitWidth(const string &in)
     }
     else
     {
-        npos = in.size() - in.find_first_of('1');
-
-
-        return npos;
+        return in.size() - in.find_first_of('1');
     }
 }
 /**@}*/
@@ -212,9 +207,7 @@ GNumbers::ToBinary(const string &b)
 
 #endif
 
-// #ifndef G_STANDALONE
-        GCommon().HandleError(message, GLOCATION, IsDisabledError() );
-// #endif
+GCommon().HandleError(message, GLOCATION, IsDisabledError() );
     }
 
     if ( g_number_types()->IsBinary(s) == true)

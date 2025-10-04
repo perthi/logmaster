@@ -283,32 +283,21 @@ GNumberTypes::IsIntegerVTypeS(const string &type)
 }
 
 
-
 bool
 GNumberTypes::IsIntegerTypeS(const string &t)
 {
-    int cnt = 0;
-
     if ( t == string(typeid(short).name( )) ||
         t == string(typeid(int).name( )) ||
         t == string(typeid(long int).name( )) ||
         t == string(typeid(long long int).name( )) || IsUnsignedTypeS(t) )
     {
-        cnt++;
-
-
         return true;
     }
     else
     {
-        cnt++;
-
         return false;
     }
 }
-
-
-
 
 
 bool
@@ -316,7 +305,6 @@ GNumberTypes::IsFloat(const char* num)
 {
     return IsFloat(string(num));
 }
-
 
 
 bool
