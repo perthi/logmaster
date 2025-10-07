@@ -125,7 +125,8 @@ src-exe-x86:= $(src-exe-arm) $(src-exe-x86) \
               $(helloworld-exe) $(configurator-example1-exe) \
 		      $(logging-configurator-exe) \
 		      $(unittests) $(version-info-exe) \
-			  $(issue-133-exe) $(issue-141-exe)
+			  $(issue-133-exe) $(issue-141-exe) $(cmdline-example1-exe) \
+			  $(configurator-unittest-exe)
 
 
 #src-exe:= $(src-exe-arm) 
@@ -135,7 +136,11 @@ src-exe-x86:= $(src-exe-arm) $(src-exe-x86) \
 arm-src:=$(src-lib-arm) $(src-exe)
 x86-src:=$(src-lib-x86) $(src-exe)
 
-all-clean:= $(src-lib-x86)  $(x86-src) $(configurator-unittest-exe) \
+all-clean-arm:= $(arm-src) $(x86-src) 
+all-clean-x86:= $(src-lib-x86) $(src-exe-x86) 
+
+
+#all-clean:= $(src-lib-x86)  $(x86-src) $(configurator-unittest-exe) \
             $(configurator-exe) \
             $(api-logmaster-lib)  $(xml-validator-exe) \
 			$(configurator-example1-exe) \
@@ -145,8 +150,9 @@ all-clean:= $(src-lib-x86)  $(x86-src) $(configurator-unittest-exe) \
 
 
 ifeq (x86, $(TARGET))
-unittests+= $(configurator-unittest-exe)
-src-lib+= $(src-lib-x86) $(configurator-lib)  $(api-logmaster-lib)
+#unittests+= $(configurator-unittest-exe)
+#src-lib+= $(src-lib-x86) $(configurator-lib)  $(api-logmaster-lib)
+src-lib+= $(src-lib-x86)
 src-exe+= $(src-exe-x86)
 #src-exe+= $(xml-validator-exe) \
           $(logging-example1-exe) \
@@ -256,15 +262,16 @@ clean:  clean-x86 clean-arm
 
 .PHONY: clean-x86
 clean-x86:
-	@for d in $(all-clean); \
+	@for d in $(all-clean-x86); \
 	do \
 	    $(MAKE)  --directory=$$d/x86  --no-print-directory clean TARGET=x86; \
 	done
 	@rm -rf build/x86
 
+
 .PHONY: clean-arm
 clean-arm:
-	@for d in $(all-clean); \
+	@for d in $(all-clean-arm); \
 	do \
 	    $(MAKE)  --directory=$$d/x86  --no-print-directory clean TARGET=arm; \
 	done
