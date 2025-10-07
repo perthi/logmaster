@@ -6,12 +6,12 @@ SRCCPP+=logging-example1.cpp \
 
 
 #LIBS+=  -lcmdline -llogmaster  -lutilities  -lpthread  -lsqlite-embc  -lreadline -lhistory -lncurses -ldl -lpthread
-LIBS+=  -lcmdline -llogmaster  -lutilities  -lpthread  -lsqlite-embc  -lhistory -lncurses -ldl -lpthread
+LIBS+=  -lcmdline -llogmaster  -lutilities  -lpthread  -lsqlite-embc  -lreadline -lhistory -lncurses -ldl -lpthread
 
 
-ifneq (arm, $(TARGET))
-LIBS+=   -lreadline
-endif
+#ifneq (arm, $(TARGET))
+#LIBS+=   -lreadline
+#endif
 
 include ../../../../common.mk
 

@@ -150,7 +150,28 @@ GUtilities::QueryInput(const string &prompt)
     return option;
 }
 #endif
-//#endif
+
+/*
+#else
+string
+GUtilities::QueryInput(const string & prompt)
+{
+  
+    string option;
+    const char *line;
+    line = readline(prompt.c_str() );
+
+    if (line != nullptr)
+    {
+        add_history(line);
+        option = string(line);
+        free((void *)line);
+    }
+
+    return option;
+    }
+#endif
+*/
 
 
 bool 
