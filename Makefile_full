@@ -118,23 +118,37 @@ src-lib-x86:= $(src-lib-arm) $(xml-lib) $(support-modules) $(xml-parser-lib) $(c
 src-exe-arm:=$(cmdline-example1-exe) \
              $(db-test-exe)
 
+src-exe-x86:= $(src-exe-arm) $(src-exe-x86) \
+              $(xml-validator-exe) \
+              $(logging-example1-exe) \
+		      $(logging-example2-exe) \
+              $(helloworld-exe) $(configurator-example1-exe) \
+		      $(logging-configurator-exe) \
+		      $(unittests) $(version-info-exe) \
+			  $(issue-133-exe) $(issue-141-exe)
 
-src-exe:= $(src-exe-arm)
 
+#src-exe:= $(src-exe-arm) 
 #	     $(version-info-exe)
 
 
 arm-src:=$(src-lib-arm) $(src-exe)
 x86-src:=$(src-lib-x86) $(src-exe)
 
-all-clean:= $(src-lib-x86)  $(x86-src) $(configurator-unittest-exe) $(configurator-exe) \
-            $(api-logmaster-lib)  $(xml-validator-exe) $(configurator-example1-exe) $(logging-configurator-exe)  $(gui-lib)  $(gui-exe)
+all-clean:= $(src-lib-x86)  $(x86-src) $(configurator-unittest-exe) \
+            $(configurator-exe) \
+            $(api-logmaster-lib)  $(xml-validator-exe) \
+			$(configurator-example1-exe) \
+			$(logging-configurator-exe)  \
+			$(gui-lib)  $(gui-exe)
+
+
 
 ifeq (x86, $(TARGET))
 unittests+= $(configurator-unittest-exe)
 src-lib+= $(src-lib-x86) $(configurator-lib)  $(api-logmaster-lib)
-
-src-exe+= $(xml-validator-exe) \
+src-exe+= $(src-exe-x86)
+#src-exe+= $(xml-validator-exe) \
           $(logging-example1-exe) \
 		  $(logging-example2-exe) \
           $(helloworld-exe) $(configurator-example1-exe) \
@@ -152,7 +166,7 @@ ifeq (arm, $(TARGET))
 all-src:=$(arm-src)
 src-lib:=$(src-lib-arm)
 
-#src-exe+=$(unittests) 
+src-exe+=$(src-exe-arm) 
 endif
 
 ifdef GUI
