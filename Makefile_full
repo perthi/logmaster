@@ -148,12 +148,19 @@ endif
 
 ifeq (arm, $(TARGET))
 #all-src:=$(arm-src)
-src-exe:=$(src-exe-arm)
+unittests:= 	$(utilities-unittest-exe) \
+                $(logging-unittest-exe) \
+		        $(cmdline-unittest-exe)
+
+src-exe:=$(src-exe-arm) $(unittests)
+src-exe-arm+=$(unittests)
 src-lib:=$(src-lib-arm)
 
 
 #src-exe+=$(src-exe-arm) $(logging-example1-exe)
 all-src:=$(src-lib-arm) $(src-exe-arm)
+
+
 endif
 
 ifdef GUI
@@ -193,11 +200,20 @@ all: $(all-src)
 
 .PHONY : gtest
 gtest:
+ifneq (arm, $(TARGET))	
 	cd gtest ;\
 	cmake googletest-1.13.0 ;\
 	make ;\
 	cd .. ;\
 	cp gtest/lib/* build/$(TARGET)/lib
+else
+	cd gtest ;\
+	rm -rf CMakeCache.txt CMakeFiles;\
+	cmake googletest-1.13.0  -DCMAKE_TOOLCHAIN_FILE=toolchain-arm.cmake -DCMAKE_BUILD_TYPE=Release;\
+	make ;\
+	cd .. ;\
+	cp gtest/lib/* build/$(TARGET)/lib
+endif
 
 
 $(version-info) : $(sqlite-lib)
@@ -216,6 +232,7 @@ $(INSTALLDIRS):
 
 $(src-exe): $(version-info-exe)
 
+gtest: $(INSTALLDIRS)
 
 x86:    $(INSTALLDIRS)
 	$(MAKE) TARGET=x86
