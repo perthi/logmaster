@@ -23,7 +23,10 @@ done
 lcov  --capture   --directory coverage --output-file  coverage.info  --ignore-errors unused,mismatch,count,inconsistent,mismatched
 #lcov --remove coverage.info '/usr/*' 'tests/*' 'Test*' '*/*unit-tests*'  '*logmaster/json*' '*include*' '*utilities*' --output-file coverage.cleaned.info  --ignore-errors unused,mismatch,count,inconsistent,mismatched
 
-lcov --remove coverage.info '/usr/*' 'tests/*' 'Test*' '*logmaster/json*' '*include*' '*utilities*' --output-file coverage.cleaned.info  --ignore-errors mismatch,count,inconsistent --ignore-errors unused
+lcov --remove coverage.info '/usr/*' 'tests/*' 'Test*' '*logmaster/json*' '*include*'  \
+--output-file coverage.cleaned.info  \
+--ignore-errors mismatch,count,inconsistent \
+--ignore-errors unused
 
 
 genhtml coverage.cleaned.info --output-directory coverage-report --ignore-errors unused,mismatch,count,inconsistent

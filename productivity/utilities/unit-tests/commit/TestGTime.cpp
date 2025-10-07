@@ -41,6 +41,20 @@ TestGTime::TestGTime() : TestBase(), fTime(), fTimeValidate()
 }
 
 
+TEST_F(TestGTime, new_delete)
+{
+    GTime *t = new GTime();
+    delete t;
+}
+
+TEST_F(TestGTime, access_date)
+{
+    GTime *t = new GTime();
+    t->AccessDate();
+    delete t;
+}
+
+
 
 
 TEST_F(TestGTime, NSR_242)

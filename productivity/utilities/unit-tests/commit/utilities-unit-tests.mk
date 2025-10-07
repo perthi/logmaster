@@ -32,3 +32,6 @@ endif
 LIBS+= -lreadline -lhistory -lncurses
 
 INCLUDES+=$(GTEST_INCLUDES)
+
+# CPPFLAGS := $(filter-out -fprofile-arcs,  $(CPPFLAGS))
+# CPPFLAGS := $(filter-out -ftest-coverage, $(CPPFLAGS))
