@@ -8,6 +8,7 @@ SRCCPP+= cmdline-dll-test.cpp \
 	TestGCommandLineArgument.cpp \
 	TestGLogApplication.cpp \
 	TestGCmdScan.cpp \
+	TestGArgument.cpp \
 	TestGCmdScanMock.cpp
 
 include  ../../../../common.mk
