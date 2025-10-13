@@ -103,20 +103,24 @@ namespace LOGMASTER
            std::swap(  fMessageQeueTmp , fMessageQeue  );
         }
         */
-        
-        std::swap(  fMessageQeueTmp , fMessageQeue  );
-
-        for (;;) {
         {
             std::lock_guard<std::mutex> lk(fMessageQeueMutext);
-            if (fMessageQeueTmp.empty()) break;
+            std::swap(  fMessageQeueTmp , fMessageQeue  );
         }
-    
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-}
-         
 
-        fDoRun = false;
+        for (;;) 
+        {
+           {
+            std::lock_guard<std::mutex> lk(fMessageQeueMutext);
+            if (fMessageQeueTmp.empty()) break;
+           }
+    
+           std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        }
+        
+        fDoRun.store(false, std::memory_order_release);
+
+   ///     fDoRun = false;
         std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
 
         if (fDispatcher != nullptr)
@@ -291,7 +295,7 @@ namespace LOGMASTER
         std::lock_guard<std::mutex> guard( m );
         auto subscribers = LLogging::Instance()->GetSubscribers();
 
-        for (uint16_t i = 0; i < subscribers.size(); i++)
+        for (size_t i = 0; i < subscribers.size(); i++)
         {
             void(*Subscriberfunct)(  std::shared_ptr<LMessage>  ) = subscribers.at(i);
             Subscriberfunct( msg );
@@ -306,7 +310,7 @@ namespace LOGMASTER
         std::lock_guard<std::mutex> guard( m );
         auto subscribers = LLogging::Instance()->GetGuiSubscribers();
 
-        for (uint16_t i = 0; i < subscribers.size(); i++)
+        for (size_t i = 0; i < subscribers.size(); i++)
         {
             void(*Subscriberfunct)( std::shared_ptr<LMessage> ) = subscribers.at(i);
             Subscriberfunct(msg);
@@ -478,6 +482,12 @@ namespace LOGMASTER
    void 
    LPublisher::SetMode( const ePUBLISH_MODE mode )
    {
+        if (mode == fPublisherMode) return;
+        if (mode == ePUBLISH_MODE::SYNCHRONOUS)   { StopDispatcher(); }
+        else /* ASYNCHRONOUS */                   { StartDispatcher(); }
+        fPublisherMode = mode;  
+
+       /* 
        fPublisherMode = mode;
        if( mode !=fPublisherMode &&  mode == ePUBLISH_MODE::SYNCHRONOUS )
        {
@@ -490,7 +500,7 @@ namespace LOGMASTER
        }
    
        fPublisherMode = mode;
-
+      */
    }
 
 
