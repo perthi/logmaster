@@ -13,14 +13,16 @@
 #include "LLogApi.h"
 #include "LMessage.h"
 #include "LEnums.h"
-
 #include  "LMessage2Json.h"
 #include  <utilities/GDefinitions.h>
+
 #include  <memory>
 #include  <queue>  
 #include  <mutex>
 #include  <thread>
 #include  <atomic>
+
+
 
 class GDataBaseIF;
 
@@ -30,8 +32,6 @@ namespace LOGMASTER
     class LLogging;
     class LConfig;
     class LDatabase;
-  
-   
 
     /** @class LPublisher
     * class that is responsible for writing ( publishing) messages to various targets. Available targets
@@ -46,7 +46,7 @@ namespace LOGMASTER
     public:        
         static  LPublisher API & Instance();
 
-        void            SetExternalTimeSource(  std::function<double()> funct ) {   GTime().SetExternalTimeSource(funct); };
+        void        SetExternalTimeSource(  std::function<double()> funct ) {   GTime().SetExternalTimeSource(funct); };
 
         void  API   EnableColor();
         void  API   DisableColor();
@@ -69,8 +69,8 @@ namespace LOGMASTER
     private:
          LPublisher();
         ~LPublisher();
-         LPublisher( const LPublisher   & );
-         LPublisher operator =  ( const LPublisher   & );   
+         LPublisher( const LPublisher   & ) = delete;
+         LPublisher operator =  ( const LPublisher   & ) = delete;   
 
 
         struct Message
@@ -87,7 +87,7 @@ namespace LOGMASTER
          void     API PublishToSubscribers(   std::shared_ptr<LMessage> msg);
          void     API PublishToGuiSubscribers( std::shared_ptr<LMessage>  msg);
          void     API PublishToConsole(     std::shared_ptr<LMessage> msg);
-         void     API PublishToFile(     const char * filename,     std::shared_ptr<LMessage> msg );
+         void     API PublishToFile(     const char * filename,     const std::shared_ptr<LMessage> &msg );
          void     API PublishToFileJson( const char * filename,  std::shared_ptr<LMessage> msg    );
          void     API PublishToDatabase( std::shared_ptr<LMessage>  msg); 
 

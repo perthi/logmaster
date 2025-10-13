@@ -333,7 +333,7 @@ namespace LOGMASTER
         }
 
       void
-    LPublisher::PublishToFile(const char * filename,  std::shared_ptr<LMessage> msg  )
+    LPublisher::PublishToFile(const char * filename,  const std::shared_ptr<LMessage> &msg  )
     {
         static  std::mutex m;
         std::lock_guard<std::mutex> guard( m );
