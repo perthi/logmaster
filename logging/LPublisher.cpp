@@ -199,7 +199,8 @@ namespace LOGMASTER
                 PublishMessage(m->fMessage, m->fConfig, m->fTarget);
             }
         }
-
+        
+        /** @todo use  std::condition_variable */
         std::this_thread::sleep_for(std::chrono::milliseconds(50) ); 
     
     }
@@ -507,6 +508,8 @@ namespace LOGMASTER
    void 
    LPublisher::Flush()
    {
+        /** @todo use  std::condition_variable */
+
        while ( fMessageQeueTmp.size()  > 0 || fMessageQeue.size() > 0)
        {
            std::this_thread::sleep_for(std::chrono::milliseconds(10) );
