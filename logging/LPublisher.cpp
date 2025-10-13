@@ -93,6 +93,7 @@ namespace LOGMASTER
     void
     LPublisher::StopDispatcher()
     {
+        /*
         while ( fMessageQeueTmp.size()  > 0)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(10) );   
@@ -101,6 +102,19 @@ namespace LOGMASTER
            std::lock_guard<std::mutex> guard2( fMessageQeueMutext ); 
            std::swap(  fMessageQeueTmp , fMessageQeue  );
         }
+        */
+        
+        std::swap(  fMessageQeueTmp , fMessageQeue  );
+
+        for (;;) {
+        {
+            std::lock_guard<std::mutex> lk(fMessageQeueMutext);
+            if (fMessageQeueTmp.empty()) break;
+        }
+    
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+}
+         
 
         fDoRun = false;
         std::this_thread::sleep_for(std::chrono::milliseconds(100) ); 
