@@ -91,6 +91,7 @@ private:
     API      GLogApplication(const GLogApplication&);
     void     operator=(const GLogApplication&);
    
+    static bool    SetColor( const string &cmnd, const string &/*args_s*/, const vector<string> &subs, const vector<string> &args);
 
     arg_deque        fArgs = arg_deque( );
     void_arg_ptr     fHelp = nullptr;    //!< Command line argument for printing out version information

@@ -75,8 +75,8 @@ TestLogging::SetUpTestCase()
 void 
 TestLogging::SetUp() 
 {
-    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
-    LPublisher::Instance()->DisableColor();
+    LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+    LPublisher::Instance().DisableColor();
     GCmdScan::Instance()->SetIgnoreStrayArgument(false);
     g = new GLogApplication();
     g->InitLogArgs();
@@ -91,7 +91,7 @@ void TestLogging::TearDown()
 {
    TestBase::TearDown();
    cout.rdbuf(fOldBuf);
-   LPublisher::Instance()->EnableColor();
+   LPublisher::Instance().EnableColor();
 }
 
 
@@ -171,7 +171,7 @@ TEST_F(TestLogging, level_to_string )
 
 TEST_F(TestLogging, stdoutIO)
 {
-    LPublisher::Instance()->DisableColor();
+    LPublisher::Instance().DisableColor();
     PUSH();
     SET_LOGLEVEL("--all-warning");
     SET_LOGFORMAT("0000001");
@@ -196,7 +196,7 @@ TEST_F(TestLogging, stdoutIO)
     fStrCout.str("");
     
     SET_LOGFORMAT("1000001");
-    LPublisher::Instance()->EnableColor();
+    LPublisher::Instance().EnableColor();
     POP();
 }
 
@@ -266,7 +266,7 @@ TEST_F(TestLogging, fileIO)
 
  TEST_F(TestLogging, timeStamp)
  {
-     LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS); 
+     LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS); 
      SET_LOGTARGET( "--target-off");
      SET_LOGTARGET(" --target-stdout --target-file");
     // SET_LOGFORMAT("00100000");

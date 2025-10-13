@@ -90,7 +90,7 @@ int main(const int argc, const char** argv )
 { 
     GMenu::Instance()->ScanArguments(argc, argv);
     cerr << "The hostname is: " << g_system()->GetHostName() << endl;
-    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+    LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 
     try
     {

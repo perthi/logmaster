@@ -110,9 +110,9 @@ GDataBaseIF::HandleError(const GLocation  l,  const bool  throw_ex, const char *
    // LMessage msg = *msg_ptr;
    // DATABASE_INFO("%s",msg_ptr->  );
   //  LPublisher::Instance()->PublishToConsole(msg_ptr );
-    LPublisher::Instance()->PublishToFile("db.log", msg_ptr );
-    LPublisher::Instance()->PublishToSubscribers(msg_ptr );
-    LPublisher::Instance()->PublishToSubscribers(msg_ptr );
+    LPublisher::Instance().PublishToFile("db.log", msg_ptr );
+    LPublisher::Instance().PublishToSubscribers(msg_ptr );
+    LPublisher::Instance().PublishToSubscribers(msg_ptr );
 
     if( throw_ex == THROW_EXCEPTION )
     {

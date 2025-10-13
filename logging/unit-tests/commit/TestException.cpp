@@ -18,15 +18,15 @@ using namespace LOGMASTER;
 void 
 TestException::SetUp()
 {
-    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+    LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS);
     TestBase::SetUp();
-    LPublisher::Instance()->DisableColor();   
+    LPublisher::Instance().DisableColor();   
 }
 
 void 
 TestException::TearDown()
 {
-    LPublisher::Instance()->EnableColor();
+    LPublisher::Instance().EnableColor();
 }
 
 
@@ -86,7 +86,7 @@ TEST_F(TestException, assert_macro)
  //TEST_F(TestException, buffer_overwrite_NSR1737)
  {
     PUSH();
-    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+    LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS);
     SET_LOGFORMAT("0000001");
     SET_LOGTARGET("0000 --target-file");
 

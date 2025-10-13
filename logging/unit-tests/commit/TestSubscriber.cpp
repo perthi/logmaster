@@ -47,7 +47,7 @@ std::shared_ptr<LMessage>   TestSubscriber::fMsg2 =  std::make_shared<LMessage>(
 void TestSubscriber::SetUp()
 {
     TestLogging::SetUp();
-    LPublisher::Instance()->DisableColor();
+    LPublisher::Instance().DisableColor();
     l->RegisterSubscriber(TestSubscriber::Subscriber1);
     l->RegisterSubscriber(TestSubscriber::Subscriber2);
 }
@@ -57,7 +57,7 @@ void TestSubscriber::TearDown()
 {
     TestLogging::TearDown();
     l->ClearSubscribers();
-    LPublisher::Instance()->EnableColor();
+    LPublisher::Instance().EnableColor();
 }
 
 
@@ -117,7 +117,7 @@ TEST_F(TestSubscriber, functionRegistration)
 /// We also want to check that we can set any other combinations of log targets.
 TEST_F(TestSubscriber, setTargetTest )
 {
-    LPublisher::Instance()->DisableColor();
+    LPublisher::Instance().DisableColor();
     PUSH();
     fStrCout.str( "" );
     SET_LOGFORMAT("1000001");
@@ -143,7 +143,7 @@ TEST_F(TestSubscriber, setTargetTest )
     EXPECT_EQ( fStrCout.str(),  string("<Warning:General>        \tDunbars Number is between 100 and 250\n") );
     EXPECT_NE( FileIOTest(),   "<Warning:General>\t\tDunbars Number is between 100 and 250");
     POP();
-    LPublisher::Instance()->EnableColor();
+    LPublisher::Instance().EnableColor();
 }
 
 
@@ -187,8 +187,8 @@ TEST_F(TestSubscriber, cmdLine  )
         throw(e);
     }
 
-    LPublisher::Instance()->DisableColor();
-    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+    LPublisher::Instance().DisableColor();
+    LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 
     try
     {
@@ -265,7 +265,7 @@ TEST_F(TestSubscriber, cmdLine  )
         throw(e);
     }
     
-    LPublisher::Instance()->EnableColor();
+    LPublisher::Instance().EnableColor();
 }
 
 

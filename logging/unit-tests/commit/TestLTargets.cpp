@@ -55,7 +55,7 @@ TestLTargets::~TestLTargets()
 void 
 TestLTargets::SetUp()
 {    
-   LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS );
+   LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS );
    PUSH();
 }
 

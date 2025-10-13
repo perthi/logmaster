@@ -44,7 +44,7 @@ using namespace LOGMASTER;
 void
 TestLConfig::SetUp()
 {
-    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+    LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS);
     fConfig = new LConfig();
     s_v    =    LHashMaps::Instance()->GetSystemEnums();
     l_v    =    LHashMaps::Instance()->GetLevelEnums();

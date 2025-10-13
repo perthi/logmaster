@@ -108,8 +108,14 @@ GLogApplication::InitLogArgs( )
     fLog = std::make_shared <vector_arg >("-loglevel", "-loglevel\t\t[subcommands]", LDoc::LogLevelDoc( ), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateSubCommands);
     fTarget = std::make_shared <vector_arg >("-logtarget", "-logtarget\t\t[subcommands]", LDoc::LogTargetDoc( ), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateTargets);
     fFormat = std::make_shared <vector_arg >("-logformat", "-logformat\t\t[subcommands]", LDoc::LogFormatDoc( ), nullptr, fgkOPTIONAL, LValidateArgs::CAPIValidateFormat);
-    fColor = std::make_shared <bool_arg>("-logcolor", "-logcolor\t\t--true/--false", "Whether or not to use colors when writing log messages to the console", LPublisher::Instance( )->GetEnableColor( ), fgkOPTIONAL, GCmdApi::bool2);
+    //fColor = std::make_shared <bool_arg>("-logcolor", "-logcolor\t\t--true/--false", 
+    //                                      "Whether or not to use colors when writing log messages to the console", 
+    //                                      LPublisher::Instance( ).GetEnableColor( ), fgkOPTIONAL, GCmdApi::bool2);
 
+    fColor = std::make_shared <bool_arg>("-logcolor", "-logcolor\t\t--true/--false", "Whether or not to use colors when writing log messages to the console", 
+                                        nullptr, fgkOPTIONAL, GLogApplication::SetColor);                                    
+    
+        
     AddArgument(fHelp, eDUP_STRATEGY::IGNORE_DUPLICATE);
     AddArgument(fLog, eDUP_STRATEGY::IGNORE_DUPLICATE);
     AddArgument(fTarget, eDUP_STRATEGY::IGNORE_DUPLICATE);
@@ -118,6 +124,21 @@ GLogApplication::InitLogArgs( )
     return *this;
 }
 
+bool
+GLogApplication::SetColor( const string &cmnd, const string & args_s, const vector<string> &subs, const vector<string> &args)
+{
+    bool ret = GCmdApi::bool2(cmnd, args_s, subs, args);
+    if(ret == true)
+    {
+        LPublisher::Instance().EnableColor();
+    }
+    else
+    {
+        LPublisher::Instance().DisableColor();
+
+    }
+    return ret;
+}
 
 void 
 GLogApplication::SetCallBackFunction(const string &cmd, callback_t funct)

@@ -23,7 +23,7 @@ void exception_thread(const std::string &message, const std::string name, const 
     const char *expected_message = tmp.c_str();
     FORCE_DEBUG("Expected message = %s", expected_message);
     PUSH();
-    LPublisher::Instance()->SetMode(ePUBLISH_MODE::ASYNCHRONOUS);
+    LPublisher::Instance().SetMode(ePUBLISH_MODE::ASYNCHRONOUS);
     SET_LOGFORMAT("0000001");
     SET_LOGTARGET("0000 --target-file");  
     int i=0;
@@ -83,7 +83,7 @@ main(int  /*argc*/, const char** /*argv*/)
 {
     try
     {
-        LPublisher::Instance( )->SetMode(ePUBLISH_MODE::ASYNCHRONOUS);   
+        LPublisher::Instance().SetMode(ePUBLISH_MODE::ASYNCHRONOUS);   
         G_FATAL("starting threads");
         //std::this_thread::sleep_for( std::chrono::milliseconds(200) );  
         //return 0;

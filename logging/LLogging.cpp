@@ -96,7 +96,7 @@ namespace LOGMASTER
     void 
     LLogging::SetPublishingMode( const ePUBLISH_MODE mode )
     {  
-        LPublisher::Instance()->SetMode( mode ); 
+        LPublisher::Instance().SetMode( mode ); 
     }
 
 
@@ -104,7 +104,7 @@ namespace LOGMASTER
     LLogging::QueMessage(const std::shared_ptr<LMessage> msg, const std::shared_ptr<LConfig> cfg, const eMSGTARGET target)
     {    //std::lock_guard<std::mutex> guard( config_mutex );
          ///("queue size = %ld\n", LPublisher::Instance()->fMessageQeue.size());
-         LPublisher::Instance()->QueMessage( msg,   cfg,  target);
+         LPublisher::Instance().QueMessage( msg,   cfg,  target);
     }
 
 
@@ -246,7 +246,7 @@ namespace LOGMASTER
     void
     LLogging::Flush()
     {
-        LPublisher::Instance()->Flush();
+        LPublisher::Instance().Flush();
     }
 
 

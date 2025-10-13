@@ -56,10 +56,10 @@ using namespace LOGMASTER;
 namespace LOGMASTER
 {
 
-    LPublisher  * 
+    LPublisher  & 
     LPublisher::Instance()
     {
-        static  LPublisher *instance = new LPublisher();
+        static  LPublisher instance;
         return instance;
     }
 
@@ -77,7 +77,7 @@ namespace LOGMASTER
     void 
     LPublisher::AtExit()
     {
-        Instance()->StopDispatcher();
+        Instance().StopDispatcher();
     }     
 
 
@@ -433,10 +433,10 @@ namespace LOGMASTER
     }
 
 
-    bool  *
-    LPublisher::GetEnableColor()
+    bool  
+    LPublisher::GetEnableColor() const
     {
-        return  &fgEnableColor;
+        return  fgEnableColor;
     }
 
 
@@ -454,10 +454,10 @@ namespace LOGMASTER
     }
 
 
-    bool   *
-    LPublisher::GetEnableJson()
+    bool  
+    LPublisher::GetEnableJson() const
     {
-        return &fgEnableJson;
+        return fgEnableJson;
     }  
 
 

@@ -20,7 +20,7 @@ void
  TestGLocation::SetUpTestCase()
  {
     SET_LOGTARGET("--target-stdout");
-    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+    LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS);
  }
 
 void 
@@ -35,7 +35,7 @@ void
 TestGLocation::SetUp()
 {
   SET_LOGTARGET("--target-stdout");
-  LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+  LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS);
   
  /// FORCE_DEBUG("SETUP");
 

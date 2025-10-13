@@ -44,16 +44,16 @@ namespace LOGMASTER
         friend GDataBaseIF;
 
     public:        
-        static  LPublisher API * Instance();
+        static  LPublisher API & Instance();
 
         void            SetExternalTimeSource(  std::function<double()> funct ) {   GTime().SetExternalTimeSource(funct); };
 
         void  API   EnableColor();
         void  API   DisableColor();
-        bool  API  * GetEnableColor();
+        bool  API   GetEnableColor() const;
         void  API   EnableJson();
         void  API   DisableJson() ;
-        bool  API  * GetEnableJson() ; 
+        bool  API   GetEnableJson() const; 
         void  API   QueMessage( std::shared_ptr<LMessage>  msg, std::shared_ptr<LConfig>,    const eMSGTARGET target  );    
         
         void  API   StartDispatcher(); 

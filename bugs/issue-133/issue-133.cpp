@@ -61,7 +61,7 @@ void join_thread( std::thread *th, const string &name)
 
 void run_threads( const ePUBLISH_MODE mode )
 {
-    LPublisher::Instance( )->SetMode(mode);   
+    LPublisher::Instance( ).SetMode(mode);   
     G_INFO("starting threads");
     std::thread th1(logthread, 1000, 100, "thread one");
     std::thread th2(logthread, 2000, 200, "thread two");

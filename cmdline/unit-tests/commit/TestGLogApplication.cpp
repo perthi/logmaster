@@ -75,7 +75,7 @@ TEST_F(TestGLogApplication, cmdline_from_file)
 {
     try
     {
-        LPublisher::Instance( )->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+        LPublisher::Instance( ).SetMode(ePUBLISH_MODE::SYNCHRONOUS);
         g_file( )->GFileIOHandler::Append(fValidCommands, "%s", " -loglevel --all -logtarget 0000 --target-file --target-stdout ");
 
         EXPECT_EQ(" -loglevel --all -logtarget 0000 --target-file --target-stdout ", g_file( )->ReadLastLine(fValidCommands));

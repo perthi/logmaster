@@ -53,6 +53,7 @@ GCmdApi::~GCmdApi()
 bool
 GCmdApi::bool2( const string &cmnd, const string &/*args_s*/, const vector<string> &subs, const vector<string> &args)
 {
+    /** @todo rename and move this function */
     if (subs.size() == 0 && args.size() == 0)
     {
         return true;

@@ -42,7 +42,7 @@ int main(int argc, const char** argv)
 
     try
     {
-        LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+        LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS);
         string year = VHELPERS::year();
         string compileinfo = "not_set";
         string configuration = VHELPERS::configuration();

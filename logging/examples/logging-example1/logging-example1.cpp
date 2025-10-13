@@ -52,12 +52,12 @@ int
 main(int  argc, const char ** argv)
 {
     GMenu::Instance()->ScanArguments(argc, argv);
-    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+    LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS);
     LLogging::Instance()->SetLogLevel("--off --all-debug");
   
     try
     {
-        LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+        LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS);
         SET_LOGLEVEL("--off --all-debug");
         SET_LOGFILENAME("example.log");
         SET_LOGFORMAT("1111111");  // long timestamp

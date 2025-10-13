@@ -58,7 +58,7 @@ class Environment : public ::testing::Environment {
   void SetUp() override 
   {
 	//PUSH();
-    LPublisher::Instance()->SetMode(ePUBLISH_MODE::SYNCHRONOUS);
+    LPublisher::Instance().SetMode(ePUBLISH_MODE::SYNCHRONOUS);
 	SET_LOGTARGET("--target-off --target-file");
 	SET_LOGLEVEL("--all-off --all-warning");
 	LLogging::Instance()->SetFormatCheckAll(  false );   
